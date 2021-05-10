@@ -12,6 +12,12 @@ const routes: Routes = [
     path: '500', loadChildren: () => import('./pages/error/error.module').then(m => m.ErrorModule)
   },
   {
+    path: 'sign-in', loadChildren: () => import('./pages/sign-in/sign-in.module').then(m => m.SignInModule)
+  },
+  {
+    path: 'sign-up', loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule)
+  },
+  {
     path: 'reset-password', loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
   {
