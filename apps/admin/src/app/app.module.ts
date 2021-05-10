@@ -8,9 +8,10 @@ import {RouterModule} from "@angular/router";
 import {FooterModule} from "./core/footer/footer.module";
 import {NavigationModule} from "./core/navigation/navigation.module";
 import {HeaderModule} from "./core/header/header.module";
+import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MainLayoutComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule,
     RouterModule, FooterModule, NavigationModule, HeaderModule],
   providers: [],

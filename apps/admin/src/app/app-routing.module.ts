@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
+import {MainLayoutComponent} from "./main-layout/main-layout.component";
 
 
 const routes: Routes = [
@@ -11,13 +12,17 @@ const routes: Routes = [
     path: '500', loadChildren: () => import('./pages/error/error.module').then(m => m.ErrorModule)
   },
   {
-    path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
-  },
-  {
-    path: 'pricing', loadChildren: () => import('./pages/pricing/pricing.module').then(m => m.PricingModule)
-  },
-  {
-    path: 'invoice', loadChildren: () => import('./pages/invoice/invoice.module').then(m => m.InvoiceModule)
+    path: '', component: MainLayoutComponent, children: [
+      {
+        path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
+      },
+      {
+        path: 'pricing', loadChildren: () => import('./pages/pricing/pricing.module').then(m => m.PricingModule)
+      },
+      {
+        path: 'invoice', loadChildren: () => import('./pages/invoice/invoice.module').then(m => m.InvoiceModule)
+      }
+    ]
   }
 ];
 
