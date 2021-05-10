@@ -7,6 +7,13 @@
 <!--  />-->
 <!--</div>-->
 <!--<div>Message: {{ hello$ | async | json }}</div>-->
-
-<router-outlet></router-outlet>
-<valor-launchpad-footer></valor-launchpad-footer>
+<div class="wrapper">
+  <valor-launchpad-navigation></valor-launchpad-navigation>
+  <div class="main">
+    <valor-launchpad-header></valor-launchpad-header>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    <valor-launchpad-footer></valor-launchpad-footer>
+  </div>
+</div>
