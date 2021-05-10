@@ -118,7 +118,7 @@
           <div class="card-actions float-end">
             <div class="dropdown show">
               <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                <i class="align-middle" data-feather="more-horizontal"></i>
+                <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
               </a>
 
               <div class="dropdown-menu dropdown-menu-end">
@@ -132,7 +132,18 @@
         </div>
         <div class="card-body d-flex w-100">
           <div class="align-self-center chart chart-lg">
-            <canvas id="chartjs-dashboard-bar"></canvas>
+            <ngx-charts-bar-vertical-stacked
+              [scheme]="salesRevenueConfig.colorScheme"
+              [results]="salesRevenueConfig.multi"
+              [gradient]="salesRevenueConfig.gradient"
+              [xAxis]="salesRevenueConfig.showXAxis"
+              [yAxis]="salesRevenueConfig.showYAxis"
+              [legend]="salesRevenueConfig.showLegend"
+              [showXAxisLabel]="salesRevenueConfig.showXAxisLabel"
+              [showYAxisLabel]="salesRevenueConfig.showYAxisLabel"
+              [xAxisLabel]="salesRevenueConfig.xAxisLabel"
+              [yAxisLabel]="salesRevenueConfig.yAxisLabel"
+              [animations]="salesRevenueConfig.animations"></ngx-charts-bar-vertical-stacked>
           </div>
         </div>
       </div>
@@ -195,7 +206,7 @@
           <div class="card-actions float-end">
             <div class="dropdown show">
               <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                <i class="align-middle" data-feather="more-horizontal"></i>
+                <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
               </a>
 
               <div class="dropdown-menu dropdown-menu-end">
@@ -222,7 +233,7 @@
           <div class="card-actions float-end">
             <div class="dropdown show">
               <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                <i class="align-middle" data-feather="more-horizontal"></i>
+                <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
               </a>
 
               <div class="dropdown-menu dropdown-menu-end">
@@ -232,13 +243,21 @@
               </div>
             </div>
           </div>
-          <h5 class="card-title mb-0">Weekly sales</h5>
+          <h5 class="card-title mb-0">assets/img/ sales</h5>
         </div>
         <div class="card-body d-flex">
           <div class="align-self-center w-100">
             <div class="py-3">
               <div class="chart chart-xs">
-                <canvas id="chartjs-dashboard-pie"></canvas>
+                <ngx-charts-pie-chart
+                  [scheme]="weeklySalesConfig.colorScheme"
+                  [results]="weeklySalesConfig.single"
+                  [gradient]="weeklySalesConfig.gradient"
+                  [legend]="weeklySalesConfig.showLegend"
+                  [legendPosition]="weeklySalesConfig.legendPosition"
+                  [labels]="weeklySalesConfig.showLabels"
+                  [doughnut]="weeklySalesConfig.isDoughnut">
+                </ngx-charts-pie-chart>
               </div>
             </div>
 
@@ -283,7 +302,7 @@
           <div class="card-actions float-end">
             <div class="dropdown show">
               <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                <i class="align-middle" data-feather="more-horizontal"></i>
+                <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
               </a>
 
               <div class="dropdown-menu dropdown-menu-end">
@@ -329,7 +348,7 @@
       <div class="card-actions float-end">
         <div class="dropdown show">
           <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-            <i class="align-middle" data-feather="more-horizontal"></i>
+            <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
           </a>
 
           <div class="dropdown-menu dropdown-menu-end">

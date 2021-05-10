@@ -56,9 +56,6 @@ const routes: Routes = [
         path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
       },
       {
-        path: 'feather', loadChildren: () => import('./pages/icons-feather/icons-feather.module').then(m => m.IconsFeatherModule)
-      },
-      {
         path: 'font-awesome', loadChildren: () => import('./pages/icons-font-awesome/icons-font-awesome.module').then(m => m.IconsFontAwesomeModule)
       },
       {
