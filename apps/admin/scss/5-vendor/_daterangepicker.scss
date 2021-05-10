@@ -1,0 +1,100 @@
+.daterangepicker {
+  background-color: $white;
+  border-color: $gray-300;
+}
+
+.daterangepicker:before, .daterangepicker:after {
+  border-bottom-color: rgba($black, 0.2);
+}
+
+.daterangepicker:before {
+  border-bottom-color: $gray-400;
+}
+
+.daterangepicker:after {
+  border-bottom-color: $white;
+}
+
+.daterangepicker.drop-up:before {
+  border-top-color: $gray-400;
+}
+
+.daterangepicker.drop-up:after {
+  border-top-color: $white;
+}
+
+.daterangepicker .calendar-table .next span, .daterangepicker .calendar-table .prev span {
+  color: $white;
+  border-color: $black;
+}
+
+.daterangepicker .calendar-table {
+  border-color: $white;
+  background-color: $white;
+}
+
+.daterangepicker td.available:hover, .daterangepicker th.available:hover {
+  background-color: $gray-200;
+}
+
+.daterangepicker td.week, .daterangepicker th.week {
+  color: $gray-400;
+}
+
+.daterangepicker td.off, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date, .daterangepicker td.off.end-date {
+  background-color: $white;
+  color: $gray-500;
+}
+
+.daterangepicker td.in-range {
+  background-color: $gray-200;
+  color: $black;
+}
+
+.daterangepicker td.active, .daterangepicker td.active:hover {
+  background-color: $primary;
+  color: $static-white;
+}
+
+.daterangepicker td.disabled, .daterangepicker option.disabled {
+  color: $gray-500;
+}
+
+.daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.secondselect, .daterangepicker select.ampmselect {
+  background: $gray-200;
+  border-color: $gray-200;
+  color: $black;
+}
+
+.daterangepicker .calendar-time select.disabled {
+  color: $gray-400;
+}
+
+.daterangepicker .drp-buttons {
+  border-top-color: $gray-300;
+}
+
+.daterangepicker.show-ranges.single.rtl .drp-calendar.left {
+  border-right-color: $gray-300;
+}
+
+.daterangepicker.show-ranges.single.ltr .drp-calendar.left {
+  border-left-color: $gray-300;
+}
+
+.daterangepicker.show-ranges.rtl .drp-calendar.right {
+  border-right-color: $gray-300;
+}
+
+.daterangepicker.show-ranges.ltr .drp-calendar.left {
+  border-left-color: $gray-300;
+}
+
+.daterangepicker .ranges li:hover {
+  background-color: $gray-200;
+}
+
+.daterangepicker .ranges li.active {
+  background-color: $primary;
+  color: $white;
+}
