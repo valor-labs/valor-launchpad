@@ -23,6 +23,21 @@ const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
       {
+        path: 'dashboard-crypto', loadChildren: () => import('./pages/dashboard-crypto/dashboard-crypto.module').then(m => m.DashboardCryptoModule)
+      },
+      {
+        path: 'dashboard-analytics', loadChildren: () => import('./pages/dashboard-analytics/dashboard-analytics.module').then(m => m.DashboardAnalyticsModule)
+      },
+      {
+        path: 'dashboard-default', loadChildren: () => import('./pages/dashboard-default/dashboard-default.module').then(m => m.DashboardDefaultModule)
+      },
+      {
+        path: 'dashboard-saas', loadChildren: () => import('./pages/dashboard-saas/dashboard-saas.module').then(m => m.DashboardSaasModule)
+      },
+      {
+        path: 'dashboard-social', loadChildren: () => import('./pages/dashboard-social/dashboard-social.module').then(m => m.DashboardSocialModule)
+      },
+      {
         path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
       },
       {
@@ -39,6 +54,12 @@ const routes: Routes = [
       },
       {
         path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
+      },
+      {
+        path: 'feather', loadChildren: () => import('./pages/icons-feather/icons-feather.module').then(m => m.IconsFeatherModule)
+      },
+      {
+        path: 'font-awesome', loadChildren: () => import('./pages/icons-font-awesome/icons-font-awesome.module').then(m => m.IconsFontAwesomeModule)
       },
       {
         path: 'projects-detail', loadChildren: () => import('./pages/projects-detail/projects-detail.module').then(m => m.ProjectsDetailModule) // TODO: refactor this to use ID

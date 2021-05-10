@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { IconsFontAwesomeRoutingModule } from './icons-font-awesome-routing.module';
+import { IconsFontAwesomeComponent } from './icons-font-awesome.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    IconsFontAwesomeComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    IconsFontAwesomeRoutingModule
   ]
 })
 export class IconsFontAwesomeModule { }

@@ -9,9 +9,10 @@ import {FooterModule} from "./core/footer/footer.module";
 import {NavigationModule} from "./core/navigation/navigation.module";
 import {HeaderModule} from "./core/header/header.module";
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { DashboardAnalyticsComponent } from './pages/dashboard-analytics/dashboard-analytics.component';
 
 @NgModule({
-  declarations: [AppComponent, MainLayoutComponent],
+  declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule,
     RouterModule, FooterModule, NavigationModule, HeaderModule],
   providers: [],
