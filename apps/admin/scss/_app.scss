@@ -58,6 +58,7 @@
 @import "4-utilities/z-index";
 
 // 3rd party plugins
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/brands";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/regular";

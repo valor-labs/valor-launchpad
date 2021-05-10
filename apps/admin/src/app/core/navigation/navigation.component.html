@@ -1,45 +1,54 @@
 <nav id="sidebar" class="sidebar">
+<!--  TODO: Refactor entire menu into a service -->
   <div class="sidebar-content js-simplebar">
     <a class="sidebar-brand" href="index.html">
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-           width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-            <path d="M19.4,4.1l-9-4C10.1,0,9.9,0,9.6,0.1l-9,4C0.2,4.2,0,4.6,0,5s0.2,0.8,0.6,0.9l9,4C9.7,10,9.9,10,10,10s0.3,0,0.4-0.1l9-4
-              C19.8,5.8,20,5.4,20,5S19.8,4.2,19.4,4.1z"/>
-        <path d="M10,15c-0.1,0-0.3,0-0.4-0.1l-9-4c-0.5-0.2-0.7-0.8-0.5-1.3c0.2-0.5,0.8-0.7,1.3-0.5l8.6,3.8l8.6-3.8c0.5-0.2,1.1,0,1.3,0.5
-              c0.2,0.5,0,1.1-0.5,1.3l-9,4C10.3,15,10.1,15,10,15z"/>
-        <path d="M10,20c-0.1,0-0.3,0-0.4-0.1l-9-4c-0.5-0.2-0.7-0.8-0.5-1.3c0.2-0.5,0.8-0.7,1.3-0.5l8.6,3.8l8.6-3.8c0.5-0.2,1.1,0,1.3,0.5
-              c0.2,0.5,0,1.1-0.5,1.3l-9,4C10.3,20,10.1,20,10,20z"/>
-          </svg>
+      <img src="assets/Valor%20Light.svg">
 
-      <span class="align-middle me-3">AppStack</span>
+      <span class="align-middle me-3">Admin Panel</span>
     </a>
 
     <ul class="sidebar-nav">
       <li class="sidebar-header">
         Pages
       </li>
-      <li class="sidebar-item active">
-        <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link">
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['dashboards']}" routerLinkActive="active" data-bs-toggle="collapse" >
+        <a class="sidebar-link" (click)="toggleCollapse('dashboards')">
           <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
           <span class="badge badge-sidebar-primary">5</span>
         </a>
-        <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-          <li class="sidebar-item active"><a class="sidebar-link" href="dashboard-default.html">Default</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="dashboard-analytics.html">Analytics</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="dashboard-saas.html">SaaS</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="dashboard-social.html">Social</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="dashboard-crypto.html">Crypto</a></li>
+        <ul id="dashboards" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['dashboards']">
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="dashboard-default">Default</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="dashboard-analytics">Analytics</a></li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="dashboard-saas">SaaS</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="dashboard-social">Social</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="dashboard-crypto">Crypto</a>
+          </li>
         </ul>
       </li>
-      <li class="sidebar-item">
-        <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link collapsed">
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['pages']}" data-bs-toggle="collapse" routerLinkActive="active">
+        <a class="sidebar-link" (click)="toggleCollapse('pages')">
           <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pages</span>
         </a>
-        <ul id="pages" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-profile.html">Profile</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-settings.html">Settings</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-clients.html">Clients</a></li>
+        <ul id="pages" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['pages']">
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="profile">Profile</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="settings">Settings</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="clients">Clients</a>
+          </li>
           <li class="sidebar-item">
+<!--            TODO: This needs to be fixed after submenus correction in TS-->
             <a data-bs-target="#projects" data-bs-toggle="collapse" class="sidebar-link collapsed">
               Projects
             </a>
@@ -52,24 +61,44 @@
               </li>
             </ul>
           </li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-invoice.html">Invoice</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-pricing.html">Pricing</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-tasks.html">Tasks</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-chat.html">Chat <span class="badge badge-sidebar-primary">New</span></a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-blank.html">Blank Page</a></li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="invoice">Invoice</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="pricing">Pricing</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="tasks">Tasks</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="chat">Chat <span class="badge badge-sidebar-primary">New</span></a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="blank">Blank Page</a>
+          </li>
         </ul>
       </li>
-      <li class="sidebar-item">
-        <a data-bs-target="#auth" data-bs-toggle="collapse" class="sidebar-link collapsed">
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['auth']}" routerLinkActive="active">
+        <a data-bs-target="#auth" data-bs-toggle="collapse" class="sidebar-link collapsed"  (click)="toggleCollapse('auth')">
           <i class="align-middle" data-feather="users"></i> <span class="align-middle">Auth</span>
           <span class="badge badge-sidebar-secondary">Special</span>
         </a>
-        <ul id="auth" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-sign-in.html">Sign In</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-sign-up.html">Sign Up</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-reset-password.html">Reset Password</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-404.html">404 Page</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="pages-500.html">500 Page</a></li>
+        <ul id="auth" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar" [collapse]="menuCollapseState['auth']">
+          <li class="sidebar-item">
+            <a class="sidebar-link" routerLink="sign-in">Sign In</a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" routerLink="sign-up">Sign Up</a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" routerLink="reset-password">Reset Password</a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" routerLink="404">404 Page</a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" routerLink="500">500 Page</a>
+          </li>
         </ul>
       </li>
       <li class="sidebar-item">
@@ -88,22 +117,44 @@
       <li class="sidebar-header">
         Tools & Components
       </li>
-      <li class="sidebar-item">
-        <a data-bs-target="#ui" data-bs-toggle="collapse" class="sidebar-link collapsed">
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['ui']}" data-bs-toggle="collapse" routerLinkActive="active">
+        <a class="sidebar-link" (click)="toggleCollapse('ui')">
           <i class="align-middle" data-feather="grid"></i> <span class="align-middle">UI Elements</span>
         </a>
-        <ul id="ui" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-alerts.html">Alerts</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-buttons.html">Buttons</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-cards.html">Cards</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-carousel.html">Carousel</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-embed-video.html">Embed Video</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-general.html">General <span class="badge badge-sidebar-primary">10+</span></a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-grid.html">Grid</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-modals.html">Modals</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-offcanvas.html">Offcanvas</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-tabs.html">Tabs</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="ui-typography.html">Typography</a></li>
+        <ul id="ui" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['ui']">
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-alerts">Alerts</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-buttons">Buttons</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-cards">Cards</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-carousel">Carousel</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-embed-video">Embed Video</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-general">General <span class="badge badge-sidebar-primary">10+</span></a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-grid">Grid</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-modals">Modals</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-offcanvas">Offcanvas</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-tabs">Tabs</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-typography">Typography</a>
+          </li>
         </ul>
       </li>
       <li class="sidebar-item">
