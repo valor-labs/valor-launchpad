@@ -13,7 +13,7 @@
       </li>
       <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['dashboards']}" routerLinkActive="active" data-bs-toggle="collapse" >
         <a class="sidebar-link" (click)="toggleCollapse('dashboards')">
-          <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
+          <i class="align-middle fas fa-fw fa-sliders-h"></i> <span class="align-middle">Dashboards</span>
           <span class="badge badge-sidebar-primary">5</span>
         </a>
         <ul id="dashboards" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['dashboards']">
@@ -80,7 +80,7 @@
       </li>
       <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['auth']}" routerLinkActive="active">
         <a data-bs-target="#auth" data-bs-toggle="collapse" class="sidebar-link collapsed"  (click)="toggleCollapse('auth')">
-          <i class="align-middle" data-feather="users"></i> <span class="align-middle">Auth</span>
+          <i class="align-middle fas fa-fw fa-users"></i> <span class="align-middle">Auth</span>
           <span class="badge badge-sidebar-secondary">Special</span>
         </a>
         <ul id="auth" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar" [collapse]="menuCollapseState['auth']">
@@ -103,7 +103,7 @@
       </li>
       <li class="sidebar-item">
         <a data-bs-target="#documentation" data-bs-toggle="collapse" class="sidebar-link collapsed">
-          <i class="align-middle" data-feather="book-open"></i> <span class="align-middle">Documentation</span>
+          <i class="align-middle me-2 fas fa-fw fa-book-open"></i> <span class="align-middle">Documentation</span>
         </a>
         <ul id="documentation" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
           <li class="sidebar-item"><a class="sidebar-link" href="docs-introduction.html">Introduction</a></li>
@@ -119,7 +119,7 @@
       </li>
       <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['ui']}" data-bs-toggle="collapse" routerLinkActive="active">
         <a class="sidebar-link" (click)="toggleCollapse('ui')">
-          <i class="align-middle" data-feather="grid"></i> <span class="align-middle">UI Elements</span>
+          <i class="align-middle fas fa-fw fa-border-all"></i> <span class="align-middle">UI Elements</span>
         </a>
         <ul id="ui" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['ui']">
           <li class="sidebar-item" routerLinkActive="active">
@@ -162,7 +162,7 @@
       </li>
       <li class="sidebar-item">
         <a data-bs-target="#forms" data-bs-toggle="collapse" class="sidebar-link collapsed">
-          <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
+          <i class="align-middle fas fa-fw fa-check-square"></i> <span class="align-middle">Forms</span>
         </a>
         <ul id="forms" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
           <li class="sidebar-item"><a class="sidebar-link" href="forms-layouts.html">Layouts</a></li>
@@ -173,7 +173,7 @@
       </li>
       <li class="sidebar-item">
         <a class="sidebar-link" href="tables-bootstrap.html">
-          <i class="align-middle" data-feather="list"></i> <span class="align-middle">Tables</span>
+          <i class="align-middle fas fa-fw fa-list"></i> <span class="align-middle">Tables</span>
         </a>
       </li>
 
@@ -182,7 +182,7 @@
       </li>
       <li class="sidebar-item">
         <a data-bs-target="#form-plugins" data-bs-toggle="collapse" class="sidebar-link collapsed">
-          <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Form Plugins</span>
+          <i class="align-middle fas fa-fw fa-check-square"></i> <span class="align-middle">Form Plugins</span>
         </a>
         <ul id="form-plugins" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
           <li class="sidebar-item"><a class="sidebar-link" href="forms-advanced-inputs.html">Advanced Inputs</a></li>
@@ -193,7 +193,7 @@
       </li>
       <li class="sidebar-item">
         <a data-bs-target="#datatables" data-bs-toggle="collapse" class="sidebar-link collapsed">
-          <i class="align-middle" data-feather="list"></i> <span class="align-middle">DataTables</span>
+          <i class="align-middle fas fa-fw fa-list"></i> <span class="align-middle">DataTables</span>
         </a>
         <ul id="datatables" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
           <li class="sidebar-item"><a class="sidebar-link" href="tables-datatables-responsive.html">Responsive Table</a></li>
@@ -217,12 +217,12 @@
       </li>
       <li class="sidebar-item">
         <a class="sidebar-link" href="notifications.html">
-          <i class="align-middle" data-feather="bell"></i> <span class="align-middle">Notifications</span>
+          <i class="align-middle me-2 far fa-fw fa-bell"></i> <span class="align-middle">Notifications</span>
         </a>
       </li>
       <li class="sidebar-item">
         <a data-bs-target="#maps" data-bs-toggle="collapse" class="sidebar-link collapsed">
-          <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Maps</span>
+          <i class="align-middle fas fa-fw fa-map-pin"></i> <span class="align-middle">Maps</span>
         </a>
         <ul id="maps" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
           <li class="sidebar-item"><a class="sidebar-link" href="maps-google.html">Google Maps</a></li>
@@ -231,12 +231,12 @@
       </li>
       <li class="sidebar-item">
         <a class="sidebar-link" href="calendar.html">
-          <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Calendar</span>
+          <i class="align-middle  far fa-fw fa-calendar"></i> <span class="align-middle">Calendar</span>
         </a>
       </li>
       <li class="sidebar-item">
         <a data-bs-target="#multi" data-bs-toggle="collapse" class="sidebar-link collapsed">
-          <i class="align-middle" data-feather="share-2"></i> <span class="align-middle">Multi Level</span>
+          <i class="align-middle fas fa-fw fa-share-alt"></i> <span class="align-middle">Multi Level</span>
         </a>
         <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
           <li class="sidebar-item">

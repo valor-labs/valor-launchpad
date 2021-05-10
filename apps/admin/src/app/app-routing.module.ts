@@ -18,24 +18,30 @@ const routes: Routes = [
     path: 'sign-up', loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule)
   },
   {
-    path: 'reset-password', loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
+    path: 'reset-password',
+    loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
   {
     path: '', component: MainLayoutComponent, children: [
       {
-        path: 'dashboard-crypto', loadChildren: () => import('./pages/dashboard-crypto/dashboard-crypto.module').then(m => m.DashboardCryptoModule)
+        path: 'dashboard-crypto',
+        loadChildren: () => import('./pages/dashboard-crypto/dashboard-crypto.module').then(m => m.DashboardCryptoModule)
       },
       {
-        path: 'dashboard-analytics', loadChildren: () => import('./pages/dashboard-analytics/dashboard-analytics.module').then(m => m.DashboardAnalyticsModule)
+        path: 'dashboard-analytics',
+        loadChildren: () => import('./pages/dashboard-analytics/dashboard-analytics.module').then(m => m.DashboardAnalyticsModule)
       },
       {
-        path: 'dashboard-default', loadChildren: () => import('./pages/dashboard-default/dashboard-default.module').then(m => m.DashboardDefaultModule)
+        path: 'dashboard-default',
+        loadChildren: () => import('./pages/dashboard-default/dashboard-default.module').then(m => m.DashboardDefaultModule)
       },
       {
-        path: 'dashboard-saas', loadChildren: () => import('./pages/dashboard-saas/dashboard-saas.module').then(m => m.DashboardSaasModule)
+        path: 'dashboard-saas',
+        loadChildren: () => import('./pages/dashboard-saas/dashboard-saas.module').then(m => m.DashboardSaasModule)
       },
       {
-        path: 'dashboard-social', loadChildren: () => import('./pages/dashboard-social/dashboard-social.module').then(m => m.DashboardSocialModule)
+        path: 'dashboard-social',
+        loadChildren: () => import('./pages/dashboard-social/dashboard-social.module').then(m => m.DashboardSocialModule)
       },
       {
         path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
@@ -56,13 +62,16 @@ const routes: Routes = [
         path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
       },
       {
-        path: 'font-awesome', loadChildren: () => import('./pages/icons-font-awesome/icons-font-awesome.module').then(m => m.IconsFontAwesomeModule)
+        path: 'font-awesome',
+        loadChildren: () => import('./pages/icons-font-awesome/icons-font-awesome.module').then(m => m.IconsFontAwesomeModule)
       },
       {
-        path: 'projects-detail', loadChildren: () => import('./pages/projects-detail/projects-detail.module').then(m => m.ProjectsDetailModule) // TODO: refactor this to use ID
+        path: 'projects-detail',
+        loadChildren: () => import('./pages/projects-detail/projects-detail.module').then(m => m.ProjectsDetailModule) // TODO: refactor this to use ID
       },
       {
-        path: 'projects-list', loadChildren: () => import('./pages/projects-list/projects-list.module').then(m => m.ProjectsListModule)
+        path: 'projects-list',
+        loadChildren: () => import('./pages/projects-list/projects-list.module').then(m => m.ProjectsListModule)
       },
       {
         path: 'settings', loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule)
@@ -74,7 +83,8 @@ const routes: Routes = [
         path: 'ui-alerts', loadChildren: () => import('./pages/ui-alerts/ui-alerts.module').then(m => m.UiAlertsModule)
       },
       {
-        path: 'ui-buttons', loadChildren: () => import('./pages/ui-buttons/ui-buttons.module').then(m => m.UiButtonsModule)
+        path: 'ui-buttons',
+        loadChildren: () => import('./pages/ui-buttons/ui-buttons.module').then(m => m.UiButtonsModule)
       },
       {
         path: 'ui-cards', loadChildren: () => import('./pages/ui-cards/ui-cards.module').then(m => m.UiCardsModule)
@@ -83,7 +93,14 @@ const routes: Routes = [
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
       },
       {
-        path: 'ui-typography', loadChildren: () => import('./pages/ui-typography/ui-typography.module').then(m => m.UiTypographyModule)
+        path: 'ui-typography',
+        loadChildren: () => import('./pages/ui-typography/ui-typography.module').then(m => m.UiTypographyModule)
+      },
+      {
+        path: '', redirectTo: '/dashboard-default', pathMatch: 'full'
+      },
+      {
+        path: '**', redirectTo: '/404', pathMatch: 'full'
       }
     ]
   }
