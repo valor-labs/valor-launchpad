@@ -12,6 +12,9 @@ const routes: Routes = [
     path: '500', loadChildren: () => import('./pages/error/error.module').then(m => m.ErrorModule)
   },
   {
+    path: 'reset-password', loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
+  },
+  {
     path: '', component: MainLayoutComponent, children: [
       {
         path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
@@ -21,6 +24,24 @@ const routes: Routes = [
       },
       {
         path: 'invoice', loadChildren: () => import('./pages/invoice/invoice.module').then(m => m.InvoiceModule)
+      },
+      {
+        path: 'blank', loadChildren: () => import('./pages/blank/blank.module').then(m => m.BlankModule)
+      },
+      {
+        path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule)
+      },
+      {
+        path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
+      },
+      {
+        path: 'projects-detail', loadChildren: () => import('./pages/projects-detail/projects-detail.module').then(m => m.ProjectsDetailModule) // TODO: refactor this to use ID
+      },
+      {
+        path: 'projects-list', loadChildren: () => import('./pages/projects-list/projects-list.module').then(m => m.ProjectsListModule)
+      },
+      {
+        path: 'settings', loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule)
       }
     ]
   }
