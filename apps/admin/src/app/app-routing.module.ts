@@ -48,6 +48,12 @@ const routes: Routes = [
       },
       {
         path: 'settings', loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule)
+      },
+      {
+        path: 'tasks', loadChildren: () => import('./pages/tasks/tasks.module').then(m => m.TasksModule)
+      },
+      {
+        path: 'ui-alerts', loadChildren: () => import('./pages/ui-alerts/ui-alerts.module').then(m => m.UiAlertsModule)
       }
     ]
   }
