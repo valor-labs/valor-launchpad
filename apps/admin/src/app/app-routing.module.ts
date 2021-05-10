@@ -54,6 +54,18 @@ const routes: Routes = [
       },
       {
         path: 'ui-alerts', loadChildren: () => import('./pages/ui-alerts/ui-alerts.module').then(m => m.UiAlertsModule)
+      },
+      {
+        path: 'ui-buttons', loadChildren: () => import('./pages/ui-buttons/ui-buttons.module').then(m => m.UiButtonsModule)
+      },
+      {
+        path: 'ui-cards', loadChildren: () => import('./pages/ui-cards/ui-cards.module').then(m => m.UiCardsModule)
+      },
+      {
+        path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
+      },
+      {
+        path: 'ui-typography', loadChildren: () => import('./pages/ui-typography/ui-typography.module').then(m => m.UiTypographyModule)
       }
     ]
   }
