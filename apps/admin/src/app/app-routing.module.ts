@@ -9,6 +9,9 @@ const routes: Routes = [
   },
   {
     path: '500', loadChildren: () => import('./pages/error/error.module').then(m => m.ErrorModule)
+  },
+  {
+    path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
   }
 ];
 
