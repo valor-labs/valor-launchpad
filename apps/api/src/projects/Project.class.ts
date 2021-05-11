@@ -1,6 +1,7 @@
 export class Project {
   title: string;
   body: string;
+  id: string;
   badge: {
     title: string;
     status: string;
@@ -14,7 +15,8 @@ export class Project {
     type: string;
   }>
   progress: number;
-  avatars: Array<{
+  assignee: Array<{
+    name: string;
     url: string;
   }>
 }
