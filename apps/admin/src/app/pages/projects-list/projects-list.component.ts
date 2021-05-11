@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectsListService} from "./projects-list.service";
+// TODO: find a better place for these and refactor them to be cleaner
+import {Project} from "../../../../../api/src/projects/Project.class";
 
 @Component({
   selector: 'valor-launchpad-projects-list',
@@ -7,11 +9,11 @@ import {ProjectsListService} from "./projects-list.service";
   styleUrls: ['./projects-list.component.scss']
 })
 export class ProjectsListComponent implements OnInit {
-  projects = [];
+  projects: Array<Project> = [];
 
   constructor(private projectsListService: ProjectsListService) {
-    projectsListService.getProjects().subscribe((data) => {
-      this.projects = <[]>data
+    projectsListService.getProjects().subscribe((data: Array<Project>) => {
+      this.projects = data
     })
   }
 
