@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ProjectsDetailService} from "./projects-detail.service";
+import {ProjectDetail} from "@api/projects";
 
 @Component({
   selector: 'valor-launchpad-projects-detail',
@@ -9,7 +10,7 @@ import {ProjectsDetailService} from "./projects-detail.service";
 })
 export class ProjectsDetailComponent implements OnInit {
   id: string;
-  project;
+  project: ProjectDetail;
 
   constructor(private route: ActivatedRoute, private projectDetailService: ProjectsDetailService) {
   }
@@ -24,7 +25,7 @@ export class ProjectsDetailComponent implements OnInit {
 
   getProjectDetails(id: string) {
     this.projectDetailService.getProjectById(id).subscribe((data) => {
-      this.project = data;
+      this.project = <ProjectDetail>data;
     });
   }
 }

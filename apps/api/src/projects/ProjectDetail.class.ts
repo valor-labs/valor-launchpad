@@ -5,6 +5,7 @@ export class ProjectDetail extends Project {
     {
       timestamp: number
       author: string;
+      avatar: string;
       body: string;
       reactions: [
         {
@@ -13,7 +14,8 @@ export class ProjectDetail extends Project {
       ],
       children?: [
         {
-          timestamp: number
+          timestamp: number;
+          avatar:string;
           author: string;
           body: string;
           reactions: [
@@ -41,6 +43,7 @@ export class ProjectDetail extends Project {
     [key: string]: {
       current: number;
       goal: number;
+      status:string;
     }
   }
 }

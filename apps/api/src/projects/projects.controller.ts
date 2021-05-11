@@ -23,7 +23,8 @@ const PROJECTS: Array<Project> = [
   {
     title: "Landing page redesign",
     id: "someID111",
-    body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.",
+    body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.<br><br> Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a" +
+      "consectetuer eget, posuere ut, mauris.",
     badge: {
       title: "Finished",
       status: "bg-success"
@@ -205,7 +206,8 @@ const PROJECTS: Array<Project> = [
   {
     title: "Upgrade latest maps api",
     id: "someID777",
-    body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.",
+    body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.\n\n  Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a,\n" +
+      "consectetuer eget, posuere ut, mauris.",
     badge: {
       title: "Finished",
       status: "bg-success"
@@ -238,7 +240,8 @@ const PROJECTS: Array<Project> = [
   {
     title: "Refactor backend templates",
     id: "someID888",
-    body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.",
+    body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.\n\n  Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a,\n" +
+      "consectetuer eget, posuere ut, mauris.",
     badge: {
       title: "Blocked",
       status: "bg-danger"
@@ -275,8 +278,21 @@ const PROJECTSDETAILS = {
   someID111: Object.assign({
     comments: [
       {
+        timestamp: 1620754832837,
+        author: 'Steve Jo',
+        avatar:'assets/img/avatars/avatar.jpg',
+        body: 'Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.',
+        reactions: [
+          {
+            like: 18
+          }
+        ],
+        children: []
+      },
+      {
         timestamp: 1620754834837,
-        author: 'Ashley Briggs',
+        author: 'Anthony Smith',
+        avatar:'assets/img/avatars/avatar-2.jpg',
         body: 'Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.',
         reactions: [
           {
@@ -287,6 +303,18 @@ const PROJECTSDETAILS = {
           {
             timestamp: 1620754835837,
             author: "Stacie Hall",
+            avatar:'assets/img/avatars/avatar-4.jpg',
+            body: "Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.",
+            reactions: [
+              {
+                love: 1,
+              }
+            ]
+          },
+          {
+            timestamp: 1620754835937,
+            author: "Steve Jo",
+            avatar:'assets/img/avatars/avatar.jpg',
             body: "Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.",
             reactions: [
               {
@@ -300,11 +328,11 @@ const PROJECTSDETAILS = {
     summary: {
       reporter: {
         name: "Jane Doe",
-        url: "assets/img/avatars/avatar-3.jpg"
+        url: "assets/img/avatars/avatar.jpg"
       },
-      createdDate: 1620753835837,
+      createdDate: 1610753835837,
       startDate: 1620754535837,
-      endDate: 1620784835837,
+      endDate: 1630784835837,
       budget: 12000,
       logged: '12h',
       estimated: '200h'
@@ -312,7 +340,23 @@ const PROJECTSDETAILS = {
     rollupData: {
       income: {
         goal: 70000,
-        current: 37500
+        current: 37500,
+        status: 'bg-primary'
+      },
+      orders: {
+        current: 3282,
+        goal:9000,
+        status: 'bg-warning'
+      },
+      activity: {
+        goal: 36000,
+        current: 19312,
+        status: 'bg-success'
+      },
+      revenue: {
+        goal: 240000,
+        current: 82400,
+        status: 'bg-info'
       }
     }
   }, PROJECTS[0]),
