@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectsListService} from "./projects-list.service";
 // TODO: find a better place for these and refactor them to be cleaner
-import {Project} from "../../../../../api/src/projects/Project.class";
+import { Project } from "@api/projects";
 
 @Component({
   selector: 'valor-launchpad-projects-list',

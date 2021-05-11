@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@valor-launchpad/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@valor-launchpad/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@api/projects": ["apps/api/src/index.ts"],
     }
   },
   "exclude": ["node_modules", "tmp"]

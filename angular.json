@@ -146,9 +146,15 @@
       }
     },
     "api": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "apps/api",
       "sourceRoot": "apps/api/src",
-      "projectType": "application",
+      "prefix": "api",
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
