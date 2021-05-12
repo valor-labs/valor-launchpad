@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {Project, ProjectDetail} from "@api/projects";
 import {ProjectsEntity} from "./projects.entity";
 import {Repository} from "typeorm";
@@ -22,6 +22,10 @@ export class ProjectsService {
 
 const PROJECTS: Array<Project> = [
   {
+    createdDate: 1610753835837,
+    updatedDate: 1620754535837,
+    updatedBy: "zchapple",
+    createdBy: "zchapple",
     title: "Landing page redesign",
     id: "someID111",
     body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.<br><br> Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a" +
@@ -52,6 +56,10 @@ const PROJECTS: Array<Project> = [
     ]
   },
   {
+    createdDate: 1610753835837,
+    updatedDate: 1620754535837,
+    updatedBy: "zchapple",
+    createdBy: "zchapple",
     title: "Company posters",
     id: "someID222",
     body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.",
@@ -81,6 +89,10 @@ const PROJECTS: Array<Project> = [
     ]
   },
   {
+    createdDate: 1610753835837,
+    updatedDate: 1620754535837,
+    updatedBy: "zchapple",
+    createdBy: "zchapple",
     title: "Product page design",
     id: "someID333",
     body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.",
@@ -110,6 +122,10 @@ const PROJECTS: Array<Project> = [
     ]
   },
   {
+    createdDate: 1610753835837,
+    updatedDate: 1620754535837,
+    updatedBy: "zchapple",
+    createdBy: "zchapple",
     title: "Upgrade CRM Software",
     id: "someID444",
     body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.",
@@ -139,6 +155,10 @@ const PROJECTS: Array<Project> = [
     ]
   },
   {
+    createdDate: 1610753835837,
+    updatedDate: 1620754535837,
+    updatedBy: "zchapple",
+    createdBy: "zchapple",
     title: "Fix form validation",
     id: "someID555",
     body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.",
@@ -172,6 +192,10 @@ const PROJECTS: Array<Project> = [
     ]
   },
   {
+    createdDate: 1610753835837,
+    updatedDate: 1620754535837,
+    updatedBy: "zchapple",
+    createdBy: "zchapple",
     title: "New company logo",
     id: "someID666",
     body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.",
@@ -205,6 +229,10 @@ const PROJECTS: Array<Project> = [
     ]
   },
   {
+    createdDate: 1610753835837,
+    updatedDate: 1620754535837,
+    updatedBy: "zchapple",
+    createdBy: "zchapple",
     title: "Upgrade latest maps api",
     id: "someID777",
     body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.\n\n  Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a,\n" +
@@ -239,6 +267,10 @@ const PROJECTS: Array<Project> = [
     ]
   },
   {
+    createdDate: 1610753835837,
+    updatedDate: 1620754535837,
+    updatedBy: "zchapple",
+    createdBy: "zchapple",
     title: "Refactor backend templates",
     id: "someID888",
     body: "Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.\n\n  Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a,\n" +
