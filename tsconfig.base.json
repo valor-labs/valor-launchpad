@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@valor-launchpad/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@api/projects": ["apps/api/src/index.ts"],
+      "@api/projects": ["apps/api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

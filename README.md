@@ -8,6 +8,8 @@ This project was generated using [Nx](https://nx.dev).
 
 🔎 **Powerful, Extensible Dev Tools**
 
+This project requires mysql
+
 ## Quick Start & Documentation
 
 [Nx Documentation](https://nx.dev/angular)
