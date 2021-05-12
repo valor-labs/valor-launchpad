@@ -4,7 +4,7 @@ import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 export class ProjectsEntity {
   //TODO: Need to find a way to track updates and "version" this entity
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
 
   @Column()
   title: string;
