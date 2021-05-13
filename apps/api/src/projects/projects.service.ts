@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {Project, ProjectDetail} from "@api/projects";
+import {Project} from "@api/projects";
 import {ProjectsEntity} from "./projects.entity";
 import {Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
@@ -11,11 +11,11 @@ export class ProjectsService {
   }
 
   async getAll() {
-    return await this.projectsRepository.find({relations: ["comments"]});
+    return await this.projectsRepository.find();
   }
 
   async getSingle(id: string) {
-    return await this.projectsRepository.findOne({where: {id}})
+    return await this.projectsRepository.findOne({where: {id},relations: ["comments"]})
   }
 }
 
