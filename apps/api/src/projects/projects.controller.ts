@@ -1,5 +1,4 @@
 import {Controller, Get, NotFoundException, Param} from '@nestjs/common';
-import {ProjectDetail} from "@api/projects";
 import {ProjectsService} from "./projects.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ProjectsEntity} from "./projects.entity";
