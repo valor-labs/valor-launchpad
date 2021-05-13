@@ -28,7 +28,7 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config --root ./apps/api",
-    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed --root ./apps/api",
+    "seed:run": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm-seeding/dist/cli.js seed --root ./apps/api",
     "schema:drop": "ts-node ./node_modules/typeorm/dist/cli.js schema:drop --root ./apps/api",
     "schema:sync": "ts-node ./node_modules/typeorm/dist/cli.js schema:sync --root ./apps/api"
   },
