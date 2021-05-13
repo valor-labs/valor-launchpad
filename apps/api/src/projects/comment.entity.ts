@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn, OneToMany
 } from "typeorm";
 import {ProjectsEntity} from "./projects.entity";
 
@@ -15,9 +15,15 @@ export class CommentEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @ManyToOne((type) => ProjectsEntity, (project) => project.comments)
-  @JoinColumn({name: 'parent_id'})
+  @ManyToOne(type => ProjectsEntity, (project) => project.comments)
+  @JoinColumn({name: 'project_id'})
   project: ProjectsEntity;
+
+  @ManyToOne(type => CommentEntity, (category: CommentEntity) => category.children)
+  parent: CommentEntity;
+
+  @OneToMany(type => CommentEntity, (category: CommentEntity) => category.parent)
+  children: CommentEntity[];
 
   @CreateDateColumn()
   createdDate: Date;
@@ -36,8 +42,5 @@ export class CommentEntity {
 
   @Column({type: 'json', nullable: true})
   reactions: Array<{ [key: string]: [value: number] }>;
-
-  @Column({type: 'json', nullable: true})
-  children?: Array<string>
 
 }

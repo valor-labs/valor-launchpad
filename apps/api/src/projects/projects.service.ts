@@ -14,6 +14,6 @@ export class ProjectsService {
   }
 
   async getSingle(id: string) {
-    return await this.projectsRepository.findOne({where: {id},relations: ["comments"]})
+    return await this.projectsRepository.findOne({where: {id},relations: ["comments", "comments.children"]})
   }
 }
