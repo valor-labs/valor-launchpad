@@ -1,7 +1,7 @@
 import {Controller, Get, NotFoundException, Param} from '@nestjs/common';
-import {Project, ProjectDetail} from "@api/projects";
 import {ProjectsService} from "./projects.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {ProjectsEntity} from "./projects.entity";
 
 @Controller('projects')
 export class ProjectsController {
@@ -9,12 +9,14 @@ export class ProjectsController {
   }
 
   @Get('all')
-  async getAll(): Promise<Array<Project>> {
-    return this.projectsService.getAll();
+  //TODO: Understand why this is entity and not the class from api
+  async getAll(): Promise<Array<ProjectsEntity>> {
+    return await this.projectsService.getAll();
   }
 
   @Get('single/:id')
-  async getSingle(@Param() params): Promise<ProjectDetail | HttpErrorResponse> {
+  //TODO: Understand why this is entity and not the class from api
+  async getSingle(@Param() params): Promise<ProjectsEntity | HttpErrorResponse> {
     const project = await this.projectsService.getSingle(params.id);
     /*TODO: improve this check */
     if (typeof project !== 'undefined') {

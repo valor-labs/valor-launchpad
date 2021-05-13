@@ -78,7 +78,8 @@
         </div>
         <!--          TODO: Do comments include child comments?-->
         <!--          TODO: pluralize the comments string-->
-        <h5 class="card-title mb-0">Comments ({{project?.comments.length}})</h5>
+        <!--        TODO: Have something for no comments-->
+        <h5 class="card-title mb-0">Comments ({{project?.comments?.length}})</h5>
       </div>
       <div class="card-body">
         <!--TODO add HR after each of these but last one-->
@@ -196,7 +197,7 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-end">
-<!--              TODO: All card actions need to be bound and created from API-->
+              <!--              TODO: All card actions need to be bound and created from API-->
               <a class="dropdown-item" href="#">Action</a>
               <a class="dropdown-item" href="#">Another action</a>
               <a class="dropdown-item" href="#">Something else here</a>
