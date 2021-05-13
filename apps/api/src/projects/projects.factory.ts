@@ -4,7 +4,7 @@ import {ProjectsEntity} from "./projects.entity";
 
 define(ProjectsEntity, (faker: typeof Faker) => {
   const project = new ProjectsEntity()
-  project.id = faker.datatype.uuid()
+  // project.id = faker.datatype.uuid()
   project.title  = faker.lorem.text(1)
   project.body = faker.lorem.paragraph()
   project.badge = {
@@ -15,6 +15,6 @@ define(ProjectsEntity, (faker: typeof Faker) => {
     src: faker.image.imageUrl(),
     alt: faker.image.avatar()
   }
-
+  console.log('faker: ' + JSON.stringify(project))
   return project
 })
