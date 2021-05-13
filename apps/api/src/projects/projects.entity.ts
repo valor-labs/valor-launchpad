@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn} from "typeorm";
+import {CommentEntity} from "./comment.entity";
 
 @Entity()
 export class ProjectsEntity {
@@ -6,10 +7,21 @@ export class ProjectsEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @OneToMany((type) => CommentEntity, (comment) => comment.project)
+  comments: CommentEntity[]
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date
+
+  //TODO: Add created by and updated by users
+
   @Column()
   title: string;
 
-  @Column()
+  @Column({type: 'longtext'})
   body: string;
 
   @Column({type: 'json'})
@@ -25,48 +37,20 @@ export class ProjectsEntity {
   }
 
   @Column({type: 'json'})
-  actions: [{
+  actions: Array<{
     title: string;
     type: string;
-  }]
+  }>
 
   @Column({type: 'integer'})
   progress: number;
 
   // TODO: This should become a collection of ids that is then connected to users
   @Column({type: 'json'})
-  assignee: [{
+  assignee: Array<{
     name: string;
     url: string;
-  }]
-
-  @Column({type: 'json'})
-  comments?: [
-    {
-      timestamp: number
-      author: string;
-      avatar: string;
-      body: string;
-      reactions: [
-        {
-          [key: string]: [value: number]
-        }
-      ],
-      children?: [
-        {
-          timestamp: number;
-          avatar:string;
-          author: string;
-          body: string;
-          reactions: [
-            {
-              [key: string]: [value: number]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  }>
 
   @Column({type: 'json'})
   summary: {
@@ -74,9 +58,9 @@ export class ProjectsEntity {
       name: string;
       url: string;
     }
-    createdDate: number;
-    startDate: number;
-    endDate: number;
+    createdDate: Date;
+    startDate: Date;
+    endDate: Date;
     budget: number;
     logged: string;
     estimated: string;
@@ -87,7 +71,7 @@ export class ProjectsEntity {
     [key: string]: {
       current: number;
       goal: number;
-      status:string;
+      status: string;
     }
   }
 }

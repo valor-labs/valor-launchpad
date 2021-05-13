@@ -10,12 +10,12 @@ export class ProjectsService {
               private projectsRepository: Repository<ProjectsEntity>) {
   }
 
-  getAll() {
-    return PROJECTS
+  async getAll() {
+    return await this.projectsRepository.find({relations: ["comments"]});
   }
 
-  getSingle(id: string) {
-    return <ProjectDetail>PROJECTSDETAILS[id]
+  async getSingle(id: string) {
+    return await this.projectsRepository.findOne({where: {id}})
   }
 }
 
