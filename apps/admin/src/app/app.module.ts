@@ -12,12 +12,14 @@ import {MainLayoutComponent} from './main-layout/main-layout.component';
 import {DashboardAnalyticsComponent} from './pages/dashboard-analytics/dashboard-analytics.component';
 import {CollapseModule} from "ngx-bootstrap/collapse";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {UiModule} from "@valor-launchpad/ui";
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
   imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, AppRoutingModule,
     RouterModule, FooterModule, NavigationModule, HeaderModule,
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    UiModule
   ],
   providers: [],
   bootstrap: [AppComponent],

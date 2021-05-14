@@ -1,0 +1,105 @@
+// Variables
+@import "../../../../../apps/admin/scss/1-variables/app";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+alert {
+  ::ng-deep.alert-message {
+    padding: $alert-padding-y $alert-padding-x;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  ::ng-deep.alert {
+    padding: 0;
+    display: flex;
+    color: $gray-900;
+    width: 100%;
+    box-sizing: border-box;
+
+    .alert-icon {
+      padding: $alert-padding-y $alert-padding-x;
+      background: rgba(255, 255, 255, .1);
+    }
+
+    b, strong {
+      color: $black;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: $black;
+      opacity: 1;
+    }
+
+    button[aria-label="Close"] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+      padding: 1.1875rem 0.95rem;
+      box-sizing: content-box;
+      width: 1em;
+      height: 1em;
+      color: #000;
+      border: 0;
+      border-radius: 0.2rem;
+      opacity: 0.5;
+      background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+
+      span[aria-hidden] {
+        display: none;
+      }
+    }
+  }
+
+}
+
+.alert-outline,
+.alert-outline-coloured {
+  ::ng-deep.alert {
+    background: $white;
+
+    hr {
+      border-top-color: $gray-400;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: $gray-800;
+    }
+
+    .alert-message {
+      @include border-end-radius($alert-border-radius);
+      @include border-start-radius($alert-border-radius);
+      border: 1px solid $gray-400;
+    }
+
+    .alert-message:not(:nth-child(2)) {
+      @include border-start-radius(0);
+      border-left: 0;
+    }
+
+    .alert-icon {
+      @include border-start-radius($alert-border-radius);
+      color: $static-white;
+    }
+
+    @each $color, $value in $theme-colors {
+      &.alert-#{$color} .alert-icon {
+        background-color: $value;
+      }
+    }
+  }
+}
+
+.alert-outline-coloured {
+  @each $color, $value in $theme-colors {
+    ::ng-deep {
+      &.alert-#{$color} .alert-message {
+        border-color: $value;
+      }
+    }
+  }
+}

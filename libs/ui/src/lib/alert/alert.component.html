@@ -1,0 +1,11 @@
+<alert [type]="type" [dismissible]="dismissible"
+       [ngClass]="{'alert-outline':outline, 'alert-outline-coloured': colored}">
+  <ng-template [ngIf]="icon">
+    <div class="alert-icon">
+      <i [ngClass]="icon"></i>
+    </div>
+  </ng-template>
+  <div class="alert-message">
+    <ng-content></ng-content>
+  </div>
+</alert>

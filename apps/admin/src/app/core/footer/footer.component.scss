@@ -1,5 +1,8 @@
+// Variables
 @import "../../../../scss/1-variables/app";
-@import "~bootstrap/scss/mixins/_breakpoints.scss";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
 
 footer.footer {
   background: $footer-background;
