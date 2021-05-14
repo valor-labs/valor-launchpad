@@ -1,8 +1,8 @@
-.alert {
+.alert.legacy {
   padding: 0;
   display: flex;
   color: $gray-900;
-  
+
   b, strong {
     color: $black;
   }
@@ -28,13 +28,13 @@
     color: $gray-800;
   }
 
-  .alert-message {
+  .alert-message.legacy {
     @include border-end-radius($alert-border-radius);
     @include border-start-radius($alert-border-radius);
     border: 1px solid $gray-400;
   }
 
-  .alert-message:not(:nth-child(2)) {
+  .alert-message.legacy:not(:nth-child(2)) {
     @include border-start-radius(0);
     border-left: 0;
   }
@@ -53,7 +53,7 @@
 
 .alert-outline-coloured {
   @each $color, $value in $theme-colors {
-    &.alert-#{$color} .alert-message {
+    &.alert-#{$color} .alert-message.legacy {
       border-color: $value;
     }
   }
@@ -64,7 +64,7 @@
   background: rgba(255,255,255,.1);
 }
 
-.alert-message {
+.alert-message.legacy {
   padding: $alert-padding-y $alert-padding-x;
   width: 100%;
   box-sizing: border-box;
