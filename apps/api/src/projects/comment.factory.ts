@@ -10,6 +10,6 @@ define(CommentEntity, (faker: typeof Faker) => {
   comment.author = faker.name.findName()
   comment.avatar = 'https://thispersondoesnotexist.com/image';
   comment.body = faker.lorem.text(1);
-  //TODO: Make children
+  //TODO: Make children, need help here
   return comment
 })
