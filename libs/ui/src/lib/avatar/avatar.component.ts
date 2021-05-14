@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-avatar',
@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AvatarComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  classes;
+
+  @Input()
+  size: "sm" | "md" | "lg" | "xl" = "md";
+
+  @Input()
+  src;
+
+  @Input()
+  alt;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+    this.classes = this.classes + " "+this.size;
   }
 
 }

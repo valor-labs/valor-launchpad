@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-progress',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./progress.component.scss']
 })
 export class ProgressComponent implements OnInit {
+  @Input()
+  value;
 
   constructor() { }
 

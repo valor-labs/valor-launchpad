@@ -30,9 +30,10 @@ import { TypeComponent } from './type/type.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import {AlertModule} from "ngx-bootstrap/alert";
+import {ProgressbarModule} from "ngx-bootstrap/progressbar";
 
 @NgModule({
-    imports: [CommonModule, AlertModule],
+    imports: [CommonModule, AlertModule, ProgressbarModule],
   declarations: [
     AccordionComponent,
     AlertComponent,
@@ -66,7 +67,9 @@ import {AlertModule} from "ngx-bootstrap/alert";
   ],
   exports: [
     AlertComponent,
-    CardComponent
+    AvatarComponent,
+    CardComponent,
+    ProgressComponent
   ],
 })
 export class UiModule {}
