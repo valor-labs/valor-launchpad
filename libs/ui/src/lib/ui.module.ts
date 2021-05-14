@@ -66,6 +66,7 @@ import {AlertModule} from "ngx-bootstrap/alert";
   ],
   exports: [
     AlertComponent,
+    CardComponent
   ],
 })
 export class UiModule {}
