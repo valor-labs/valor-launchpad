@@ -5,11 +5,12 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-  UpdateDateColumn, OneToMany
+  UpdateDateColumn, TreeParent, Tree, TreeChildren
 } from "typeorm";
 import {ProjectsEntity} from "./projects.entity";
 
 @Entity()
+@Tree("nested-set")
 export class CommentEntity {
   //TODO: Need to find a way to track updates and "version" this entity
   @PrimaryGeneratedColumn("uuid")
@@ -19,10 +20,10 @@ export class CommentEntity {
   @JoinColumn({name: 'project_id'})
   project: ProjectsEntity;
 
-  @ManyToOne(type => CommentEntity, (category: CommentEntity) => category.children)
+  @TreeParent()
   parent: CommentEntity;
 
-  @OneToMany(type => CommentEntity, (category: CommentEntity) => category.parent)
+  @TreeChildren()
   children: CommentEntity[];
 
   @CreateDateColumn()
