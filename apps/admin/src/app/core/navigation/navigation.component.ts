@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-navigation',
@@ -11,11 +11,15 @@ export class NavigationComponent implements OnInit {
     dashboards: false,
     pages: true,
     auth: true,
-    ui:true
-  }
+    ui: true
+  };
+
+  subMenuCollapseState = {
+    projects: true
+  };
 
   constructor() {
-  //  TODO: Make the menu state reflect the navigation tree
+    //  TODO: Make the menu state reflect the navigation tree
   }
 
   ngOnInit(): void {
@@ -23,15 +27,19 @@ export class NavigationComponent implements OnInit {
 
   toggleCollapse(target: string) {
     // TODO: this needs to be reworked for submenus
-    if(!this.menuCollapseState[target]){
-      this.menuCollapseState[target] = true;
-    } else {
-      Object.keys(this.menuCollapseState).forEach(key => {
-        this.menuCollapseState[key] = true;
-      })
 
-      this.menuCollapseState[target] = false;
-    }
+      if (!this.menuCollapseState[target]) {
+        this.menuCollapseState[target] = true;
+      } else {
+        Object.keys(this.menuCollapseState).forEach(key => {
+          this.menuCollapseState[key] = true;
+        });
+        this.menuCollapseState[target] = false;
+      }
+  }
+
+  toggleSubmenuCollapse(target: string): void {
+    this.subMenuCollapseState[target] = !this.subMenuCollapseState[target];
   }
 
 }
