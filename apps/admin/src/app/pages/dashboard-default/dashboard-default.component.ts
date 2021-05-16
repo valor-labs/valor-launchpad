@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'valor-launchpad-dashboard-default',
   templateUrl: './dashboard-default.component.html',
-  styleUrls: ['./dashboard-default.component.scss']
+  styleUrls: ['./dashboard-default.component.scss'],
 })
 export class DashboardDefaultComponent implements OnInit {
   salesRevenueConfig = {
@@ -213,6 +213,7 @@ export class DashboardDefaultComponent implements OnInit {
       domain: ['#3F80EA', '#E5A54B', '#d9534f', '#293042']
     }
   }
+  bsInlineValue = new Date();
 
   constructor() {
   }
