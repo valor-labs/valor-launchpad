@@ -49,15 +49,18 @@
           </li>
           <li class="sidebar-item">
 <!--            TODO: This needs to be fixed after submenus correction in TS-->
-            <a data-bs-target="#projects" data-bs-toggle="collapse" class="sidebar-link collapsed">
+            <a data-bs-target="#projects" data-bs-toggle="collapse" class="sidebar-link"
+               [ngClass]="{'collapsed':subMenuCollapseState['projects']}"
+               (click)="toggleSubmenuCollapse('projects')"
+            >
               Projects
             </a>
-            <ul id="projects" class="sidebar-dropdown list-unstyled collapse ">
+            <ul id="projects" class="sidebar-dropdown list-unstyled" [collapse]="subMenuCollapseState['projects']">
               <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-projects-list.html">List</a>
+                <a class="sidebar-link" routerLink="projects-list">List</a>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-projects-detail.html">Detail <span class="badge badge-sidebar-primary">New</span></a>
+                <a class="sidebar-link" routerLink="projects-detail">Detail <span class="badge badge-sidebar-primary">New</span></a>
               </li>
             </ul>
           </li>
