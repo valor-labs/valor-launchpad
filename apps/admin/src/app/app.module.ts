@@ -13,13 +13,14 @@ import {DashboardAnalyticsComponent} from './pages/dashboard-analytics/dashboard
 import {CollapseModule} from "ngx-bootstrap/collapse";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UiModule} from "@valor-launchpad/ui";
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
   imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, AppRoutingModule,
     RouterModule, FooterModule, NavigationModule, HeaderModule,
     CollapseModule.forRoot(),
-    UiModule
+    UiModule, NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
