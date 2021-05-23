@@ -1,6 +1,7 @@
 import {define} from "typeorm-seeding";
 import * as Faker from 'faker'
 import {ProjectsEntity} from "./projects.entity";
+import {HELPERS} from "../../seed_helpers/data";
 
 define(ProjectsEntity, (faker: typeof Faker) => {
   const project = new ProjectsEntity();
@@ -12,8 +13,8 @@ define(ProjectsEntity, (faker: typeof Faker) => {
     status: faker.random.arrayElement(["bg-success", "bg-danger", "bg-warning"]),
   };
   project.hero = {
-    src: 'https://thiscatdoesnotexist.com/',
-    alt: 'https://thispersondoesnotexist.com/image'
+    src: faker.random.arrayElement(HELPERS.profileImages),
+    alt: faker.random.arrayElement(HELPERS.profileImages)
   };
   project.actions = [
     {
@@ -32,7 +33,7 @@ define(ProjectsEntity, (faker: typeof Faker) => {
   for (let i = assigneeCount; i > 0; i--) {
     assigneeArray.push(
       {
-        url: 'https://thispersondoesnotexist.com/image',
+        url: faker.random.arrayElement(HELPERS.profileImages),
         name: faker.name.findName()
       }
     )
@@ -41,7 +42,7 @@ define(ProjectsEntity, (faker: typeof Faker) => {
 
   project.summary = {
     reporter: {
-      url: 'https://thispersondoesnotexist.com/image',
+      url: faker.random.arrayElement(HELPERS.profileImages),
       name: faker.name.findName()
     },
     createdDate: faker.date.past(),
