@@ -1,12 +1,13 @@
-import {Module} from '@nestjs/common';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {AppController} from './app.controller';
-import {AppService} from './app.service';
-import {ProjectsModule} from "../projects/projects.module";
-import {ProfileModule} from "../profile/profile.module";
-import {AuthModule} from "../auth/auth.module";
-import {UsersModule} from "../users/users.module";
-import {RouterModule} from "nest-router";
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ProjectsModule } from '../projects/projects.module';
+import { ProfileModule } from '../profile/profile.module';
+import { AuthModule } from '../auth/auth.module';
+import { UsersModule } from '../users/users.module';
+import { RouterModule } from 'nest-router';
+import { DashboardModule } from '../dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -18,16 +19,17 @@ import {RouterModule} from "nest-router";
       password: process.env.TYPEORM_PASSWORD,
       database: process.env.TYPEORM_DATABASE,
       autoLoadEntities: process.env.TYPEORM_AUTOLOAD as any as boolean,
-      synchronize:  process.env.TYPEORM_SYNCHRONIZE as any as boolean,
+      synchronize: process.env.TYPEORM_SYNCHRONIZE as any as boolean
     }),
     RouterModule.forRoutes([
-      {path:'/profile', module: ProfileModule},
-      {path:'/projects', module: ProjectsModule},
-      {path:'/auth', module: AuthModule}
+      { path: '/profile', module: ProfileModule },
+      { path: '/projects', module: ProjectsModule },
+      { path: '/auth', module: AuthModule }
     ]),
-    ProjectsModule, ProfileModule, AuthModule, UsersModule],
+    ProjectsModule, ProfileModule, AuthModule, UsersModule, DashboardModule
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {
 }
