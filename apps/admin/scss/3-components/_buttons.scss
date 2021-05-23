@@ -20,6 +20,10 @@
   height: 15px;
 }
 
+.btn:not(:last-child){
+  margin-right:4px;
+}
+
 @each $color, $value in $theme-colors {
   .btn-#{$color} {
     @include button-color($static-white);

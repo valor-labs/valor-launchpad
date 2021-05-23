@@ -1,1 +1,15 @@
-<p>tables works!</p>
+<table id="datatables-clients" [class]="'table '+class" [style]="style">
+    <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{column.title}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of data">
+      <td *ngFor="let key of keys"  [innerHTML]="row[key]"></td>
+    </tr>
+
+
+ 
+    </tbody>
+  </table>

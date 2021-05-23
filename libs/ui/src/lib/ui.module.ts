@@ -69,7 +69,10 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     AlertComponent,
     AvatarComponent,
     CardComponent,
-    ProgressComponent
+    DropdownComponent,
+    ProgressComponent,
+    TablesComponent,
+    TimelineComponent
   ],
 })
 export class UiModule {}

@@ -1,1 +1,7 @@
-<p>timeline works!</p>
+<ul class="timeline mt-2 mb-0">
+    <li class="timeline-item" *ngFor="let item of timeline">
+        <strong>{{item.title}}</strong>
+        <span class="float-end text-muted text-sm">{{item.time}}</span>
+        <p>{{item.description}}</p>
+      </li>
+  </ul>

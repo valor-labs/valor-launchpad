@@ -1,1 +1,8 @@
-<p>dropdown works!</p>
+<div class="dropdown show" >
+  <a (click)="toggle()"  data-bs-toggle="dropdown" data-bs-display="static" >
+    <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-{{ direction }}" [class.show]="show">
+    <a *ngFor="let action of actions" class="dropdown-item" [href]="action.link">{{action.label}}</a>
+  </div>
+</div>
