@@ -52,11 +52,11 @@
       <div class='card-body py-4'>
         <div class='d-flex align-items-start'>
           <div class='flex-grow-1'>
-            <h3 class='mb-2'>$ {{dashboardInfo?.totalEarning}}</h3>
+            <h3 class='mb-2'>$ {{dashboardData?.totalEarning}}</h3>
             <p class='mb-2'>Total Earnings</p>
             <div class='mb-0'>
               <span class='badge badge-soft-success me-2'> <i
-                class='mdi mdi-arrow-bottom-right'></i> {{dashboardInfo?.totalEarningSinceLastWeek}} </span>
+                class='mdi mdi-arrow-bottom-right'></i> {{dashboardData?.totalEarningSinceLastWeek}} </span>
               <span class='text-muted'>Since last week</span>
             </div>
           </div>
@@ -74,11 +74,11 @@
       <div class='card-body py-4'>
         <div class='d-flex align-items-start'>
           <div class='flex-grow-1'>
-            <h3 class='mb-2'>{{dashboardInfo?.pendingOrders}}</h3>
+            <h3 class='mb-2'>{{dashboardData?.pendingOrders}}</h3>
             <p class='mb-2'>Pending Orders</p>
             <div class='mb-0'>
               <span class='badge badge-soft-danger me-2'> <i
-                class='mdi mdi-arrow-bottom-right'></i> {{dashboardInfo?.pendingOrdersSinceLastWeek}} </span>
+                class='mdi mdi-arrow-bottom-right'></i> {{dashboardData?.pendingOrdersSinceLastWeek}} </span>
               <span class='text-muted'>Since last week</span>
             </div>
           </div>
@@ -96,11 +96,11 @@
       <div class='card-body py-4'>
         <div class='d-flex align-items-start'>
           <div class='flex-grow-1'>
-            <h3 class='mb-2'>$ {{dashboardInfo?.totalRevenue}}</h3>
+            <h3 class='mb-2'>$ {{dashboardData?.totalRevenue}}</h3>
             <p class='mb-2'>Total Revenue</p>
             <div class='mb-0'>
               <span class='badge badge-soft-success me-2'> <i
-                class='mdi mdi-arrow-bottom-right'></i> {{dashboardInfo?.totalRevenueSinceLastWeek}} </span>
+                class='mdi mdi-arrow-bottom-right'></i> {{dashboardData?.totalRevenueSinceLastWeek}} </span>
               <span class='text-muted'>Since last week</span>
             </div>
           </div>
