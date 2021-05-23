@@ -52,12 +52,14 @@ export class DashboardDefaultComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dashboardData = this.dashboardDefaultService.dashboardData;
-    this.salesRevenueConfig.multi = this.dashboardDefaultService.salesRevenueData;
-    this.weeklySalesConfig.single = this.dashboardDefaultService.weeklySalesData;
-    this.weeklySalesTableData = this.dashboardDefaultService.weeklySalesTableData;
-    this.appointmentsData = this.dashboardDefaultService.appointmentsData;
-    this.latestProjectsTableData = this.dashboardDefaultService.latestProjectsTableData;
+    this.dashboardDefaultService.getData().subscribe((data: any) => {
+      this.dashboardData = data.dashboardData;
+      this.salesRevenueConfig.multi = data.salesRevenueData;
+      this.weeklySalesConfig.single = data.weeklySalesData;
+      this.weeklySalesTableData = data.weeklySalesTableData;
+      this.appointmentsData = data.appointmentsData;
+      this.latestProjectsTableData = data.latestProjectsTableData;
+    })
   }
 
 }
