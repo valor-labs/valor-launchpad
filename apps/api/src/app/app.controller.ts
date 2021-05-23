@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { Message } from '@valor-launchpad/api-interfaces';
+import { FAQ, Message } from '@valor-launchpad/api-interfaces';
 
 import { AppService } from './app.service';
 
@@ -11,5 +11,10 @@ export class AppController {
   @Get('hello')
   getData(): Message {
     return this.appService.getData();
+  }
+
+  @Get('faq')
+  getFAQ():FAQ[]{
+    return this.appService.getFAQ();
   }
 }

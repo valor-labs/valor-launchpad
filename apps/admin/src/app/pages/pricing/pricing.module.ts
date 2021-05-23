@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {UiModule} from "@valor-launchpad/ui";
 
 import { PricingRoutingModule } from './pricing-routing.module';
 import { PricingComponent } from './pricing.component';
@@ -11,7 +12,8 @@ import { PricingComponent } from './pricing.component';
   ],
   imports: [
     CommonModule,
-    PricingRoutingModule
+    PricingRoutingModule,
+    UiModule
   ]
 })
 export class PricingModule { }
