@@ -63,13 +63,15 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     TimelineComponent,
     TypeComponent,
     WizardComponent,
-    WrapperComponent
+    WrapperComponent,
+    CheckboxGroupComponent
   ],
   exports: [
     AlertComponent,
     AvatarComponent,
     CardComponent,
-    ProgressComponent
+    ProgressComponent,
+    CheckboxGroupComponent,
   ],
 })
 export class UiModule {}

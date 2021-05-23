@@ -1,0 +1,10 @@
+<label class="form-check" *ngFor="let o of options; trackBy: trackByOption">
+  <input
+    type="checkbox"
+    class="form-check-input"
+    [checked]='checkedItems.has(o.value)'
+    (change)='nativeChange(o, $event)'
+    [disabled]='o.disabled'
+  >
+  <span class="form-check-label">{{o.label}}</span>
+</label>
