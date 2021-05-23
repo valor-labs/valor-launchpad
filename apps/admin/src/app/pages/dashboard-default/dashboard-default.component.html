@@ -4,7 +4,6 @@
   </div>
 
   <div class='col-auto ms-auto text-end mt-n1'>
-
     <div class='dropdown me-2 d-inline-block' dropdown>
       <a class='btn btn-light bg-white shadow-sm dropdown-toggle' dropdownToggle data-bs-toggle='dropdown'
          data-bs-display='static'>
@@ -53,10 +52,11 @@
       <div class='card-body py-4'>
         <div class='d-flex align-items-start'>
           <div class='flex-grow-1'>
-            <h3 class='mb-2'>$ 24.300</h3>
+            <h3 class='mb-2'>$ {{dashboardInfo?.totalEarning}}</h3>
             <p class='mb-2'>Total Earnings</p>
             <div class='mb-0'>
-              <span class='badge badge-soft-success me-2'> <i class='mdi mdi-arrow-bottom-right'></i> +5.35% </span>
+              <span class='badge badge-soft-success me-2'> <i
+                class='mdi mdi-arrow-bottom-right'></i> {{dashboardInfo?.totalEarningSinceLastWeek}} </span>
               <span class='text-muted'>Since last week</span>
             </div>
           </div>
@@ -74,10 +74,11 @@
       <div class='card-body py-4'>
         <div class='d-flex align-items-start'>
           <div class='flex-grow-1'>
-            <h3 class='mb-2'>43</h3>
+            <h3 class='mb-2'>{{dashboardInfo?.pendingOrders}}</h3>
             <p class='mb-2'>Pending Orders</p>
             <div class='mb-0'>
-              <span class='badge badge-soft-danger me-2'> <i class='mdi mdi-arrow-bottom-right'></i> -4.25% </span>
+              <span class='badge badge-soft-danger me-2'> <i
+                class='mdi mdi-arrow-bottom-right'></i> {{dashboardInfo?.pendingOrdersSinceLastWeek}} </span>
               <span class='text-muted'>Since last week</span>
             </div>
           </div>
@@ -95,10 +96,11 @@
       <div class='card-body py-4'>
         <div class='d-flex align-items-start'>
           <div class='flex-grow-1'>
-            <h3 class='mb-2'>$ 18.700</h3>
+            <h3 class='mb-2'>$ {{dashboardInfo?.totalRevenue}}</h3>
             <p class='mb-2'>Total Revenue</p>
             <div class='mb-0'>
-              <span class='badge badge-soft-success me-2'> <i class='mdi mdi-arrow-bottom-right'></i> +8.65% </span>
+              <span class='badge badge-soft-success me-2'> <i
+                class='mdi mdi-arrow-bottom-right'></i> {{dashboardInfo?.totalRevenueSinceLastWeek}} </span>
               <span class='text-muted'>Since last week</span>
             </div>
           </div>
@@ -162,18 +164,18 @@
                alt='Ashley Briggs'>
           <div class='flex-grow-1'>
             <small class='float-end'>5m ago</small>
-            <strong>Ashley Briggs</strong> started following <strong>Stacie Hall</strong><br />
-            <small class='text-muted'>Today 7:51 pm</small><br />
+            <strong>Ashley Briggs</strong> started following <strong>Stacie Hall</strong><br/>
+            <small class='text-muted'>Today 7:51 pm</small><br/>
 
           </div>
         </div>
 
-        <hr />
+        <hr/>
         <div class='d-flex align-items-start'>
           <img src='assets/img/avatars/avatar.jpg' width='36' height='36' class='rounded-circle me-2' alt='Chris Wood'>
           <div class='flex-grow-1'>
             <small class='float-end'>30m ago</small>
-            <strong>Chris Wood</strong> posted something on <strong>Stacie Hall</strong>'s timeline<br />
+            <strong>Chris Wood</strong> posted something on <strong>Stacie Hall</strong>'s timeline<br/>
             <small class='text-muted'>Today 7:21 pm</small>
 
             <div class='border text-sm text-muted p-2 mt-1'>
@@ -183,19 +185,19 @@
           </div>
         </div>
 
-        <hr />
+        <hr/>
         <div class='d-flex align-items-start'>
           <img src='assets/img/avatars/avatar-4.jpg' width='36' height='36' class='rounded-circle me-2'
                alt='Stacie Hall'>
           <div class='flex-grow-1'>
             <small class='float-end'>1h ago</small>
-            <strong>Stacie Hall</strong> posted a new blog<br />
+            <strong>Stacie Hall</strong> posted a new blog<br/>
 
             <small class='text-muted'>Today 6:35 pm</small>
           </div>
         </div>
 
-        <hr />
+        <hr/>
         <div class='d-grid'>
           <a href='#' class='btn btn-primary'>Load more</a>
         </div>
@@ -251,7 +253,7 @@
             </div>
           </div>
         </div>
-        <h5 class='card-title mb-0'>assets/img/ sales</h5>
+        <h5 class='card-title mb-0'>Weekly sales</h5>
       </div>
       <div class='card-body d-flex'>
         <div class='align-self-center w-100'>
@@ -278,25 +280,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td><i class='fas fa-square-full text-primary'></i> Direct</td>
-              <td class='text-end'>$ 2602</td>
-              <td class='text-end text-success'>+43%</td>
-            </tr>
-            <tr>
-              <td><i class='fas fa-square-full text-warning'></i> Affiliate</td>
-              <td class='text-end'>$ 1253</td>
-              <td class='text-end text-success'>+13%</td>
-            </tr>
-            <tr>
-              <td><i class='fas fa-square-full text-danger'></i> E-mail</td>
-              <td class='text-end'>$ 541</td>
-              <td class='text-end text-success'>+24%</td>
-            </tr>
-            <tr>
-              <td><i class='fas fa-square-full text-dark'></i> Other</td>
-              <td class='text-end'>$ 1465</td>
-              <td class='text-end text-success'>+11%</td>
+            <tr *ngFor="let item of weeklySalesTableData">
+              <td><i [ngClass]="item.type"></i> {{item.source}}</td>
+              <td class='text-end'>{{item.revenue}}</td>
+              <td class='text-end text-success'>{{item.value}}</td>
             </tr>
             </tbody>
           </table>
@@ -324,29 +311,10 @@
       </div>
       <div class='card-body'>
         <ul class='timeline'>
-          <li class='timeline-item'>
-            <strong>Chat with Carl and Ashley</strong>
-            <span class='float-end text-muted text-sm'>30m ago</span>
-            <p>Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed
-              aliquam ultrices mauris...</p>
-          </li>
-          <li class='timeline-item'>
-            <strong>The big launch</strong>
-            <span class='float-end text-muted text-sm'>2h ago</span>
-            <p>Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.
-              Praesent adipiscing. Phasellus ullamcorper ipsum rutrum
-              nunc...</p>
-          </li>
-          <li class='timeline-item'>
-            <strong>Coffee break</strong>
-            <span class='float-end text-muted text-sm'>3h ago</span>
-            <p>Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada...</p>
-          </li>
-          <li class='timeline-item'>
-            <strong>Chat with team</strong>
-            <span class='float-end text-muted text-sm'>30m ago</span>
-            <p>Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-              ipsum...</p>
+          <li *ngFor="let item of appointmentsData" class='timeline-item'>
+            <strong>{{item.title}}</strong>
+            <span class='float-end text-muted text-sm'>{{item.timeElapse}}</span>
+            <p>{{item.content}}</p>
           </li>
         </ul>
       </div>
@@ -382,68 +350,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>Project Apollo</td>
-      <td class='d-none d-xl-table-cell'>01/01/2018</td>
-      <td class='d-none d-xl-table-cell'>31/06/2018</td>
-      <td><span class='badge bg-success'>Done</span></td>
-      <td class='d-none d-md-table-cell'>Carl Jenkins</td>
-    </tr>
-    <tr>
-      <td>Project Fireball</td>
-      <td class='d-none d-xl-table-cell'>01/01/2018</td>
-      <td class='d-none d-xl-table-cell'>31/06/2018</td>
-      <td><span class='badge bg-danger'>Cancelled</span></td>
-      <td class='d-none d-md-table-cell'>Bertha Martin</td>
-    </tr>
-    <tr>
-      <td>Project Hades</td>
-      <td class='d-none d-xl-table-cell'>01/01/2018</td>
-      <td class='d-none d-xl-table-cell'>31/06/2018</td>
-      <td><span class='badge bg-success'>Done</span></td>
-      <td class='d-none d-md-table-cell'>Stacie Hall</td>
-    </tr>
-    <tr>
-      <td>Project Nitro</td>
-      <td class='d-none d-xl-table-cell'>01/01/2018</td>
-      <td class='d-none d-xl-table-cell'>31/06/2018</td>
-      <td><span class='badge bg-warning'>In progress</span></td>
-      <td class='d-none d-md-table-cell'>Carl Jenkins</td>
-    </tr>
-    <tr>
-      <td>Project Phoenix</td>
-      <td class='d-none d-xl-table-cell'>01/01/2018</td>
-      <td class='d-none d-xl-table-cell'>31/06/2018</td>
-      <td><span class='badge bg-success'>Done</span></td>
-      <td class='d-none d-md-table-cell'>Bertha Martin</td>
-    </tr>
-    <tr>
-      <td>Project X</td>
-      <td class='d-none d-xl-table-cell'>01/01/2018</td>
-      <td class='d-none d-xl-table-cell'>31/06/2018</td>
-      <td><span class='badge bg-success'>Done</span></td>
-      <td class='d-none d-md-table-cell'>Stacie Hall</td>
-    </tr>
-    <tr>
-      <td>Project Romeo</td>
-      <td class='d-none d-xl-table-cell'>01/01/2018</td>
-      <td class='d-none d-xl-table-cell'>31/06/2018</td>
-      <td><span class='badge bg-success'>Done</span></td>
-      <td class='d-none d-md-table-cell'>Ashley Briggs</td>
-    </tr>
-    <tr>
-      <td>Project Wombat</td>
-      <td class='d-none d-xl-table-cell'>01/01/2018</td>
-      <td class='d-none d-xl-table-cell'>31/06/2018</td>
-      <td><span class='badge bg-warning'>In progress</span></td>
-      <td class='d-none d-md-table-cell'>Bertha Martin</td>
-    </tr>
-    <tr>
-      <td>Project Zircon</td>
-      <td class='d-none d-xl-table-cell'>01/01/2018</td>
-      <td class='d-none d-xl-table-cell'>31/06/2018</td>
-      <td><span class='badge bg-danger'>Cancelled</span></td>
-      <td class='d-none d-md-table-cell'>Stacie Hall</td>
+    <tr *ngFor="let item of latestProjectsTableData">
+      <td>{{item.name}}</td>
+      <td class='d-none d-xl-table-cell'>{{item.startDate}}</td>
+      <td class='d-none d-xl-table-cell'>{{item.endDate}}</td>
+      <td><span [ngClass]="item.badgeType">{{item.status}}</span></td>
+      <td class='d-none d-md-table-cell'>{{item.assignee}}</td>
     </tr>
     </tbody>
   </table>
