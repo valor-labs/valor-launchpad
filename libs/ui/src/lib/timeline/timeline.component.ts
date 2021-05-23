@@ -8,5 +8,8 @@ import { Timeline } from '@valor-launchpad/api-interfaces';
 })
 export class TimelineComponent {
   @Input()
+  classes
+
+  @Input()
   timeline
 }
