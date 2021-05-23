@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Action } from '@valor-launchpad/api-interfaces';
+
+
 
 @Component({
   selector: 'valor-launchpad-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent implements OnInit {
+export class DropdownComponent {
+  @Input()
+  direction
 
-  constructor() { }
+  @Input()
+  actions:Action[]
 
-  ngOnInit(): void {
+ 
+  show=false;
+
+
+  toggle(){
+    this.show=!this.show;
   }
 
 }
