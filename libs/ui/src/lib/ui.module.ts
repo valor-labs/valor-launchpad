@@ -29,6 +29,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { TypeComponent } from './type/type.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
+import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.component';
 import {AlertModule} from "ngx-bootstrap/alert";
 import {ProgressbarModule} from "ngx-bootstrap/progressbar";
 
@@ -63,12 +64,14 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     TimelineComponent,
     TypeComponent,
     WizardComponent,
-    WrapperComponent
+    WrapperComponent,
+    CheckboxGroupComponent
   ],
   exports: [
     AlertComponent,
     AvatarComponent,
     CardComponent,
+    CheckboxGroupComponent,
     DropdownComponent,
     ProgressComponent,
     TablesComponent,
