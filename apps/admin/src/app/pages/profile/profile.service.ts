@@ -4,12 +4,12 @@ import {HttpClient} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectsDetailService {
+export class ProfileService {
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getProjectById(id:string) {
-    return this.httpClient.get(`/api/projects/v1/single/${id}`)
+  getProfile() {
+    return this.httpClient.get(`/api/profile/v1`)
   }
 }
