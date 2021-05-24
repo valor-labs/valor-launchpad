@@ -2,7 +2,8 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {MainLayoutComponent} from "./main-layout/main-layout.component";
-
+import {AuthModule} from "./core/auth/auth.module";
+import {AuthGuard} from "./core/auth/auth.guard";
 
 const routes: Routes = [
   {
@@ -22,7 +23,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
   {
-    path: '', component: MainLayoutComponent, children: [
+    path: '', component: MainLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
       {
         path: 'dashboard-crypto',
         loadChildren: () => import('./pages/dashboard-crypto/dashboard-crypto.module').then(m => m.DashboardCryptoModule)
@@ -110,6 +113,7 @@ const routes: Routes = [
   declarations: [],
   imports: [
     RouterModule.forRoot(routes),
+    AuthModule,
     CommonModule
   ]
 })

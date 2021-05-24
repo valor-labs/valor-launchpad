@@ -14,6 +14,7 @@ import {CollapseModule} from "ngx-bootstrap/collapse";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UiModule} from "@valor-launchpad/ui";
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
@@ -22,7 +23,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     CollapseModule.forRoot(),
     UiModule, NgxChartsModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
