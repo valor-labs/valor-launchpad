@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Action } from '@valor-launchpad/api-interfaces';
+import {Component, OnInit} from '@angular/core';
+import {Action} from '@valor-launchpad/api-interfaces';
+import {AuthService} from "../auth/auth.service";
 
 @Component({
   selector: 'valor-launchpad-header',
@@ -7,7 +8,7 @@ import { Action } from '@valor-launchpad/api-interfaces';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  profileDropdownShow=false;
+  profileDropdownShow = false;
   profileActions: Action[] = [
     {
       label: 'Profile',
@@ -30,15 +31,21 @@ export class HeaderComponent implements OnInit {
     },
     {
       label: 'Sign out',
-      link: 'pages-settings.html',
+      event: this.signOut.bind(this),
     },
   ];
 
-  constructor() {}
+  constructor(private authService: AuthService) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
-  toggleProfileDropdown(){
-    this.profileDropdownShow=!this.profileDropdownShow;
+  signOut() {
+    this.authService.signOut()
+  }
+
+  toggleProfileDropdown() {
+    this.profileDropdownShow = !this.profileDropdownShow;
   }
 }
