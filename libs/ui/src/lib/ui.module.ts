@@ -67,7 +67,7 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     TypeComponent,
     WizardComponent,
     WrapperComponent,
-    CheckboxGroupComponent
+    CheckboxGroupComponent,
     StepsComponent,
     StepComponent,
   ],
@@ -79,7 +79,7 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     DropdownComponent,
     ProgressComponent,
     TablesComponent,
-    TimelineComponent
+    TimelineComponent,
     WizardComponent,
     StepsComponent,
     StepComponent,
