@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HeaderRoutingModule } from './header-routing.module';
 import { HeaderComponent } from './header.component';
-
+import {UiModule} from '@valor-launchpad/ui';
 
 @NgModule({
     declarations: [
@@ -14,7 +14,8 @@ import { HeaderComponent } from './header.component';
     ],
     imports: [
         CommonModule,
-        HeaderRoutingModule
+        HeaderRoutingModule,
+        UiModule
     ]
 })
 export class HeaderModule { }

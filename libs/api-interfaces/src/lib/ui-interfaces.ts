@@ -3,6 +3,8 @@
 export interface Action{
     label:string;
     link:string;
+    icon?:string;
+    divider?:boolean;
 }
 
 export interface TimelineItem{
