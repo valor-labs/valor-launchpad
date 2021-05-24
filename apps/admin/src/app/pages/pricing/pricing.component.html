@@ -9,8 +9,8 @@
     <div class="row justify-content-center mt-3 mb-2">
       <div class="col-auto">
         <nav class="nav btn-group">
-          <a (click)="handleMonthly()" [ngClass]="{'btn':true,'btn-outline-primary':true,'active':monthlyActive}" data-bs-toggle="tab">Monthly billing</a>
-          <a (click)="handleAnnual()" [ngClass]="{'btn':true,'btn-outline-primary':true,'active':annualActive}"  data-bs-toggle="tab">Annual billing</a>
+          <a (click)="handleMonthly()" class="btn btn-outline-primary" [ngClass]="{'active':monthlyActive}" data-bs-toggle="tab">Monthly billing</a>
+          <a (click)="handleAnnual()" class="btn btn-outline-primary" [ngClass]="{'active':annualActive}"  data-bs-toggle="tab">Annual billing</a>
         </nav>
       </div>
     </div>

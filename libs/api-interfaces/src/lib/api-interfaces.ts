@@ -4,6 +4,6 @@ export interface Message {
 
 
 export interface FAQ{
-  a:string;
-  q:string;
+  answer:string;
+  question:string;
 }
