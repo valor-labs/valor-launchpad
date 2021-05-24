@@ -15,12 +15,8 @@ export class DropdownComponent {
   @Input()
   actions:Action[]
 
+  @Input()
+  show
+
  
-  show=false;
-
-
-  toggle(){
-    this.show=!this.show;
-  }
-
 }

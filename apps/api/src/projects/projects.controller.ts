@@ -1,9 +1,11 @@
-import {Controller, Get, NotFoundException, Param} from '@nestjs/common';
+import {Controller, Get, NotFoundException, Param, UseGuards} from '@nestjs/common';
 import {ProjectsService} from "./projects.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ProjectsEntity} from "./projects.entity";
+import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 
-@Controller('projects')
+@UseGuards(JwtAuthGuard)
+@Controller('v1')
 export class ProjectsController {
   constructor(private projectsService: ProjectsService) {
   }

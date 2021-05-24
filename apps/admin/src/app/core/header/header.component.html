@@ -217,17 +217,15 @@
           <i class="align-middle fas fa-fw fa-cogs"></i>
         </a>
 
-        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" (click)="toggleProfileDropdown()">
           <img src="assets/img/avatars/avatar.jpg" class="avatar img-fluid rounded-circle me-1" alt="Chris Wood" /> <span class="text-dark">Chris Wood</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-end">
-          <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1 fas fa-fw fa-user"></i> Profile</a>
-          <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="pages-settings.html">Settings & Privacy</a>
-          <a class="dropdown-item" href="#">Help</a>
-          <a class="dropdown-item" href="#">Sign out</a>
-        </div>
+
+        <valor-launchpad-dropdown
+        [actions]="profileActions"
+        [direction]="'end'"
+        [show]="profileDropdownShow"
+      ></valor-launchpad-dropdown>
       </li>
     </ul>
   </div>

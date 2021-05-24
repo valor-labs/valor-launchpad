@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ProfileService} from "./profile.service";
 
 @Component({
   selector: 'valor-launchpad-profile',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  profile;
 
-  constructor() { }
+  constructor(private profileService: ProfileService) {
+
+  }
 
   ngOnInit(): void {
+    this.profileService.getProfile().subscribe((data) => {
+      this.profile = data;
+    })
   }
 
 }

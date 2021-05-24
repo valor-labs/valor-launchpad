@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {RouterModule} from "@angular/router";
 import {FooterModule} from "./core/footer/footer.module";
@@ -13,7 +13,9 @@ import {DashboardAnalyticsComponent} from './pages/dashboard-analytics/dashboard
 import {CollapseModule} from "ngx-bootstrap/collapse";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UiModule} from "@valor-launchpad/ui";
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {CookieService} from 'ngx-cookie-service';
+import {TokenInterceptor} from "./core/auth/token.interceptor";
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
@@ -22,7 +24,13 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     CollapseModule.forRoot(),
     UiModule, NgxChartsModule
   ],
-  providers: [],
+  providers: [CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

@@ -3,6 +3,10 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {ProjectsModule} from "../projects/projects.module";
+import {ProfileModule} from "../profile/profile.module";
+import {AuthModule} from "../auth/auth.module";
+import {UsersModule} from "../users/users.module";
+import {RouterModule} from "nest-router";
 
 @Module({
   imports: [
@@ -16,7 +20,12 @@ import {ProjectsModule} from "../projects/projects.module";
       autoLoadEntities: process.env.TYPEORM_AUTOLOAD as any as boolean,
       synchronize:  process.env.TYPEORM_SYNCHRONIZE as any as boolean,
     }),
-    ProjectsModule],
+    RouterModule.forRoutes([
+      {path:'/profile', module: ProfileModule},
+      {path:'/projects', module: ProjectsModule},
+      {path:'/auth', module: AuthModule}
+    ]),
+    ProjectsModule, ProfileModule, AuthModule, UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
