@@ -30,6 +30,8 @@ import { TypeComponent } from './type/type.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.component';
+import { StepsComponent } from './wizard/steps/steps.component';
+import { StepComponent } from './wizard/step/step.component';
 import {AlertModule} from "ngx-bootstrap/alert";
 import {ProgressbarModule} from "ngx-bootstrap/progressbar";
 
@@ -66,6 +68,8 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     WizardComponent,
     WrapperComponent,
     CheckboxGroupComponent
+    StepsComponent,
+    StepComponent,
   ],
   exports: [
     AlertComponent,
@@ -76,6 +80,9 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     ProgressComponent,
     TablesComponent,
     TimelineComponent
+    WizardComponent,
+    StepsComponent,
+    StepComponent,
   ],
 })
 export class UiModule {}
