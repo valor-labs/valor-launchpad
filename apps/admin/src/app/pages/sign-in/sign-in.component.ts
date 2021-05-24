@@ -13,8 +13,8 @@ export class SignInComponent implements OnInit {
   constructor(private signInService: SignInService, private authService: AuthService, private router: Router) {
   }
 
-  signIn() {
-    this.signInService.login({username: 'user1', password: '123'})
+  signIn(form) {
+    this.signInService.login(form.value)
   }
 
   ngOnInit(): void {

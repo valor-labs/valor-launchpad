@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SignInRoutingModule } from './sign-in-routing.module';
 import { SignInComponent } from './sign-in.component';
 import {SignInService} from "./sign-in.service";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import {SignInService} from "./sign-in.service";
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SignInRoutingModule
   ],
   providers: [SignInService]
