@@ -5,20 +5,14 @@ import {
   TableColumns,
 } from '@valor-launchpad/api-interfaces';
 
+
 @Component({
   selector: 'valor-launchpad-clients',
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
 })
 export class ClientsComponent {
-  actions: Action[] = [
-    {
-      label: 'Action',
-      link: '#',
-    },
-    { label: 'Another action', link: '#' },
-    { label: 'Something else here', link: '#' },
-  ];
+ 
   timeline: Timeline = [
     {
       title: 'Signed out',
@@ -142,4 +136,33 @@ export class ClientsComponent {
   };
 
   profileKeys=Object.keys(this.profile.detail);
+
+  actions1: Action[] = [
+    {
+      label: 'Action',
+      link: '#',
+    },
+    { label: 'Another action', link: '#' },
+    { label: 'Something else here', link: '#' },
+  ];
+
+  actions2: Action[] = [
+    {
+      label: 'Action',
+      link: '#',
+    },
+    { label: 'Another action', link: '#' },
+    { label: 'Something else here', link: '#' },
+  ];
+
+  dropdown1Show=false;
+  dropdown2Show=false;
+
+  clickDropdown1(){
+    this.dropdown1Show=!this.dropdown1Show;
+
+  }
+  clickDropdown2(){
+    this.dropdown2Show=!this.dropdown2Show;
+  }
 }

@@ -1,8 +1,9 @@
-<div class="dropdown show" >
-  <a (click)="toggle()"  data-bs-toggle="dropdown" data-bs-display="static" >
-    <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
+<div class="dropdown-menu dropdown-menu-{{ direction }}" [class.show]="show">
+  <fragment *ngFor="let action of actions">
+  <a class="dropdown-item" [href]="action.link">
+    <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
+    {{action.label}}
   </a>
-  <div class="dropdown-menu dropdown-menu-{{ direction }}" [class.show]="show">
-    <a *ngFor="let action of actions" class="dropdown-item" [href]="action.link">{{action.label}}</a>
-  </div>
+  <div *ngIf="action.divider" class="dropdown-divider"></div>
+</fragment>
 </div>
