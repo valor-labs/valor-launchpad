@@ -7,6 +7,7 @@ import * as dotenv from "dotenv";
 import * as connectRedis from 'connect-redis';
 import * as expressSession from 'express-session';
 import * as redis from 'redis';
+import * as cookieParser from 'cookie-parser';
 
 dotenv.config({path: process.cwd() + '/apps/api/.env'});
 
@@ -22,6 +23,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   app.use(compression());
+  app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.use(expressSession({
     store: new RedisStore({client: redisClient}),

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AuthService} from "./auth.service";
+import {TokenInterceptor} from "./token.interceptor";
 
 
 
@@ -9,6 +10,6 @@ import {AuthService} from "./auth.service";
   imports: [
     CommonModule
   ],
-  providers: [AuthService]
+  providers: [AuthService, TokenInterceptor]
 })
 export class AuthModule { }

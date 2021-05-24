@@ -58,6 +58,7 @@
     "class-validator": "^0.13.1",
     "compression": "^1.7.4",
     "connect-redis": "^5.2.0",
+    "cookie-parser": "^1.4.5",
     "express-session": "^1.17.2",
     "mysql": "^2.18.1",
     "nest-router": "^1.0.9",

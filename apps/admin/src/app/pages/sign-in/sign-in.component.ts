@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SignInService} from "./sign-in.service";
+import {AuthService} from "../../core/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'valor-launchpad-sign-in',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignInComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private signInService: SignInService, private authService: AuthService, private router: Router) {
   }
 
+  signIn() {
+    this.signInService.login({username: 'user1', password: '123'})
+  }
+
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/dashboard-default']);
+    }
+  }
 }
