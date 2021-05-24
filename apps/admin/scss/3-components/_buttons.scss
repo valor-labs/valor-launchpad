@@ -24,6 +24,12 @@
   margin-right:4px;
 }
 
+.btn-group{
+  .btn{
+    margin-right:0;
+  }
+}
+
 @each $color, $value in $theme-colors {
   .btn-#{$color} {
     @include button-color($static-white);

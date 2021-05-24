@@ -1,12 +1,11 @@
 import {Controller, Get, Post, Session, UseGuards, Request, Body, Req} from '@nestjs/common';
-import {Message} from '@valor-launchpad/api-interfaces';
-
-import {AppService} from './app.service';
+import { FAQ, Message } from '@valor-launchpad/api-interfaces';
 import {LocalAuthGuard} from "../auth/guards/local-auth-guard";
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 import {AuthService} from "../auth/auth.service";
 import {UsersService} from "../users/users.service";
 import {RequestWithSession} from "../common/RequestWithSession";
+
 
 @Controller()
 export class AppController {
@@ -16,5 +15,10 @@ export class AppController {
   @Get('hello')
   getData(): Message {
     return this.appService.getData();
+  }
+
+  @Get('faq')
+  getFAQ():FAQ[]{
+    return this.appService.getFAQ();
   }
 }
