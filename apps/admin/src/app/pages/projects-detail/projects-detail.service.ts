@@ -10,6 +10,6 @@ export class ProjectsDetailService {
   }
 
   getProjectById(id:string) {
-    return this.httpClient.get(`/api/projects/single/${id}`)
+    return this.httpClient.get(`/api/projects/v1/single/${id}`)
   }
 }

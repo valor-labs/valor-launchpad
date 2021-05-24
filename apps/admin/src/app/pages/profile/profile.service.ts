@@ -10,6 +10,6 @@ export class ProfileService {
   }
 
   getProfile() {
-    return this.httpClient.get(`/api/profile`)
+    return this.httpClient.get(`/api/profile/v1`)
   }
 }

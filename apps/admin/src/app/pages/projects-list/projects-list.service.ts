@@ -10,6 +10,6 @@ export class ProjectsListService {
   }
 
   getProjects() {
-    return this.httpClient.get('/api/projects/all')
+    return this.httpClient.get('/api/projects/v1/all')
   }
 }
