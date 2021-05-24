@@ -4,9 +4,10 @@ import { ProfileService } from './profile.service';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {ProfileEntity} from "./profile.entity";
 import {ActivityEntity} from "./activity.entity";
+import {UsersModule} from "../users/users.module";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProfileEntity, ActivityEntity])],
+  imports: [TypeOrmModule.forFeature([ProfileEntity, ActivityEntity]), UsersModule],
   controllers: [ProfileController],
   providers: [ProfileService]
 })

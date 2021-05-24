@@ -13,6 +13,10 @@ export class HELPERS {
     'assets/img/avatars/avatar-5.jpg'
   ]
 
+  static saltRounds = 5
+
+  static defaultPassword = '123'
+
   static social_media = [
     {
       type: 'staciehall.co',
