@@ -26,7 +26,7 @@ import { DashboardModule } from '../dashboard/dashboard.module';
       { path: '/projects', module: ProjectsModule },
       { path: '/auth', module: AuthModule }
     ]),
-    ProjectsModule, ProfileModule, AuthModule, UsersModule, DashboardModule
+    ProjectsModule, ProfileModule, AuthModule, UsersModule, DashboardModule, DashboardModule
   ],
   controllers: [AppController],
   providers: [AppService]

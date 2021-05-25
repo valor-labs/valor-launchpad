@@ -176,6 +176,7 @@ const data = {
     }
   ],
 
+
   weeklySalesChartData: [
     {
       'name': 'Direct',

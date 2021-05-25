@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardDefaultService } from './dashboard-default.service';
 
-declare type salesRevenueConfig = {
-  multi?: any
-}
-
-
 @Component({
   selector: 'valor-launchpad-dashboard-default',
   templateUrl: './dashboard-default.component.html',
