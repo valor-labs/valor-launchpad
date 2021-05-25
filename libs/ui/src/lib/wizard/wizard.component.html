@@ -1,1 +1,16 @@
-<p>wizard works!</p>
+<ul valor-launchpad-steps [(currentIndex)]='currentIndex'>
+  <li
+    *ngFor='let step of steps; index as i'
+    valor-launchpad-step
+    [mainTitle]='step.mainTitle'
+    [description]='step.description'
+    (click)='jumpTo(i)'
+  ></li>
+</ul>
+<div class='tab-content'>
+  <ng-content></ng-content>
+</div>
+<div class="toolbar toolbar-bottom" role="toolbar" style="text-align: right;">
+  <button class="btn sw-btn-prev" type="button" [disabled]='currentIndex === 0' (click)='prev()'>Previous</button>
+  <button class="btn sw-btn-next" type="button" [disabled]='currentIndex === steps.length - 1' (click)='next()'>Next</button>
+</div>

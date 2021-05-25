@@ -65,6 +65,18 @@ const routes: Routes = [
         path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
       },
       {
+        path: 'forms-advanced-inputs', loadChildren: () => import('./pages/forms-advanced-inputs/forms-advanced-inputs.module').then(m => m.FormsAdvancedInputsModule)
+      },
+      {
+        path: 'forms-editors', loadChildren: () => import('./pages/forms-editors/forms-editors.module').then(m => m.FormsEditorsModule)
+      },
+      {
+        path: 'forms-validation', loadChildren: () => import('./pages/forms-validation/forms-validation.module').then(m => m.FormsValidationModule)
+      },
+      {
+        path: 'forms-wizard', loadChildren: () => import('./pages/forms-wizard/forms-wizard.module').then(m => m.FormsWizardModule)
+      },
+      {
         path: 'font-awesome',
         loadChildren: () => import('./pages/icons-font-awesome/icons-font-awesome.module').then(m => m.IconsFontAwesomeModule)
       },
