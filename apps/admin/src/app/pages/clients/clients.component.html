@@ -5,10 +5,20 @@
     <valor-launchpad-card>
       <div card-header>
         <div class="card-actions float-end">
-          <valor-launchpad-dropdown
-            [actions]="actions"
+         
+          <div class="dropdown show" >
+            <a (click)="clickDropdown1()"  data-bs-toggle="dropdown" data-bs-display="static" >
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
+            </a>
+
+            <valor-launchpad-dropdown
+            [actions]="actions1"
             [direction]="'end'"
-          ></valor-launchpad-dropdown>
+            [show]="dropdown1Show"
+          ></valor-launchpad-dropdown>  
+          </div>
+
+
         </div>
         <h5 class="card-title mb-0">Clients</h5>
       </div>
@@ -27,10 +37,17 @@
     <valor-launchpad-card>
       <div card-header>
         <div class="card-actions float-end">
-          <valor-launchpad-dropdown
-            [actions]="actions"
+          <div class="dropdown show" >
+            <a (click)="clickDropdown2()"  data-bs-toggle="dropdown" data-bs-display="static" >
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
+            </a>
+
+            <valor-launchpad-dropdown
+            [actions]="actions2"
             [direction]="'end'"
-          ></valor-launchpad-dropdown>
+            [show]="dropdown2Show"
+          ></valor-launchpad-dropdown>  
+          </div>
         </div>
         <h5 class="card-title mb-0">{{profile.detail.name}}</h5>
       </div>

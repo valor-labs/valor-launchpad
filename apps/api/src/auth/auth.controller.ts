@@ -1,4 +1,4 @@
-import {Body, Controller, Post, Req, Res, UseGuards} from "@nestjs/common";
+import {Body, Controller, Get, HttpStatus, Post, Req, Res, UseGuards} from "@nestjs/common";
 import {LocalAuthGuard} from "./guards/local-auth-guard";
 import {RequestWithSession} from "../common/RequestWithSession";
 import {AuthService} from "./auth.service";
@@ -17,5 +17,11 @@ export class AuthController {
     req.session.user = loginResponse.user;
     response.cookie('access_token', loginResponse.access_token)
     response.send(await this.authService.login(body));
+  }
+
+  @Get('sign-out')
+  async signOut(@Req() req: RequestWithSession, @Res() response:Response) {
+    response.clearCookie('access_token');
+    response.status(HttpStatus.OK).send({status: 'logout successful'});
   }
 }
