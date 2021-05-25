@@ -4,12 +4,12 @@ import { DashboardEntity } from './dashboard.entity';
 
 define(DashboardEntity, (faker: typeof Faker) => {
   const dashboard = new DashboardEntity();
-  dashboard.dashboardData.totalEarning = faker.random.float().toString();
-  dashboard.dashboardData.totalEarningSinceLastWeek = faker.random.float({ min: 0, max: 10, precision: 2 }).toString();
+  dashboard.dashboardData.totalEarning = faker.random.number().toString();
+  dashboard.dashboardData.totalEarningSinceLastWeek = faker.random.number({ min: 0, max: 10, precision: 2 }).toString();
   dashboard.dashboardData.pendingOrders = faker.random.number(100).toString();
-  dashboard.dashboardData.pendingOrdersSinceLastWeek = faker.random.float({ min: 0, max: 10, precision: 2 }).toString();
-  dashboard.dashboardData.totalRevenue = faker.random.float().toString();
-  dashboard.dashboardData.totalRevenueSinceLastWeek = faker.random.float({ min: 0, max: 10, precision: 2 }).toString();
+  dashboard.dashboardData.pendingOrdersSinceLastWeek = faker.random.number({ min: 0, max: 10, precision: 2 }).toString();
+  dashboard.dashboardData.totalRevenue = faker.random.number().toString();
+  dashboard.dashboardData.totalRevenueSinceLastWeek = faker.random.number({ min: 0, max: 10, precision: 2 }).toString();
 
   dashboard.salesRevenueChartData = [
     {
@@ -215,9 +215,9 @@ define(DashboardEntity, (faker: typeof Faker) => {
   const appointmentsArray = [];
   for (let i = 0; i < appointments; i++) {
     appointmentsArray.push({
-      title: faker.lorem.word(1),
+      title: faker.lorem.words(1),
       timeElapse: `${faker.random.number(60)}m ago`,
-      content: faker.lorem.word(4),
+      content: faker.lorem.words(4),
     })
   }
   dashboard.appointmentsData = appointmentsArray;
@@ -226,7 +226,7 @@ define(DashboardEntity, (faker: typeof Faker) => {
   const latestProjectsArray = [];
   for (let i = 0; i < latestProjects; i++) {
     latestProjectsArray.push({
-      name: faker.system.fileName(),
+      name: faker.system.fileName('.pdf','application/pdf'),
       startDate: faker.date.past(),
       endDate: faker.date.past(),
       status: faker.random.arrayElement(["Done", "Cancelled", "In progress"]),
