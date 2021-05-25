@@ -3,9 +3,12 @@ import {Exclude} from "class-transformer";
 
 @Entity()
 export class UserEntity {
-  constructor(userEntity) {
-    Object.assign(this, userEntity)
+  constructor(userEntity?) {
+    if (typeof userEntity !== 'undefined') {
+      Object.assign(this, userEntity)
+    }
   }
+
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
