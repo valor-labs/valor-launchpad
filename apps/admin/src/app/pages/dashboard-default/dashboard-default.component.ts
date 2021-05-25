@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardDefaultService } from './dashboard-default.service';
 
+declare type salesRevenueConfig = {
+  multi?: any
+}
+
+
 @Component({
   selector: 'valor-launchpad-dashboard-default',
   templateUrl: './dashboard-default.component.html',
@@ -9,8 +14,8 @@ import { DashboardDefaultService } from './dashboard-default.service';
 export class DashboardDefaultComponent implements OnInit {
 
   dashboardData;
+  salesRevenueChartData;
   salesRevenueConfig = {
-    multi: null,
     view: [700, 400],
 
     // options
@@ -28,8 +33,8 @@ export class DashboardDefaultComponent implements OnInit {
       domain: ['#3F80EA', '#84aef2']
     }
   };
+  weeklySalesChartData;
   weeklySalesConfig = {
-    single: null,
     // options
     gradient: false,
     showLegend: false,
@@ -54,8 +59,8 @@ export class DashboardDefaultComponent implements OnInit {
   ngOnInit(): void {
     this.dashboardDefaultService.getData().subscribe((data: any) => {
       this.dashboardData = data.dashboardData;
-      this.salesRevenueConfig.multi = data.salesRevenueData;
-      this.weeklySalesConfig.single = data.weeklySalesData;
+      this.salesRevenueChartData = data.salesRevenueChartData;
+      this.weeklySalesChartData = data.weeklySalesChartData;
       this.weeklySalesTableData = data.weeklySalesTableData;
       this.appointmentsData = data.appointmentsData;
       this.latestProjectsTableData = data.latestProjectsTableData;

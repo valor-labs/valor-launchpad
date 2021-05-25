@@ -17,7 +17,7 @@ const data = {
     totalRevenueSinceLastWeek: '+8.65%'
   },
 
-  salesRevenueData: [
+  salesRevenueChartData: [
     {
       'name': 'January',
       'series': [
@@ -176,7 +176,7 @@ const data = {
     }
   ],
 
-  weeklySalesData: [
+  weeklySalesChartData: [
     {
       'name': 'Direct',
       'value': 2602

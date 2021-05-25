@@ -138,7 +138,7 @@
         <div class='align-self-center chart chart-lg'>
           <ngx-charts-bar-vertical-stacked
             [scheme]='salesRevenueConfig.colorScheme'
-            [results]='salesRevenueConfig.multi'
+            [results]='salesRevenueChartData'
             [gradient]='salesRevenueConfig.gradient'
             [xAxis]='salesRevenueConfig.showXAxis'
             [yAxis]='salesRevenueConfig.showYAxis'
@@ -261,7 +261,7 @@
             <div class='chart chart-xs'>
               <ngx-charts-pie-chart
                 [scheme]='weeklySalesConfig.colorScheme'
-                [results]='weeklySalesConfig.single'
+                [results]='weeklySalesChartData'
                 [gradient]='weeklySalesConfig.gradient'
                 [legend]='weeklySalesConfig.showLegend'
                 [legendPosition]='weeklySalesConfig.legendPosition'
