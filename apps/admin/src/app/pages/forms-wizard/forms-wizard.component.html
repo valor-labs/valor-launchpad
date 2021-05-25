@@ -1,0 +1,46 @@
+<h1 class="h3 mb-3">Wizard</h1>
+
+<div class="row">
+  <div class='col-12 col-xxl-6'>
+    <valor-launchpad-wizard colorTheme='primary' [steps]='steps' [(currentIndex)]='index'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+        Step content {{i}}
+      </div>
+    </valor-launchpad-wizard>
+  </div>
+  <div class='col-12 col-xxl-6'>
+    <valor-launchpad-wizard colorTheme='danger' [steps]='steps' [(currentIndex)]='index'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+        Step content {{i}}
+      </div>
+    </valor-launchpad-wizard>
+  </div>
+  <div class='col-12 col-xxl-6'>
+    <valor-launchpad-wizard colorTheme='success' [steps]='steps' [(currentIndex)]='index'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+        Step content {{i}}
+      </div>
+    </valor-launchpad-wizard>
+  </div>
+  <div class='col-12 col-xxl-6'>
+    <valor-launchpad-wizard styleTheme='arrows' colorTheme='primary' [steps]='steps' [(currentIndex)]='index'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+        Step content {{i}}
+      </div>
+    </valor-launchpad-wizard>
+  </div>
+  <div class='col-12 col-xxl-6'>
+    <valor-launchpad-wizard styleTheme='arrows' colorTheme='danger' [steps]='steps' [(currentIndex)]='index'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+        Step content {{i}}
+      </div>
+    </valor-launchpad-wizard>
+  </div>
+  <div class='col-12 col-xxl-6'>
+    <valor-launchpad-wizard styleTheme='arrows' colorTheme='success' [steps]='steps' [(currentIndex)]='index'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+        Step content {{i}}
+      </div>
+    </valor-launchpad-wizard>
+  </div>
+</div>

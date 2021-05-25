@@ -11,7 +11,8 @@ export class NavigationComponent implements OnInit {
     dashboards: false,
     pages: true,
     auth: true,
-    ui: true
+    ui: true,
+    formPlugins: true,
   };
 
   subMenuCollapseState = {
