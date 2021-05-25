@@ -184,14 +184,22 @@
         Plugin & Addons
       </li>
       <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['formPlugins']}" data-bs-toggle="collapse" routerLinkActive="active">
-        <a data-bs-target="#form-plugins" data-bs-toggle="collapse" class="sidebar-link collapsed" (click)="toggleCollapse('formPlugins')">
+        <a class="sidebar-link" (click)="toggleCollapse('formPlugins')">
           <i class="align-middle fas fa-fw fa-check-square"></i> <span class="align-middle">Form Plugins</span>
         </a>
-        <ul id="form-plugins" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar" [collapse]="menuCollapseState['formPlugins']">
-          <li class="sidebar-item"><a class="sidebar-link" routerLink='forms-advanced-inputs'>Advanced Inputs</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" routerLink='forms-editors'>Editors</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" routerLink='forms-validation'>Validation</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" routerLink='forms-wizard'>Wizard</a></li>
+        <ul id="form-plugins" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['formPlugins']">
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink='forms-advanced-inputs'>Advanced Inputs</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink='forms-editors'>Editors</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink='forms-validation'>Validation</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink='forms-wizard'>Wizard</a>
+          </li>
         </ul>
       </li>
       <li class="sidebar-item">
