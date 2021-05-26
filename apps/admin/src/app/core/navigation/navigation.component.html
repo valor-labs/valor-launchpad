@@ -163,15 +163,23 @@
       <li class="sidebar-item">
         <a class="sidebar-link" routerLink="font-awesome">Font Awesome</a>
       </li>
-      <li class="sidebar-item">
-        <a data-bs-target="#forms" data-bs-toggle="collapse" class="sidebar-link collapsed">
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['forms']}" data-bs-toggle="collapse" routerLinkActive="active">
+        <a class="sidebar-link" (click)="toggleCollapse('forms')">
           <i class="align-middle fas fa-fw fa-check-square"></i> <span class="align-middle">Forms</span>
         </a>
-        <ul id="forms" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="forms-layouts.html">Layouts</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="forms-basic-inputs.html">Basic Inputs</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="forms-input-groups.html">Input Groups</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="forms-floating-labels.html">Floating Labels</a></li>
+        <ul id="forms" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['forms']">
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="forms-layouts">Layouts</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="forms-basic-inputs">Basic Inputs</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="forms-input-groups">Input Groups</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="forms-floating-labels">Floating Labels</a>
+          </li>
         </ul>
       </li>
       <li class="sidebar-item">
