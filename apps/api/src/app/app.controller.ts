@@ -5,6 +5,7 @@ import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 import {AuthService} from "../auth/auth.service";
 import {UsersService} from "../users/users.service";
 import {RequestWithSession} from "../common/RequestWithSession";
+import { AppService } from './app.service';
 
 
 @Controller()

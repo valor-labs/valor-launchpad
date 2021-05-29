@@ -9,6 +9,6 @@ export class DashboardDefaultService {
   }
 
   getData() {
-    return this.httpClient.get(`/api/dashboard/all`)
+    return this.httpClient.get(`/api/dashboard/v1/all`)
   }
 }
