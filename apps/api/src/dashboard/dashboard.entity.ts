@@ -9,12 +9,12 @@ export class DashboardEntity {
 
   @Column({ type: 'json' })
   dashboardData: {
-    totalEarning: string,
-    totalEarningSinceLastWeek: string,
-    pendingOrders: string,
-    pendingOrdersSinceLastWeek: string,
-    totalRevenue: string,
-    totalRevenueSinceLastWeek: string
+    totalEarning: number,
+    totalEarningSinceLastWeek: number,
+    pendingOrders: number,
+    pendingOrdersSinceLastWeek: number,
+    totalRevenue: number,
+    totalRevenueSinceLastWeek: number
   };
 
   @Column({ type: 'json' })

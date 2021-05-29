@@ -4,12 +4,14 @@ import { DashboardEntity } from './dashboard.entity';
 
 define(DashboardEntity, (faker: typeof Faker) => {
   const dashboard = new DashboardEntity();
-  dashboard.dashboardData.totalEarning = faker.random.number().toString();
-  dashboard.dashboardData.totalEarningSinceLastWeek = faker.random.number({ min: 0, max: 10, precision: 2 }).toString();
-  dashboard.dashboardData.pendingOrders = faker.random.number(100).toString();
-  dashboard.dashboardData.pendingOrdersSinceLastWeek = faker.random.number({ min: 0, max: 10, precision: 2 }).toString();
-  dashboard.dashboardData.totalRevenue = faker.random.number().toString();
-  dashboard.dashboardData.totalRevenueSinceLastWeek = faker.random.number({ min: 0, max: 10, precision: 2 }).toString();
+  dashboard.dashboardData = {
+    totalEarning : faker.random.number(100),
+    totalEarningSinceLastWeek : faker.random.number({ min: 0, max: 10, precision: 2 }),
+    pendingOrders : faker.random.number(100),
+    pendingOrdersSinceLastWeek : faker.random.number({ min: 0, max: 10, precision: 2 }),
+    totalRevenue : faker.random.number(100),
+    totalRevenueSinceLastWeek : faker.random.number({ min: 0, max: 10, precision: 2 })
+  };
 
   dashboard.salesRevenueChartData = [
     {
@@ -211,7 +213,7 @@ define(DashboardEntity, (faker: typeof Faker) => {
     type: 'fas fa-square-full text-dark'
   }];
 
-  const appointments = faker.random.number(4);
+  const appointments = faker.random.number({min: 2, max: 5});
   const appointmentsArray = [];
   for (let i = 0; i < appointments; i++) {
     appointmentsArray.push({
@@ -222,7 +224,7 @@ define(DashboardEntity, (faker: typeof Faker) => {
   }
   dashboard.appointmentsData = appointmentsArray;
 
-  const latestProjects = faker.random.number(4);
+  const latestProjects = faker.random.number({min: 2, max: 4});
   const latestProjectsArray = [];
   for (let i = 0; i < latestProjects; i++) {
     latestProjectsArray.push({

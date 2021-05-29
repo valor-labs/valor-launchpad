@@ -22,6 +22,7 @@ import { DashboardModule } from '../dashboard/dashboard.module';
       synchronize: process.env.TYPEORM_SYNCHRONIZE as any as boolean
     }),
     RouterModule.forRoutes([
+      { path: '/dashboard', module: DashboardModule },
       { path: '/profile', module: ProfileModule },
       { path: '/projects', module: ProjectsModule },
       { path: '/auth', module: AuthModule }

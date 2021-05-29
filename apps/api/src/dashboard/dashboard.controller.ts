@@ -1,15 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
 import { DashboardService } from './dashboard.service';
+import { DashboardEntity } from './dashboard.entity';
 
-@Controller('dashboard')
+@Controller('v1')
 export class DashboardController {
 
   constructor(public dashboardService: DashboardService) {
   }
 
   @Get('all')
-  async getAllData(): Promise<any> {
-    return this.dashboardService.getData();
+  async getAllData(): Promise<DashboardEntity> {
+    return await this.dashboardService.getData();
   }
 
 
