@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardAnalyticsService } from './dashboard-analytics.service';
 
 @Component({
   selector: 'valor-launchpad-dashboard-analytics',
@@ -7,180 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardAnalyticsComponent implements OnInit {
 
-
-  analyticsInfo = {
-    bounceData: '2.364',
-    bounceSinceLastWeek: '+3.65%',
-    realTimeData: '1.856',
-    realTimeSinceLastWeek: '+2.25%',
-    visitorsData: '17.212',
-    visitorsSinceLastWeek: '-1.25%'
-  };
-
-  languagesData = [{
-    language: 'en-us',
-    users: '735',
-    percentage: '43%'
-  }];
-
-  mobileDesktopChartData = [
-    {
-      'name': 'January',
-      'series': [
-        {
-          'name': '2019',
-          'value': 100
-        },
-        {
-          'name': '2020',
-          'value': 120
-        }
-      ]
-    },
-    {
-      'name': 'February',
-      'series': [
-        {
-          'name': '2019',
-          'value': 90
-        },
-        {
-          'name': '2020',
-          'value': 70
-        }
-      ]
-    },
-    {
-      'name': 'March',
-      'series': [
-        {
-          'name': '2019',
-          'value': 50
-        },
-        {
-          'name': '2020',
-          'value': 140
-        }
-      ]
-    },
-    {
-      'name': 'April',
-      'series': [
-        {
-          'name': '2019',
-          'value': 90
-        },
-        {
-          'name': '2020',
-          'value': 20
-        }
-      ]
-    },
-    {
-      'name': 'May',
-      'series': [
-        {
-          'name': '2019',
-          'value': 40
-        },
-        {
-          'name': '2020',
-          'value': 40
-        }
-      ]
-    },
-    {
-      'name': 'June',
-      'series': [
-        {
-          'name': '2019',
-          'value': 10
-        },
-        {
-          'name': '2020',
-          'value': 110
-        }
-      ]
-    },
-    {
-      'name': 'July',
-      'series': [
-        {
-          'name': '2019',
-          'value': 30
-        },
-        {
-          'name': '2020',
-          'value': 60
-        }
-      ]
-    },
-    {
-      'name': 'August',
-      'series': [
-        {
-          'name': '2019',
-          'value': 50
-        },
-        {
-          'name': '2020',
-          'value': 50
-        }
-      ]
-    },
-    {
-      'name': 'September',
-      'series': [
-        {
-          'name': '2019',
-          'value': 60
-        },
-        {
-          'name': '2020',
-          'value': 20
-        }
-      ]
-    },
-    {
-      'name': 'October',
-      'series': [
-        {
-          'name': '2019',
-          'value': 80
-        },
-        {
-          'name': '2020',
-          'value': 10
-        }
-      ]
-    },
-    {
-      'name': 'November',
-      'series': [
-        {
-          'name': '2019',
-          'value': 40
-        },
-        {
-          'name': '2020',
-          'value': 5
-        }
-      ]
-    },
-    {
-      'name': 'December',
-      'series': [
-        {
-          'name': '2019',
-          'value': 80
-        },
-        {
-          'name': '2020',
-          'value': 30
-        }
-      ]
-    }
-  ];
   mobileDesktopConfig = {
     view: [700, 400],
 
@@ -283,25 +110,6 @@ export class DashboardAnalyticsComponent implements OnInit {
       domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
     }
   };
-
-  sourceMediumData = [
-    {
-      'name': 'Direct',
-      'value': 2602
-    },
-    {
-      'name': 'Affiliate',
-      'value': 1253
-    },
-    {
-      'name': 'E-mail',
-      'value': 541
-    },
-    {
-      'name': 'Other',
-      'value': 1465
-    }
-  ];
   sourceMediumConfig = {
     // options
     gradient: false,
@@ -314,26 +122,28 @@ export class DashboardAnalyticsComponent implements OnInit {
       domain: ['#3F80EA', '#E5A54B', '#d9534f', '#293042']
     }
   };
-  sourceMediumTableData = [{
-    source: "Direct",
-    revenue: "2602",
-    value: "+43%",
-    type: "fas fa-square-full text-primary"
-  }]
 
-  trafficTableData = [{
-    source: "Google",
-    users: "1023",
-    sessions: "1265",
-    bounceRate: "27.23%",
-    duration: "00:06:25"
-  }]
+  analyticsInfo;
+  languagesData;
+  mobileDesktopChartData;
+  sourceMediumChartData;
+  sourceMediumTableData;
+  trafficTableData;
 
 
-  constructor() {
+  constructor(
+    private dashboardAnalyticsService: DashboardAnalyticsService
+  ) {
   }
 
   ngOnInit(): void {
+    const data = this.dashboardAnalyticsService.getData();
+    this.analyticsInfo = data.analyticsInfo;
+    this.languagesData = data.languagesData;
+    this.mobileDesktopChartData = data.mobileDesktopChartData;
+    this.sourceMediumChartData = data.sourceMediumChartData;
+    this.sourceMediumTableData = data.sourceMediumTableData;
+    this.trafficTableData = data.trafficTableData;
   }
 
 }
