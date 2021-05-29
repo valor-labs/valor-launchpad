@@ -6,7 +6,7 @@ import {HELPERS} from "../../seed_helpers/data";
 define(ProjectsEntity, (faker: typeof Faker) => {
   const project = new ProjectsEntity();
   project.id = faker.random.uuid();
-  project.title = faker.lorem.word(1);
+  project.title = faker.lorem.words(1);
   project.body = faker.lorem.text(4);
   project.badge = {
     title: faker.random.arrayElement(["Finished", "In Progress", "Finished"]),
