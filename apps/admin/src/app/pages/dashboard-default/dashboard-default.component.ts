@@ -1,170 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DashboardDefaultService } from './dashboard-default.service';
 
 @Component({
   selector: 'valor-launchpad-dashboard-default',
   templateUrl: './dashboard-default.component.html',
-  styleUrls: ['./dashboard-default.component.scss'],
+  styleUrls: ['./dashboard-default.component.scss']
 })
 export class DashboardDefaultComponent implements OnInit {
+
+  dashboardData;
+  salesRevenueChartData;
   salesRevenueConfig = {
-    multi: [
-      {
-        "name": "January",
-        "series": [
-          {
-            "name": "2019",
-            "value": 100
-          },
-          {
-            "name": "2020",
-            "value": 120
-          }
-        ]
-      },
-      {
-        "name": "February",
-        "series": [
-          {
-            "name": "2019",
-            "value": 90
-          },
-          {
-            "name": "2020",
-            "value": 70
-          }
-        ]
-      },
-      {
-        "name": "March",
-        "series": [
-          {
-            "name": "2019",
-            "value": 50
-          },
-          {
-            "name": "2020",
-            "value": 140
-          }
-        ]
-      },
-      {
-        "name": "April",
-        "series": [
-          {
-            "name": "2019",
-            "value": 90
-          },
-          {
-            "name": "2020",
-            "value": 20
-          }
-        ]
-      },
-      {
-        "name": "May",
-        "series": [
-          {
-            "name": "2019",
-            "value": 40
-          },
-          {
-            "name": "2020",
-            "value": 40
-          }
-        ]
-      },
-      {
-        "name": "June",
-        "series": [
-          {
-            "name": "2019",
-            "value": 10
-          },
-          {
-            "name": "2020",
-            "value": 110
-          }
-        ]
-      },
-      {
-        "name": "July",
-        "series": [
-          {
-            "name": "2019",
-            "value": 30
-          },
-          {
-            "name": "2020",
-            "value": 60
-          }
-        ]
-      },
-      {
-        "name": "August",
-        "series": [
-          {
-            "name": "2019",
-            "value": 50
-          },
-          {
-            "name": "2020",
-            "value": 50
-          }
-        ]
-      },
-      {
-        "name": "September",
-        "series": [
-          {
-            "name": "2019",
-            "value": 60
-          },
-          {
-            "name": "2020",
-            "value": 20
-          }
-        ]
-      },
-      {
-        "name": "October",
-        "series": [
-          {
-            "name": "2019",
-            "value": 80
-          },
-          {
-            "name": "2020",
-            "value": 10
-          }
-        ]
-      },
-      {
-        "name": "November",
-        "series": [
-          {
-            "name": "2019",
-            "value": 40
-          },
-          {
-            "name": "2020",
-            "value": 5
-          }
-        ]
-      },
-      {
-        "name": "December",
-        "series": [
-          {
-            "name": "2019",
-            "value": 80
-          },
-          {
-            "name": "2020",
-            "value": 30
-          }
-        ]
-      }
-    ],
     view: [700, 400],
 
     // options
@@ -181,27 +27,9 @@ export class DashboardDefaultComponent implements OnInit {
     colorScheme: {
       domain: ['#3F80EA', '#84aef2']
     }
-  }
-
+  };
+  weeklySalesChartData;
   weeklySalesConfig = {
-    single: [
-      {
-        "name": "Direct",
-        "value": 2602
-      },
-      {
-        "name": "Affiliate",
-        "value": 1253
-      },
-      {
-        "name": "E-mail",
-        "value": 541
-      },
-      {
-        "name": "Other",
-        "value": 1465
-      }
-    ],
     // options
     gradient: false,
     showLegend: false,
@@ -212,13 +40,26 @@ export class DashboardDefaultComponent implements OnInit {
     colorScheme: {
       domain: ['#3F80EA', '#E5A54B', '#d9534f', '#293042']
     }
-  }
+  };
+  weeklySalesTableData;
   bsInlineValue = new Date();
+  appointmentsData;
+  latestProjectsTableData;
 
-  constructor() {
+  constructor(
+    private dashboardDefaultService: DashboardDefaultService
+  ) {
   }
 
   ngOnInit(): void {
+    this.dashboardDefaultService.getData().subscribe((data: any) => {
+      this.dashboardData = data.dashboardData;
+      this.salesRevenueChartData = data.salesRevenueChartData;
+      this.weeklySalesChartData = data.weeklySalesChartData;
+      this.weeklySalesTableData = data.weeklySalesTableData;
+      this.appointmentsData = data.appointmentsData;
+      this.latestProjectsTableData = data.latestProjectsTableData;
+    })
   }
 
 }
