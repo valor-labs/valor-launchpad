@@ -12,6 +12,7 @@ export class NavigationComponent implements OnInit {
     pages: true,
     auth: true,
     ui: true,
+    forms: true,
     formPlugins: true,
   };
 

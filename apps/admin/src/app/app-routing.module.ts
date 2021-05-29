@@ -65,6 +65,18 @@ const routes: Routes = [
         path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
       },
       {
+        path: 'forms-layouts', loadChildren: () => import('./pages/forms-layouts/forms-layouts.module').then(m => m.FormsLayoutsModule)
+      },
+      {
+        path: 'forms-basic-inputs', loadChildren: () => import('./pages/forms-basic-inputs/forms-basic-inputs.module').then(m => m.FormsBasicInputsModule)
+      },
+      {
+        path: 'forms-input-groups', loadChildren: () => import('./pages/forms-input-groups/forms-input-groups.module').then(m => m.FormsInputGroupsModule)
+      },
+      {
+        path: 'forms-floating-labels', loadChildren: () => import('./pages/forms-floating-labels/forms-floating-labels.module').then(m => m.FormsFloatingLabelsModule)
+      },
+      {
         path: 'forms-advanced-inputs', loadChildren: () => import('./pages/forms-advanced-inputs/forms-advanced-inputs.module').then(m => m.FormsAdvancedInputsModule)
       },
       {
