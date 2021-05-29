@@ -136,14 +136,15 @@ export class DashboardAnalyticsComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-    const data = this.dashboardAnalyticsService.getData();
-    this.analyticsInfo = data.analyticsInfo;
-    this.languagesData = data.languagesData;
-    this.mobileDesktopChartData = data.mobileDesktopChartData;
-    this.sourceMediumChartData = data.sourceMediumChartData;
-    this.sourceMediumTableData = data.sourceMediumTableData;
-    this.trafficTableData = data.trafficTableData;
+  ngOnInit() {
+    this.dashboardAnalyticsService.getData().subscribe((data: any) => {
+      this.analyticsInfo = data.analyticsInfo;
+      this.languagesData = data.languagesData;
+      this.mobileDesktopChartData = data.mobileDesktopChartData;
+      this.sourceMediumChartData = data.sourceMediumChartData;
+      this.sourceMediumTableData = data.sourceMediumTableData;
+      this.trafficTableData = data.trafficTableData;
+    });
   }
 
 }

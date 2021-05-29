@@ -7,7 +7,8 @@ import { ProfileModule } from '../profile/profile.module';
 import { AuthModule } from '../auth/auth.module';
 import { UsersModule } from '../users/users.module';
 import { RouterModule } from 'nest-router';
-import { DashboardModule } from '../dashboard/dashboard.module';
+import { DashboardModule } from '../dashboard/dashboard-default/dashboard.module';
+import { DashboardAnalyticsModule } from '../dashboard/dashboard-analytics/dashboard-analytics.module';
 
 @Module({
   imports: [
@@ -23,11 +24,12 @@ import { DashboardModule } from '../dashboard/dashboard.module';
     }),
     RouterModule.forRoutes([
       { path: '/dashboard', module: DashboardModule },
+      { path: '/dashboard-analytics', module: DashboardAnalyticsModule },
       { path: '/profile', module: ProfileModule },
       { path: '/projects', module: ProjectsModule },
       { path: '/auth', module: AuthModule }
     ]),
-    ProjectsModule, ProfileModule, AuthModule, UsersModule, DashboardModule, DashboardModule
+    ProjectsModule, ProfileModule, AuthModule, UsersModule, DashboardModule, DashboardModule, DashboardAnalyticsModule
   ],
   controllers: [AppController],
   providers: [AppService]
