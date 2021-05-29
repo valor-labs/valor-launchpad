@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Action} from '@valor-launchpad/api-interfaces';
 import {AuthService} from "../auth/auth.service";
+import { Action } from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-header',

@@ -61,11 +61,11 @@
 
                 <div class="col-auto">
                   <div class="stat stat-sm">
-                    <i class="align-middle" data-feather="arrow-up-right"></i>
+                    <i class="align-middle fas fa-arrow-up" data-feather="arrow-up-right"></i>
                   </div>
                 </div>
               </div>
-              <span class="h1 d-inline-block mt-1 mb-4">2.364</span>
+              <span class="h1 d-inline-block mt-1 mb-4">2.3647</span>
               <div class="mb-0">
                 <span class="badge badge-soft-success me-2"> <i class="mdi mdi-arrow-bottom-right"></i> +3.65% </span>
                 <span class="text-muted">Since last week</span>
@@ -144,7 +144,7 @@
       </div>
       <div class="card-body p-2">
         <div id="world_map" style="height:279px;">
-<!--          @todo need refactor the UI here -->
+          <!--          @todo need refactor the UI here -->
         </div>
       </div>
     </div>
@@ -179,68 +179,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>en-us</td>
-          <td class="text-end">735</td>
+        <tr *ngFor="let item of languagesData">
+          <td>{{item.language}}</td>
+          <td class="text-end">{{item.users}}</td>
           <td class="d-none d-xl-table-cell">
             <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 43%;" aria-valuenow="43"
-                   aria-valuemin="0" aria-valuemax="100">43%
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>en-gb</td>
-          <td class="text-end">223</td>
-          <td class="d-none d-xl-table-cell">
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 27%;" aria-valuenow="27"
-                   aria-valuemin="0" aria-valuemax="100">27%
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>fr-fr</td>
-          <td class="text-end">181</td>
-          <td class="d-none d-xl-table-cell">
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 22%;" aria-valuenow="22"
-                   aria-valuemin="0" aria-valuemax="100">22%
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>es-es</td>
-          <td class="text-end">132</td>
-          <td class="d-none d-xl-table-cell">
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 16%;" aria-valuenow="16"
-                   aria-valuemin="0" aria-valuemax="100">16%
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>de-de</td>
-          <td class="text-end">118</td>
-          <td class="d-none d-xl-table-cell">
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 15%;" aria-valuenow="15"
-                   aria-valuemin="0" aria-valuemax="100">15%
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>ru-ru</td>
-          <td class="text-end">98</td>
-          <td class="d-none d-xl-table-cell">
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 13%;" aria-valuenow="13"
-                   aria-valuemin="0" aria-valuemax="100">13%
+              <div class="progress-bar bg-primary" role="progressbar" [style.width.px]="item.percentage" aria-valuenow="{{item.percentage}}" aria-valuemin="0" aria-valuemax="100">{{item.percentage}}
               </div>
             </div>
           </td>
@@ -272,7 +216,7 @@
         <div class="align-self-center chart">
           <ngx-charts-bar-vertical-stacked
             [scheme]="mobileDesktopConfig.colorScheme"
-            [results]="mobileDesktopConfig.multi"
+            [results]="mobileDesktopChartData"
             [gradient]="mobileDesktopConfig.gradient"
             [xAxis]="mobileDesktopConfig.showXAxis"
             [yAxis]="mobileDesktopConfig.showYAxis"
@@ -348,7 +292,7 @@
             <div class="chart chart-xs">
               <ngx-charts-pie-chart
                 [scheme]="sourceMediumConfig.colorScheme"
-                [results]="sourceMediumConfig.single"
+                [results]="sourceMediumData"
                 [gradient]="sourceMediumConfig.gradient"
                 [legend]="sourceMediumConfig.showLegend"
                 [legendPosition]="sourceMediumConfig.legendPosition"
@@ -367,25 +311,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td><i class="fas fa-square-full text-primary"></i> Direct</td>
-              <td class="text-end">$ 2602</td>
-              <td class="text-end text-success">+43%</td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-square-full text-warning"></i> Affiliate</td>
-              <td class="text-end">$ 1253</td>
-              <td class="text-end text-success">+13%</td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-square-full text-danger"></i> E-mail</td>
-              <td class="text-end">$ 541</td>
-              <td class="text-end text-success">+24%</td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-square-full text-dark"></i> Other</td>
-              <td class="text-end">$ 1465</td>
-              <td class="text-end text-success">+11%</td>
+            <tr *ngFor="let item of sourceMediumTableData">
+              <td><i class="{{item.type}}"></i> {{item.source}}</td>
+              <td class="text-end">$ {{item.revenue}}</td>
+              <td class="text-end text-success">{{item.value}}</td>
             </tr>
             </tbody>
           </table>
@@ -422,61 +351,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>Google</td>
-          <td class="text-end">1023</td>
-          <td class="d-none d-xl-table-cell text-end">1265</td>
-          <td class="d-none d-xl-table-cell text-end text-success">27.23%</td>
-          <td class="d-none d-xl-table-cell text-end">00:06:25</td>
-        </tr>
-        <tr>
-          <td>Bing</td>
-          <td class="text-end">504</td>
-          <td class="d-none d-xl-table-cell text-end">623</td>
-          <td class="d-none d-xl-table-cell text-end text-danger">66.76%</td>
-          <td class="d-none d-xl-table-cell text-end">00:04:42</td>
-        </tr>
-        <tr>
-          <td>Twitter</td>
-          <td class="text-end">462</td>
-          <td class="d-none d-xl-table-cell text-end">571</td>
-          <td class="d-none d-xl-table-cell text-end text-success">31.53%</td>
-          <td class="d-none d-xl-table-cell text-end">00:08:05</td>
-        </tr>
-        <tr>
-          <td>Pinterest</td>
-          <td class="text-end">623</td>
-          <td class="d-none d-xl-table-cell text-end">770</td>
-          <td class="d-none d-xl-table-cell text-end text-danger">52.81%</td>
-          <td class="d-none d-xl-table-cell text-end">00:03:10</td>
-        </tr>
-        <tr>
-          <td>Facebook</td>
-          <td class="text-end">812</td>
-          <td class="d-none d-xl-table-cell text-end">1003</td>
-          <td class="d-none d-xl-table-cell text-end text-success">24.83%</td>
-          <td class="d-none d-xl-table-cell text-end">00:05:56</td>
-        </tr>
-        <tr>
-          <td>DuckDuckGo</td>
-          <td class="text-end">693</td>
-          <td class="d-none d-xl-table-cell text-end">856</td>
-          <td class="d-none d-xl-table-cell text-end text-success">37.36%</td>
-          <td class="d-none d-xl-table-cell text-end">00:09:12</td>
-        </tr>
-        <tr>
-          <td>GitHub</td>
-          <td class="text-end">713</td>
-          <td class="d-none d-xl-table-cell text-end">881</td>
-          <td class="d-none d-xl-table-cell text-end text-success">38.09%</td>
-          <td class="d-none d-xl-table-cell text-end">00:06:19</td>
-        </tr>
-        <tr>
-          <td>Direct</td>
-          <td class="text-end">872</td>
-          <td class="d-none d-xl-table-cell text-end">1077</td>
-          <td class="d-none d-xl-table-cell text-end text-success">32.70%</td>
-          <td class="d-none d-xl-table-cell text-end">00:09:18</td>
+        <tr *ngFor="let item of trafficTableData">
+          <td>{{item.source}}</td>
+          <td class="text-end">{{item.users}}</td>
+          <td class="d-none d-xl-table-cell text-end">{{item.sessions}}</td>
+          <td class="d-none d-xl-table-cell text-end text-success">{{item.bounceRate}}</td>
+          <td class="d-none d-xl-table-cell text-end">{{item.duration}}</td>
         </tr>
         </tbody>
       </table>
