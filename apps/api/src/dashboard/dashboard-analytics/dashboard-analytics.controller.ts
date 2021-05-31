@@ -4,12 +4,12 @@ import { DashboardAnalyticsService } from './dashboard-analytics.service';
 @Controller('v1')
 export class DashboardAnalyticsController {
 
-  constructor(public dashboardAnalyticsService:DashboardAnalyticsService) {
+  constructor(public dashboardAnalyticsService: DashboardAnalyticsService) {
   }
 
   @Get('all')
-  getAllData() {
-    return this.dashboardAnalyticsService.getData();
+  async getAllData() {
+    return await this.dashboardAnalyticsService.getData();
   }
 
 }
