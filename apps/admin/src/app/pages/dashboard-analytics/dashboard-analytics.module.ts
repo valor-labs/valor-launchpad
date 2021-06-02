@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardAnalyticsRoutingModule } from './dashboard-analytics-routing.module';
+import { DashboardAnalyticsService } from './dashboard-analytics.service';
 
 
 @NgModule({
@@ -9,6 +10,7 @@ import { DashboardAnalyticsRoutingModule } from './dashboard-analytics-routing.m
   imports: [
     CommonModule,
     DashboardAnalyticsRoutingModule
-  ]
+  ],
+  providers: [DashboardAnalyticsService]
 })
 export class DashboardAnalyticsModule { }
