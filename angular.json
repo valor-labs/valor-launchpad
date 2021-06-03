@@ -235,6 +235,52 @@
           }
         }
       }
+    },
+    "stripe-api": {
+      "root": "libs/stripe-api",
+      "sourceRoot": "libs/stripe-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/stripe-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/stripe-api"],
+          "options": {
+            "jestConfig": "libs/stripe-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "stripe-ui": {
+      "projectType": "library",
+      "root": "libs/stripe-ui",
+      "sourceRoot": "libs/stripe-ui/src",
+      "prefix": "valor-launchpad",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/stripe-ui/src/**/*.ts",
+              "libs/stripe-ui/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/stripe-ui"],
+          "options": {
+            "jestConfig": "libs/stripe-ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }
