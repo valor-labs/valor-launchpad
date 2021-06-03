@@ -1,7 +1,7 @@
 import * as compression from 'compression';
 import {Logger, ValidationPipe} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
-
+import * as bodyParser from 'body-parser'
 import {AppModule} from './app/app.module';
 import * as dotenv from "dotenv";
 import * as connectRedis from 'connect-redis';
@@ -21,6 +21,17 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+
+  const rawBodyBuffer = (req, res, buffer, encoding) => {
+    if (!req.headers['stripe-signature']) { return; }
+
+    if (buffer && buffer.length) {
+      req.rawBody = buffer.toString(encoding || 'utf8');
+    }
+  };
+
+  app.use(bodyParser.urlencoded({ verify: rawBodyBuffer, extended: true }));
+  app.use(bodyParser.json({ verify: rawBodyBuffer }));
 
   app.use(compression());
   app.use(cookieParser());

@@ -30,7 +30,8 @@
     "seed:config": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm-seeding/dist/cli.js config --root ./apps/api",
     "seed:run": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm-seeding/dist/cli.js seed --root ./apps/api",
     "schema:drop": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm/cli.js schema:drop -f ./apps/api/.env",
-    "schema:sync": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm/cli.js schema:sync -f ./apps/api/.env"
+    "schema:sync": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm/cli.js schema:sync -f ./apps/api/.env",
+    "stripe:listen": "stripe listen --forward-to localhost:3333/api/stripe/v1/hooks"
   },
   "private": true,
   "dependencies": {
