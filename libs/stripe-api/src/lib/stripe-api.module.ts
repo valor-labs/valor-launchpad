@@ -1,8 +1,12 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
+import {StripeController} from './stripe.controller';
+import {StripeHooksController} from './stripe_hooks.controller';
 
 @Module({
-  controllers: [],
+  controllers: [StripeController, StripeHooksController],
   providers: [],
   exports: [],
 })
-export class StripeApiModule {}
+export class StripeApiModule {
+
+}

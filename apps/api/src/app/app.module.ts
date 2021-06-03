@@ -9,6 +9,7 @@ import { UsersModule } from '../users/users.module';
 import { RouterModule } from 'nest-router';
 import { DashboardModule } from '../dashboard/dashboard-default/dashboard.module';
 import { DashboardAnalyticsModule } from '../dashboard/dashboard-analytics/dashboard-analytics.module';
+import {StripeApiModule} from '@valor-launchpad/stripe-api';
 
 @Module({
   imports: [
@@ -27,9 +28,10 @@ import { DashboardAnalyticsModule } from '../dashboard/dashboard-analytics/dashb
       { path: '/dashboard-analytics', module: DashboardAnalyticsModule },
       { path: '/profile', module: ProfileModule },
       { path: '/projects', module: ProjectsModule },
-      { path: '/auth', module: AuthModule }
+      { path: '/auth', module: AuthModule },
+      { path: '/stripe', module: StripeApiModule}
     ]),
-    ProjectsModule, ProfileModule, AuthModule, UsersModule, DashboardModule, DashboardModule, DashboardAnalyticsModule
+    ProjectsModule, ProfileModule, AuthModule, UsersModule, DashboardModule, DashboardModule, DashboardAnalyticsModule, StripeApiModule
   ],
   controllers: [AppController],
   providers: [AppService]
