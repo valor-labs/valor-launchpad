@@ -34,6 +34,9 @@ import { StepsComponent } from './wizard/steps/steps.component';
 import { StepComponent } from './wizard/step/step.component';
 import {AlertModule} from "ngx-bootstrap/alert";
 import {ProgressbarModule} from "ngx-bootstrap/progressbar";
+import { RadioComponent } from './radio/radio.component';
+import { RadioGroupComponent } from './radio/radio-group.component';
+import { SwitchComponent } from './switch/switch.component';
 
 @NgModule({
     imports: [CommonModule, AlertModule, ProgressbarModule],
@@ -70,6 +73,9 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     CheckboxGroupComponent,
     StepsComponent,
     StepComponent,
+    RadioComponent,
+    RadioGroupComponent,
+    SwitchComponent,
   ],
   exports: [
     AlertComponent,
@@ -83,6 +89,9 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     WizardComponent,
     StepsComponent,
     StepComponent,
+    RadioComponent,
+    RadioGroupComponent,
+    SwitchComponent,
   ],
 })
 export class UiModule {}
