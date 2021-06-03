@@ -7,7 +7,7 @@ export class StripeHooksController {
   stripe: Stripe;
   endpointSecret='whsec_CfYnVo8i3Q6h40NAxfmMvwIGTsEdBDmb';
   constructor() {
-    this.stripe = new Stripe('pk_test_51IyGuEAcm152H20WJusvJbWOGaqsdj4TXzS0cQtSEHD3jE9GGQJ0hay5Tn8i5h3IL8TShk4XKd5VghIKlHxo2gvT00IDgRx1Bu',
+    this.stripe = new Stripe('sk_test_51IyGuEAcm152H20W2X1CYZjtI2PAamDitY4gBlLVkoT8LeYc1WA3xT6dBCz1rOLmFEMfrqzo0AopbMwO6wVdxIvn00T63xshwx',
       {apiVersion: '2020-08-27'})
   }
 
@@ -25,10 +25,10 @@ export class StripeHooksController {
     }
     switch (event.type) {
       case 'payment_intent.created':
-        console.log('Payment Intent Event')
+        console.log('Payment Intent Event');
         break;
       default:
-        console.log(`Unhandled event type ${event.type}`)
+        console.log(`Unhandled event type ${event.type}`);
     }
     response.send(event);
   }
