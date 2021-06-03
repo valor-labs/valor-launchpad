@@ -37,6 +37,7 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
 import { RadioComponent } from './radio/radio.component';
 import { RadioGroupComponent } from './radio/radio-group.component';
 import { SwitchComponent } from './switch/switch.component';
+import { InputDirective } from './input/input.directive';
 
 @NgModule({
     imports: [CommonModule, AlertModule, ProgressbarModule],
@@ -76,6 +77,7 @@ import { SwitchComponent } from './switch/switch.component';
     RadioComponent,
     RadioGroupComponent,
     SwitchComponent,
+    InputDirective,
   ],
   exports: [
     AlertComponent,
@@ -92,6 +94,7 @@ import { SwitchComponent } from './switch/switch.component';
     RadioComponent,
     RadioGroupComponent,
     SwitchComponent,
+    InputDirective,
   ],
 })
 export class UiModule {}
