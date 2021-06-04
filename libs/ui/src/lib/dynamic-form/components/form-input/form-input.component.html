@@ -1,0 +1,11 @@
+<!--<div class="dynamic-field form-input" [formGroup]="group">-->
+<div [formGroup]="group"
+     [ngClass]="{'mb-3': config.subtype=='text', 'mb-3 form-check': config.subtype=='checkbox'|| config.subtype == 'radio'}"
+>
+  <label
+    [ngClass]="{'form-label': config.subtype=='text', 'form-check-label': config.subtype=='checkbox'|| config.subtype == 'radio'}">{{ config.label }}</label>
+  <input [ngClass]="{'form-control': config.subtype=='text', 'form-check-input': config.subtype=='checkbox'|| config.subtype == 'radio'}"
+         [type]="config.subtype || 'text'"
+         [attr.placeholder]="config.placeholder"
+         [formControlName]="config.name">
+</div>
