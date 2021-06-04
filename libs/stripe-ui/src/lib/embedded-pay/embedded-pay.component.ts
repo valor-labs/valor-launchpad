@@ -29,9 +29,13 @@ export class EmbeddedPayComponent implements OnInit {
   live = false;
   elements;
   card;
+  zipspan = 'ZIP';
+  zipplaceholder = '94103';
+  config;
 
   constructor(private readonly elementRef: ElementRef,
               private renderer: Renderer2, private formBuilder: FormBuilder) {
+    this.config = CONFIG;
     this.displayPaymentSummary();
     this.createPaymentIntent(CONFIG.currency, this.lineItems);
   }
@@ -48,9 +52,75 @@ export class EmbeddedPayComponent implements OnInit {
       city: '',
       state: '',
       postal_code: '',
-      country: 'US'
+      country: 'US',
+      payment: 'card'
+    })
+    this.addressForm.get('country').valueChanges.subscribe(newCountry => {
+      this.selectCountry(newCountry)
     })
   }
+
+  selectCountry(country) {
+    //update currency if there's a currency for that country
+    //TODO: Do i need to do more here, where to find these?
+    if (country === 'AU') {
+      this.activeCurrency = 'aud';
+    } else {
+      this.activeCurrency = CONFIG.currency;
+    }
+
+    // Trigger the methods to show relevant fields and payment methods on page load.
+    this.showRelevantFormFields(country);
+    this.showRelevantPaymentMethods(country);
+  };
+
+  showRelevantPaymentMethods(country) {
+  //  TODO: Make this filter based on the payment providers available for currency
+  };
+
+  showRelevantFormFields(country) {
+    // const zipLabel = form.querySelector('label.zip');
+    // // Only show the state input for the United States.
+    // zipLabel.parentElement.classList.toggle(
+    //   'with-state',
+    //   ['AU', 'US'].includes(country)
+    // );
+    // Update the ZIP label to make it more relevant for each country.
+    // TODO: This should also update the formatting
+    switch (country) {
+      case 'US':
+        this.zipspan = 'ZIP';
+        this.zipplaceholder = '94103';
+        break;
+      case 'GB':
+        this.zipspan = 'Postcode';
+        this.zipplaceholder = 'EC1V 9NR';
+        break;
+      case 'AU':
+        this.zipspan = 'Postcode';
+        this.zipplaceholder = '3000';
+        break;
+      default:
+        this.zipspan = 'Postal Code';
+        this.zipplaceholder = '94103';
+        break;
+    }
+
+    // // Update the 'City' to appropriate name
+    // TODO: Add this back
+    // const cityInput = form.querySelector('label.city input');
+    // const citySpan = form.querySelector('label.city span');
+    // switch (country) {
+    //   case 'AU':
+    //     citySpan.innerText = 'City / Suburb';
+    //     cityInput.placeholder = 'Melbourne';
+    //     break;
+    //   default:
+    //     citySpan.innerText = 'City';
+    //     cityInput.placeholder = 'San Francisco';
+    //     break;
+    // }
+  };
 
   ngOnInit(): void {
     this.buildForm();
@@ -189,9 +259,8 @@ export class EmbeddedPayComponent implements OnInit {
 //   }
 
   async submit() {
-    // const payment = this.addressForm.controls['payment'].value();
+    const payment = this.addressForm.controls['payment'].value;
     //TODO: remove this hardcoding
-    const payment = 'card';
     const name = this.addressForm.controls['name'].value;
     const country = this.addressForm.controls['country'].value;
     const email = this.addressForm.controls['email'].value;
@@ -540,7 +609,7 @@ export class EmbeddedPayComponent implements OnInit {
   };
 
   /**
-   * Check if the PaymentIntent is in a "terminal" status
+   * Check if the PaymentIntent is in a 'terminal' status
    * and therefore if we should show an error in the UI
    */
   paymentIntentTerminalState({status, last_payment_error}) {
@@ -807,159 +876,159 @@ export class EmbeddedPayComponent implements OnInit {
 
 const PRODUCTS = [
   {
-    "id": "pins",
-    "object": "product",
-    "active": true,
-    "attributes": [
-      "set"
+    'id': 'pins',
+    'object': 'product',
+    'active': true,
+    'attributes': [
+      'set'
     ],
-    "caption": null,
-    "created": 1513848330,
-    "deactivate_on": [],
-    "description": null,
-    "images": [],
-    "livemode": false,
-    "metadata": {},
-    "name": "Stripe Pins",
-    "package_dimensions": null,
-    "shippable": true,
-    "skus": {
-      "object": "list",
-      "data": [
+    'caption': null,
+    'created': 1513848330,
+    'deactivate_on': [],
+    'description': null,
+    'images': [],
+    'livemode': false,
+    'metadata': {},
+    'name': 'Stripe Pins',
+    'package_dimensions': null,
+    'shippable': true,
+    'skus': {
+      'object': 'list',
+      'data': [
         {
-          "id": "pins-collector",
-          "object": "sku",
-          "active": true,
-          "attributes": {
-            "set": "Collector Set"
+          'id': 'pins-collector',
+          'object': 'sku',
+          'active': true,
+          'attributes': {
+            'set': 'Collector Set'
           },
-          "created": 1513848331,
-          "currency": "eur",
-          "image": null,
-          "inventory": {
-            "quantity": 500,
-            "type": "finite",
-            "value": null
+          'created': 1513848331,
+          'currency': 'eur',
+          'image': null,
+          'inventory': {
+            'quantity': 500,
+            'type': 'finite',
+            'value': null
           },
-          "livemode": false,
-          "metadata": {},
-          "package_dimensions": null,
-          "price": 799,
-          "product": "pins",
-          "updated": 1576268151
+          'livemode': false,
+          'metadata': {},
+          'package_dimensions': null,
+          'price': 799,
+          'product': 'pins',
+          'updated': 1576268151
         }
       ],
-      "has_more": false,
-      "total_count": 1,
-      "url": "/v1/skus?product=pins&active=true"
+      'has_more': false,
+      'total_count': 1,
+      'url': '/v1/skus?product=pins&active=true'
     },
-    "type": "good",
-    "updated": 1552591126,
-    "url": null
+    'type': 'good',
+    'updated': 1552591126,
+    'url': null
   },
   {
-    "id": "shirt",
-    "object": "product",
-    "active": true,
-    "attributes": [
-      "size",
-      "gender"
+    'id': 'shirt',
+    'object': 'product',
+    'active': true,
+    'attributes': [
+      'size',
+      'gender'
     ],
-    "caption": null,
-    "created": 1513848329,
-    "deactivate_on": [],
-    "description": null,
-    "images": [],
-    "livemode": false,
-    "metadata": {},
-    "name": "Stripe Shirt",
-    "package_dimensions": null,
-    "shippable": true,
-    "skus": {
-      "object": "list",
-      "data": [
+    'caption': null,
+    'created': 1513848329,
+    'deactivate_on': [],
+    'description': null,
+    'images': [],
+    'livemode': false,
+    'metadata': {},
+    'name': 'Stripe Shirt',
+    'package_dimensions': null,
+    'shippable': true,
+    'skus': {
+      'object': 'list',
+      'data': [
         {
-          "id": "shirt-small-woman",
-          "object": "sku",
-          "active": true,
-          "attributes": {
-            "size": "Small Standard",
-            "gender": "Woman"
+          'id': 'shirt-small-woman',
+          'object': 'sku',
+          'active': true,
+          'attributes': {
+            'size': 'Small Standard',
+            'gender': 'Woman'
           },
-          "created": 1513848329,
-          "currency": "eur",
-          "image": null,
-          "inventory": {
-            "quantity": null,
-            "type": "infinite",
-            "value": null
+          'created': 1513848329,
+          'currency': 'eur',
+          'image': null,
+          'inventory': {
+            'quantity': null,
+            'type': 'infinite',
+            'value': null
           },
-          "livemode": false,
-          "metadata": {},
-          "package_dimensions": null,
-          "price": 999,
-          "product": "shirt",
-          "updated": 1576255903
+          'livemode': false,
+          'metadata': {},
+          'package_dimensions': null,
+          'price': 999,
+          'product': 'shirt',
+          'updated': 1576255903
         }
       ],
-      "has_more": false,
-      "total_count": 1,
-      "url": "/v1/skus?product=shirt&active=true"
+      'has_more': false,
+      'total_count': 1,
+      'url': '/v1/skus?product=shirt&active=true'
     },
-    "type": "good",
-    "updated": 1513848329,
-    "url": null
+    'type': 'good',
+    'updated': 1513848329,
+    'url': null
   },
   {
-    "id": "increment",
-    "object": "product",
-    "active": true,
-    "attributes": [
-      "issue"
+    'id': 'increment',
+    'object': 'product',
+    'active': true,
+    'attributes': [
+      'issue'
     ],
-    "caption": null,
-    "created": 1513848327,
-    "deactivate_on": [],
-    "description": null,
-    "images": [],
-    "livemode": false,
-    "metadata": {},
-    "name": "Increment Magazine",
-    "package_dimensions": null,
-    "shippable": true,
-    "skus": {
-      "object": "list",
-      "data": [
+    'caption': null,
+    'created': 1513848327,
+    'deactivate_on': [],
+    'description': null,
+    'images': [],
+    'livemode': false,
+    'metadata': {},
+    'name': 'Increment Magazine',
+    'package_dimensions': null,
+    'shippable': true,
+    'skus': {
+      'object': 'list',
+      'data': [
         {
-          "id": "increment-03",
-          "object": "sku",
-          "active": true,
-          "attributes": {
-            "issue": "Issue #3 “Development”"
+          'id': 'increment-03',
+          'object': 'sku',
+          'active': true,
+          'attributes': {
+            'issue': 'Issue #3 “Development”'
           },
-          "created": 1513848328,
-          "currency": "eur",
-          "image": null,
-          "inventory": {
-            "quantity": null,
-            "type": "infinite",
-            "value": null
+          'created': 1513848328,
+          'currency': 'eur',
+          'image': null,
+          'inventory': {
+            'quantity': null,
+            'type': 'infinite',
+            'value': null
           },
-          "livemode": false,
-          "metadata": {},
-          "package_dimensions": null,
-          "price": 399,
-          "product": "increment",
-          "updated": 1576267451
+          'livemode': false,
+          'metadata': {},
+          'package_dimensions': null,
+          'price': 399,
+          'product': 'increment',
+          'updated': 1576267451
         }
       ],
-      "has_more": false,
-      "total_count": 1,
-      "url": "/v1/skus?product=increment&active=true"
+      'has_more': false,
+      'total_count': 1,
+      'url': '/v1/skus?product=increment&active=true'
     },
-    "type": "good",
-    "updated": 1553885845,
-    "url": null
+    'type': 'good',
+    'updated': 1553885845,
+    'url': null
   }
 ];
 
@@ -974,19 +1043,54 @@ const CONFIG = {
   // Some payment methods support only a subset of currencies.
   // Make sure to check the docs: https://stripe.com/docs/sources
   paymentMethods: [
-    // 'ach_credit_transfer', // usd (ACH Credit Transfer payments must be in U.S. Dollars)
-    'alipay', // aud, cad, eur, gbp, hkd, jpy, nzd, sgd, or usd.
-    'bancontact', // eur (Bancontact must always use Euros)
-    'card', // many (https://stripe.com/docs/currencies#presentment-currencies)
-    'eps', // eur (EPS must always use Euros)
-    'ideal', // eur (iDEAL must always use Euros)
-    'giropay', // eur (Giropay must always use Euros)
-    'multibanco', // eur (Multibanco must always use Euros)
-    // 'sepa_debit', // Restricted. See docs for activation details: https://stripe.com/docs/sources/sepa-debit
-    'p24', // eur, pln
-    'sofort', // eur (SOFORT must always use Euros)
-    'wechat', // aud, cad, eur, gbp, hkd, jpy, sgd, or usd.
-    'au_becs_debit', //aud
+    {
+      value: 'ach_credit_transfer',
+      name: 'Bank Transfer'
+    },
+    {
+      value: 'alipay',
+      name: 'Alipay'
+    },
+    {
+      value: 'bancontact',
+      name: 'Bancontact'
+    },
+    {
+      value: 'card',
+      name: 'Card'
+    },
+    {
+      value: 'eps',
+      name: 'EPS'
+    },
+    {
+      value: 'ideal',
+      name: 'iDEAL'
+    },
+    {
+      value: 'giropay',
+      name: 'Giropay'
+    },
+    {
+      value: 'multibanco',
+      name: 'Multibanco'
+    },
+    {
+      value: 'p24',
+      name: 'Przelewy24'
+    },
+    {
+      value: 'sofort',
+      name: 'SOFORT'
+    },
+    {
+      value: 'wechat',
+      name: 'WeChat Pay'
+    },
+    {
+      value: 'au_becs_debit',
+      name: 'BECS Direct Debit'
+    }
   ],
 
   // Shipping options for the Payment Request API.
