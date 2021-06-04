@@ -10,6 +10,8 @@
         below</p>
       <section>
         <h2>Shipping &amp; Billing Information</h2>
+        <dynamic-form [config]="formConfig" #form="dynamicForm"></dynamic-form>
+        {{form.valid}}
         <fieldset class="with-state">
           <label>
             <span>Name</span>
@@ -40,6 +42,7 @@
             <span>Country</span>
             <div id="country" class="field {{addressForm.controls['country'].value|lowercase}}">
               <select name="country" formControlName="country">
+                <option value="" disabled>Choose your country</option>
                 <option value="AU">Australia</option>
                 <option value="AT">Austria</option>
                 <option value="BE">Belgium</option>

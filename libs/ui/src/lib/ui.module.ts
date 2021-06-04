@@ -34,9 +34,10 @@ import { StepsComponent } from './wizard/steps/steps.component';
 import { StepComponent } from './wizard/step/step.component';
 import {AlertModule} from "ngx-bootstrap/alert";
 import {ProgressbarModule} from "ngx-bootstrap/progressbar";
+import {DynamicFormModule} from './dynamic-form/dynamic-form.module';
 
 @NgModule({
-    imports: [CommonModule, AlertModule, ProgressbarModule],
+    imports: [CommonModule, AlertModule, ProgressbarModule, DynamicFormModule],
   declarations: [
     AccordionComponent,
     AlertComponent,
@@ -69,7 +70,7 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     WrapperComponent,
     CheckboxGroupComponent,
     StepsComponent,
-    StepComponent,
+    StepComponent
   ],
   exports: [
     AlertComponent,
@@ -83,6 +84,7 @@ import {ProgressbarModule} from "ngx-bootstrap/progressbar";
     WizardComponent,
     StepsComponent,
     StepComponent,
+    DynamicFormModule
   ],
 })
 export class UiModule {}

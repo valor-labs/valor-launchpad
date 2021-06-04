@@ -1,5 +1,9 @@
-import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+//TODO: Export these properly
+import {FieldConfig} from '../../../../ui/src/lib/dynamic-form/models/field-config.interface';
+import {DynamicFormComponent} from '../../../../ui/src/lib/dynamic-form/containers/dynamic-form/dynamic-form.component';
 
 @Component({
   selector: 'valor-launchpad-embedded-pay',
@@ -7,6 +11,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./embedded-pay.component.scss']
 })
 export class EmbeddedPayComponent implements OnInit {
+  @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
   lineItems = [];
   products = {};
   orderItems = [];
@@ -47,17 +52,86 @@ export class EmbeddedPayComponent implements OnInit {
   // updateSubmitButtonPayText(newText) {
   //   this.submitButtonPayText = newText;
   // };
+  formConfig: FieldConfig[] = [
+    {
+      type: 'input',
+      subtype: 'text',
+      label: 'Name',
+      name: 'name',
+      placeholder: 'Jenny Rosen',
+      validation: [Validators.required, Validators.min(1)]
+    },
+    {
+      type: 'select',
+      subtype: 'select',
+      label: 'Country',
+      name: 'country',
+      placeholder: 'United States',
+      value: 'US',
+      options: OPTIONS,
+      validation: [Validators.required]
+    },
+    {
+      type:'input',
+      subtype: 'text',
+      label:'Email',
+      name:'email',
+      placeholder: 'jenny@example.com',
+      validation: [Validators.required, Validators.email]
+    },
+    {
+      type:'input',
+      subtype: 'text',
+      label:'City',
+      name:'city',
+      placeholder: 'San Francisco',
+      validation: [Validators.required]
+    },
+    {
+      type:'input',
+      subtype: 'text',
+      label:'State',
+      name:'state',
+      placeholder: 'CA',
+      validation: [Validators.required] //TODO: Put this after country selection or simplify to a autocomplete address
+    },
+    {
+      type:'input',
+      subtype: 'text',
+      label:'ZIP',
+      name:'postal_code',
+      placeholder: '94103',
+      validation: [Validators.required]
+    },
+    {
+      type:'input',
+      subtype: 'text',
+      label:'Country',
+      name:'country',
+      placeholder: 'US',
+      validation: [Validators.required]
+    },
+    {
+      type:'input',
+      subtype:'radio',
+      label:'Payment',
+      name:'payment',
+      placeholder: 'Payment Provider',
+      validation: [Validators.required, Validators.email]
+    }
+
+  ]
 
   buildForm() {
     this.addressForm = this.formBuilder.group({
-      name: '',
-      email: '',
-      address: '',
-      city: '',
-      state: '',
-      postal_code: '',
-      country: 'US',
-      payment: 'card'
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      postal_code: ['', Validators.required],
+      country: ['US', Validators.required],
+      payment: ['card', Validators.required],
     })
     this.addressForm.get('country').valueChanges.subscribe(newCountry => {
       this.selectCountry(newCountry)
@@ -1442,3 +1516,34 @@ const CONFIG = {
     },
   ]
 }
+
+const OPTIONS = [
+  {value: "AU", key: "Australia"},
+  {value: "AT", key: "Austria"},
+  {value: "BE", key: "Belgium"},
+  {value: "BR", key: "Brazil"},
+  {value: "CA", key: "Canada"},
+  {value: "CN", key: "China"},
+  {value: "DK", key: "Denmark"},
+  {value: "FI", key: "Finland"},
+  {value: "FR", key: "France"},
+  {value: "DE", key: "Germany"},
+  {value: "HK", key: "Hong Kong"},
+  {value: "IE", key: "Ireland"},
+  {value: "IT", key: "Italy"},
+  {value: "JP", key: "Japan"},
+  {value: "LU", key: "Luxembourg"},
+  {value: "MY", key: "Malaysia"},
+  {value: "MX", key: "Mexico"},
+  {value: "NL", key: "Netherlands"},
+  {value: "NZ", key: "New Zealand"},
+  {value: "NO", key: "Norway"},
+  {value: "PL", key: "Poland"},
+  {value: "PT", key: "Portugal"},
+  {value: "SG", key: "Singapore"},
+  {value: "ES", key: "Spain"},
+  {value: "SE", key: "Sweden"},
+  {value: "CH", key: "Switzerland"},
+  {value: "GB", key: "United Kingdom"},
+  {value: "US", key: "United States"}
+]
