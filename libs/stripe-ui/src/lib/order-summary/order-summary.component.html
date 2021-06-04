@@ -1,0 +1,55 @@
+<aside>
+  <div class="header">
+    <h1>Order Summary</h1>
+  </div>
+  <div id="order-items">
+    <div *ngFor="let product of orderItems" class="line-item">
+      <img class="image" [src]="'/assets/products/'+product.id+'.png'" alt="{{product.name}}">
+      <div class="label">
+        <p class="product">{{product.name}}</p>
+        <div class="sku">
+          <div *ngFor="let attribute of product.sku.attributes | keyvalue">{{attribute.value}}</div>
+        </div>
+      </div>
+      <p class="count">{{product.quantity}} x {{product.skuPrice}}</p>
+      <p class="price">{{product.lineItemPrice}}</p>
+    </div>
+  </div>
+  <div id="order-total">
+    <div class="line-item subtotal">
+      <p class="label">Subtotal</p>
+      <p class="price">{{subtotal}}</p>
+    </div>
+    <div class="line-item shipping">
+      <p class="label">Shipping</p>
+      <p class="price">Free</p>
+    </div>
+    <div class="line-item demo" *ngIf="!live">
+      <div id="demo">
+        <p class="label">Demo in test mode</p>
+        <p class="note">You can copy and paste the following test cards to trigger different scenarios:</p>
+        <table class="note">
+          <tr>
+            <td>Default US card:</td>
+            <td class="card-number">4242<span></span>4242<span></span>4242<span></span>4242</td>
+          </tr>
+          <tr>
+            <td><a href="https://stripe.com/guides/strong-customer-authentication" target="_blank">Authentication</a>
+              required:
+            </td>
+            <td class="card-number">4000<span></span>0027<span></span>6000<span></span>3184</td>
+          </tr>
+        </table>
+        <p class="note">
+          See the <a href="https://stripe.com/docs/testing#cards" target="_blank">docs</a> for a full list of test
+          cards.
+          Non-card payments will redirect to test pages.
+        </p>
+      </div>
+    </div>
+    <div class="line-item total">
+      <p class="label">Total</p>
+      <p class="price">{{orderTotal}}</p>
+    </div>
+  </div>
+</aside>

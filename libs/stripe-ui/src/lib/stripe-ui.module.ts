@@ -5,13 +5,15 @@ import {StripeUiRoutingModule} from './stripe-ui-routing.module';
 import { StripeComponent } from './stripe/stripe.component';
 import { EmbeddedPayComponent } from './embedded-pay/embedded-pay.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 @NgModule({
   imports: [CommonModule, StripeUiRoutingModule, ReactiveFormsModule],
   declarations: [
     DirectPayComponent,
     StripeComponent,
-    EmbeddedPayComponent
+    EmbeddedPayComponent,
+    OrderSummaryComponent
   ],
 })
 export class StripeUiModule {
