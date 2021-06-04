@@ -854,10 +854,6 @@ button:active {
 }
 
 #payment-methods li {
-  display: none;
-}
-
-#payment-methods li.visible {
   display: inline-block;
   margin: 0 20px 0 0;
   list-style: none;
@@ -921,13 +917,13 @@ button:active {
   margin-bottom: 0;
 }
 
-#payment-methods.visible,
-.payment-info.visible {
+#payment-methods,
+.payment-info {
   display: block;
 }
 
-.payment-info.card.visible,
-.payment-info.sepa_debit.visible {
+.payment-info.card,
+.payment-info.sepa_debit {
   text-align: center;
 }
 

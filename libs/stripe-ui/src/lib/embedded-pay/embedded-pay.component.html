@@ -33,8 +33,8 @@
             <input name="state" formControlName="state" class="field" placeholder="CA">
           </label>
           <label class="zip">
-            <span>ZIP</span>
-            <input name="postal_code" formControlName="postal_code" class="field" placeholder="94107">
+            <span>{{zipspan}}</span>
+            <input name="postal_code" formControlName="postal_code" class="field" placeholder="{{zipplaceholder}}">
           </label>
           <label class="select">
             <span>Country</span>
@@ -76,63 +76,15 @@
       </section>
       <section>
         <h2>Payment Information</h2>
-        <nav id="payment-methods">
+        <nav id="payment-methods" [ngClass]="{'visible': config.paymentMethods.length>1}">
           <ul>
-            <li>
-              <input type="radio" name="payment" id="payment-card" value="card" checked>
-              <label for="payment-card">Card</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-ach_credit_transfer" value="ach_credit_transfer" checked>
-              <label for="payment-ach_credit_transfer">Bank Transfer</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-alipay" value="alipay">
-              <label for="payment-alipay">Alipay</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-bancontact" value="bancontact">
-              <label for="payment-bancontact">Bancontact</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-eps" value="eps">
-              <label for="payment-eps">EPS</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-ideal" value="ideal">
-              <label for="payment-ideal">iDEAL</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-giropay" value="giropay">
-              <label for="payment-giropay">Giropay</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-multibanco" value="multibanco">
-              <label for="payment-multibanco">Multibanco</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-p24" value="p24">
-              <label for="payment-p24">Przelewy24</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-sepa_debit" value="sepa_debit">
-              <label for="payment-sepa_debit">SEPA Direct Debit</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-sofort" value="sofort">
-              <label for="payment-sofort">SOFORT</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-wechat" value="wechat">
-              <label for="payment-wechat">WeChat Pay</label>
-            </li>
-            <li>
-              <input type="radio" name="payment" id="payment-au_becs_debit" value="au_becs_debit">
-              <label for="payment-au_becs_debit">BECS Direct Debit</label>
+            <li *ngFor="let paymentMethod of config.paymentMethods">
+              <input type="radio" name="payment" formControlName="payment" id="payment-{{paymentMethod.value}}" [value]="paymentMethod.value">
+              <label for="payment-{{paymentMethod.value}}">{{paymentMethod.name}}</label>
             </li>
           </ul>
         </nav>
-        <div class="payment-info card visible">
+        <div class="payment-info card" [hidden]="!(addressForm.controls['payment'].value =='card')">
           <fieldset>
             <label>
               <span>Card</span>
@@ -140,7 +92,7 @@
             </label>
           </fieldset>
         </div>
-        <div class="payment-info sepa_debit">
+        <div class="payment-info sepa_debit" [hidden]="!(addressForm.controls['payment'].value =='sepa_debit')">
           <fieldset>
             <label>
               <span>IBAN</span>
@@ -153,7 +105,7 @@
             terms
             and conditions of your agreement with your bank.</p>
         </div>
-        <div class="payment-info ideal">
+        <div class="payment-info ideal" [hidden]="!(addressForm.controls['payment'].value =='ideal')">
           <fieldset>
             <label>
               <span>iDEAL Bank</span>
@@ -161,17 +113,11 @@
             </label>
           </fieldset>
         </div>
-        <div class="payment-info redirect">
-          <p class="notice">You’ll be redirected to the banking site to complete your payment.</p>
-        </div>
-        <div class="payment-info receiver">
-          <p class="notice">Payment information will be provided after you place the order.</p>
-        </div>
-        <div class="payment-info wechat">
+        <div class="payment-info wechat" [hidden]="!(addressForm.controls['payment'].value =='wechat')">
           <div id="wechat-qrcode"></div>
           <p class="notice">Click the button below to generate a QR code for WeChat.</p>
         </div>
-        <div class="payment-info au_becs_debit">
+        <div class="payment-info au_becs_debit" [hidden]="!(addressForm.controls['payment'].value =='au_becs_debit')">
           <fieldset>
             <label>
               <span>Bank Account</span>
@@ -222,5 +168,6 @@
   </div>
 </main>
 <!--<aside id="summary">-->
-  <valor-launchpad-order-summary id="summary" [orderTotal]="orderTotal" [live]="live" [orderItems]="orderItems" [subtotal]="subtotal"></valor-launchpad-order-summary>
+<valor-launchpad-order-summary id="summary" [orderTotal]="orderTotal" [live]="live" [orderItems]="orderItems"
+                               [subtotal]="subtotal"></valor-launchpad-order-summary>
 <!--</aside>-->
