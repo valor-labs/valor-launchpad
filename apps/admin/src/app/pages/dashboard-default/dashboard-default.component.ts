@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardDefaultService } from './dashboard-default.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'valor-launchpad-dashboard-default',
@@ -47,7 +48,8 @@ export class DashboardDefaultComponent implements OnInit {
   latestProjectsTableData;
 
   constructor(
-    private dashboardDefaultService: DashboardDefaultService
+    private dashboardDefaultService: DashboardDefaultService,
+    private toastr: ToastrService
   ) {
   }
 
@@ -60,6 +62,18 @@ export class DashboardDefaultComponent implements OnInit {
       this.appointmentsData = data.appointmentsData;
       this.latestProjectsTableData = data.latestProjectsTableData;
     })
+  }
+
+  onClickAction(): void {
+    this.toastr.success('Action!', 'You Click the Action!');
+  }
+
+  onClickAnotherAction(): void {
+    alert('You Click the Another Action!');
+  }
+
+  onClickSomethingElse(): void {
+    console.log('You click the something else');
   }
 
 }
