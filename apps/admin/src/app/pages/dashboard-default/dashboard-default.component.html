@@ -4,7 +4,7 @@
   </div>
 
   <div class='col-auto ms-auto text-end mt-n1'>
-    <div class='dropdown me-2 d-inline-block' dropdown>
+    <div class='dropdown me-2 d-inline-block' dropdown container="body" placement="bottom right">
       <a class='btn btn-light bg-white shadow-sm dropdown-toggle' dropdownToggle data-bs-toggle='dropdown'
          data-bs-display='static'>
         <i class='align-middle mt-n1  far fa-fw fa-calendar'></i> Today
@@ -12,11 +12,11 @@
 
       <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
         <h6 class='dropdown-header'>Settings</h6>
-        <a class='dropdown-item' href='#'>Action</a>
-        <a class='dropdown-item' href='#'>Another action</a>
-        <a class='dropdown-item' href='#'>Something else here</a>
+        <a class='dropdown-item' (click)="onClickAction()">Action</a>
+        <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
+        <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
         <div class='dropdown-divider'></div>
-        <a class='dropdown-item' href='#'>Separated link</a>
+        <a class='dropdown-item'>Separated link</a>
       </div>
     </div>
 
