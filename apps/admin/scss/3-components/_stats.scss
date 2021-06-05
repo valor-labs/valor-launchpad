@@ -10,6 +10,13 @@
     height: 24px;
     color: $stat-icon-color !important;
   }
+
+  i {
+    width: 24px;
+    height: 24px;
+    color: $stat-icon-color !important;
+    font-size: 17px;
+  }
 }
 
 .stat-sm {
@@ -18,6 +25,10 @@
   padding: 0.625rem;
 
   svg {
+    width: 20px;
+    height: 20px;
+  }
+  i {
     width: 20px;
     height: 20px;
   }
