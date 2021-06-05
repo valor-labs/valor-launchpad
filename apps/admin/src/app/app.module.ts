@@ -16,12 +16,14 @@ import {UiModule} from "@valor-launchpad/ui";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {CookieService} from 'ngx-cookie-service';
 import {TokenInterceptor} from "./core/auth/token.interceptor";
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
   imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, AppRoutingModule,
     RouterModule, FooterModule, NavigationModule, HeaderModule,
     CollapseModule.forRoot(),
+    BsDropdownModule.forRoot(),
     UiModule, NgxChartsModule
   ],
   providers: [CookieService,
