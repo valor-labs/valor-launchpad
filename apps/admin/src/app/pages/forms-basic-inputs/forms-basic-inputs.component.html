@@ -7,7 +7,7 @@
         <h5 class="card-title mb-0">Input</h5>
       </div>
       <div card-body>
-        <input type="text" class="form-control" placeholder="Input" [formControl]='inputControl'>
+        <input valorLaunchpadInput [formControl]='inputControl' placeholder="Input">
       </div>
     </valor-launchpad-card>
 
@@ -16,7 +16,7 @@
         <h5 class="card-title mb-0">Textarea</h5>
       </div>
       <div card-body>
-        <textarea class="form-control" rows="2" placeholder="Textarea" [formControl]='textareaControl'></textarea>
+        <textarea valorLaunchpadInput rows="2" placeholder="Textarea" [formControl]='textareaControl'></textarea>
       </div>
     </valor-launchpad-card>
 
@@ -46,9 +46,9 @@
         <h5 class="card-title mb-0">Sizes</h5>
       </div>
       <div card-body>
-        <input class="form-control form-control-lg mb-3" type="text" placeholder="Large input" [formControl]='largeInput'>
-        <input class="form-control mb-3" type="text" placeholder="Medium input" [formControl]='mediumInput'>
-        <input class="form-control form-control-sm" type="text" placeholder="Small input" [formControl]='smallInput'>
+        <input valorLaunchpadInput vlSize='large' class='mb-3' placeholder="Large input" [formControl]='largeInput'>
+        <input valorLaunchpadInput class='mb-3' placeholder="Medium input" [formControl]='mediumInput'>
+        <input valorLaunchpadInput vlSize='small' placeholder="Small input" [formControl]='smallInput'>
       </div>
     </valor-launchpad-card>
   </div>
@@ -118,12 +118,12 @@
       <div card-body>
         <div class="mb-3">
           <label class="form-label">Disabled input</label>
-          <input type="text" class="form-control" placeholder="Disabled input" [formControl]='disabledInput'>
+          <input valorLaunchpadInput placeholder="Disabled input" [formControl]='disabledInput'>
         </div>
         <div class="mb-3">
           <label class="form-label">Disabled select menu</label>
           <select class="form-select" [formControl]='disabledSelect'>
-            <option>Disabled select</option>
+            <option value='Disabled select'>Disabled select</option>
           </select>
         </div>
         <label class="form-check">
@@ -140,7 +140,7 @@
         <h5 class="card-title mb-0">Read only</h5>
       </div>
       <div card-body>
-        <input class="form-control" type="text" placeholder="Readonly input" readonly [formControl]='readonlyInput'>
+        <input valorLaunchpadInput type="text" placeholder="Readonly input" readonly [formControl]='readonlyInput'>
       </div>
     </valor-launchpad-card>
   </div>

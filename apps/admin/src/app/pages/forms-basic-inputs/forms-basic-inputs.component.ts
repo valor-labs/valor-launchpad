@@ -60,7 +60,7 @@ export class FormsBasicInputsComponent implements OnInit {
 
   // Disabled
   disabledInput = new FormControl({value: null, disabled: true});
-  disabledSelect = new FormControl({value: null, disabled: true});
+  disabledSelect = new FormControl({value: 'Disabled select', disabled: true});
   disabledCheckbox = new FormControl({value: null, disabled: true});
 
   // Read only
