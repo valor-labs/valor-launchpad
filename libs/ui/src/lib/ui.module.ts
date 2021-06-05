@@ -38,6 +38,7 @@ import { RadioComponent } from './radio/radio.component';
 import { RadioGroupComponent } from './radio/radio-group.component';
 import { SwitchComponent } from './switch/switch.component';
 import { InputDirective } from './input/input.directive';
+import { InputGroupComponent } from './input-group/input-group.component';
 
 @NgModule({
     imports: [CommonModule, AlertModule, ProgressbarModule],
@@ -78,6 +79,7 @@ import { InputDirective } from './input/input.directive';
     RadioGroupComponent,
     SwitchComponent,
     InputDirective,
+    InputGroupComponent,
   ],
   exports: [
     AlertComponent,
@@ -95,6 +97,7 @@ import { InputDirective } from './input/input.directive';
     RadioGroupComponent,
     SwitchComponent,
     InputDirective,
+    InputGroupComponent,
   ],
 })
 export class UiModule {}
