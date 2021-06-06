@@ -12,7 +12,10 @@ const routes: Routes = [
       },
       {
         path: 'embedded', component: EmbeddedPayComponent
-      }
+      },
+      {
+        path: '', redirectTo: 'embedded', pathMatch: 'full'
+      },
     ]
   },
   {
