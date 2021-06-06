@@ -27,7 +27,7 @@ export class FormsLayoutsComponent implements OnInit {
       email: [],
       password: [],
       textarea: [],
-      radio: [],
+      radio: ['Default radio'],
       checked: [],
     });
     this.rowFormGroup = this.fb.group({

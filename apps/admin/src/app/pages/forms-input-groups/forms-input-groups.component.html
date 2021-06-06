@@ -1,0 +1,248 @@
+<h1 class="h3 mb-3">Input Groups</h1>
+
+<div class="row">
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card>
+      <div card-header>
+        <h5 class="card-title mb-0">Default</h5>
+      </div>
+      <div card-body>
+        <valor-launchpad-input-group [vlPrefix]='"@"' class='mb-3'>
+          <input type="text" valorLaunchpadInput placeholder="Username">
+        </valor-launchpad-input-group>
+        <valor-launchpad-input-group [vlSuffix]='"@example.com"' class="mb-3">
+          <input type="text" valorLaunchpadInput placeholder="Recipient's username">
+        </valor-launchpad-input-group>
+        <valor-launchpad-input-group [vlPrefix]='"https://example.com/users/"' class="mb-3">
+          <input type="text" valorLaunchpadInput>
+        </valor-launchpad-input-group>
+        <valor-launchpad-input-group [vlPrefix]='"$"' [vlSuffix]='".00"' class="mb-3">
+          <input type="text" valorLaunchpadInput>
+        </valor-launchpad-input-group>
+        <valor-launchpad-input-group [vlPrefix]='["$", "0.00"]'>
+          <input type="text" valorLaunchpadInput>
+        </valor-launchpad-input-group>
+      </div>
+    </valor-launchpad-card>
+
+    <valor-launchpad-card>
+      <div card-header>
+        <h5 class="card-title mb-0">Checkbox and radio addons</h5>
+      </div>
+      <div card-body>
+        <div class="row">
+          <div class="col-md">
+            <div class="mb-0">
+              <valor-launchpad-input-group [vlPrefix]='checkboxPrefix'>
+                <ng-template #checkboxPrefix>
+                  <input type="checkbox">
+                </ng-template>
+                <input type="text" valorLaunchpadInput placeholder="Checkbox">
+              </valor-launchpad-input-group>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="mb-0">
+              <valor-launchpad-input-group [vlPrefix]='radioPrefix'>
+                <ng-template #radioPrefix>
+                  <input type="radio">
+                </ng-template>
+                <input type="text" class="form-control" placeholder="Radio">
+              </valor-launchpad-input-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </valor-launchpad-card>
+
+    <valor-launchpad-card>
+      <div card-header>
+        <h5 class="card-title mb-0">Sizing</h5>
+      </div>
+      <div card-body>
+        <valor-launchpad-input-group vlPrefix='@' vlSize='large' class='mb-3'>
+          <input type="text" valorLaunchpadInput placeholder="Username">
+        </valor-launchpad-input-group>
+        <valor-launchpad-input-group vlPrefix='@' class='mb-3'>
+          <input type="text" valorLaunchpadInput placeholder="Username">
+        </valor-launchpad-input-group>
+        <valor-launchpad-input-group vlPrefix='@' vlSize='small'>
+          <input type="text" valorLaunchpadInput placeholder="Username">
+        </valor-launchpad-input-group>
+      </div>
+    </valor-launchpad-card>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card>
+      <div card-header>
+        <h5 class="card-title mb-0">Select addons</h5>
+      </div>
+      <div card-body>
+        <valor-launchpad-input-group class='mb-3'>
+          <select class="form-select flex-grow-1">
+            <option>Select...</option>
+            <option>One</option>
+            <option>Two</option>
+            <option>Three</option>
+          </select>
+          <button class="btn btn-secondary" type="button">Go!</button>
+        </valor-launchpad-input-group>
+        <valor-launchpad-input-group class="mb-3">
+          <input type="text" valorLaunchpadInput placeholder="Search for...">
+          <select class="form-select">
+            <option>Select...</option>
+            <option>One</option>
+            <option>Two</option>
+            <option>Three</option>
+          </select>
+          <button class="btn btn-secondary" type="button">Go!</button>
+        </valor-launchpad-input-group>
+        <valor-launchpad-input-group class="mb-3">
+          <select class="form-select">
+            <option>Select...</option>
+            <option>One</option>
+            <option>Two</option>
+            <option>Three</option>
+          </select>
+          <input type="text" valorLaunchpadInput placeholder="Search for...">
+          <button class="btn btn-secondary" type="button">Go!</button>
+        </valor-launchpad-input-group>
+        <valor-launchpad-input-group>
+          <button class="btn btn-secondary" type="button">Go!</button>
+          <input type="text" valorLaunchpadInput placeholder="Search for...">
+          <select class="form-select">
+            <option>Select...</option>
+            <option>One</option>
+            <option>Two</option>
+            <option>Three</option>
+          </select>
+        </valor-launchpad-input-group>
+      </div>
+    </valor-launchpad-card>
+
+    <valor-launchpad-card>
+      <div card-header>
+        <h5 class="card-title mb-0">Button addons</h5>
+      </div>
+      <div card-body>
+        <div class="row">
+          <div class="col-md">
+            <div class="mb-3">
+              <valor-launchpad-input-group>
+                <button class="btn btn-secondary" type="button">Go!</button>
+                <input type="text" valorLaunchpadInput placeholder="Search for...">
+              </valor-launchpad-input-group>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="mb-3">
+              <valor-launchpad-input-group>
+                <input type="text" valorLaunchpadInput placeholder="Search for...">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </valor-launchpad-input-group>
+            </div>
+          </div>
+          <div class="w-100"></div>
+          <div class="col-md">
+            <div class="mb-0">
+              <valor-launchpad-input-group>
+                <button class="btn btn-secondary" type="button">Hate it</button>
+                <input type="text" valorLaunchpadInput placeholder="Product name">
+                <button class="btn btn-secondary" type="button">Love it</button>
+              </valor-launchpad-input-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </valor-launchpad-card>
+
+    <valor-launchpad-card>
+      <div card-header>
+        <h5 class="card-title mb-0">Buttons with dropdowns</h5>
+      </div>
+      <div card-body class="demo-vertical-spacing-sm button-dropdown-input-group-demo">
+        <div class="row">
+          <div class="col-md">
+            <valor-launchpad-input-group>
+              <ng-container dropdown>
+                <button dropdownToggle type="button" class="btn btn-secondary dropdown-toggle">
+                  Action
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                  <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li class="divider dropdown-divider"></li>
+                  <li role="menuitem"><a class="dropdown-item" href='#'>Separated link</a></li>
+                </ul>
+              </ng-container>
+              <input type="text" valorLaunchpadInput>
+            </valor-launchpad-input-group>
+          </div>
+          <div class="col-md">
+            <valor-launchpad-input-group>
+              <input type="text" valorLaunchpadInput>
+              <ng-container dropdown>
+                <button dropdownToggle type="button" class="btn btn-secondary dropdown-toggle">
+                  Action
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                  <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li class="divider dropdown-divider"></li>
+                  <li role="menuitem"><a class="dropdown-item" href='#'>Separated link</a></li>
+                </ul>
+              </ng-container>
+            </valor-launchpad-input-group>
+          </div>
+        </div>
+      </div>
+    </valor-launchpad-card>
+
+    <valor-launchpad-card>
+      <div card-header>
+        <h5 class="card-title mb-0">Segmented buttons</h5>
+      </div>
+      <div card-body class="demo-vertical-spacing-sm button-dropdown-input-group-demo">
+        <div class="row">
+          <div class="col-md">
+            <valor-launchpad-input-group>
+              <ng-container dropdown>
+                <button type="button" class="btn btn-secondary">Action</button>
+                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" dropdownToggle></button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
+                  <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li class="divider dropdown-divider"></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                  </li>
+                </ul>
+              </ng-container>
+              <input type="text" valorLaunchpadInput>
+            </valor-launchpad-input-group>
+          </div>
+          <div class="col-md">
+            <div class="input-group">
+              <input type="text" valorLaunchpadInput>
+              <ng-container dropdown>
+                <button type="button" class="btn btn-secondary">Action</button>
+                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" dropdownToggle></button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                  <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li class="divider dropdown-divider"></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                  </li>
+                </ul>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </valor-launchpad-card>
+  </div>
+</div>
