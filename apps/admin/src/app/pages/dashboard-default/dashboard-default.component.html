@@ -4,7 +4,7 @@
   </div>
 
   <div class='col-auto ms-auto text-end mt-n1'>
-    <div class='dropdown me-2 d-inline-block' dropdown>
+    <div class='dropdown me-2 d-inline-block' dropdown container="body" placement="bottom right">
       <a class='btn btn-light bg-white shadow-sm dropdown-toggle' dropdownToggle data-bs-toggle='dropdown'
          data-bs-display='static'>
         <i class='align-middle mt-n1  far fa-fw fa-calendar'></i> Today
@@ -12,11 +12,11 @@
 
       <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
         <h6 class='dropdown-header'>Settings</h6>
-        <a class='dropdown-item' href='#'>Action</a>
-        <a class='dropdown-item' href='#'>Another action</a>
-        <a class='dropdown-item' href='#'>Something else here</a>
+        <a class='dropdown-item' (click)="onClickAction()">Action</a>
+        <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
+        <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
         <div class='dropdown-divider'></div>
-        <a class='dropdown-item' href='#'>Separated link</a>
+        <a class='dropdown-item'>Separated link</a>
       </div>
     </div>
 
@@ -126,9 +126,9 @@
             </a>
 
             <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' href='#'>Action</a>
-              <a class='dropdown-item' href='#'>Another action</a>
-              <a class='dropdown-item' href='#'>Something else here</a>
+              <a class='dropdown-item' (click)="onClickAction()">Action</a>
+              <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
+              <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
             </div>
           </div>
         </div>
@@ -217,9 +217,9 @@
             </a>
 
             <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' href='#'>Action</a>
-              <a class='dropdown-item' href='#'>Another action</a>
-              <a class='dropdown-item' href='#'>Something else here</a>
+              <a class='dropdown-item' (click)="onClickAction()">Action</a>
+              <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
+              <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
             </div>
           </div>
         </div>
@@ -247,9 +247,9 @@
             </a>
 
             <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' href='#'>Action</a>
-              <a class='dropdown-item' href='#'>Another action</a>
-              <a class='dropdown-item' href='#'>Something else here</a>
+              <a class='dropdown-item' (click)="onClickAction()">Action</a>
+              <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
+              <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
             </div>
           </div>
         </div>
@@ -301,9 +301,9 @@
             </a>
 
             <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' href='#'>Action</a>
-              <a class='dropdown-item' href='#'>Another action</a>
-              <a class='dropdown-item' href='#'>Something else here</a>
+              <a class='dropdown-item' (click)="onClickAction()">Action</a>
+              <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
+              <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
             </div>
           </div>
         </div>
@@ -339,24 +339,43 @@
     </div>
     <h5 class='card-title mb-0'>Latest Projects</h5>
   </div>
-  <table id='datatables-dashboard-projects' class='table table-striped my-0'>
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th class='d-none d-xl-table-cell'>Start Date</th>
-      <th class='d-none d-xl-table-cell'>End Date</th>
-      <th>Status</th>
-      <th class='d-none d-md-table-cell'>Assignee</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of latestProjectsTableData">
-      <td>{{item.name}}</td>
-      <td class='d-none d-xl-table-cell'>{{item.startDate}}</td>
-      <td class='d-none d-xl-table-cell'>{{item.endDate}}</td>
-      <td><span [ngClass]="item.badgeType">{{item.status}}</span></td>
-      <td class='d-none d-md-table-cell'>{{item.assignee}}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div>
+    <ngx-datatable class="table table-striped my-0"
+                   #myTable
+                   [rows]="latestProjectsTableData"
+                   [columns]="latestProjectsTableColumn"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   rowHeight="auto"
+                   [columnMode]="'force'"
+                   [rowHeight]="46"
+                   [limit]="5"
+    >
+      <ngx-datatable-footer>
+        <ng-template
+          ngx-datatable-footer-template
+          let-rowCount="rowCount"
+          let-pageSize="pageSize"
+          let-curPage="curPage"
+          let-offset="offset"
+        >
+          <div class="page-count">
+            Showing {{curPage}} to {{pageSize}} of {{rowCount}} entries
+          </div>
+          <datatable-pager
+            [pagerLeftArrowIcon]="'datatable-valor-left'"
+            [pagerRightArrowIcon]="'datatable-valor-right'"
+            [page]="curPage"
+            [size]="pageSize"
+            [count]="rowCount"
+            [hidden]="!((rowCount / pageSize) > 1)"
+            (change)="myTable.onFooterPage($event)"
+          ></datatable-pager>
+        </ng-template>
+      </ngx-datatable-footer>
+    </ngx-datatable>
+    <ng-template #statusRef let-row="row">
+      <span [ngClass]="row.badgeType">{{row.status}}</span>
+    </ng-template>
+  </div>
 </div>

@@ -224,11 +224,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
   }
   dashboard.appointmentsData = appointmentsArray;
 
-  const latestProjects = faker.random.number({ min: 2, max: 4 });
+  const latestProjects = faker.random.number({ min: 20, max: 40 });
   const latestProjectsArray = [];
   for (let i = 0; i < latestProjects; i++) {
     latestProjectsArray.push({
-      name: faker.system.fileName('.pdf', 'application/pdf'),
+      name: `Project ${faker.commerce.productName()}`,
       startDate: faker.date.past(),
       endDate: faker.date.past(),
       status: faker.random.arrayElement(['Done', 'Cancelled', 'In progress']),

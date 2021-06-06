@@ -1,5 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DashboardDefaultService } from './dashboard-default.service';
+import { ToastrService } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
+
+
+class DateOnlyPipe extends DatePipe {
+  public transform(value): any {
+    return super.transform(value, 'MM/dd/y');
+  }
+}
 
 @Component({
   selector: 'valor-launchpad-dashboard-default',
@@ -45,9 +54,12 @@ export class DashboardDefaultComponent implements OnInit {
   bsInlineValue = new Date();
   appointmentsData;
   latestProjectsTableData;
+  @ViewChild('statusRef', { static: true }) statusTmpl: TemplateRef<any>;
+  latestProjectsTableColumn;
 
   constructor(
-    private dashboardDefaultService: DashboardDefaultService
+    private dashboardDefaultService: DashboardDefaultService,
+    private toastr: ToastrService
   ) {
   }
 
@@ -59,7 +71,27 @@ export class DashboardDefaultComponent implements OnInit {
       this.weeklySalesTableData = data.weeklySalesTableData;
       this.appointmentsData = data.appointmentsData;
       this.latestProjectsTableData = data.latestProjectsTableData;
-    })
+    });
+    this.latestProjectsTableColumn = [
+      { name: 'Name', prop: 'name' },
+      { name: 'Start Date', prop: 'startDate', pipe: new DateOnlyPipe('en-US')},
+      { name: 'End Date', prop: 'endDate', pipe: new DateOnlyPipe('en-US') },
+      { name: 'Status', prop: 'status', cellTemplate: this.statusTmpl },
+      { name: 'Assignee', prop: 'assignee' }
+    ];
   }
+
+  onClickAction(): void {
+    this.toastr.success('Action!', 'You Click the Action!');
+  }
+
+  onClickAnotherAction(): void {
+    alert('You Click the Another Action!');
+  }
+
+  onClickSomethingElse(): void {
+    console.log('You click the something else');
+  }
+
 
 }

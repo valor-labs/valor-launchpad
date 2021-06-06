@@ -6,6 +6,7 @@ import { DashboardDefaultComponent } from './dashboard-default.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     DashboardDefaultRoutingModule,
     NgxChartsModule,
     BsDatepickerModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    NgxDatatableModule
   ]
 })
 export class DashboardDefaultModule { }

@@ -1,88 +1,174 @@
 .table {
-	thead, tbody, tfoot, tr, td, th {
-		border-color: $table-border-color;
-	}
+  thead, tbody, tfoot, tr, td, th, data, datatable-header, datatable-body-row, datatable-body-cell {
+    border-bottom: 1px solid;
+    border-color: $table-border-color;
+  }
 }
 
 .card {
-	> .dataTables_wrapper .table.dataTable,
-	> .table,
-	> .table-responsive .table,
-	> .table-responsive-sm .table,
-	> .table-responsive-md .table,
-	> .table-responsive-lg .table,
-	> .table-responsive-xl .table {
-		border-right: 0;
-		border-bottom: 0;
-		border-left: 0;
-		margin-bottom: 0;
+  > .dataTables_wrapper .table.dataTable,
+  > .table,
+  > .table-responsive .table,
+  > .table-responsive-sm .table,
+  > .table-responsive-md .table,
+  > .table-responsive-lg .table,
+  > .table-responsive-xl .table {
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    margin-bottom: 0;
 
-		td:first-child,
-		th:first-child {
-			border-left: 0;
-			padding-left: $spacer*1.25;
-		}
+    td:first-child,
+    th:first-child {
+      border-left: 0;
+      padding-left: $spacer*1.25;
+    }
 
-		td:last-child,
-		th:last-child {
-			border-right: 0;
-			padding-right: $spacer*1.25;
-		}
+    td:last-child,
+    th:last-child {
+      border-right: 0;
+      padding-right: $spacer*1.25;
+    }
 
-		tr:first-child td,
-		tr:first-child th {
-			border-top: 0;
-		}
+    tr:first-child td,
+    tr:first-child th {
+      border-top: 0;
+    }
 
-		tr:last-child td {
-			border-bottom: 0;
-		}
-	}
+    tr:last-child td {
+      border-bottom: 0;
+    }
+  }
 
-	.card-header + .table {
-		border-top: 0;
-	}
+  .card-header + .table {
+    border-top: 0;
+  }
 }
 
 .table-action {
-	a {
-		color: $gray-600;
+  a {
+    color: $gray-600;
 
-		&:hover {
-			color: $gray-900;
-		}
-	}
+    &:hover {
+      color: $gray-900;
+    }
+  }
 
-	.feather {
-		width: 18px;
-		height: 18px;
-	}
+  .feather {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .table > tbody > tr > td {
-	vertical-align: middle;
+  vertical-align: middle;
 }
 
 .card > .dataTables_wrapper {
-	.table.dataTable {
-	  margin-top: 0 !important;
-	  margin-bottom: 0 !important;
-	}
+  .table.dataTable {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
 
-	.dataTables_info {
-		padding: 1rem 1.25rem;
-	}
+  .dataTables_info {
+    padding: 1rem 1.25rem;
+  }
 
-	.dataTables_paginate {
-		padding: 0.6rem 1.25rem;
-	}
+  .dataTables_paginate {
+    padding: 0.6rem 1.25rem;
+  }
 }
 
 .dt-bootstrap4 {
-	width: calc(100% - 2px);
+  width: calc(100% - 2px);
 }
 
 table.dataTable tbody > tr.selected,
 table.dataTable tbody > tr > .selected {
   --bs-table-accent-bg: $primary;
+}
+
+
+datatable-header {
+  border-bottom: 1px solid #333 !important;
+}
+
+.datatable-body-cell-label {
+  line-height: 46px;
+}
+
+
+.datatable-row-even {
+  background: #f4f7f9;
+}
+
+.datatable-header-cell {
+  color: #6c757d;
+  font-weight: 700;
+  font-size: 0.825rem;
+}
+
+.pager {
+  a {
+    text-decoration: none;
+  }
+
+  li:not(.disabled) {
+    a {
+      &:hover, &:hover i:before {
+        z-index: 2;
+        color: #020202 !important;;
+        text-decoration: none;
+        background-color: #e2e8ee !important;
+        border-color: #dee6ed !important;
+      }
+    }
+  }
+
+
+  .pages {
+    &.active a {
+      z-index: 3;
+      color: #fff;
+      background-color: #3F80EA;
+      border-color: #3F80EA;
+    }
+
+    a {
+      margin-left: -1px;
+      padding: 0.3rem 0.75rem;
+      position: relative;
+      display: block;
+      color: #6c757d;
+      background-color: #fff;
+      border: 1px solid #dee6ed;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+  }
+}
+
+.datatable-valor-left:before, .datatable-valor-right:before {
+  display: block;
+  border-top-left-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem;
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee6ed;
+  padding: 0.3rem 0.75rem;
+  position: relative;
+  display: block;
+  color: #6c757d;
+  background-color: #fff;
+  border: 1px solid #dee6ed;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  font-style: normal;
+}
+
+.datatable-valor-left:before {
+  content: 'Pervious';
+}
+
+.datatable-valor-right:before {
+  content: 'Next';
 }
