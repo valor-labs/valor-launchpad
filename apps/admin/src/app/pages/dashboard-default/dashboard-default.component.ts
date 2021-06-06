@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DashboardDefaultService } from './dashboard-default.service';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
@@ -54,13 +54,8 @@ export class DashboardDefaultComponent implements OnInit {
   bsInlineValue = new Date();
   appointmentsData;
   latestProjectsTableData;
-  latestProjectsTableColumn = [
-    { name: 'Name', prop: 'name' },
-    { name: 'Start Date', prop: 'startDate', pipe: new DateOnlyPipe('en-US')},
-    { name: 'End Date', prop: 'endDate', pipe: new DateOnlyPipe('en-US') },
-    { name: 'Status', prop: 'status' },
-    { name: 'Assignee', prop: 'assignee' }
-  ];
+  @ViewChild('statusRef', { static: true }) statusTmpl: TemplateRef<any>;
+  latestProjectsTableColumn;
 
   constructor(
     private dashboardDefaultService: DashboardDefaultService,
@@ -77,6 +72,13 @@ export class DashboardDefaultComponent implements OnInit {
       this.appointmentsData = data.appointmentsData;
       this.latestProjectsTableData = data.latestProjectsTableData;
     });
+    this.latestProjectsTableColumn = [
+      { name: 'Name', prop: 'name' },
+      { name: 'Start Date', prop: 'startDate', pipe: new DateOnlyPipe('en-US')},
+      { name: 'End Date', prop: 'endDate', pipe: new DateOnlyPipe('en-US') },
+      { name: 'Status', prop: 'status', cellTemplate: this.statusTmpl },
+      { name: 'Assignee', prop: 'assignee' }
+    ];
   }
 
   onClickAction(): void {

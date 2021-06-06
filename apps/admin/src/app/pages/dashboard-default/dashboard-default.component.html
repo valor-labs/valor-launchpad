@@ -374,5 +374,8 @@
         </ng-template>
       </ngx-datatable-footer>
     </ngx-datatable>
+    <ng-template #statusRef let-row="row">
+      <span [ngClass]="row.badgeType">{{row.status}}</span>
+    </ng-template>
   </div>
 </div>
