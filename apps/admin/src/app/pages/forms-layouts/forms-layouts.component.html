@@ -11,19 +11,19 @@
         <form [formGroup]='basicFormGroup'>
           <div class="mb-3">
             <label for="email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="email" placeholder="Email" formControlName='email'>
+            <input type="email" valorLaunchpadInput id="email" placeholder="Email" formControlName='email'>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" formControlName='password'>
+            <input type="password" valorLaunchpadInput id="password" placeholder="Password" formControlName='password'>
           </div>
           <div class="mb-3">
             <label for="textarea" class="form-label">Textarea</label>
-            <textarea rows='1' class="form-control" id="textarea" placeholder="Textarea" formControlName='textarea'></textarea>
+            <textarea rows='1' valorLaunchpadInput id="textarea" placeholder="Textarea" formControlName='textarea'></textarea>
           </div>
           <div class="mb-3">
             <label for="file-input" class="form-label">File input</label>
-            <input type='file' class="form-control" id='file-input' formControlName='files'>
+            <input type='file' valorLaunchpadInput id='file-input' formControlName='files'>
           </div>
           <div class="mb-3">
             <label class="form-check m-0">
@@ -48,36 +48,29 @@
           <div class="mb-3 row">
             <label for='h-email' class="col-form-label col-sm-2 text-sm-right">Email</label>
             <div class="col-sm-10">
-              <input type="email" id='h-email' class="form-control" placeholder="Email" formControlName='email'>
+              <input type="email" id='h-email' valorLaunchpadInput placeholder="Email" formControlName='email'>
             </div>
           </div>
           <div class="mb-3 row">
             <label for="h-password" class="col-form-label col-sm-2 text-sm-right">Password</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="h-password" placeholder="Password" formControlName='password'>
+              <input type="password" valorLaunchpadInput id="h-password" placeholder="Password" formControlName='password'>
             </div>
           </div>
           <div class="mb-3 row">
             <label for="h-textarea" class="col-form-label col-sm-2 text-sm-right">Textarea</label>
             <div class="col-sm-10">
-             <textarea rows='3' class="form-control" id="h-textarea" placeholder="Textarea" formControlName='textarea'></textarea>
+             <textarea rows='3' valorLaunchpadInput id="h-textarea" placeholder="Textarea" formControlName='textarea'></textarea>
             </div>
           </div>
           <div class="mb-3 row">
             <label class="col-form-label col-sm-2 text-sm-right pt-sm-0">Radios</label>
             <div class="col-sm-10">
-              <label class="form-check">
-                <input name="radio-3" type="radio" class="form-check-input" checked>
-                <span class="form-check-label">Default radio</span>
-              </label>
-              <label class="form-check">
-                <input name="radio-3" type="radio" class="form-check-input">
-                <span class="form-check-label">Second default radio</span>
-              </label>
-              <label class="form-check">
-                <input name="radio-3" type="radio" class="form-check-input" disabled="">
-                <span class="form-check-label">Disabled radio</span>
-              </label>
+              <valor-launchpad-radio-group formControlName='radio'>
+                <label valor-launchpad-radio value='Default radio'>Default radio</label>
+                <label valor-launchpad-radio value='Second default radio'>Second default radio</label>
+                <label valor-launchpad-radio value='Disabled radio' [disabled]='true'>Disabled radio</label>
+              </valor-launchpad-radio-group>
             </div>
           </div>
           <div class="mb-3 row">
@@ -106,36 +99,36 @@
           <div class="row">
             <div class="mb-3 col-md-6">
               <label class="form-label" for="r-email">Email</label>
-              <input type="email" class="form-control" id="r-email" placeholder="Email" formControlName='email'>
+              <input type="email" valorLaunchpadInput id="r-email" placeholder="Email" formControlName='email'>
             </div>
             <div class="mb-3 col-md-6">
               <label class="form-label" for="r-password">Password</label>
-              <input type="password" class="form-control" id="r-password" placeholder="Password" formControlName='password'>
+              <input type="password" valorLaunchpadInput id="r-password" placeholder="Password" formControlName='password'>
             </div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="r-address">Address</label>
-            <input type="text" class="form-control" id="r-address" placeholder="1234 Main St" formControlName='address'>
+            <input type="text" valorLaunchpadInput id="r-address" placeholder="1234 Main St" formControlName='address'>
           </div>
           <div class="mb-3">
             <label class="form-label" for="r-address2">Address 2</label>
-            <input type="text" class="form-control" id="r-address2" placeholder="Apartment, studio, or floor" formControlName='address2'>
+            <input type="text" valorLaunchpadInput id="r-address2" placeholder="Apartment, studio, or floor" formControlName='address2'>
           </div>
           <div class="row">
             <div class="mb-3 col-md-6">
               <label class="form-label" for="inputCity">City</label>
-              <input type="text" class="form-control" id="inputCity" formControlName='city'>
+              <input type="text" valorLaunchpadInput id="inputCity" formControlName='city'>
             </div>
             <div class="mb-3 col-md-4">
               <label class="form-label" for="inputState">State</label>
-              <select id="inputState" class="form-control" formControlName='state'>
+              <select id="inputState" class="form-select" formControlName='state'>
                 <option selected="">Choose...</option>
                 <option>...</option>
               </select>
             </div>
             <div class="mb-3 col-md-2">
               <label class="form-label" for="inputZip">Zip</label>
-              <input type="text" class="form-control" id="inputZip" formControlName='zip'>
+              <input type="text" valorLaunchpadInput id="inputZip" formControlName='zip'>
             </div>
           </div>
           <div class="mb-3">

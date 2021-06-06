@@ -1,0 +1,8 @@
+<span class="input-group-text" *ngFor='let pre of prefixes'>
+  <ng-container *ngIf='isTemplate(pre); else str'>
+    <ng-container *ngTemplateOutlet='pre'></ng-container>
+  </ng-container>
+  <ng-template #str>{{pre}}</ng-template>
+</span>
+<ng-content></ng-content>
+<span class="input-group-text" *ngFor='let suf of suffixes'>{{suf}}</span>
