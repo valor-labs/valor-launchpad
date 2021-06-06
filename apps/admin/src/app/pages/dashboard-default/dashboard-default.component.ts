@@ -46,6 +46,13 @@ export class DashboardDefaultComponent implements OnInit {
   bsInlineValue = new Date();
   appointmentsData;
   latestProjectsTableData;
+  latestProjectsTableColumn = [
+    {name: 'Name', prop: 'name'},
+    {name: 'Start Date', prop: 'startDate'},
+    {name: 'End Date', prop: 'endDate'},
+    {name: 'Status', prop: 'status'},
+    {name: 'Assignee', prop: 'assignee'},
+  ]
 
   constructor(
     private dashboardDefaultService: DashboardDefaultService,
@@ -75,5 +82,7 @@ export class DashboardDefaultComponent implements OnInit {
   onClickSomethingElse(): void {
     console.log('You click the something else');
   }
+
+
 
 }
