@@ -1,4 +1,5 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, HostBinding, Input, Optional, Self } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: 'input[valorLaunchpadInput],textarea[valorLaunchpadInput]',
@@ -15,5 +16,16 @@ export class InputDirective {
 
   @HostBinding('class.form-control-sm') get sm() {
     return this.vlSize === 'small';
+  }
+
+  @HostBinding('class.is-invalid') get isDirtyAndInvalid(): boolean {
+    if (!this.ngControl) {
+      return false;
+    }
+    return this.ngControl.dirty && this.ngControl.invalid;
+
+  }
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {
   }
 }
