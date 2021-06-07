@@ -10,7 +10,6 @@ import { ChartComponent } from './chart/chart.component';
 import { ChatComponent } from './chat/chat.component';
 import { ContentComponent } from './content/content.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
-import { FormsComponent } from './forms/forms.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
 import { IllustrationsComponent } from './illustrations/illustrations.component';
 import { LandingComponent } from './landing/landing.component';
@@ -39,6 +38,7 @@ import { RadioGroupComponent } from './radio/radio-group.component';
 import { SwitchComponent } from './switch/switch.component';
 import { InputDirective } from './input/input.directive';
 import { InputGroupComponent } from './input-group/input-group.component';
+import { FormItemComponent } from './forms/form-item.component';
 
 @NgModule({
     imports: [CommonModule, AlertModule, ProgressbarModule],
@@ -53,7 +53,6 @@ import { InputGroupComponent } from './input-group/input-group.component';
     ChatComponent,
     ContentComponent,
     DropdownComponent,
-    FormsComponent,
     HamburgerComponent,
     IllustrationsComponent,
     LandingComponent,
@@ -80,6 +79,7 @@ import { InputGroupComponent } from './input-group/input-group.component';
     SwitchComponent,
     InputDirective,
     InputGroupComponent,
+    FormItemComponent,
   ],
   exports: [
     AlertComponent,
@@ -98,6 +98,7 @@ import { InputGroupComponent } from './input-group/input-group.component';
     SwitchComponent,
     InputDirective,
     InputGroupComponent,
+    FormItemComponent,
   ],
 })
 export class UiModule {}
