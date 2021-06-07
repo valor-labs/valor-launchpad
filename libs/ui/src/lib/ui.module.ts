@@ -40,6 +40,7 @@ import { InputDirective } from './input/input.directive';
 import { InputGroupComponent } from './input-group/input-group.component';
 import { FormItemComponent } from './forms/form-item.component';
 import {DynamicFormModule} from './dynamic-form/dynamic-form.module';
+import { CheckboxComponent } from './checkbox/checkbox.component';
 
 @NgModule({
     imports: [CommonModule, AlertModule, ProgressbarModule, DynamicFormModule],
@@ -81,7 +82,8 @@ import {DynamicFormModule} from './dynamic-form/dynamic-form.module';
     InputDirective,
     InputGroupComponent,
     FormItemComponent,
-    StepComponent
+    StepComponent,
+    CheckboxComponent,
   ],
   exports: [
     AlertComponent,
@@ -102,6 +104,7 @@ import {DynamicFormModule} from './dynamic-form/dynamic-form.module';
     InputDirective,
     InputGroupComponent,
     FormItemComponent,
+    CheckboxComponent,
   ],
 })
 export class UiModule {}
