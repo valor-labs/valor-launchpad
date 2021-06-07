@@ -39,11 +39,17 @@ import { SwitchComponent } from './switch/switch.component';
 import { InputDirective } from './input/input.directive';
 import { InputGroupComponent } from './input-group/input-group.component';
 import { FormItemComponent } from './forms/form-item.component';
-import {DynamicFormModule} from './dynamic-form/dynamic-form.module';
 import { CheckboxComponent } from './checkbox/checkbox.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DynamicFieldDirective } from './dynamic-form/components/dynamic-field/dynamic-field.directive';
+import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dynamic-form.component';
+import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
+import { FormInputComponent } from './dynamic-form/components/form-input/form-input.component';
+import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
 
 @NgModule({
-    imports: [CommonModule, AlertModule, ProgressbarModule, DynamicFormModule],
+    imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule],
   declarations: [
     AccordionComponent,
     AlertComponent,
@@ -84,8 +90,14 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
     FormItemComponent,
     StepComponent,
     CheckboxComponent,
+    DynamicFieldDirective,
+    DynamicFormComponent,
+    FormButtonComponent,
+    FormInputComponent,
+    FormSelectComponent,
   ],
   exports: [
+    TabsModule,
     AlertComponent,
     AvatarComponent,
     CardComponent,
@@ -97,7 +109,6 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
     WizardComponent,
     StepsComponent,
     StepComponent,
-    DynamicFormModule,
     RadioComponent,
     RadioGroupComponent,
     SwitchComponent,
@@ -105,6 +116,7 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
     InputGroupComponent,
     FormItemComponent,
     CheckboxComponent,
+    DynamicFormComponent,
   ],
 })
 export class UiModule {}

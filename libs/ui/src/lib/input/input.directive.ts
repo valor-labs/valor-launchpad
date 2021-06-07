@@ -1,5 +1,6 @@
-import { Directive, HostBinding, Input, Optional, Self } from '@angular/core';
+import { Directive, Host, HostBinding, Input, Optional, Self } from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { FormItemComponent } from '../forms/form-item.component';
 
 @Directive({
   selector: 'input[valorLaunchpadInput],textarea[valorLaunchpadInput]',
@@ -23,9 +24,11 @@ export class InputDirective {
       return false;
     }
     return this.ngControl.dirty && this.ngControl.invalid;
-
   }
 
-  constructor(@Optional() @Self() public ngControl: NgControl) {
+  constructor(
+    @Optional() @Self() public ngControl: NgControl,
+    @Optional() @Host() private formItemComponent: FormItemComponent,
+    ) {
   }
 }

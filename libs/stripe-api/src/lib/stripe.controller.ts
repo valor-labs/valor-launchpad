@@ -1,6 +1,7 @@
-import {Body, Controller, Post, Req, Res} from '@nestjs/common';
+import { Bind, Body, Controller, Get, Param, Post, Req, Res } from '@nestjs/common';
 import {Stripe} from 'stripe';
 import {RequestWithSession} from '../../../../apps/api/src/common/RequestWithSession';
+import { AllCountriesResponse } from './stripe.model';
 
 @Controller('v1')
 export class StripeController {
@@ -48,6 +49,54 @@ export class StripeController {
     })
   }
 
+  @Get('countries')
+  async getAllCountries(): Promise<AllCountriesResponse> {
+    return [
+      {value: "AU", key: "Australia"},
+      {value: "AT", key: "Austria"},
+      {value: "BE", key: "Belgium"},
+      {value: "BR", key: "Brazil"},
+      {value: "CA", key: "Canada"},
+      {value: "CN", key: "China"},
+      {value: "DK", key: "Denmark"},
+      {value: "FI", key: "Finland"},
+      {value: "FR", key: "France"},
+      {value: "DE", key: "Germany"},
+      {value: "HK", key: "Hong Kong"},
+      {value: "IE", key: "Ireland"},
+      {value: "IT", key: "Italy"},
+      {value: "JP", key: "Japan"},
+      {value: "LU", key: "Luxembourg"},
+      {value: "MY", key: "Malaysia"},
+      {value: "MX", key: "Mexico"},
+      {value: "NL", key: "Netherlands"},
+      {value: "NZ", key: "New Zealand"},
+      {value: "NO", key: "Norway"},
+      {value: "PL", key: "Poland"},
+      {value: "PT", key: "Portugal"},
+      {value: "SG", key: "Singapore"},
+      {value: "ES", key: "Spain"},
+      {value: "SE", key: "Sweden"},
+      {value: "CH", key: "Switzerland"},
+      {value: "GB", key: "United Kingdom"},
+      {value: "US", key: "United States"}
+    ];
+  }
+
+  @Get('countries/:countryId/pay-methods')
+  @Bind(Param('countryId'))
+  async getPayMethodsByCountry(countryId: string) {
+    const res = [];
+    for (const [methodId, methodDetail] of Object.entries(PAYMENT_METHODS)) {
+      if (!Reflect.has(methodDetail, 'countries')) {
+        res.push({ ...methodDetail, id: methodId });
+      } else if (methodDetail.countries.includes(countryId)) {
+        res.push({ ...methodDetail, id: methodId });
+      }
+    }
+    return res;
+  }
+
   calculateOrderAmount(items) {
     // Replace this constant with a calculation of the order's amount
     // Calculate the order total on the server to prevent
@@ -55,3 +104,121 @@ export class StripeController {
     return 1400;
   };
 }
+
+interface MethodDetail {
+  name: string;
+  flow: string;
+  countries?: string[];
+  currencies?: string[];
+}
+
+const PAYMENT_METHODS: Record<string, MethodDetail> = {
+  card: {
+    name: 'Card',
+    flow: 'none',
+  },
+  ach_credit_transfer: {
+    name: 'Bank Transfer',
+    flow: 'receiver',
+    countries: ['US'],
+    currencies: ['usd'],
+  },
+  alipay: {
+    name: 'Alipay',
+    flow: 'redirect',
+    countries: ['CN', 'HK', 'SG', 'JP'],
+    currencies: [
+      'aud',
+      'cad',
+      'eur',
+      'gbp',
+      'hkd',
+      'jpy',
+      'nzd',
+      'sgd',
+      'usd',
+    ],
+  },
+  bancontact: {
+    name: 'Bancontact',
+    flow: 'redirect',
+    countries: ['BE'],
+    currencies: ['eur'],
+  },
+  eps: {
+    name: 'EPS',
+    flow: 'redirect',
+    countries: ['AT'],
+    currencies: ['eur'],
+  },
+  ideal: {
+    name: 'iDEAL',
+    flow: 'redirect',
+    countries: ['NL'],
+    currencies: ['eur'],
+  },
+  giropay: {
+    name: 'Giropay',
+    flow: 'redirect',
+    countries: ['DE'],
+    currencies: ['eur'],
+  },
+  multibanco: {
+    name: 'Multibanco',
+    flow: 'receiver',
+    countries: ['PT'],
+    currencies: ['eur'],
+  },
+  p24: {
+    name: 'Przelewy24',
+    flow: 'redirect',
+    countries: ['PL'],
+    currencies: ['eur', 'pln'],
+  },
+  sepa_debit: {
+    name: 'SEPA Direct Debit',
+    flow: 'none',
+    countries: [
+      'FR',
+      'DE',
+      'ES',
+      'BE',
+      'NL',
+      'LU',
+      'IT',
+      'PT',
+      'AT',
+      'IE',
+      'FI',
+    ],
+    currencies: ['eur'],
+  },
+  sofort: {
+    name: 'SOFORT',
+    flow: 'redirect',
+    countries: ['DE', 'AT'],
+    currencies: ['eur'],
+  },
+  wechat: {
+    name: 'WeChat',
+    flow: 'none',
+    countries: ['CN', 'HK', 'SG', 'JP'],
+    currencies: [
+      'aud',
+      'cad',
+      'eur',
+      'gbp',
+      'hkd',
+      'jpy',
+      'nzd',
+      'sgd',
+      'usd',
+    ],
+  },
+  au_becs_debit: {
+    name: 'BECS Direct Debit',
+    flow: 'none',
+    countries: ['AU'],
+    currencies: ['aud'],
+  },
+};

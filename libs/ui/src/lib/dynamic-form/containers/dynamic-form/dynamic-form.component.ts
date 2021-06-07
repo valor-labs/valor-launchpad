@@ -62,7 +62,15 @@ export class DynamicFormComponent implements OnChanges, OnInit {
 
   createGroup() {
     const group = this.fb.group({});
-    this.controls.forEach(control => group.addControl(control.name, this.createControl(control)));
+    this.controls.forEach(control => {
+      const ctrl = this.createControl(control);
+      group.addControl(control.name, ctrl);
+      if (control.valueChanges) {
+        ctrl.valueChanges.subscribe((val) => {
+          control.valueChanges(val);
+        })
+      }
+    });
     return group;
   }
 
