@@ -95,7 +95,7 @@ import {DynamicFormModule} from './dynamic-form/dynamic-form.module';
     WizardComponent,
     StepsComponent,
     StepComponent,
-    DynamicFormModule
+    DynamicFormModule,
     RadioComponent,
     RadioGroupComponent,
     SwitchComponent,
