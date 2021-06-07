@@ -39,9 +39,10 @@ import { SwitchComponent } from './switch/switch.component';
 import { InputDirective } from './input/input.directive';
 import { InputGroupComponent } from './input-group/input-group.component';
 import { FormItemComponent } from './forms/form-item.component';
+import {DynamicFormModule} from './dynamic-form/dynamic-form.module';
 
 @NgModule({
-    imports: [CommonModule, AlertModule, ProgressbarModule],
+    imports: [CommonModule, AlertModule, ProgressbarModule, DynamicFormModule],
   declarations: [
     AccordionComponent,
     AlertComponent,
@@ -80,6 +81,7 @@ import { FormItemComponent } from './forms/form-item.component';
     InputDirective,
     InputGroupComponent,
     FormItemComponent,
+    StepComponent
   ],
   exports: [
     AlertComponent,
@@ -93,6 +95,7 @@ import { FormItemComponent } from './forms/form-item.component';
     WizardComponent,
     StepsComponent,
     StepComponent,
+    DynamicFormModule,
     RadioComponent,
     RadioGroupComponent,
     SwitchComponent,

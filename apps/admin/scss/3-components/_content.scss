@@ -2,6 +2,7 @@
   padding: $content-padding;
   flex: 1;
   direction: ltr;
+  overflow-y: auto;
 
   @include media-breakpoint-down(md) {
     width: 100vw;

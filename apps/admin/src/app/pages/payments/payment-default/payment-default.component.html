@@ -1,0 +1,39 @@
+<h1>Payment Integrations</h1>
+<p>There are two payment providers currently supported as part of this template. PayPal and Stripe</p>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <valor-launchpad-card class="col-5">
+      <div card-header>
+        <a class="card-title mb-0" routerLink="paypal">
+          <div class="row justify-content-center">
+            <img class="hero-logo" src="assets/img/brands/paypal.svg" alt="PayPal Logo">
+          </div>
+        </a>
+      </div>
+      <div card-body>
+        <h2>PayPal simplifies your life</h2>
+        <p class="payment-description">We believe it should be simple to get, spend, and send your money. That’s why our services are designed to
+          fit into your everyday life. Whether you’re shopping, splitting expenses, or getting paid for sales, we’re
+          here to help make it as easy as possible.</p>
+        <button class="btn btn-primary" routerLink="paypal">Explore PayPal</button>
+        <!--        TODO: We need to implement this button https://developer.paypal.com/docs/platforms/checkout/reference/style-guide/-->
+      </div>
+    </valor-launchpad-card>
+
+    <valor-launchpad-card class="col-5">
+      <div card-header>
+        <a class="card-title mb-0" routerLink="paypal">
+          <div class="row justify-content-center">
+            <img class="hero-logo" src="assets/img/brands/stripe-blurple.svg" alt="PayPal Logo">
+          </div>
+        </a>
+      </div>
+      <div card-body>
+        <h2>Payments infrastructure for the internet</h2>
+        <p class="payment-description">Millions of companies of all sizes—from startups to Fortune 500s—use Stripe’s software and APIs to accept payments, send payouts, and manage their businesses online.</p>
+        <button class="btn btn-primary" routerLink="stripe">Explore Stripe</button>
+        <!--        TODO: We need to implement these badges as well https://stripe.com/newsroom/brand-assets -->
+      </div>
+    </valor-launchpad-card>
+  </div>
+</div>

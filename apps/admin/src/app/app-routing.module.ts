@@ -124,6 +124,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/ui-typography/ui-typography.module').then(m => m.UiTypographyModule)
       },
       {
+        path: 'payments',
+        loadChildren: () => import('./pages/payments/payments.module').then(m=> m.PaymentsModule)
+      },
+      {
         path: '', redirectTo: '/dashboard-default', pathMatch: 'full'
       },
       {

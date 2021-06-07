@@ -37,6 +37,12 @@
     },
     "ui": {
       "tags": []
+    },
+    "stripe-api": {
+      "tags": []
+    },
+    "stripe-ui": {
+      "tags": []
     }
   }
 }
