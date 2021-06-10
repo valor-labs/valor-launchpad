@@ -22,6 +22,7 @@ export interface VLCheckBoxOption {
 export class CheckboxGroupComponent implements ControlValueAccessor {
   @Input() options: VLCheckBoxOption[] = [];
   @Input() inline = false;
+  @Input() optionClass: string;
 
   checkedItems = new Set<string>();
 

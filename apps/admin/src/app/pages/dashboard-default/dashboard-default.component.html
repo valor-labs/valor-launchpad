@@ -4,26 +4,50 @@
   </div>
 
   <div class='col-auto ms-auto text-end mt-n1'>
-    <div class='dropdown me-2 d-inline-block' dropdown container="body" placement="bottom right">
-      <a class='btn btn-light bg-white shadow-sm dropdown-toggle' dropdownToggle data-bs-toggle='dropdown'
-         data-bs-display='static'>
+    <div class='dropdown me-2 d-inline-block'>
+      <a class='btn btn-light bg-white shadow-sm dropdown-toggle' (click)="dp.show()">
         <i class='align-middle mt-n1  far fa-fw fa-calendar'></i> Today
+        <input type="text" style="width: 1px; height: 1px; visibility: hidden;"
+               #dp="bsDaterangepicker"
+               bsDaterangepicker
+               [bsConfig]="{containerClass: 'theme-green'}"
+               (bsValueChange)="onCalendarChange($event)"
+        >
       </a>
+    </div>¬
 
-      <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-        <h6 class='dropdown-header'>Settings</h6>
-        <a class='dropdown-item' (click)="onClickAction()">Action</a>
-        <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
-        <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
-        <div class='dropdown-divider'></div>
-        <a class='dropdown-item'>Separated link</a>
-      </div>
+    <div style="display: inline-block;margin-right: 10px;" dropdown container="body" [autoClose]="false">
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-primary shadow-sm"
+              aria-controls="dropdown-basic">
+        <i class='align-middle  fas fa-fw fa-filter'>&nbsp;</i>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-end"
+          role="menu" aria-labelledby="button-basic">
+        <valor-launchpad-checkbox-group
+          [options]='projectOptions'
+          [formControl]='projectControl'
+          [optionClass]="'dropdown-item'"
+          (ngModelChange)="onChangeFilter($event)"
+        ></valor-launchpad-checkbox-group>
+        <!--        <li role="menuitem" class="form-check" *ngFor="let o of projectOptions">-->
+        <!--          <input-->
+        <!--            type="checkbox"-->
+        <!--            class="form-check-input"-->
+        <!--            [checked]='checkedItems.has(o.value)'-->
+        <!--            (change)='nativeChange(o, $event)'-->
+        <!--            [disabled]='o.disabled'-->
+        <!--          >-->
+        <!--          <span class="form-check-label">{{o.label}}</span>-->
+        <!--        </li>-->
+        <!--        <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>-->
+        <!--        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>-->
+        <!--        <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>-->
+        <!--        <li class="divider dropdown-divider"></li>-->
+        <!--        <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>-->
+        <!--        </li>-->
+      </ul>
     </div>
-
-    <button class='btn btn-primary shadow-sm'>
-      <i class='align-middle  fas fa-fw fa-filter'>&nbsp;</i>
-    </button>
-    <button class='btn btn-primary shadow-sm'>
+    <button class='btn btn-primary shadow-sm' (click)="onUpdateData()">
       <i class='align-middle fas fa-fw fa-sync'>&nbsp;</i>
     </button>
   </div>
@@ -295,7 +319,7 @@
     <div class='card flex-fill w-100'>
       <div class='card-header'>
         <div class='card-actions float-end'>
-          <div class='dropdown show' dropdown>
+          <div class='dropdown show' dropdown container="body">
             <a data-bs-toggle='dropdown' data-bs-display='static' dropdownToggle>
               <i class='align-middle    fas fa-fw fa-ellipsis-h'></i>
             </a>

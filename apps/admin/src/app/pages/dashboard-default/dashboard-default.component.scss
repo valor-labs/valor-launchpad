@@ -2,3 +2,13 @@
 :host ::ng-deep {
   @import './custom-datepicker';
 }
+
+::ng-deep {
+  .bs-datepicker-container {
+    position: absolute;
+    left: -570px;
+    top: 12px;
+    background: #fff;
+  }
+}
+

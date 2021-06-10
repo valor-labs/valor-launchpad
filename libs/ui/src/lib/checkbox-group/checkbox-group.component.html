@@ -1,4 +1,4 @@
-<label class="form-check" [class.form-check-inline]='inline' *ngFor="let o of options; trackBy: trackByOption">
+<label class="form-check" [class.form-check-inline]='inline' [ngClass]="optionClass" *ngFor="let o of options; trackBy: trackByOption">
   <input
     type="checkbox"
     class="form-check-input"

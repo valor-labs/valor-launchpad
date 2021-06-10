@@ -7,6 +7,8 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UiModule } from '@valor-launchpad/ui';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +21,10 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NgxChartsModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
-    NgxDatatableModule
+    NgxDatatableModule,
+    UiModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class DashboardDefaultModule { }

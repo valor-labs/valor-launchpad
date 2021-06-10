@@ -49,7 +49,7 @@
             "tsConfig": "apps/admin/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
-            "styles": ["apps/admin/src/styles.scss"],
+            "styles": ["apps/admin/src/styles.scss", "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"],
             "scripts": []
           },
           "configurations": {

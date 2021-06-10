@@ -2,13 +2,9 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DashboardDefaultService } from './dashboard-default.service';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { VLCheckBoxOption } from '../../../../../../libs/ui/src/lib/checkbox-group/checkbox-group.component';
 
-
-class DateOnlyPipe extends DatePipe {
-  public transform(value): any {
-    return super.transform(value, 'MM/dd/y');
-  }
-}
 
 @Component({
   selector: 'valor-launchpad-dashboard-default',
@@ -16,6 +12,7 @@ class DateOnlyPipe extends DatePipe {
   styleUrls: ['./dashboard-default.component.scss']
 })
 export class DashboardDefaultComponent implements OnInit {
+
 
   dashboardData;
   salesRevenueChartData;
@@ -56,6 +53,8 @@ export class DashboardDefaultComponent implements OnInit {
   latestProjectsTableData;
   @ViewChild('statusRef', { static: true }) statusTmpl: TemplateRef<any>;
   latestProjectsTableColumn;
+  projectOptions: VLCheckBoxOption[];
+  projectControl = new FormControl();
 
   constructor(
     private dashboardDefaultService: DashboardDefaultService,
@@ -64,6 +63,21 @@ export class DashboardDefaultComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._fetchData();
+    this._initProjectsTableColumn();
+  }
+
+  private _initProjectsTableColumn(): void {
+    this.latestProjectsTableColumn = [
+      { name: 'Name', prop: 'name' },
+      { name: 'Start Date', prop: 'startDate', pipe: new DatePipe('en-US') },
+      { name: 'End Date', prop: 'endDate', pipe: new DatePipe('en-US') },
+      { name: 'Status', prop: 'status', cellTemplate: this.statusTmpl },
+      { name: 'Assignee', prop: 'assignee' }
+    ];
+  }
+
+  private _fetchData(): void {
     this.dashboardDefaultService.getData().subscribe((data: any) => {
       this.dashboardData = data.dashboardData;
       this.salesRevenueChartData = data.salesRevenueChartData;
@@ -71,14 +85,15 @@ export class DashboardDefaultComponent implements OnInit {
       this.weeklySalesTableData = data.weeklySalesTableData;
       this.appointmentsData = data.appointmentsData;
       this.latestProjectsTableData = data.latestProjectsTableData;
+      this._initProjectOptions();
     });
-    this.latestProjectsTableColumn = [
-      { name: 'Name', prop: 'name' },
-      { name: 'Start Date', prop: 'startDate', pipe: new DateOnlyPipe('en-US')},
-      { name: 'End Date', prop: 'endDate', pipe: new DateOnlyPipe('en-US') },
-      { name: 'Status', prop: 'status', cellTemplate: this.statusTmpl },
-      { name: 'Assignee', prop: 'assignee' }
-    ];
+  }
+
+  private _initProjectOptions(): void {
+    this.projectOptions = this.latestProjectsTableData.map(item => ({
+      label: item.name,
+      value: item.name
+    }));
   }
 
   onClickAction(): void {
@@ -93,5 +108,16 @@ export class DashboardDefaultComponent implements OnInit {
     console.log('You click the something else');
   }
 
+  onUpdateData(): void {
+    this._fetchData();
+  }
+
+  onChangeFilter(selectedItem): void {
+    console.log('selectedItem', selectedItem);
+  }
+
+  onCalendarChange(value: Date[]): void {
+    console.log('value', value);
+  }
 
 }
