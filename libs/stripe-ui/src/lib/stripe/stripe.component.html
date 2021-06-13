@@ -1,10 +1,23 @@
-<h1>Stripe Payments</h1>
-<ul class="nav nav-pills">
-  <li class="nav-item">
-    <a class="nav-link" routerLinkActive="active" routerLink="direct">Direct Payment</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" routerLinkActive="active" routerLink="embedded">Embedded Payment</a>
-  </li>
-</ul>
-<router-outlet></router-outlet>
+<h1 class="h3 mb-3">Stripe Payments</h1>
+
+<div class='row'>
+  <div class='col-md-2'>
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Profile Settings</h5>
+      </div>
+
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action" routerLinkActive="active" routerLink='embedded'>
+          Embedded Payment
+        </a>
+        <a class="list-group-item list-group-item-action" routerLinkActive="active" routerLink='direct'>
+          Direct Payment
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class='col-md-10'>
+    <router-outlet></router-outlet>
+  </div>
+</div>

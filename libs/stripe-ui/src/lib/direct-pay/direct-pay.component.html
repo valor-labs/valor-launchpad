@@ -1,85 +1,141 @@
-<div class="wrapper">
-  <div class="row">
-    <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1">
-      <div class="mobile h5">Billing Address</div>
-      <div id="details" class="bg-white rounded pb-5">
-        <form>
-          <div class="form-group"> <label class="text-muted">Name</label> <input type="text" value="David Smith" class="form-control"> </div>
-          <div class="form-group"> <label class="text-muted">Email</label>
-            <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="email" value="david@gmail.com"> <span class="fas fa-check text-success pr-sm-2 pr-0"></span> </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group"> <label>City</label>
-                <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="text" value="Houston"> <span class="fas fa-check text-success pr-2"></span> </div>
-              </div>
+<div class='row'>
+  <div class='col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1'>
+    <valor-launchpad-card>
+      <div card-header>
+        <h5 class="card-title mb-0">Billing Address</h5>
+      </div>
+      <div card-body *ngIf='billingFormConfig'>
+        <dynamic-form #billingForm="dynamicForm" [config]='billingFormConfig'></dynamic-form>
+        <div class='address mb-4' style='background: #f6f9fc; border-radius: 5px; padding: 15px;'>
+          <p class='address-label' style='color: #666ee8;'>Shopping Address</p>
+          <div class="d-flex">
+            <div class="me-4">
+              <b>Home Address</b>
+              <p class="text-muted mb-0">542 W.14th Street</p>
+              <p class="text-muted">NY</p>
             </div>
-            <div class="col-lg-6">
-              <div class="form-group"> <label>Zip code</label>
-                <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="text" value="77001"> <span class="fas fa-check text-success pr-2"></span> </div>
-              </div>
+            <div id="register">
+              <a href="#"> <b style='color: #666ee8;'>Register Now</b> </a>
+              <p class="text-muted">Create account to have multiple address saved</p>
             </div>
           </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group"> <label>Address</label>
-                <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="text" value="542 W.14th Street"> <span class="fas fa-check text-success pr-2"></span> </div>
-              </div>
+        </div>
+        <button stripe-button (click)='submit(billingForm)'>Pay</button>
+      </div>
+    </valor-launchpad-card>
+  </div>
+  <div class='col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1 pt-lg-0 pt-3'>
+    <valor-launchpad-card>
+      <div card-header>
+        <h5 class="card-title mb-0">Cart summary</h5>
+      </div>
+      <div card-body>
+        <div>
+          <valor-launchpad-stripe-order-items>
+            <valor-launchpad-stripe-order-item
+              *ngFor='let item of orderItems'
+              [orderItem]='item'
+            ></valor-launchpad-stripe-order-item>
+          </valor-launchpad-stripe-order-items>
+          <hr class='dropdown-divider mt-3 mb-3'/>
+          <valor-launchpad-stripe-order-total
+            [live]='true'
+            [orderTotal]='orderTotal'
+            [subtotal]='subtotal'
+            [shipping]='shipping'
+          >
+            <div gift-card>
+              <input valorLaunchpadInput placeholder='Gift Card or Promo Card' />
             </div>
-            <div class="col-lg-6">
-              <div class="form-group"> <label>State</label>
-                <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="text" value="NY"> <span class="fas fa-check text-success pr-2"></span> </div>
-              </div>
-            </div>
-          </div> <label>Country</label> <select name="country" id="country">
-          <option value="usa">USA</option>
-          <option value="ind">INDIA</option>
-        </select>
-        </form>
-      </div> <input type="checkbox" checked> <label>Shipping address is same as billing</label>
-      <div id="address" class="bg-light rounded mt-3">
-        <div class="h5 font-weight-bold text-primary"> Shopping Address </div>
-        <div class="d-md-flex justify-content-md-start align-items-md-center pt-3">
-          <div class="mr-auto"> <b>Home Address</b>
-            <p class="text-justify text-muted">542 W.14th Street</p>
-            <p class="text-uppercase text-muted">NY</p>
-          </div>
-          <div class="rounded py-2 px-3" id="register"> <a href="#"> <b>Register Now</b> </a>
-            <p class="text-muted">Create account to have multiple address saved</p>
-          </div>
+          </valor-launchpad-stripe-order-total>
         </div>
       </div>
-    </div>
-    <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1 pt-lg-0 pt-3">
-      <div id="cart" class="bg-white rounded">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="h6">Cart Summary</div>
-          <div class="h6"> <a href="#">Edit</a> </div>
-        </div>
-        <div class="d-flex jusitfy-content-between align-items-center pt-3 pb-2 border-bottom">
-          <div class="item pr-2"> <img src="https://images.unsplash.com/photo-1569488859134-24b2d490f23f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" width="80" height="80">
-            <div class="number">2</div>
-          </div>
-          <div class="d-flex flex-column px-3"> <b class="h5">BattleCreek Coffee</b> <a href="#" class="h5 text-primary">C-770</a> </div>
-          <div class="ml-auto"> <b class="h5">$80.9</b> </div>
-        </div>
-        <div class="my-3"> <input type="text" class="w-100 form-control text-center" placeholder="Gift Card or Promo Card"> </div>
-        <div class="d-flex align-items-center">
-          <div class="display-5">Subtotal</div>
-          <div class="ml-auto font-weight-bold">$80.9</div>
-        </div>
-        <div class="d-flex align-items-center py-2 border-bottom">
-          <div class="display-5">Shipping</div>
-          <div class="ml-auto font-weight-bold">$12.9</div>
-        </div>
-        <div class="d-flex align-items-center py-2">
-          <div class="display-5">Total</div>
-          <div class="ml-auto d-flex">
-            <div class="text-primary text-uppercase px-3">usd</div>
-            <div class="font-weight-bold">$92.98</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </valor-launchpad-card>
   </div>
 </div>
+
+<!--<div class="wrapper">-->
+<!--  <div class="row">-->
+<!--    <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1">-->
+<!--      <div class="mobile h5">Billing Address</div>-->
+<!--      <div id="details" class="bg-white rounded pb-5">-->
+<!--        <form>-->
+<!--          <div class="form-group"> <label class="text-muted">Name</label> <input type="text" value="David Smith" class="form-control"> </div>-->
+<!--          <div class="form-group"> <label class="text-muted">Email</label>-->
+<!--            <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="email" value="david@gmail.com"> <span class="fas fa-check text-success pr-sm-2 pr-0"></span> </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col-lg-6">-->
+<!--              <div class="form-group"> <label>City</label>-->
+<!--                <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="text" value="Houston"> <span class="fas fa-check text-success pr-2"></span> </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-6">-->
+<!--              <div class="form-group"> <label>Zip code</label>-->
+<!--                <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="text" value="77001"> <span class="fas fa-check text-success pr-2"></span> </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col-lg-6">-->
+<!--              <div class="form-group"> <label>Address</label>-->
+<!--                <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="text" value="542 W.14th Street"> <span class="fas fa-check text-success pr-2"></span> </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-6">-->
+<!--              <div class="form-group"> <label>State</label>-->
+<!--                <div class="d-flex jusify-content-start align-items-center rounded p-2"> <input type="text" value="NY"> <span class="fas fa-check text-success pr-2"></span> </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div> <label>Country</label> <select name="country" id="country">-->
+<!--          <option value="usa">USA</option>-->
+<!--          <option value="ind">INDIA</option>-->
+<!--        </select>-->
+<!--        </form>-->
+<!--      </div> <input type="checkbox" checked> <label>Shipping address is same as billing</label>-->
+<!--      <div id="address" class="bg-light rounded mt-3">-->
+<!--        <div class="h5 font-weight-bold text-primary"> Shopping Address </div>-->
+<!--        <div class="d-md-flex justify-content-md-start align-items-md-center pt-3">-->
+<!--          <div class="mr-auto"> <b>Home Address</b>-->
+<!--            <p class="text-justify text-muted">542 W.14th Street</p>-->
+<!--            <p class="text-uppercase text-muted">NY</p>-->
+<!--          </div>-->
+<!--          <div class="rounded py-2 px-3" id="register"> <a href="#"> <b>Register Now</b> </a>-->
+<!--            <p class="text-muted">Create account to have multiple address saved</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1 pt-lg-0 pt-3">-->
+<!--      <div id="cart" class="bg-white rounded">-->
+<!--        <div class="d-flex justify-content-between align-items-center">-->
+<!--          <div class="h6">Cart Summary</div>-->
+<!--          <div class="h6"> <a href="#">Edit</a> </div>-->
+<!--        </div>-->
+<!--        <div class="d-flex jusitfy-content-between align-items-center pt-3 pb-2 border-bottom">-->
+<!--          <div class="item pr-2"> <img src="https://images.unsplash.com/photo-1569488859134-24b2d490f23f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" width="80" height="80">-->
+<!--            <div class="number">2</div>-->
+<!--          </div>-->
+<!--          <div class="d-flex flex-column px-3"> <b class="h5">BattleCreek Coffee</b> <a href="#" class="h5 text-primary">C-770</a> </div>-->
+<!--          <div class="ml-auto"> <b class="h5">$80.9</b> </div>-->
+<!--        </div>-->
+<!--        <div class="my-3"> <input type="text" class="w-100 form-control text-center" placeholder="Gift Card or Promo Card"> </div>-->
+<!--        <div class="d-flex align-items-center">-->
+<!--          <div class="display-5">Subtotal</div>-->
+<!--          <div class="ml-auto font-weight-bold">$80.9</div>-->
+<!--        </div>-->
+<!--        <div class="d-flex align-items-center py-2 border-bottom">-->
+<!--          <div class="display-5">Shipping</div>-->
+<!--          <div class="ml-auto font-weight-bold">$12.9</div>-->
+<!--        </div>-->
+<!--        <div class="d-flex align-items-center py-2">-->
+<!--          <div class="display-5">Total</div>-->
+<!--          <div class="ml-auto d-flex">-->
+<!--            <div class="text-primary text-uppercase px-3">usd</div>-->
+<!--            <div class="font-weight-bold">$92.98</div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
