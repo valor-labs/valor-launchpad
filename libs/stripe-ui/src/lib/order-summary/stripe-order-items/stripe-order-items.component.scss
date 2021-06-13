@@ -1,0 +1,6 @@
+:host {
+  display: block;
+  ::ng-deep .stripe-order-item {
+    margin-bottom: 30px;
+  }
+}

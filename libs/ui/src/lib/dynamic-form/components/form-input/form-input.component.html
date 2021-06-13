@@ -1,11 +1,17 @@
-<!--<div class="dynamic-field form-input" [formGroup]="group">-->
-<div [formGroup]="group"
-     [ngClass]="{'mb-3': config.subtype=='text', 'mb-3 form-check': config.subtype=='checkbox'|| config.subtype == 'radio'}"
->
-  <label
-    [ngClass]="{'form-label': config.subtype=='text', 'form-check-label': config.subtype=='checkbox'|| config.subtype == 'radio'}">{{ config.label }}</label>
-  <input [ngClass]="{'form-control': config.subtype=='text', 'form-check-input': config.subtype=='checkbox'|| config.subtype == 'radio'}"
-         [type]="config.subtype || 'text'"
-         [attr.placeholder]="config.placeholder"
-         [formControlName]="config.name">
-</div>
+<valor-launchpad-form-item [formGroup]="group">
+  <ng-container [ngSwitch]='config.subtype'>
+    <ng-template [ngSwitchCase]='"radio"'>
+      <label valor-launchpad-radio [formControlName]='config.name'>{{config.label}}</label>
+    </ng-template>
+    <ng-template [ngSwitchCase]='"checkbox"'>
+      <label valor-launchpad-checkbox [formControlName]='config.name'>{{config.label}}</label>
+    </ng-template>
+    <ng-template ngSwitchDefault>
+      <label class='form-label'>{{ config.label }}</label>
+      <input valorLaunchpadInput [placeholder]='config.placeholder || ""' [formControlName]='config.name' [type]="config.subtype">
+    </ng-template>
+  </ng-container>
+  <label *ngIf='group.get(config.name).dirty && group.get(config.name).invalid && config.errorMessage' class="error small form-text invalid-feedback">
+    {{config.errorMessage(group.get(config.name).errors)}}
+  </label>
+</valor-launchpad-form-item>
