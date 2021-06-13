@@ -5,6 +5,7 @@ import { FieldConfig } from '../../models/field-config.interface';
 
 @Component({
   exportAs: 'dynamicForm',
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'dynamic-form',
   styleUrls: ['dynamic-form.component.scss'],
   template: `
@@ -33,6 +34,7 @@ export class DynamicFormComponent implements OnChanges, OnInit {
   get controls() { return this.config.filter(({type}) => type !== 'button'); }
   get changes() { return this.form.valueChanges; }
   get valid() { return this.form.valid; }
+  get invalid() { return this.form.invalid; }
   get value() { return this.form.value; }
 
   constructor(private fb: FormBuilder) {}
@@ -62,7 +64,15 @@ export class DynamicFormComponent implements OnChanges, OnInit {
 
   createGroup() {
     const group = this.fb.group({});
-    this.controls.forEach(control => group.addControl(control.name, this.createControl(control)));
+    this.controls.forEach(control => {
+      const ctrl = this.createControl(control);
+      group.addControl(control.name, ctrl);
+      if (control.valueChanges) {
+        ctrl.valueChanges.subscribe((val) => {
+          control.valueChanges(val);
+        })
+      }
+    });
     return group;
   }
 

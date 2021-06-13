@@ -1,4 +1,4 @@
-import {ValidatorFn} from '@angular/forms';
+import { ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export interface FieldConfig {
   disabled?: boolean,
@@ -9,5 +9,7 @@ export interface FieldConfig {
   placeholder?: string,
   type: string,
   validation?: ValidatorFn[],
-  value?: any
+  value?: any,
+  errorMessage?: (errors: ValidationErrors | null) => string;
+  valueChanges?: (val: any) => void;
 }

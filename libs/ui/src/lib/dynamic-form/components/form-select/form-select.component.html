@@ -1,9 +1,12 @@
-<div class="mb-3" [formGroup]="group">
+<valor-launchpad-form-item [formGroup]="group">
   <label class="form-label">{{ config.label }}</label>
-  <select class="form-select" [formControlName]="config.name">
+  <select class="form-select" [formControlName]="config.name" [class.is-invalid]='group.get(config.name).dirty && group.get(config.name).invalid'>
     <option value="">{{ config.placeholder }}</option>
     <option [value]="option.value" *ngFor="let option of config.options">
       {{ option.key }}
     </option>
   </select>
-</div>
+  <label *ngIf='group.get(config.name).dirty && group.get(config.name).invalid && config.errorMessage' class="error small form-text invalid-feedback">
+    {{config.errorMessage(group.get(config.name).errors)}}
+  </label>
+</valor-launchpad-form-item>
