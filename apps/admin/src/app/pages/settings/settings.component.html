@@ -148,6 +148,30 @@
                   <input type="text" class="form-control" id="inputZip">
                 </div>
               </div>
+
+              <div class="row">
+                <div class="mb-3 col-md-4">
+                  <label for="inputLanguage" class="form-label">Language</label>
+                  <select id="inputLanguage" class="form-control">
+                    <option selected>Choose...</option>
+                    <option *ngFor="let key of languageKeys" value="{{key}}">{{LANGUAGE[key]}}</option>
+                  </select>
+                </div>
+                <div class="mb-3 col-md-4">
+                  <label for="inputLocale" class="form-label">Locale</label>
+                  <select id="inputLocale" class="form-control">
+                    <option selected>Choose...</option>
+                    <option *ngFor="let key of localeKeys" value="{{key}}">{{LOCALE[key]}}</option>
+                  </select>
+                </div>
+                <div class="mb-3 col-md-4">
+                  <label for="inputTimeZone" class="form-label">Time Zone</label>
+                  <select id="inputTimeZone" class="form-control">
+                    <option selected>Choose...</option>
+                    <option *ngFor="let key of timeZoneKeys" value="{{key}}">{{TIME_ZONE[key].label}} {{TIME_ZONE[key].name}}</option>
+                  </select>
+                </div>
+              </div>
               <button type="submit" class="btn btn-primary">Save changes</button>
             </form>
 
