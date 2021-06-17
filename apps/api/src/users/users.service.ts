@@ -15,6 +15,11 @@ export class UsersService {
   private userRepository: Repository<UserEntity>) {
   }
 
+  async findByToken(token: string) {
+    //TODO: this needs to be changed when we have more than one type of token and its extracted to its own table
+    return await this.userRepository.findOne({emailVerifyToken: token})
+  }
+
   async findByUsername(username: string) {
     return await this.userRepository.findOne({username: username})
   }
@@ -32,6 +37,19 @@ export class UsersService {
     const userCheck = await this.findByUsername(username);
     if (userCheck.deletedDate) {
       return await this.userRepository.restore(userCheck);
+    }
+  }
+
+  async verifyToken(token) {
+    const user = await this.findByToken(token);
+    if (user) {
+      user.emailVerified = true;
+      //TODO: the emailVerifyToken needs to be removed so verification cannot be done more than once
+      //TODO: verification should have expiration time
+      //TODO: verification should have resend if expired
+      return await this.userRepository.save(user)
+    } else {
+      throw new HttpException('Token does not exist', HttpStatus.NOT_FOUND)
     }
   }
 

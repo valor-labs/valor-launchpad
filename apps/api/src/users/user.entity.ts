@@ -11,6 +11,7 @@ import {
 import {Exclude} from "class-transformer";
 import * as bcrypt from 'bcrypt';
 import {HELPERS} from '../../seed_helpers/data';
+import { v4 as uuid } from 'uuid';
 
 @Entity()
 export class UserEntity {
@@ -48,6 +49,9 @@ export class UserEntity {
 
   @Column()
   emailVerified: boolean;
+
+  @Column({nullable: true})
+  emailVerifyToken: string;
 
   @Column({type: 'json'})
   roles: Array<string>;
@@ -87,6 +91,7 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
 
   async beforeInsert(event: InsertEvent<UserEntity>) {
     event.entity.password = await this.hashPassword(event.entity.password);
+    event.entity.emailVerifyToken = uuid();
   }
 
   beforeUpdate(event: InsertEvent<UserEntity>) {

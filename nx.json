@@ -43,6 +43,9 @@
     },
     "stripe-ui": {
       "tags": []
+    },
+    "email": {
+      "tags": []
     }
   }
 }

@@ -52,6 +52,7 @@
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/typeorm": "^7.1.5",
     "@nrwl/angular": "12.2.0",
+    "@sendgrid/mail": "^7.4.5",
     "@swimlane/ngx-charts": "^17.0.1",
     "@swimlane/ngx-datatable": "^19.0.0",
     "bcrypt": "^5.0.1",
@@ -76,6 +77,7 @@
     "stripe": "^8.151.0",
     "tslib": "^2.0.0",
     "typeorm": "^0.2.32",
+    "uuid": "^8.3.2",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {

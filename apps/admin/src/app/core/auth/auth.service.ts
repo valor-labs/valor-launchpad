@@ -14,7 +14,6 @@ export class AuthService {
 
   signUp(user) {
     this.httpClient.post('/api/auth/v1/register', user).subscribe((data)=>{
-      debugger
       console.log(data)
     })
   }
