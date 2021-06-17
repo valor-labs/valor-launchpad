@@ -15,26 +15,34 @@
             <div class="card">
               <div class="card-body">
                 <div class="m-sm-4">
-                  <form>
+                  <form [formGroup]="signUpFormGroup">
                     <div class="mb-3">
-                      <label class="form-label">Name</label>
-                      <input class="form-control form-control-lg" type="text" name="name" placeholder="Enter your name" />
+                      <label class="form-label">Username</label>
+                      <input class="form-control form-control-lg" formControlName="username"
+                             type="text" name="username" placeholder="Enter your username" />
                     </div>
                     <div class="mb-3">
-                      <label class="form-label">Company</label>
-                      <input class="form-control form-control-lg" type="text" name="company" placeholder="Enter your company name" />
+                      <label class="form-label">First Name</label>
+                      <input class="form-control form-control-lg" formControlName="firstName"
+                             type="text" name="firstName" placeholder="First Name" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Last Name</label>
+                      <input class="form-control form-control-lg" formControlName="lastName"
+                             type="text" name="lastName" placeholder="Last Name" />
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Email</label>
-                      <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
+                      <input class="form-control form-control-lg" formControlName="email"
+                             type="email" name="email" placeholder="Enter your email" />
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Password</label>
-                      <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter password" />
+                      <input class="form-control form-control-lg" formControlName="password"
+                             type="password" name="password" placeholder="Enter password" />
                     </div>
                     <div class="text-center mt-3">
-                      <a href="dashboard-default.html" class="btn btn-lg btn-primary">Sign up</a>
-                      <!-- <button type="submit" class="btn btn-lg btn-primary">Sign up</button> -->
+                       <button type="submit" (click)="createUser(signUpFormGroup)" class="btn btn-lg btn-primary">Sign up</button>
                     </div>
                   </form>
                 </div>

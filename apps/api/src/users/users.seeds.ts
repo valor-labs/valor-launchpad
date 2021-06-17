@@ -14,18 +14,18 @@ export class CreateUsers implements Seeder {
       .map(async (user: User) => {
         user.password = await bcrypt.hash(HELPERS.defaultPassword, HELPERS.saltRounds);
         return user;
-      }).create({username: 'user1'})
+      }).create({username: 'user1', email: 'user1@abc.com', roles:['Admin', 'User']})
 
     await factory(UserEntity)()
       .map(async (user: User) => {
         user.password = await bcrypt.hash(HELPERS.defaultPassword, HELPERS.saltRounds);
         return user;
-      }).create({username: 'user2'})
+      }).create({username: 'user2', email: 'user2@abc.com', roles:['User']})
 
     await factory(UserEntity)()
       .map(async (user: User) => {
         user.password = await bcrypt.hash(HELPERS.defaultPassword, HELPERS.saltRounds);
         return user;
-      }).create({username: 'user3'})
+      }).create({username: 'user3', email: 'user3@abc.com', roles:['User']})
   }
 }
