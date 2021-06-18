@@ -102,6 +102,12 @@ CMS functionality emulating [Strapi](https://strapi.io/) with added multi-tenanc
 | Sendgrid    | <input type="checkbox" checked /> | <input type="checkbox" checked /> | <input type="checkbox" />         | <input type="checkbox" />         |
 | JWT Auth    | <input type="checkbox" checked /> | <input type="checkbox" checked /> | <input type="checkbox" />         | <input type="checkbox" />         |
 
+## Conversion methodology
+1) Copy and paste raw HTML from hardcoded template files
+1) Migrate page logic to Angular Components and extract hardcoded raw data to Angular Services
+1) Create NestJS Controller and Services to manage hardcoded raw data
+1) Create TypeORM Entities and TypeORM Seeds and Factories for generating dynamic raw data
+
 # Boilerplate generation text
 
 This project was generated using [Nx](https://nx.dev).
