@@ -1,18 +1,22 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {HttpException, HttpStatus, Inject, Injectable, Scope} from '@nestjs/common';
 import {CryptService} from "../crypt/crypt.service";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {UserEntity} from "./user.entity";
 import {classToPlain} from "class-transformer";
 import {CreateUserDto} from './dto/create-user.dto';
+import {RolesEntity} from './roles.entity';
+import {UserRolesEntity} from './user-roles.entity';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
 
-@Injectable()
+@Injectable({scope: Scope.REQUEST})
 export class UsersService {
-  constructor(private crypto: CryptService, @InjectRepository(UserEntity)
-  private userRepository: Repository<UserEntity>) {
+  constructor(private crypto: CryptService,
+              @InjectRepository(UserRolesEntity) private userRolesRepository: Repository<UserRolesEntity>,
+              @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
+  ) {
   }
 
   async findByToken(token: string) {
@@ -58,7 +62,12 @@ export class UsersService {
     const userCheck = await this.findByUsername(user.username);
     if (!userCheck) {
       const createUser = new UserEntity(user);
-      createUser.roles = ["User"];
+      const userRole = new UserRolesEntity();
+      //TODO: make this tie to the actual Role
+      userRole.role = 'User';
+      createUser.userRoles = [userRole];
+      //TODO: add this back after user Roles is fixed
+      // createUser.roles = ["User"];
       return await this.userRepository.save(createUser);
     } else if (!userCheck.emailVerified) {
       throw new HttpException('Please check your email to verify your email address', HttpStatus.FORBIDDEN);

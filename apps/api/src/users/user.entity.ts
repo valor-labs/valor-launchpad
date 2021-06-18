@@ -1,17 +1,17 @@
 import {
-  BeforeInsert,
   Column, Connection, CreateDateColumn,
   DeleteDateColumn,
   Entity, EntitySubscriberInterface, EventSubscriber,
-  Index, InsertEvent,
+  Index, InsertEvent, OneToMany,
   PrimaryGeneratedColumn,
-  Unique,
   UpdateDateColumn
 } from "typeorm";
 import {Exclude} from "class-transformer";
 import * as bcrypt from 'bcrypt';
 import {HELPERS} from '../../seed_helpers/data';
-import { v4 as uuid } from 'uuid';
+import {v4 as uuid} from 'uuid';
+import {UserTagsEntity} from './user-tags.entity';
+import {UserRolesEntity} from './user-roles.entity';
 
 @Entity()
 export class UserEntity {
@@ -59,8 +59,8 @@ export class UserEntity {
   @Column({nullable: true})
   phoneVerifyToken: string;
 
-  @Column({type: 'json'})
-  roles: Array<string>;
+  @OneToMany(type => UserRolesEntity, (userRole) => userRole.user, {nullable: true, cascade: true})
+  userRoles?: Array<UserRolesEntity>;
 
   @Column({default: false})
   suspended: boolean;
@@ -77,10 +77,8 @@ export class UserEntity {
   @UpdateDateColumn()
   updateDate: Date;
 
-  @BeforeInsert()
-  addEmailVerification() {
-    this.emailVerified = false;
-  }
+  @OneToMany(type => UserTagsEntity, (userTag) => userTag.user, {nullable: true})
+  userTags?: Array<UserTagsEntity>
 }
 
 @EventSubscriber()
@@ -91,12 +89,13 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
     connection.subscribers.push(this);
   }
 
-  listenTo(){
+  listenTo() {
     return UserEntity;
   }
 
   async beforeInsert(event: InsertEvent<UserEntity>) {
     event.entity.password = await this.hashPassword(event.entity.password);
+    event.entity.emailVerified = false;
     event.entity.emailVerifyToken = uuid();
     event.entity.phoneVerifyToken = Math.random().toString(36).substr(2, 6);
   }
