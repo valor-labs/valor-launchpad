@@ -19,6 +19,9 @@ const routes: Routes = [
     path: 'sign-up', loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule)
   },
   {
+    path: 'verify-user', loadChildren: () => import('./pages/verify-user/verify-user.module').then(m => m.VerifyUserModule)
+  },
+  {
     path: 'reset-password',
     loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
