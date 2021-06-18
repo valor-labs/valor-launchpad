@@ -11,7 +11,7 @@ import {UserRolesEntity} from './user-roles.entity';
 // This should be a real class/interface representing a user entity
 export type User = any;
 
-@Injectable({scope: Scope.REQUEST})
+@Injectable()
 export class UsersService {
   constructor(private crypto: CryptService,
               @InjectRepository(UserRolesEntity) private userRolesRepository: Repository<UserRolesEntity>,

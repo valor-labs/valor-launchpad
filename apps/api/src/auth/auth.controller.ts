@@ -8,7 +8,9 @@ import {CreateUserDto} from '../users/dto/create-user.dto';
 import {UserEntity} from '../users/user.entity';
 import {ResponseError, ResponseSuccess} from '../common/dto/response.dto';
 import {UsersService} from '../users/users.service';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {EmailService} from '../../../../libs/email/src/lib/email.service';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {SmsService} from '../../../../libs/sms/src/lib/sms.service'; //TODO: fix this import
 
 
@@ -21,7 +23,6 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  @HttpCode(HttpStatus.OK)
   async login(@Body() body, @Req() req: RequestWithSession, @Res() response: Response) {
     const loginResponse = await this.authService.login(body);
     req.session.token = loginResponse.access_token;
@@ -31,7 +32,6 @@ export class AuthController {
   }
 
   @Get('sign-out')
-  @HttpCode(HttpStatus.OK)
   async signOut(@Req() req: RequestWithSession, @Res() response: Response) {
     response.clearCookie('access_token');
     response.status(HttpStatus.OK).send({status: 'logout successful'});
