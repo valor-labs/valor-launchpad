@@ -53,6 +53,12 @@ export class UserEntity {
   @Column({nullable: true})
   emailVerifyToken: string;
 
+  @Column({nullable: true})
+  phone: string;
+
+  @Column({nullable: true})
+  phoneVerifyToken: string;
+
   @Column({type: 'json'})
   roles: Array<string>;
 
@@ -92,6 +98,7 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
   async beforeInsert(event: InsertEvent<UserEntity>) {
     event.entity.password = await this.hashPassword(event.entity.password);
     event.entity.emailVerifyToken = uuid();
+    event.entity.phoneVerifyToken = Math.random().toString(36).substr(2, 6);
   }
 
   beforeUpdate(event: InsertEvent<UserEntity>) {

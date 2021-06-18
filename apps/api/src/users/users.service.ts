@@ -47,6 +47,7 @@ export class UsersService {
       //TODO: the emailVerifyToken needs to be removed so verification cannot be done more than once
       //TODO: verification should have expiration time
       //TODO: verification should have resend if expired
+      //TODO: Add resend email if they didn't receive the email
       return await this.userRepository.save(user)
     } else {
       throw new HttpException('Token does not exist', HttpStatus.NOT_FOUND)

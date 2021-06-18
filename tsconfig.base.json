@@ -21,7 +21,8 @@
       "@valor-launchpad/stripe": ["libs/stripe/src/index.ts"],
       "@valor-launchpad/stripe-api": ["libs/stripe-api/src/index.ts"],
       "@valor-launchpad/stripe-ui": ["libs/stripe-ui/src/index.ts"],
-      "@valor-launchpad/email": ["libs/email/src/index.ts"]
+      "@valor-launchpad/email": ["libs/email/src/index.ts"],
+      "@valor-launchpad/sms": ["libs/sms/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

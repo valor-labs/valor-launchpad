@@ -8,12 +8,15 @@ import {CreateUserDto} from '../users/dto/create-user.dto';
 import {UserEntity} from '../users/user.entity';
 import {ResponseError, ResponseSuccess} from '../common/dto/response.dto';
 import {UsersService} from '../users/users.service';
-import {EmailService} from '../../../../libs/email/src/lib/email.service'; //TODO: fix this import
+import {EmailService} from '../../../../libs/email/src/lib/email.service';
+import {SmsService} from '../../../../libs/sms/src/lib/sms.service'; //TODO: fix this import
 
 
 @Controller('v1')
 export class AuthController {
-  constructor(private authService: AuthService, private usersService: UsersService, private emailService: EmailService) {
+  constructor(private authService: AuthService, private usersService: UsersService,
+              private smsService:SmsService,
+              private emailService: EmailService) {
   }
 
   @UseGuards(LocalAuthGuard)
@@ -51,13 +54,24 @@ export class AuthController {
   async register(@Body() createUserDto: CreateUserDto): Promise<IResponse> {
     try {
       const createdUser = await this.usersService.createUser(new UserEntity(createUserDto));
+      await this.smsService.sendMessage(
+        {
+          body: `${createdUser.phoneVerifyToken} is your phone verification ID`,
+          from: '+18593491320',
+          to: createUserDto.phone
+        }
+      )
       await this.emailService.sendEmail({
-        to: 'zack.chapple@valor-software.com',
+        to: createUserDto.email,
         from: 'zack.chapple@valor-software.com',
         subject: 'Verify your email with valor-launchpad',
         text: 'Super Easy',
         html: '<strong>Please verify your email</strong></br></br>' +
-          `<a target="_blank" href="http://localhost:4200/verify-user/${createdUser.emailVerifyToken}">Verify Now</a>`,
+          `<a target="_blank" href="http://localhost:4200/verify-user/${createdUser.emailVerifyToken}">Verify Now</a>
+          </br>
+          </br>
+          Or, copy and paste the following URL into your browser:
+          <span>http://localhost:4200/verify-user/${createdUser.emailVerifyToken}</span>`,
       })
       //TODO: Send email for email verification
       //TODO: Save user email consent

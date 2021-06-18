@@ -302,6 +302,27 @@
           }
         }
       }
+    },
+    "sms": {
+      "root": "libs/sms",
+      "sourceRoot": "libs/sms/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/sms/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/sms"],
+          "options": {
+            "jestConfig": "libs/sms/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }
