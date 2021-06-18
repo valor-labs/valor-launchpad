@@ -73,7 +73,6 @@ export class AuthController {
           Or, copy and paste the following URL into your browser:
           <span>http://localhost:4200/verify-user/${createdUser.emailVerifyToken}</span>`,
       })
-      //TODO: Send email for email verification
       //TODO: Save user email consent
       return new ResponseSuccess('Registration Successful')
     } catch (error) {
@@ -81,6 +80,9 @@ export class AuthController {
     }
   }
 
+  //TODO: add forgot password
+  //TODO: add reset password
+  //TODO: add check username
   // @Post('check-username')
   // async checkUsername(@Body() username): Promise<IResponse> {
   //
