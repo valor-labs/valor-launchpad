@@ -19,6 +19,8 @@ export class UsersService {
   ) {
   }
 
+  //TODO: Add profile image function
+
   async findByToken(token: string) {
     //TODO: this needs to be changed when we have more than one type of token and its extracted to its own table
     return await this.userRepository.findOne({emailVerifyToken: token})
