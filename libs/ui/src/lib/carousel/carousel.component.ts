@@ -35,6 +35,9 @@ export class CarouselComponent implements OnInit, AfterContentInit, OnChanges {
   private order = 'next'
   private directionalClassName = 'carousel-item-next'
   private orderClassName = 'carousel-item-start'
+  private CLASS_NAME_ACTIVE = 'active'
+  private isSliding = false
+  private trasitonFlag = true
 
   ngOnInit(): void {
     this.itemContainer = this.el.nativeElement.querySelector('.carousel-inner')
@@ -85,43 +88,121 @@ export class CarouselComponent implements OnInit, AfterContentInit, OnChanges {
 
   // 向后切换
   next() {
+    // console.log(this.activeIndex, 'next')
     this.order = 'next'
     this.directionalClassName = 'carousel-item-next'
     this.orderClassName = 'carousel-item-start'
-    this.goTo(this.activeIndex + 1)
+    this.goTo(this.activeIndex)
   }
   // 向前切换
   prev() {
     this.order = 'prev'
     this.directionalClassName = 'carousel-item-prev'
     this.orderClassName = 'carousel-item-end'
-    this.goTo(this.activeIndex + 1)
+    this.goTo(this.activeIndex)
+  }
+
+  transitionEvent(nextEl, targetEl, nextIndex, event?) {
+    // const { target } = event
+    
+    // if (target.classList.contains(this.CLASS_NAME_ACTIVE)) {
+    // }
+    
+    nextEl.classList.remove(this.directionalClassName, this.orderClassName)
+    nextEl.classList.add(this.CLASS_NAME_ACTIVE)
+    targetEl.classList.remove(this.CLASS_NAME_ACTIVE, this.orderClassName, this.directionalClassName)
+    this.isSliding = false
+    return
   }
 
   goTo(index) {
-    if (index === this.activeIndex) {
-      return
-    }
-    const targetEl = this.el.nativeElement.querySelectorAll('.carousel-item')[this.activeIndex]
+    // if (index === this.activeIndex) {
+    //   return
+    // }
+    if (this.isSliding) return
+    this.isSliding = true
     if (this.order === 'prev') {
-      console.log(this.activeIndex, this.orderClassName, targetEl)
+      // console.log(this.activeIndex, this.orderClassName, targetEl)
     }
 
     if (this.order === 'next') {
-      const nextIndex = index > this.itemCount - 1 ? 0 : index 
-      const nextEl = this.el.nativeElement.querySelectorAll('.carousel-item')[nextIndex]
-      targetEl.classList.add(this.orderClassName)
-      nextEl.classList.add(this.directionalClassName)
-      nextEl.classList.add(this.orderClassName)
-      setTimeout(() => {
-        nextEl.classList.remove(this.directionalClassName)
-        nextEl.classList.remove(this.orderClassName)
-        targetEl.classList.remove('active')
-        targetEl.classList.remove(this.orderClassName)
-        nextEl.classList.add('active')
-      }, 500)
-
+      // let nextIndex: number
+      // this.activeIndex = index > this.itemCount - 1 ? 0 : index
+      // const nextIndex = this.activeIndex + 1
+      const nextIndex = index >= this.itemCount - 1 ? 0 : index + 1
+      const activeIdnex = index
       this.activeIndex = nextIndex
+      
+      // if (index >= this.itemCount - 1) {
+      //   nextIndex = 0
+      // } else {
+      //   nextIndex = this.activeIndex + 1
+      // }
+      
+      // const activeIndex = index < 0 ? 0 : index > this.itemCount - 1 ? this.itemCount - 1 : index 
+      // const nextIndex = index > this.itemCount - 1 ? 0 : index 
+      // if (index > 3) {
+      //   activeIndex = 3
+      //   nextIndex = 0
+      // }
+      // console.log(this.activeIndex)
+      // console.log(activeIdnex)
+      
+      const targetEl = this.el.nativeElement.querySelectorAll('.carousel-item')[activeIdnex]
+
+      // console.log(nextIndex, this.activeIndex)
+      const nextEl = this.el.nativeElement.querySelectorAll('.carousel-item')[nextIndex]
+      
+      nextEl.classList.remove(this.CLASS_NAME_ACTIVE, this.directionalClassName, this.orderClassName)
+      targetEl.classList.remove(this.orderClassName, this.directionalClassName)
+      console.log(activeIdnex, nextIndex, this.activeIndex);
+      
+      nextEl.classList.add(this.directionalClassName)
+      targetEl.classList.add(this.orderClassName)
+      window.requestAnimationFrame(() => {
+        nextEl.classList.add(this.orderClassName)
+      })
+      
+      
+      // if (nextEl.classList.contains(this.CLASS_NAME_ACTIVE)) {
+      //   console.log('contains')
+      //   this.isSliding = false
+      //   return
+      // }
+      // targetEl.addEventListener('transitionend', (event) => {
+      //   // event.stopBubble
+      //   // console.log(event.target === targetEl)
+      //   // nextEl.classList.remove(this.directionalClassName, this.orderClassName)
+      //   // nextEl.classList.add(this.CLASS_NAME_ACTIVE)
+      //   // targetEl.classList.remove(this.CLASS_NAME_ACTIVE, this.orderClassName, this.directionalClassName)
+
+      //   // this.activeIndex = nextIndex
+      //   // console.log(activeIndex, nextIndex, 'goto')
+      //   // this.isSliding = false
+      //   // this.activeIndexChange.emit(this.activeIndex)
+      // })
+      // targetEl.addEventListener('transitionend', (event) => this.transitionEvent(nextEl, targetEl, nextIndex, event))
+      
+      setTimeout(() => this.transitionEvent(nextEl, targetEl, nextIndex), 650)
+      // setTimeout(() => {
+      //   nextEl.classList.remove(this.directionalClassName, this.orderClassName)
+      //   nextEl.classList.add(this.CLASS_NAME_ACTIVE)
+      //   targetEl.classList.remove(this.CLASS_NAME_ACTIVE, this.orderClassName, this.directionalClassName)
+
+      //   this.activeIndex = nextIndex
+      //   console.log(activeIndex, nextIndex, 'goto')
+      //   this.isSliding = false
+      // }, 500)
+      // setTimeout(() => {
+      //   nextEl.classList.remove(this.directionalClassName)
+      //   nextEl.classList.remove(this.orderClassName)
+      //   targetEl.classList.remove('active')
+      //   targetEl.classList.remove(this.orderClassName)
+      //   nextEl.classList.add('active')
+      //   this.isSliding = false
+      // }, 500)
+
+      
       // targetEl.addEventListener('transitionend', event =>  {
       //   nextEl.classList.remove(this.directionalClassName)
       //   nextEl.classList.remove(this.orderClassName)
@@ -217,7 +298,7 @@ export class CarouselComponent implements OnInit, AfterContentInit, OnChanges {
     //   nextEl.classList.add('active')
 
     // }, 500)
-    this.activeIndexChange.emit(this.activeIndex)
+    // this.activeIndexChange.emit(this.activeIndex)
     
   }
 
