@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Action } from '@valor-launchpad/api-interfaces';
 
 
@@ -8,15 +8,27 @@ import { Action } from '@valor-launchpad/api-interfaces';
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent {
+export class DropdownComponent implements OnInit {
   @Input()
-  direction
+  direction:string;
 
   @Input()
-  actions:Action[]
+  actions:Action[];
 
   @Input()
-  show
+  classes:string;
+
+  show: boolean = false;
+  toggleDropdown(e) {
+    e.stopPropagation();
+    this.show = !this.show;
+  }
+
+  ngOnInit() {
+    document.addEventListener('click', () => {
+      this.show = false;
+    })
+  }
 
  
 }
