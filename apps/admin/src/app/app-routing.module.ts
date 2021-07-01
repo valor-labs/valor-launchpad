@@ -127,6 +127,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/ui-typography/ui-typography.module').then(m => m.UiTypographyModule)
       },
       {
+        path: 'ui-grid',
+        loadChildren: () => import('./pages/ui-grid/ui-grid.module').then(m => m.UiGridModule)
+      },
+      {
         path: 'payments',
         loadChildren: () => import('./pages/payments/payments.module').then(m=> m.PaymentsModule)
       },
