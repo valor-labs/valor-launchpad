@@ -47,6 +47,8 @@ import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dyn
 import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
 import { FormInputComponent } from './dynamic-form/components/form-input/form-input.component';
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
+import { RowDirective } from './grid/row.directive';
+import { ColDirective } from './grid/col.directive';
 
 @NgModule({
     imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule],
@@ -95,6 +97,8 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
     FormButtonComponent,
     FormInputComponent,
     FormSelectComponent,
+    RowDirective,
+    ColDirective,
   ],
   exports: [
     TabsModule,
@@ -117,6 +121,8 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
     FormItemComponent,
     CheckboxComponent,
     DynamicFormComponent,
+    RowDirective,
+    ColDirective,
   ],
 })
 export class UiModule {}
