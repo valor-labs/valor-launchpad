@@ -1,3 +1,4 @@
+<div class="dropdown show">
 <a (click)="toggleDropdown($event)" [class]="classes">
   <ng-content select="[dropdown-nav]"></ng-content>
 </a>
@@ -13,4 +14,5 @@
     </a>
     <div *ngIf="action.divider" class="dropdown-divider"></div>
   </fragment>
+</div>
 </div>
