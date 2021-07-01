@@ -137,6 +137,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/ui-grid/ui-grid.module').then(m => m.UiGridModule)
       },
       {
+        path: 'ui-modals',
+        loadChildren: () => import('./pages/ui-modals/ui-modals.module').then(m => m.UiModalsModule)
+      },
+      {
         path: 'payments',
         loadChildren: () => import('./pages/payments/payments.module').then(m=> m.PaymentsModule)
       },
