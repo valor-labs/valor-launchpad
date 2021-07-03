@@ -5,15 +5,14 @@
     <valor-launchpad-card>
       <div card-header>
         <div class="card-actions float-end">
-         
-          <div class="dropdown show" >
-            <valor-launchpad-dropdown
+          
+          <valor-launchpad-dropdown
             [actions]="actions1"
             [direction]="'end'"
           >
              <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
           </valor-launchpad-dropdown>  
-          </div>
+          
 
 
         </div>
@@ -33,15 +32,13 @@
   <div class="col-xl-4">
     <valor-launchpad-card>
       <div card-header>
-        <div class="card-actions float-end">
-          <div class="dropdown show" >
+        <div class="card-actions float-end"> 
             <valor-launchpad-dropdown
             [actions]="actions2"
             [direction]="'end'"
           >
              <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
-          </valor-launchpad-dropdown>  
-          </div>
+          </valor-launchpad-dropdown>         
         </div>
         <h5 class="card-title mb-0">{{profile.detail.name}}</h5>
       </div>
