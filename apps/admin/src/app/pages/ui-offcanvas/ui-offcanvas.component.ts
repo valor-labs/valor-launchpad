@@ -13,6 +13,15 @@ export class UiOffCanvasComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  dropdownActions:Action[] = [
+    {
+      label: 'Action',
+      link: '#',
+    },
+    { label: 'Another action', link: '#' },
+    { label: 'Something else here', link: '#' },
+  ];
+
   showExample:boolean=false;
   showLeft:boolean=false;
   showRight:boolean=false;
