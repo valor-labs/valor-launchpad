@@ -7,10 +7,33 @@ import { Component } from '@angular/core';
 })
 export class UiCarouselComponent {
 
-  controls = false
+  normalList = [
+    {
+      imgUrl: 'assets/img/photos/unsplash-1.jpg',
+    },
+    {
+      imgUrl: 'assets/img/photos/unsplash-2.jpg',
+    },
+    {
+      imgUrl: 'assets/img/photos/unsplash-3.jpg',
+    }
+  ]
 
-  handleClick() {
-    console.log(123, this.controls);
-    this.controls = !this.controls
-  }
+  captionList = [
+    {
+      title: 'First slide label',
+      content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
+      imgUrl: 'assets/img/photos/unsplash-1.jpg',
+    },
+    {
+      title: 'Second slide label',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imgUrl: 'assets/img/photos/unsplash-2.jpg',
+    },
+    {
+      title: 'First slide label',
+      content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+      imgUrl: 'assets/img/photos/unsplash-3.jpg',
+    }
+  ]
 }

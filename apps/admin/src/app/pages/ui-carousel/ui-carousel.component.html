@@ -5,37 +5,79 @@
       <div card-header>
         <h5 class="card-title">Slides only</h5>
         <h6 class="card-subtitle text-muted">Here’s a carousel with slides only. Note the presence of the <code>.d-block</code> and <code>.w-100</code> on carousel images to prevent browser default image alignment.</h6>
-        <button (click)="handleClick()">切换</button>
       </div>
       <div card-body>
         <valor-launchpad-carousel>
-          <valor-launchpad-carousel-item>
-            <img class="d-block w-100" src="assets/img/photos/unsplash-1.jpg" alt="Unsplash">
+          <valor-launchpad-carousel-item *ngFor="let item of normalList">
+            <img [src]="item.imgUrl" class="d-block w-100" alt="Unsplash">
+          </valor-launchpad-carousel-item>
+        </valor-launchpad-carousel>
+      </div>
+    </valor-launchpad-card>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card padding="mb-3">
+      <div card-header>
+        <h5 class="card-title">With controls</h5>
+        <h6 class="card-subtitle text-muted">Adding in the previous and next controls.</h6>
+      </div>
+      <div card-body>
+        <valor-launchpad-carousel [controls]="true">
+          <valor-launchpad-carousel-item *ngFor="let item of normalList">
+            <img [src]="item.imgUrl" class="d-block w-100" alt="Unsplash">
+          </valor-launchpad-carousel-item>
+        </valor-launchpad-carousel>
+      </div>
+    </valor-launchpad-card>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card padding="mb-3">
+      <div card-header>
+        <h5 class="card-title">With indicators</h5>
+        <h6 class="card-subtitle text-muted">You can also add the indicators to the carousel, alongside the controls, too.</h6>
+      </div>
+      <div card-body>
+        <valor-launchpad-carousel [controls]="true" [showDots]="true">
+          <valor-launchpad-carousel-item *ngFor="let item of normalList">
+            <img [src]="item.imgUrl" class="d-block w-100" alt="Unsplash">
+          </valor-launchpad-carousel-item>
+        </valor-launchpad-carousel>
+      </div>
+    </valor-launchpad-card>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card padding="mb-3">
+      <div card-header>
+        <h5 class="card-title">With captions</h5>
+        <h6 class="card-subtitle text-muted">Add captions to your slides easily with the <code>.carousel-caption</code> element within any <code>.carousel-item</code>.</h6>
+      </div>
+      <div card-body>
+        <valor-launchpad-carousel [controls]="true" [showDots]="true">
+          <valor-launchpad-carousel-item *ngFor="let item of captionList">
+            <img [src]="item.imgUrl" class="d-block w-100" alt="Unsplash">
             <div class="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <h5>{{item.title}}</h5>
+              <p>{{item.content}}</p>
             </div>
           </valor-launchpad-carousel-item>
-          <valor-launchpad-carousel-item>
-            <img class="d-block w-100" src="assets/img/photos/unsplash-2.jpg" alt="Unsplash">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-          </valor-launchpad-carousel-item>
-          <valor-launchpad-carousel-item>
-            <img class="d-block w-100" src="assets/img/photos/unsplash-3.jpg" alt="Unsplash">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-          </valor-launchpad-carousel-item>
-          <valor-launchpad-carousel-item>
-            <img class="d-block w-100" src="assets/img/photos/unsplash-2.jpg" alt="Unsplash">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>four slide label</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
+        </valor-launchpad-carousel>
+      </div>
+    </valor-launchpad-card>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card padding="mb-3">
+      <div card-header>
+        <h5 class="card-title">Crossfade</h5>
+        <h6 class="card-subtitle text-muted">Add <code>.carousel-fade</code> to your carousel to animate slides with a fade transition instead of a slide.</h6>
+      </div>
+      <div card-body>
+        <valor-launchpad-carousel [controls]="true" [isFade]="true">
+          <valor-launchpad-carousel-item *ngFor="let item of normalList">
+            <img [src]="item.imgUrl" class="d-block w-100" alt="Unsplash">
           </valor-launchpad-carousel-item>
         </valor-launchpad-carousel>
       </div>

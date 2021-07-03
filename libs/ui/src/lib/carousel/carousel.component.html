@@ -1,9 +1,13 @@
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <ng-container *ngIf="indicators">
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" [ngClass]="{'carousel-fade': isFade}" (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()">
+  <ng-container *ngIf="showDots">
     <ol class="carousel-indicators">
-      <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
-      <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
-      <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
+      <ng-template ngFor let-dot [ngForOf]="itemContainer" let-index="index" >
+        <li
+          [attr.data-bs-target]="index" 
+          [attr.data-bs-slide-to]="index"
+          (click)="goTo(index)"
+          [ngClass]="{'active': activeIndex === index}"></li>
+      </ng-template>
     </ol>
   </ng-container>
   <div class="carousel-inner">

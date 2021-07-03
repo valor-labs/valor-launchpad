@@ -1,71 +1,72 @@
-import { Component, OnInit, OnChanges, Input, Output, ContentChildren, QueryList, AfterContentInit, EventEmitter, ElementRef, SimpleChanges } from '@angular/core'
-
-import { CarouselItemComponent } from '../carousel-item/carousel-item.component'
+import { Component, OnInit, Input, Output, AfterContentInit, EventEmitter, ElementRef, Renderer2, OnDestroy } from '@angular/core'
 
 @Component({
   selector: 'valor-launchpad-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss']
 })
-export class CarouselComponent implements OnInit, AfterContentInit, OnChanges {
+export class CarouselComponent implements OnInit, AfterContentInit, OnDestroy {
 
-  constructor(private el: ElementRef) {}
+  static ORDER_NEXT = 'next'
+  static ORDER_PREV = 'prev'
+  static CLASS_NAME_START = 'carousel-item-start'
+  static CLASS_NAME_ACTIVE = 'active'
+  static CLASS_NAME_END = 'carousel-item-end'
+  static CLASS_NAME_NEXT = 'carousel-item-next'
+  static CLASS_NAME_PREV = 'carousel-item-prev'
+
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
+
+  @Input() speed = 3000
+
   // show controls
-  @Input() controls = true
+  @Input() controls = false
 
   // show dots
   @Input() showDots = false
 
+  // show fade
+  @Input() isFade = false
+
   // default index
   @Input() activeIndex = 0
 
+  // emit activeIndex
   @Output() activeIndexChange = new EventEmitter<number>()
 
-  @ContentChildren(CarouselItemComponent) carouselItem!: QueryList<CarouselItemComponent>
-
-  indicators: Array<string> = []
-
-  // 卡片容器
-  private itemContainer
-  // 卡片数量
-  private itemCount;
+  // container
+  private itemContainer: HTMLCollection
   // 自动调度id
-  private scheduledId
-  // 自动调度id
-  private order = 'next'
-  private directionalClassName = 'carousel-item-next'
-  private orderClassName = 'carousel-item-start'
-  private CLASS_NAME_ACTIVE = 'active'
+  private scheduledId = null
+
   private isSliding = false
-  private trasitonFlag = true
+  private pause = false
 
+
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
-    this.itemContainer = this.el.nativeElement.querySelector('.carousel-inner')
+    //
   }
 
   ngAfterContentInit():void {
-    // console.log(this.carouselItem.length)
-    this.itemCount = this.carouselItem.length
-    // this.goTo(this.activeIndex + 1)
+    this.itemContainer = this.el.nativeElement.querySelectorAll('.carousel-item')
     this.initItem()
+    this.autoScheduleTransition()
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    const { activeIndex } = changes
-    console.log('change', changes, activeIndex)
-    // this.autoScheduleTransition()
-  }
-  
-  initItem() {
-    const targetEl = this.el.nativeElement.querySelectorAll('.carousel-item')[this.activeIndex]
-    targetEl.classList.add('active')
+  private initItem() {
+    const targetEl = this.itemContainer[this.activeIndex]
+    targetEl.classList.add(CarouselComponent.CLASS_NAME_ACTIVE)
   }
 
   private autoScheduleTransition() {
     this.clearScheduledTransition()
-    this.scheduledId = setInterval(() => {
-      this.next()
-    }, 3000)
+
+    if (!this.pause && !this.isSliding) {
+      this.scheduledId = setTimeout(() => {
+        this.handleNext()
+      }, this.speed)
+    }
   }
 
   // 清除自动轮播任务
@@ -76,230 +77,142 @@ export class CarouselComponent implements OnInit, AfterContentInit, OnChanges {
     }
   }
 
+  handleMouseEnter() {
+    this.pause = true
+    this.clearScheduledTransition()
+  }
+
+  handleMouseLeave() {
+    this.pause = false
+    this.autoScheduleTransition()
+  }
+
   handlePrev() {
-    this.prev()
-    // console.log(this.activeIndex - 1)
+    this.slide(CarouselComponent.ORDER_PREV)
   }
 
   handleNext() {
-    this.next()
-    // console.log(this.activeIndex + 1)
+    this.slide(CarouselComponent.ORDER_NEXT)
   }
 
-  // 向后切换
-  next() {
-    // console.log(this.activeIndex, 'next')
-    this.order = 'next'
-    this.directionalClassName = 'carousel-item-next'
-    this.orderClassName = 'carousel-item-start'
-    this.goTo(this.activeIndex)
-  }
-  // 向前切换
-  prev() {
-    this.order = 'prev'
-    this.directionalClassName = 'carousel-item-prev'
-    this.orderClassName = 'carousel-item-end'
-    this.goTo(this.activeIndex)
-  }
-
-  transitionEvent(nextEl, targetEl, nextIndex, event?) {
-    // const { target } = event
-    
-    // if (target.classList.contains(this.CLASS_NAME_ACTIVE)) {
-    // }
-    
-    nextEl.classList.remove(this.directionalClassName, this.orderClassName)
-    nextEl.classList.add(this.CLASS_NAME_ACTIVE)
-    targetEl.classList.remove(this.CLASS_NAME_ACTIVE, this.orderClassName, this.directionalClassName)
-    this.isSliding = false
-    return
+  private reflow(element) {
+    return element.offsetHeight
   }
 
   goTo(index) {
-    // if (index === this.activeIndex) {
-    //   return
-    // }
-    if (this.isSliding) return
-    this.isSliding = true
-    if (this.order === 'prev') {
-      // console.log(this.activeIndex, this.orderClassName, targetEl)
+    if (index > this.itemContainer.length - 1 || index < 0) {
+      return
     }
 
-    if (this.order === 'next') {
-      // let nextIndex: number
-      // this.activeIndex = index > this.itemCount - 1 ? 0 : index
-      // const nextIndex = this.activeIndex + 1
-      const nextIndex = index >= this.itemCount - 1 ? 0 : index + 1
-      const activeIdnex = index
-      this.activeIndex = nextIndex
-      
-      // if (index >= this.itemCount - 1) {
-      //   nextIndex = 0
-      // } else {
-      //   nextIndex = this.activeIndex + 1
-      // }
-      
-      // const activeIndex = index < 0 ? 0 : index > this.itemCount - 1 ? this.itemCount - 1 : index 
-      // const nextIndex = index > this.itemCount - 1 ? 0 : index 
-      // if (index > 3) {
-      //   activeIndex = 3
-      //   nextIndex = 0
-      // }
-      // console.log(this.activeIndex)
-      // console.log(activeIdnex)
-      
-      const targetEl = this.el.nativeElement.querySelectorAll('.carousel-item')[activeIdnex]
-
-      // console.log(nextIndex, this.activeIndex)
-      const nextEl = this.el.nativeElement.querySelectorAll('.carousel-item')[nextIndex]
-      
-      nextEl.classList.remove(this.CLASS_NAME_ACTIVE, this.directionalClassName, this.orderClassName)
-      targetEl.classList.remove(this.orderClassName, this.directionalClassName)
-      console.log(activeIdnex, nextIndex, this.activeIndex);
-      
-      nextEl.classList.add(this.directionalClassName)
-      targetEl.classList.add(this.orderClassName)
-      window.requestAnimationFrame(() => {
-        nextEl.classList.add(this.orderClassName)
-      })
-      
-      
-      // if (nextEl.classList.contains(this.CLASS_NAME_ACTIVE)) {
-      //   console.log('contains')
-      //   this.isSliding = false
-      //   return
-      // }
-      // targetEl.addEventListener('transitionend', (event) => {
-      //   // event.stopBubble
-      //   // console.log(event.target === targetEl)
-      //   // nextEl.classList.remove(this.directionalClassName, this.orderClassName)
-      //   // nextEl.classList.add(this.CLASS_NAME_ACTIVE)
-      //   // targetEl.classList.remove(this.CLASS_NAME_ACTIVE, this.orderClassName, this.directionalClassName)
-
-      //   // this.activeIndex = nextIndex
-      //   // console.log(activeIndex, nextIndex, 'goto')
-      //   // this.isSliding = false
-      //   // this.activeIndexChange.emit(this.activeIndex)
-      // })
-      // targetEl.addEventListener('transitionend', (event) => this.transitionEvent(nextEl, targetEl, nextIndex, event))
-      
-      setTimeout(() => this.transitionEvent(nextEl, targetEl, nextIndex), 650)
-      // setTimeout(() => {
-      //   nextEl.classList.remove(this.directionalClassName, this.orderClassName)
-      //   nextEl.classList.add(this.CLASS_NAME_ACTIVE)
-      //   targetEl.classList.remove(this.CLASS_NAME_ACTIVE, this.orderClassName, this.directionalClassName)
-
-      //   this.activeIndex = nextIndex
-      //   console.log(activeIndex, nextIndex, 'goto')
-      //   this.isSliding = false
-      // }, 500)
-      // setTimeout(() => {
-      //   nextEl.classList.remove(this.directionalClassName)
-      //   nextEl.classList.remove(this.orderClassName)
-      //   targetEl.classList.remove('active')
-      //   targetEl.classList.remove(this.orderClassName)
-      //   nextEl.classList.add('active')
-      //   this.isSliding = false
-      // }, 500)
-
-      
-      // targetEl.addEventListener('transitionend', event =>  {
-      //   nextEl.classList.remove(this.directionalClassName)
-      //   nextEl.classList.remove(this.orderClassName)
-      //   targetEl.classList.remove(this.orderClassName)
-      //   targetEl.classList.remove('active')
-      //   nextEl.classList.add('active')
-      //   console.log(event)
-      // })
-              
-      // this.activeIndex = nextIndex
+    if (this.isSliding) {
+      return
     }
-    // if ( index < 0 && this.activeIndex === 0) {
-    //   console.log(index)
-    //   this.activeIndex = this.itemCount - 1
-    // } else if (index >= this.itemCount && this.activeIndex === this.itemCount - 1) {
-    //   this.activeIndex = 0
-    // } else {
-    //   const targetEl = this.el.nativeElement.querySelectorAll('.carousel-item')[this.activeIndex]
-    //   const nextIndex = this.activeIndex < this.itemCount - 1 ? this.activeIndex + 1 : 0
-    //   const nextEl = this.el.nativeElement.querySelectorAll('.carousel-item')[nextIndex]
-    //   // // console.log(this.el.nativeElement.querySelectorAll('.carousel-item'))
-    //   console.log(this.activeIndex, nextIndex, 'middle')
-    //   targetEl.classList.add(this.orderClassName)
-    //   nextEl.classList.add(this.directionalClassName)
-    //   nextEl.classList.add(this.orderClassName)
-    //   setTimeout(() => {
-    //     nextEl.classList.remove(this.directionalClassName)
-    //     nextEl.classList.remove(this.orderClassName)
-    //     targetEl.classList.remove('active')
-    //     targetEl.classList.remove(this.orderClassName)
 
-    //     nextEl.classList.add('active')
-    //     this.activeIndex = index
-    //   }, 500)
-    //   // this.activeIndex = index < 0 ? 0 : index > this.itemCount - 1 ? this.itemCount - 1 : index
-    // }
-    // const targetEl = this.el.nativeElement.querySelectorAll('valor-launchpad-carousel-item')
+    if(index === this.activeIndex) {
+      return
+    }
 
-    // if (index < 0 && this.activeIndex === 0) {
-    //   // 第一个卡片向前切换
-    //   this.activeIndex = this.itemCount - 1
-    //   const targetEl = this.el.nativeElement.querySelectorAll('valor-launchpad-carousel-item')
-    //   // console.log(targetEl, 'first')
-    // } else if (index >= this.itemCount && this.activeIndex === this.itemCount - 1) {
-    //   this.activeIndex = 0
-    //   const targetEl = this.el.nativeElement.querySelectorAll('valor-launchpad-carousel-item')
-    //   // console.log(targetEl, 'last')
-    // } else {
-    // //   1 1 0 3 "middle"
-    // // carousel.component.ts:97 2 2 0 3 "middle"
-    // // carousel.component.ts:97 1 1 0 3 "middle"
-    //   this.activeIndex = index < 0 ? 0 : index > this.itemCount - 1 ? this.itemCount - 1 : index
-    //   const targetEl = this.el.nativeElement.querySelectorAll('.carousel-item')[this.activeIndex]
-    //   // const nextIndex = index < 0 ? this.itemCount - 1 : index > this.itemCount - 1 ? 0 : index + 1 
-    //   const nextIndex = this.activeIndex < this.itemCount - 1 ? this.activeIndex + 1 : 0
-    //   const nextEl = this.el.nativeElement.querySelectorAll('.carousel-item')[nextIndex]
-    //   // console.log(this.el.nativeElement.querySelectorAll('.carousel-item'))
-    //   console.log(this.activeIndex, index, nextIndex, this.itemCount, 'middle')
-    //   targetEl.classList.add('carousel-item-start')
-    //   nextEl.classList.add('carousel-item-next')
-    //   nextEl.classList.add('carousel-item-start')
-    //   setTimeout(() => {
-    //     targetEl.classList.remove('active')
-    //     nextEl.classList.remove('carousel-item-next')
-    //     nextEl.classList.remove('carousel-item-start')
-    //     nextEl.classList.add('active')
-    //     targetEl.classList.remove('carousel-item-start')
-    //   }, 500)
-    // }
-
-    // const targetEl = this.el.nativeElement.querySelectorAll('.carousel-item')[this.activeIndex]
-
-    // const nextEl = this.el.nativeElement.querySelectorAll('.carousel-item')[index]
-
-    // targetEl.classList.add('carousel-item-start')
-    // nextEl.classList.add('carousel-item-next carousel-item-start')
-    // this.activeIndex = index < 0 ? 0 : index > this.itemCount - 1 ? this.itemCount - 1 : index
-    // const targetEl = this.el.nativeElement.querySelectorAll('.carousel-item')[this.activeIndex]
-    // // // const nextIndex = index < 0 ? this.itemCount - 1 : index > this.itemCount - 1 ? 0 : index + 1 
-    // const nextIndex = this.activeIndex < this.itemCount - 1 ? this.activeIndex + 1 : 0
-    // const nextEl = this.el.nativeElement.querySelectorAll('.carousel-item')[nextIndex]
-    // // // console.log(this.el.nativeElement.querySelectorAll('.carousel-item'))
-    // console.log(this.activeIndex, nextIndex, 'middle')
-    // targetEl.classList.add('carousel-item-end')
-    // nextEl.classList.add('carousel-item-prev')
-    // nextEl.classList.add('carousel-item-end')
-    // setTimeout(() => {
-    //   nextEl.classList.remove('carousel-item-prev')
-    //   nextEl.classList.remove('carousel-item-end')
-    //   targetEl.classList.remove('active')
-    //   targetEl.classList.remove('carousel-item-end')
-
-    //   nextEl.classList.add('active')
-
-    // }, 500)
-    // this.activeIndexChange.emit(this.activeIndex)
+    const order = index > this.activeIndex ? CarouselComponent.ORDER_NEXT : CarouselComponent.ORDER_PREV
     
+    this.slide(order, this.itemContainer[index])
+  }
+
+  private slide(order, element?: Element) {
+
+    const isNext = order === CarouselComponent.ORDER_NEXT
+    const activeElement = this.itemContainer[this.activeIndex]
+
+    const nextElement = element || this.getItemByOrder(order, activeElement)
+
+    const nextElementIndex = this.getItemIndex(nextElement)
+
+    const directionalClassName = isNext ? CarouselComponent.CLASS_NAME_START : CarouselComponent.CLASS_NAME_END
+
+    const orderClassName = isNext ? CarouselComponent.CLASS_NAME_NEXT : CarouselComponent.CLASS_NAME_PREV
+
+    if (nextElement && nextElement.classList.contains(CarouselComponent.CLASS_NAME_ACTIVE)) {
+      this.isSliding = false
+      return
+    }
+
+    if (this.isSliding) {
+      return
+    }
+
+    if (!activeElement || !nextElement) {
+      return
+    }
+    this.isSliding = true
+
+    nextElement.classList.add(orderClassName)
+
+    this.reflow(nextElement)
+
+    activeElement.classList.add(directionalClassName)
+    nextElement.classList.add(directionalClassName)
+
+    this.activeIndex = nextElementIndex
+    this.setIndicatorElementAttr()
+    this.activeIndexChange.emit(this.activeIndex)
+    
+    const completeCallBack = () => {
+      nextElement.classList.remove(directionalClassName, orderClassName)
+      nextElement.classList.add(CarouselComponent.CLASS_NAME_ACTIVE)
+
+      activeElement.classList.remove(CarouselComponent.CLASS_NAME_ACTIVE, orderClassName, directionalClassName)
+
+      this.isSliding = false
+      this.autoScheduleTransition()
+    }
+
+    // nextElement.removeEventListener('transitionend', completeCallBack)
+
+    // nextElement.addEventListener('transitionend', completeCallBack)
+    setTimeout(() => {
+      completeCallBack()
+    }, 600)
+    
+  }
+
+  private getItemIndex(element: Element) {
+    return Array.from(this.itemContainer).indexOf(element)
+  }
+
+  private getItemByOrder(order, activeElement) {
+    const isNext = order === CarouselComponent.ORDER_NEXT
+    return this.getNextActiveElement(this.itemContainer, activeElement, isNext, true)
+  }
+
+  private getNextActiveElement(list: HTMLCollection, activeElement, shouldGetNext: boolean, isCycleAllowed:boolean) {
+    let index = Array.from(list).indexOf(activeElement)
+
+    if (index === -1) {
+      return list[!shouldGetNext && isCycleAllowed ? list.length - 1 : 0]
+    }
+    
+    const listLength = list.length
+    
+    index += shouldGetNext ? 1 : -1
+    
+    if (isCycleAllowed) {
+      index = (index + listLength) % listLength
+    }
+    return list[Math.max(0, Math.min(index, listLength - 1))]
+  }
+
+  private setIndicatorElementAttr() {
+    if (this.showDots) {
+      const parentNode: HTMLElement = this.el.nativeElement.querySelector('.carousel-indicators')
+      const indicatorsElement = parentNode.getElementsByTagName('li')
+      Array.from(indicatorsElement).map(indicator => {
+        this.renderer.removeAttribute(indicator, 'aria-current')
+      })
+      this.renderer.setAttribute(indicatorsElement[this.activeIndex], 'aria-current', 'true')
+    }
+  }
+
+  ngOnDestroy() {
+    this.clearScheduledTransition()
   }
 
 }
