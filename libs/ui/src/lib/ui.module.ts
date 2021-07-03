@@ -16,6 +16,7 @@ import { LandingComponent } from './landing/landing.component';
 import { MainComponent } from './main/main.component';
 import { ModalComponent } from './modal/modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { OffcanvasComponent } from './offcanvas/offcanvas.component';
 import { ProgressComponent } from './progress/progress.component';
 import { RebootComponent } from './reboot/reboot.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -67,6 +68,7 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
     MainComponent,
     ModalComponent,
     NavbarComponent,
+    OffcanvasComponent,
     ProgressComponent,
     RebootComponent,
     SettingsComponent,
@@ -103,6 +105,7 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
     CardComponent,
     CheckboxGroupComponent,
     DropdownComponent,
+    OffcanvasComponent,
     ProgressComponent,
     TablesComponent,
     TimelineComponent,

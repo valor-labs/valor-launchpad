@@ -1,0 +1,10 @@
+<div class="offcanvas" [ngClass]="'offcanvas-'+position" [class.show]="show" tabindex="-1"
+  aria-labelledby="offcanvasExampleLabel" [ngStyle]="{'visibility':show?'visible':'none'}">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">{{title}}</h5>
+    <button type="button" class="btn-close text-reset" (click)="handleClose()" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ng-content select="[offcanvas-body]"></ng-content>
+  </div>
+</div>
