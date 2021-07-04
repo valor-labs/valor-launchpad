@@ -1,0 +1,26 @@
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" [ngClass]="{'carousel-fade': isFade}" (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()">
+  <ng-container *ngIf="showDots">
+    <ol class="carousel-indicators">
+      <ng-template ngFor let-dot [ngForOf]="itemContainer" let-index="index" >
+        <li
+          [attr.data-bs-target]="index" 
+          [attr.data-bs-slide-to]="index"
+          (click)="goTo(index)"
+          [ngClass]="{'active': activeIndex === index}"></li>
+      </ng-template>
+    </ol>
+  </ng-container>
+  <div class="carousel-inner">
+    <ng-content select="valor-launchpad-carousel-item"></ng-content>
+  </div>
+  <ng-container *ngIf="controls">
+    <a class="carousel-control-prev" (click)="handlePrev()" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" (click)="handleNext()" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </ng-container>
+</div>

@@ -120,6 +120,9 @@ const routes: Routes = [
         path: 'ui-cards', loadChildren: () => import('./pages/ui-cards/ui-cards.module').then(m => m.UiCardsModule)
       },
       {
+        path: 'ui-carousel', loadChildren: () => import('./pages/ui-carousel/ui-carousel.module').then(m => m.UiCarouselModule)
+      },
+      {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
       },
       {

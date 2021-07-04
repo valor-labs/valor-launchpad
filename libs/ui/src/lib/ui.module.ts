@@ -6,6 +6,8 @@ import { AvatarComponent } from './avatar/avatar.component';
 import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
 import { CardComponent } from './card/card.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { ChartComponent } from './chart/chart.component';
 import { ChatComponent } from './chat/chat.component';
 import { ContentComponent } from './content/content.component';
@@ -57,6 +59,8 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
     BadgeComponent,
     ButtonComponent,
     CardComponent,
+    CarouselComponent,
+    CarouselItemComponent,
     ChartComponent,
     ChatComponent,
     ContentComponent,
@@ -101,6 +105,8 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
     AlertComponent,
     AvatarComponent,
     CardComponent,
+    CarouselComponent,
+    CarouselItemComponent,
     CheckboxGroupComponent,
     DropdownComponent,
     ProgressComponent,
