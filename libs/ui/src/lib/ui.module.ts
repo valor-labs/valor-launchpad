@@ -18,6 +18,7 @@ import { LandingComponent } from './landing/landing.component';
 import { MainComponent } from './main/main.component';
 import { ModalComponent } from './modal/modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { OffcanvasComponent } from './offcanvas/offcanvas.component';
 import { ProgressComponent } from './progress/progress.component';
 import { RebootComponent } from './reboot/reboot.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -73,6 +74,7 @@ import { ColDirective } from './grid/col.directive';
     MainComponent,
     ModalComponent,
     NavbarComponent,
+    OffcanvasComponent,
     ProgressComponent,
     RebootComponent,
     SettingsComponent,
@@ -113,6 +115,7 @@ import { ColDirective } from './grid/col.directive';
     CarouselItemComponent,
     CheckboxGroupComponent,
     DropdownComponent,
+    OffcanvasComponent,
     ProgressComponent,
     TablesComponent,
     TimelineComponent,

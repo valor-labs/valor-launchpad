@@ -73,3 +73,14 @@ $jsvectormap-zoom-btn: $gray-400 !default;
 
 // Select2
 $s2bs-input-single-color: #fff;
+
+.offcanvas-backdrop:before{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1039;
+    width: 100vw;
+    height: 100vh;
+    content: "";
+    background-color: hsla(0,0%,100%,.5);
+}
