@@ -123,11 +123,18 @@ const routes: Routes = [
         path: 'ui-offcanvas', loadChildren: () => import('./pages/ui-offcanvas/ui-offcanvas.module').then(m => m.UiOffcanvasModule)
       },
       {
+        path: 'ui-carousel', loadChildren: () => import('./pages/ui-carousel/ui-carousel.module').then(m => m.UiCarouselModule)
+      },
+      {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
       },
       {
         path: 'ui-typography',
         loadChildren: () => import('./pages/ui-typography/ui-typography.module').then(m => m.UiTypographyModule)
+      },
+      {
+        path: 'ui-grid',
+        loadChildren: () => import('./pages/ui-grid/ui-grid.module').then(m => m.UiGridModule)
       },
       {
         path: 'payments',

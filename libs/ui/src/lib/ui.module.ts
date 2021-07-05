@@ -6,6 +6,8 @@ import { AvatarComponent } from './avatar/avatar.component';
 import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
 import { CardComponent } from './card/card.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { ChartComponent } from './chart/chart.component';
 import { ChatComponent } from './chat/chat.component';
 import { ContentComponent } from './content/content.component';
@@ -48,6 +50,8 @@ import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dyn
 import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
 import { FormInputComponent } from './dynamic-form/components/form-input/form-input.component';
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
+import { RowDirective } from './grid/row.directive';
+import { ColDirective } from './grid/col.directive';
 
 @NgModule({
     imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule],
@@ -58,6 +62,8 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
     BadgeComponent,
     ButtonComponent,
     CardComponent,
+    CarouselComponent,
+    CarouselItemComponent,
     ChartComponent,
     ChatComponent,
     ContentComponent,
@@ -97,12 +103,16 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
     FormButtonComponent,
     FormInputComponent,
     FormSelectComponent,
+    RowDirective,
+    ColDirective,
   ],
   exports: [
     TabsModule,
     AlertComponent,
     AvatarComponent,
     CardComponent,
+    CarouselComponent,
+    CarouselItemComponent,
     CheckboxGroupComponent,
     DropdownComponent,
     OffcanvasComponent,
@@ -120,6 +130,8 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
     FormItemComponent,
     CheckboxComponent,
     DynamicFormComponent,
+    RowDirective,
+    ColDirective,
   ],
 })
 export class UiModule {}
