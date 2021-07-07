@@ -47,7 +47,6 @@ import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dyn
 import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
 import { FormInputComponent } from './dynamic-form/components/form-input/form-input.component';
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
-import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
     imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule],
@@ -96,7 +95,6 @@ import { CalendarComponent } from './calendar/calendar.component';
     FormButtonComponent,
     FormInputComponent,
     FormSelectComponent,
-    CalendarComponent,
   ],
   exports: [
     TabsModule,
@@ -118,8 +116,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     InputGroupComponent,
     FormItemComponent,
     CheckboxComponent,
-    DynamicFormComponent,
-    CalendarComponent
+    DynamicFormComponent
   ],
 })
 export class UiModule {}
