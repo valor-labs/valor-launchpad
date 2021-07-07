@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormItemComponent } from './form-item.component';
+import { AvatarSelectorComponent } from './avatar-selector.component';
 
-describe('FormItemComponent', () => {
-  let component: FormItemComponent;
-  let fixture: ComponentFixture<FormItemComponent>;
+describe('AvatarSelectorComponent', () => {
+  let component: AvatarSelectorComponent;
+  let fixture: ComponentFixture<AvatarSelectorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FormItemComponent],
+      declarations: [AvatarSelectorComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormItemComponent);
+    fixture = TestBed.createComponent(AvatarSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
