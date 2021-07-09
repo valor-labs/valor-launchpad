@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { FormsEditorsComponent } from './forms-editors.component';
+import { FormsEditorsRoutingModule } from './forms-editors-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    FormsEditorsComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsEditorsRoutingModule
   ]
 })
 export class FormsEditorsModule { }
