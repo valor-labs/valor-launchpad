@@ -126,6 +126,9 @@ const routes: Routes = [
         path: 'ui-carousel', loadChildren: () => import('./pages/ui-carousel/ui-carousel.module').then(m => m.UiCarouselModule)
       },
       {
+        path: 'ui-embed-video', loadChildren: () => import('./pages/ui-embed-video/ui-embed-video.module').then(m => m.UiEmbedVideoModule)
+      },
+      {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
       },
       {
