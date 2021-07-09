@@ -12,11 +12,13 @@ import { NgControl } from '@angular/forms';
   selector: 'valor-launchpad-form-item',
   template: `
     <ng-content></ng-content>
-    <label
-      class="error jquery-validation-error small form-text invalid-feedback"
-      *ngIf="!isTemplate && dirtyAndInvalid; else templateOutlet">
-      {{ errTip }}
-    </label>
+    <ng-container *ngIf="!isTemplate; else templateOutlet">
+      <label
+        *ngIf='dirtyAndInvalid'
+        class="error jquery-validation-error small form-text invalid-feedback">
+        {{ errTip }}
+      </label>
+    </ng-container>
     <ng-template #templateOutlet>
       <ng-container *ngTemplateOutlet="errTip"></ng-container>
     </ng-template>
