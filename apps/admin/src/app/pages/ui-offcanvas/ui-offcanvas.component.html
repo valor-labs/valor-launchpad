@@ -1,0 +1,131 @@
+<h1 class="h3 mb-3">Offcanvas</h1>
+<div class="row">
+    <div class="col-12 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Offcanvas</h5>
+                <h6 class="card-subtitle text-muted">Build hidden sidebars into your project for navigation, shopping
+                    carts, and more with a few classes and our JavaScript plugin.</h6>
+            </div>
+            <div class="card-body text-center">
+                <a class="btn btn-primary my-1" data-bs-toggle="offcanvas" (click)="toggleShowExample()" role="button"
+                    aria-controls="offcanvasExample">
+                    Link
+                </a>
+                <button class="btn btn-primary my-1" type="button" aria-controls="offcanvasExample"
+                    (click)="toggleShowExample()">
+                    Button
+                </button>
+
+                <valor-launchpad-offcanvas [show]="showExample" [title]="'Offcanvas'" (onClose)="handleCloseExample()">
+                    <div offcanvas-body>
+                        <div>
+                            Some text as placeholder. In real life you can have the elements you have chosen. Like,
+                            text, images, lists, etc.
+                        </div>
+
+                        <valor-launchpad-dropdown [classes]="'dropdown mt-3'" [actions]="dropdownActions">
+                            <button dropdown-nav class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown">
+                                Dropdown button
+                            </button>
+
+                        </valor-launchpad-dropdown>
+
+                       
+                    </div>
+                </valor-launchpad-offcanvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Offcanvas placement</h5>
+                <h6 class="card-subtitle text-muted">The default placement for offcanvas components is left
+                </h6>
+            </div>
+            <div class="card-body text-center">
+
+                <button class="btn btn-primary my-1" type="button" aria-controls="offcanvasLeft"
+                    (click)="toggleShowLeft()">Toggle left offcanvas</button>
+                <button class="btn btn-primary my-1" type="button" aria-controls="offcanvasRight"
+                    (click)="toggleShowRight()">Toggle right offcanvas</button>
+                <button class="btn btn-primary my-1" type="button" aria-controls="offcanvasBottom"
+                    (click)="toggleShowBottom()">Toggle bottom offcanvas</button>
+
+                <valor-launchpad-offcanvas [show]="showLeft" [title]="'Offcanvas left'" (onClose)="handleCloseLeft()">
+                    <div offcanvas-body>
+                        Some text as placeholder. In real life you can have the elements you have chosen. Like,
+                        text, images, lists, etc.
+                    </div>
+
+                </valor-launchpad-offcanvas>
+
+
+
+                <valor-launchpad-offcanvas [show]="showRight" [position]="'end'" [title]="'Offcanvas right'"
+                    (onClose)="handleCloseRight()">
+                    <div offcanvas-body>
+                        Some text as placeholder. In real life you can have the elements you have chosen. Like,
+                        text, images, lists, etc.
+                    </div>
+
+                </valor-launchpad-offcanvas>
+
+
+                <valor-launchpad-offcanvas [show]="showBottom" [position]="'bottom'" [title]="'Offcanvas bottom'"
+                    (onClose)="handleCloseBottom()">
+
+                    <div offcanvas-body>
+                        Some text as placeholder. In real life you can have the elements you have chosen. Like,
+                        text, images, lists, etc.
+                    </div>
+                </valor-launchpad-offcanvas>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Offcanvas backdrop</h5>
+                <h6 class="card-subtitle text-muted">Scrolling the <code>&#x3C;body&#x3E;</code> element is disabled
+                    when an offcanvas and its backdrop are visible. 
+                </h6>
+            </div>
+            <div class="card-body text-center">
+
+                <button class="btn btn-primary my-1" type="button" aria-controls="offcanvasScrolling" (click)="toggleShowScrolling()">Enable body
+                    scrolling</button>
+                <button class="btn btn-primary my-1" type="button"
+                   aria-controls="offcanvasWithBackdrop" (click)="toggleShowBackdrop()">Enable backdrop 
+                    (default)</button>
+                <button class="btn btn-primary my-1" type="button" aria-controls="offcanvasWithBothOptions" (click)="toggleShowScrollingBackdrop()">Enable both
+                    scrolling & backdrop</button>
+
+                    <valor-launchpad-offcanvas [show]="showScrolling" [title]="'Colored with scrolling'" [scrolling]="true" [backdrop]="false" (onClose)="handleCloseScrolling()">
+                       <div offcanvas-body> <p>Try scrolling the rest of the page to see this option in action.</p></div>
+                    </valor-launchpad-offcanvas>
+
+
+                    <valor-launchpad-offcanvas [show]="showBackdrop" [title]="'Offcanvas with backdrop'" [backdrop]="true" (onClose)="handleCloseBackdrop()">
+                      <div offcanvas-body> <p>...</p></div>
+                    </valor-launchpad-offcanvas>
+
+                    <valor-launchpad-offcanvas [show]="showScrollingBackdrop" [title]="'Backdroped with scrolling'" [backdrop]="true" [scrolling]="true"  (onClose)="handleCloseScrollingBackdrop()">
+                        <div offcanvas-body>
+                            <p>Try scrolling the rest of the page to see this option in action.</p>
+                        </div>
+                    </valor-launchpad-offcanvas>
+
+            </div>
+        </div>
+    </div>
+</div>

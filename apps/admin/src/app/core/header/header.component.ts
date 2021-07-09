@@ -8,7 +8,6 @@ import { Action } from '@valor-launchpad/api-interfaces';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  profileDropdownShow = false;
   profileActions: Action[] = [
     {
       label: 'Profile',
@@ -45,7 +44,4 @@ export class HeaderComponent implements OnInit {
     this.authService.signOut()
   }
 
-  toggleProfileDropdown() {
-    this.profileDropdownShow = !this.profileDropdownShow;
-  }
 }

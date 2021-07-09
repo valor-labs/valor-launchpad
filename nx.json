@@ -43,6 +43,12 @@
     },
     "stripe-ui": {
       "tags": []
+    },
+    "email": {
+      "tags": []
+    },
+    "sms": {
+      "tags": []
     }
   }
 }
