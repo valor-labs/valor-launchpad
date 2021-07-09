@@ -61,3 +61,17 @@
 .tab-vertical .tab-content {
   overflow: auto;
 }
+
+
+.tab-content {
+  padding: 1.25rem 0;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  background: #fff;
+  border-bottom: none;
+}

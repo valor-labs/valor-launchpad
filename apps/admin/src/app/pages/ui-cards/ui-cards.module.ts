@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UiCardsRoutingModule } from './ui-cards-routing.module';
 import { UiCardsComponent } from './ui-cards.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { UiCardsComponent } from './ui-cards.component';
   ],
   imports: [
     CommonModule,
-    UiCardsRoutingModule
+    UiCardsRoutingModule,
+    UiModule
   ]
 })
 export class UiCardsModule { }
