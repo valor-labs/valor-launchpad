@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsEditorsComponent } from './forms-editors.component';
 import { FormsEditorsRoutingModule } from './forms-editors-routing.module';
+import { UiModule } from '@valor-launchpad/ui';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { FormsEditorsRoutingModule } from './forms-editors-routing.module';
   ],
   imports: [
     CommonModule,
-    FormsEditorsRoutingModule
+    FormsEditorsRoutingModule,
+    UiModule
   ]
 })
 export class FormsEditorsModule { }
