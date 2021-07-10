@@ -26,7 +26,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SizingComponent } from './sizing/sizing.component';
 import { StatsComponent } from './stats/stats.component';
 import { TablesComponent } from './tables/tables.component';
-import { TabsComponent } from './tabs/tabs.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TypeComponent } from './type/type.component';
 import { WizardComponent } from './wizard/wizard.component';
@@ -43,7 +42,8 @@ import { InputDirective } from './input/input.directive';
 import { InputGroupComponent } from './input-group/input-group.component';
 import { FormItemComponent } from './forms/form-item.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+// import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TabsModule } from './tabs/tabs.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicFieldDirective } from './dynamic-form/components/dynamic-field/dynamic-field.directive';
 import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dynamic-form.component';
@@ -82,7 +82,6 @@ import { ColDirective } from './grid/col.directive';
     SizingComponent,
     StatsComponent,
     TablesComponent,
-    TabsComponent,
     TimelineComponent,
     TypeComponent,
     WizardComponent,
