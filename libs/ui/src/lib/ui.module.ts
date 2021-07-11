@@ -109,6 +109,7 @@ import { ColDirective } from './grid/col.directive';
     TabsModule,
     AlertComponent,
     AvatarComponent,
+    ButtonComponent,
     CardComponent,
     CarouselComponent,
     CarouselItemComponent,
@@ -131,6 +132,7 @@ import { ColDirective } from './grid/col.directive';
     DynamicFormComponent,
     RowDirective,
     ColDirective,
-  ],
+    ModalComponent,
+  ]
 })
 export class UiModule {}

@@ -17,6 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TokenInterceptor } from './core/auth/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
@@ -24,6 +25,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     RouterModule, FooterModule, NavigationModule, HeaderModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     UiModule, NgxChartsModule,ToastrModule.forRoot()
   ],
   providers: [CookieService,
