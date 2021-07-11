@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormItemComponent } from './form-item.component';
+import { SettingsAccountComponent } from './settings-account.component';
 
-describe('FormItemComponent', () => {
-  let component: FormItemComponent;
-  let fixture: ComponentFixture<FormItemComponent>;
+describe('SettingsAccountComponent', () => {
+  let component: SettingsAccountComponent;
+  let fixture: ComponentFixture<SettingsAccountComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FormItemComponent],
+      declarations: [SettingsAccountComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormItemComponent);
+    fixture = TestBed.createComponent(SettingsAccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     },
     {
       label: 'Settings & Privacy',
-      link: 'pages-settings.html',
+      link: '/settings',
     },
     {
       label: 'Help',
