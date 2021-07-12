@@ -404,7 +404,7 @@ $sidebar-badge-secondary-bg: (
 $sidebar-compact-width: 68px;
 
 // Sidebar compact dropdown
-$sidebar-compact-dropdown-padding: ($spacer / 2) 0;
+$sidebar-compact-dropdown-padding: ($spacer * 0.5) 0;
 $sidebar-compact-dropdown-width: 220px;
 $sidebar-compact-dropdown-box-shadow: 0 0.5rem 3rem 0.5rem rgba($black, .05) !default;
 $sidebar-compact-dropdown-border-radius: $border-radius-lg;
