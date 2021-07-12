@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, FullCalendarComponent } from '@fullcalendar/angular'
-// import zhLocale from '@fullcalendar/core/locales/zh-cn'
-
 
 @Component({
   selector: 'valor-launchpad-calendar',
@@ -73,10 +71,7 @@ export class CalendarComponent implements OnInit {
     ]
 }
 
-  // constructor() { }
-
   ngOnInit(): void {
-    // console.log('FullCalendarModule', FullCalendarComponent)
   }
 
   public toggleWeekends(): void {
