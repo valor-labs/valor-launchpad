@@ -10,9 +10,12 @@ import { RouterModule } from 'nest-router';
 import { DashboardModule } from '../dashboard/dashboard-default/dashboard.module';
 import { DashboardAnalyticsModule } from '../dashboard/dashboard-analytics/dashboard-analytics.module';
 import {StripeApiModule} from '@valor-launchpad/stripe-api';
+import {EventEmitterModule} from '@nestjs/event-emitter';
+import {ProjectsListener} from './listeners/projects.listener';
 
 @Module({
   imports: [
+    EventEmitterModule.forRoot(),
     TypeOrmModule.forRoot({
       type: process.env.TYPEORM_CONNECTION as any,
       host: process.env.TYPEORM_HOST,
@@ -34,7 +37,7 @@ import {StripeApiModule} from '@valor-launchpad/stripe-api';
     ProjectsModule, ProfileModule, AuthModule, UsersModule, DashboardModule, DashboardModule, DashboardAnalyticsModule, StripeApiModule
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService, ProjectsListener]
 })
 export class AppModule {
 }

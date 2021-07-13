@@ -24,35 +24,35 @@ export class ProjectsEntity {
   @Column({type: 'longtext'})
   body: string;
 
-  @Column({type: 'json'})
+  @Column({type: 'json', nullable:true})
   badge: {
     title: string;
     status: string;
   }
 
-  @Column({type: 'json'})
+  @Column({type: 'json', nullable:true})
   hero: {
     src: string;
     alt: string;
   }
 
-  @Column({type: 'json'})
+  @Column({type: 'json', nullable:true})
   actions: Array<{
     title: string;
     type: string;
   }>
 
-  @Column({type: 'integer'})
+  @Column({type: 'integer', nullable:true})
   progress: number;
 
   // TODO: This should become a collection of ids that is then connected to users
-  @Column({type: 'json'})
+  @Column({type: 'json', nullable:true})
   assignee: Array<{
     name: string;
     url: string;
   }>
 
-  @Column({type: 'json'})
+  @Column({type: 'json', nullable:true})
   summary: {
     reporter: {
       name: string;
@@ -66,7 +66,7 @@ export class ProjectsEntity {
     estimated: string;
   }
 
-  @Column({type: 'json'})
+  @Column({type: 'json', nullable:true})
   rollupData: {
     [key: string]: {
       current: number;
