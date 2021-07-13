@@ -233,6 +233,31 @@
         }
       }
     },
+    "auth-api": {
+      "root": "libs/auth-api",
+      "sourceRoot": "libs/auth-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth-api/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/auth-api"
+          ],
+          "options": {
+            "jestConfig": "libs/auth-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "common-api": {
       "root": "libs/common-api",
       "sourceRoot": "libs/common-api/src",
@@ -382,6 +407,31 @@
           ],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "users-api": {
+      "root": "libs/users-api",
+      "sourceRoot": "libs/users-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/users-api/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/users-api"
+          ],
+          "options": {
+            "jestConfig": "libs/users-api/jest.config.js",
             "passWithNoTests": true
           }
         }

@@ -1,8 +1,8 @@
 import {Controller, Get, Req, UseGuards} from '@nestjs/common';
 import {ProfileService} from "./profile.service";
-import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
+import {JwtAuthGuard} from "@valor-launchpad/auth-api";
 import {RequestWithSession} from "@valor-launchpad/common-api";
-import {UsersService} from "../users/users.service";
+import {UsersService} from "@valor-launchpad/users-api";
 
 @UseGuards(JwtAuthGuard)
 @Controller('v1')

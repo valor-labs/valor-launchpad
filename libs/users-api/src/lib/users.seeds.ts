@@ -1,7 +1,7 @@
 import {Factory, Seeder} from "typeorm-seeding";
 import {UserEntity} from "./user.entity";
 import {User} from "./users.service";
-import {HELPERS} from "../../seed_helpers/data";
+import {HELPERS} from "../../../../apps/api/seed_helpers/data";
 import * as bcrypt from 'bcrypt';
 import {RolesEntity} from './roles.entity';
 import {UserRolesEntity} from './user-roles.entity';

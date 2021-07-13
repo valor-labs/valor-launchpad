@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
-import {UsersService} from '../users/users.service';
+import {UsersService} from '@valor-launchpad/users-api';
 import {JwtService} from '@nestjs/jwt';
-import {CryptService} from "../crypt/crypt.service";
+import {CryptService} from '@valor-launchpad/common-api';
 
 @Injectable()
 export class AuthService {
