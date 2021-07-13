@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import {HELPERS} from "../seed_helpers/data";
+import {HELPERS} from '../../../../../apps/api/seed_helpers/data';
 
 @Injectable()
 export class CryptService {
