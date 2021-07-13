@@ -35,7 +35,13 @@
     "api-interfaces": {
       "tags": []
     },
-    "ui": {
+    "common-api": {
+      "tags": []
+    },
+    "email": {
+      "tags": []
+    },
+    "sms": {
       "tags": []
     },
     "stripe-api": {
@@ -44,10 +50,7 @@
     "stripe-ui": {
       "tags": []
     },
-    "email": {
-      "tags": []
-    },
-    "sms": {
+    "ui": {
       "tags": []
     }
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {FormGroup, Validators} from '@angular/forms';
+import {Validators} from '@angular/forms';
 import { EmbeddedPayService } from './embedded-pay.service';
 
 //TODO: Export these properly
