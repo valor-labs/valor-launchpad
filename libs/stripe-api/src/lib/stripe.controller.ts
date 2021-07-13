@@ -1,6 +1,6 @@
 import { Bind, Body, Controller, Get, Param, Post, Req, Res } from '@nestjs/common';
 import {Stripe} from 'stripe';
-import {RequestWithSession} from '../../../../apps/api/src/common/RequestWithSession';
+import {RequestWithSession} from '@valor-launchpad/common-api';
 import { AllCountriesResponse, AllProductsResponse, MethodsByCountryResponse, PayMethod } from './stripe.model';
 
 @Controller('v1')

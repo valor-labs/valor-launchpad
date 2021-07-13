@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {FormGroup, Validators} from '@angular/forms';
+import {Validators} from '@angular/forms';
 import { EmbeddedPayService } from './embedded-pay.service';
 
-//TODO: Export these properly
-import {FieldConfig} from '../../../../ui/src/lib/dynamic-form/models/field-config.interface';
-import {DynamicFormComponent} from '../../../../ui/src/lib/dynamic-form/containers/dynamic-form/dynamic-form.component';
+import {FieldConfig} from '@valor-launchpad/ui';
+import {DynamicFormComponent} from '@valor-launchpad/ui';
 import { AllProductsResponse, MethodsByCountryResponse, PayMethod } from '@valor-launchpad/stripe-api';
 import { OrderItem } from '../order-summary/order-summary.model';
 import { TabDirective } from 'ngx-bootstrap/tabs';

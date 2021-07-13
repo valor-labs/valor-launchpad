@@ -1,17 +1,15 @@
 import {Bind, Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, Res, UseGuards} from "@nestjs/common";
 import {LocalAuthGuard} from "./guards/local-auth-guard";
-import {RequestWithSession} from "../common/RequestWithSession";
+import {RequestWithSession} from "@valor-launchpad/common-api";
 import {AuthService} from "./auth.service";
 import {Response} from 'express';
-import {IResponse} from '../common/interfaces/response.interface';
+import {IResponse} from '@valor-launchpad/common-api';
 import {CreateUserDto} from '../users/dto/create-user.dto';
 import {UserEntity} from '../users/user.entity';
-import {ResponseError, ResponseSuccess} from '../common/dto/response.dto';
+import {ResponseError, ResponseSuccess} from '@valor-launchpad/common-api';
 import {UsersService} from '../users/users.service';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {EmailService} from '../../../../libs/email/src/lib/email.service';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {SmsService} from '../../../../libs/sms/src/lib/sms.service'; //TODO: fix this import
+import {EmailService} from '@valor-launchpad/email';
+import {SmsService} from '@valor-launchpad/sms';
 
 
 @Controller('v1')

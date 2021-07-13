@@ -1,11 +1,6 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-export interface VLCheckBoxOption {
-  label: string;
-  value: string;
-  disabled?: boolean;
-}
+import {VLCheckBoxOption} from './VLCheckBoxOption.interface';
 
 @Component({
   selector: 'valor-launchpad-checkbox-group',

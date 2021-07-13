@@ -3,7 +3,7 @@ import {ProjectsEntity} from "./projects.entity";
 import {Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {EventEmitter2} from '@nestjs/event-emitter'
-import {ProjectCreatedEvent} from './events/project-created.event';
+import {ProjectCreatedFatEvent, ProjectCreatedThinEvent} from './events/project-created.event';
 
 @Injectable()
 export class ProjectsService {
@@ -15,10 +15,14 @@ export class ProjectsService {
   async createProject(projectDTO) {
     const persistedProject = await this.projectsRepository.save(projectDTO)
     this.eventEmitter.emit(
-      'project.created',
-      <ProjectCreatedEvent>{
+      'project.created.thin',
+      <ProjectCreatedThinEvent>{
         id: persistedProject.id,
       } ,
+    );
+    this.eventEmitter.emit(
+      'project.created.fat',
+      <ProjectCreatedFatEvent>persistedProject,
     );
     return persistedProject;
   }
