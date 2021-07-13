@@ -1,14 +1,12 @@
-import {Factory, Seeder} from "typeorm-seeding";
-import {UserEntity} from "./user.entity";
-import {User} from "./users.service";
-import {HELPERS} from "../../../../apps/api/seed_helpers/data";
+import {Factory, Seeder} from '@zchapple/typeorm-seeding';
+import {UserEntity} from './user.entity';
+import {User} from './users.service';
+import {HELPERS} from '../../../../apps/api/seed_helpers/data';
 import * as bcrypt from 'bcrypt';
 import {RolesEntity} from './roles.entity';
 import {UserRolesEntity} from './user-roles.entity';
 
 export class CreateUsers implements Seeder {
-  constructor() {
-  }
 
   public async run(factory: Factory): Promise<void> {
     // TODO: These will eventually have different roles
