@@ -57,7 +57,7 @@
     "@swimlane/ngx-charts": "^17.0.1",
     "@swimlane/ngx-datatable": "^19.0.0",
     "bcrypt": "^5.0.1",
-    "bootstrap": "^5.0.0",
+    "bootstrap": "^5.0.2",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "compression": "^1.7.4",
