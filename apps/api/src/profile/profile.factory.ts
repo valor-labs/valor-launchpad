@@ -1,7 +1,7 @@
 import {define} from '@zchapple/typeorm-seeding';
 import * as Faker from 'faker'
 import {ProfileEntity} from './profile.entity';
-import {HELPERS} from '../../seed_helpers/data';
+import {HELPERS} from '@valor-launchpad/common-api';
 
 define(ProfileEntity, (faker: typeof Faker) => {
   const profile = new ProfileEntity();

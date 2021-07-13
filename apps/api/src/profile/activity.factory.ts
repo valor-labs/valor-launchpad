@@ -1,7 +1,7 @@
 import {define} from '@zchapple/typeorm-seeding';
 import * as Faker from 'faker'
 import {ActivityEntity} from './activity.entity';
-import {HELPERS} from '../../seed_helpers/data';
+import {HELPERS} from '@valor-launchpad/common-api';
 
 define(ActivityEntity, (faker: typeof Faker) => {
   const activity = new ActivityEntity();

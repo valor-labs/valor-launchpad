@@ -1,7 +1,7 @@
 import {Factory, Seeder} from '@zchapple/typeorm-seeding';
 import {UserEntity} from './user.entity';
 import {User} from './users.service';
-import {HELPERS} from '../../../../apps/api/seed_helpers/data';
+import {HELPERS} from '@valor-launchpad/common-api';
 import * as bcrypt from 'bcrypt';
 import {RolesEntity} from './roles.entity';
 import {UserRolesEntity} from './user-roles.entity';

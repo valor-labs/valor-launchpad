@@ -1,7 +1,7 @@
 import {define} from '@zchapple/typeorm-seeding';
 import * as Faker from 'faker'
 import {ProjectsEntity} from './projects.entity';
-import {HELPERS} from '../../seed_helpers/data';
+import {HELPERS} from '@valor-launchpad/common-api';
 
 define(ProjectsEntity, (faker: typeof Faker) => {
   const project = new ProjectsEntity();
