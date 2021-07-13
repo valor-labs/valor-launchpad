@@ -52,6 +52,8 @@ import { FormInputComponent } from './dynamic-form/components/form-input/form-in
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
 import { RowDirective } from './grid/row.directive';
 import { ColDirective } from './grid/col.directive';
+import { EmbedVideoComponent } from './embed-video/embed-video.component';
+import { SafePipe } from './pipe/safe.pipe';
 
 @NgModule({
     imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule],
@@ -104,6 +106,8 @@ import { ColDirective } from './grid/col.directive';
     FormSelectComponent,
     RowDirective,
     ColDirective,
+    EmbedVideoComponent,
+    SafePipe,
   ],
   exports: [
     TabsModule,
@@ -133,6 +137,7 @@ import { ColDirective } from './grid/col.directive';
     RowDirective,
     ColDirective,
     ModalComponent,
+    EmbedVideoComponent
   ]
 })
 export class UiModule {}
