@@ -1,1 +1,1 @@
-//TODO: Find out why this wasnt working
+export * from './lib/public_api';

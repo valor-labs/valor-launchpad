@@ -8,10 +8,8 @@ import {CreateUserDto} from '../users/dto/create-user.dto';
 import {UserEntity} from '../users/user.entity';
 import {ResponseError, ResponseSuccess} from '@valor-launchpad/common-api';
 import {UsersService} from '../users/users.service';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {EmailService} from '../../../../libs/email/src/lib/email.service';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {SmsService} from '../../../../libs/sms/src/lib/sms.service'; //TODO: fix this import
+import {EmailService} from '@valor-launchpad/email';
+import {SmsService} from '@valor-launchpad/sms';
 
 
 @Controller('v1')
