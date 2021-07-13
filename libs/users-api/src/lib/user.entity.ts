@@ -8,10 +8,10 @@ import {
 } from "typeorm";
 import {Exclude} from "class-transformer";
 import * as bcrypt from 'bcrypt';
-import {HELPERS} from '../../seed_helpers/data';
 import {v4 as uuid} from 'uuid';
 import {UserTagsEntity} from './user-tags.entity';
 import {UserRolesEntity} from './user-roles.entity';
+import {HELPERS} from '../../../../apps/api/seed_helpers/data';
 
 @Entity()
 export class UserEntity {

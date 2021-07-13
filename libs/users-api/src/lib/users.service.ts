@@ -1,11 +1,10 @@
-import {HttpException, HttpStatus, Inject, Injectable, Scope} from '@nestjs/common';
-import {CryptService} from "../crypt/crypt.service";
-import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
-import {UserEntity} from "./user.entity";
-import {classToPlain} from "class-transformer";
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {CryptService} from '@valor-launchpad/common-api';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Repository} from 'typeorm';
+import {UserEntity} from './user.entity';
+import {classToPlain} from 'class-transformer';
 import {CreateUserDto} from './dto/create-user.dto';
-import {RolesEntity} from './roles.entity';
 import {UserRolesEntity} from './user-roles.entity';
 
 // This should be a real class/interface representing a user entity
@@ -69,7 +68,7 @@ export class UsersService {
       userRole.role = 'User';
       createUser.userRoles = [userRole];
       //TODO: add this back after user Roles is fixed
-      // createUser.roles = ["User"];
+      // createUser.roles = ['User'];
       return await this.userRepository.save(createUser);
     } else if (!userCheck.emailVerified) {
       throw new HttpException('Please check your email to verify your email address', HttpStatus.FORBIDDEN);
@@ -86,7 +85,7 @@ export class UsersService {
     this.userRepository.createQueryBuilder()
       .update(UserEntity)
       .set({lastLogin: new Date()})
-      .where("username =:username", {username})
+      .where('username =:username', {username})
       .execute();
   }
 

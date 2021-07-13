@@ -35,6 +35,9 @@
     "api-interfaces": {
       "tags": []
     },
+    "auth-api": {
+      "tags": []
+    },
     "common-api": {
       "tags": []
     },
@@ -51,6 +54,9 @@
       "tags": []
     },
     "ui": {
+      "tags": []
+    },
+    "users-api": {
       "tags": []
     }
   }

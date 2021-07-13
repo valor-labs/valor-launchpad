@@ -1,6 +1,6 @@
-import {define} from "typeorm-seeding";
+import {define} from '@zchapple/typeorm-seeding';
 import * as Faker from 'faker'
-import {CommentEntity} from "./comment.entity";
+import {CommentEntity} from './comment.entity';
 
 define(CommentEntity, (faker: typeof Faker) => {
   const comment = new CommentEntity();

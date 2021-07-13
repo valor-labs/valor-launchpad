@@ -4,10 +4,10 @@ import {RequestWithSession} from "@valor-launchpad/common-api";
 import {AuthService} from "./auth.service";
 import {Response} from 'express';
 import {IResponse} from '@valor-launchpad/common-api';
-import {CreateUserDto} from '../users/dto/create-user.dto';
-import {UserEntity} from '../users/user.entity';
+import {CreateUserDto} from '@valor-launchpad/users-api';
+import {UserEntity} from '@valor-launchpad/users-api';
 import {ResponseError, ResponseSuccess} from '@valor-launchpad/common-api';
-import {UsersService} from '../users/users.service';
+import {UsersService} from '@valor-launchpad/users-api';
 import {EmailService} from '@valor-launchpad/email';
 import {SmsService} from '@valor-launchpad/sms';
 

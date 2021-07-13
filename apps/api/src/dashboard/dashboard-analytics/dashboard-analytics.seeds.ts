@@ -1,4 +1,4 @@
-import { Factory, Seeder } from 'typeorm-seeding';
+import { Factory, Seeder } from '@zchapple/typeorm-seeding';
 import { Connection } from 'typeorm';
 import { DashboardAnalyticsEntity } from './dashboard-analytics.entity';
 

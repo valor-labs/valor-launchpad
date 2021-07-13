@@ -1,19 +1,19 @@
 import {Module} from '@nestjs/common';
 import {JwtModule} from '@nestjs/jwt';
 import {PassportModule} from '@nestjs/passport';
-import {UsersModule} from '../users/users.module';
+import {UsersApiModule} from '@valor-launchpad/users-api';
 import {AuthService} from './auth.service';
 import {jwtConstants} from './constants';
 import {JwtStrategy} from './strategies/jwt.strategy';
 import {LocalStrategy} from './strategies/local.strategy';
-import {CryptModule} from "../crypt/crypt.module";
-import {AuthController} from "./auth.controller";
+import {CryptModule} from '@valor-launchpad/common-api';
+import {AuthController} from './auth.controller';
 import {EmailModule} from '@valor-launchpad/email';
 import {SmsModule} from '@valor-launchpad/sms';
 
 @Module({
   imports: [
-    UsersModule,
+    UsersApiModule,
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
@@ -27,5 +27,5 @@ import {SmsModule} from '@valor-launchpad/sms';
   providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
 })
-export class AuthModule {
+export class AuthApiModule {
 }

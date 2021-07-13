@@ -1,11 +1,11 @@
-import {define} from "typeorm-seeding";
+import {define} from '@zchapple/typeorm-seeding';
 import * as Faker from 'faker'
-import {ProfileEntity} from "./profile.entity";
-import {HELPERS} from "../../seed_helpers/data";
+import {ProfileEntity} from './profile.entity';
+import {HELPERS} from '../../seed_helpers/data';
 
 define(ProfileEntity, (faker: typeof Faker) => {
   const profile = new ProfileEntity();
-  profile.id = faker.random.uuid();
+  profile.id = faker.datatype.uuid();
   profile.name = faker.name.findName();
   profile.avatar = faker.random.arrayElement(HELPERS.profileImages);
   profile.username = faker.internet.userName();

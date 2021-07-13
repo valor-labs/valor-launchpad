@@ -1,16 +1,16 @@
-import { define } from 'typeorm-seeding';
+import { define } from '@zchapple/typeorm-seeding';
 import * as Faker from 'faker';
 import { DashboardEntity } from './dashboard.entity';
 
 define(DashboardEntity, (faker: typeof Faker) => {
   const dashboard = new DashboardEntity();
   dashboard.dashboardData = {
-    totalEarning: faker.random.number(100),
-    totalEarningSinceLastWeek: faker.random.number({ min: 0, max: 10, precision: 2 }),
-    pendingOrders: faker.random.number(100),
-    pendingOrdersSinceLastWeek: faker.random.number({ min: 0, max: 10, precision: 2 }),
-    totalRevenue: faker.random.number(100),
-    totalRevenueSinceLastWeek: faker.random.number({ min: 0, max: 10, precision: 2 })
+    totalEarning: faker.datatype.number(100),
+    totalEarningSinceLastWeek: faker.datatype.number({ min: 0, max: 10, precision: 2 }),
+    pendingOrders: faker.datatype.number(100),
+    pendingOrdersSinceLastWeek: faker.datatype.number({ min: 0, max: 10, precision: 2 }),
+    totalRevenue: faker.datatype.number(100),
+    totalRevenueSinceLastWeek: faker.datatype.number({ min: 0, max: 10, precision: 2 })
   };
 
   dashboard.salesRevenueChartData = [
@@ -19,11 +19,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -32,11 +32,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -45,11 +45,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -58,11 +58,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -71,11 +71,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -84,11 +84,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -97,11 +97,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -110,11 +110,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -123,11 +123,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -136,11 +136,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -149,11 +149,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     },
@@ -162,11 +162,11 @@ define(DashboardEntity, (faker: typeof Faker) => {
       'series': [
         {
           'name': '2019',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         },
         {
           'name': '2020',
-          'value': faker.random.number(120)
+          'value': faker.datatype.number(120)
         }
       ]
     }
@@ -175,56 +175,56 @@ define(DashboardEntity, (faker: typeof Faker) => {
   dashboard.weeklySalesChartData = [
     {
       'name': 'Direct',
-      'value': faker.random.number(3000)
+      'value': faker.datatype.number(3000)
     },
     {
       'name': 'Affiliate',
-      'value': faker.random.number(3000)
+      'value': faker.datatype.number(3000)
     },
     {
       'name': 'E-mail',
-      'value': faker.random.number(3000)
+      'value': faker.datatype.number(3000)
     },
     {
       'name': 'Other',
-      'value': faker.random.number(3000)
+      'value': faker.datatype.number(3000)
     }
   ];
 
   dashboard.weeklySalesTableData = [{
     source: 'Direct',
-    revenue: `$ ${faker.random.number(3000).toString()}`,
-    value: `+ ${faker.random.number(100).toString()}%`,
+    revenue: `$ ${faker.datatype.number(3000).toString()}`,
+    value: `+ ${faker.datatype.number(100).toString()}%`,
     type: 'fas fa-square-full text-primary'
   }, {
     source: 'Affiliate',
-    revenue: `$ ${faker.random.number(3000).toString()}`,
-    value: `+ ${faker.random.number(100).toString()}%`,
+    revenue: `$ ${faker.datatype.number(3000).toString()}`,
+    value: `+ ${faker.datatype.number(100).toString()}%`,
     type: 'fas fa-square-full text-warning'
   }, {
     source: 'E-mail',
-    revenue: `$ ${faker.random.number(3000).toString()}`,
-    value: `+ ${faker.random.number(100).toString()}%`,
+    revenue: `$ ${faker.datatype.number(3000).toString()}`,
+    value: `+ ${faker.datatype.number(100).toString()}%`,
     type: 'fas fa-square-full text-danger'
   }, {
     source: 'Other',
-    revenue: `$ ${faker.random.number(3000).toString()}`,
-    value: `+ ${faker.random.number(100).toString()}%`,
+    revenue: `$ ${faker.datatype.number(3000).toString()}`,
+    value: `+ ${faker.datatype.number(100).toString()}%`,
     type: 'fas fa-square-full text-dark'
   }];
 
-  const appointments = faker.random.number({ min: 2, max: 5 });
+  const appointments = faker.datatype.number({ min: 2, max: 5 });
   const appointmentsArray = [];
   for (let i = 0; i < appointments; i++) {
     appointmentsArray.push({
       title: faker.lorem.words(1),
-      timeElapse: `${faker.random.number(60)}m ago`,
+      timeElapse: `${faker.datatype.number(60)}m ago`,
       content: faker.lorem.words(4)
     });
   }
   dashboard.appointmentsData = appointmentsArray;
 
-  const latestProjects = faker.random.number({ min: 20, max: 40 });
+  const latestProjects = faker.datatype.number({ min: 20, max: 40 });
   const latestProjectsArray = [];
   for (let i = 0; i < latestProjects; i++) {
     latestProjectsArray.push({

@@ -27,8 +27,8 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "seed:config": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm-seeding/dist/cli.js config",
-    "seed:run": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm-seeding/dist/cli.js seed",
+    "seed:config": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/@zchapple/typeorm-seeding/dist/cli.js config",
+    "seed:run": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/@zchapple/typeorm-seeding/dist/cli.js seed",
     "schema:drop": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm/cli.js schema:drop",
     "schema:sync": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm/cli.js schema:sync",
     "stripe:listen": "stripe listen --forward-to localhost:3333/api/stripe/v1/hooks"
@@ -57,7 +57,7 @@
     "@swimlane/ngx-charts": "^17.0.1",
     "@swimlane/ngx-datatable": "^19.0.0",
     "bcrypt": "^5.0.1",
-    "bootstrap": "^5.0.0",
+    "bootstrap": "^5.0.2",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "compression": "^1.7.4",
@@ -105,7 +105,7 @@
     "@nrwl/tao": "12.5.8",
     "@nrwl/workspace": "12.5.8",
     "@types/express": "^4.17.12",
-    "@types/faker": "4.1.0",
+    "@types/faker": "^5.5.7",
     "@types/jest": "26.0.8",
     "@types/node": "14.14.33",
     "@typescript-eslint/eslint-plugin": "4.19.0",
@@ -120,7 +120,7 @@
     "prettier": "2.3.2",
     "ts-jest": "27.0.3",
     "ts-node": "~9.1.1",
-    "typeorm-seeding": "^1.6.1",
+    "@zchapple/typeorm-seeding": "^2.0.1",
     "typescript": "4.2.4"
   }
 }
