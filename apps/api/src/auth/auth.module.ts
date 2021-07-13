@@ -8,8 +8,8 @@ import {JwtStrategy} from './strategies/jwt.strategy';
 import {LocalStrategy} from './strategies/local.strategy';
 import {CryptModule} from "../crypt/crypt.module";
 import {AuthController} from "./auth.controller";
-import {EmailModule} from '../../../../libs/email/src/lib/email.module';
-import {SmsModule} from '../../../../libs/sms/src/lib/sms.module'; //TODO: fix this import
+import {EmailModule} from '@valor-launchpad/email';
+import {SmsModule} from '@valor-launchpad/sms';
 
 @Module({
   imports: [
