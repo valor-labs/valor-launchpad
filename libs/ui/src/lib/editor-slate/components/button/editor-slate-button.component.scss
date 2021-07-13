@@ -1,0 +1,16 @@
+$toolbar-btn-size: 30px;
+:host {
+  cursor: pointer;
+  width: $toolbar-btn-size;
+  height: $toolbar-btn-size;
+  line-height: $toolbar-btn-size;
+  display: inline-block;
+  text-align: center;
+  color: #ccc;
+  &.active {
+    color: #000;
+  }
+  &:hover {
+    background: #f0f0f0;
+  }
+}

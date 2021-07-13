@@ -44,7 +44,7 @@ import { FormItemComponent } from './forms/form-item.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 // import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TabsModule } from './tabs/tabs.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFieldDirective } from './dynamic-form/components/dynamic-field/dynamic-field.directive';
 import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dynamic-form.component';
 import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
@@ -52,9 +52,13 @@ import { FormInputComponent } from './dynamic-form/components/form-input/form-in
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
 import { RowDirective } from './grid/row.directive';
 import { ColDirective } from './grid/col.directive';
+import { EditorSlateComponent } from './editor-slate/editor-slate.component';
+import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
+import { SlateModule } from 'slate-angular';
+import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
 
 @NgModule({
-    imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule],
+  imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule, FormsModule, SlateModule],
   declarations: [
     AccordionComponent,
     AlertComponent,
@@ -104,6 +108,9 @@ import { ColDirective } from './grid/col.directive';
     FormSelectComponent,
     RowDirective,
     ColDirective,
+    EditorSlateComponent,
+    EditorSlateTextComponent,
+    EditorSlateButtonComponent,
   ],
   exports: [
     TabsModule,
@@ -133,6 +140,7 @@ import { ColDirective } from './grid/col.directive';
     RowDirective,
     ColDirective,
     ModalComponent,
+    EditorSlateComponent,
   ]
 })
 export class UiModule {}
