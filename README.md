@@ -59,7 +59,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Error Page               | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Forms Advanced Inputs    | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Basic Inputs       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Forms Editors            | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Forms Editors            | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Floating Labels    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Input Groups       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Layouts            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
@@ -77,18 +77,18 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Projects Detail          | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | Projects Listing         | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | Reset Password           | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Settings                 | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Tasks                    | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Settings                 | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Tasks                    | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Alerts                | ✅              | ✅                   | ▢               | ▢               | ▢           | ▢                | ▢        |
-| UI Buttons               | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Cards                 | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Carousel              | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Buttons               | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Cards                 | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Carousel              | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Embed Video           | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI General               | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Grid                  | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Modals                | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Off Canvas            | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Tabs                  | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Grid                  | ✅              | ✅                  | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Modals                | ✅              | ✅                  | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Off Canvas            | ✅              | ✅                  | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Tabs                  | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Typography            | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Verify User              | ✅              | ✅                   | ✅               | ▢               | ▢           | ▢                | ▢        |
 
