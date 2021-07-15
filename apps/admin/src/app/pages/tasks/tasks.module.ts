@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TasksRoutingModule } from './tasks-routing.module';
 import { TasksComponent } from './tasks.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { TasksComponent } from './tasks.component';
   ],
   imports: [
     CommonModule,
-    TasksRoutingModule
+    TasksRoutingModule,
+    UiModule   
   ]
 })
 export class TasksModule { }

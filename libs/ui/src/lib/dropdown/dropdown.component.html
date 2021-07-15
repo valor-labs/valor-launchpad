@@ -1,13 +1,18 @@
+<div class="dropdown show">
+<a (click)="toggleDropdown($event)" [class]="classes">
+  <ng-content select="[dropdown-nav]"></ng-content>
+</a>
 <div class="dropdown-menu dropdown-menu-{{ direction }}" [class.show]="show">
   <fragment *ngFor="let action of actions">
-  <a class="dropdown-item" [href]="action.link" *ngIf="action.link">
-    <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
-    {{action.label}}
-  </a>
-  <a class="dropdown-item" *ngIf="action.event" (click)="action.event()">
-    <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
-    {{action.label}}
-  </a>
-  <div *ngIf="action.divider" class="dropdown-divider"></div>
-</fragment>
+    <a class="dropdown-item" [href]="action.link" *ngIf="action.link">
+      <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
+      {{action.label}}
+    </a>
+    <a class="dropdown-item" *ngIf="action.event" (click)="action.event()">
+      <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
+      {{action.label}}
+    </a>
+    <div *ngIf="action.divider" class="dropdown-divider"></div>
+  </fragment>
+</div>
 </div>

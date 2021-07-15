@@ -154,15 +154,4 @@ export class ClientsComponent {
     { label: 'Another action', link: '#' },
     { label: 'Something else here', link: '#' },
   ];
-
-  dropdown1Show=false;
-  dropdown2Show=false;
-
-  clickDropdown1(){
-    this.dropdown1Show=!this.dropdown1Show;
-
-  }
-  clickDropdown2(){
-    this.dropdown2Show=!this.dropdown2Show;
-  }
 }

@@ -19,6 +19,9 @@ const routes: Routes = [
     path: 'sign-up', loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule)
   },
   {
+    path: 'verify-user', loadChildren: () => import('./pages/verify-user/verify-user.module').then(m => m.VerifyUserModule)
+  },
+  {
     path: 'reset-password',
     loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
@@ -117,11 +120,25 @@ const routes: Routes = [
         path: 'ui-cards', loadChildren: () => import('./pages/ui-cards/ui-cards.module').then(m => m.UiCardsModule)
       },
       {
+        path: 'ui-offcanvas', loadChildren: () => import('./pages/ui-offcanvas/ui-offcanvas.module').then(m => m.UiOffcanvasModule)
+      },
+      {
+        path: 'ui-carousel', loadChildren: () => import('./pages/ui-carousel/ui-carousel.module').then(m => m.UiCarouselModule)
+      },
+      {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
       },
       {
         path: 'ui-typography',
         loadChildren: () => import('./pages/ui-typography/ui-typography.module').then(m => m.UiTypographyModule)
+      },
+      {
+        path: 'ui-grid',
+        loadChildren: () => import('./pages/ui-grid/ui-grid.module').then(m => m.UiGridModule)
+      },
+      {
+        path: 'ui-modals',
+        loadChildren: () => import('./pages/ui-modals/ui-modals.module').then(m => m.UiModalsModule)
       },
       {
         path: 'payments',

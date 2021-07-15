@@ -217,15 +217,13 @@
           <i class="align-middle fas fa-fw fa-cogs"></i>
         </a>
 
-        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" (click)="toggleProfileDropdown()">
-          <img src="assets/img/avatars/avatar.jpg" class="avatar img-fluid rounded-circle me-1" alt="Chris Wood" /> <span class="text-dark">Chris Wood</span>
-        </a>
-
         <valor-launchpad-dropdown
         [actions]="profileActions"
         [direction]="'end'"
-        [show]="profileDropdownShow"
-      ></valor-launchpad-dropdown>
+        [classes]="'nav-link dropdown-toggle d-none d-sm-inline-block'"
+      >
+          <span dropdown-nav><img src="assets/img/avatars/avatar.jpg" class="avatar img-fluid rounded-circle me-1" alt="Chris Wood" /> <span class="text-dark">Chris Wood</span></span>
+      </valor-launchpad-dropdown>
       </li>
     </ul>
   </div>
