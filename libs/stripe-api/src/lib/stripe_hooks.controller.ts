@@ -1,6 +1,6 @@
 import {Body, Controller, Post, Req, Res} from '@nestjs/common';
 import {Stripe} from 'stripe';
-import {RawBody} from '../../../../apps/api/src/common/raw-body.decorator';
+import {RawBody} from '@valor-launchpad/common-api';
 
 @Controller('v1')
 export class StripeHooksController {

@@ -7,5 +7,8 @@ module.exports = {
     '<rootDir>/libs/stripe-ui',
     '<rootDir>/libs/email',
     '<rootDir>/libs/sms',
+    '<rootDir>/libs/common-api',
+    '<rootDir>/libs/users-api',
+    '<rootDir>/libs/auth-api',
   ],
 };

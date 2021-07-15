@@ -1,13 +1,18 @@
-import {Controller, Get, NotFoundException, Param, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, NotFoundException, Param, Post, UseGuards} from '@nestjs/common';
 import {ProjectsService} from "./projects.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ProjectsEntity} from "./projects.entity";
-import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
+import {JwtAuthGuard} from '@valor-launchpad/auth-api';
 
 @UseGuards(JwtAuthGuard)
 @Controller('v1')
 export class ProjectsController {
   constructor(private projectsService: ProjectsService) {
+  }
+
+  @Post('create')
+  async createProject(@Body() createProjectDto) {
+    return await this.projectsService.createProject(createProjectDto);
   }
 
   @Get('all')

@@ -26,7 +26,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SizingComponent } from './sizing/sizing.component';
 import { StatsComponent } from './stats/stats.component';
 import { TablesComponent } from './tables/tables.component';
-import { TabsComponent } from './tabs/tabs.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TypeComponent } from './type/type.component';
 import { WizardComponent } from './wizard/wizard.component';
@@ -43,8 +42,9 @@ import { InputDirective } from './input/input.directive';
 import { InputGroupComponent } from './input-group/input-group.component';
 import { FormItemComponent } from './forms/form-item.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ReactiveFormsModule } from '@angular/forms';
+// import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TabsModule } from './tabs/tabs.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFieldDirective } from './dynamic-form/components/dynamic-field/dynamic-field.directive';
 import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dynamic-form.component';
 import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
@@ -52,9 +52,13 @@ import { FormInputComponent } from './dynamic-form/components/form-input/form-in
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
 import { RowDirective } from './grid/row.directive';
 import { ColDirective } from './grid/col.directive';
+import { EditorSlateComponent } from './editor-slate/editor-slate.component';
+import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
+import { SlateModule } from 'slate-angular';
+import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
 
 @NgModule({
-    imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule],
+  imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule, FormsModule, SlateModule],
   declarations: [
     AccordionComponent,
     AlertComponent,
@@ -82,7 +86,6 @@ import { ColDirective } from './grid/col.directive';
     SizingComponent,
     StatsComponent,
     TablesComponent,
-    TabsComponent,
     TimelineComponent,
     TypeComponent,
     WizardComponent,
@@ -105,11 +108,15 @@ import { ColDirective } from './grid/col.directive';
     FormSelectComponent,
     RowDirective,
     ColDirective,
+    EditorSlateComponent,
+    EditorSlateTextComponent,
+    EditorSlateButtonComponent,
   ],
   exports: [
     TabsModule,
     AlertComponent,
     AvatarComponent,
+    ButtonComponent,
     CardComponent,
     CarouselComponent,
     CarouselItemComponent,
@@ -132,6 +139,8 @@ import { ColDirective } from './grid/col.directive';
     DynamicFormComponent,
     RowDirective,
     ColDirective,
-  ],
+    ModalComponent,
+    EditorSlateComponent,
+  ]
 })
 export class UiModule {}
