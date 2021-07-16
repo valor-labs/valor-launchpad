@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { VLCheckBoxOption } from '../../../../../../libs/ui/src/lib/checkbox-group/checkbox-group.component';
+import { VLCheckBoxOption } from '@valor-launchpad/ui';
 
 @Component({
   selector: 'valor-launchpad-forms-basic-inputs',
@@ -65,8 +65,6 @@ export class FormsBasicInputsComponent implements OnInit {
 
   // Read only
   readonlyInput = new FormControl();
-
-  constructor() { }
 
   ngOnInit(): void {
     this.multiSelect.valueChanges.subscribe(console.log)

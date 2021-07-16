@@ -148,6 +148,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/payments/payments.module').then(m=> m.PaymentsModule)
       },
       {
+        path: 'calendar',
+        loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarModule)
+      },
+      {
         path: '', redirectTo: '/dashboard-default', pathMatch: 'full'
       },
       {

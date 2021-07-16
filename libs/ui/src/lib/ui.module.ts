@@ -44,7 +44,7 @@ import { FormItemComponent } from './forms/form-item.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 // import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TabsModule } from './tabs/tabs.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFieldDirective } from './dynamic-form/components/dynamic-field/dynamic-field.directive';
 import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dynamic-form.component';
 import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
@@ -54,9 +54,13 @@ import { RowDirective } from './grid/row.directive';
 import { ColDirective } from './grid/col.directive';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
 import { SafePipe } from './pipe/safe.pipe';
+import { EditorSlateComponent } from './editor-slate/editor-slate.component';
+import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
+import { SlateModule } from 'slate-angular';
+import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
 
 @NgModule({
-    imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule],
+  imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule, FormsModule, SlateModule],
   declarations: [
     AccordionComponent,
     AlertComponent,
@@ -108,6 +112,9 @@ import { SafePipe } from './pipe/safe.pipe';
     ColDirective,
     EmbedVideoComponent,
     SafePipe,
+    EditorSlateComponent,
+    EditorSlateTextComponent,
+    EditorSlateButtonComponent,
   ],
   exports: [
     TabsModule,
@@ -138,6 +145,7 @@ import { SafePipe } from './pipe/safe.pipe';
     ColDirective,
     ModalComponent,
     EmbedVideoComponent
+    EditorSlateComponent,
   ]
 })
 export class UiModule {}

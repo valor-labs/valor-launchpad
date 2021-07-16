@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FieldConfig } from '../../../../ui/src/lib/dynamic-form/models/field-config.interface';
+import { FieldConfig } from '@valor-launchpad/ui';
 import { Validators } from '@angular/forms';
 import { OrderItem } from '../order-summary/order-summary.model';
 import { StripeUiService } from '../stripe-ui.service';
-import { DynamicFormComponent } from '../../../../ui/src/lib/dynamic-form/containers/dynamic-form/dynamic-form.component';
+import { DynamicFormComponent } from '@valor-launchpad/ui';
 
 @Component({
   selector: 'valor-launchpad-direct-pay',
