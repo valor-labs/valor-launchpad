@@ -83,7 +83,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | UI Buttons               | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Cards                 | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Carousel              | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Embed Video           | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Embed Video           | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI General               | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Grid                  | ✅              | ✅                  | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Modals                | ✅              | ✅                  | ▢               | ▢              | ▢           | ▢                | ▢        |
