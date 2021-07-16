@@ -9,6 +9,12 @@ export class CardComponent implements OnInit {
   @Input()
   padding: string;
 
+  @Input()
+  noBoarding = false;
+
+  @Input()
+  noHeader = false;
+
   constructor() {
   }
 

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UiButtonsRoutingModule } from './ui-buttons-routing.module';
 import { UiButtonsComponent } from './ui-buttons.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { UiButtonsComponent } from './ui-buttons.component';
   ],
   imports: [
     CommonModule,
-    UiButtonsRoutingModule
+    UiButtonsRoutingModule,
+    UiModule
   ]
 })
 export class UiButtonsModule { }

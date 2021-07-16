@@ -52,6 +52,8 @@ import { FormInputComponent } from './dynamic-form/components/form-input/form-in
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
 import { RowDirective } from './grid/row.directive';
 import { ColDirective } from './grid/col.directive';
+import { EmbedVideoComponent } from './embed-video/embed-video.component';
+import { SafePipe } from './pipe/safe.pipe';
 import { EditorSlateComponent } from './editor-slate/editor-slate.component';
 import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
 import { SlateModule } from 'slate-angular';
@@ -108,6 +110,8 @@ import { EditorSlateButtonComponent } from './editor-slate/components/button/edi
     FormSelectComponent,
     RowDirective,
     ColDirective,
+    EmbedVideoComponent,
+    SafePipe,
     EditorSlateComponent,
     EditorSlateTextComponent,
     EditorSlateButtonComponent,
@@ -140,6 +144,7 @@ import { EditorSlateButtonComponent } from './editor-slate/components/button/edi
     RowDirective,
     ColDirective,
     ModalComponent,
+    EmbedVideoComponent
     EditorSlateComponent,
   ]
 })

@@ -1,11 +1,14 @@
 <div class="card">
-  <div class="card-header">
+  <ng-content select="[card-picture]"></ng-content>
+  <div *ngIf="!noHeader" class="card-header">
     <ng-content select="[card-header]">
     </ng-content>
   </div>
-  <div class="card-body">
+  <div *ngIf="!noBoarding" class="card-body">
+    <ng-content select="[card-no-flex-body]"></ng-content>
     <div [ngClass]="padding">
       <ng-content select="[card-body]"></ng-content>
     </div>
   </div>
+  <ng-content select="[card-no-padding-body]"></ng-content>
 </div>
