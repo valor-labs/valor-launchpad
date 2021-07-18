@@ -129,6 +129,9 @@ const routes: Routes = [
         path: 'ui-embed-video', loadChildren: () => import('./pages/ui-embed-video/ui-embed-video.module').then(m => m.UiEmbedVideoModule)
       },
       {
+        path: 'ui-general', loadChildren: () => import('./pages/ui-general/ui-general.module').then(m => m.UiGeneralModule)
+      },
+      {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
       },
       {
