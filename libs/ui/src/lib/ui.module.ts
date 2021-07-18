@@ -144,8 +144,9 @@ import { EditorSlateButtonComponent } from './editor-slate/components/button/edi
     RowDirective,
     ColDirective,
     ModalComponent,
-    EmbedVideoComponent
+    EmbedVideoComponent,
     EditorSlateComponent,
+    BadgeComponent
   ]
 })
 export class UiModule {}
