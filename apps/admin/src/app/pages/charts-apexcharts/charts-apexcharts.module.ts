@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChartsApexchartsComponent } from './charts-apexcharts.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ChartsApexchartsComponent
+  ],
   imports: [
     CommonModule
   ]
