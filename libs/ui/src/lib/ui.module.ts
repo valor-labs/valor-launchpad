@@ -5,7 +5,6 @@ import { AlertComponent } from './alert/alert.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
-import { CardComponent } from './card/card.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { ChartComponent } from './chart/chart.component';
@@ -58,6 +57,11 @@ import { EditorSlateComponent } from './editor-slate/editor-slate.component';
 import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
 import { SlateModule } from 'slate-angular';
 import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
+import { CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective } from './card';
+
+
+
+const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
 @NgModule({
   imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule, FormsModule, SlateModule],
@@ -67,7 +71,6 @@ import { EditorSlateButtonComponent } from './editor-slate/components/button/edi
     AvatarComponent,
     BadgeComponent,
     ButtonComponent,
-    CardComponent,
     CarouselComponent,
     CarouselItemComponent,
     ChartComponent,
@@ -115,13 +118,13 @@ import { EditorSlateButtonComponent } from './editor-slate/components/button/edi
     EditorSlateComponent,
     EditorSlateTextComponent,
     EditorSlateButtonComponent,
+    ...cardPart,
   ],
   exports: [
     TabsModule,
     AlertComponent,
     AvatarComponent,
     ButtonComponent,
-    CardComponent,
     CarouselComponent,
     CarouselItemComponent,
     CheckboxGroupComponent,
@@ -146,7 +149,8 @@ import { EditorSlateButtonComponent } from './editor-slate/components/button/edi
     ModalComponent,
     EmbedVideoComponent,
     EditorSlateComponent,
-    BadgeComponent
+    BadgeComponent,
+    ...cardPart
   ]
 })
 export class UiModule {}

@@ -10,14 +10,14 @@
       ],
       "parserOptions": { "project": ["libs/ui/tsconfig.*?.json"] },
       "rules": {
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "valorLaunchpad",
-            "style": "camelCase"
-          }
-        ],
+//        "@angular-eslint/directive-selector": [
+//          "error",
+//          {
+//            "type": "attribute",
+//            "prefix": "valorLaunchpad",
+//            "style": "camelCase"
+//          }
+//        ],
         "@angular-eslint/component-selector": [
           "error",
           {

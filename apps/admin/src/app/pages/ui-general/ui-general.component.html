@@ -39,11 +39,11 @@
       </accordion-group>
     </accordion>
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Breadcrumbs</h5>
-        <h6 class="card-subtitle text-muted">Indicate the current page’s location within a navigational hierarchy.</h6>
-      </div>
-      <div card-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Breadcrumbs</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Indicate the current page’s location within a navigational hierarchy.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">Home</li>
@@ -62,14 +62,14 @@
             <li class="breadcrumb-item active">Data</li>
           </ol>
         </nav>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Images</h5>
-        <h6 class="card-subtitle text-muted">Lightweight styles for images.</h6>
-      </div>
-      <div card-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Images</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Lightweight styles for images.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="text-center">
           <img class="rounded me-2 mb-2" src="assets/img/avatars/avatar.jpg" alt="Placeholder" width="140" height="140">
           <img class="rounded-circle rounded me-2 mb-2" src="assets/img/avatars/avatar.jpg" alt="Placeholder"
@@ -78,14 +78,14 @@
           <img class="img-thumbnail rounded me-2 mb-2" src="assets/img/avatars/avatar.jpg" alt="Placeholder" width="140"
                height="140">
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Popovers</h5>
-        <h6 class="card-subtitle text-muted">Examples for adding Bootstrap popovers.</h6>
-      </div>
-      <div card-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Popovers</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Examples for adding Bootstrap popovers.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="text-center">
           <button valor-launchpad-button theme="secondary" popoverTitle="Popover on top" placement="top"
                   container="body"
@@ -115,14 +115,14 @@
             Popover on right
           </button>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Tooltips</h5>
-        <h6 class="card-subtitle text-muted">Examples for adding custom Bootstrap tooltips.</h6>
-      </div>
-      <div card-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Tooltips</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Examples for adding custom Bootstrap tooltips.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="text-center">
           <button valor-launchpad-button theme="secondary" tooltip="Tooltip on left" placement="left" container="body">
             Tooltip on left
@@ -137,16 +137,16 @@
                   container="body">Tooltip on right
           </button>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Badges</h5>
-        <h6 class="card-subtitle text-muted">Examples for badges.</h6>
-      </div>
-      <div card-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Badges</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Examples for badges.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="mb-1">
           <span valor-launchpad-badge>Primary</span>
           <span valor-launchpad-badge theme="secondary">Secondary</span>
@@ -164,14 +164,14 @@
           <span valor-launchpad-badge theme="warning" [rounded]="true">Warning</span>
           <span valor-launchpad-badge theme="info" [rounded]="true">Info</span>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Dropdowns</h5>
-        <h6 class="card-subtitle text-muted">Toggle contextual overlays for displaying lists of links.</h6>
-      </div>
-      <div card-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Dropdowns</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Toggle contextual overlays for displaying lists of links.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content class="pb-0">
         <div class="row mb-3">
           <div class="col-12 col-md-6 col-lg-12 col-xl-6 col-xxl-4">
             <p class="mb-0">Basic:</p>
@@ -225,14 +225,14 @@
             </div>
           </div>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Pagination</h5>
-        <h6 class="card-subtitle text-muted">Examples for showing pagination.</h6>
-      </div>
-      <div card-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Pagination</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Examples for showing pagination.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="text-center">
           <pagination [boundaryLinks]="true" [totalItems]="5" [itemsPerPage]="1" class="pagination-sm"
                       previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
@@ -247,28 +247,28 @@
 
           </pagination>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Progress Bars</h5>
-        <h6 class="card-subtitle text-muted">Examples for using Bootstrap custom progress bars.</h6>
-      </div>
-      <div card-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Progress Bars</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Examples for using Bootstrap custom progress bars.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="text-center">
           <progressbar [value]="20" class="mb-3">Default</progressbar>
           <progressbar [value]="40" [striped]="true" class="mb-3">Striped</progressbar>
           <progressbar [value]="60" class="mb-3" [striped]="true" [animate]="true">Animated</progressbar>
           <progressbar [value]="multiProgressbarVal"></progressbar>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Spinners</h5>
-        <h6 class="card-subtitle text-muted">Indicate the loading state of a component with Bootstrap spinners.</h6>
-      </div>
-      <div card-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Spinners</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Indicate the loading state of a component with Bootstrap spinners.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="mb-2">
           <div class="spinner-border text-dark me-2" role="status">
             <span class="sr-only">Loading...</span>
@@ -366,7 +366,7 @@
             <span class="sr-only">Loading...</span>
           </div>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>
