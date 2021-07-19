@@ -149,6 +149,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarModule)
       },
       {
+        path: 'datatables-charts',
+        loadChildren: () => import('./pages/charts-apexcharts/charts-apexcharts.module').then(m => m.ChartsApexchartsModule)
+      },
+      {
         path: '', redirectTo: '/dashboard-default', pathMatch: 'full'
       },
       {
