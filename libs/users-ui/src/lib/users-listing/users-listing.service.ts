@@ -25,4 +25,8 @@ export class UsersListingService {
   restoreUser(username: string) {
     return this.httpClient.post(this.baseURL + 'restore', {username})
   }
+
+  resetPassword(username: string) {
+    return this.httpClient.post(this.baseURL + 'resetPassword', {username})
+  }
 }

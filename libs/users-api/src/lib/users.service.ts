@@ -48,8 +48,32 @@ export class UsersService {
     return await this.userRepository.findOne({username: username}, {withDeleted: true})
   }
 
+  async resetPassword(username) {
+    //TODO: Add passwordReset event to users events
+    const userCheck = await this.findByUsername(username);
+    if (userCheck) {
+      await this.userRepository.update({id: userCheck.id}, {
+        password: this.generatePassword(),
+        passwordResetNeeded: true
+      });
+      this.eventEmitter.emit(
+        'user.passwordReset.thin',
+        <UserEntity>{
+          id: userCheck.id,
+        },
+      );
+
+      this.eventEmitter.emit(
+        'user.passwordReset.fat',
+        <UserEntity>userCheck,
+      );
+      return
+    }
+  }
+
   async deleteUser(username) {
-    //TODO: Add delete event
+    //TODO: Add delete event to users events
+    //TODO: Make this ID based
     const userCheck = await this.findByUsername(username);
     if (userCheck) {
       await this.userRepository.softDelete({username});
@@ -69,7 +93,8 @@ export class UsersService {
   }
 
   async restoreUser(username) {
-    //TODO: Add restore event
+    //TODO: Add restore event to users events
+    //TODO: Make this ID based
     const userCheck = await this.findByUsername(username);
     if (userCheck.deletedDate) {
 
@@ -111,30 +136,14 @@ export class UsersService {
     if (!userCheck) {
       const createUser = new UserEntity(user);
       if (!createUser.password) {
-        createUser.password = generatePassword.generate({
-          length: 10,
-          numbers: true,
-          symbols: true
-        })
-        //TODO: Move this to a template that is generated and saved in database and used from that
-        await this.emailService.sendEmail({
-          to: user.email,
-          from: 'zack.chapple@valor-software.com',
-          subject: 'Your Initial Password',
-          text: 'Reset your password here',
-          html: '<strong>Your Initial Password</strong><br><br>' +
-            `${createUser.password}
-          <br>
-          <br>
-          Or, copy and paste the following URL into your browser:
-          <span>http://localhost:4200/login}</span>`,
-        })
+        createUser.password = this.generatePassword()
+        await this.sendPasswordEmail(createUser.password, createUser.email);
       }
       const userRole = new UserRolesEntity();
       //TODO: make this tie to the actual Role
       userRole.role = 'User';
       createUser.userRoles = [userRole];
-
+      createUser.passwordResetNeeded = true;
       const createEvent = new UserEventsEntity()
       createEvent.targetUser = createUser;
       createEvent.event = 'User Created';
@@ -174,6 +183,30 @@ export class UsersService {
       .set({lastLogin: new Date()})
       .where('username =:username', {username})
       .execute();
+  }
+
+  generatePassword() {
+    return generatePassword.generate({
+      length: 10,
+      numbers: true,
+      symbols: true
+    })
+  }
+
+  async sendPasswordEmail(password: string, email: string) {
+    //TODO: Move this to a template that is generated and saved in database and used from that
+    await this.emailService.sendEmail({
+      to: email,
+      from: 'zack.chapple@valor-software.com',
+      subject: 'Your Initial Password',
+      text: 'Reset your password here',
+      html: '<strong>Your Initial Password</strong><br><br>' +
+        `${password}
+          <br>
+          <br>
+          Or, copy and paste the following URL into your browser:
+          <span>http://localhost:4200/login}</span>`,
+    })
   }
 
   async findOne(username: string): Promise<User | undefined> {

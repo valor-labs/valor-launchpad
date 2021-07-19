@@ -39,4 +39,10 @@ export class UsersController {
   async restoreUser(@Body() user) {
     return await this.usersService.restoreUser(user.username);
   }
+
+  @Post('resetPassword')
+  @Roles('admin')
+  async resetPassword(@Body() user) {
+    return await this.usersService.resetPassword(user.username);
+  }
 }

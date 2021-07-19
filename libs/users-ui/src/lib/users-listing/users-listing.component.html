@@ -77,6 +77,13 @@
           <div *ngIf="user.deletedDate">
             <i class="fas fa-trash-restore" (click)="restore(user.username)"></i>
           </div>
+          <div *ngIf="user.passwordResetNeeded">
+<!--            TODO: Implement this-->
+            <button type="button" class="btn btn-outline-warning">Resend Reset Email</button>
+          </div>
+          <div *ngIf="!user.passwordResetNeeded">
+            <button type="button" (click)="resetPassword(user.username)" class="btn btn-outline-warning">Reset Password</button>
+          </div>
         </td>
       </tr>
       </tbody>

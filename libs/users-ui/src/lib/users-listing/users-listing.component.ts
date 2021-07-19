@@ -43,4 +43,10 @@ export class UsersListingComponent implements OnInit {
       this.fetchUsers();
     })
   }
+
+  resetPassword(username:string){
+    this.usersListingService.resetPassword(username).subscribe(data => {
+      this.fetchUsers();
+    })
+  }
 }

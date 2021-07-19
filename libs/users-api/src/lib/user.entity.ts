@@ -4,7 +4,7 @@ import {
   Entity, EntitySubscriberInterface, EventSubscriber,
   Index, InsertEvent, OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
+  UpdateDateColumn, UpdateEvent
 } from "typeorm";
 import {Exclude} from "class-transformer";
 import * as bcrypt from 'bcrypt';
@@ -104,7 +104,12 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
     event.entity.phoneVerifyToken = Math.random().toString(36).substr(2, 6);
   }
 
-  beforeUpdate(event: InsertEvent<UserEntity>) {
+  async beforeUpdate(event: UpdateEvent<UserEntity>) {
+    // TODO: Fix this error
+    // eslint-disable-next-line no-prototype-builtins
+    if(event.entity.hasOwnProperty('password')){
+      event.entity.password = await this.hashPassword(event.entity.password);
+    }
     //TODO: need to check if this is a password update and salt the password again
     //TODO: need to find out how to check who the user is to update "updated by " column
     console.log(event.entity)
