@@ -102,7 +102,6 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
     event.entity.emailVerified = false;
     event.entity.emailVerifyToken = uuid();
     event.entity.phoneVerifyToken = Math.random().toString(36).substr(2, 6);
-    //TODO: Fire the user create event
   }
 
   beforeUpdate(event: InsertEvent<UserEntity>) {

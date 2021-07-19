@@ -8,6 +8,8 @@ import {CreateUserDto} from './dto/create-user.dto';
 import {UserRolesEntity} from './user-roles.entity';
 import {EmailService} from '@valor-launchpad/email';
 import * as generatePassword from 'generate-password';
+import {UserEventsEntity} from './user.events.entity';
+import {EventEmitter2} from '@nestjs/event-emitter';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -16,6 +18,7 @@ export type User = any;
 export class UsersService {
   constructor(private crypto: CryptService,
               private emailService: EmailService,
+              private eventEmitter: EventEmitter2,
               @InjectRepository(UserRolesEntity) private userRolesRepository: Repository<UserRolesEntity>,
               @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
   ) {
@@ -30,7 +33,10 @@ export class UsersService {
 
   async findAll() {
     //Todo: this eventually needs to filter password field
-    return await this.userRepository.find({relations: ['userRoles', 'userTags', 'userHistory'], withDeleted: true});
+    return await this.userRepository.find({
+      relations: ['userRoles', 'userTags', 'userHistory', 'userHistory.actingUser'],
+      withDeleted: true
+    });
   }
 
   async findCurrent() {
@@ -43,20 +49,50 @@ export class UsersService {
   }
 
   async deleteUser(username) {
+    //TODO: Add delete event
     const userCheck = await this.findByUsername(username);
     if (userCheck) {
-      return await this.userRepository.softDelete({username});
+      await this.userRepository.softDelete({username});
+      this.eventEmitter.emit(
+        'user.deleted.thin',
+        <UserEntity>{
+          id: userCheck.id,
+        },
+      );
+
+      this.eventEmitter.emit(
+        'user.deleted.fat',
+        <UserEntity>userCheck,
+      );
+      return
     }
   }
 
   async restoreUser(username) {
+    //TODO: Add restore event
     const userCheck = await this.findByUsername(username);
     if (userCheck.deletedDate) {
-      return await this.userRepository.restore({username});
+
+      await this.userRepository.restore({username});
+
+      this.eventEmitter.emit(
+        'user.restored.thin',
+        <UserEntity>{
+          id: userCheck.id,
+        },
+      );
+
+      this.eventEmitter.emit(
+        'user.restored.fat',
+        <UserEntity>userCheck,
+      );
+
+      return
     }
   }
 
   async verifyToken(token) {
+    //TODO: Add verify event
     const user = await this.findByToken(token);
     if (user) {
       user.emailVerified = true;
@@ -70,16 +106,17 @@ export class UsersService {
     }
   }
 
-  async createUser(user: CreateUserDto) {
+  async createUser(user: CreateUserDto, activeUser) {
     const userCheck = await this.findByUsername(user.username);
     if (!userCheck) {
       const createUser = new UserEntity(user);
       if (!createUser.password) {
         createUser.password = generatePassword.generate({
-          length:10,
-          numbers:true,
-          symbols:true
+          length: 10,
+          numbers: true,
+          symbols: true
         })
+        //TODO: Move this to a template that is generated and saved in database and used from that
         await this.emailService.sendEmail({
           to: user.email,
           from: 'zack.chapple@valor-software.com',
@@ -97,12 +134,28 @@ export class UsersService {
       //TODO: make this tie to the actual Role
       userRole.role = 'User';
       createUser.userRoles = [userRole];
-      //TODO: add this back after user Roles is fixed
-      // createUser.roles = ['User'];
+
+      const createEvent = new UserEventsEntity()
+      createEvent.targetUser = createUser;
+      createEvent.event = 'User Created';
+      createEvent.actingUser = activeUser;
+      createUser.userHistory = [createEvent];
       await this.userRepository.save(createUser);
       //TODO: Set password reset token / methods
-      //TODO: Email the user their initial password
-      //TODO:
+      //TODO: Set email verified when they log in and change their password
+
+      this.eventEmitter.emit(
+        'user.created.thin',
+        <UserEntity>{
+          id: createUser.id,
+        },
+      );
+
+      this.eventEmitter.emit(
+        'user.created.fat',
+        <UserEntity>createUser,
+      );
+
       return;
     } else if (!userCheck.emailVerified) {
       throw new HttpException('Please check your email to verify your email address', HttpStatus.FORBIDDEN);

@@ -28,8 +28,11 @@
   </div>
 </valor-launchpad-card>
 <valor-launchpad-card>
-  <div card-header>
-    <h2>All Users</h2>
+  <div card-header class="d-flex">
+    <h2 class="me-auto">All Users</h2>
+    <div class="actions">
+      <button type="button" class="btn btn-light" (click)="fetchUsers()"><i class="fas fa-sync"></i></button>
+    </div>
   </div>
   <div card-body>
     <table class="table">
@@ -40,6 +43,7 @@
         <th scope="col">Username</th>
         <th scope="col">Roles</th>
         <th scope="col">Tags</th>
+        <th scope="col">Last Log In</th>
         <th scope="col">History</th>
         <th scope="col">Actions</th>
       </tr>
@@ -56,8 +60,13 @@
           <span class="badge bg-light text-dark" *ngFor="let userTag of user.userTags">{{userTag.tag}}</span>
         </td>
         <td>
-          <div *ngFor="let userHistory of user.userHistory">{{userHistory.event}}:
-            ( {{userHistory.createDate|date:'short'}} )
+          <span *ngIf="user.lastLogin">{{user.lastLogin|date:'short'}}</span>
+          <span *ngIf="!user.lastLogin"> - </span>
+        </td>
+        <td>
+          <div *ngFor="let userHistory of user.userHistory">
+            <span class="event-title">{{userHistory.event}}</span>
+            <span class="event-byline">by {{userHistory.actingUser.username}} @ {{userHistory.createDate|date:'short'}}</span>
           </div>
         </td>
         <td class="actions">

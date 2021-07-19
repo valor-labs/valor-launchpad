@@ -3,6 +3,8 @@ import {UsersService} from './users.service';
 import {RolesGuard} from './roles.guard';
 import {Roles} from './roles.decorator';
 import {AuthGuard} from '@nestjs/passport';
+import {UserEntity} from '@valor-launchpad/users-api';
+import {User} from './user.decorator';
 
 @Controller('v1')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -22,8 +24,8 @@ export class UsersController {
 
   @Post('add')
   @Roles('admin')
-  async addUser(@Body() user) {
-    return await this.usersService.createUser(user)
+  async addUser(@Body() user, @User() activeUser:UserEntity) {
+    return await this.usersService.createUser(user, activeUser)
   }
 
   @Post('delete')
