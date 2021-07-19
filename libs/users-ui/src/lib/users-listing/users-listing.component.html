@@ -66,7 +66,7 @@
         <td>
           <div *ngFor="let userHistory of user.userHistory">
             <span class="event-title">{{userHistory.event}}</span>
-            <span class="event-byline">by {{userHistory.actingUser.username}} @ {{userHistory.createDate|date:'short'}}</span>
+            <span class="event-byline">by {{userHistory.actingUser?.username}} @ {{userHistory.createDate|date:'short'}}</span>
           </div>
         </td>
         <td class="actions">
