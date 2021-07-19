@@ -5,18 +5,24 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class UsersListingService {
+  baseURL = '/api/users/v1/'
+
   constructor(private httpClient: HttpClient) {
   }
 
-  getUsers(){
-    return this.httpClient.get('/api/users/v1/all')
+  addUser(addUserForm: any) {
+    return this.httpClient.post(this.baseURL + 'add', addUserForm)
   }
 
-  deleteUser(username:string){
-    return this.httpClient.post('/api/users/v1/delete',{username})
+  getUsers() {
+    return this.httpClient.get(this.baseURL + 'all')
   }
 
-  restoreUser(username:string){
-    return this.httpClient.post('/api/users/v1/restore',{username})
+  deleteUser(username: string) {
+    return this.httpClient.post(this.baseURL + 'delete', {username})
+  }
+
+  restoreUser(username: string) {
+    return this.httpClient.post(this.baseURL + 'restore', {username})
   }
 }

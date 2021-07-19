@@ -6,6 +6,8 @@ import {UserEntity} from './user.entity';
 import {classToPlain} from 'class-transformer';
 import {CreateUserDto} from './dto/create-user.dto';
 import {UserRolesEntity} from './user-roles.entity';
+import {EmailService} from '@valor-launchpad/email';
+import * as generatePassword from 'generate-password';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -13,6 +15,7 @@ export type User = any;
 @Injectable()
 export class UsersService {
   constructor(private crypto: CryptService,
+              private emailService: EmailService,
               @InjectRepository(UserRolesEntity) private userRolesRepository: Repository<UserRolesEntity>,
               @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
   ) {
@@ -71,13 +74,36 @@ export class UsersService {
     const userCheck = await this.findByUsername(user.username);
     if (!userCheck) {
       const createUser = new UserEntity(user);
+      if (!createUser.password) {
+        createUser.password = generatePassword.generate({
+          length:10,
+          numbers:true,
+          symbols:true
+        })
+        await this.emailService.sendEmail({
+          to: user.email,
+          from: 'zack.chapple@valor-software.com',
+          subject: 'Your Initial Password',
+          text: 'Reset your password here',
+          html: '<strong>Your Initial Password</strong><br><br>' +
+            `${createUser.password}
+          <br>
+          <br>
+          Or, copy and paste the following URL into your browser:
+          <span>http://localhost:4200/login}</span>`,
+        })
+      }
       const userRole = new UserRolesEntity();
       //TODO: make this tie to the actual Role
       userRole.role = 'User';
       createUser.userRoles = [userRole];
       //TODO: add this back after user Roles is fixed
       // createUser.roles = ['User'];
-      return await this.userRepository.save(createUser);
+      await this.userRepository.save(createUser);
+      //TODO: Set password reset token / methods
+      //TODO: Email the user their initial password
+      //TODO:
+      return;
     } else if (!userCheck.emailVerified) {
       throw new HttpException('Please check your email to verify your email address', HttpStatus.FORBIDDEN);
     } else {

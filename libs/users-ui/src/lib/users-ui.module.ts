@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule, Route} from '@angular/router';
 import {UsersListingComponent} from './users-listing/users-listing.component';
 import {UiModule} from '@valor-launchpad/ui';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 export const usersUiRoutes: Route[] = [
   {path: 'listing', component: UsersListingComponent},
@@ -11,7 +11,7 @@ export const usersUiRoutes: Route[] = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(usersUiRoutes), UiModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule.forChild(usersUiRoutes), UiModule, FormsModule],
   declarations: [
     UsersListingComponent
   ],

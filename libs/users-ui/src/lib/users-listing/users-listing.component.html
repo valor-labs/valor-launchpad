@@ -4,12 +4,26 @@
     <h2>Add / Edit User</h2>
   </div>
   <div card-body>
-    <form [formGroup]="userFormGroup">
-      <div class="mb-3">
-        <label class="form-label">First Name</label>
-        <input valorLaunchpadInput formControlName='firstName'
-               class="form-control form-control-lg" type="text" name="firstName"/>
+    <form #addUserForm="ngForm" (ngSubmit)="addUser(addUserForm)">
+      <div class="col-6">
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="username"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">First Name</label>
+          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="firstName"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Last Name</label>
+          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="lastName"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">email</label>
+          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="email"/>
+        </div>
       </div>
+      <button type="submit" class="btn btn-lg btn-primary">Create User</button>
     </form>
   </div>
 </valor-launchpad-card>

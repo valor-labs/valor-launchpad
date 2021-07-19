@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UsersListingService} from './users-listing.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'valor-launchpad-users-listing',
@@ -9,26 +8,24 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class UsersListingComponent implements OnInit {
   users: any;
-  userFormGroup: FormGroup;
 
-  constructor(private usersListingService: UsersListingService, private fb: FormBuilder) {
+  constructor(private usersListingService: UsersListingService) {
   }
 
   ngOnInit(): void {
-    this.userFormGroup = this.fb.group({
-      firstName: [],
-      lastName: [],
-      username: [],
-      userRoles: [],
-      userTags: [],
-    });
     this.fetchUsers();
   }
 
-  fetchUsers(){
+  fetchUsers() {
     this.usersListingService.getUsers().subscribe(data => {
       this.users = data;
     });
+  }
+
+  addUser(createUserForm:any) {
+    this.usersListingService.addUser(createUserForm.value).subscribe(result=>{
+      this.fetchUsers();
+    })
   }
 
   edit(user) {

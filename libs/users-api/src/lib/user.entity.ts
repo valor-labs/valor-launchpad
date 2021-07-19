@@ -78,10 +78,10 @@ export class UserEntity {
   @UpdateDateColumn()
   updateDate: Date;
 
-  @OneToMany(type => UserTagsEntity, (userTag) => userTag.user, {nullable: true, cascade:true})
+  @OneToMany(type => UserTagsEntity, (userTag) => userTag.user, {nullable: true, cascade: true})
   userTags?: Array<UserTagsEntity>
 
-  @OneToMany(type => UserEventsEntity, (userEvents) => userEvents.targetUser, {nullable: true, cascade:true})
+  @OneToMany(type => UserEventsEntity, (userEvents) => userEvents.targetUser, {nullable: true, cascade: true})
   userHistory?: Array<UserEventsEntity>
 }
 
@@ -102,6 +102,7 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
     event.entity.emailVerified = false;
     event.entity.emailVerifyToken = uuid();
     event.entity.phoneVerifyToken = Math.random().toString(36).substr(2, 6);
+    //TODO: Fire the user create event
   }
 
   beforeUpdate(event: InsertEvent<UserEntity>) {

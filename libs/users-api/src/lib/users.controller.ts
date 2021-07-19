@@ -20,6 +20,12 @@ export class UsersController {
     return await this.usersService.findCurrent();
   }
 
+  @Post('add')
+  @Roles('admin')
+  async addUser(@Body() user) {
+    return await this.usersService.createUser(user)
+  }
+
   @Post('delete')
   @Roles('admin')
   async deleteUser(@Body() user) {
