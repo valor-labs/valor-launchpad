@@ -32,7 +32,8 @@ import {UsersApiModule} from '@valor-launchpad/users-api';
       {path: '/profile', module: ProfileModule},
       {path: '/projects', module: ProjectsModule},
       {path: '/auth', module: AuthApiModule},
-      {path: '/stripe', module: StripeApiModule}
+      {path: '/stripe', module: StripeApiModule},
+      {path: '/users', module: UsersApiModule}
     ]),
     ProjectsModule, ProfileModule, AuthApiModule, UsersApiModule, DashboardModule, DashboardModule, DashboardAnalyticsModule, StripeApiModule
   ],

@@ -12,6 +12,7 @@ import {v4 as uuid} from 'uuid';
 import {UserTagsEntity} from './user-tags.entity';
 import {UserRolesEntity} from './user-roles.entity';
 import {HELPERS} from '../../../../apps/api/seed_helpers/data';
+import {UserEventsEntity} from './user.events.entity';
 
 @Entity()
 export class UserEntity {
@@ -79,6 +80,9 @@ export class UserEntity {
 
   @OneToMany(type => UserTagsEntity, (userTag) => userTag.user, {nullable: true})
   userTags?: Array<UserTagsEntity>
+
+  @OneToMany(type => UserEventsEntity, (userEvents) => userEvents.targetUser, {nullable: true})
+  userHistory?: Array<UserEventsEntity>
 }
 
 @EventSubscriber()

@@ -30,6 +30,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path: 'users',
+        loadChildren: () => import('@valor-launchpad/users-ui').then(m => m.UsersUiModule)
+      },
+      {
         path: 'dashboard-crypto',
         loadChildren: () => import('./pages/dashboard-crypto/dashboard-crypto.module').then(m => m.DashboardCryptoModule)
       },

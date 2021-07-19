@@ -1,0 +1,52 @@
+<!--  TODO add search / filtering here-->
+<valor-launchpad-card>
+  <div card-header>
+    <h2>Add / Edit User</h2>
+  </div>
+  <div card-body>
+    <form [formGroup]="userFormGroup">
+      <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input valorLaunchpadInput formControlName='firstName'
+               class="form-control form-control-lg" type="text" name="firstName" />
+      </div>
+    </form>
+  </div>
+</valor-launchpad-card>
+<valor-launchpad-card>
+  <div card-header>
+    <h2>All Users</h2>
+  </div>
+  <div card-body>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Username</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Tags</th>
+        <th scope="col">History</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <th>{{user.firstName}}</th>
+        <td>{{user.lastName}}</td>
+        <td>{{user.username}}</td>
+        <td>
+          <span class="badge bg-light text-dark" *ngFor="let userRole of user.userRoles">{{userRole.role}}</span>
+        </td>
+        <td>
+          <span class="badge bg-light text-dark" *ngFor="let userTag of user.userTags">{{userTag.tag}}</span>
+        </td>
+        <td>
+          <div *ngFor="let userHistory of user.userHistory">{{userHistory.event}}: ( {{userHistory.createDate|date:'short'}} )</div>
+        </td>
+        <td><i class="fas fa-edit" (click)="edit(user)"></i></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</valor-launchpad-card>

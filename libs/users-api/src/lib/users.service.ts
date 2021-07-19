@@ -25,6 +25,11 @@ export class UsersService {
     return await this.userRepository.findOne({emailVerifyToken: token})
   }
 
+  async findAll() {
+    //Todo: this eventually needs to filter password field
+    return await this.userRepository.find({relations: ['userRoles','userTags', 'userHistory']});
+  }
+
   async findByUsername(username: string) {
     return await this.userRepository.findOne({username: username})
   }
