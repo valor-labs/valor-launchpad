@@ -8,10 +8,11 @@ import {RolesEntity} from './roles.entity';
 import {UserTagsEntity} from './user-tags.entity';
 import {UsersController} from './users.controller';
 import {UserEventsEntity} from './user.events.entity';
+import {RolesGuard} from './roles.guard';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity, UserRolesEntity, RolesEntity, UserTagsEntity, UserEventsEntity])],
-  providers: [UsersService, UserSubscriber ,CryptService],
+  providers: [UsersService, UserSubscriber ,CryptService, RolesGuard],
   controllers:[UsersController],
   exports: [UsersService, UserSubscriber]
 })

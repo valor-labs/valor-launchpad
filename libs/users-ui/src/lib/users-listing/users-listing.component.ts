@@ -22,12 +22,28 @@ export class UsersListingComponent implements OnInit {
       userRoles: [],
       userTags: [],
     });
+    this.fetchUsers();
+  }
+
+  fetchUsers(){
     this.usersListingService.getUsers().subscribe(data => {
       this.users = data;
     });
   }
 
-  edit(user){
+  edit(user) {
     //TODO: Tie this to the form
+  }
+
+  delete(username: string) {
+    this.usersListingService.deleteUser(username).subscribe(data => {
+      this.fetchUsers();
+    })
+  }
+
+  restore(username: string) {
+    this.usersListingService.restoreUser(username).subscribe(data => {
+      this.fetchUsers();
+    })
   }
 }

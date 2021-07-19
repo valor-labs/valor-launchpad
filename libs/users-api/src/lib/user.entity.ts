@@ -78,10 +78,10 @@ export class UserEntity {
   @UpdateDateColumn()
   updateDate: Date;
 
-  @OneToMany(type => UserTagsEntity, (userTag) => userTag.user, {nullable: true})
+  @OneToMany(type => UserTagsEntity, (userTag) => userTag.user, {nullable: true, cascade:true})
   userTags?: Array<UserTagsEntity>
 
-  @OneToMany(type => UserEventsEntity, (userEvents) => userEvents.targetUser, {nullable: true})
+  @OneToMany(type => UserEventsEntity, (userEvents) => userEvents.targetUser, {nullable: true, cascade:true})
   userHistory?: Array<UserEventsEntity>
 }
 

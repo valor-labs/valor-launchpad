@@ -1,6 +1,6 @@
 import {
   Column,
-  CreateDateColumn,
+  CreateDateColumn, DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -26,5 +26,8 @@ export class UserEventsEntity {
 
   @CreateDateColumn()
   createDate: Date;
+
+  @DeleteDateColumn()
+  deletedDate?: Date;
 
 }

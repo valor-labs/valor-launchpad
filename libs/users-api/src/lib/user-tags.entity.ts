@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
 import {UserEntity} from './user.entity';
 
 @Entity()
@@ -9,6 +9,9 @@ export class UserTagsEntity {
   @ManyToOne(type=> UserEntity, (user)=> user.userTags)
   @JoinColumn({name:'user_id'})
   user: UserEntity;
+
+  @DeleteDateColumn()
+  deletedDate?: Date;
 
   @Column()
   tag:string;

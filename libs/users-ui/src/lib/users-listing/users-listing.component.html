@@ -8,7 +8,7 @@
       <div class="mb-3">
         <label class="form-label">First Name</label>
         <input valorLaunchpadInput formControlName='firstName'
-               class="form-control form-control-lg" type="text" name="firstName" />
+               class="form-control form-control-lg" type="text" name="firstName"/>
       </div>
     </form>
   </div>
@@ -42,9 +42,19 @@
           <span class="badge bg-light text-dark" *ngFor="let userTag of user.userTags">{{userTag.tag}}</span>
         </td>
         <td>
-          <div *ngFor="let userHistory of user.userHistory">{{userHistory.event}}: ( {{userHistory.createDate|date:'short'}} )</div>
+          <div *ngFor="let userHistory of user.userHistory">{{userHistory.event}}:
+            ( {{userHistory.createDate|date:'short'}} )
+          </div>
         </td>
-        <td><i class="fas fa-edit" (click)="edit(user)"></i></td>
+        <td class="actions">
+          <div *ngIf="!user.deletedDate">
+            <i class="fas fa-edit" (click)="edit(user)"></i>
+            <i class="fas fa-trash" (click)="delete(user.username)"></i>
+          </div>
+          <div *ngIf="user.deletedDate">
+            <i class="fas fa-trash-restore" (click)="restore(user.username)"></i>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>

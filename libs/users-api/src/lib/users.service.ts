@@ -27,26 +27,29 @@ export class UsersService {
 
   async findAll() {
     //Todo: this eventually needs to filter password field
-    return await this.userRepository.find({relations: ['userRoles','userTags', 'userHistory']});
+    return await this.userRepository.find({relations: ['userRoles', 'userTags', 'userHistory'], withDeleted: true});
+  }
+
+  async findCurrent() {
+    //Todo: this eventually needs to filter password field
+    return await this.userRepository.find({relations: ['userRoles', 'userTags', 'userHistory']});
   }
 
   async findByUsername(username: string) {
-    return await this.userRepository.findOne({username: username})
+    return await this.userRepository.findOne({username: username}, {withDeleted: true})
   }
 
-  //TODO: Verify this
   async deleteUser(username) {
     const userCheck = await this.findByUsername(username);
     if (userCheck) {
-      return await this.userRepository.softDelete(userCheck);
+      return await this.userRepository.softDelete({username});
     }
   }
 
-  //TODO: Verify this
   async restoreUser(username) {
     const userCheck = await this.findByUsername(username);
     if (userCheck.deletedDate) {
-      return await this.userRepository.restore(userCheck);
+      return await this.userRepository.restore({username});
     }
   }
 
@@ -83,7 +86,7 @@ export class UsersService {
   }
 
   async findOneUnsafe(username: string) {
-    return await this.userRepository.findOne({where: {username}})
+    return await this.userRepository.findOne({where: {username}, relations: ['userRoles']})
   }
 
   logIn(username) {
@@ -95,7 +98,7 @@ export class UsersService {
   }
 
   async findOne(username: string): Promise<User | undefined> {
-    const user = new UserEntity(await this.userRepository.findOne({where: {username}}))
+    const user = new UserEntity(await this.userRepository.findOne({where: {username}, relations: ['userRoles']}))
     return classToPlain(user);
   }
 }
