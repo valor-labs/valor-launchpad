@@ -57,7 +57,6 @@ import { EditorSlateComponent } from './editor-slate/editor-slate.component';
 import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
 import { SlateModule } from 'slate-angular';
 import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
-import { ChipsComponent } from './chips/chips.component';
 import { CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective } from './card';
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
@@ -117,7 +116,6 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     EditorSlateComponent,
     EditorSlateTextComponent,
     EditorSlateButtonComponent,
-    ChipsComponent,
     ...cardPart
   ],
   exports: [
@@ -149,7 +147,6 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     ModalComponent,
     EmbedVideoComponent,
     EditorSlateComponent,
-    ChipsComponent,
     BadgeComponent,
     ...cardPart
   ]

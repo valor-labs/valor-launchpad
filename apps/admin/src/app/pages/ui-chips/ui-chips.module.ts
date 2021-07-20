@@ -3,7 +3,8 @@ import {CommonModule} from '@angular/common';
 
 import {UiChipsRoutingModule} from './ui-chips-routing.module';
 import {UiChipsComponent} from './ui-chips.component';
-import {UiModule} from '@valor-launchpad/ui';
+import {FormsModule} from '@angular/forms';
+import {NzTagModule} from 'ng-zorro-antd/tag';
 
 
 @NgModule({
@@ -12,8 +13,9 @@ import {UiModule} from '@valor-launchpad/ui';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     UiChipsRoutingModule,
-    UiModule
+    NzTagModule
   ]
 })
 export class UiChipsModule {

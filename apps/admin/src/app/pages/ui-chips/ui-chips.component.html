@@ -1,54 +1,17 @@
-<h1 class="h3 mb-3">Chips</h1>
-
-<div class="row">
-  <div class="col-12 col-lg-6">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Basic Chips</h5>
-        <h6 class="card-subtitle text-muted">Default chip styles.</h6>
-      </div>
-      <div class="card-body text-center">
-        <div class="mb-3">
-          <valor-launchpad-chip (chipClose)="closeEvent($event)">Closable</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" [closable]="false">Not Closable</valor-launchpad-chip>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-lg-6">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Presets</h5>
-        <h6 class="card-subtitle text-muted">Basic colors that come by default</h6>
-      </div>
-      <div class="card-body text-center">
-        <div class="mb-3">
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" type="primary">Primary</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" type="secondary">Secondary</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" type="success">Success</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" type="danger">Danger</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" type="warning">Warning</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" type="info">Info</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" type="light">Light</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" type="dark">Dark</valor-launchpad-chip>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-lg-6">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Basic Chips</h5>
-        <h6 class="card-subtitle text-muted">Default chip styles.</h6>
-      </div>
-      <div class="card-body text-center">
-        <div class="mb-3">
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" [closable]="false">Un-closable</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)">Tag 1</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)">Tag 1</valor-launchpad-chip>
-          <valor-launchpad-chip (chipClose)="closeEvent($event)" [editableTag]="true">Add Tag</valor-launchpad-chip>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<nz-tag
+  *ngFor="let tag of tags; let i = index"
+  (nzOnClose)="handleClose(tag)">
+  {{ sliceTagName(tag) }}
+</nz-tag>
+<nz-tag *ngIf="!inputVisible" class="editable-tag" (click)="showInput()">
+  New Tag
+  <i class="fas fa-plus"></i>
+</nz-tag>
+<input
+  #inputElement
+  *ngIf="inputVisible"
+  type="text"
+  [(ngModel)]="inputValue"
+  style="width: 78px;"
+  (blur)="handleInputConfirm()"
+  (keydown.enter)="handleInputConfirm()"/>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-ui-chips',
@@ -6,10 +6,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ui-chips.component.scss']
 })
 export class UiChipsComponent implements OnInit {
-  closeEvent($event){
-    console.log('A chip was dismissed: ', $event)
+  tags = ['Unremovable', 'Tag 2', 'Tag 3'];
+  inputVisible = false;
+  inputValue = '';
+  @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
+
+  handleClose(removedTag: {}): void {
+    this.tags = this.tags.filter(tag => tag !== removedTag);
   }
-  constructor() { }
+
+  sliceTagName(tag: string): string {
+    const isLongTag = tag.length > 20;
+    return isLongTag ? `${tag.slice(0, 20)}...` : tag;
+  }
+
+  showInput(): void {
+    this.inputVisible = true;
+    setTimeout(() => {
+      this.inputElement?.nativeElement.focus();
+    }, 10);
+  }
+
+  handleInputConfirm(): void {
+    if (this.inputValue && this.tags.indexOf(this.inputValue) === -1) {
+      this.tags = [...this.tags, this.inputValue];
+    }
+    this.inputValue = '';
+    this.inputVisible = false;
+  }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
