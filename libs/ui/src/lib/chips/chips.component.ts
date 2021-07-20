@@ -9,9 +9,15 @@ export class ChipsComponent implements OnInit {
   @Output() chipClose:EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   @Input()
+  closable = true
+
+  @Input()
+  editableTag = false
+
+  @Input()
   type: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' |
-    'primary-outline' | 'secondary-outline' | 'success-outline' | 'danger-outline' | 'warning-outline'
-    | 'info-outline' | 'light-outline' | 'dark-outline'
+    'outline-primary' | 'outline-secondary' | 'outline-success' | 'outline-danger' | 'outline-warning'
+    | 'outline-info' | 'outline-light' | 'outline-dark' = 'outline-dark'
 
   //Todo: add the avatar chip from https://mdbootstrap.com/docs/standard/components/chips/
 

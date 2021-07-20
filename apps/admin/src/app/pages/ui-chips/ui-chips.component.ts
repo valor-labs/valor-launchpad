@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UiChipsComponent implements OnInit {
   closeEvent($event){
-    alert('omg' + $event)
+    console.log('A chip was dismissed: ', $event)
   }
   constructor() { }
 
