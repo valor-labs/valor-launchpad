@@ -49,4 +49,10 @@ export class UsersListingComponent implements OnInit {
       this.fetchUsers();
     })
   }
+
+  resendEmail(id:string){
+    this.usersListingService.resendEmail(id).subscribe(data => {
+      this.fetchUsers();
+    })
+  }
 }

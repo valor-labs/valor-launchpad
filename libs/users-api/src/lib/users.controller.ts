@@ -24,25 +24,31 @@ export class UsersController {
 
   @Post('add')
   @Roles('admin')
-  async addUser(@Body() user, @User() activeUser:UserEntity) {
-    return await this.usersService.createUser(user, activeUser)
+  async addUser(@Body() user, @User() actingUser:UserEntity) {
+    return await this.usersService.createUser(user, actingUser)
   }
 
   @Post('delete')
   @Roles('admin')
-  async deleteUser(@Body() user) {
-    return await this.usersService.deleteUser(user.username)
+  async deleteUser(@Body() user, @User() actingUser:UserEntity) {
+    return await this.usersService.deleteUser(user.username, actingUser)
   }
 
   @Post('restore')
   @Roles('admin')
-  async restoreUser(@Body() user) {
-    return await this.usersService.restoreUser(user.username);
+  async restoreUser(@Body() user, @User() actingUser:UserEntity) {
+    return await this.usersService.restoreUser(user.username, actingUser);
   }
 
   @Post('resetPassword')
   @Roles('admin')
-  async resetPassword(@Body() user) {
-    return await this.usersService.resetPassword(user.username);
+  async resetPassword(@Body() user, @User() actingUser:UserEntity) {
+    return await this.usersService.resetPassword(user.username, actingUser);
+  }
+
+  @Post('resendEmail')
+  @Roles('admin')
+  async resendEmail(@Body() user, @User() actingUser:UserEntity) {
+    return await this.usersService.resendEmail(user.id, actingUser);
   }
 }

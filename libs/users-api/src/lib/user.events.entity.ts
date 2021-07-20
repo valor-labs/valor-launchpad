@@ -15,12 +15,12 @@ export class UserEventsEntity {
   id: string;
 
   @ManyToOne(type => UserEntity, (user) => user.userHistory)
-  @JoinColumn({name: 'user_id'})
+  @JoinColumn({name: 'target_user_id'})
   targetUser: UserEntity;
 
   @ManyToOne(type => UserEntity, (user) => user.userHistory)
-  @JoinColumn({name: 'user_id'})
-  actingUser?: UserEntity; //TODO: Eventually switch this to a proper entity
+  @JoinColumn({name: 'acting_user_id'})
+  actingUser?: UserEntity;
 
   @Column()
   event: string; //TODO: This eventually needs to be properly scoped (enum or another table)

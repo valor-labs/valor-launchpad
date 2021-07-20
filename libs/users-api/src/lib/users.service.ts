@@ -45,17 +45,60 @@ export class UsersService {
   }
 
   async findByUsername(username: string) {
-    return await this.userRepository.findOne({username: username}, {withDeleted: true})
+    return await this.userRepository.findOne({username: username}, {withDeleted: true, relations: ['userHistory']})
   }
 
-  async resetPassword(username) {
-    //TODO: Add passwordReset event to users events
+  async resendEmail(userId, actingUser) {
+    const userCheck = await this.userRepository.findOne({id:userId}, { relations: ['userHistory']})
+    if (userCheck) {
+      const createEvent = new UserEventsEntity()
+      createEvent.targetUser = userCheck;
+      createEvent.actingUser = actingUser;
+      createEvent.event = 'Resend Password Reset Email';
+
+      if (typeof userCheck.userHistory === 'undefined') {
+        userCheck.userHistory = []
+      }
+      userCheck.password = this.generatePassword();
+      userCheck.passwordResetNeeded = true;
+      userCheck.userHistory = [...userCheck.userHistory, createEvent];
+
+      await this.sendPasswordEmail(userCheck.password, userCheck.email);
+
+      await this.userRepository.save(userCheck);
+      this.eventEmitter.emit(
+        'user.passwordResetEmailResend.thin',
+        <UserEntity>{
+          id: userCheck.id,
+        },
+      );
+
+      this.eventEmitter.emit(
+        'user.passwordResetEmailResend.fat',
+        <UserEntity>userCheck,
+      );
+      return;
+    }
+  }
+
+  async resetPassword(username, actingUser) {
     const userCheck = await this.findByUsername(username);
     if (userCheck) {
-      await this.userRepository.update({id: userCheck.id}, {
-        password: this.generatePassword(),
-        passwordResetNeeded: true
-      });
+      const createEvent = new UserEventsEntity()
+      createEvent.targetUser = userCheck;
+      createEvent.actingUser = actingUser;
+      createEvent.event = 'Password Reset';
+
+      if (typeof userCheck.userHistory === 'undefined') {
+        userCheck.userHistory = []
+      }
+      userCheck.password = this.generatePassword();
+      userCheck.passwordResetNeeded = true;
+      userCheck.userHistory = [...userCheck.userHistory, createEvent];
+
+      await this.sendPasswordEmail(userCheck.password, userCheck.email);
+
+      await this.userRepository.save(userCheck);
       this.eventEmitter.emit(
         'user.passwordReset.thin',
         <UserEntity>{
@@ -67,16 +110,27 @@ export class UsersService {
         'user.passwordReset.fat',
         <UserEntity>userCheck,
       );
-      return
+      return;
     }
   }
 
-  async deleteUser(username) {
-    //TODO: Add delete event to users events
+  async deleteUser(username, actingUser) {
     //TODO: Make this ID based
     const userCheck = await this.findByUsername(username);
     if (userCheck) {
       await this.userRepository.softDelete({username});
+      const deletedUser = await this.userRepository.findOne({username}, {withDeleted: true, relations: ['userHistory']})
+      const createEvent = new UserEventsEntity()
+      createEvent.targetUser = userCheck;
+      createEvent.actingUser = actingUser;
+      createEvent.event = 'User Deleted';
+      if (typeof deletedUser.userHistory === 'undefined') {
+        deletedUser.userHistory = []
+      }
+      deletedUser.userHistory.push(createEvent);
+
+      await this.userRepository.save(deletedUser);
+
       this.eventEmitter.emit(
         'user.deleted.thin',
         <UserEntity>{
@@ -92,13 +146,23 @@ export class UsersService {
     }
   }
 
-  async restoreUser(username) {
-    //TODO: Add restore event to users events
+  async restoreUser(username, actingUser) {
     //TODO: Make this ID based
     const userCheck = await this.findByUsername(username);
     if (userCheck.deletedDate) {
 
       await this.userRepository.restore({username});
+      const restoredUser = await this.findByUsername(username);
+      const createEvent = new UserEventsEntity()
+      createEvent.targetUser = userCheck;
+      createEvent.actingUser = actingUser;
+      createEvent.event = 'User Restored';
+      if (typeof restoredUser.userHistory === 'undefined') {
+        restoredUser.userHistory = []
+      }
+      restoredUser.userHistory.push(createEvent);
+
+      await this.userRepository.save(restoredUser)
 
       this.eventEmitter.emit(
         'user.restored.thin',
@@ -125,13 +189,33 @@ export class UsersService {
       //TODO: verification should have expiration time
       //TODO: verification should have resend if expired
       //TODO: Add resend email if they didn't receive the email
-      return await this.userRepository.save(user)
+
+      const createEvent = new UserEventsEntity()
+      createEvent.targetUser = user;
+      createEvent.event = 'Token Verified';
+      user.userHistory.push(createEvent);
+
+      await this.userRepository.save(user)
+
+      this.eventEmitter.emit(
+        'user.verified.thin',
+        <UserEntity>{
+          id: user.id,
+        },
+      );
+
+      this.eventEmitter.emit(
+        'user.verified.fat',
+        <UserEntity>user,
+      );
+
+      return;
     } else {
       throw new HttpException('Token does not exist', HttpStatus.NOT_FOUND)
     }
   }
 
-  async createUser(user: CreateUserDto, activeUser) {
+  async createUser(user: CreateUserDto, actingUser) {
     const userCheck = await this.findByUsername(user.username);
     if (!userCheck) {
       const createUser = new UserEntity(user);
@@ -147,7 +231,7 @@ export class UsersService {
       const createEvent = new UserEventsEntity()
       createEvent.targetUser = createUser;
       createEvent.event = 'User Created';
-      createEvent.actingUser = activeUser;
+      createEvent.actingUser = actingUser;
       createUser.userHistory = [createEvent];
       await this.userRepository.save(createUser);
       //TODO: Set password reset token / methods
