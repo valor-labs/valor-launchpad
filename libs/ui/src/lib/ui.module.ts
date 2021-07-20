@@ -56,6 +56,7 @@ import { EditorSlateComponent } from './editor-slate/editor-slate.component';
 import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
 import { SlateModule } from 'slate-angular';
 import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
+import { ChipsComponent } from './chips/chips.component';
 
 @NgModule({
   imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule, FormsModule, SlateModule],
@@ -111,6 +112,7 @@ import { EditorSlateButtonComponent } from './editor-slate/components/button/edi
     EditorSlateComponent,
     EditorSlateTextComponent,
     EditorSlateButtonComponent,
+    ChipsComponent,
   ],
   exports: [
     TabsModule,
@@ -141,6 +143,7 @@ import { EditorSlateButtonComponent } from './editor-slate/components/button/edi
     ColDirective,
     ModalComponent,
     EditorSlateComponent,
+    ChipsComponent
   ]
 })
 export class UiModule {}
