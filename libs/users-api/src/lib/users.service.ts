@@ -49,7 +49,7 @@ export class UsersService {
   }
 
   async resendEmail(userId, actingUser) {
-    const userCheck = await this.userRepository.findOne({id:userId}, { relations: ['userHistory']})
+    const userCheck = await this.userRepository.findOne({id: userId}, {relations: ['userHistory']})
     if (userCheck) {
       const createEvent = new UserEventsEntity()
       createEvent.targetUser = userCheck;
