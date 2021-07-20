@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UsersListingService} from './users-listing.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'valor-launchpad-users-listing',
@@ -22,8 +23,9 @@ export class UsersListingComponent implements OnInit {
     });
   }
 
-  addUser(createUserForm:any) {
+  addUser(createUserForm:NgForm) {
     this.usersListingService.addUser(createUserForm.value).subscribe(result=>{
+      createUserForm.resetForm();
       this.fetchUsers();
     })
   }
