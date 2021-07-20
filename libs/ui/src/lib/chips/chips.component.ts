@@ -16,7 +16,7 @@ export class ChipsComponent implements OnInit {
   //Todo: add the avatar chip from https://mdbootstrap.com/docs/standard/components/chips/
 
   constructor(private renderer: Renderer2,
-              private elementRef: ElementRef,) {
+              private elementRef: ElementRef) {
   }
 
   close(e: MouseEvent) {
