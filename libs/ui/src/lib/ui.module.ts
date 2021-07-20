@@ -5,7 +5,6 @@ import { AlertComponent } from './alert/alert.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
-import { CardComponent } from './card/card.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { ChartComponent } from './chart/chart.component';
@@ -52,11 +51,16 @@ import { FormInputComponent } from './dynamic-form/components/form-input/form-in
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
 import { RowDirective } from './grid/row.directive';
 import { ColDirective } from './grid/col.directive';
+import { EmbedVideoComponent } from './embed-video/embed-video.component';
+import { SafePipe } from './pipe/safe.pipe';
 import { EditorSlateComponent } from './editor-slate/editor-slate.component';
 import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
 import { SlateModule } from 'slate-angular';
 import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
 import { ChipsComponent } from './chips/chips.component';
+import { CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective } from './card';
+
+const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
 @NgModule({
   imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule, FormsModule, SlateModule],
@@ -66,7 +70,6 @@ import { ChipsComponent } from './chips/chips.component';
     AvatarComponent,
     BadgeComponent,
     ButtonComponent,
-    CardComponent,
     CarouselComponent,
     CarouselItemComponent,
     ChartComponent,
@@ -109,17 +112,19 @@ import { ChipsComponent } from './chips/chips.component';
     FormSelectComponent,
     RowDirective,
     ColDirective,
+    EmbedVideoComponent,
+    SafePipe,
     EditorSlateComponent,
     EditorSlateTextComponent,
     EditorSlateButtonComponent,
     ChipsComponent,
+    ...cardPart
   ],
   exports: [
     TabsModule,
     AlertComponent,
     AvatarComponent,
     ButtonComponent,
-    CardComponent,
     CarouselComponent,
     CarouselItemComponent,
     CheckboxGroupComponent,
@@ -142,8 +147,11 @@ import { ChipsComponent } from './chips/chips.component';
     RowDirective,
     ColDirective,
     ModalComponent,
+    EmbedVideoComponent,
     EditorSlateComponent,
     ChipsComponent
+    BadgeComponent,
+    ...cardPart
   ]
 })
 export class UiModule {}

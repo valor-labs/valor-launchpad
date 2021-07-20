@@ -133,6 +133,12 @@ const routes: Routes = [
         path: 'ui-carousel', loadChildren: () => import('./pages/ui-carousel/ui-carousel.module').then(m => m.UiCarouselModule)
       },
       {
+        path: 'ui-embed-video', loadChildren: () => import('./pages/ui-embed-video/ui-embed-video.module').then(m => m.UiEmbedVideoModule)
+      },
+      {
+        path: 'ui-general', loadChildren: () => import('./pages/ui-general/ui-general.module').then(m => m.UiGeneralModule)
+      },
+      {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
       },
       {
@@ -150,6 +156,10 @@ const routes: Routes = [
       {
         path: 'payments',
         loadChildren: () => import('./pages/payments/payments.module').then(m=> m.PaymentsModule)
+      },
+      {
+        path: 'calendar',
+        loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarModule)
       },
       {
         path: '', redirectTo: '/dashboard-default', pathMatch: 'full'

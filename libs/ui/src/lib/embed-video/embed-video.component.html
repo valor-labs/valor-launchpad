@@ -1,0 +1,8 @@
+<div class="ratio" [ngClass]="{
+    'ratio-21x9': this.videoAspect === '21:9',
+    'ratio-1x1': this.videoAspect === '1:1',
+    'ratio-16x9': this.videoAspect === '16:9',
+    'ratio-4x3': this.videoAspect === '4:3'
+}">
+  <iframe [src]="videoUrl | safe"></iframe>
+</div>
