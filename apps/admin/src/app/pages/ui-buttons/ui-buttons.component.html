@@ -3,376 +3,422 @@
 <div class="row">
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Basic Buttons</h5>
-        <h6 class="card-subtitle text-muted">Default Bootstrap buttons style.</h6>
-      </div>
-      <div card-no-flex-body class="text-center">
-        <div class="mb-3">
-          <button valor-launchpad-button theme='primary'>Primary</button>
-          <button valor-launchpad-button theme='secondary'>Secondary</button>
-          <button valor-launchpad-button theme='success'>Success</button>
-          <button valor-launchpad-button theme='danger'>Danger</button>
-          <button valor-launchpad-button theme='warning'>Warning</button>
-          <button valor-launchpad-button theme='info'>Info</button>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Basic Buttons</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Default Bootstrap buttons style.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="text-center">
+          <div class="mb-3">
+            <button valor-launchpad-button theme='primary'>Primary</button>
+            <button valor-launchpad-button theme='secondary'>Secondary</button>
+            <button valor-launchpad-button theme='success'>Success</button>
+            <button valor-launchpad-button theme='danger'>Danger</button>
+            <button valor-launchpad-button theme='warning'>Warning</button>
+            <button valor-launchpad-button theme='info'>Info</button>
+          </div>
+          <div>
+            <button valor-launchpad-button disabled theme='primary'>Primary</button>
+            <button valor-launchpad-button disabled theme='secondary'>Secondary</button>
+            <button valor-launchpad-button disabled theme='success'>Success</button>
+            <button valor-launchpad-button disabled theme='danger'>Danger</button>
+            <button valor-launchpad-button disabled theme='warning'>Warning</button>
+            <button valor-launchpad-button disabled theme='info'>Info</button>
+          </div>
         </div>
-        <div>
-          <button valor-launchpad-button disabled theme='primary'>Primary</button>
-          <button valor-launchpad-button disabled theme='secondary'>Secondary</button>
-          <button valor-launchpad-button disabled theme='success'>Success</button>
-          <button valor-launchpad-button disabled theme='danger'>Danger</button>
-          <button valor-launchpad-button disabled theme='warning'>Warning</button>
-          <button valor-launchpad-button disabled theme='info'>Info</button>
-        </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Rounded Buttons</h5>
-        <h6 class="card-subtitle text-muted">Rounded Bootstrap buttons.</h6>
-      </div>
-      <div card-no-flex-body class="text-center">
-        <div class="mb-3">
-          <button valor-launchpad-button [rounded]="true" theme='primary'>Primary</button>
-          <button valor-launchpad-button [rounded]="true" theme='secondary'>Secondary</button>
-          <button valor-launchpad-button [rounded]="true" theme='success'>Success</button>
-          <button valor-launchpad-button [rounded]="true" theme='danger'>Danger</button>
-          <button valor-launchpad-button [rounded]="true" theme='warning'>Warning</button>
-          <button valor-launchpad-button [rounded]="true" theme='info'>Info</button>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Rounded Buttons</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Rounded Bootstrap buttons.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="text-center">
+          <div class="mb-3">
+            <button valor-launchpad-button [rounded]="true" theme='primary'>Primary</button>
+            <button valor-launchpad-button [rounded]="true" theme='secondary'>Secondary</button>
+            <button valor-launchpad-button [rounded]="true" theme='success'>Success</button>
+            <button valor-launchpad-button [rounded]="true" theme='danger'>Danger</button>
+            <button valor-launchpad-button [rounded]="true" theme='warning'>Warning</button>
+            <button valor-launchpad-button [rounded]="true" theme='info'>Info</button>
+          </div>
+          <div>
+            <button valor-launchpad-button [rounded]="true" disabled rounded theme='primary'>Primary</button>
+            <button valor-launchpad-button [rounded]="true" disabled rounded theme='secondary'>Secondary</button>
+            <button valor-launchpad-button [rounded]="true" disabled rounded theme='success'>Success</button>
+            <button valor-launchpad-button [rounded]="true" disabled rounded theme='danger'>Danger</button>
+            <button valor-launchpad-button [rounded]="true" disabled rounded theme='warning'>Warning</button>
+            <button valor-launchpad-button [rounded]="true" disabled rounded theme='info'>Info</button>
+          </div>
         </div>
-        <div>
-          <button valor-launchpad-button [rounded]="true" disabled rounded theme='primary'>Primary</button>
-          <button valor-launchpad-button [rounded]="true" disabled rounded theme='secondary'>Secondary</button>
-          <button valor-launchpad-button [rounded]="true" disabled rounded theme='success'>Success</button>
-          <button valor-launchpad-button [rounded]="true" disabled rounded theme='danger'>Danger</button>
-          <button valor-launchpad-button [rounded]="true" disabled rounded theme='warning'>Warning</button>
-          <button valor-launchpad-button [rounded]="true" disabled rounded theme='info'>Info</button>
-        </div>
-      </div>
-    </valor-launchpad-card>
-  </div>
-
-  <div class="col-12 col-lg-6">
-    <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Outline Buttons</h5>
-        <h6 class="card-subtitle text-muted">Buttons without background color.</h6>
-      </div>
-      <div card-no-flex-body class="text-center">
-        <div class="mb-3">
-          <button valor-launchpad-button [outlined]="true" theme='primary'>Primary</button>
-          <button valor-launchpad-button [outlined]="true" theme='secondary'>Secondary</button>
-          <button valor-launchpad-button [outlined]="true" theme='success'>Success</button>
-          <button valor-launchpad-button [outlined]="true" theme='danger'>Danger</button>
-          <button valor-launchpad-button [outlined]="true" theme='warning'>Warning</button>
-          <button valor-launchpad-button [outlined]="true" theme='info'>Info</button>
-        </div>
-        <div>
-          <button valor-launchpad-button [outlined]="true" disabled theme='primary'>Primary</button>
-          <button valor-launchpad-button [outlined]="true" disabled theme='secondary'>Secondary</button>
-          <button valor-launchpad-button [outlined]="true" disabled theme='success'>Success</button>
-          <button valor-launchpad-button [outlined]="true" disabled theme='danger'>Danger</button>
-          <button valor-launchpad-button [outlined]="true" disabled theme='warning'>Warning</button>
-          <button valor-launchpad-button [outlined]="true" disabled theme='info'>Info</button>
-        </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Square Buttons</h5>
-        <h6 class="card-subtitle text-muted">Buttons without border radius.</h6>
-      </div>
-      <div card-no-flex-body class="text-center">
-        <div class="mb-3">
-          <button valor-launchpad-button [squared]="true" theme='primary'>Primary</button>
-          <button valor-launchpad-button [squared]="true" theme='secondary'>Secondary</button>
-          <button valor-launchpad-button [squared]="true" theme='success'>Success</button>
-          <button valor-launchpad-button [squared]="true" theme='danger'>Danger</button>
-          <button valor-launchpad-button [squared]="true" theme='warning'>Warning</button>
-          <button valor-launchpad-button [squared]="true" theme='info'>Info</button>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Outline Buttons</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Buttons without background color.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="text-center">
+          <div class="mb-3">
+            <button valor-launchpad-button [outlined]="true" theme='primary'>Primary</button>
+            <button valor-launchpad-button [outlined]="true" theme='secondary'>Secondary</button>
+            <button valor-launchpad-button [outlined]="true" theme='success'>Success</button>
+            <button valor-launchpad-button [outlined]="true" theme='danger'>Danger</button>
+            <button valor-launchpad-button [outlined]="true" theme='warning'>Warning</button>
+            <button valor-launchpad-button [outlined]="true" theme='info'>Info</button>
+          </div>
+          <div>
+            <button valor-launchpad-button [outlined]="true" disabled theme='primary'>Primary</button>
+            <button valor-launchpad-button [outlined]="true" disabled theme='secondary'>Secondary</button>
+            <button valor-launchpad-button [outlined]="true" disabled theme='success'>Success</button>
+            <button valor-launchpad-button [outlined]="true" disabled theme='danger'>Danger</button>
+            <button valor-launchpad-button [outlined]="true" disabled theme='warning'>Warning</button>
+            <button valor-launchpad-button [outlined]="true" disabled theme='info'>Info</button>
+          </div>
         </div>
-        <div>
-          <button valor-launchpad-button disabled [squared]="true" theme='primary'>Primary</button>
-          <button valor-launchpad-button disabled [squared]="true" theme='secondary'>Secondary</button>
-          <button valor-launchpad-button disabled [squared]="true" theme='success'>Success</button>
-          <button valor-launchpad-button disabled [squared]="true" theme='danger'>Danger</button>
-          <button valor-launchpad-button disabled [squared]="true" theme='warning'>Warning</button>
-          <button valor-launchpad-button disabled [squared]="true" theme='info'>Info</button>
-        </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Icon Buttons</h5>
-        <h6 class="card-subtitle text-muted">Default Bootstrap buttons with icons.</h6>
-      </div>
-      <div card-no-flex-body class="text-center">
-        <div class="mb-3">
-          <button valor-launchpad-button theme='primary'><i class="far fa-smile"></i> Primary</button>
-          <button valor-launchpad-button theme='secondary'><i class="fas fa-globe-americas"></i> Secondary</button>
-          <button valor-launchpad-button theme='success'><i class="fas fa-check"></i> Success</button>
-          <button valor-launchpad-button theme='danger'><i class="fas fa-times"></i> Danger</button>
-          <button valor-launchpad-button theme='warning'><i class="fas fa-exclamation"></i> Warning</button>
-          <button valor-launchpad-button theme='info'><i class="fas fa-info"></i> Info</button>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Square Buttons</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Buttons without border radius.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="text-center">
+          <div class="mb-3">
+            <button valor-launchpad-button [squared]="true" theme='primary'>Primary</button>
+            <button valor-launchpad-button [squared]="true" theme='secondary'>Secondary</button>
+            <button valor-launchpad-button [squared]="true" theme='success'>Success</button>
+            <button valor-launchpad-button [squared]="true" theme='danger'>Danger</button>
+            <button valor-launchpad-button [squared]="true" theme='warning'>Warning</button>
+            <button valor-launchpad-button [squared]="true" theme='info'>Info</button>
+          </div>
+          <div>
+            <button valor-launchpad-button disabled [squared]="true" theme='primary'>Primary</button>
+            <button valor-launchpad-button disabled [squared]="true" theme='secondary'>Secondary</button>
+            <button valor-launchpad-button disabled [squared]="true" theme='success'>Success</button>
+            <button valor-launchpad-button disabled [squared]="true" theme='danger'>Danger</button>
+            <button valor-launchpad-button disabled [squared]="true" theme='warning'>Warning</button>
+            <button valor-launchpad-button disabled [squared]="true" theme='info'>Info</button>
+          </div>
         </div>
-        <div>
-          <button valor-launchpad-button theme='primary'><i class="far fa-smile"></i></button>
-          <button valor-launchpad-button theme='secondary'><i class="fas fa-globe-americas"></i></button>
-          <button valor-launchpad-button theme='success'><i class="fas fa-check"></i></button>
-          <button valor-launchpad-button theme='danger'><i class="fas fa-times"></i></button>
-          <button valor-launchpad-button theme='warning'><i class="fas fa-exclamation"></i></button>
-          <button valor-launchpad-button theme='info'><i class="fas fa-info"></i></button>
-        </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Social Buttons</h5>
-        <h6 class="card-subtitle text-muted">Social buttons with icons.</h6>
-      </div>
-      <div card-no-flex-body class="text-center">
-        <div class="mb-3">
-          <button valor-launchpad-button class="mb-1 btn-facebook"><i class="align-middle fab fa-facebook"></i> Facebook</button>
-          <button valor-launchpad-button class="mb-1 btn-twitter"><i class="align-middle fab fa-twitter"></i> Twitter</button>
-          <button valor-launchpad-button class="mb-1 btn-google"><i class="align-middle fab fa-google"></i> Google</button>
-          <button valor-launchpad-button class="mb-1 btn-youtube"><i class="align-middle fab fa-youtube"></i> Youtube</button>
-          <button valor-launchpad-button class="mb-1 btn-vimeo"><i class="align-middle fab fa-vimeo"></i> Vimeo</button>
-          <button valor-launchpad-button class="mb-1 btn-dribbble"><i class="align-middle fab fa-dribbble"></i> Dribbble</button>
-          <button valor-launchpad-button class="mb-1 btn-github"><i class="align-middle fab fa-github"></i> Github</button>
-          <button valor-launchpad-button class="mb-1 btn-instagram"><i class="align-middle fab fa-instagram"></i> Instagram
-          </button>
-          <button valor-launchpad-button class="mb-1 btn-pinterest"><i class="align-middle fab fa-pinterest"></i> Pinterest
-          </button>
-          <button valor-launchpad-button class="mb-1 btn-flickr"><i class="align-middle fab fa-flickr"></i> Flickr</button>
-          <button valor-launchpad-button class="mb-1 btn-bitbucket"><i class="align-middle fab fa-bitbucket"></i> Bitbucket
-          </button>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Icon Buttons</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Default Bootstrap buttons with icons.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="text-center">
+          <div class="mb-3">
+            <button valor-launchpad-button theme='primary'><i class="far fa-smile"></i> Primary</button>
+            <button valor-launchpad-button theme='secondary'><i class="fas fa-globe-americas"></i> Secondary</button>
+            <button valor-launchpad-button theme='success'><i class="fas fa-check"></i> Success</button>
+            <button valor-launchpad-button theme='danger'><i class="fas fa-times"></i> Danger</button>
+            <button valor-launchpad-button theme='warning'><i class="fas fa-exclamation"></i> Warning</button>
+            <button valor-launchpad-button theme='info'><i class="fas fa-info"></i> Info</button>
+          </div>
+          <div>
+            <button valor-launchpad-button theme='primary'><i class="far fa-smile"></i></button>
+            <button valor-launchpad-button theme='secondary'><i class="fas fa-globe-americas"></i></button>
+            <button valor-launchpad-button theme='success'><i class="fas fa-check"></i></button>
+            <button valor-launchpad-button theme='danger'><i class="fas fa-times"></i></button>
+            <button valor-launchpad-button theme='warning'><i class="fas fa-exclamation"></i></button>
+            <button valor-launchpad-button theme='info'><i class="fas fa-info"></i></button>
+          </div>
         </div>
-        <div>
-          <button valor-launchpad-button class="mb-1 btn-facebook"><i class="align-middle fab fa-facebook"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-twitter"><i class="align-middle fab fa-twitter"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-google"><i class="align-middle fab fa-google"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-youtube"><i class="align-middle fab fa-youtube"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-vimeo"><i class="align-middle fab fa-vimeo"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-dribbble"><i class="align-middle fab fa-dribbble"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-github"><i class="align-middle fab fa-github"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-instagram"><i class="align-middle fab fa-instagram"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-pinterest"><i class="align-middle fab fa-pinterest"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-flickr"><i class="align-middle fab fa-flickr"></i></button>
-          <button valor-launchpad-button class="mb-1 btn-bitbucket"><i class="align-middle fab fa-bitbucket"></i></button>
-        </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Button Sizes</h5>
-        <h6 class="card-subtitle text-muted">Fancy larger or smaller buttons.</h6>
-      </div>
-      <div card-no-flex-body class="text-center">
-        <div class="mb-3">
-          <button valor-launchpad-button theme="primary" size="sm">Small</button>
-          <button valor-launchpad-button theme="primary" size="md">Medium</button>
-          <button valor-launchpad-button theme="primary" size="lg">Large</button>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Social Buttons</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Social buttons with icons.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="text-center">
+          <div class="mb-3">
+            <button valor-launchpad-button class="mb-1 btn-facebook"><i class="align-middle fab fa-facebook"></i>
+              Facebook
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-twitter"><i class="align-middle fab fa-twitter"></i> Twitter
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-google"><i class="align-middle fab fa-google"></i> Google
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-youtube"><i class="align-middle fab fa-youtube"></i> Youtube
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-vimeo"><i class="align-middle fab fa-vimeo"></i> Vimeo
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-dribbble"><i class="align-middle fab fa-dribbble"></i>
+              Dribbble
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-github"><i class="align-middle fab fa-github"></i> Github
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-instagram"><i class="align-middle fab fa-instagram"></i>
+              Instagram
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-pinterest"><i class="align-middle fab fa-pinterest"></i>
+              Pinterest
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-flickr"><i class="align-middle fab fa-flickr"></i> Flickr
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-bitbucket"><i class="align-middle fab fa-bitbucket"></i>
+              Bitbucket
+            </button>
+          </div>
+          <div>
+            <button valor-launchpad-button class="mb-1 btn-facebook"><i class="align-middle fab fa-facebook"></i>
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-twitter"><i class="align-middle fab fa-twitter"></i></button>
+            <button valor-launchpad-button class="mb-1 btn-google"><i class="align-middle fab fa-google"></i></button>
+            <button valor-launchpad-button class="mb-1 btn-youtube"><i class="align-middle fab fa-youtube"></i></button>
+            <button valor-launchpad-button class="mb-1 btn-vimeo"><i class="align-middle fab fa-vimeo"></i></button>
+            <button valor-launchpad-button class="mb-1 btn-dribbble"><i class="align-middle fab fa-dribbble"></i>
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-github"><i class="align-middle fab fa-github"></i></button>
+            <button valor-launchpad-button class="mb-1 btn-instagram"><i class="align-middle fab fa-instagram"></i>
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-pinterest"><i class="align-middle fab fa-pinterest"></i>
+            </button>
+            <button valor-launchpad-button class="mb-1 btn-flickr"><i class="align-middle fab fa-flickr"></i></button>
+            <button valor-launchpad-button class="mb-1 btn-bitbucket"><i class="align-middle fab fa-bitbucket"></i>
+            </button>
+          </div>
         </div>
-        <div>
-          <button valor-launchpad-button theme="primary" size="sm"><i class="fas fa-globe-americas"></i> Small</button>
-          <button valor-launchpad-button theme="primary" size="md"><i class="fas fa-globe-americas"></i> Medium</button>
-          <button valor-launchpad-button theme="primary" size="lg"><i class="fas fa-globe-americas"></i> Large</button>
-        </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
-    <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Button Dropdown</h5>
-        <h6 class="card-subtitle text-muted">Dropdowns styles with buttons.</h6>
-      </div>
-      <div card-no-flex-body class="text-center">
-        <div class="mb-3">
-          <div class="btn-group">
-            <button valor-launchpad-button theme="primary" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Primary
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group">
-            <button valor-launchpad-button theme="secondary" class="dropdown-toggle" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-              Secondary
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group">
-            <button valor-launchpad-button theme="success" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Success
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group">
-            <button valor-launchpad-button theme="danger" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Danger
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group">
-            <button valor-launchpad-button theme="warning" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Warning
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group">
-            <button valor-launchpad-button theme="info" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Info
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="btn-group btn-group-sm">
-            <button valor-launchpad-button theme="primary" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Primary
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group btn-group-sm">
-            <button valor-launchpad-button theme="secondary" class="dropdown-toggle" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-              Secondary
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group btn-group-sm">
-            <button valor-launchpad-button theme="success" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Success
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group btn-group-sm">
-            <button valor-launchpad-button theme="danger" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Danger
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group btn-group-sm">
-            <button valor-launchpad-button theme="warning" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Warning
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div class="btn-group btn-group-sm">
-            <button valor-launchpad-button theme="info" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-              Info
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </valor-launchpad-card>
-    ¬
   </div>
 
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title">Button Group</h5>
-        <h6 class="card-subtitle text-muted">Button group components.</h6>
-      </div>
-      <div card-no-flex-body>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Button Sizes</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Fancy larger or smaller buttons.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="text-center">
+          <div class="mb-3">
+            <button valor-launchpad-button theme="primary" size="sm">Small</button>
+            <button valor-launchpad-button theme="primary" size="md">Medium</button>
+            <button valor-launchpad-button theme="primary" size="lg">Large</button>
+          </div>
+          <div>
+            <button valor-launchpad-button theme="primary" size="sm"><i class="fas fa-globe-americas"></i> Small
+            </button>
+            <button valor-launchpad-button theme="primary" size="md"><i class="fas fa-globe-americas"></i> Medium
+            </button>
+            <button valor-launchpad-button theme="primary" size="lg"><i class="fas fa-globe-americas"></i> Large
+            </button>
+          </div>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Button Dropdown</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Dropdowns styles with buttons.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="text-center">
+          <div class="mb-3">
+            <div class="btn-group">
+              <button valor-launchpad-button theme="primary" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Primary
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button valor-launchpad-button theme="secondary" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                Secondary
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button valor-launchpad-button theme="success" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Success
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button valor-launchpad-button theme="danger" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Danger
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button valor-launchpad-button theme="warning" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Warning
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button valor-launchpad-button theme="info" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Info
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="btn-group btn-group-sm">
+              <button valor-launchpad-button theme="primary" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Primary
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button valor-launchpad-button theme="secondary" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                Secondary
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button valor-launchpad-button theme="success" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Success
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button valor-launchpad-button theme="danger" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Danger
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button valor-launchpad-button theme="warning" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Warning
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button valor-launchpad-button theme="info" class="dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                Info
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Button Group</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Button group components.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <h6 class="card-subtitle mb-2 text-muted">Horizontal button group</h6>
         <div class="btn-group btn-group-lg mb-3" role="group" aria-label="Large button group">
           <button valor-launchpad-button theme="secondary">Left</button>
@@ -433,7 +479,7 @@
             <button valor-launchpad-button theme="danger">Button</button>
           </div>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>
