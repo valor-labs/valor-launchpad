@@ -186,6 +186,7 @@ export class UsersService {
     if (user) {
       user.emailVerified = true;
       //TODO: the emailVerifyToken needs to be removed so verification cannot be done more than once
+      //TODO: updating email should reset email verified
       //TODO: verification should have expiration time
       //TODO: verification should have resend if expired
       //TODO: Add resend email if they didn't receive the email

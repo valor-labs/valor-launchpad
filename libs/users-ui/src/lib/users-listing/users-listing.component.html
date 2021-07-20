@@ -54,7 +54,7 @@
         <th>{{user.firstName}}</th>
         <td>{{user.lastName}}</td>
         <td>{{user.username}}</td>
-        <td>{{user.email}}</td>
+        <td>{{user.email}} <i class="fas fa-check-circle validated" *ngIf="user.emailVerified"></i></td>
         <td>
           <span class="badge bg-light text-dark" *ngFor="let userRole of user.userRoles">{{userRole.role}}</span>
         </td>
