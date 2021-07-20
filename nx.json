@@ -58,6 +58,9 @@
     },
     "users-api": {
       "tags": []
+    },
+    "users-ui": {
+      "tags": []
     }
   }
 }

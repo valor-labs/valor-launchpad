@@ -30,6 +30,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path: 'users',
+        loadChildren: () => import('@valor-launchpad/users-ui').then(m => m.UsersUiModule)
+      },
+      {
         path: 'dashboard-crypto',
         loadChildren: () => import('./pages/dashboard-crypto/dashboard-crypto.module').then(m => m.DashboardCryptoModule)
       },
@@ -118,6 +122,9 @@ const routes: Routes = [
       },
       {
         path: 'ui-cards', loadChildren: () => import('./pages/ui-cards/ui-cards.module').then(m => m.UiCardsModule)
+      },
+      {
+        path: 'ui-chips', loadChildren: () => import('./pages/ui-chips/ui-chips.module').then(m => m.UiChipsModule)
       },
       {
         path: 'ui-offcanvas', loadChildren: () => import('./pages/ui-offcanvas/ui-offcanvas.module').then(m => m.UiOffcanvasModule)

@@ -1,0 +1,23 @@
+//TODO: this is not the only place we do this but i'm not a fan of us doing scss imports across libs like this
+@import "../../../../../apps/admin/scss/1-variables/app";
+
+.badge {
+  margin-right: 5px;
+}
+
+.actions {
+  i:not(:first-of-type) {
+    margin-left: 10px;
+  }
+}
+
+.validated {
+  color:$success;
+}
+
+.event-byline {
+  margin-left: 5px;
+  font-style: italic;
+  font-weight: lighter;
+  font-size: .9em;
+}

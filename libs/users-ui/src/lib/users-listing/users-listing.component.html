@@ -1,0 +1,96 @@
+<!--  TODO add search / filtering here-->
+<valor-launchpad-card>
+  <div card-header>
+    <h2>Add / Edit User</h2>
+  </div>
+  <div card-body>
+    <form #addUserForm="ngForm" (ngSubmit)="addUser(addUserForm)">
+      <div class="col-6">
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="username"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">First Name</label>
+          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="firstName"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Last Name</label>
+          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="lastName"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">email</label>
+          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="email"/>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-lg btn-primary">Create User</button>
+    </form>
+  </div>
+</valor-launchpad-card>
+<valor-launchpad-card>
+  <div card-header class="d-flex">
+    <h2 class="me-auto">All Users</h2>
+    <div class="actions">
+      <button type="button" class="btn btn-light" (click)="fetchUsers()"><i class="fas fa-sync"></i></button>
+    </div>
+  </div>
+  <div card-body>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Tags</th>
+        <th scope="col">Last Log In</th>
+        <th scope="col">History</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <th>{{user.firstName}}</th>
+        <td>{{user.lastName}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}} <i class="fas fa-check-circle validated" *ngIf="user.emailVerified"></i></td>
+        <td>
+          <span class="badge bg-light text-dark" *ngFor="let userRole of user.userRoles">{{userRole.role}}</span>
+        </td>
+        <td>
+          <span class="badge bg-light text-dark" *ngFor="let userTag of user.userTags">{{userTag.tag}}</span>
+        </td>
+        <td>
+          <span *ngIf="user.lastLogin">{{user.lastLogin|date:'short'}}</span>
+          <span *ngIf="!user.lastLogin"> - </span>
+        </td>
+        <td>
+          <div *ngFor="let userHistory of user.userHistory">
+            <span class="event-title">{{userHistory.event}}</span>
+            <span class="event-byline">by {{userHistory.actingUser?.username || 'Unknown'}} @ {{userHistory.createDate|date:'short'}}</span>
+          </div>
+        </td>
+        <td class="actions">
+          <div *ngIf="!user.deletedDate">
+            <i class="fas fa-edit" (click)="edit(user)"></i>
+            <i class="fas fa-trash" (click)="delete(user.username)"></i>
+          </div>
+          <div *ngIf="user.deletedDate">
+            <i class="fas fa-trash-restore" (click)="restore(user.username)"></i>
+          </div>
+          <div *ngIf="user.lastPasswordUpdateDate">
+            Last Password Update: {{user.lastPasswordUpdateDate|date:'short'}}
+          </div>
+          <div *ngIf="user.passwordResetNeeded">
+            <button type="button" (click)="resendEmail(user.id)" class="btn btn-outline-warning">Resend Reset Email</button>
+          </div>
+          <div *ngIf="!user.passwordResetNeeded">
+            <button type="button" (click)="resetPassword(user.username)" class="btn btn-outline-warning">Reset Password</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</valor-launchpad-card>

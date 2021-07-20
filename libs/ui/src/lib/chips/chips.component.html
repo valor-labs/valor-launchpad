@@ -1,0 +1,5 @@
+<span class="btn btn-{{type}}" [ngClass]="{'editable':editableTag}">
+  <ng-content></ng-content>
+  <i *ngIf="closable && !editableTag" class="close fas fa-times-circle" (click)="close($event)"></i>
+  <i *ngIf="editableTag" class="fas fa-plus"></i>
+</span>

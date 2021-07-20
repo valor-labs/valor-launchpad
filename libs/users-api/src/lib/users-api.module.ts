@@ -6,10 +6,18 @@ import {UserEntity, UserSubscriber} from './user.entity';
 import {UserRolesEntity} from './user-roles.entity';
 import {RolesEntity} from './roles.entity';
 import {UserTagsEntity} from './user-tags.entity';
+import {UsersController} from './users.controller';
+import {UserEventsEntity} from './user.events.entity';
+import {RolesGuard} from './roles.guard';
+import {EmailModule} from '@valor-launchpad/email';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity, UserRolesEntity, RolesEntity, UserTagsEntity])],
-  providers: [UsersService, UserSubscriber ,CryptService],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity, UserRolesEntity, RolesEntity, UserTagsEntity, UserEventsEntity]),
+    EmailModule
+  ],
+  providers: [UsersService, UserSubscriber, CryptService, RolesGuard],
+  controllers: [UsersController],
   exports: [UsersService, UserSubscriber]
 })
 export class UsersApiModule {

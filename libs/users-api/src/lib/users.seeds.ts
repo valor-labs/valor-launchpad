@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import {RolesEntity} from './roles.entity';
 import {UserRolesEntity} from './user-roles.entity';
 import {HELPERS} from '../../../../apps/api/seed_helpers/data';
+import {UserEventsEntity} from './user.events.entity';
 
 export class CreateUsers implements Seeder {
 
@@ -28,7 +29,9 @@ export class CreateUsers implements Seeder {
         user.password = await bcrypt.hash(HELPERS.defaultPassword, HELPERS.saltRounds);
         const userRoleEntity = await factory(UserRolesEntity)({"user_id": user.id}).create({role: userRole.role})
         const adminRoleEntity = await factory(UserRolesEntity)({"user_id": user.id}).create({role: adminRole.role})
+        const createEvent = await factory(UserEventsEntity)({"user_id": user.id}).create({event:'Create Event'})
         user.userRoles = [userRoleEntity, adminRoleEntity];
+        user.userHistory = [createEvent]
         user.emailVerified = true;
         return user;
       }).create({username: 'user1', email: 'user1@abc.com'})
@@ -37,7 +40,10 @@ export class CreateUsers implements Seeder {
       .map(async (user: User) => {
         user.password = await bcrypt.hash(HELPERS.defaultPassword, HELPERS.saltRounds);
         const userRoleEntity = await factory(UserRolesEntity)({"user_id": user.id}).create({role: userRole.role})
+        const createEvent = await factory(UserEventsEntity)({"user_id": user.id}).create({event:'Create Event'})
+        const passwordUpdate = await factory(UserEventsEntity)({"user_id": user.id}).create({event:'Password Update Event', createDate: new Date()})
         user.userRoles = [userRoleEntity];
+        user.userHistory = [createEvent, passwordUpdate]
         user.emailVerified = true;
         return user;
       }).create({username: 'user2', email: 'user2@abc.com'})
@@ -46,7 +52,9 @@ export class CreateUsers implements Seeder {
       .map(async (user: User) => {
         user.password = await bcrypt.hash(HELPERS.defaultPassword, HELPERS.saltRounds);
         const userRoleEntity = await factory(UserRolesEntity)({"user_id": user.id}).create({role: userRole.role})
+        const createEvent = await factory(UserEventsEntity)({"user_id": user.id}).create({event:'Create Event'})
         user.userRoles = [userRoleEntity]
+        user.userHistory = [createEvent]
         user.emailVerified = false;
         return user;
       }).create({username: 'user3', email: 'user3@abc.com'})

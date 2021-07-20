@@ -84,6 +84,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           }
         },
@@ -96,8 +104,12 @@
           "configurations": {
             "production": {
               "browserTarget": "admin:build:production"
+            },
+            "development": {
+              "browserTarget": "admin:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -433,6 +445,33 @@
           "options": {
             "jestConfig": "libs/users-api/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "users-ui": {
+      "projectType": "library",
+      "root": "libs/users-ui",
+      "sourceRoot": "libs/users-ui/src",
+      "prefix": "valor-launchpad",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/users-ui"
+          ],
+          "options": {
+            "jestConfig": "libs/users-ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/users-ui/src/**/*.ts",
+              "libs/users-ui/src/**/*.html"
+            ]
           }
         }
       }

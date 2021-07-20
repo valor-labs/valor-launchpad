@@ -4,7 +4,7 @@ import {
   Entity, EntitySubscriberInterface, EventSubscriber,
   Index, InsertEvent, OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
+  UpdateDateColumn, UpdateEvent
 } from "typeorm";
 import {Exclude} from "class-transformer";
 import * as bcrypt from 'bcrypt';
@@ -12,6 +12,7 @@ import {v4 as uuid} from 'uuid';
 import {UserTagsEntity} from './user-tags.entity';
 import {UserRolesEntity} from './user-roles.entity';
 import {HELPERS} from '../../../../apps/api/seed_helpers/data';
+import {UserEventsEntity} from './user.events.entity';
 
 @Entity()
 export class UserEntity {
@@ -77,8 +78,11 @@ export class UserEntity {
   @UpdateDateColumn()
   updateDate: Date;
 
-  @OneToMany(type => UserTagsEntity, (userTag) => userTag.user, {nullable: true})
+  @OneToMany(type => UserTagsEntity, (userTag) => userTag.user, {nullable: true, cascade: true})
   userTags?: Array<UserTagsEntity>
+
+  @OneToMany(type => UserEventsEntity, (userEvents) => userEvents.targetUser, {nullable: true, cascade: true})
+  userHistory?: Array<UserEventsEntity>
 }
 
 @EventSubscriber()
@@ -100,7 +104,13 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
     event.entity.phoneVerifyToken = Math.random().toString(36).substr(2, 6);
   }
 
-  beforeUpdate(event: InsertEvent<UserEntity>) {
+  async beforeUpdate(event: UpdateEvent<UserEntity>) {
+    // TODO: Fix this error
+    // eslint-disable-next-line no-prototype-builtins
+    if(event.entity && event.entity.hasOwnProperty('password')){
+      event.entity.password = await this.hashPassword(event.entity.password);
+      event.entity.lastPasswordUpdateDate = new Date();
+    }
     //TODO: need to check if this is a password update and salt the password again
     //TODO: need to find out how to check who the user is to update "updated by " column
     console.log(event.entity)
