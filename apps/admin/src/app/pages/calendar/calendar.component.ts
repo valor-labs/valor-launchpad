@@ -11,7 +11,7 @@ import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, FullCalendarCo
 export class CalendarComponent implements OnInit {
 
   @ViewChild(FullCalendarComponent, { static: false }) public calendarComponent: FullCalendarComponent
-  
+
   public currentEvents: EventApi[] = []
   public showDate = []
   public dateRange = []
@@ -19,6 +19,7 @@ export class CalendarComponent implements OnInit {
     themeSystem: 'bootstrap',
     initialView: 'dayGridMonth',
     initialDate: '2021-07-07',
+    editable: true,
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
