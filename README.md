@@ -35,13 +35,13 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Blank                    | ✅              | ✅                   | N/A             | N/A          | ▢           | ▢                |        ▢ |
 | Sign In                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Sign Up                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
-| Calendar                 | ▢               | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-apexcharts        | ▢               | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-chartjs           | ▢               | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Chat                     | ✅              | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-chartjs           | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Chat                     | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Analytics      | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
-| Dashboard Crypto         | ✅              | ▢                   | ▢                | ▢            | ▢           | ▢                | ▢        |
+| Dashboard Crypto         | ✅              | ▢                    | ▢                | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Default        | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
 | Dashboard SaaS           | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Social         | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
@@ -59,7 +59,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Error Page               | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Forms Advanced Inputs    | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Basic Inputs       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Forms Editors            | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Forms Editors            | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Floating Labels    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Input Groups       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Layouts            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
@@ -76,19 +76,19 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Profile                  | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | Projects Detail          | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | Projects Listing         | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
-| Reset Password           | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Settings                 | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Tasks                    | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Reset Password           | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Settings                 | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Tasks                    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Alerts                | ✅              | ✅                   | ▢               | ▢               | ▢           | ▢                | ▢        |
-| UI Buttons               | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Cards                 | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Buttons               | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Cards                 | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Carousel              | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Embed Video           | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI General               | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Grid                  | ✅              | ✅                  | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Modals                | ✅              | ✅                  | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Off Canvas            | ✅              | ✅                  | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Tabs                  | ✅              | ✅                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI General               | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Grid                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Modals                | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Off Canvas            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Tabs                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Typography            | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Verify User              | ✅              | ✅                   | ✅               | ▢               | ▢           | ▢                | ▢        |
 
