@@ -149,7 +149,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     ModalComponent,
     EmbedVideoComponent,
     EditorSlateComponent,
-    ChipsComponent
+    ChipsComponent,
     BadgeComponent,
     ...cardPart
   ]
