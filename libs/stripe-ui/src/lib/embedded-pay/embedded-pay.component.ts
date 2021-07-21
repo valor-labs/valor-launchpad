@@ -1,28 +1,51 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { EmbeddedPayService } from './embedded-pay.service';
 
-import {FieldConfig} from '@valor-launchpad/ui';
-import {DynamicFormComponent} from '@valor-launchpad/ui';
-import { AllProductsResponse, MethodsByCountryResponse, PayMethod } from '@valor-launchpad/stripe-api';
+import { FieldConfig } from '@valor-launchpad/ui';
+import { DynamicFormComponent } from '@valor-launchpad/ui';
+import {
+  AllProductsResponse,
+  MethodsByCountryResponse,
+  PayMethod,
+} from '@valor-launchpad/stripe-api';
 import { OrderItem } from '../order-summary/order-summary.model';
 import { TabDirective } from 'ngx-bootstrap/tabs';
 import { StripeUiService } from '../stripe-ui.service';
+import {
+  loadStripe,
+  Stripe,
+  StripeAuBankAccountElement,
+  StripeCardElement,
+  StripeElements,
+  StripeEpsBankElement,
+  StripeIbanElement,
+  StripeIdealBankElement,
+  StripeP24BankElement,
+} from '@stripe/stripe-js';
+import { switchMap } from 'rxjs/operators';
+import { from, of } from 'rxjs';
+
+const publicKey =
+  'pk_test_51IyGuEAcm152H20WJusvJbWOGaqsdj4TXzS0cQtSEHD3jE9GGQJ0hay5Tn8i5h3IL8TShk4XKd5VghIKlHxo2gvT00IDgRx1Bu';
 
 @Component({
   selector: 'valor-launchpad-embedded-pay',
   templateUrl: './embedded-pay.component.html',
-  styleUrls: ['./embedded-pay.component.scss']
+  styleUrls: ['./embedded-pay.component.scss'],
 })
 export class EmbeddedPayComponent implements OnInit {
+  private stripe: Stripe;
+  stripeElements: StripeElements;
   orderItems: OrderItem[] = [];
-  orderTotal = 0.00;
-  subtotal = 0.00;
+  orderTotal = 0.0;
+  subtotal = 0.0;
   submitButtonPayText = 'Pay';
   submitDisabled = true;
   errorText = '';
   paymentRequestVisible = false;
-  confirmationMessage = 'We just sent your receipt to your email address, and your items will be on their way shortly.'
+  confirmationMessage =
+    'We just sent your receipt to your email address, and your items will be on their way shortly.';
   live = false;
   elements;
   receiverInfo;
@@ -30,55 +53,21 @@ export class EmbeddedPayComponent implements OnInit {
 
   selectedPayMethod: PayMethod;
 
-  @ViewChild('cardForm') cardForm: DynamicFormComponent;
-  @ViewChild('sepaForm') sepaForm: DynamicFormComponent;
-
   constructor(
     private embeddedPayService: EmbeddedPayService,
-    private stripeUiService: StripeUiService,
-  ) {}
+    private stripeUiService: StripeUiService
+  ) {
+    loadStripe(publicKey).then((res) => {
+      if (!res) {
+        console.error('Stripe init failed');
+      } else {
+        this.stripe = res;
+        this.stripeElements = this.stripe.elements();
+      }
+    });
+  }
 
   formConfig: FieldConfig[];
-  cardFormConfig: FieldConfig[] = [
-    {
-      label: 'Card',
-      name: 'ccNum',
-      type: 'input',
-      subtype: 'text',
-      placeholder: 'Number',
-      validation: [Validators.required],
-      errorMessage: () => 'The field is required'
-    },
-    {
-      label: 'Exp',
-      name: 'ccExp',
-      type: 'input',
-      subtype: 'text',
-      placeholder: 'MM/YY',
-      validation: [Validators.required],
-      errorMessage: () => 'The field is required'
-    },
-    {
-      label: 'CVC',
-      name: 'cardNum',
-      type: 'input',
-      subtype: 'text',
-      placeholder: 'CVC',
-      validation: [Validators.required],
-      errorMessage: () => 'The field is required'
-    }
-  ];
-  sepaDirectDebitFormConfig: FieldConfig[] = [
-    {
-      label: 'IBAN',
-      name: 'iban',
-      type: 'input',
-      subtype: 'text',
-      placeholder: 'DE00 0000 0000 0000 0000 00',
-      validation: [Validators.required],
-      errorMessage: () => 'The field is required'
-    },
-  ];
 
   private stateConfig = {
     type: 'input',
@@ -87,14 +76,14 @@ export class EmbeddedPayComponent implements OnInit {
     name: 'state',
     placeholder: 'CA',
     validation: [Validators.required],
-    errorMessage: () => 'The field is required'
+    errorMessage: () => 'The field is required',
   };
 
   ngOnInit(): void {
-    this.embeddedPayService.getProducts().subscribe(products => {
+    this.embeddedPayService.getProducts().subscribe((products) => {
       this.displayPaymentSummary(products);
     });
-    this.stripeUiService.getAllCountries().subscribe(allCountryOptions => {
+    this.stripeUiService.getAllCountries().subscribe((allCountryOptions) => {
       const defaultCountry = 'US';
       // basic form without state
       // state config will be added automatically by `onCountryChange`
@@ -106,13 +95,13 @@ export class EmbeddedPayComponent implements OnInit {
           name: 'name',
           placeholder: 'Jenny Rosen',
           validation: [Validators.required, Validators.min(1)],
-          errorMessage: () => 'The field is required'
+          errorMessage: () => 'The field is required',
         },
         {
-          type:'input',
+          type: 'input',
           subtype: 'text',
-          label:'Email',
-          name:'email',
+          label: 'Email',
+          name: 'email',
           placeholder: 'jenny@example.com',
           validation: [Validators.required, Validators.email],
           errorMessage: (errors) => {
@@ -120,7 +109,7 @@ export class EmbeddedPayComponent implements OnInit {
               return 'Please input correct email';
             }
             return 'The field is required';
-          }
+          },
         },
         {
           type: 'input',
@@ -140,7 +129,7 @@ export class EmbeddedPayComponent implements OnInit {
           options: allCountryOptions,
           validation: [Validators.required],
           errorMessage: () => 'The field is required',
-          valueChanges: this.onCountryChange.bind(this)
+          valueChanges: this.onCountryChange.bind(this),
         },
         {
           type: 'input',
@@ -149,7 +138,7 @@ export class EmbeddedPayComponent implements OnInit {
           name: 'city',
           placeholder: 'San Francisco',
           validation: [Validators.required],
-          errorMessage: () => 'The field is required'
+          errorMessage: () => 'The field is required',
         },
         {
           type: 'input',
@@ -158,7 +147,7 @@ export class EmbeddedPayComponent implements OnInit {
           name: 'postal_code',
           placeholder: '94103',
           validation: [Validators.required],
-          errorMessage: () => 'The field is required'
+          errorMessage: () => 'The field is required',
         },
       ];
       // trigger country change manually at the first time, in order to add state config to dynamic form
@@ -176,41 +165,187 @@ export class EmbeddedPayComponent implements OnInit {
    * or Apple Pay, Google Pay, and Microsoft Pay since they provide name and
    * shipping information directly.
    */
-  async submit(mainForm: DynamicFormComponent) {
+  async submit(
+    evt,
+    mainForm: DynamicFormComponent,
+    {
+      card,
+      sepa,
+      ideal,
+      eps,
+      p24,
+      becs,
+    }: {
+      card: StripeCardElement;
+      sepa: StripeIbanElement;
+      ideal: StripeIdealBankElement;
+      eps: StripeEpsBankElement;
+      p24: StripeP24BankElement;
+      becs: StripeAuBankAccountElement;
+    }
+  ) {
+    evt.preventDefault();
+
     const { invalid } = mainForm;
     if (invalid) {
       this.stripeUiService.loopFormGroup(mainForm.form);
       return;
     }
-    const mapping: Partial<Record<PayMethod, () => DynamicFormComponent>> = {
-      card: () => this.cardForm,
-      sepa_debit: () => this.sepaForm,
-    };
-    const payForm = mapping[this.selectedPayMethod]();
-    if (payForm) {
-      if (payForm.invalid) {
-        this.stripeUiService.loopFormGroup(payForm.form);
-        return;
-      }
-    } else {
-      // redirect
-    }
 
+    const { name, email, country } = mainForm.value;
+
+    console.log('selectedPayMethod is: ', this.selectedPayMethod); // GB33BUKB20201555555555
+    this.stripeUiService
+      .getPaymentIndent({
+        items: this.orderItems.map((i) => ({
+          product_name: i.name,
+          quantity: +i.quantity,
+          unit_amount: i.lineItemRawPrice * 100,
+          currency: 'usd',
+        })),
+        pay_method: this.selectedPayMethod,
+      })
+      .pipe(
+        switchMap(({ client_secret: clientSecret, amount, currency, id }) => {
+          switch (this.selectedPayMethod) {
+            case 'card':
+              // https://stripe.com/docs/js/payment_intents/confirm_card_payment
+              return from(
+                this.stripe.confirmCardPayment(clientSecret, {
+                  payment_method: { card, billing_details: { name } },
+                })
+              );
+            case 'sepa_debit':
+              // https://stripe.com/docs/js/payment_intents/confirm_sepa_debit_payment
+              return from(
+                this.stripe.confirmSepaDebitPayment(clientSecret, {
+                  payment_method: {
+                    sepa_debit: sepa,
+                    billing_details: { name, email },
+                  },
+                })
+              );
+            case 'au_becs_debit':
+              // https://stripe.com/docs/payments/au-becs-debit/accept-a-payment
+              return from(
+                this.stripe.confirmAuBecsDebitPayment(clientSecret, {
+                  payment_method: {
+                    au_becs_debit: becs,
+                    billing_details: { name, email },
+                  },
+                })
+              );
+            case 'ideal':
+              // https://stripe.com/docs/js/payment_intents/confirm_ideal_payment
+              return from(
+                this.stripe.confirmIdealPayment(clientSecret, {
+                  payment_method: { ideal },
+                  return_url: location.href,
+                })
+              );
+            case 'eps':
+              // https://stripe.com/docs/payments/eps/accept-a-payment
+              return from(
+                this.stripe.confirmEpsPayment(clientSecret, {
+                  payment_method: { billing_details: { name }, eps },
+                  return_url: window.location.href,
+                })
+              );
+            case 'p24':
+              // https://stripe.com/docs/payments/p24/accept-a-payment
+              return from(
+                this.stripe.confirmP24Payment(clientSecret, {
+                  payment_method: { billing_details: { name, email }, p24 },
+                  return_url: window.location.href,
+                })
+              );
+            case 'bancontact':
+              // https://stripe.com/docs/payments/bancontact/accept-a-payment
+              return from(
+                this.stripe.confirmBancontactPayment(clientSecret, {
+                  payment_method: { billing_details: { name } },
+                  return_url: window.location.href,
+                })
+              );
+            case 'sofort':
+              // https://stripe.com/docs/payments/sofort/accept-a-payment
+              return from(
+                this.stripe.confirmSofortPayment(clientSecret, {
+                  payment_method: {
+                    billing_details: { name, email },
+                    sofort: { country },
+                  },
+                  return_url: window.location.href,
+                })
+              );
+            case 'alipay':
+              return from(
+                this.stripe.confirmAlipayPayment(clientSecret, {
+                  payment_method: {
+                    billing_details: { name },
+                  },
+                  return_url: `${window.location.href}`,
+                })
+              );
+            case 'giropay':
+              return from(
+                this.stripe.confirmGiropayPayment(clientSecret, {
+                  payment_method: { billing_details: { name } },
+                  return_url: `${window.location.href}`,
+                })
+              );
+            // case 'ach_credit_transfer':
+            //   return from(
+            //     this.stripe.createSource({
+            //       type: 'ach_credit_transfer',
+            //       amount,
+            //       currency,
+            //       owner: {
+            //         name,
+            //         email,
+            //       },
+            //       redirect: {
+            //         return_url: `${window.location.href}?payment_intent=${id}`,
+            //       },
+            //       statement_descriptor: 'Stripe Payments Demo',
+            //       metadata: {
+            //         paymentIntent: id,
+            //       },
+            //     })
+            //   );
+          }
+        })
+      )
+      .subscribe(
+        (res) => {
+          console.log({ res });
+          if (res.error) {
+            console.error(res.error);
+          } else if (res.paymentIntent) {
+            console.log(res.paymentIntent);
+          } else {
+            console.warn('Should not go here');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   generate(mainForm: DynamicFormComponent) {
-    mainForm.form.controls['name'].setValue('Ramiro Von')
-    mainForm.form.controls['email'].setValue('Conrad_Murray@hotmail.com')
-    mainForm.form.controls['address'].setValue('9392 Jaquan Locks')
-    mainForm.form.controls['city'].setValue('Sarahborough')
-    mainForm.form.controls['state'].setValue('Hawaii')
-    mainForm.form.controls['postal_code'].setValue('42341')
-    mainForm.form.controls['country'].setValue('US')
+    mainForm.form.controls['name'].setValue('Ramiro Von');
+    mainForm.form.controls['email'].setValue('Conrad_Murray@hotmail.com');
+    mainForm.form.controls['address'].setValue('9392 Jaquan Locks');
+    mainForm.form.controls['city'].setValue('Sarahborough');
+    mainForm.form.controls['state']?.setValue('Hawaii');
+    mainForm.form.controls['postal_code'].setValue('42341');
+    // mainForm.form.controls['country'].setValue('US');
   }
 
   getPaymentTotal() {
     return Object.values(this.orderItems).reduce(
-      (total, {lineItemRawPrice}) => {
+      (total, { lineItemRawPrice }) => {
         return total + lineItemRawPrice;
       },
       0
@@ -236,7 +371,7 @@ export class EmbeddedPayComponent implements OnInit {
     };
     let currency;
     // Build and append the line items to the payment summary.
-    this.orderItems = products.map(p => {
+    this.orderItems = products.map((p) => {
       const qty = randomQuantity(1, 2);
       const sku = p.skus.data[0];
       currency = sku.currency;
@@ -256,13 +391,12 @@ export class EmbeddedPayComponent implements OnInit {
     this.orderTotal = total;
   }
 
-
   selectPayMethod(event: TabDirective) {
     this.selectedPayMethod = event.id as PayMethod;
   }
 
   private onCountryChange(country) {
-    const zipConfig = this.formConfig.find(i => i.name === 'postal_code');
+    const zipConfig = this.formConfig.find((i) => i.name === 'postal_code');
     // replace label name
     switch (country) {
       case 'US':
@@ -283,18 +417,18 @@ export class EmbeddedPayComponent implements OnInit {
         break;
     }
     // update pay methods tab
-    this.embeddedPayService.getPayMethodsByCountry(country).subscribe(res => {
+    this.embeddedPayService.getPayMethodsByCountry(country).subscribe((res) => {
       this.payMethods = res;
       this.selectedPayMethod = res[0].id;
     });
     // remove or add state
     if (country === 'US') {
-      if (!this.formConfig.find(i => i.name === this.stateConfig.name)) {
+      if (!this.formConfig.find((i) => i.name === this.stateConfig.name)) {
         this.formConfig.splice(5, 0, this.stateConfig);
         this.formConfig = [...this.formConfig];
       }
     } else {
-      if (this.formConfig.find(i => i.name === this.stateConfig.name)) {
+      if (this.formConfig.find((i) => i.name === this.stateConfig.name)) {
         this.formConfig.splice(5, 1);
         this.formConfig = [...this.formConfig];
       }

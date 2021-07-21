@@ -17,6 +17,7 @@ export type PayMethod =
   | 'sofort'
   | 'wechat'
   | 'au_becs_debit';
+
 export type MethodsByCountryResponse = Array<{
   id: PayMethod;
   name: string;
@@ -74,3 +75,17 @@ export type AllProductsResponse = Array<{
   updated: number;
   url?: any;
 }>;
+
+export interface PaymentIndentsInput {
+  items: {
+    product_name: string;
+    unit_amount: number;
+    currency: string;
+    quantity: number;
+  }[];
+  pay_method: string;
+}
+
+export interface PaymentIndentsResponse {
+  clientSecret: string;
+}

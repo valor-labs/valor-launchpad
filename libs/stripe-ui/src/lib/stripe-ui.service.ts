@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AllCountriesResponse } from '@valor-launchpad/stripe-api';
+import {
+  AllCountriesResponse,
+  PaymentIndentsInput,
+} from '@valor-launchpad/stripe-api';
 import { FormGroup } from '@angular/forms';
+import { PaymentIntent } from '@stripe/stripe-js';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class StripeUiService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
   getAllCountries() {
     return this.http.get<AllCountriesResponse>('/api/stripe/v1/countries');
   }
@@ -16,5 +19,12 @@ export class StripeUiService {
       group.controls[key].markAsDirty();
       group.controls[key].updateValueAndValidity({ emitEvent: false });
     }
+  }
+
+  getPaymentIndent(input: PaymentIndentsInput) {
+    return this.http.post<PaymentIntent>(
+      '/api/stripe/v1/payment_intents',
+      input
+    );
   }
 }

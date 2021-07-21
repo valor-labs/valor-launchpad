@@ -4,67 +4,123 @@
     <!--    <div id="payment-request" [ngClass]="{'visible':paymentRequestVisible}">-->
     <!--      <div id="payment-request-button"></div>-->
     <!--    </div>-->
-    <valor-launchpad-card *ngIf='formConfig'>
-      <div card-body>
-        <p class="instruction">
-          <span>Complete</span>
-          /
-          <span id="generate" (click)="generate(form)">generate</span>
-          your shipping and payment details below
-        </p>
-        <section>
-          <h2>Shipping &amp; Billing Information</h2>
-          <dynamic-form [config]="formConfig" #form="dynamicForm"></dynamic-form>
-          <p class="tip">Select another country to see different payment options.</p>
-        </section>
-        <section>
-          <h2>Payment Information</h2>
-          <tabset>
-            <tab *ngFor='let method of payMethods' [heading]='method.name.toUpperCase()' [id]='method.id' (selectTab)='selectPayMethod($event)'>
-              <div class='p-3'>
-                <ng-container [ngSwitch]='method.id'>
-                  <ng-template ngSwitchCase='card'>
-                    <dynamic-form [config]='cardFormConfig' #cardForm></dynamic-form>
-                  </ng-template>
-                  <ng-template ngSwitchCase='sepa_debit'>
-                    <dynamic-form [config]='sepaDirectDebitFormConfig' #sepaForm></dynamic-form>
-                  </ng-template>
-                  <ng-template ngSwitchDefault>
-                    You’ll be redirected to the banking site to complete your payment.
-                  </ng-template>
-                </ng-container>
-              </div>
-            </tab>
-          </tabset>
-        </section>
-        <button stripe-button (click)="submit(form)">{{submitButtonPayText}}</button>
-      </div>
+    <valor-launchpad-card *ngIf="formConfig">
+      <valor-launchpad-card-content>
+        <ng-container *ngIf="stripeElements">
+          <p class="instruction">
+            <span>Complete</span>
+            /
+            <span id="generate" (click)="generate(form)">generate</span>
+            your shipping and payment details below
+          </p>
+          <section>
+            <h2>Shipping &amp; Billing Information</h2>
+            <dynamic-form
+              [config]="formConfig"
+              #form="dynamicForm">
+            </dynamic-form>
+            <p class="tip">
+              Select another country to see different payment options.
+            </p>
+          </section>
+          <section>
+            <h2>Payment Information</h2>
+            <tabset>
+              <tab
+                *ngFor="let method of payMethods"
+                [heading]="method.name.toUpperCase()"
+                [id]="method.id"
+                (selectTab)="selectPayMethod($event)">
+              </tab>
+            </tabset>
+            <valor-launchpad-payment-card
+              [hidden]="selectedPayMethod !== 'card'"
+              #paymentCard="paymentCard"
+              [elements]="stripeElements">
+            </valor-launchpad-payment-card>
+            <valor-launchpad-payment-sepa
+              [hidden]="selectedPayMethod !== 'sepa_debit'"
+              #paymentSepa="paymentSepa"
+              [elements]="stripeElements">
+            </valor-launchpad-payment-sepa>
+            <valor-launchpad-payment-ideal
+              [hidden]="selectedPayMethod !== 'ideal'"
+              #paymentIdeal="paymentIdeal"
+              [elements]="stripeElements">
+            </valor-launchpad-payment-ideal>
+            <valor-launchpad-payment-eps
+              [hidden]="selectedPayMethod !== 'eps'"
+              #paymentEps="paymentEps"
+              [elements]="stripeElements">
+            </valor-launchpad-payment-eps>
+            <valor-launchpad-payment-p24
+              [hidden]="selectedPayMethod !== 'p24'"
+              #paymentP24="paymentP24"
+              [elements]="stripeElements">
+            </valor-launchpad-payment-p24>
+            <valor-launchpad-payment-becs
+              [hidden]="selectedPayMethod !== 'au_becs_debit'"
+              #paymentBecs="paymentBecs"
+              [elements]="stripeElements">
+            </valor-launchpad-payment-becs>
+            <valor-launchpad-payment-redirect
+              [hidden]="!['bancontact', 'sofort', 'alipay', 'giropay'].includes(selectedPayMethod)"
+              [elements]="stripeElements">>
+            </valor-launchpad-payment-redirect>
+          </section>
+          <button
+            stripe-button
+            (click)="
+              submit($event, form, {
+                card: paymentCard.card,
+                sepa: paymentSepa.iban,
+                ideal: paymentIdeal.idealBank,
+                eps: paymentEps.eps,
+                p24: paymentP24.p24,
+                becs: paymentBecs.becs
+              })
+            ">
+            {{ submitButtonPayText }}
+          </button>
+        </ng-container>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
   <div id="confirmation">
     <div class="status processing">
       <h1>Completing your order…</h1>
-      <p>We’re just waiting for the confirmation from your bank… This might take a moment but feel free to close this
-        page.</p>
+      <p>
+        We’re just waiting for the confirmation from your bank… This might take
+        a moment but feel free to close this page.
+      </p>
       <p>We’ll send your receipt via email shortly.</p>
     </div>
     <div class="status success">
       <h1>Thanks for your order!</h1>
       <p>Woot! You successfully made a payment with Stripe.</p>
-      <p class="note">{{confirmationMessage}}</p>
+      <p class="note">{{ confirmationMessage }}</p>
     </div>
     <div class="status receiver">
       <h1>Thanks! One last step!</h1>
-      <p>Please make a payment using the details below to complete your order.</p>
+      <p>
+        Please make a payment using the details below to complete your order.
+      </p>
       <div class="info" [innerHTML]="receiverInfo"></div>
     </div>
     <div class="status error">
       <h1>Oops, payment failed.</h1>
-      <p>It looks like your order could not be paid at this time. Please try again or select a different payment
-        option.</p>
-      <p class="error-message">{{errorText}}</p>
+      <p>
+        It looks like your order could not be paid at this time. Please try
+        again or select a different payment option.
+      </p>
+      <p class="error-message">{{ errorText }}</p>
     </div>
   </div>
 </main>
-<valor-launchpad-order-summary id="summary" [orderTotal]="orderTotal" [live]="live" [orderItems]="orderItems"
-                               [subtotal]="subtotal"></valor-launchpad-order-summary>
+<valor-launchpad-order-summary
+  id="summary"
+  [orderTotal]="orderTotal"
+  [live]="live"
+  [orderItems]="orderItems"
+  [subtotal]="subtotal">
+</valor-launchpad-order-summary>
