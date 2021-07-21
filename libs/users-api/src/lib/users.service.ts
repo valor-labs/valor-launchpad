@@ -11,6 +11,7 @@ import * as generatePassword from 'generate-password';
 import {UserEventsEntity} from './user.events.entity';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {RolesEntity} from './roles.entity';
+import {PrismaService} from '@valor-launchpad/prisma';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -20,6 +21,7 @@ export class UsersService {
   constructor(private crypto: CryptService,
               private emailService: EmailService,
               private eventEmitter: EventEmitter2,
+              private prisma: PrismaService,
               @InjectRepository(UserRolesEntity) private userRolesRepository: Repository<UserRolesEntity>,
               @InjectRepository(RolesEntity) private rolesRepository: Repository<RolesEntity>,
               @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
@@ -33,16 +35,23 @@ export class UsersService {
     return await this.userRepository.findOne({emailVerifyToken: token})
   }
 
-  async getRoles(){
-    return await this.rolesRepository.find();
+  async getRoles() {
+    return await this.prisma.roles_entity.findMany();
   }
 
   async findAll() {
     //Todo: this eventually needs to filter password field
-    return await this.userRepository.find({
-      relations: ['userRoles', 'userTags', 'userHistory', 'userHistory.actingUser'],
-      withDeleted: true
-    });
+    return await this.prisma.user_entity.findMany({
+      include: {
+        user_roles_entity: true,
+        user_tags_entity: true,
+        userHistory:true,
+      },
+    })
+    // return await this.userRepository.find({
+    //   relations: ['userRoles', 'userTags', 'userHistory', 'userHistory.actingUser'],
+    //   withDeleted: true
+    // });
   }
 
   async findCurrent() {

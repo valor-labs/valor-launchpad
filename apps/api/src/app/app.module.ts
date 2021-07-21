@@ -12,10 +12,12 @@ import {StripeApiModule} from '@valor-launchpad/stripe-api';
 import {EventEmitterModule} from '@nestjs/event-emitter';
 import {ProjectsListener} from './listeners/projects.listener';
 import {UsersApiModule} from '@valor-launchpad/users-api';
+import {PrismaModule} from '@valor-launchpad/prisma';
 
 @Module({
   imports: [
     EventEmitterModule.forRoot({wildcard: true}),
+    PrismaModule,
     TypeOrmModule.forRoot({
       type: process.env.TYPEORM_CONNECTION as any,
       host: process.env.TYPEORM_HOST,

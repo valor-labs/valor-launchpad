@@ -10,13 +10,14 @@ import {UsersController} from './users.controller';
 import {UserEventsEntity} from './user.events.entity';
 import {RolesGuard} from './roles.guard';
 import {EmailModule} from '@valor-launchpad/email';
+import {PrismaService} from '@valor-launchpad/prisma';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity, UserRolesEntity, RolesEntity, UserTagsEntity, UserEventsEntity]),
     EmailModule
   ],
-  providers: [UsersService, UserSubscriber, CryptService, RolesGuard],
+  providers: [UsersService, UserSubscriber, CryptService, RolesGuard, PrismaService],
   controllers: [UsersController],
   exports: [UsersService, UserSubscriber]
 })
