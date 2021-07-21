@@ -11,6 +11,12 @@ export class UsersController {
   constructor(private usersService: UsersService) {
   }
 
+  @Get('getRoles')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  async getAvailableRoles() {
+    return await this.usersService.getRoles();
+  }
+
   @Get('all')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   async getAllUsers() {

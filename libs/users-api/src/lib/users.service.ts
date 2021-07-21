@@ -10,6 +10,7 @@ import {EmailService} from '@valor-launchpad/email';
 import * as generatePassword from 'generate-password';
 import {UserEventsEntity} from './user.events.entity';
 import {EventEmitter2} from '@nestjs/event-emitter';
+import {RolesEntity} from './roles.entity';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -20,6 +21,7 @@ export class UsersService {
               private emailService: EmailService,
               private eventEmitter: EventEmitter2,
               @InjectRepository(UserRolesEntity) private userRolesRepository: Repository<UserRolesEntity>,
+              @InjectRepository(RolesEntity) private rolesRepository: Repository<RolesEntity>,
               @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
   ) {
   }
@@ -29,6 +31,10 @@ export class UsersService {
   async findByToken(token: string) {
     //TODO: this needs to be changed when we have more than one type of token and its extracted to its own table
     return await this.userRepository.findOne({emailVerifyToken: token})
+  }
+
+  async getRoles(){
+    return await this.rolesRepository.find();
   }
 
   async findAll() {
