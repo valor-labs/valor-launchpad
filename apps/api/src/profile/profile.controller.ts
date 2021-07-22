@@ -13,7 +13,7 @@ export class ProfileController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async defaultProfile(@User() user: UserEntity) {
-    return await this.profileService.getProfile(user.id)
+    return await this.profileService.getProfile(user.username)
   }
 
   @UseGuards(JwtAuthGuard)

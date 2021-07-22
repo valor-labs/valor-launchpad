@@ -6,11 +6,11 @@ export class ProfileService {
   constructor(private prisma: PrismaService) {
   }
 
-  async getProfile(id: string) {
+  async getProfile(username: string) {
     //TODO: need to fix this and the seed after cleanup
-    const profile =  await this.prisma.profileEntity.findUnique({
+    return await this.prisma.profileEntity.findUnique({
       where: {
-        id
+        username
       },
       include: {
         activityEntity: {
@@ -20,6 +20,5 @@ export class ProfileService {
         }
       }
     });
-    return profile
   }
 }

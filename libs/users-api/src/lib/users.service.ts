@@ -40,8 +40,8 @@ export class UsersService {
     //Todo: this eventually needs to filter password field
     return await this.prisma.userEntity.findMany({
       include: {
-        UserRolesEntity: true,
-        UserTagsEntity: true,
+        userRoles: true,
+        userTags: true,
         userHistory: {
           include: {
             actingUser: true
@@ -56,8 +56,8 @@ export class UsersService {
     //Todo: this eventually needs to filter password field
     return await this.prisma.userEntity.findMany({
       include: {
-        UserRolesEntity: true,
-        UserTagsEntity: true,
+        userRoles: true,
+        userTags: true,
         userHistory: true
       },
     })
@@ -102,7 +102,7 @@ export class UsersService {
         },
         data: {
           password: newPassword,
-          passwordResetNeeded: 1
+          passwordResetNeeded: true
         }
       })
 
@@ -142,7 +142,7 @@ export class UsersService {
         },
         data: {
           password: newPassword,
-          passwordResetNeeded: 1
+          passwordResetNeeded: true
         }
       })
       this.eventEmitter.emit(
@@ -238,7 +238,7 @@ export class UsersService {
           username: user.username
         },
         data: {
-          emailVerified: 1 //TODO: switch this to proper boolean after conversion is complete
+          emailVerified: true
         }
       })
       //TODO: the emailVerifyToken needs to be removed so verification cannot be done more than once
@@ -287,8 +287,7 @@ export class UsersService {
       //TODO: make this tie to the actual Role
       userRole.role = 'User';
       createUser.userRoles = [userRole];
-      createUser.passwordResetNeeded = 1 as any as boolean; //todo: fix this after schema is migrated
-      // @ts-ignore
+      createUser.passwordResetNeeded = true
       await this.prisma.userEntity.create({
         data: createUser
       })
@@ -331,7 +330,7 @@ export class UsersService {
         username
       },
       include: {
-        UserRolesEntity: true
+        userRoles: true
       }
     })
   }
@@ -375,7 +374,7 @@ export class UsersService {
         username
       },
       include: {
-        UserRolesEntity: true
+        userRoles: true
       }
     })
     const user = new UserEntity(fetchedUser)

@@ -27,10 +27,9 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "seed:config": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/@zchapple/typeorm-seeding/dist/cli.js config",
-    "seed:run": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/@zchapple/typeorm-seeding/dist/cli.js seed",
-    "schema:drop": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm/cli.js schema:drop",
-    "schema:sync": "ts-node --project ./apps/api/tsconfig.app.json ./node_modules/typeorm/cli.js schema:sync",
+    "seed:run": "npx prisma db seed --preview-feature",
+    "schema:drop": "npx prisma migrate reset --force",
+    "schema:sync": "npx prisma migrate dev",
     "stripe:listen": "stripe listen --forward-to localhost:3333/api/stripe/v1/hooks"
   },
   "private": true,
