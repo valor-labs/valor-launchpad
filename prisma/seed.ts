@@ -2,6 +2,7 @@ import {PrismaClient} from '@prisma/client'
 import * as Faker from 'faker'
 import * as bcrypt from 'bcrypt';
 import {HELPERS} from '../apps/api/seed_helpers/data';
+import {ProjectsEntity} from '../apps/api/src/projects/projects.entity';
 
 const prisma = new PrismaClient()
 
@@ -124,6 +125,18 @@ async function main() {
   //     }
   //   ]
   // })
+
+  const projects = new Array(20).fill(null)
+    .map((project: ProjectsEntity) => {
+      return project = {
+        title: Faker.lorem.words(1),
+        body: Faker.lorem.text(4),
+        progress: Faker.datatype.number(10)
+      }
+    })
+  await prisma.projectsEntity.createMany({
+    data: projects
+  })
 }
 
 main()

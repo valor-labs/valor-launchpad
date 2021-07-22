@@ -6,8 +6,6 @@ import {HELPERS} from '../../seed_helpers/data';
 define(ProjectsEntity, (faker: typeof Faker) => {
   const project = new ProjectsEntity();
   project.id = faker.datatype.uuid();
-  project.title = faker.lorem.words(1);
-  project.body = faker.lorem.text(4);
   project.badge = {
     title: faker.random.arrayElement(['Finished', 'In Progress', 'Finished']),
     status: faker.random.arrayElement(['bg-success', 'bg-danger', 'bg-warning']),
@@ -26,7 +24,6 @@ define(ProjectsEntity, (faker: typeof Faker) => {
       type: 'far fa-copy'
     }
   ];
-  project.progress = faker.datatype.number(10);
   const assigneeCount = faker.datatype.number(4)
   const assigneeArray = [];
   for (let i = assigneeCount; i > 0; i--) {
