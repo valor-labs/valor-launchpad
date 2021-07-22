@@ -26,7 +26,8 @@ export class AuthController {
     req.session.token = loginResponse.access_token;
     req.session.user = loginResponse.user;
     response.cookie('access_token', loginResponse.access_token)
-    response.send(await this.authService.login(body));
+    const loginResult = await this.authService.login(body);
+    response.send(loginResult);
   }
 
   @Get('sign-out')

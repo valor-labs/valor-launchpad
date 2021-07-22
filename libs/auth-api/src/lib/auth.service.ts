@@ -17,14 +17,15 @@ export class AuthService {
     if (typeof user === 'undefined') {
       return false;
     } else {
-      return await this.crypt.validateHash(payload.password, user.password);
+      const validatedPassword = await this.crypt.validateHash(payload.password, user.password)
+      return validatedPassword;
     }
   }
 
   async login(user: any) {
     const payload = {username: user.username};
     const cleanUser = await this.usersService.findOne(payload.username);
-    this.usersService.logIn(cleanUser.username);
+    const loginServiceResult = await this.usersService.logIn(cleanUser.username);
     return {
       access_token: this.jwtService.sign(cleanUser),
       user: cleanUser

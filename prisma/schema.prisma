@@ -7,8 +7,8 @@ datasource db {
   url      = "mysql://root:root1234@localhost:3306/test"
 }
 
-model activity_entity {
-  id                    String            @id @db.VarChar(36)
+model ActivityEntity {
+  id                    String            @id @db.VarChar(36) @default(uuid())
   createdDate           DateTime          @default(now()) @db.DateTime(6)
   updatedDate           DateTime          @default(now()) @db.DateTime(6)
   timestamp             DateTime          @db.DateTime(0)
@@ -22,16 +22,16 @@ model activity_entity {
   nsright               Int               @default(2)
   profile_id            String?           @db.VarChar(36)
   parentId              String?           @db.VarChar(36)
-  activity_entity       activity_entity?  @relation("activity_entityToactivity_entity_parentId", fields: [parentId], references: [id])
-  profile_entity        profile_entity?   @relation(fields: [profile_id], references: [id])
-  other_activity_entity activity_entity[] @relation("activity_entityToactivity_entity_parentId")
+  ActivityEntity       ActivityEntity?  @relation("activity_entityToactivity_entity_parentId", fields: [parentId], references: [id])
+  ProfileEntity        ProfileEntity?   @relation(fields: [profile_id], references: [id])
+  other_activity_entity ActivityEntity[] @relation("activity_entityToactivity_entity_parentId")
 
   @@index([profile_id], name: "FK_12b3ddef189fddd522d368f2634")
   @@index([parentId], name: "FK_3fa920cacc4a89e4e42c63bf24e")
 }
 
-model comment_entity {
-  id                   String           @id @db.VarChar(36)
+model CommentEntity {
+  id                   String           @id @db.VarChar(36) @default(uuid())
   createdDate          DateTime         @default(now()) @db.DateTime(6)
   updatedDate          DateTime         @default(now()) @db.DateTime(6)
   author               String           @db.VarChar(255)
@@ -42,16 +42,16 @@ model comment_entity {
   nsright              Int              @default(2)
   project_id           String?          @db.VarChar(36)
   parentId             String?          @db.VarChar(36)
-  comment_entity       comment_entity?  @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
-  projects_entity      projects_entity? @relation(fields: [project_id], references: [id])
-  other_comment_entity comment_entity[] @relation("comment_entityTocomment_entity_parentId")
+  CommentEntity       CommentEntity?  @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
+  ProjectsEntity      ProjectsEntity? @relation(fields: [project_id], references: [id])
+  oter_comment_entity CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
 
   @@index([parentId], name: "FK_94d540d1210eb47d8c42048365e")
   @@index([project_id], name: "FK_be1e5eb5b0ea536686aac8ab28c")
 }
 
-model dashboard_analytics_entity {
-  id                     String @id @db.VarChar(36)
+model DashboardAnalyticsEntity {
+  id                     String @id @db.VarChar(36) @default(uuid())
   analyticsInfo          String @db.LongText
   languagesData          String @db.LongText
   mobileDesktopChartData String @db.LongText
@@ -60,8 +60,8 @@ model dashboard_analytics_entity {
   trafficTableData       String @db.LongText
 }
 
-model dashboard_entity {
-  id                      String @id @db.VarChar(36)
+model DashboardEntity {
+  id                      String @id @db.VarChar(36) @default(uuid())
   dashboardData           String @db.LongText
   salesRevenueChartData   String @db.LongText
   weeklySalesChartData    String @db.LongText
@@ -70,8 +70,8 @@ model dashboard_entity {
   latestProjectsTableData String @db.LongText
 }
 
-model profile_entity {
-  id              String            @id @db.VarChar(36)
+model ProfileEntity {
+  id              String            @id @db.VarChar(36) @default(uuid())
   createdDate     DateTime          @default(now()) @db.DateTime(6)
   updatedDate     DateTime          @default(now()) @db.DateTime(6)
   name            String            @db.VarChar(255)
@@ -84,11 +84,11 @@ model profile_entity {
   employer        String            @db.LongText
   social_media    String            @db.LongText
   skills          String            @db.LongText
-  activity_entity activity_entity[]
+  activityEntity ActivityEntity[]
 }
 
-model projects_entity {
-  id             String           @id @db.VarChar(36)
+model ProjectsEntity {
+  id             String           @id @db.VarChar(36) @default(uuid())
   createdDate    DateTime         @default(now()) @db.DateTime(6)
   updatedDate    DateTime         @default(now()) @db.DateTime(6)
   title          String           @db.VarChar(255)
@@ -100,16 +100,16 @@ model projects_entity {
   assignee       String?          @db.LongText
   summary        String?          @db.LongText
   rollupData     String?          @db.LongText
-  comment_entity comment_entity[]
+  CommentEntity CommentEntity[]
 }
 
-model roles_entity {
-  id   String @id @db.VarChar(36)
+model RolesEntity {
+  id   String @id @db.VarChar(36) @default(uuid())
   role String @db.VarChar(255)
 }
 
-model user_entity {
-  id                                                                String               @id @db.VarChar(36)
+model UserEntity {
+  id                                                                String               @id @db.VarChar(36) @default(uuid())
   username                                                          String               @unique @db.VarChar(255)
   email                                                             String               @db.VarChar(255)
   password                                                          String               @db.VarChar(255)
@@ -117,8 +117,8 @@ model user_entity {
   lastName                                                          String               @db.VarChar(255)
   passwordResetNeeded                                               Int?                 @db.TinyInt
   lastPasswordUpdateDate                                            DateTime?            @db.DateTime(0)
-  emailVerified                                                     Int                  @db.TinyInt
-  emailVerifyToken                                                  String?              @db.VarChar(255)
+  emailVerified                                                     Boolean                  @db.TinyInt
+  emailVerifyToken                                                  String?              @unique @db.VarChar(255)
   phone                                                             String?              @db.VarChar(255)
   phoneVerifyToken                                                  String?              @db.VarChar(255)
   suspended                                                         Int                  @default(0) @db.TinyInt
@@ -126,42 +126,40 @@ model user_entity {
   createDate                                                        DateTime             @default(now()) @db.DateTime(6)
   deletedDate                                                       DateTime?            @db.DateTime(6)
   updateDate                                                        DateTime             @default(now()) @db.DateTime(6)
-  user_events_entity_user_entityTouser_events_entity_acting_user_id user_events_entity[] @relation("user_entityTouser_events_entity_acting_user_id")
-  user_events_entity_user_entityTouser_events_entity_target_user_id user_events_entity[] @relation("user_entityTouser_events_entity_target_user_id")
-  user_roles_entity                                                 user_roles_entity[]
-  user_tags_entity                                                  user_tags_entity[]
+  userHistory UserEventsEntity[] @relation("targetUser")
+  userActivity UserEventsEntity[] @relation("actingUser")
+
+  UserRolesEntity                                                 UserRolesEntity[]
+  UserTagsEntity                                                  UserTagsEntity[]
 }
 
-model user_events_entity {
-  id                                                         String       @id @db.VarChar(36)
+model UserEventsEntity {
+  id                                                         String       @id @db.VarChar(36) @default(uuid())
   event                                                      String       @db.VarChar(255)
   createDate                                                 DateTime     @default(now()) @db.DateTime(6)
   deletedDate                                                DateTime?    @db.DateTime(6)
   target_user_id                                             String?      @db.VarChar(36)
   acting_user_id                                             String?      @db.VarChar(36)
-  user_entity_user_entityTouser_events_entity_acting_user_id user_entity? @relation("user_entityTouser_events_entity_acting_user_id", fields: [acting_user_id], references: [id])
-  user_entity_user_entityTouser_events_entity_target_user_id user_entity? @relation("user_entityTouser_events_entity_target_user_id", fields: [target_user_id], references: [id])
-
-  @@index([target_user_id], name: "FK_722362d9ee67751992e05a5a709")
-  @@index([acting_user_id], name: "FK_9d630036476934d8e75a9cfc557")
+  targetUser UserEntity? @relation("targetUser", fields: [target_user_id], references: [id])
+  actingUser UserEntity? @relation("actingUser", fields: [acting_user_id], references: [id])
 }
 
-model user_roles_entity {
-  id          String       @id @db.VarChar(36)
+model UserRolesEntity {
+  id          String       @id @db.VarChar(36) @default(uuid())
   role        String       @db.VarChar(255)
   deletedDate DateTime?    @db.DateTime(6)
   user_id     String?      @db.VarChar(36)
-  user_entity user_entity? @relation(fields: [user_id], references: [id])
+  UserEntity UserEntity? @relation(fields: [user_id], references: [id])
 
   @@index([user_id], name: "FK_2e17f8a7a60f0122b61bf8ab283")
 }
 
-model user_tags_entity {
-  id          String       @id @db.VarChar(36)
+model UserTagsEntity {
+  id          String       @id @db.VarChar(36) @default(uuid())
   deletedDate DateTime?    @db.DateTime(6)
   tag         String       @db.VarChar(255)
   user_id     String?      @db.VarChar(36)
-  user_entity user_entity? @relation(fields: [user_id], references: [id])
+  UserEntity UserEntity? @relation(fields: [user_id], references: [id])
 
   @@index([user_id], name: "FK_e560e835b7aa67a20e475e383f7")
 }

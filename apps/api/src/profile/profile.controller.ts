@@ -1,26 +1,25 @@
-import {Controller, Get, Req, UseGuards} from '@nestjs/common';
+import {Controller, Get, UseGuards} from '@nestjs/common';
 import {ProfileService} from "./profile.service";
 import {JwtAuthGuard} from "@valor-launchpad/auth-api";
-import {RequestWithSession} from "@valor-launchpad/common-api";
-import {UsersService} from "@valor-launchpad/users-api";
+import {UserEntity, UsersService} from "@valor-launchpad/users-api";
+import {User} from '@valor-launchpad/users-api';
 
 @UseGuards(JwtAuthGuard)
 @Controller('v1')
 export class ProfileController {
   constructor(private profileService: ProfileService, private userService: UsersService) {
-
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  async defaultProfile() {
-    return await this.profileService.getProfile()
+  async defaultProfile(@User() user: UserEntity) {
+    return await this.profileService.getProfile(user.id)
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('myProfile')
-  async getProfile(@Req() req: RequestWithSession) {
-    const session = req.session.user;
-    return await this.userService.findOne(session.username)
+  async getProfile(@User() user: UserEntity) {
+    return await this.userService.findOne(user.username)
   }
 }
 

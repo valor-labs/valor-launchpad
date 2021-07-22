@@ -11,7 +11,7 @@ define(ProfileEntity, (faker: typeof Faker) => {
   profile.username = faker.internet.userName();
   profile.from = faker.address.city();
   profile.title = faker.random.word();
-  profile.following = faker.random.boolean();
+  profile.following = faker.datatype.boolean();
   profile.location = faker.address.city();
   profile.employer = {
     name:faker.name.findName(),

@@ -13,12 +13,13 @@ export class RolesGuard implements CanActivate {
       return true;
     }
     const request = context.switchToHttp().getRequest();
-    const user: UserEntity = request.user;
-    const hasRole = () => user.userRoles.some((userRole: any) => {
+    const user: any = request.user;
+    //TODO: clean this when we update the entity
+    const hasRole = () => user.user_roles_entity.some((userRole: any) => {
       return !!roles.find((item) => {
         return item.toLowerCase() === userRole.role.toLowerCase();
       });
     });
-    return user && user.userRoles && hasRole();
+    return user && user.user_roles_entity && hasRole();
   }
 }
