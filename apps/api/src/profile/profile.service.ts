@@ -13,9 +13,14 @@ export class ProfileService {
         username
       },
       include: {
+        employers: {
+          include: {
+            employer:true
+          }
+        },
         activityEntity: {
           include: {
-            ActivityEntity: true
+            children: true
           }
         }
       }

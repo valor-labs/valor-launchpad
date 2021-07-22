@@ -81,9 +81,52 @@ model ProfileEntity {
   location        String?           @db.VarChar(255)
   from            String?           @db.VarChar(255)
   employers       ProfileEmployerEntity[]
-  social_media    String?           @db.LongText
-  skills          String?           @db.LongText
+  socialMedia SocialMediaMatchingEntity[]
+  skills          ProfileSkillsEntity[]
   activityEntity ActivityEntity[] @relation("profileEntity")
+}
+
+model ProfileSkillsEntity {
+  id              String            @id @db.VarChar(36) @default(uuid())
+  createdDate     DateTime          @default(now()) @db.DateTime(6)
+  updatedDate     DateTime          @updatedAt
+  deletedDate     DateTime?         @db.DateTime(6)
+  profileId String @db.VarChar(36)
+  profile ProfileEntity @relation(fields: [profileId], references: [id])
+  skillsId String @db.VarChar(36)
+  skill SkillsEntity @relation(fields: [skillsId], references: [id])
+}
+
+model SkillsEntity {
+  id              String            @id @db.VarChar(36) @default(uuid())
+  createdDate     DateTime          @default(now()) @db.DateTime(6)
+  updatedDate     DateTime          @updatedAt
+  deletedDate     DateTime?         @db.DateTime(6)
+  profiles ProfileSkillsEntity[]
+}
+
+model SocialMediaEntity {
+  id              String            @id @db.VarChar(36) @default(uuid())
+  createdDate     DateTime          @default(now()) @db.DateTime(6)
+  updatedDate           DateTime          @updatedAt
+  deletedDate                                                       DateTime?            @db.DateTime(6)
+  icon String @db.VarChar(255)
+  baseUrl String @db.VarChar(255)
+  name String @db.VarChar(255)
+  platformUsers SocialMediaMatchingEntity[]
+}
+
+model SocialMediaMatchingEntity {
+  id              String            @id @db.VarChar(36) @default(uuid())
+  createdDate     DateTime          @default(now()) @db.DateTime(6)
+  updatedDate     DateTime          @updatedAt
+  deletedDate     DateTime?         @db.DateTime(6)
+  profileId String? @db.VarChar(36)
+  profile ProfileEntity? @relation(fields: [profileId], references: [id])
+  socialMediaId String @db.VarChar(36)
+  socialMedia SocialMediaEntity @relation(fields: [socialMediaId], references: [id])
+  employerId String? @db.VarChar(36)
+  employer EmployerEntity? @relation(fields: [employerId], references: [id])
 }
 
 model EmployerEntity {
@@ -95,6 +138,7 @@ model EmployerEntity {
     url String? @db.VarChar(255)
     avatar String? @db.VarChar(255)
     profiles ProfileEmployerEntity[]
+    socialMedia SocialMediaMatchingEntity[]
 }
 
 model ProfileEmployerEntity {
@@ -102,8 +146,8 @@ model ProfileEmployerEntity {
     createdDate     DateTime          @default(now()) @db.DateTime(6)
     updatedDate           DateTime          @updatedAt
     deletedDate                                                       DateTime?            @db.DateTime(6)
-    employerId String @db.VarChar(36)
     current Boolean? @db.TinyInt
+    employerId String @db.VarChar(36)
     employer EmployerEntity @relation(fields: [employerId], references: [id])
     profileId String @db.VarChar(36)
     profile ProfileEntity @relation(fields: [profileId], references: [id])
@@ -187,6 +231,17 @@ model UserTagsEntity {
      createdDate     DateTime          @default(now()) @db.DateTime(6)
      updatedDate           DateTime          @updatedAt
   deletedDate DateTime?    @db.DateTime(6)
-  user_id     String?      @db.VarChar(36)
-  userEntity UserEntity? @relation("userTags", fields: [user_id], references: [id])
+  user_id     String      @db.VarChar(36)
+  userEntity UserEntity @relation("userTags", fields: [user_id], references: [id])
+  tag_id String @db.VarChar(36)
+  tagsEntity TagsEntity @relation("tags", fields: [tag_id], references: [id])
+}
+
+model TagsEntity {
+  id          String       @id @db.VarChar(36) @default(uuid())
+     createdDate     DateTime          @default(now()) @db.DateTime(6)
+     updatedDate           DateTime          @updatedAt
+  deletedDate DateTime?    @db.DateTime(6)
+  name String @db.VarChar(255)
+  userTags UserTagsEntity[] @relation("tags")
 }

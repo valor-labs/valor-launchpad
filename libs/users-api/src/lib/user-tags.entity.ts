@@ -1,18 +1,10 @@
-import {Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
 import {UserEntity} from './user.entity';
+import {BaseEntity} from '@valor-launchpad/common-api';
+import {TagsEntity} from './tags.entity';
 
-@Entity()
-export class UserTagsEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
-  @ManyToOne(type=> UserEntity, (user)=> user.userTags)
-  @JoinColumn({name:'user_id'})
-  user: UserEntity;
-
-  @DeleteDateColumn()
-  deletedDate?: Date;
-
-  @Column()
-  tag:string;
+export class UserTagsEntity extends BaseEntity {
+  user_id: string
+  userEntity: UserEntity;
+  tag_id: string;
+  tagsEntity: TagsEntity
 }

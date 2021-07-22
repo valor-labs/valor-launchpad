@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileService.getProfile().subscribe((data) => {
+      debugger
       this.profile = data;
     })
   }

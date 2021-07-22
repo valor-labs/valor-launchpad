@@ -62,7 +62,7 @@ async function main() {
       },
       {
         event: 'Create Event',
-        createDate: new Date(),
+        createdDate: new Date(),
         target_user_id: user2.id
       },
       {
@@ -71,7 +71,7 @@ async function main() {
       },
       {
         event: 'Create Event',
-        createDate: new Date(),
+        createdDate: new Date(),
         target_user_id: user3.id
       }
     ]
@@ -94,8 +94,16 @@ async function main() {
   })
 
   const employer1 = await prisma.employerEntity.create({
-    data:{
+    data: {
+      name: Faker.company.companyName(),
+    }
+  })
 
+  await prisma.profileEmployerEntity.create({
+    data: {
+      employerId: employer1.id,
+      profileId: user1Profile.id,
+      current: true
     }
   })
   //TODO: Fix the activity and children, need five activity records with one or two with two children

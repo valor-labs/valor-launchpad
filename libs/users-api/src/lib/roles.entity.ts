@@ -1,10 +1,7 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {BaseEntity} from '@valor-launchpad/common-api';
+import {UserRolesEntity} from './user-roles.entity';
 
-@Entity()
-export class RolesEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
-  @Column()
+export class RolesEntity extends BaseEntity {
   role: string;
+  userRoles: UserRolesEntity[]
 }
