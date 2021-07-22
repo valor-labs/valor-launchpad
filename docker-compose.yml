@@ -1,18 +1,17 @@
 version: "3"
 
 services:
-    
+
     database:
         image: mariadb:10.6
         environment:
-            MYSQL_USER: ${TYPEORM_USERNAME}
-            MYSQL_ROOT_PASSWORD: ${TYPEORM_PASSWORD}
-            MYSQL_DATABASE: ${TYPEORM_DATABASE}
+            MYSQL_USER: "root"
+            MYSQL_ROOT_PASSWORD: "root1234"
+            MYSQL_DATABASE: "test"
         ports:
-            - "${TYPEORM_PORT}:3306"
-    
+            - "3306:3306"
+
     redis:
         image: redis:6.2.4-alpine
         ports:
             - "6379:6379"
-            

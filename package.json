@@ -55,7 +55,6 @@
     "@nestjs/jwt": "^7.2.0",
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.0.0",
-    "@nestjs/typeorm": "^7.1.5",
     "@nrwl/angular": "12.5.8",
     "@prisma/client": "^2.27.0",
     "@sendgrid/mail": "^7.4.5",
@@ -87,7 +86,6 @@
     "stripe": "^8.151.0",
     "tslib": "^2.0.0",
     "twilio": "^3.64.0",
-    "typeorm": "^0.2.32",
     "uuid": "^8.3.2",
     "zone.js": "0.11.4"
   },
@@ -128,7 +126,6 @@
     "prisma": "^2.27.0",
     "ts-jest": "27.0.3",
     "ts-node": "~9.1.1",
-    "@zchapple/typeorm-seeding": "^2.0.1",
     "typescript": "4.2.4"
   }
 }

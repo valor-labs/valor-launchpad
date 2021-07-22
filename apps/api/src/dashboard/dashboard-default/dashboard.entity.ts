@@ -1,13 +1,6 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {BaseEntity} from '@valor-launchpad/common-api';
 
-
-@Entity()
-export class DashboardEntity {
-
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
-  @Column({ type: 'json' })
+export class DashboardEntity extends BaseEntity {
   dashboardData: {
     totalEarning: number,
     totalEarningSinceLastWeek: number,
@@ -16,8 +9,6 @@ export class DashboardEntity {
     totalRevenue: number,
     totalRevenueSinceLastWeek: number
   };
-
-  @Column({ type: 'json' })
   salesRevenueChartData: Array<{
     'name': string,
     'series': Array<{
@@ -25,29 +16,21 @@ export class DashboardEntity {
       'value': number
     }>
   }>;
-
-  @Column({ type: 'json' })
   weeklySalesChartData: Array<{
     'name': string,
     'value': number
   }>;
-
-  @Column({ type: 'json' })
   weeklySalesTableData: Array<{
     source: string,
     revenue: string,
     value: string,
     type: string
   }>;
-
-  @Column({ type: 'json' })
   appointmentsData: Array<{
     title: string,
     timeElapse: string,
     content: string
   }>;
-
-  @Column({ type: 'json' })
   latestProjectsTableData: Array<{
     name: string,
     startDate: string,
@@ -56,5 +39,4 @@ export class DashboardEntity {
     badgeType: string,
     assignee: string
   }>;
-
 }
