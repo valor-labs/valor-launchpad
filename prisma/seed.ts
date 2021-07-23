@@ -134,9 +134,38 @@ async function main() {
         progress: Faker.datatype.number(10)
       }
     })
+
   await prisma.projectsEntity.createMany({
     data: projects
+  });
+
+  const createdProjects = await prisma.projectsEntity.findMany();
+
+  const projectSummaries = [];
+  const projectComments = [];
+  createdProjects.map(async (project: any) => {
+    projectSummaries.push({
+      project_id: project.id,
+      reporting_user_id: user1.id,
+      budget: Faker.datatype.number({min: 5000, max: 100000}),
+      logged: Faker.datatype.number({min: 10, max: 1000}) + 'h',
+      estimated: Faker.datatype.number({min: 10, max: 1000}) + 'h'
+    })
+    projectComments.push({
+      body: Faker.lorem.text(1),
+      author_id: Faker.random.arrayElement([user1, user2, user3]).id,
+      project_id: project.id
+    })
   })
+
+  await prisma.projectSummaryEntity.createMany({
+    data: projectSummaries
+  })
+
+  await prisma.commentEntity.createMany({
+    data: projectComments
+  })
+
 }
 
 main()

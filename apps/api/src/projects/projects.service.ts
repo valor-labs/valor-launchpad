@@ -37,9 +37,14 @@ export class ProjectsService {
         id
       },
       include: {
-        comment_entity: {
+        summary: {
           include: {
-            comment_entity: true
+            reporter: true
+          }
+        },
+        comments: {
+          include: {
+            author: true
           }
         }
       }

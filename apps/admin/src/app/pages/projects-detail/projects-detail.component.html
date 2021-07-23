@@ -45,7 +45,7 @@
           </div>
         </div>
         <h5 class="card-title mb-0">Upgrade CRM software</h5>
-        <div class="badge my-2" [ngClass]="project?.badge.status">{{project?.badge.title}}</div>
+        <div class="badge my-2" [ngClass]="project?.badge?.status">{{project?.badge?.title}}</div>
       </div>
       <div class="card-body pt-0">
         <h5>Description</h5>
@@ -87,7 +87,7 @@
           <valor-launchpad-avatar size="xl" [src]="comment.avatar" classes="me-3" [alt]="comment.author"></valor-launchpad-avatar>
           <div class="flex-grow-1">
             <small class="float-end">45m ago</small>
-            <p class="mb-2"><strong>{{comment.author}}</strong></p>
+            <p class="mb-2"><strong>{{comment.author.firstName}}</strong></p>
             <p [innerHTML]="comment.body"></p>
             <!--              TODO: Make this say 'today' or 'yesterday' when appropriate-->
             <small class="text-muted">{{comment.timestamp|date:'short'}}</small><br/>
@@ -174,7 +174,7 @@
         <dl class="row mb-1">
           <dt class="col-4 col-xxl-3">Status</dt>
           <dd class="col-8 col-xxl-9">
-            <span class="badge mb-1" [ngClass]="project?.badge.status">{{project?.badge.title}}</span>
+            <span class="badge mb-1" [ngClass]="project?.badge?.status">{{project?.badge?.title}}</span>
           </dd>
           <dt class="col-4 col-xxl-3">Logged</dt>
           <dd class="col-8 col-xxl-9">

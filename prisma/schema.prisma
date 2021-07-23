@@ -31,15 +31,15 @@ model CommentEntity {
   createdDate         DateTime        @default(now()) @db.DateTime(6)
   updatedDate         DateTime        @updatedAt
   deletedDate         DateTime?       @db.DateTime(6)
-  author              String          @db.VarChar(255)
-  avatar              String          @db.VarChar(255)
+  author_id           String          @db.VarChar(36)
+  author              UserEntity      @relation("commentAuthor", fields: [author_id], references: [id])
   body                String          @db.LongText
   reactions           String?         @db.LongText
   project_id          String?         @db.VarChar(36)
   parentId            String?         @db.VarChar(36)
   CommentEntity       CommentEntity?  @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
-  ProjectsEntity      ProjectsEntity? @relation(fields: [project_id], references: [id])
-  oter_comment_entity CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
+  ProjectsEntity      ProjectsEntity? @relation("projectComments", fields: [project_id], references: [id])
+  children CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
 }
 
 model DashboardAnalyticsEntity {
@@ -164,16 +164,14 @@ model ProjectsEntity {
   actions        String?                  @db.LongText
   progress       Int?
   assignee       ProjectsAssigneeEntity[] @relation("projectsAssignee")
-  summary        String?                  @db.LongText
   rollupData     String?                  @db.LongText
-  CommentEntity  CommentEntity[]
+  comments       CommentEntity[]          @relation("projectComments")
   hero           MediaAsset?              @relation("projectHeroMedia")
-  projectSummary ProjectSummaryEntity?    @relation("projectSummary")
+  summary        ProjectSummaryEntity?    @relation("projectSummary")
 }
 
 model ProjectSummaryEntity {
   id                String         @id @default(uuid()) @db.VarChar(36)
-  event             String         @db.VarChar(255)
   createdDate       DateTime       @default(now()) @db.DateTime(6)
   updatedDate       DateTime       @updatedAt
   deletedDate       DateTime?      @db.DateTime(6)
@@ -181,6 +179,9 @@ model ProjectSummaryEntity {
   project           ProjectsEntity @relation("projectSummary", fields: [project_id], references: [id])
   reporting_user_id String         @db.VarChar(36)
   reporter          UserEntity     @relation("reportingUser", fields: [reporting_user_id], references: [id])
+  budget            Int?           @db.Int
+  logged            String?        @db.VarChar(255)
+  estimated         String?        @db.VarChar(255)
 }
 
 model ProjectsAssigneeEntity {
@@ -227,6 +228,7 @@ model UserEntity {
   userTags               UserTagsEntity[]         @relation("userTags")
   projects               ProjectsAssigneeEntity[] @relation("assigneeUser")
   reportedProjects       ProjectSummaryEntity[]   @relation("reportingUser")
+  comments               CommentEntity[]          @relation("commentAuthor")
 }
 
 model UserEventsEntity {
