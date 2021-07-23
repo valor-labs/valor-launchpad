@@ -23,8 +23,8 @@ import {
   StripeIdealBankElement,
   StripeP24BankElement,
 } from '@stripe/stripe-js';
-import { switchMap } from 'rxjs/operators';
-import { from, of } from 'rxjs';
+import { finalize, switchMap } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 const publicKey =
   'pk_test_51IyGuEAcm152H20WJusvJbWOGaqsdj4TXzS0cQtSEHD3jE9GGQJ0hay5Tn8i5h3IL8TShk4XKd5VghIKlHxo2gvT00IDgRx1Bu';
@@ -38,8 +38,8 @@ export class EmbeddedPayComponent implements OnInit {
   private stripe: Stripe;
   stripeElements: StripeElements;
   orderItems: OrderItem[] = [];
-  orderTotal = 0.0;
-  subtotal = 0.0;
+  orderTotal = '0.0';
+  subtotal = '0.0';
   submitButtonPayText = 'Pay';
   submitDisabled = true;
   errorText = '';
@@ -52,6 +52,8 @@ export class EmbeddedPayComponent implements OnInit {
   payMethods: MethodsByCountryResponse;
 
   selectedPayMethod: PayMethod;
+
+  isProcessing = false;
 
   constructor(
     private embeddedPayService: EmbeddedPayService,
@@ -185,7 +187,6 @@ export class EmbeddedPayComponent implements OnInit {
     }
   ) {
     evt.preventDefault();
-
     const { invalid } = mainForm;
     if (invalid) {
       this.stripeUiService.loopFormGroup(mainForm.form);
@@ -195,6 +196,7 @@ export class EmbeddedPayComponent implements OnInit {
     const { name, email, country } = mainForm.value;
 
     console.log('selectedPayMethod is: ', this.selectedPayMethod); // GB33BUKB20201555555555
+    this.isProcessing = true;
     this.stripeUiService
       .getPaymentIndent({
         items: this.orderItems.map((i) => ({
@@ -314,7 +316,8 @@ export class EmbeddedPayComponent implements OnInit {
             //     })
             //   );
           }
-        })
+        }),
+        finalize(() => (this.isProcessing = false))
       )
       .subscribe(
         (res) => {
@@ -353,14 +356,14 @@ export class EmbeddedPayComponent implements OnInit {
   }
 
   // Format a price (assuming a two-decimal currency like EUR or USD for simplicity).
-  formatPrice(amount, currency): number {
+  formatPrice(amount, currency) {
     const price = (amount / 100).toFixed(2) as any as number;
     const numberFormat = new Intl.NumberFormat(['en-US'], {
       style: 'currency',
       currency: currency,
       currencyDisplay: 'symbol',
     });
-    return numberFormat.format(price) as any as number;
+    return numberFormat.format(price);
   }
 
   displayPaymentSummary(products: AllProductsResponse) {
@@ -393,6 +396,10 @@ export class EmbeddedPayComponent implements OnInit {
 
   selectPayMethod(event: TabDirective) {
     this.selectedPayMethod = event.id as PayMethod;
+    this.submitButtonPayText = this.getSubmitBtnLabel(
+      this.orderTotal,
+      this.selectedPayMethod
+    );
   }
 
   private onCountryChange(country) {
@@ -433,5 +440,24 @@ export class EmbeddedPayComponent implements OnInit {
         this.formConfig = [...this.formConfig];
       }
     }
+  }
+
+  private getSubmitBtnLabel(
+    total: string,
+    paymentMethod: PayMethod,
+    bankName?
+  ): string {
+    const name = this.payMethods?.find((m) => m.id === paymentMethod)?.name;
+    let label = `Pay ${total}`;
+    if (paymentMethod !== 'card') {
+      label = `Pay ${total} with ${name}`;
+    }
+    if (paymentMethod === 'wechat') {
+      label = `Generate QR code to pay ${total} with ${name}`;
+    }
+    if (['sepa_debit', 'au_becs_debit'].includes(paymentMethod) && bankName) {
+      label = `Debit ${total} from ${bankName}`;
+    }
+    return label;
   }
 }

@@ -70,6 +70,7 @@
           </section>
           <button
             stripe-button
+            [disabled]="isProcessing"
             (click)="
               submit($event, form, {
                 card: paymentCard.card,
@@ -80,7 +81,7 @@
                 becs: paymentBecs.becs
               })
             ">
-            {{ submitButtonPayText }}
+            {{ isProcessing ? 'Processing...' : submitButtonPayText }}
           </button>
         </ng-container>
       </valor-launchpad-card-content>

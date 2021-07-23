@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1">
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Billing Address</h5>
-      </div>
-      <div card-body *ngIf="billingFormConfig">
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content *ngIf="billingFormConfig">
         <dynamic-form
           #billingForm="dynamicForm"
           [config]="billingFormConfig">
@@ -28,7 +28,7 @@
           </div>
         </div>
         <button stripe-button (click)="submit(billingForm)">Pay</button>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
   <div
@@ -38,10 +38,10 @@
       pt-lg-0 pt-3
     ">
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Cart summary</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div>
           <valor-launchpad-stripe-order-items>
             <valor-launchpad-stripe-order-item
@@ -60,7 +60,7 @@
             </div>
           </valor-launchpad-stripe-order-total>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>
