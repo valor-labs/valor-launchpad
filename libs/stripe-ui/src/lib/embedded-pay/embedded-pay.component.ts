@@ -197,143 +197,154 @@ export class EmbeddedPayComponent implements OnInit {
 
     console.log('selectedPayMethod is: ', this.selectedPayMethod); // GB33BUKB20201555555555
     this.isProcessing = true;
-    this.stripeUiService
-      .getPaymentIndent({
-        items: this.orderItems.map((i) => ({
-          product_name: i.name,
-          quantity: +i.quantity,
-          unit_amount: i.lineItemRawPrice * 100,
-          currency: 'usd',
-        })),
-        pay_method: this.selectedPayMethod,
-      })
-      .pipe(
-        switchMap(({ client_secret: clientSecret, amount, currency, id }) => {
-          switch (this.selectedPayMethod) {
-            case 'card':
-              // https://stripe.com/docs/js/payment_intents/confirm_card_payment
-              return from(
-                this.stripe.confirmCardPayment(clientSecret, {
-                  payment_method: { card, billing_details: { name } },
-                })
-              );
-            case 'sepa_debit':
-              // https://stripe.com/docs/js/payment_intents/confirm_sepa_debit_payment
-              return from(
-                this.stripe.confirmSepaDebitPayment(clientSecret, {
-                  payment_method: {
-                    sepa_debit: sepa,
-                    billing_details: { name, email },
-                  },
-                })
-              );
-            case 'au_becs_debit':
-              // https://stripe.com/docs/payments/au-becs-debit/accept-a-payment
-              return from(
-                this.stripe.confirmAuBecsDebitPayment(clientSecret, {
-                  payment_method: {
-                    au_becs_debit: becs,
-                    billing_details: { name, email },
-                  },
-                })
-              );
-            case 'ideal':
-              // https://stripe.com/docs/js/payment_intents/confirm_ideal_payment
-              return from(
-                this.stripe.confirmIdealPayment(clientSecret, {
-                  payment_method: { ideal },
-                  return_url: location.href,
-                })
-              );
-            case 'eps':
-              // https://stripe.com/docs/payments/eps/accept-a-payment
-              return from(
-                this.stripe.confirmEpsPayment(clientSecret, {
-                  payment_method: { billing_details: { name }, eps },
-                  return_url: window.location.href,
-                })
-              );
-            case 'p24':
-              // https://stripe.com/docs/payments/p24/accept-a-payment
-              return from(
-                this.stripe.confirmP24Payment(clientSecret, {
-                  payment_method: { billing_details: { name, email }, p24 },
-                  return_url: window.location.href,
-                })
-              );
-            case 'bancontact':
-              // https://stripe.com/docs/payments/bancontact/accept-a-payment
-              return from(
-                this.stripe.confirmBancontactPayment(clientSecret, {
-                  payment_method: { billing_details: { name } },
-                  return_url: window.location.href,
-                })
-              );
-            case 'sofort':
-              // https://stripe.com/docs/payments/sofort/accept-a-payment
-              return from(
-                this.stripe.confirmSofortPayment(clientSecret, {
-                  payment_method: {
-                    billing_details: { name, email },
-                    sofort: { country },
-                  },
-                  return_url: window.location.href,
-                })
-              );
-            case 'alipay':
-              return from(
-                this.stripe.confirmAlipayPayment(clientSecret, {
-                  payment_method: {
-                    billing_details: { name },
-                  },
-                  return_url: `${window.location.href}`,
-                })
-              );
-            case 'giropay':
-              return from(
-                this.stripe.confirmGiropayPayment(clientSecret, {
-                  payment_method: { billing_details: { name } },
-                  return_url: `${window.location.href}`,
-                })
-              );
-            // case 'ach_credit_transfer':
-            //   return from(
-            //     this.stripe.createSource({
-            //       type: 'ach_credit_transfer',
-            //       amount,
-            //       currency,
-            //       owner: {
-            //         name,
-            //         email,
-            //       },
-            //       redirect: {
-            //         return_url: `${window.location.href}?payment_intent=${id}`,
-            //       },
-            //       statement_descriptor: 'Stripe Payments Demo',
-            //       metadata: {
-            //         paymentIntent: id,
-            //       },
-            //     })
-            //   );
+
+    if (this.selectedPayMethod === 'ach_credit_transfer') {
+      this.stripeUiService
+        .getPaymentSource({
+          type: this.selectedPayMethod,
+          currency: 'usd', // TODO
+          email,
+        })
+        .subscribe((source) => console.log(source));
+    } else {
+      this.stripeUiService
+        .getPaymentIndent({
+          items: this.orderItems.map((i) => ({
+            product_name: i.name,
+            quantity: +i.quantity,
+            unit_amount: i.lineItemRawPrice * 100,
+            currency: 'usd',
+          })),
+          pay_method: this.selectedPayMethod,
+        })
+        .pipe(
+          switchMap(({ client_secret: clientSecret, amount, currency, id }) => {
+            switch (this.selectedPayMethod) {
+              case 'card':
+                // https://stripe.com/docs/js/payment_intents/confirm_card_payment
+                return from(
+                  this.stripe.confirmCardPayment(clientSecret, {
+                    payment_method: { card, billing_details: { name } },
+                  })
+                );
+              case 'sepa_debit':
+                // https://stripe.com/docs/js/payment_intents/confirm_sepa_debit_payment
+                return from(
+                  this.stripe.confirmSepaDebitPayment(clientSecret, {
+                    payment_method: {
+                      sepa_debit: sepa,
+                      billing_details: { name, email },
+                    },
+                  })
+                );
+              case 'au_becs_debit':
+                // https://stripe.com/docs/payments/au-becs-debit/accept-a-payment
+                return from(
+                  this.stripe.confirmAuBecsDebitPayment(clientSecret, {
+                    payment_method: {
+                      au_becs_debit: becs,
+                      billing_details: { name, email },
+                    },
+                  })
+                );
+              case 'ideal':
+                // https://stripe.com/docs/js/payment_intents/confirm_ideal_payment
+                return from(
+                  this.stripe.confirmIdealPayment(clientSecret, {
+                    payment_method: { ideal },
+                    return_url: location.href,
+                  })
+                );
+              case 'eps':
+                // https://stripe.com/docs/payments/eps/accept-a-payment
+                return from(
+                  this.stripe.confirmEpsPayment(clientSecret, {
+                    payment_method: { billing_details: { name }, eps },
+                    return_url: window.location.href,
+                  })
+                );
+              case 'p24':
+                // https://stripe.com/docs/payments/p24/accept-a-payment
+                return from(
+                  this.stripe.confirmP24Payment(clientSecret, {
+                    payment_method: { billing_details: { name, email }, p24 },
+                    return_url: window.location.href,
+                  })
+                );
+              case 'bancontact':
+                // https://stripe.com/docs/payments/bancontact/accept-a-payment
+                return from(
+                  this.stripe.confirmBancontactPayment(clientSecret, {
+                    payment_method: { billing_details: { name } },
+                    return_url: window.location.href,
+                  })
+                );
+              case 'sofort':
+                // https://stripe.com/docs/payments/sofort/accept-a-payment
+                return from(
+                  this.stripe.confirmSofortPayment(clientSecret, {
+                    payment_method: {
+                      billing_details: { name, email },
+                      sofort: { country },
+                    },
+                    return_url: window.location.href,
+                  })
+                );
+              case 'alipay':
+                return from(
+                  this.stripe.confirmAlipayPayment(clientSecret, {
+                    payment_method: {
+                      billing_details: { name },
+                    },
+                    return_url: `${window.location.href}`,
+                  })
+                );
+              case 'giropay':
+                return from(
+                  this.stripe.confirmGiropayPayment(clientSecret, {
+                    payment_method: { billing_details: { name } },
+                    return_url: `${window.location.href}`,
+                  })
+                );
+              // case 'ach_credit_transfer':
+              //   return from(
+              //     this.stripe.createSource({
+              //       type: 'ach_credit_transfer',
+              //       amount,
+              //       currency,
+              //       owner: {
+              //         name,
+              //         email,
+              //       },
+              //       redirect: {
+              //         return_url: `${window.location.href}?payment_intent=${id}`,
+              //       },
+              //       statement_descriptor: 'Stripe Payments Demo',
+              //       metadata: {
+              //         paymentIntent: id,
+              //       },
+              //     })
+              //   );
+            }
+          }),
+          finalize(() => (this.isProcessing = false))
+        )
+        .subscribe(
+          (res) => {
+            console.log({ res });
+            if (res.error) {
+              console.error(res.error);
+            } else if (res.paymentIntent) {
+              console.log(res.paymentIntent);
+            } else {
+              console.warn('Should not go here');
+            }
+          },
+          (error) => {
+            console.log(error);
           }
-        }),
-        finalize(() => (this.isProcessing = false))
-      )
-      .subscribe(
-        (res) => {
-          console.log({ res });
-          if (res.error) {
-            console.error(res.error);
-          } else if (res.paymentIntent) {
-            console.log(res.paymentIntent);
-          } else {
-            console.warn('Should not go here');
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        );
+    }
   }
 
   generate(mainForm: DynamicFormComponent) {

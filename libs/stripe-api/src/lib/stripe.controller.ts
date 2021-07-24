@@ -7,6 +7,8 @@ import {
   MethodsByCountryResponse,
   PaymentIndentsInput,
   PaymentIndentsResponse,
+  PaymentSourceInput,
+  PaymentSourceResponse,
   PayMethod,
 } from './stripe.model';
 import { InjectStripe } from 'nestjs-stripe';
@@ -32,8 +34,18 @@ export class StripeController {
   }
 
   @Post('payment_source')
-  async createPaymentSource() {
-    this.stripe.sources.create({});
+  async createPaymentSource(
+    @Body() body: PaymentSourceInput
+  ): Promise<PaymentSourceResponse> {
+    const source = await this.stripe.sources.create({
+      type: 'ach_credit_transfer',
+      currency: body.currency,
+      owner: { email: body.email },
+    });
+    return {
+      accountNumber: source.ach_credit_transfer.account_number,
+      routingNumber: source.ach_credit_transfer.routing_number,
+    };
   }
 
   @Post('create-checkout-session')

@@ -89,3 +89,14 @@ export interface PaymentIndentsInput {
 export interface PaymentIndentsResponse {
   clientSecret: string;
 }
+
+export interface PaymentSourceInput {
+  type: PayMethod; // ach_credit_transfer
+  currency: string; // usd (ACH Credit Transfer payments must be in U.S. Dollars)
+  email: string; // the full email address of the customer
+}
+
+export interface PaymentSourceResponse {
+  routingNumber: string;
+  accountNumber: string;
+}

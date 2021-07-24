@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import {
   AllCountriesResponse,
   PaymentIndentsInput,
+  PaymentSourceInput,
+  PaymentSourceResponse,
 } from '@valor-launchpad/stripe-api';
 import { FormGroup } from '@angular/forms';
 import { PaymentIntent } from '@stripe/stripe-js';
@@ -24,6 +26,13 @@ export class StripeUiService {
   getPaymentIndent(input: PaymentIndentsInput) {
     return this.http.post<PaymentIntent>(
       '/api/stripe/v1/payment_intents',
+      input
+    );
+  }
+
+  getPaymentSource(input: PaymentSourceInput) {
+    return this.http.post<PaymentSourceResponse>(
+      '/api/stripe/v1/payment_source',
       input
     );
   }
