@@ -22,6 +22,7 @@ export class DirectPayComponent implements OnInit {
       },
       quantity: '2',
       skuPrice: '$12',
+      unitAmount: 1200,
       lineItemPrice: '$24.00',
       lineItemRawPrice: '$24.00' as unknown as number,
     },

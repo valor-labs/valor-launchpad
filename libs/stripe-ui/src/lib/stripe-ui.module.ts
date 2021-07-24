@@ -19,6 +19,7 @@ import { PaymentEpsComponent } from './components/payment-eps/payment-eps.compon
 import { PaymentP24Component } from './components/payment-p24/payment-p24.component';
 import { PaymentRedirectComponent } from './components/payment-redirect/payment-redirect.component';
 import { PaymentBecsComponent } from './components/payment-becs/payment-becs.component';
+import { PaymentReceiverComponent } from './components/payment-receiver/payment-receiver.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { PaymentBecsComponent } from './components/payment-becs/payment-becs.com
     PaymentP24Component,
     PaymentRedirectComponent,
     PaymentBecsComponent,
+    PaymentReceiverComponent,
   ],
 })
 export class StripeUiModule {}

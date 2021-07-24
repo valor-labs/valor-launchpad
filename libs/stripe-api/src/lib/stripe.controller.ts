@@ -9,15 +9,19 @@ import {
   PaymentIndentsResponse,
   PaymentSourceInput,
   PaymentSourceResponse,
-  PayMethod,
+  PayMethodID,
 } from './stripe.model';
 import { InjectStripe } from 'nestjs-stripe';
+import { StripeService } from './stripe.service';
 
 @Controller('v1')
 export class StripeController {
   endpointSecret = 'whsec_CfYnVo8i3Q6h40NAxfmMvwIGTsEdBDmb';
 
-  constructor(@InjectStripe() private readonly stripe: Stripe) {}
+  constructor(
+    @InjectStripe() private readonly stripe: Stripe,
+    private stripeService: StripeService
+  ) {}
 
   @Post('payment_intents')
   async createPaymentIntents(
@@ -37,15 +41,8 @@ export class StripeController {
   async createPaymentSource(
     @Body() body: PaymentSourceInput
   ): Promise<PaymentSourceResponse> {
-    const source = await this.stripe.sources.create({
-      type: 'ach_credit_transfer',
-      currency: body.currency,
-      owner: { email: body.email },
-    });
-    return {
-      accountNumber: source.ach_credit_transfer.account_number,
-      routingNumber: source.ach_credit_transfer.routing_number,
-    };
+    const source = await this.stripeService.createPaymentSource(body);
+    return { source } as any;
   }
 
   @Post('create-checkout-session')
@@ -106,19 +103,23 @@ export class StripeController {
     ];
   }
 
-  @Get('countries/:countryId/pay-methods')
-  @Bind(Param('countryId'))
+  @Get('countries/:countryId/pay-methods/:currency')
+  @Bind(Param('countryId'), Param('currency'))
   async getPayMethodsByCountry(
-    countryId: string
+    countryId: string,
+    currency: string
   ): Promise<MethodsByCountryResponse> {
     const res: MethodsByCountryResponse = [];
     for (const [methodId, methodDetail] of Object.entries(PAYMENT_METHODS) as [
-      PayMethod,
+      PayMethodID,
       MethodDetail
     ][]) {
       if (!Reflect.has(methodDetail, 'countries')) {
         res.push({ ...methodDetail, id: methodId });
-      } else if (methodDetail.countries.includes(countryId)) {
+      } else if (
+        methodDetail.countries.includes(countryId) &&
+        methodDetail.currencies.includes(currency)
+      ) {
         res.push({ ...methodDetail, id: methodId });
       }
     }
@@ -148,7 +149,7 @@ interface MethodDetail {
   currencies?: string[];
 }
 
-const PAYMENT_METHODS: Record<PayMethod, MethodDetail> = {
+const PAYMENT_METHODS: Record<PayMethodID, MethodDetail> = {
   card: {
     name: 'Card',
     flow: 'none',

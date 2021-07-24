@@ -17,9 +17,9 @@ export class EmbeddedPayService {
     return this.http.post('/api/stripe/v1/payment_intents', {});
   }
 
-  getPayMethodsByCountry(country) {
+  getPayMethodsByCountry(country: string, currency: string) {
     return this.http.get<MethodsByCountryResponse>(
-      `/api/stripe/v1/countries/${country}/pay-methods`
+      `/api/stripe/v1/countries/${country}/pay-methods/${currency}`
     );
   }
 }

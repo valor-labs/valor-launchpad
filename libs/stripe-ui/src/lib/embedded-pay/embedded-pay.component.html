@@ -23,55 +23,58 @@
               Select another country to see different payment options.
             </p>
           </section>
-          <section>
+          <section *ngIf='selectedPayMethod'>
             <h2>Payment Information</h2>
             <tabset>
               <tab
                 *ngFor="let method of payMethods"
                 [heading]="method.name.toUpperCase()"
                 [id]="method.id"
-                (selectTab)="selectPayMethod($event)">
+                (selectTab)="selectPayMethod(method)">
               </tab>
             </tabset>
             <valor-launchpad-payment-card
-              [hidden]="selectedPayMethod !== 'card'"
+              [hidden]="selectedPayMethod.id !== 'card'"
               #paymentCard="paymentCard"
               [elements]="stripeElements">
             </valor-launchpad-payment-card>
             <valor-launchpad-payment-sepa
-              [hidden]="selectedPayMethod !== 'sepa_debit'"
+              [hidden]="selectedPayMethod.id !== 'sepa_debit'"
               #paymentSepa="paymentSepa"
               [elements]="stripeElements">
             </valor-launchpad-payment-sepa>
             <valor-launchpad-payment-ideal
-              [hidden]="selectedPayMethod !== 'ideal'"
+              [hidden]="selectedPayMethod.id !== 'ideal'"
               #paymentIdeal="paymentIdeal"
               [elements]="stripeElements">
             </valor-launchpad-payment-ideal>
             <valor-launchpad-payment-eps
-              [hidden]="selectedPayMethod !== 'eps'"
+              [hidden]="selectedPayMethod.id !== 'eps'"
               #paymentEps="paymentEps"
               [elements]="stripeElements">
             </valor-launchpad-payment-eps>
             <valor-launchpad-payment-p24
-              [hidden]="selectedPayMethod !== 'p24'"
+              [hidden]="selectedPayMethod.id !== 'p24'"
               #paymentP24="paymentP24"
               [elements]="stripeElements">
             </valor-launchpad-payment-p24>
             <valor-launchpad-payment-becs
-              [hidden]="selectedPayMethod !== 'au_becs_debit'"
+              [hidden]="selectedPayMethod.id !== 'au_becs_debit'"
               #paymentBecs="paymentBecs"
               [elements]="stripeElements">
             </valor-launchpad-payment-becs>
             <valor-launchpad-payment-redirect
-              [hidden]="!['bancontact', 'sofort', 'alipay', 'giropay'].includes(selectedPayMethod)"
-              [elements]="stripeElements">>
+              [hidden]="!['bancontact', 'sofort', 'alipay', 'giropay'].includes(selectedPayMethod.id)"
+              [elements]="stripeElements">
             </valor-launchpad-payment-redirect>
-          </section>
-          <button
-            stripe-button
-            [disabled]="isProcessing"
-            (click)="
+            <valor-launchpad-payment-receiver
+              [hidden]="!['multibanco', 'ach_credit_transfer'].includes(selectedPayMethod.id)"
+              [elements]="stripeElements">
+            </valor-launchpad-payment-receiver>
+            <button
+              stripe-button
+              [disabled]="isProcessing"
+              (click)="
               submit($event, form, {
                 card: paymentCard.card,
                 sepa: paymentSepa.iban,
@@ -79,10 +82,10 @@
                 eps: paymentEps.eps,
                 p24: paymentP24.p24,
                 becs: paymentBecs.becs
-              })
-            ">
-            {{ isProcessing ? 'Processing...' : submitButtonPayText }}
-          </button>
+              })">
+              {{ isProcessing ? 'Processing...' : submitButtonPayText }}
+            </button>
+          </section>
         </ng-container>
       </valor-launchpad-card-content>
     </valor-launchpad-card>

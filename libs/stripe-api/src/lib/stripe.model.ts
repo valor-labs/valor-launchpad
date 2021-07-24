@@ -3,7 +3,7 @@ export type AllCountriesResponse = Array<{
   value: string;
 }>;
 
-export type PayMethod =
+export type PayMethodID =
   | 'card'
   | 'ach_credit_transfer'
   | 'alipay'
@@ -18,12 +18,14 @@ export type PayMethod =
   | 'wechat'
   | 'au_becs_debit';
 
-export type MethodsByCountryResponse = Array<{
-  id: PayMethod;
+export type PayMethod = {
+  id: PayMethodID;
   name: string;
   flow: string;
   currencies?: string[];
-}>;
+};
+
+export type MethodsByCountryResponse = PayMethod[];
 
 export type AllProductsResponse = Array<{
   id: string;
@@ -91,9 +93,10 @@ export interface PaymentIndentsResponse {
 }
 
 export interface PaymentSourceInput {
-  type: PayMethod; // ach_credit_transfer
+  type: PayMethodID; // ach_credit_transfer, multibanco
   currency: string; // usd (ACH Credit Transfer payments must be in U.S. Dollars)
   email: string; // the full email address of the customer
+  amount?: number; // amount is needed for multibanco, but unnecessary for ach_credit_transfer
 }
 
 export interface PaymentSourceResponse {

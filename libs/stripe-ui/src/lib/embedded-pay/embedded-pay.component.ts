@@ -8,9 +8,9 @@ import {
   AllProductsResponse,
   MethodsByCountryResponse,
   PayMethod,
+  PayMethodID,
 } from '@valor-launchpad/stripe-api';
 import { OrderItem } from '../order-summary/order-summary.model';
-import { TabDirective } from 'ngx-bootstrap/tabs';
 import { StripeUiService } from '../stripe-ui.service';
 import {
   loadStripe,
@@ -23,8 +23,9 @@ import {
   StripeIdealBankElement,
   StripeP24BankElement,
 } from '@stripe/stripe-js';
-import { finalize, switchMap } from 'rxjs/operators';
-import { from } from 'rxjs';
+import { finalize, switchMap, tap } from 'rxjs/operators';
+import { from, partition, throwError } from 'rxjs';
+import { formatCurrency } from '../utils';
 
 const publicKey =
   'pk_test_51IyGuEAcm152H20WJusvJbWOGaqsdj4TXzS0cQtSEHD3jE9GGQJ0hay5Tn8i5h3IL8TShk4XKd5VghIKlHxo2gvT00IDgRx1Bu';
@@ -38,6 +39,7 @@ export class EmbeddedPayComponent implements OnInit {
   private stripe: Stripe;
   stripeElements: StripeElements;
   orderItems: OrderItem[] = [];
+  currency: string;
   orderTotal = '0.0';
   subtotal = '0.0';
   submitButtonPayText = 'Pay';
@@ -82,79 +84,82 @@ export class EmbeddedPayComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.embeddedPayService.getProducts().subscribe((products) => {
-      this.displayPaymentSummary(products);
-    });
-    this.stripeUiService.getAllCountries().subscribe((allCountryOptions) => {
-      const defaultCountry = 'US';
-      // basic form without state
-      // state config will be added automatically by `onCountryChange`
-      this.formConfig = [
-        {
-          type: 'input',
-          subtype: 'text',
-          label: 'Name',
-          name: 'name',
-          placeholder: 'Jenny Rosen',
-          validation: [Validators.required, Validators.min(1)],
-          errorMessage: () => 'The field is required',
-        },
-        {
-          type: 'input',
-          subtype: 'text',
-          label: 'Email',
-          name: 'email',
-          placeholder: 'jenny@example.com',
-          validation: [Validators.required, Validators.email],
-          errorMessage: (errors) => {
-            if (errors.email) {
-              return 'Please input correct email';
-            }
-            return 'The field is required';
+    this.embeddedPayService
+      .getProducts()
+      .pipe(
+        tap((products) => this.displayPaymentSummary(products)),
+        switchMap(() => this.stripeUiService.getAllCountries())
+      )
+      .subscribe((allCountryOptions) => {
+        const defaultCountry = 'US';
+        // basic form without state
+        // state config will be added automatically by `onCountryChange`
+        this.formConfig = [
+          {
+            type: 'input',
+            subtype: 'text',
+            label: 'Name',
+            name: 'name',
+            placeholder: 'Jenny Rosen',
+            validation: [Validators.required, Validators.min(1)],
+            errorMessage: () => 'The field is required',
           },
-        },
-        {
-          type: 'input',
-          subtype: 'text',
-          label: 'Address',
-          name: 'address',
-          validation: [Validators.required],
-          errorMessage: () => 'The field is required',
-        },
-        {
-          type: 'select',
-          subtype: 'select',
-          label: 'Country',
-          name: 'country',
-          value: defaultCountry,
-          placeholder: '',
-          options: allCountryOptions,
-          validation: [Validators.required],
-          errorMessage: () => 'The field is required',
-          valueChanges: this.onCountryChange.bind(this),
-        },
-        {
-          type: 'input',
-          subtype: 'text',
-          label: 'City',
-          name: 'city',
-          placeholder: 'San Francisco',
-          validation: [Validators.required],
-          errorMessage: () => 'The field is required',
-        },
-        {
-          type: 'input',
-          subtype: 'text',
-          label: 'ZIP',
-          name: 'postal_code',
-          placeholder: '94103',
-          validation: [Validators.required],
-          errorMessage: () => 'The field is required',
-        },
-      ];
-      // trigger country change manually at the first time, in order to add state config to dynamic form
-      this.onCountryChange(defaultCountry);
-    });
+          {
+            type: 'input',
+            subtype: 'text',
+            label: 'Email',
+            name: 'email',
+            placeholder: 'jenny@example.com',
+            validation: [Validators.required, Validators.email],
+            errorMessage: (errors) => {
+              if (errors.email) {
+                return 'Please input correct email';
+              }
+              return 'The field is required';
+            },
+          },
+          {
+            type: 'input',
+            subtype: 'text',
+            label: 'Address',
+            name: 'address',
+            validation: [Validators.required],
+            errorMessage: () => 'The field is required',
+          },
+          {
+            type: 'select',
+            subtype: 'select',
+            label: 'Country',
+            name: 'country',
+            value: defaultCountry,
+            placeholder: '',
+            options: allCountryOptions,
+            validation: [Validators.required],
+            errorMessage: () => 'The field is required',
+            valueChanges: this.onCountryChange.bind(this),
+          },
+          {
+            type: 'input',
+            subtype: 'text',
+            label: 'City',
+            name: 'city',
+            placeholder: 'San Francisco',
+            validation: [Validators.required],
+            errorMessage: () => 'The field is required',
+          },
+          {
+            type: 'input',
+            subtype: 'text',
+            label: 'ZIP',
+            name: 'postal_code',
+            placeholder: '94103',
+            validation: [Validators.required],
+            errorMessage: () => 'The field is required',
+          },
+        ];
+        // trigger country change manually at the first time, in order to add state config to dynamic form
+        this.onCountryChange(defaultCountry);
+      });
   }
 
   /**
@@ -198,28 +203,57 @@ export class EmbeddedPayComponent implements OnInit {
     console.log('selectedPayMethod is: ', this.selectedPayMethod); // GB33BUKB20201555555555
     this.isProcessing = true;
 
-    if (this.selectedPayMethod === 'ach_credit_transfer') {
-      this.stripeUiService
-        .getPaymentSource({
-          type: this.selectedPayMethod,
-          currency: 'usd', // TODO
-          email,
-        })
-        .subscribe((source) => console.log(source));
-    } else {
-      this.stripeUiService
-        .getPaymentIndent({
-          items: this.orderItems.map((i) => ({
-            product_name: i.name,
-            quantity: +i.quantity,
-            unit_amount: i.lineItemRawPrice * 100,
-            currency: 'usd',
-          })),
-          pay_method: this.selectedPayMethod,
-        })
+    const paymentIndent$ = this.stripeUiService
+      .getPaymentIndent({
+        items: this.orderItems.map((i) => ({
+          product_name: i.name,
+          quantity: +i.quantity,
+          unit_amount: i.unitAmount,
+          currency: this.currency,
+        })),
+        pay_method: this.selectedPayMethod.id,
+      })
+      .pipe(finalize(() => (this.isProcessing = false)));
+
+    const isReceiverFlow = this.selectedPayMethod.flow === 'receiver';
+
+    const [receiverIndent$, confirmIndent$] = partition(
+      paymentIndent$,
+      () => isReceiverFlow
+    );
+
+    if (isReceiverFlow) {
+      receiverIndent$
         .pipe(
-          switchMap(({ client_secret: clientSecret, amount, currency, id }) => {
-            switch (this.selectedPayMethod) {
+          switchMap(({ amount }) => {
+            if (this.selectedPayMethod.id === 'ach_credit_transfer') {
+              return this.stripeUiService.getPaymentSource({
+                type: this.selectedPayMethod.id,
+                currency: this.currency,
+                email,
+              });
+            } else if (this.selectedPayMethod.id === 'multibanco') {
+              return this.stripeUiService.getPaymentSource({
+                type: this.selectedPayMethod.id,
+                currency: this.currency,
+                email,
+                amount,
+              });
+            } else {
+              return throwError(
+                `receiver flow should not contain ${this.selectedPayMethod.id}`
+              );
+            }
+          })
+        )
+        .subscribe((source) => {
+          console.log(source);
+        });
+    } else {
+      confirmIndent$
+        .pipe(
+          switchMap(({ client_secret: clientSecret }) => {
+            switch (this.selectedPayMethod.id) {
               case 'card':
                 // https://stripe.com/docs/js/payment_intents/confirm_card_payment
                 return from(
@@ -306,28 +340,8 @@ export class EmbeddedPayComponent implements OnInit {
                     return_url: `${window.location.href}`,
                   })
                 );
-              // case 'ach_credit_transfer':
-              //   return from(
-              //     this.stripe.createSource({
-              //       type: 'ach_credit_transfer',
-              //       amount,
-              //       currency,
-              //       owner: {
-              //         name,
-              //         email,
-              //       },
-              //       redirect: {
-              //         return_url: `${window.location.href}?payment_intent=${id}`,
-              //       },
-              //       statement_descriptor: 'Stripe Payments Demo',
-              //       metadata: {
-              //         paymentIntent: id,
-              //       },
-              //     })
-              //   );
             }
-          }),
-          finalize(() => (this.isProcessing = false))
+          })
         )
         .subscribe(
           (res) => {
@@ -366,50 +380,39 @@ export class EmbeddedPayComponent implements OnInit {
     );
   }
 
-  // Format a price (assuming a two-decimal currency like EUR or USD for simplicity).
-  formatPrice(amount, currency) {
-    const price = (amount / 100).toFixed(2) as any as number;
-    const numberFormat = new Intl.NumberFormat(['en-US'], {
-      style: 'currency',
-      currency: currency,
-      currencyDisplay: 'symbol',
-    });
-    return numberFormat.format(price);
-  }
-
   displayPaymentSummary(products: AllProductsResponse) {
     const randomQuantity = (min, max) => {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1)) + min;
     };
-    let currency;
     // Build and append the line items to the payment summary.
     this.orderItems = products.map((p) => {
       const qty = randomQuantity(1, 2);
       const sku = p.skus.data[0];
-      currency = sku.currency;
+      this.currency = sku.currency;
       return {
         id: p.id,
         name: p.name,
         quantity: qty,
         sku: sku,
+        unitAmount: sku.price,
         lineItemRawPrice: sku.price * qty,
-        skuPrice: this.formatPrice(sku.price, sku.currency),
-        lineItemPrice: this.formatPrice(sku.price * qty, sku.currency),
+        skuPrice: formatCurrency(sku.price, sku.currency),
+        lineItemPrice: formatCurrency(sku.price * qty, sku.currency),
       };
     });
     // Add the subtotal and total to the payment summary.
-    const total = this.formatPrice(this.getPaymentTotal(), currency);
+    const total = formatCurrency(this.getPaymentTotal(), this.currency);
     this.subtotal = total;
     this.orderTotal = total;
   }
 
-  selectPayMethod(event: TabDirective) {
-    this.selectedPayMethod = event.id as PayMethod;
+  selectPayMethod(method: PayMethod) {
+    this.selectedPayMethod = method;
     this.submitButtonPayText = this.getSubmitBtnLabel(
       this.orderTotal,
-      this.selectedPayMethod
+      this.selectedPayMethod.id
     );
   }
 
@@ -435,10 +438,12 @@ export class EmbeddedPayComponent implements OnInit {
         break;
     }
     // update pay methods tab
-    this.embeddedPayService.getPayMethodsByCountry(country).subscribe((res) => {
-      this.payMethods = res;
-      this.selectedPayMethod = res[0].id;
-    });
+    this.embeddedPayService
+      .getPayMethodsByCountry(country, this.currency)
+      .subscribe((res) => {
+        this.payMethods = res;
+        this.selectPayMethod(res[0]);
+      });
     // remove or add state
     if (country === 'US') {
       if (!this.formConfig.find((i) => i.name === this.stateConfig.name)) {
@@ -455,7 +460,7 @@ export class EmbeddedPayComponent implements OnInit {
 
   private getSubmitBtnLabel(
     total: string,
-    paymentMethod: PayMethod,
+    paymentMethod: PayMethodID,
     bankName?
   ): string {
     const name = this.payMethods?.find((m) => m.id === paymentMethod)?.name;
