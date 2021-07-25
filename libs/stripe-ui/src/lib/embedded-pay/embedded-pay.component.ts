@@ -25,10 +25,13 @@ import {
 } from '@stripe/stripe-js';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { from, partition, throwError } from 'rxjs';
-import { formatCurrency } from '../utils';
+import { fmtCurrency } from '../utils';
+import { Router } from '@angular/router';
 
 const publicKey =
   'pk_test_51IyGuEAcm152H20WJusvJbWOGaqsdj4TXzS0cQtSEHD3jE9GGQJ0hay5Tn8i5h3IL8TShk4XKd5VghIKlHxo2gvT00IDgRx1Bu';
+
+const paymentStatusRoute = '/payments/stripe/status';
 
 @Component({
   selector: 'valor-launchpad-embedded-pay',
@@ -36,6 +39,7 @@ const publicKey =
   styleUrls: ['./embedded-pay.component.scss'],
 })
 export class EmbeddedPayComponent implements OnInit {
+  private returnURL: string;
   private stripe: Stripe;
   stripeElements: StripeElements;
   orderItems: OrderItem[] = [];
@@ -58,6 +62,7 @@ export class EmbeddedPayComponent implements OnInit {
   isProcessing = false;
 
   constructor(
+    private router: Router,
     private embeddedPayService: EmbeddedPayService,
     private stripeUiService: StripeUiService
   ) {
@@ -69,6 +74,11 @@ export class EmbeddedPayComponent implements OnInit {
         this.stripeElements = this.stripe.elements();
       }
     });
+    this.returnURL =
+      window.location.protocol +
+      '//' +
+      window.location.host +
+      paymentStatusRoute;
   }
 
   formConfig: FieldConfig[];
@@ -247,22 +257,31 @@ export class EmbeddedPayComponent implements OnInit {
           })
         )
         .subscribe((source) => {
-          console.log(source);
+          // TODO: source redirect
+          this.router.navigate(['payments', 'stripe', 'status'], {
+            queryParams: { payment_source: source.id },
+          });
         });
     } else {
       confirmIndent$
         .pipe(
-          switchMap(({ client_secret: clientSecret }) => {
+          switchMap(({ clientSecret }) => {
             switch (this.selectedPayMethod.id) {
               case 'card':
-                // https://stripe.com/docs/js/payment_intents/confirm_card_payment
                 return from(
                   this.stripe.confirmCardPayment(clientSecret, {
                     payment_method: { card, billing_details: { name } },
                   })
+                ).pipe(
+                  tap(({ error, paymentIntent }) => {
+                    if (!error) {
+                      this.router.navigate(['payments', 'stripe', 'status'], {
+                        queryParams: { payment_intent: paymentIntent.id },
+                      });
+                    }
+                  })
                 );
               case 'sepa_debit':
-                // https://stripe.com/docs/js/payment_intents/confirm_sepa_debit_payment
                 return from(
                   this.stripe.confirmSepaDebitPayment(clientSecret, {
                     payment_method: {
@@ -272,7 +291,6 @@ export class EmbeddedPayComponent implements OnInit {
                   })
                 );
               case 'au_becs_debit':
-                // https://stripe.com/docs/payments/au-becs-debit/accept-a-payment
                 return from(
                   this.stripe.confirmAuBecsDebitPayment(clientSecret, {
                     payment_method: {
@@ -282,46 +300,41 @@ export class EmbeddedPayComponent implements OnInit {
                   })
                 );
               case 'ideal':
-                // https://stripe.com/docs/js/payment_intents/confirm_ideal_payment
                 return from(
                   this.stripe.confirmIdealPayment(clientSecret, {
                     payment_method: { ideal },
-                    return_url: location.href,
+                    return_url: this.returnURL,
                   })
                 );
               case 'eps':
-                // https://stripe.com/docs/payments/eps/accept-a-payment
                 return from(
                   this.stripe.confirmEpsPayment(clientSecret, {
                     payment_method: { billing_details: { name }, eps },
-                    return_url: window.location.href,
+                    return_url: this.returnURL,
                   })
                 );
               case 'p24':
-                // https://stripe.com/docs/payments/p24/accept-a-payment
                 return from(
                   this.stripe.confirmP24Payment(clientSecret, {
                     payment_method: { billing_details: { name, email }, p24 },
-                    return_url: window.location.href,
+                    return_url: this.returnURL,
                   })
                 );
               case 'bancontact':
-                // https://stripe.com/docs/payments/bancontact/accept-a-payment
                 return from(
                   this.stripe.confirmBancontactPayment(clientSecret, {
                     payment_method: { billing_details: { name } },
-                    return_url: window.location.href,
+                    return_url: this.returnURL,
                   })
                 );
               case 'sofort':
-                // https://stripe.com/docs/payments/sofort/accept-a-payment
                 return from(
                   this.stripe.confirmSofortPayment(clientSecret, {
                     payment_method: {
                       billing_details: { name, email },
                       sofort: { country },
                     },
-                    return_url: window.location.href,
+                    return_url: this.returnURL,
                   })
                 );
               case 'alipay':
@@ -330,33 +343,29 @@ export class EmbeddedPayComponent implements OnInit {
                     payment_method: {
                       billing_details: { name },
                     },
-                    return_url: `${window.location.href}`,
+                    return_url: this.returnURL,
                   })
                 );
               case 'giropay':
                 return from(
                   this.stripe.confirmGiropayPayment(clientSecret, {
                     payment_method: { billing_details: { name } },
-                    return_url: `${window.location.href}`,
+                    return_url: this.returnURL,
                   })
                 );
             }
           })
         )
         .subscribe(
-          (res) => {
-            console.log({ res });
-            if (res.error) {
-              console.error(res.error);
-            } else if (res.paymentIntent) {
-              console.log(res.paymentIntent);
-            } else {
-              console.warn('Should not go here');
+          ({ error }) => {
+            if (error) {
+              const payment_intent = error.payment_intent.id;
+              this.router.navigate(['payments', 'stripe', 'status'], {
+                queryParams: { payment_intent },
+              });
             }
           },
-          (error) => {
-            console.log(error);
-          }
+          (error) => console.error(error)
         );
     }
   }
@@ -398,12 +407,12 @@ export class EmbeddedPayComponent implements OnInit {
         sku: sku,
         unitAmount: sku.price,
         lineItemRawPrice: sku.price * qty,
-        skuPrice: formatCurrency(sku.price, sku.currency),
-        lineItemPrice: formatCurrency(sku.price * qty, sku.currency),
+        skuPrice: fmtCurrency(sku.price, sku.currency),
+        lineItemPrice: fmtCurrency(sku.price * qty, sku.currency),
       };
     });
     // Add the subtotal and total to the payment summary.
-    const total = formatCurrency(this.getPaymentTotal(), this.currency);
+    const total = fmtCurrency(this.getPaymentTotal(), this.currency);
     this.subtotal = total;
     this.orderTotal = total;
   }

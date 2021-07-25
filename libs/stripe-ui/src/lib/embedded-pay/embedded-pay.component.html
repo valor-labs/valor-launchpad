@@ -90,36 +90,6 @@
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
-  <div id="confirmation">
-    <div class="status processing">
-      <h1>Completing your order…</h1>
-      <p>
-        We’re just waiting for the confirmation from your bank… This might take
-        a moment but feel free to close this page.
-      </p>
-      <p>We’ll send your receipt via email shortly.</p>
-    </div>
-    <div class="status success">
-      <h1>Thanks for your order!</h1>
-      <p>Woot! You successfully made a payment with Stripe.</p>
-      <p class="note">{{ confirmationMessage }}</p>
-    </div>
-    <div class="status receiver">
-      <h1>Thanks! One last step!</h1>
-      <p>
-        Please make a payment using the details below to complete your order.
-      </p>
-      <div class="info" [innerHTML]="receiverInfo"></div>
-    </div>
-    <div class="status error">
-      <h1>Oops, payment failed.</h1>
-      <p>
-        It looks like your order could not be paid at this time. Please try
-        again or select a different payment option.
-      </p>
-      <p class="error-message">{{ errorText }}</p>
-    </div>
-  </div>
 </main>
 <valor-launchpad-order-summary
   id="summary"

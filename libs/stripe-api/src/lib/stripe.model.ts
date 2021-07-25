@@ -1,3 +1,5 @@
+import type { Stripe } from 'stripe';
+
 export type AllCountriesResponse = Array<{
   key: string;
   value: string;
@@ -90,6 +92,7 @@ export interface PaymentIndentsInput {
 
 export interface PaymentIndentsResponse {
   clientSecret: string;
+  amount: number;
 }
 
 export interface PaymentSourceInput {
@@ -99,7 +102,22 @@ export interface PaymentSourceInput {
   amount?: number; // amount is needed for multibanco, but unnecessary for ach_credit_transfer
 }
 
-export interface PaymentSourceResponse {
-  routingNumber: string;
-  accountNumber: string;
-}
+export type PaymentSourceResponse = Pick<
+  Stripe.Source,
+  'id' | 'ach_credit_transfer' | 'multibanco'
+>;
+
+export type PaymentIntentsStatusResponse = Pick<
+  Stripe.PaymentIntent,
+  'status' | 'last_payment_error'
+>;
+
+export type PaymentSourceStatusResponse = Pick<
+  Stripe.Source,
+  | 'status'
+  | 'flow'
+  | 'multibanco'
+  | 'ach_credit_transfer'
+  | 'amount'
+  | 'currency'
+>;

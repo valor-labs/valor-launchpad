@@ -9,6 +9,7 @@ import { StripeService } from './stripe.service';
     StripeModule.forRoot({
       apiKey: process.env.STRIPE_API_KEY,
       apiVersion: '2020-08-27',
+      maxNetworkRetries: 3,
     }),
   ],
   controllers: [StripeController, StripeHooksController],

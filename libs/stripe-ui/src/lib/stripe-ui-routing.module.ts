@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DirectPayComponent } from './direct-pay/direct-pay.component';
 import { StripeComponent } from './stripe/stripe.component';
 import { EmbeddedPayComponent } from './embedded-pay/embedded-pay.component';
+import { PaymentStatusComponent } from './payment-status/payment-status.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'embedded',
         component: EmbeddedPayComponent,
+      },
+      {
+        path: 'status',
+        component: PaymentStatusComponent,
       },
       {
         path: '',

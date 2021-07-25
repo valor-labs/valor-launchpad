@@ -4,7 +4,7 @@
  * @param amount int
  * @param currency usd/eur/...
  */
-export function formatCurrency(amount: number, currency: string) {
+export function fmtCurrency(amount: number, currency: string) {
   const _amount = amount ?? 0;
   const price = +(_amount / 100).toFixed(2);
   const numberFormat = new Intl.NumberFormat(['en-US'], {
