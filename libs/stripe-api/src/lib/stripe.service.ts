@@ -239,7 +239,7 @@ const PRODUCTS = [
             set: 'Collector Set',
           },
           created: 1513848331,
-          currency: 'usd',
+          currency: 'eur',
           image: null,
           inventory: {
             quantity: 500,
@@ -289,7 +289,7 @@ const PRODUCTS = [
             gender: 'Woman',
           },
           created: 1513848329,
-          currency: 'usd',
+          currency: 'eur',
           image: null,
           inventory: {
             quantity: null,
@@ -338,7 +338,7 @@ const PRODUCTS = [
             issue: 'Issue #3 “Development”',
           },
           created: 1513848328,
-          currency: 'usd',
+          currency: 'eur',
           image: null,
           inventory: {
             quantity: null,

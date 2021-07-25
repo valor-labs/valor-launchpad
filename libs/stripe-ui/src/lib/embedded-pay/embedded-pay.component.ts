@@ -213,17 +213,15 @@ export class EmbeddedPayComponent implements OnInit {
     console.log('selectedPayMethod is: ', this.selectedPayMethod); // GB33BUKB20201555555555
     this.isProcessing = true;
 
-    const paymentIndent$ = this.stripeUiService
-      .getPaymentIndent({
-        items: this.orderItems.map((i) => ({
-          product_name: i.name,
-          quantity: +i.quantity,
-          unit_amount: i.unitAmount,
-          currency: this.currency,
-        })),
-        pay_method: this.selectedPayMethod.id,
-      })
-      .pipe(finalize(() => (this.isProcessing = false)));
+    const paymentIndent$ = this.stripeUiService.getPaymentIndent({
+      items: this.orderItems.map((i) => ({
+        product_name: i.name,
+        quantity: +i.quantity,
+        unit_amount: i.unitAmount,
+        currency: this.currency,
+      })),
+      pay_method: this.selectedPayMethod.id,
+    });
 
     const isReceiverFlow = this.selectedPayMethod.flow === 'receiver';
 
@@ -254,7 +252,8 @@ export class EmbeddedPayComponent implements OnInit {
                 `receiver flow should not contain ${this.selectedPayMethod.id}`
               );
             }
-          })
+          }),
+          finalize(() => (this.isProcessing = false))
         )
         .subscribe((source) => {
           // TODO: source redirect
@@ -354,7 +353,8 @@ export class EmbeddedPayComponent implements OnInit {
                   })
                 );
             }
-          })
+          }),
+          finalize(() => (this.isProcessing = false))
         )
         .subscribe(
           ({ error }) => {
