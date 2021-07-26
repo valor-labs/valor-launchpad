@@ -1,4 +1,4 @@
-import {UserEntity} from '@valor-launchpad/users-api';
+import {UserEntity} from './user.entity';
 
 export class BaseEntity {
   id: string;

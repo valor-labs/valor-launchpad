@@ -1,4 +1,4 @@
-import {BaseEntity} from '@valor-launchpad/common-api';
+import {BaseEntity} from './base.entity';
 
 export class MediaEntity extends BaseEntity {
   type: string;

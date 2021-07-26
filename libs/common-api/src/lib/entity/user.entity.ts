@@ -2,7 +2,8 @@ import {Exclude} from "class-transformer";
 import {UserTagsEntity} from './user-tags.entity';
 import {UserRolesEntity} from './user-roles.entity';
 import {UserEventsEntity} from './user.events.entity';
-import {BaseEntity} from '@valor-launchpad/common-api';
+import {BaseEntity} from './base.entity';
+import {MediaEntity} from './media.entity';
 
 export class UserEntity extends BaseEntity {
   constructor(userEntity?) {
@@ -21,17 +22,18 @@ export class UserEntity extends BaseEntity {
   passwordResetNeeded?: boolean;
   lastPasswordUpdateDate?: Date
   emailVerified: boolean;
-  emailVerifyToken: string;
+  emailVerifyToken?: string;
   phone: string;
-  phoneVerifyToken: string;
-  userRoles?: Array<UserRolesEntity>;
+  phoneVerifyToken?: string;
+  userRoles?: Array<UserRolesEntity> | any; //TODO: Need a way to use create typings here
   suspended: boolean;
   lastLogin?: Date;
   createDate: Date;
+  profile?: MediaEntity | any; //TODO: Need a way to use create typings here
   deletedDate?: Date;
   updateDate: Date;
   userTags?: Array<UserTagsEntity>
-  userHistory?: Array<UserEventsEntity>
+  userHistory?: Array<UserEventsEntity> | any  //TODO: Need a way to use create typings here
 }
 //
 // // TODO: Figure out how to do this in prisma

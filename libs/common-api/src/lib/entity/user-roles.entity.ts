@@ -1,5 +1,5 @@
+import {BaseEntity} from './base.entity';
 import {UserEntity} from './user.entity';
-import {BaseEntity} from '@valor-launchpad/common-api';
 import {RolesEntity} from './roles.entity';
 
 export class UserRolesEntity extends BaseEntity {

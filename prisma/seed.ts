@@ -1,55 +1,75 @@
 import {PrismaClient} from '@prisma/client'
 import * as Faker from 'faker'
 import * as bcrypt from 'bcrypt';
-import {HELPERS} from '../apps/api/seed_helpers/data';
+import {HELPERS} from '../libs/common-api/src/lib/entity/seed_helpers/data';
 import {ProjectsEntity} from '../apps/api/src/projects/projects.entity';
+import {RoleSeed} from './role.seed';
+import {UserSeed} from './user.seed';
+import {ProfileSeed} from './profile.seed';
 
 const prisma = new PrismaClient()
 
 async function main() {
-  const userRole = await prisma.rolesEntity.create({
-    data: {role: 'User'}
-  })
-  const adminRole = await prisma.rolesEntity.create({
-    data: {role: 'Admin'}
-  })
-  const user1 = await prisma.userEntity.upsert({
-    where: {username: 'user1'},
-    update: {},
-    create: {
-      username: 'user1',
-      firstName: Faker.name.firstName(),
-      lastName: Faker.name.lastName(),
-      email: 'user1@abc.com',
-      emailVerified: true,
-      password: await bcrypt.hash(HELPERS.defaultPassword, HELPERS.saltRounds),
-    }
-  })
-  const user2 = await prisma.userEntity.upsert({
-    where: {username: 'user2'},
-    update: {},
-    create: {
-      username: 'user2',
-      firstName: Faker.name.firstName(),
-      lastName: Faker.name.lastName(),
-      email: 'user2@abc.com',
-      emailVerified: true,
-      password: await bcrypt.hash(HELPERS.defaultPassword, HELPERS.saltRounds),
-    }
-  })
-  const user3 = await prisma.userEntity.upsert({
-      where: {username: 'user3'},
-      update: {},
+  const roleSeed = new RoleSeed(prisma);
+  const userSeed = new UserSeed(prisma);
+  const profileSeed = new ProfileSeed(prisma);
+
+  const userRole = await roleSeed.createRole({role: 'User'});
+  const adminRole = await roleSeed.createRole({role: 'Admin'});
+
+  const user1 = await userSeed.createUser({
+    username: 'user1',
+    email: 'user1@abc.com',
+    profile: {
       create: {
-        username: 'user3',
-        firstName: Faker.name.firstName(),
-        lastName: Faker.name.lastName(),
-        email: 'user3@abc.com',
-        emailVerified: false,
-        password: await bcrypt.hash(HELPERS.defaultPassword, HELPERS.saltRounds),
+        type: 'image/jpg',
+        src: 'assets/img/avatars/avatar.jpg',
+        alt: 'user1 avatar picture'
       }
     }
-  )
+  }, [adminRole, userRole])
+
+  const user2 = await userSeed.createUser({
+    username: 'user2',
+    email: 'user2@abc.com',
+    profile: {
+      create: {
+        type: 'image/jpg',
+        src: 'assets/img/avatars/avatar-2.jpg',
+        alt: 'user2 avatar picture'
+      }
+    }
+  }, [ userRole])
+
+  const user3 = await userSeed.createUser({
+    username: 'user3',
+    emailVerified: false,
+    email: 'user3@abc.com',
+    profile: {
+      create: {
+        type: 'image/jpg',
+        src: 'assets/img/avatars/avatar-3.jpg',
+        alt: 'user3 avatar picture'
+      }
+    }
+  }, [ userRole])
+
+  //TODO this needs to be fixed to tie to the user itself
+  //TODO employer, social media, skills all need to be extracted to their own entities and updated in profile
+  const user1Profile = await profileSeed.createProfile({
+    username: user1.username,
+    name: user1.firstName + " " + user1.lastName
+  })
+
+  const user2Profile = await profileSeed.createProfile({
+    username: user2.username,
+    name: user2.firstName + " " + user2.lastName
+  })
+
+  const user3Profile = await profileSeed.createProfile({
+    username: user3.username,
+    name: user3.firstName + " " + user3.lastName
+  })
 
   await prisma.userEventsEntity.createMany({
     data: [
@@ -76,22 +96,6 @@ async function main() {
         target_user_id: user3.id
       }
     ]
-  })
-
-  //TODO this needs to be fixed to tie to the user itself
-  //TODO employer, social media, skills all need to be extracted to their own entities and updated in profile
-  const user1Profile = await prisma.profileEntity.upsert({
-    where: {username: user1.username},
-    update: {},
-    create: {
-      username: user1.username,
-      name: user1.firstName + " " + user1.lastName,
-      avatar: Faker.random.arrayElement(HELPERS.profileImages),
-      from: Faker.address.city(),
-      title: Faker.random.word(),
-      following: Faker.datatype.boolean(),
-      location: Faker.address.city()
-    }
   })
 
   const employer1 = await prisma.employerEntity.create({

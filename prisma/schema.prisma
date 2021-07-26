@@ -229,6 +229,7 @@ model UserEntity {
   projects               ProjectsAssigneeEntity[] @relation("assigneeUser")
   reportedProjects       ProjectSummaryEntity[]   @relation("reportingUser")
   comments               CommentEntity[]          @relation("commentAuthor")
+  profile                MediaAsset?              @relation("userProfileImage")
 }
 
 model UserEventsEntity {
@@ -248,10 +249,10 @@ model UserRolesEntity {
   createdDate DateTime     @default(now()) @db.DateTime(6)
   updatedDate DateTime     @updatedAt
   deletedDate DateTime?    @db.DateTime(6)
-  role_id     String?      @db.VarChar(36)
-  rolesEntity RolesEntity? @relation("userRoles", fields: [role_id], references: [id])
-  user_id     String?      @db.VarChar(36)
-  userEntity  UserEntity?  @relation("userEntity", fields: [user_id], references: [id])
+  role_id     String     @db.VarChar(36)
+  rolesEntity RolesEntity @relation("userRoles", fields: [role_id], references: [id])
+  user_id     String      @db.VarChar(36)
+  userEntity  UserEntity  @relation("userEntity", fields: [user_id], references: [id])
 }
 
 model UserTagsEntity {
@@ -283,5 +284,7 @@ model MediaAsset {
   src         String          @db.VarChar(255)
   alt         String          @db.VarChar(255)
   project_id  String?         @db.VarChar(36)
+  user_id     String?         @db.VarChar(36)
   project     ProjectsEntity? @relation("projectHeroMedia", fields: [project_id], references: [id])
+  user        UserEntity?     @relation("userProfileImage", fields: [user_id], references: [id])
 }

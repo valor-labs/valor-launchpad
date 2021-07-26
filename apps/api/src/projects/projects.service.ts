@@ -39,7 +39,11 @@ export class ProjectsService {
       include: {
         summary: {
           include: {
-            reporter: true
+            reporter: {
+              include: {
+                profile: true
+              }
+            }
           }
         },
         comments: {

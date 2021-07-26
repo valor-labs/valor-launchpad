@@ -1,12 +1,12 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {CryptService} from '@valor-launchpad/common-api';
-import {UserEntity} from './user.entity';
+import {UserEntity} from '../../../common-api/src/lib/entity/user.entity';
 import {classToPlain} from 'class-transformer';
 import {CreateUserDto} from './dto/create-user.dto';
-import {UserRolesEntity} from './user-roles.entity';
+import {UserRolesEntity} from '../../../common-api/src/lib/entity/user-roles.entity';
 import {EmailService} from '@valor-launchpad/email';
 import * as generatePassword from 'generate-password';
-import {UserEventsEntity} from './user.events.entity';
+import {UserEventsEntity} from '../../../common-api/src/lib/entity/user.events.entity';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {PrismaService} from '@valor-launchpad/prisma';
 
