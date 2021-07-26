@@ -210,7 +210,6 @@ export class EmbeddedPayComponent implements OnInit {
 
     const { name, email, country } = mainForm.value;
 
-    console.log('selectedPayMethod is: ', this.selectedPayMethod); // GB33BUKB20201555555555
     this.isProcessing = true;
 
     const paymentIndent$ = this.stripeUiService.getPaymentIndent({
@@ -223,7 +222,9 @@ export class EmbeddedPayComponent implements OnInit {
       pay_method: this.selectedPayMethod.id,
     });
 
-    const isReceiverFlow = this.selectedPayMethod.flow === 'receiver';
+    const isReceiverFlow =
+      this.selectedPayMethod.flow === 'receiver' ||
+      this.selectedPayMethod.id === 'wechat';
 
     const [receiverIndent$, confirmIndent$] = partition(
       paymentIndent$,
@@ -247,6 +248,13 @@ export class EmbeddedPayComponent implements OnInit {
                 email,
                 amount,
               });
+            } else if (this.selectedPayMethod.id === 'wechat') {
+              return this.stripeUiService.getPaymentSource({
+                type: this.selectedPayMethod.id,
+                currency: this.currency,
+                email,
+                amount,
+              });
             } else {
               return throwError(
                 `receiver flow should not contain ${this.selectedPayMethod.id}`
@@ -256,7 +264,6 @@ export class EmbeddedPayComponent implements OnInit {
           finalize(() => (this.isProcessing = false))
         )
         .subscribe((source) => {
-          // TODO: source redirect
           this.router.navigate(['payments', 'stripe', 'status'], {
             queryParams: { payment_source: source.id },
           });

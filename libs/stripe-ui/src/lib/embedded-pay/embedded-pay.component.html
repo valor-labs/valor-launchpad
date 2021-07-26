@@ -63,6 +63,7 @@
               #paymentBecs="paymentBecs"
               [elements]="stripeElements">
             </valor-launchpad-payment-becs>
+            <div id='wechat-qrcode' *ngIf="selectedPayMethod.id === 'wechat'"></div>
             <valor-launchpad-payment-redirect
               [hidden]="!['bancontact', 'sofort', 'alipay', 'giropay'].includes(selectedPayMethod.id)"
               [elements]="stripeElements">

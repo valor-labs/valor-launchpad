@@ -1,5 +1,5 @@
 <div id="confirmation">
-  <ng-container [ngSwitch]='status'>
+  <ng-container [ngSwitch]='status$ | async'>
     <ng-template [ngSwitchCase]='"success"'>
       <div class="status success">
         <h1>Thanks for your order!</h1>
@@ -51,6 +51,10 @@
               <strong>{{multibanco.reference}}</strong>
             </li>
           </ul>
+          <ng-container *ngIf='!!wechat'>
+            <valor-launchpad-qrcode [text]='wechat.qr_code_url'></valor-launchpad-qrcode>
+            <p style='margin-top: 10px'>Please scan qrcode with wechat.</p>
+          </ng-container>
         </div>
       </div>
     </ng-template>

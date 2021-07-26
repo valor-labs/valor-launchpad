@@ -55,7 +55,9 @@
             "styles": [
               "apps/admin/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/qrcodejs/qrcode.js"
+            ]
           },
           "configurations": {
             "production": {

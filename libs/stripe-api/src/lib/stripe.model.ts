@@ -104,7 +104,7 @@ export interface PaymentSourceInput {
 
 export type PaymentSourceResponse = Pick<
   Stripe.Source,
-  'id' | 'ach_credit_transfer' | 'multibanco'
+  'id' | 'ach_credit_transfer' | 'multibanco' | 'wechat'
 >;
 
 export type PaymentIntentsStatusResponse = Pick<
@@ -118,6 +118,7 @@ export type PaymentSourceStatusResponse = Pick<
   | 'flow'
   | 'multibanco'
   | 'ach_credit_transfer'
+  | 'wechat'
   | 'amount'
   | 'currency'
 >;

@@ -44,6 +44,7 @@ export class StripeController {
       id: source.id,
       ach_credit_transfer: source.ach_credit_transfer,
       multibanco: source.multibanco,
+      wechat: source.wechat,
     };
   }
 
@@ -70,6 +71,7 @@ export class StripeController {
       flow: source.flow,
       multibanco: source.multibanco,
       ach_credit_transfer: source.ach_credit_transfer,
+      wechat: source.wechat,
       amount: source.amount,
       currency: source.currency,
     };

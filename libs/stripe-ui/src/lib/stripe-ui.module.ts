@@ -21,6 +21,7 @@ import { PaymentRedirectComponent } from './components/payment-redirect/payment-
 import { PaymentBecsComponent } from './components/payment-becs/payment-becs.component';
 import { PaymentReceiverComponent } from './components/payment-receiver/payment-receiver.component';
 import { PaymentStatusComponent } from './payment-status/payment-status.component';
+import { QrcodeComponent } from './components/qrcode/qrcode.component';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { PaymentStatusComponent } from './payment-status/payment-status.componen
     PaymentBecsComponent,
     PaymentReceiverComponent,
     PaymentStatusComponent,
+    QrcodeComponent,
   ],
 })
 export class StripeUiModule {}
