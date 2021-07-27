@@ -1,18 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DashboardAnalyticsEntity } from './dashboard-analytics.entity';
-import { Repository } from 'typeorm';
+import {PrismaService} from '@valor-launchpad/prisma';
 
 @Injectable()
 export class DashboardAnalyticsService {
 
-  constructor(@InjectRepository(DashboardAnalyticsEntity)
-              private dashboardAnalyticsRepository: Repository<DashboardAnalyticsEntity>
-  ) {
+  constructor(private prisma: PrismaService) {
   }
 
   async getData() {
-    return await this.dashboardAnalyticsRepository.findOne();
+    return await this.prisma.dashboardAnalyticsEntity.findFirst();
   }
 
 }

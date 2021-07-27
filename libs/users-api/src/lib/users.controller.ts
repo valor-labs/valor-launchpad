@@ -3,12 +3,18 @@ import {UsersService} from './users.service';
 import {RolesGuard} from './roles.guard';
 import {Roles} from './roles.decorator';
 import {AuthGuard} from '@nestjs/passport';
-import {UserEntity} from '@valor-launchpad/users-api';
 import {User} from './user.decorator';
+import {UserEntity} from '@valor-launchpad/common-api';
 
 @Controller('v1')
 export class UsersController {
   constructor(private usersService: UsersService) {
+  }
+
+  @Get('getRoles')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  async getAvailableRoles() {
+    return await this.usersService.getRoles();
   }
 
   @Get('all')

@@ -10,6 +10,10 @@ export class UsersListingService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getAvailableRoles(){
+    return this.httpClient.get(this.baseURL + 'getRoles')
+  }
+
   addUser(addUserForm: any) {
     return this.httpClient.post(this.baseURL + 'add', addUserForm)
   }

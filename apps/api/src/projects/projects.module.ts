@@ -1,12 +1,10 @@
 import {Module} from '@nestjs/common';
 import {ProjectsController} from './projects.controller';
 import {ProjectsService} from './projects.service';
-import {TypeOrmModule} from "@nestjs/typeorm";
-import {ProjectsEntity} from "./projects.entity";
-import {CommentEntity} from "./comment.entity";
+import {PrismaModule} from '@valor-launchpad/prisma';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProjectsEntity, CommentEntity])],
+  imports: [PrismaModule],
   controllers: [ProjectsController],
   providers: [ProjectsService]
 })
