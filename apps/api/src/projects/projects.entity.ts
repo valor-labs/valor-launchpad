@@ -13,12 +13,12 @@ export class ProjectsEntity extends BaseEntity {
   badge?: {
     title: string;
     status: string;
-  }
+  } | any
   hero?: MediaEntity;
   actions?: Array<{
     title: string;
     type: string;
-  }>
+  }> | any
   progress?: number;
   // TODO: This should become a collection of ids that is then connected to users
   assignee?: UserEntity[]
@@ -26,18 +26,18 @@ export class ProjectsEntity extends BaseEntity {
     reporter: {
       name: string;
       url: string;
-    }
+    } | any
     startDate?: Date;
     endDate?: Date;
     budget?: number;
     logged?: string;
     estimated?: string;
-  }
+  } | any
   rollupData?: {
     [key: string]: {
       current: number;
       goal: number;
       status: string;
     }
-  }
+  } | any
 }

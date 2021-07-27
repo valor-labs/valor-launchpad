@@ -18,7 +18,7 @@ model ActivityEntity {
   avatar      String           @db.VarChar(255)
   url         String?          @db.VarChar(255)
   body        String?          @db.LongText
-  reactions   String?          @db.LongText
+  reactions   Json?            @db.Json
   profile_id  String?          @db.VarChar(36)
   parentId    String?          @db.VarChar(36)
   parent      ActivityEntity?  @relation("activity_entityToactivity_entity_parentId", fields: [parentId], references: [id])
@@ -27,19 +27,19 @@ model ActivityEntity {
 }
 
 model CommentEntity {
-  id                  String          @id @default(uuid()) @db.VarChar(36)
-  createdDate         DateTime        @default(now()) @db.DateTime(6)
-  updatedDate         DateTime        @updatedAt
-  deletedDate         DateTime?       @db.DateTime(6)
-  author_id           String          @db.VarChar(36)
-  author              UserEntity      @relation("commentAuthor", fields: [author_id], references: [id])
-  body                String          @db.LongText
-  reactions           String?         @db.LongText
-  project_id          String?         @db.VarChar(36)
-  parentId            String?         @db.VarChar(36)
-  CommentEntity       CommentEntity?  @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
-  ProjectsEntity      ProjectsEntity? @relation("projectComments", fields: [project_id], references: [id])
-  children CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
+  id             String          @id @default(uuid()) @db.VarChar(36)
+  createdDate    DateTime        @default(now()) @db.DateTime(6)
+  updatedDate    DateTime        @updatedAt
+  deletedDate    DateTime?       @db.DateTime(6)
+  author_id      String          @db.VarChar(36)
+  author         UserEntity      @relation("commentAuthor", fields: [author_id], references: [id])
+  body           String          @db.LongText
+  reactions      Json?           @db.Json
+  project_id     String?         @db.VarChar(36)
+  parentId       String?         @db.VarChar(36)
+  CommentEntity  CommentEntity?  @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
+  ProjectsEntity ProjectsEntity? @relation("projectComments", fields: [project_id], references: [id])
+  children       CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
 }
 
 model DashboardAnalyticsEntity {
@@ -47,12 +47,12 @@ model DashboardAnalyticsEntity {
   createdDate            DateTime  @default(now()) @db.DateTime(6)
   updatedDate            DateTime  @updatedAt
   deletedDate            DateTime? @db.DateTime(6)
-  analyticsInfo          Json    @db.Json
-  languagesData          Json    @db.Json
-  mobileDesktopChartData Json    @db.Json
-  sourceMediumChartData  Json    @db.Json
-  sourceMediumTableData  Json    @db.Json
-  trafficTableData       Json    @db.Json
+  analyticsInfo          Json      @db.Json
+  languagesData          Json      @db.Json
+  mobileDesktopChartData Json      @db.Json
+  sourceMediumChartData  Json      @db.Json
+  sourceMediumTableData  Json      @db.Json
+  trafficTableData       Json      @db.Json
 }
 
 model DashboardEntity {
@@ -60,12 +60,12 @@ model DashboardEntity {
   createdDate             DateTime  @default(now()) @db.DateTime(6)
   updatedDate             DateTime  @updatedAt
   deletedDate             DateTime? @db.DateTime(6)
-  dashboardData           Json    @db.Json
-  salesRevenueChartData   Json    @db.Json
-  weeklySalesChartData    Json    @db.Json
-  weeklySalesTableData    Json    @db.Json
-  appointmentsData        Json    @db.Json
-  latestProjectsTableData Json    @db.Json
+  dashboardData           Json      @db.Json
+  salesRevenueChartData   Json      @db.Json
+  weeklySalesChartData    Json      @db.Json
+  weeklySalesTableData    Json      @db.Json
+  appointmentsData        Json      @db.Json
+  latestProjectsTableData Json      @db.Json
 }
 
 model ProfileEntity {
@@ -154,20 +154,20 @@ model ProfileEmployerEntity {
 }
 
 model ProjectsEntity {
-  id             String                   @id @default(uuid()) @db.VarChar(36)
-  createdDate    DateTime                 @default(now()) @db.DateTime(6)
-  updatedDate    DateTime                 @updatedAt
-  deletedDate    DateTime?                @db.DateTime(6)
-  title          String                   @db.VarChar(255)
-  body           String                   @db.LongText
-  badge          String?                  @db.LongText
-  actions        String?                  @db.LongText
-  progress       Int?
-  assignee       ProjectsAssigneeEntity[] @relation("projectsAssignee")
-  rollupData     String?                  @db.LongText
-  comments       CommentEntity[]          @relation("projectComments")
-  hero           MediaAsset?              @relation("projectHeroMedia")
-  summary        ProjectSummaryEntity?    @relation("projectSummary")
+  id          String                   @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime                 @default(now()) @db.DateTime(6)
+  updatedDate DateTime                 @updatedAt
+  deletedDate DateTime?                @db.DateTime(6)
+  title       String                   @db.VarChar(255)
+  body        String                   @db.LongText
+  badge       Json?                    @db.Json
+  actions     Json?                    @db.Json
+  progress    Int?
+  assignee    ProjectsAssigneeEntity[] @relation("projectsAssignee")
+  rollupData  Json?                    @db.Json
+  comments    CommentEntity[]          @relation("projectComments")
+  hero        MediaAsset?              @relation("projectHeroMedia")
+  summary     ProjectSummaryEntity?    @relation("projectSummary")
 }
 
 model ProjectSummaryEntity {
@@ -175,6 +175,8 @@ model ProjectSummaryEntity {
   createdDate       DateTime       @default(now()) @db.DateTime(6)
   updatedDate       DateTime       @updatedAt
   deletedDate       DateTime?      @db.DateTime(6)
+  endDate           DateTime?      @db.DateTime(6)
+  startDate           DateTime?      @db.DateTime(6)
   project_id        String         @db.VarChar(36)
   project           ProjectsEntity @relation("projectSummary", fields: [project_id], references: [id])
   reporting_user_id String         @db.VarChar(36)
@@ -245,11 +247,11 @@ model UserEventsEntity {
 }
 
 model UserRolesEntity {
-  id          String       @id @default(uuid()) @db.VarChar(36)
-  createdDate DateTime     @default(now()) @db.DateTime(6)
-  updatedDate DateTime     @updatedAt
-  deletedDate DateTime?    @db.DateTime(6)
-  role_id     String     @db.VarChar(36)
+  id          String      @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime    @default(now()) @db.DateTime(6)
+  updatedDate DateTime    @updatedAt
+  deletedDate DateTime?   @db.DateTime(6)
+  role_id     String      @db.VarChar(36)
   rolesEntity RolesEntity @relation("userRoles", fields: [role_id], references: [id])
   user_id     String      @db.VarChar(36)
   userEntity  UserEntity  @relation("userEntity", fields: [user_id], references: [id])

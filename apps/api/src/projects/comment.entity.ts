@@ -6,8 +6,8 @@ export class CommentEntity extends BaseEntity {
   project: ProjectsEntity;
   parent: CommentEntity;
   children: CommentEntity[];
-  author: string;
-  avatar: string;
+  author: string|any;
+  avatar: string|any;
   body: string;
-  reactions: Array<{ [key: string]: [value: number] }>;
+  reactions: Array<{ [key: string]: [value: number] }>|any;
 }

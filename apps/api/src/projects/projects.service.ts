@@ -48,7 +48,12 @@ export class ProjectsService {
         },
         comments: {
           include: {
-            author: true
+            author: true,
+            children: {
+              include: {
+                author: true
+              }
+            }
           }
         }
       }

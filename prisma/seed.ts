@@ -6,14 +6,21 @@ import {UserSeed} from './user.seed';
 import {ProfileSeed} from './profile.seed';
 import {DashboardSeed} from './dashboard.seed';
 import {DashboardAnalyticsSeed} from './dashboard-analytics.seed';
+import {ProjectsSeed} from './projects.seed';
+import {ProjectSummarySeed} from './project-summary.seed';
+import {MediaSeed} from './media.seed';
 
 const prisma = new PrismaClient()
 
 async function main() {
   const dashboardSeed = new DashboardSeed(prisma);
   const dashboardAnalyticsSeed = new DashboardAnalyticsSeed(prisma);
-  const dashboard = await dashboardSeed.createDashboard();
-  const dashboardAnalytics = await dashboardAnalyticsSeed.createDashboardAnalytics()
+  const projectsSeed = new ProjectsSeed(prisma);
+  const projectSummarySeed = new ProjectSummarySeed(prisma);
+  const mediaSeed = new MediaSeed(prisma);
+
+  await dashboardSeed.createDashboard();
+  await dashboardAnalyticsSeed.createDashboardAnalytics();
 
   const roleSeed = new RoleSeed(prisma);
   const userSeed = new UserSeed(prisma);
@@ -44,7 +51,7 @@ async function main() {
         alt: 'user2 avatar picture'
       }
     }
-  }, [ userRole])
+  }, [userRole])
 
   const user3 = await userSeed.createUser({
     username: 'user3',
@@ -57,7 +64,7 @@ async function main() {
         alt: 'user3 avatar picture'
       }
     }
-  }, [ userRole])
+  }, [userRole])
 
   //TODO this needs to be fixed to tie to the user itself
   //TODO employer, social media, skills all need to be extracted to their own entities and updated in profile
@@ -116,65 +123,81 @@ async function main() {
       current: true
     }
   })
+
+  const employer2 = await prisma.employerEntity.create({
+    data: {
+      name: Faker.company.companyName(),
+    }
+  })
+
+  await prisma.profileEmployerEntity.create({
+    data: {
+      employerId: employer2.id,
+      profileId: user2Profile.id,
+      current: true
+    }
+  })
+
+  const employer3 = await prisma.employerEntity.create({
+    data: {
+      name: Faker.company.companyName(),
+    }
+  })
+
+  await prisma.profileEmployerEntity.create({
+    data: {
+      employerId: employer3.id,
+      profileId: user3Profile.id,
+      current: true
+    }
+  })
   //TODO: Fix the activity and children, need five activity records with one or two with two children
+  await projectsSeed.createProjects([user1, user2, user3]);
 
-  // await prisma.activityEntity.upsert({
-  //   where: {id: Faker.datatype.uuid()},
-  //   update: {},
-  //   create: [
-  //     {
-  //       profile_id: user1.id,
-  //       createdDate: Faker.date.past(),
-  //       timestamp: Faker.date.past(),
-  //       updatedDate: Faker.date.past(),
-  //       type: Faker.random.arrayElement(HELPERS.activityType),
-  //       name: Faker.name.findName(),
-  //       avatar: Faker.random.arrayElement(HELPERS.profileImages),
-  //       body: Faker.lorem.text(1)
-  //     }
-  //   ]
-  // })
+  const createdProjects: ProjectsEntity[] = await prisma.projectsEntity.findMany();
+  await Promise.all(createdProjects.map(async (project: any) => { // TODO: Why does TS not see the id when it exists on the base entity
+    await prisma.mediaAsset.create({
+      data: {
+        type: 'image/png',
+        src: Faker.image.imageUrl(),
+        alt: Faker.lorem.word(3),
+        project_id: project.id
+      }
+    });
 
-  const projects = new Array(20).fill(null)
-    .map((project: ProjectsEntity) => {
-      return project = {
-        title: Faker.lorem.words(1),
-        body: Faker.lorem.text(4),
-        progress: Faker.datatype.number(10)
+    await prisma.projectsAssigneeEntity.create({
+      data: {
+        userId: Faker.random.arrayElement([user1, user2, user3]).id,
+        projectsId: project.id
       }
     })
 
-  await prisma.projectsEntity.createMany({
-    data: projects
-  });
-
-  const createdProjects = await prisma.projectsEntity.findMany();
-
-  const projectSummaries = [];
-  const projectComments = [];
-  createdProjects.map(async (project: any) => {
-    projectSummaries.push({
-      project_id: project.id,
-      reporting_user_id: user1.id,
-      budget: Faker.datatype.number({min: 5000, max: 100000}),
-      logged: Faker.datatype.number({min: 10, max: 1000}) + 'h',
-      estimated: Faker.datatype.number({min: 10, max: 1000}) + 'h'
+    return await prisma.commentEntity.create({
+      data: {
+        body: Faker.lorem.text(1),
+        author_id: Faker.random.arrayElement([user1, user2, user3]).id,
+        project_id: project.id
+      }
     })
-    projectComments.push({
-      body: Faker.lorem.text(1),
-      author_id: Faker.random.arrayElement([user1, user2, user3]).id,
-      project_id: project.id
+  }))
+
+  const createdComments = await prisma.commentEntity.findMany();
+
+  createdComments.map(async comment => {
+    const childrenCount = Faker.datatype.number(3)
+    const children = Array.from({length: childrenCount}, () => {
+      return {
+        body: Faker.lorem.text(1),
+        author_id: Faker.random.arrayElement([user1, user2, user3]).id,
+        parentId: comment.id
+      }
+    })
+    return await prisma.commentEntity.createMany({
+      data: children
     })
   })
 
-  await prisma.projectSummaryEntity.createMany({
-    data: projectSummaries
-  })
-
-  await prisma.commentEntity.createMany({
-    data: projectComments
-  })
-
+  const summaries = await projectSummarySeed.createProjectSummaries(createdProjects, [user1, user2, user3])
 
 }
 
