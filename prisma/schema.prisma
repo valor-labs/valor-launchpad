@@ -176,7 +176,7 @@ model ProjectSummaryEntity {
   updatedDate       DateTime       @updatedAt
   deletedDate       DateTime?      @db.DateTime(6)
   endDate           DateTime?      @db.DateTime(6)
-  startDate           DateTime?      @db.DateTime(6)
+  startDate         DateTime?      @db.DateTime(6)
   project_id        String         @db.VarChar(36)
   project           ProjectsEntity @relation("projectSummary", fields: [project_id], references: [id])
   reporting_user_id String         @db.VarChar(36)
@@ -215,7 +215,7 @@ model UserEntity {
   lastName               String                   @db.VarChar(255)
   passwordResetNeeded    Boolean?                 @db.TinyInt
   lastPasswordUpdateDate DateTime?                @db.DateTime(0)
-  emailVerified          Boolean                  @db.TinyInt
+  emailVerified          Boolean                  @default(false) @db.TinyInt
   emailVerifyToken       String?                  @unique @db.VarChar(255)
   phone                  String?                  @db.VarChar(255)
   phoneVerifyToken       String?                  @db.VarChar(255)

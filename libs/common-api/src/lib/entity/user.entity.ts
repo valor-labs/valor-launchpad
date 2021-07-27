@@ -5,6 +5,18 @@ import {UserEventsEntity} from './user.events.entity';
 import {BaseEntity} from './base.entity';
 import {MediaEntity} from './media.entity';
 
+export interface UpdateUser extends Partial<UserEntity> {
+  id: string;
+}
+
+export interface CreateUser extends Partial<UserEntity> {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone?: string;
+}
+
 export class UserEntity extends BaseEntity {
   constructor(userEntity?) {
     super()
@@ -12,6 +24,7 @@ export class UserEntity extends BaseEntity {
       Object.assign(this, userEntity)
     }
   }
+
   id: string;
   username: string;
   email: string;
@@ -35,6 +48,7 @@ export class UserEntity extends BaseEntity {
   userTags?: Array<UserTagsEntity>
   userHistory?: Array<UserEventsEntity> | any  //TODO: Need a way to use create typings here
 }
+
 //
 // // TODO: Figure out how to do this in prisma
 // @EventSubscriber()

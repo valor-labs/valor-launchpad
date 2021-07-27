@@ -9,6 +9,8 @@ import {DashboardAnalyticsSeed} from './dashboard-analytics.seed';
 import {ProjectsSeed} from './projects.seed';
 import {ProjectSummarySeed} from './project-summary.seed';
 import {MediaSeed} from './media.seed';
+import {UserEventsSeed} from './user-events.seed';
+import {UserEntity} from '../libs/common-api/src';
 
 const prisma = new PrismaClient()
 
@@ -18,6 +20,7 @@ async function main() {
   const projectsSeed = new ProjectsSeed(prisma);
   const projectSummarySeed = new ProjectSummarySeed(prisma);
   const mediaSeed = new MediaSeed(prisma);
+  const userEventSeed = new UserEventsSeed(prisma);
 
   await dashboardSeed.createDashboard();
   await dashboardAnalyticsSeed.createDashboardAnalytics();
@@ -29,7 +32,7 @@ async function main() {
   const userRole = await roleSeed.createRole({role: 'User'});
   const adminRole = await roleSeed.createRole({role: 'Admin'});
 
-  const user1 = await userSeed.createUser({
+  const user1 = <UserEntity>await userSeed.createUser({
     username: 'user1',
     email: 'user1@abc.com',
     profile: {
@@ -41,7 +44,7 @@ async function main() {
     }
   }, [adminRole, userRole])
 
-  const user2 = await userSeed.createUser({
+  const user2 = <UserEntity>await userSeed.createUser({
     username: 'user2',
     email: 'user2@abc.com',
     profile: {
@@ -53,7 +56,7 @@ async function main() {
     }
   }, [userRole])
 
-  const user3 = await userSeed.createUser({
+  const user3 = <UserEntity>await userSeed.createUser({
     username: 'user3',
     emailVerified: false,
     email: 'user3@abc.com',
@@ -83,32 +86,11 @@ async function main() {
     name: user3.firstName + " " + user3.lastName
   })
 
-  await prisma.userEventsEntity.createMany({
-    data: [
-      {
-        event: 'Create Event',
-        target_user_id: user1.id
-      },
-      {
-        event: 'Create Event',
-        target_user_id: user2.id
-      },
-      {
-        event: 'Create Event',
-        createdDate: new Date(),
-        target_user_id: user2.id
-      },
-      {
-        event: 'Create Event',
-        target_user_id: user3.id
-      },
-      {
-        event: 'Create Event',
-        createdDate: new Date(),
-        target_user_id: user3.id
-      }
-    ]
-  })
+  await userEventSeed.createUserEvent('Create Event', user1, user1);
+  await userEventSeed.createUserEvent('A second Event', user1, user1);
+  await userEventSeed.createUserEvent('A third Event', user1, user2);
+  await userEventSeed.createUserEvent('Create Event', user2, user1);
+  await userEventSeed.createUserEvent('Create Event', user3, user1);
 
   const employer1 = await prisma.employerEntity.create({
     data: {
@@ -159,7 +141,7 @@ async function main() {
     await prisma.mediaAsset.create({
       data: {
         type: 'image/png',
-        src: Faker.image.imageUrl(null,null,null, true),
+        src: Faker.image.imageUrl(null, null, null, true),
         alt: Faker.lorem.word(3),
         project_id: project.id
       }

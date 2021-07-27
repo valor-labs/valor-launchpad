@@ -1,15 +1,14 @@
 import {Bind, Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, Res, UseGuards} from "@nestjs/common";
 import {LocalAuthGuard} from "./guards/local-auth-guard";
-import {RequestWithSession, UserEntity} from "@valor-launchpad/common-api";
+import {CreateUser, RequestWithSession, UserEntity} from "@valor-launchpad/common-api";
 import {AuthService} from "./auth.service";
 import {Response} from 'express';
 import {IResponse} from '@valor-launchpad/common-api';
-import {CreateUserDto, User} from '@valor-launchpad/users-api';
+import {User} from '@valor-launchpad/users-api';
 import {ResponseError, ResponseSuccess} from '@valor-launchpad/common-api';
 import {UsersService} from '@valor-launchpad/users-api';
 import {EmailService} from '@valor-launchpad/email';
 import {SmsService} from '@valor-launchpad/sms';
-
 
 @Controller('v1')
 export class AuthController {
@@ -49,18 +48,20 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.OK)
-  async register(@Body() createUserDto: CreateUserDto, @User() actingUser: UserEntity): Promise<IResponse> {
+  async register(@Body() createUser: CreateUser, @User() actingUser: UserEntity): Promise<IResponse> {
     try {
-      const createdUser = await this.usersService.createUser(new UserEntity(createUserDto), actingUser);
-      await this.smsService.sendMessage(
-        {
-          body: `${createdUser.phoneVerifyToken} is your phone verification ID`,
-          from: '+18593491320',
-          to: createUserDto.phone
-        }
-      )
+      const createdUser = await this.usersService.createUser(new UserEntity(createUser), actingUser);
+      if (createUser.phone) {
+        await this.smsService.sendMessage(
+          {
+            body: `${createdUser.phoneVerifyToken} is your phone verification ID`,
+            from: '+18593491320',
+            to: createUser.phone
+          }
+        )
+      }
       await this.emailService.sendEmail({
-        to: createUserDto.email,
+        to: createUser.email,
         from: 'zack.chapple@valor-software.com',
         subject: 'Verify your email with valor-launchpad',
         text: 'Super Easy',
