@@ -1,13 +1,18 @@
-<div class='row'>
-  <div class='col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1'>
+<div class="row">
+  <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1">
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Billing Address</h5>
-      </div>
-      <div card-body *ngIf='billingFormConfig'>
-        <dynamic-form #billingForm="dynamicForm" [config]='billingFormConfig'></dynamic-form>
-        <div class='address mb-4' style='background: #f6f9fc; border-radius: 5px; padding: 15px;'>
-          <p class='address-label' style='color: #666ee8;'>Shopping Address</p>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content *ngIf="billingFormConfig">
+        <dynamic-form
+          #billingForm="dynamicForm"
+          [config]="billingFormConfig">
+        </dynamic-form>
+        <div
+          class="address mb-4"
+          style="background: #f6f9fc; border-radius: 5px; padding: 15px">
+          <p class="address-label" style="color: #666ee8">Shopping Address</p>
           <div class="d-flex">
             <div class="me-4">
               <b>Home Address</b>
@@ -15,41 +20,47 @@
               <p class="text-muted">NY</p>
             </div>
             <div id="register">
-              <a href="#"> <b style='color: #666ee8;'>Register Now</b> </a>
-              <p class="text-muted">Create account to have multiple address saved</p>
+              <a href="#"> <b style="color: #666ee8">Register Now</b> </a>
+              <p class="text-muted">
+                Create account to have multiple address saved
+              </p>
             </div>
           </div>
         </div>
-        <button stripe-button (click)='submit(billingForm)'>Pay</button>
-      </div>
+        <button stripe-button (click)="submit(billingForm)">Pay</button>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
-  <div class='col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1 pt-lg-0 pt-3'>
+  <div
+    class="
+      col-lg-6 col-md-8 col-sm-10
+      offset-lg-0 offset-md-2 offset-sm-1
+      pt-lg-0 pt-3
+    ">
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Cart summary</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div>
           <valor-launchpad-stripe-order-items>
             <valor-launchpad-stripe-order-item
-              *ngFor='let item of orderItems'
-              [orderItem]='item'
-            ></valor-launchpad-stripe-order-item>
+              *ngFor="let item of orderItems"
+              [orderItem]="item">
+            </valor-launchpad-stripe-order-item>
           </valor-launchpad-stripe-order-items>
-          <hr class='dropdown-divider mt-3 mb-3'/>
+          <hr class="dropdown-divider mt-3 mb-3" />
           <valor-launchpad-stripe-order-total
-            [live]='true'
-            [orderTotal]='orderTotal'
-            [subtotal]='subtotal'
-            [shipping]='shipping'
-          >
+            [live]="true"
+            [orderTotal]="orderTotal"
+            [subtotal]="subtotal"
+            [shipping]="shipping">
             <div gift-card>
-              <input valorLaunchpadInput placeholder='Gift Card or Promo Card' />
+              <input valorLaunchpadInput placeholder="Gift Card or Promo Card"/>
             </div>
           </valor-launchpad-stripe-order-total>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>

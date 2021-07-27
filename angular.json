@@ -55,12 +55,14 @@
             "styles": [
               "apps/admin/src/styles.scss"
             ],
+            "scripts": [
+              "node_modules/qrcodejs/qrcode.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "apps/admin/scss/1-variables"
               ]
-            },
-            "scripts": []
+            }
           },
           "configurations": {
             "production": {

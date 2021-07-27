@@ -8,10 +8,9 @@ import { DynamicFormComponent } from '@valor-launchpad/ui';
 @Component({
   selector: 'valor-launchpad-direct-pay',
   templateUrl: './direct-pay.component.html',
-  styleUrls: ['./direct-pay.component.scss']
+  styleUrls: ['./direct-pay.component.scss'],
 })
 export class DirectPayComponent implements OnInit {
-
   billingFormConfig: FieldConfig[];
 
   orderItems: OrderItem[] = [
@@ -19,12 +18,12 @@ export class DirectPayComponent implements OnInit {
       id: 'coffee',
       name: 'BattleCreek Coffee',
       sku: {
-        attributes: {
-        },
+        attributes: {},
       },
       quantity: '2',
-      skuPrice: '$12' as unknown as number,
-      lineItemPrice: '$24.00' as unknown as number,
+      skuPrice: '$12',
+      unitAmount: 1200,
+      lineItemPrice: '$24.00',
       lineItemRawPrice: '$24.00' as unknown as number,
     },
   ];
@@ -33,10 +32,10 @@ export class DirectPayComponent implements OnInit {
   shipping = '$90.00';
   orderTotal = '$114.00';
 
-  constructor(private stripeUiService: StripeUiService) { }
+  constructor(private stripeUiService: StripeUiService) {}
 
   ngOnInit(): void {
-    this.stripeUiService.getAllCountries().subscribe(allCountries => {
+    this.stripeUiService.getAllCountries().subscribe((allCountries) => {
       this.billingFormConfig = [
         {
           label: 'Name',
@@ -52,7 +51,10 @@ export class DirectPayComponent implements OnInit {
           type: 'input',
           subtype: 'text',
           validation: [Validators.required, Validators.email],
-          errorMessage: (errors) => errors.email ? 'Please input correct email' : 'The field is required',
+          errorMessage: (errors) =>
+            errors.email
+              ? 'Please input correct email'
+              : 'The field is required',
         },
         {
           label: 'City',
@@ -102,7 +104,7 @@ export class DirectPayComponent implements OnInit {
           subtype: 'checkbox',
         },
       ];
-    })
+    });
   }
 
   submit(form: DynamicFormComponent) {

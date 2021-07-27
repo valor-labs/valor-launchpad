@@ -1,9 +1,14 @@
-<img class="image" [src]="'/assets/products/'+orderItem.id+'.png'" alt="{{orderItem.name}}">
+<img
+  class="image"
+  [src]="'/assets/products/' + orderItem.id + '.png'"
+  alt="{{ orderItem.name }}" />
 <div class="label">
-  <p class="product">{{orderItem.name}}</p>
+  <p class="product">{{ orderItem.name }}</p>
   <div class="sku">
-    <div *ngFor="let attribute of orderItem.sku.attributes | keyvalue">{{attribute.value}}</div>
+    <div *ngFor="let attribute of orderItem.sku.attributes | keyvalue">
+      {{ attribute.value }}
+    </div>
   </div>
 </div>
-<p class="count">{{orderItem.quantity}} x {{orderItem.skuPrice}}</p>
-<p class="price">{{orderItem.lineItemPrice}}</p>
+<p class="count">{{ orderItem.quantity }} x {{ orderItem.skuPrice }}</p>
+<p class="price">{{ orderItem.lineItemPrice }}</p>
