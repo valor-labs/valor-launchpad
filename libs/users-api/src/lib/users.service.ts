@@ -274,7 +274,7 @@ export class UsersService {
     }
   }
 
-  async createUser(user: CreateUserDto, actingUser) {
+  async createUser(user: CreateUserDto, actingUser): Promise<UserEntity> {
     const userCheck = await this.findByUsername(user.username);
     if (!userCheck) {
 
@@ -288,7 +288,7 @@ export class UsersService {
       userRole.role = 'User';
       createUser.userRoles = [userRole];
       createUser.passwordResetNeeded = true
-      await this.prisma.userEntity.create({
+      const createdUser = <UserEntity>await this.prisma.userEntity.create({
         data: createUser
       })
 
@@ -316,7 +316,7 @@ export class UsersService {
         <UserEntity>createUser,
       );
 
-      return;
+      return createdUser;
     } else if (!userCheck.emailVerified) {
       throw new HttpException('Please check your email to verify your email address', HttpStatus.FORBIDDEN);
     } else {
@@ -330,7 +330,11 @@ export class UsersService {
         username
       },
       include: {
-        userRoles: true
+        userRoles: {
+          include: {
+            rolesEntity: true
+          }
+        }
       }
     })
   }
@@ -374,7 +378,11 @@ export class UsersService {
         username
       },
       include: {
-        userRoles: true
+        userRoles: {
+          include: {
+            rolesEntity: true
+          }
+        }
       }
     })
     const user = new UserEntity(fetchedUser)

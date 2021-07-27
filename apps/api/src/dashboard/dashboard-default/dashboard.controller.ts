@@ -10,7 +10,7 @@ export class DashboardController {
 
   @Get('all')
   async getAllData(): Promise<DashboardEntity> {
-    return await this.dashboardService.getData();
+    return <DashboardEntity> await this.dashboardService.getData();
   }
 
 

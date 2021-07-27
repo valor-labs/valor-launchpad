@@ -1,6 +1,5 @@
 import {Injectable, CanActivate, ExecutionContext} from '@nestjs/common';
 import {Reflector} from '@nestjs/core';
-import {UserEntity} from '@valor-launchpad/users-api';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -15,11 +14,11 @@ export class RolesGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const user: any = request.user;
     //TODO: clean this when we update the entity
-    const hasRole = () => user.user_roles_entity.some((userRole: any) => {
+    const hasRole = () => user.userRoles.some((userRole: any) => {
       return !!roles.find((item) => {
-        return item.toLowerCase() === userRole.role.toLowerCase();
+        return item.toLowerCase() === userRole.rolesEntity.role.toLowerCase();
       });
     });
-    return user && user.user_roles_entity && hasRole();
+    return user && user.userRoles && hasRole();
   }
 }

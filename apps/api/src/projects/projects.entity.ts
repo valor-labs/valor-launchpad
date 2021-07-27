@@ -1,6 +1,5 @@
 import {CommentEntity} from "./comment.entity";
-import {BaseEntity, MediaEntity} from '@valor-launchpad/common-api';
-import {UserEntity} from '@valor-launchpad/users-api';
+import {BaseEntity, MediaEntity, UserEntity} from '@valor-launchpad/common-api';
 
 export class ProjectsEntity extends BaseEntity {
   constructor(){
