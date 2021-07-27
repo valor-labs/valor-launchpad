@@ -1,6 +1,6 @@
 import { Factory, Seeder } from '@zchapple/typeorm-seeding';
 import { Connection } from 'typeorm';
-import { DashboardAnalyticsEntity } from './dashboard-analytics.entity';
+import { DashboardAnalyticsEntity } from '../../../../../libs/common-api/src/lib/entity/dashboard-analytics.entity';
 
 
 export default class DashboardAnalyticsSeeds implements Seeder {

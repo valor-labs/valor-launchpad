@@ -1,15 +1,17 @@
 import {PrismaClient} from '@prisma/client'
 import * as Faker from 'faker'
-import * as bcrypt from 'bcrypt';
-import {HELPERS} from '../libs/common-api/src/lib/entity/seed_helpers/data';
 import {ProjectsEntity} from '../apps/api/src/projects/projects.entity';
 import {RoleSeed} from './role.seed';
 import {UserSeed} from './user.seed';
 import {ProfileSeed} from './profile.seed';
+import {DashboardSeed} from './dashboard.seed';
 
 const prisma = new PrismaClient()
 
 async function main() {
+  const dashboardSeed = new DashboardSeed(prisma);
+  const dashboard = await dashboardSeed.createDashboard()
+
   const roleSeed = new RoleSeed(prisma);
   const userSeed = new UserSeed(prisma);
   const profileSeed = new ProfileSeed(prisma);
@@ -169,6 +171,7 @@ async function main() {
   await prisma.commentEntity.createMany({
     data: projectComments
   })
+
 
 }
 

@@ -3,11 +3,13 @@ version: "3"
 services:
 
     database:
-        image: mariadb:10.6
+        image: mysql:8.0.26
         environment:
-            MYSQL_USER: "root"
-            MYSQL_ROOT_PASSWORD: "root1234"
+            MYSQL_USER: "launchpad"
+            MYSQL_PASSWORD: "launchpad1234"
             MYSQL_DATABASE: "test"
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_ROOT_PASSWORD: "root1234"
         ports:
             - "3306:3306"
 

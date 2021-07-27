@@ -1,4 +1,4 @@
-import { DashboardAnalyticsEntity } from './dashboard-analytics.entity';
+import { DashboardAnalyticsEntity } from '../../../../../libs/common-api/src/lib/entity/dashboard-analytics.entity';
 import { define } from '@zchapple/typeorm-seeding';
 import * as Faker from 'faker';
 

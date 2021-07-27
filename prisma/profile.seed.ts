@@ -1,7 +1,6 @@
 import * as Faker from 'faker'
 import {HELPERS} from '../libs/common-api/src/lib/entity/seed_helpers/data';
 import {PrismaClient} from '@prisma/client';
-import {UserEntity} from '../libs/common-api/src';
 import {ProfileEntity} from '../apps/api/src/profile/profile.entity';
 
 export class ProfileSeed {

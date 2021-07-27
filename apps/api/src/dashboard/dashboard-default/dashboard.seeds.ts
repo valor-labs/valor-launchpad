@@ -1,5 +1,5 @@
 import { Factory, Seeder } from '@zchapple/typeorm-seeding';
-import { DashboardEntity } from './dashboard.entity';
+import { DashboardEntity } from '../../../../../libs/common-api/src/lib/entity/dashboard.entity';
 import { Connection } from 'typeorm';
 
 
