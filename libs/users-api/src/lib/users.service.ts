@@ -42,7 +42,11 @@ export class UsersService {
     //Todo: this eventually needs to filter password field
     return await this.prisma.userEntity.findMany({
       include: {
-        userRoles: true,
+        userRoles: {
+          include: {
+            rolesEntity: true
+          }
+        },
         userTags: true,
         userHistory: {
           include: {

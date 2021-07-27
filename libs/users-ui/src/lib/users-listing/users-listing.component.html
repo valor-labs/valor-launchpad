@@ -3,7 +3,7 @@
   <valor-launchpad-card-header class="d-flex">
     <h2 class="me-auto">All Users</h2>
     <div class="actions">
-      <button type="button" class="btn btn-light" (click)="openAddEdit()">Add User<i class="fas fa-plus"></i></button>
+      <button type="button" class="btn btn-light" (click)="openAddEdit()">Add User<i class="fas fa-plus ms-2"></i></button>
       <button type="button" class="btn btn-light" (click)="fetchUsers()"><i class="fas fa-sync"></i></button>
     </div>
   </valor-launchpad-card-header>
@@ -29,7 +29,7 @@
         <td>{{user.username}}</td>
         <td>{{user.email}} <i class="fas fa-check-circle validated" *ngIf="user.emailVerified"></i></td>
         <td>
-          <span class="badge bg-light text-dark" *ngFor="let userRole of user.userRoles">{{userRole.role}}</span>
+          <span class="badge bg-light text-dark" *ngFor="let userRole of user.userRoles">{{userRole.rolesEntity.role}}</span>
         </td>
         <td>
           <span class="badge bg-light text-dark" *ngFor="let userTag of user.userTags">{{userTag.tag}}</span>
@@ -56,11 +56,11 @@
           <div *ngIf="user.lastPasswordUpdateDate">
             Last Password Update: {{user.lastPasswordUpdateDate|date:'short'}}
           </div>
-          <div *ngIf="user.passwordResetNeeded">
+          <div *ngIf="user.passwordResetNeeded" class="mt-2">
             <button type="button" (click)="resendEmail(user.id)" class="btn btn-outline-warning">Resend Reset Email
             </button>
           </div>
-          <div *ngIf="!user.passwordResetNeeded">
+          <div *ngIf="!user.passwordResetNeeded" class="mt-2">
             <button type="button" (click)="resetPassword(user.username)" class="btn btn-outline-warning">Reset
               Password
             </button>
