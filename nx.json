@@ -44,6 +44,9 @@
     "email": {
       "tags": []
     },
+    "prisma": {
+      "tags": []
+    },
     "sms": {
       "tags": []
     },

@@ -1,60 +1,21 @@
-import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 import {ActivityEntity} from "./activity.entity";
+import {BaseEntity} from '@valor-launchpad/common-api';
+import {EmployerEntity} from './employer.entity';
+import {ProfileEmployerEntity} from './profileEmployer.entity';
+import {SocialMediaMatchingEntity} from './socialMediaMatching.entity';
+import {ProfileSkillsEntity} from './profileSkills.entity';
 
-@Entity()
-export class ProfileEntity {
-  //TODO: Need to find a way to track updates and "version" this entity
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
-  @CreateDateColumn()
-  createdDate: Date;
-
-  @UpdateDateColumn()
-  updatedDate: Date
-
+export class ProfileEntity extends BaseEntity {
   //TODO: Add created by and updated by users
-
-  @Column()
   name: string;
-
-  @Column()
   avatar: string;
-
-  @Column()
   username: string;
-
-  @Column()
   title: string;
-
-  @Column()
   following: boolean;
-
-  @Column()
   location: string;
-
-  @Column()
   from: string;
-
-  @Column({type: 'json'})
-  employer: {
-    name: string;
-    url: string;
-  };
-
-  @OneToMany((type) => ActivityEntity, (activity) => activity.profile)
+  employers?: ProfileEmployerEntity[];
   activity: ActivityEntity[];
-
-  @Column({type: 'json'})
-  social_media: Array<{
-    type: string;
-    icon: string;
-    url: string;
-  }>;
-
-  @Column({type: 'json'})
-  skills: Array<{
-    name: string;
-    description: string;
-  }>;
+  socialMedia: SocialMediaMatchingEntity[];
+  skills: ProfileSkillsEntity[];
 }

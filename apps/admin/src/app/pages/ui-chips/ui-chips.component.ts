@@ -5,7 +5,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
   templateUrl: './ui-chips.component.html',
   styleUrls: ['./ui-chips.component.scss']
 })
-export class UiChipsComponent implements OnInit {
+export class UiChipsComponent {
   tags = ['Unremovable', 'Tag 2', 'Tag 3'];
   inputVisible = false;
   inputValue = '';
@@ -33,12 +33,6 @@ export class UiChipsComponent implements OnInit {
     }
     this.inputValue = '';
     this.inputVisible = false;
-  }
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
 }

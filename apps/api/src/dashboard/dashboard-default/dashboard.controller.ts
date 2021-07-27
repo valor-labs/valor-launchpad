@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { DashboardService } from './dashboard.service';
-import { DashboardEntity } from './dashboard.entity';
+import { DashboardEntity } from '../../../../../libs/common-api/src/lib/entity/dashboard.entity';
 
 @Controller('v1')
 export class DashboardController {
@@ -10,7 +10,7 @@ export class DashboardController {
 
   @Get('all')
   async getAllData(): Promise<DashboardEntity> {
-    return await this.dashboardService.getData();
+    return <DashboardEntity> await this.dashboardService.getData();
   }
 
 

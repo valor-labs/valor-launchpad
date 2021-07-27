@@ -1,11 +1,10 @@
 import {Bind, Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, Res, UseGuards} from "@nestjs/common";
 import {LocalAuthGuard} from "./guards/local-auth-guard";
-import {RequestWithSession} from "@valor-launchpad/common-api";
+import {RequestWithSession, UserEntity} from "@valor-launchpad/common-api";
 import {AuthService} from "./auth.service";
 import {Response} from 'express';
 import {IResponse} from '@valor-launchpad/common-api';
-import {CreateUserDto} from '@valor-launchpad/users-api';
-import {UserEntity} from '@valor-launchpad/users-api';
+import {CreateUserDto, User} from '@valor-launchpad/users-api';
 import {ResponseError, ResponseSuccess} from '@valor-launchpad/common-api';
 import {UsersService} from '@valor-launchpad/users-api';
 import {EmailService} from '@valor-launchpad/email';
@@ -15,7 +14,7 @@ import {SmsService} from '@valor-launchpad/sms';
 @Controller('v1')
 export class AuthController {
   constructor(private authService: AuthService, private usersService: UsersService,
-              private smsService:SmsService,
+              private smsService: SmsService,
               private emailService: EmailService) {
   }
 
@@ -26,7 +25,8 @@ export class AuthController {
     req.session.token = loginResponse.access_token;
     req.session.user = loginResponse.user;
     response.cookie('access_token', loginResponse.access_token)
-    response.send(await this.authService.login(body));
+    const loginResult = await this.authService.login(body);
+    response.send(loginResult);
   }
 
   @Get('sign-out')
@@ -49,9 +49,9 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.OK)
-  async register(@Body() createUserDto: CreateUserDto): Promise<IResponse> {
+  async register(@Body() createUserDto: CreateUserDto, @User() actingUser: UserEntity): Promise<IResponse> {
     try {
-      const createdUser = await this.usersService.createUser(new UserEntity(createUserDto));
+      const createdUser = await this.usersService.createUser(new UserEntity(createUserDto), actingUser);
       await this.smsService.sendMessage(
         {
           body: `${createdUser.phoneVerifyToken} is your phone verification ID`,

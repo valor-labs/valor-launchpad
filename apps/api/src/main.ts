@@ -8,6 +8,7 @@ import * as connectRedis from 'connect-redis';
 import * as expressSession from 'express-session';
 import * as redis from 'redis';
 import * as cookieParser from 'cookie-parser';
+import {PrismaService} from '@valor-launchpad/prisma';
 
 dotenv.config({path: process.cwd() + '/apps/api/.env'});
 
@@ -43,6 +44,9 @@ async function bootstrap() {
     resave: false,
     saveUninitialized: false,
   }));
+
+  const prismaService: PrismaService = app.get(PrismaService);
+  prismaService.enableShutdownHooks(app)
 
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {

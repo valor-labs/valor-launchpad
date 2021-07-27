@@ -17,13 +17,13 @@ export class ProjectsController {
 
   @Get('all')
   //TODO: Understand why this is entity and not the class from api
-  async getAll(): Promise<Array<ProjectsEntity>> {
+  async getAll() {
     return await this.projectsService.getAll();
   }
 
   @Get('single/:id')
   //TODO: Understand why this is entity and not the class from api
-  async getSingle(@Param() params): Promise<ProjectsEntity | HttpErrorResponse> {
+  async getSingle(@Param() params) {
     const project = await this.projectsService.getSingle(params.id);
     /*TODO: improve this check */
     if (typeof project !== 'undefined') {

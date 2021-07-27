@@ -13,7 +13,7 @@
       </div>
     </div>
     <h5><a class="card-title mb-0" routerLink="/projects-detail/{{config.id}}">{{config.title}}</a></h5>
-    <div class="badge my-2" [ngClass]="config.badge.status">{{config.badge.title}}</div>
+    <div class="badge my-2" [ngClass]="config.badge?.status">{{config.badge?.title}}</div>
   </div>
   <div class="card-body px-4 pt-2">
     <p>{{config.body}}</p>

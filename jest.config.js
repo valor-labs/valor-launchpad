@@ -11,5 +11,6 @@ module.exports = {
     '<rootDir>/libs/users-api',
     '<rootDir>/libs/auth-api',
     '<rootDir>/libs/users-ui',
+    '<rootDir>/libs/prisma',
   ],
 };
