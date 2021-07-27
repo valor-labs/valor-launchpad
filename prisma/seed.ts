@@ -5,12 +5,15 @@ import {RoleSeed} from './role.seed';
 import {UserSeed} from './user.seed';
 import {ProfileSeed} from './profile.seed';
 import {DashboardSeed} from './dashboard.seed';
+import {DashboardAnalyticsSeed} from './dashboard-analytics.seed';
 
 const prisma = new PrismaClient()
 
 async function main() {
   const dashboardSeed = new DashboardSeed(prisma);
-  const dashboard = await dashboardSeed.createDashboard()
+  const dashboardAnalyticsSeed = new DashboardAnalyticsSeed(prisma);
+  const dashboard = await dashboardSeed.createDashboard();
+  const dashboardAnalytics = await dashboardAnalyticsSeed.createDashboardAnalytics()
 
   const roleSeed = new RoleSeed(prisma);
   const userSeed = new UserSeed(prisma);

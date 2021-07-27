@@ -5,8 +5,6 @@ services:
     database:
         image: mysql:8.0.26
         environment:
-            MYSQL_USER: "launchpad"
-            MYSQL_PASSWORD: "launchpad1234"
             MYSQL_DATABASE: "test"
             MYSQL_ROOT_HOST: "%"
             MYSQL_ROOT_PASSWORD: "root1234"

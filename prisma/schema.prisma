@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://launchpad:launchpad1234@localhost:3306/test"
+  url      = "mysql://root:root1234@localhost:3306/test"
 }
 
 model ActivityEntity {
@@ -47,12 +47,12 @@ model DashboardAnalyticsEntity {
   createdDate            DateTime  @default(now()) @db.DateTime(6)
   updatedDate            DateTime  @updatedAt
   deletedDate            DateTime? @db.DateTime(6)
-  analyticsInfo          String    @db.LongText
-  languagesData          String    @db.LongText
-  mobileDesktopChartData String    @db.LongText
-  sourceMediumChartData  String    @db.LongText
-  sourceMediumTableData  String    @db.LongText
-  trafficTableData       String    @db.LongText
+  analyticsInfo          Json    @db.Json
+  languagesData          Json    @db.Json
+  mobileDesktopChartData Json    @db.Json
+  sourceMediumChartData  Json    @db.Json
+  sourceMediumTableData  Json    @db.Json
+  trafficTableData       Json    @db.Json
 }
 
 model DashboardEntity {

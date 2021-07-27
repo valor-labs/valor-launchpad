@@ -1,12 +1,11 @@
 import {PrismaClient} from '@prisma/client'
-import {DashboardEntity} from '../libs/common-api/src';
 import * as Faker from 'faker';
 
 export class DashboardSeed {
   constructor(private prisma: PrismaClient) {
   }
 
-  async createDashboard(seedObj?: Partial<DashboardEntity>) {
+  async createDashboard() {
     const latestProjects = Faker.datatype.number({min: 20, max: 40});
     const latestProjectsArray = [];
     for (let i = 0; i < latestProjects; i++) {
