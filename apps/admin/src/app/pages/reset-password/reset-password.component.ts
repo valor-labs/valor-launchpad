@@ -15,7 +15,7 @@ export class ResetPasswordComponent implements OnInit {
 
   resetPassword(resetPasswordForm){
     this.message = 'Requesting your password reset';
-    this.resetPasswordService.resetPassword(resetPasswordForm.value.username).subscribe(result=>{
+    this.resetPasswordService.resetPassword(resetPasswordForm.value.username).subscribe(()=>{
       this.message = 'Your password has been reset please check your email!'
     })
   }
