@@ -183,7 +183,7 @@ async function main() {
 
   const createdComments = await prisma.commentEntity.findMany();
 
-  createdComments.map(async comment => {
+  await Promise.all(createdComments.map(async comment => {
     const childrenCount = Faker.datatype.number(3)
     const children = Array.from({length: childrenCount}, () => {
       return {
@@ -195,10 +195,9 @@ async function main() {
     return await prisma.commentEntity.createMany({
       data: children
     })
-  })
+  }))
 
-  const summaries = await projectSummarySeed.createProjectSummaries(createdProjects, [user1, user2, user3])
-
+  return await projectSummarySeed.createProjectSummaries(createdProjects, [user1, user2, user3])
 }
 
 main()

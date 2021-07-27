@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:root1234@localhost:3306/test"
+  url      = env("DATABASE_URL")
 }
 
 model ActivityEntity {

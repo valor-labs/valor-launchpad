@@ -5,9 +5,9 @@ services:
     database:
         image: mysql:8.0.26
         environment:
-            MYSQL_DATABASE: "test"
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_ROOT_HOST: "%"
-            MYSQL_ROOT_PASSWORD: "root1234"
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         ports:
             - "3306:3306"
 
