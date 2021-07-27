@@ -159,7 +159,7 @@ async function main() {
     await prisma.mediaAsset.create({
       data: {
         type: 'image/png',
-        src: Faker.image.imageUrl(),
+        src: Faker.image.imageUrl(null,null,null, true),
         alt: Faker.lorem.word(3),
         project_id: project.id
       }

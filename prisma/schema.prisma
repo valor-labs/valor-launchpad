@@ -163,8 +163,8 @@ model ProjectsEntity {
   badge       Json?                    @db.Json
   actions     Json?                    @db.Json
   progress    Int?
-  assignee    ProjectsAssigneeEntity[] @relation("projectsAssignee")
   rollupData  Json?                    @db.Json
+  assignee    ProjectsAssigneeEntity[] @relation("projectsAssignee")
   comments    CommentEntity[]          @relation("projectComments")
   hero        MediaAsset?              @relation("projectHeroMedia")
   summary     ProjectSummaryEntity?    @relation("projectSummary")

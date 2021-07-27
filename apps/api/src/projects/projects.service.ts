@@ -28,7 +28,11 @@ export class ProjectsService {
   }
 
   async getAll() {
-    return await this.prisma.projectsEntity.findMany();
+    return await this.prisma.projectsEntity.findMany({
+      include: {
+        hero: true
+      }
+    });
   }
 
   async getSingle(id: string) {
@@ -37,6 +41,16 @@ export class ProjectsService {
         id
       },
       include: {
+        assignee: {
+          include: {
+            user: {
+              include: {
+                profile: true
+              }
+            }
+          }
+        },
+        hero: true,
         summary: {
           include: {
             reporter: {
@@ -48,10 +62,18 @@ export class ProjectsService {
         },
         comments: {
           include: {
-            author: true,
+            author: {
+              include: {
+                profile: true
+              }
+            },
             children: {
               include: {
-                author: true
+                author: {
+                  include: {
+                    profile: true
+                  }
+                }
               }
             }
           }

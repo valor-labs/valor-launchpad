@@ -55,7 +55,8 @@
 
         <div>
           <h5>Assignee</h5>
-          <valor-launchpad-avatar *ngFor="let assignee of project?.assignee" [src]="assignee.url" classes="me-1" alt="Avatar"
+          <valor-launchpad-avatar *ngFor="let assignee of project?.assignee" [src]="assignee.user.profile.src" classes="me-1"
+                                  [alt]="assignee.user.profile.alt"
                                   size="md"></valor-launchpad-avatar>
         </div>
       </div>
@@ -84,7 +85,7 @@
       <div class="card-body">
         <!--TODO add HR after each of these but last one-->
         <div class="d-flex align-items-start" *ngFor="let comment of project?.comments">
-          <valor-launchpad-avatar size="xl" [src]="comment.avatar" classes="me-3" [alt]="comment.author"></valor-launchpad-avatar>
+          <valor-launchpad-avatar size="xl" [src]="comment.author.profile.src" classes="me-3" [alt]="comment.author.profile.alt"></valor-launchpad-avatar>
           <div class="flex-grow-1">
             <small class="float-end">45m ago</small>
             <p class="mb-2"><strong>{{comment.author.firstName}}</strong></p>
@@ -93,11 +94,11 @@
             <small class="text-muted">{{comment.timestamp|date:'short'}}</small><br/>
             <div class="d-flex align-items-start mt-3" *ngFor="let child of comment.children">
               <a class="pe-2" href="#">
-                <valor-launchpad-avatar size="md" [src]="child.avatar" classes="me-2" [alt]="child.author"></valor-launchpad-avatar>
+                <valor-launchpad-avatar size="md" [src]="child.author.profile.src" classes="me-2" [alt]="child.author.profile.alt"></valor-launchpad-avatar>
               </a>
               <div class="flex-grow-1">
                 <p class="text-muted">
-                  <strong>{{child.author}}</strong>: {{child.body}}
+                  <strong>{{child.author.firstName}}</strong>: {{child.body}}
                   <!--                    TODO: we need to add some time around these as well-->
                 </p>
               </div>
@@ -130,8 +131,8 @@
         <dl class="row">
           <dt class="col-4 col-xxl-3">Assignee</dt>
           <dd class="col-8 col-xxl-9">
-            <valor-launchpad-avatar *ngFor="let assignee of project?.assignee" [src]="assignee.url" classes="me-1 mt-n1"
-                                    alt="Avatar" size="sm"></valor-launchpad-avatar>
+            <valor-launchpad-avatar *ngFor="let assignee of project?.assignee" [src]="assignee.user.profile.src" classes="me-1 mt-n1"
+                                    [alt]="assignee.user.profile.alt" size="sm"></valor-launchpad-avatar>
           </dd>
 
           <dt class="col-4 col-xxl-3 mb-0">Reporter</dt>
