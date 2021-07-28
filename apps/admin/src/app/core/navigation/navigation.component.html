@@ -37,6 +37,7 @@
         <a class="sidebar-link" (click)="toggleCollapse('pages')">
           <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pages</span>
         </a>
+<!--     TODO:   This and the items from Header need to come from a service-->
         <ul id="pages" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['pages']">
           <li class="sidebar-item" routerLinkActive="active">
             <a class="sidebar-link" routerLink="users">Users</a>

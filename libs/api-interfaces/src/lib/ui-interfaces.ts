@@ -2,6 +2,7 @@
 export interface Action {
   label: string;
   link?: string;
+  routerLink?: string;
   event?: any;
   icon?: string;
   divider?: boolean;

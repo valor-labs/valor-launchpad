@@ -9,6 +9,51 @@ import {NavigationService} from '../navigation/navigation.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  //TODO this and the items in navigation.component need to come from a service
+  megaMenu: Array<{ label: string, actions: Action[] }> = [
+    {
+      label: 'UI Elements',
+      actions: [
+        {
+          label:'Alerts',
+          routerLink:'/ui-alerts'
+        },
+        {
+          label:'Chips',
+          routerLink:'/ui-chips'
+        },
+        {
+          label:'Cards',
+          routerLink:'/ui-cards'
+        },
+        {
+          label:'Buttons',
+          routerLink:'/ui-buttons'
+        }
+      ]
+    },
+    {
+      label: 'Pages',
+      actions: [
+        {
+          label:'Users',
+          routerLink:'/users'
+        },
+        {
+          label:'Profile',
+          routerLink:'/profile'
+        },
+        {
+          label:'Settings',
+          routerLink:'/settings'
+        },
+        {
+          label:'Clients',
+          routerLink:'/clients'
+        }
+      ]
+    }
+  ];
   languageActions: Action[] = [
     {
       image: {
@@ -58,7 +103,7 @@ export class HeaderComponent {
     },
     {
       label: 'Settings & Privacy',
-      link: '/settings',
+      routerLink: '/settings',
     },
     {
       label: 'Help',

@@ -14,6 +14,9 @@ export class DropdownComponent implements OnInit, OnDestroy {
   actions: Action[];
 
   @Input()
+  megaMenu: any[];
+
+  @Input()
   classes: string;
 
   show = false;
