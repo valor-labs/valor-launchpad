@@ -50,7 +50,13 @@
             "aot": true,
             "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
             "styles": ["apps/admin/src/styles.scss"],
-            "scripts": ["node_modules/apexcharts/dist/apexcharts.min.js"]
+            "scripts": ["node_modules/apexcharts/dist/apexcharts.min.js", "node_modules/qrcodejs/qrcode.js"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/admin/scss/1-variables"
+              ]
+            }
+
           },
           "configurations": {
             "production": {
