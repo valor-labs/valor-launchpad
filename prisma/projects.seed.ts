@@ -10,7 +10,26 @@ export class ProjectsSeed {
   async createProjects(users: Partial<UserEntity>[]) {
     const projects = new Array(20).fill(null)
       .map((project: ProjectsEntity) => {
+        const id = Faker.datatype.uuid();
+        const alt = Faker.lorem.words(4);
+        const src = Faker.image.imageUrl(null, null, null, true);
         return project = <any>{
+          id,
+          hero: {
+            connectOrCreate: {
+              where: {
+                project_alt_unique_constraint: {
+                  project_id: id,
+                  alt
+                }
+              },
+              create: {
+                type: 'image/png',
+                src,
+                alt
+              }
+            }
+          },
           rollupData: {
             income: {
               goal: Faker.datatype.number({min: 10000, max: 100000}),
@@ -52,8 +71,12 @@ export class ProjectsSeed {
           ]
         }
       })
-    return await this.prisma.projectsEntity.createMany({
-      data: projects
-    });
+    return await Promise.all(projects.map(async project => {
+      await this.prisma.projectsEntity.upsert({
+        where: {id: project.id},
+        update: {},
+        create: project
+      })
+    }))
   }
 }

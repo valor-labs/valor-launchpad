@@ -35,11 +35,19 @@ async function main() {
   const user1 = <UserEntity>await userSeed.createUser({
     username: 'user1',
     email: 'user1@abc.com',
-    profile: {
-      create: {
-        type: 'image/jpg',
-        src: 'assets/img/avatars/avatar.jpg',
-        alt: 'user1 avatar picture'
+    avatar: {
+      connectOrCreate: {
+        where: {
+          src_alt_unique_constraint: {
+            src: 'assets/img/avatars/avatar.jpg',
+            alt: 'user1 avatar picture'
+          }
+        },
+        create: {
+          type: 'image/jpg',
+          src: 'assets/img/avatars/avatar.jpg',
+          alt: 'user1 avatar picture'
+        }
       }
     }
   }, [adminRole, userRole])
@@ -47,11 +55,19 @@ async function main() {
   const user2 = <UserEntity>await userSeed.createUser({
     username: 'user2',
     email: 'user2@abc.com',
-    profile: {
-      create: {
-        type: 'image/jpg',
-        src: 'assets/img/avatars/avatar-2.jpg',
-        alt: 'user2 avatar picture'
+    avatar: {
+      connectOrCreate: {
+        where: {
+          src_alt_unique_constraint: {
+            src: 'assets/img/avatars/avatar-2.jpg',
+            alt: 'user2 avatar picture'
+          }
+        },
+        create: {
+          type: 'image/jpg',
+          src: 'assets/img/avatars/avatar-2.jpg',
+          alt: 'user2 avatar picture'
+        }
       }
     }
   }, [userRole])
@@ -60,17 +76,25 @@ async function main() {
     username: 'user3',
     emailVerified: false,
     email: 'user3@abc.com',
-    profile: {
-      create: {
-        type: 'image/jpg',
-        src: 'assets/img/avatars/avatar-3.jpg',
-        alt: 'user3 avatar picture'
+    avatar: {
+      connectOrCreate: {
+        where: {
+          src_alt_unique_constraint: {
+            src: 'assets/img/avatars/avatar-3.jpg',
+            alt: 'user3 avatar picture'
+          }
+        },
+        create: {
+          type: 'image/jpg',
+          src: 'assets/img/avatars/avatar-3.jpg',
+          alt: 'user3 avatar picture'
+        }
       }
     }
   }, [userRole])
 
-  //TODO this needs to be fixed to tie to the user itself
-  //TODO employer, social media, skills all need to be extracted to their own entities and updated in profile
+  // //TODO this needs to be fixed to tie to the user itself
+  // //TODO employer, social media, skills all need to be extracted to their own entities and updated in profile
   const user1Profile = await profileSeed.createProfile({
     username: user1.username,
     name: user1.firstName + " " + user1.lastName
@@ -136,19 +160,15 @@ async function main() {
   //TODO: Fix the activity and children, need five activity records with one or two with two children
   await projectsSeed.createProjects([user1, user2, user3]);
 
-  const createdProjects: ProjectsEntity[] = await prisma.projectsEntity.findMany();
+  const createdProjects: ProjectsEntity[] = await prisma.projectsEntity.findMany({
+    include: {
+      hero: true
+    }
+  });
   await Promise.all(createdProjects.map(async (project: any) => { // TODO: Why does TS not see the id when it exists on the base entity
-    await prisma.mediaAsset.create({
-      data: {
-        type: 'image/png',
-        src: Faker.image.imageUrl(null, null, null, true),
-        alt: Faker.lorem.word(3),
-        project_id: project.id
-      }
-    });
-
     await prisma.projectsAssigneeEntity.create({
       data: {
+        id: Faker.datatype.uuid(),
         userId: Faker.random.arrayElement([user1, user2, user3]).id,
         projectsId: project.id
       }
@@ -156,6 +176,7 @@ async function main() {
 
     return await prisma.commentEntity.create({
       data: {
+        id: Faker.datatype.uuid(),
         body: Faker.lorem.text(1),
         author_id: Faker.random.arrayElement([user1, user2, user3]).id,
         project_id: project.id
@@ -163,7 +184,13 @@ async function main() {
     })
   }))
 
-  const createdComments = await prisma.commentEntity.findMany();
+  const createdComments = await prisma.commentEntity.findMany({
+    where: {
+      NOT: [
+        {project_id: null}
+      ]
+    }
+  });
 
   await Promise.all(createdComments.map(async comment => {
     const childrenCount = Faker.datatype.number(3)

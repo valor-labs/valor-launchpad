@@ -38,8 +38,10 @@ export class UserSeed {
       }
     }
 
-    return await this.prisma.userEntity.create({
-      data: createEntity as UserEntity
+    return await this.prisma.userEntity.upsert({
+      where: {username: createEntity.username},
+      update: {},
+      create: createEntity as UserEntity
     })
   }
 }

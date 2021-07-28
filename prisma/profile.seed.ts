@@ -15,7 +15,13 @@ export class ProfileSeed {
     return {
       username: username,
       name: firstName + " " + lastName,
-      avatar: Faker.random.arrayElement(HELPERS.profileImages),
+      avatar: {
+        create: {
+          type: 'image/jpg',
+          src: Faker.random.arrayElement(HELPERS.profileImages),
+          alt: `${username} profile picture`
+        }
+      },
       from: Faker.address.city(),
       title: Faker.random.word(),
       following: Faker.datatype.boolean(),
@@ -23,10 +29,12 @@ export class ProfileSeed {
     }
   }
 
-  async createProfile(seedObj){
+  async createProfile(seedObj) {
     const createEntity = Object.assign(this.defaultEntity(), seedObj);
-    return await this.prisma.profileEntity.create({
-      data: createEntity as ProfileEntity
+    return await this.prisma.profileEntity.upsert({
+      where: {username: seedObj.username},
+      update: {},
+      create: createEntity as ProfileEntity
     })
   }
 }

@@ -74,8 +74,9 @@ model ProfileEntity {
   updatedDate    DateTime                    @updatedAt
   deletedDate    DateTime?                   @db.DateTime(6)
   name           String                      @db.VarChar(255)
-  avatar         String?                     @db.VarChar(255)
+  avatar         MediaAsset?                 @relation("profileImage")
   username       String                      @unique @db.VarChar(255)
+  user           UserEntity                  @relation("userProfile", fields: [username], references: [username])
   title          String?                     @db.VarChar(255)
   following      Boolean?                    @db.TinyInt
   location       String?                     @db.VarChar(255)
@@ -177,7 +178,7 @@ model ProjectSummaryEntity {
   deletedDate       DateTime?      @db.DateTime(6)
   endDate           DateTime?      @db.DateTime(6)
   startDate         DateTime?      @db.DateTime(6)
-  project_id        String         @db.VarChar(36)
+  project_id        String         @unique @db.VarChar(36)
   project           ProjectsEntity @relation("projectSummary", fields: [project_id], references: [id])
   reporting_user_id String         @db.VarChar(36)
   reporter          UserEntity     @relation("reportingUser", fields: [reporting_user_id], references: [id])
@@ -202,7 +203,7 @@ model RolesEntity {
   createdDate DateTime          @default(now()) @db.DateTime(6)
   updatedDate DateTime          @updatedAt
   deletedDate DateTime?         @db.DateTime(6)
-  role        String            @db.VarChar(255)
+  role        String            @unique @db.VarChar(255)
   userRoles   UserRolesEntity[] @relation("userRoles")
 }
 
@@ -231,7 +232,8 @@ model UserEntity {
   projects               ProjectsAssigneeEntity[] @relation("assigneeUser")
   reportedProjects       ProjectSummaryEntity[]   @relation("reportingUser")
   comments               CommentEntity[]          @relation("commentAuthor")
-  profile                MediaAsset?              @relation("userProfileImage")
+  avatar                 MediaAsset?              @relation("userProfileImage")
+  profile                ProfileEntity?           @relation("userProfile")
 }
 
 model UserEventsEntity {
@@ -285,8 +287,13 @@ model MediaAsset {
   type        String          @db.VarChar(255)
   src         String          @db.VarChar(255)
   alt         String          @db.VarChar(255)
+  profile_id  String?         @db.VarChar(36)
   project_id  String?         @db.VarChar(36)
   user_id     String?         @db.VarChar(36)
+  profile     ProfileEntity?  @relation("profileImage", fields: [profile_id], references: [id])
   project     ProjectsEntity? @relation("projectHeroMedia", fields: [project_id], references: [id])
   user        UserEntity?     @relation("userProfileImage", fields: [user_id], references: [id])
+  @@unique([src, alt], name: "src_alt_unique_constraint")
+  @@unique([profile_id, alt], name: "profile_alt_unique_constraint")
+  @@unique([project_id, alt], name: "project_alt_unique_constraint")
 }

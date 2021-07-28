@@ -12,6 +12,7 @@ export class ProjectSummarySeed {
 
     projects.map(async (project: any) => {
       projectSummaries.push({
+        id: Faker.datatype.uuid(),
         project_id: project.id,
         createdDate: Faker.date.past(),
         startDate: Faker.date.past(),
@@ -24,8 +25,12 @@ export class ProjectSummarySeed {
       return
     })
 
-    return await this.prisma.projectSummaryEntity.createMany({
-      data: projectSummaries
-    })
+    return Promise.all(projectSummaries.map(async projectSummary => {
+      await this.prisma.projectSummaryEntity.upsert({
+        where: {project_id: projectSummary.project_id},
+        update: {},
+        create: projectSummary
+      })
+    }))
   }
 }

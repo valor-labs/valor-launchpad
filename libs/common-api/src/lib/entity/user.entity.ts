@@ -4,6 +4,7 @@ import {UserRolesEntity} from './user-roles.entity';
 import {UserEventsEntity} from './user.events.entity';
 import {BaseEntity} from './base.entity';
 import {MediaEntity} from './media.entity';
+import {ProfileEntity} from '../../../../../apps/api/src/profile/profile.entity';
 
 export interface UpdateUser extends Partial<UserEntity> {
   id: string;
@@ -42,7 +43,8 @@ export class UserEntity extends BaseEntity {
   suspended: boolean;
   lastLogin?: Date;
   createDate: Date;
-  profile?: MediaEntity | any; //TODO: Need a way to use create typings here
+  avatar?: MediaEntity | any; //TODO: Need a way to use create typings here
+  profile: ProfileEntity | any;
   deletedDate?: Date;
   updateDate: Date;
   userTags?: Array<UserTagsEntity>
