@@ -5,6 +5,10 @@ export interface Action {
   event?: any;
   icon?: string;
   divider?: boolean;
+  image?: {
+    src: string;
+    alt: string;
+  }
 }
 
 export interface TimelineItem {
