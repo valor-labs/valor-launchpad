@@ -1,7 +1,7 @@
-<nav id="sidebar" class="sidebar">
+<nav id="sidebar" class="sidebar" [ngClass]="{'collapsed': collapsed}">
 <!--  TODO: Refactor entire menu into a service -->
-  <div class="sidebar-content js-simplebar">
-    <a class="sidebar-brand" href="index.html">
+  <div class="sidebar-content">
+    <a class="sidebar-brand" routerLink="/">
       <img src="assets/Valor%20Light.svg">
 
       <span class="align-middle me-3">Admin Panel</span>

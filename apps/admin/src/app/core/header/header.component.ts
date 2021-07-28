@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
-import { Action } from '@valor-launchpad/api-interfaces';
+import {Action} from '@valor-launchpad/api-interfaces';
+import {NavigationService} from '../navigation/navigation.service';
 
 @Component({
   selector: 'valor-launchpad-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   profileActions: Action[] = [
     {
       label: 'Profile',
@@ -34,10 +35,11 @@ export class HeaderComponent implements OnInit {
     },
   ];
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private navigationService: NavigationService) {
   }
 
-  ngOnInit(): void {
+  toggleMenu() {
+    this.navigationService.toggleCollapse();
   }
 
   signOut() {
