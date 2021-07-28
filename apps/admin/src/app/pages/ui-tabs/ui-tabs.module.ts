@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UiTabsRoutingModule } from './ui-tabs-routing.module';
 import { UiTabsComponent } from './ui-tabs.component';
+import { UiModule } from "@valor-launchpad/ui";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { UiTabsComponent } from './ui-tabs.component';
   ],
   imports: [
     CommonModule,
-    UiTabsRoutingModule
+    UiTabsRoutingModule,
+    UiModule
   ]
 })
 export class UiTabsModule { }

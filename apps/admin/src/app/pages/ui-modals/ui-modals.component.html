@@ -1,7 +1,7 @@
 <h1 class="h3 mb-3">Modals</h1>
 
-<div class="row">
-  <div class="col-12 col-lg-6">
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol [lg]='6' [span]='12'>
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">Default modal</h5>
@@ -10,90 +10,62 @@
       <div class="card-body text-center">
         <p>Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
 
-        <!-- BEGIN primary modal -->
-        <button type="button" class="btn btn-primary my-1" (click)='openModal(defaultModalPrimary)'>
-          Primary
-        </button>
+        <button valor-launchpad-button theme='primary' class="my-1" (click)='defaultPrimaryModal.show()'>Primary</button>
+        <valor-launchpad-modal
+          bsModal
+          #defaultPrimaryModal="bs-modal"
+          heading='Default modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          [footer]='defaultPrimaryModalFooter'>
+          <ng-template #defaultPrimaryModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='defaultPrimaryModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='primary'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
 
-        <ng-template #defaultModalPrimary>
-          <div class="modal-header">
-            <h5 class="modal-title">Default modal</h5>
-            <button type="button" class="btn-close" (click)='closeModal()'></button>
-          </div>
-          <div class="modal-body m-3">
-            <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </ng-template>
-        <!-- END primary modal -->
-        <!-- BEGIN success modal -->
-        <button type="button" class="btn btn-success my-1" (click)='openModal(defaultModalSuccess)'>
-          Success
-        </button>
-        <ng-template #defaultModalSuccess>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Default modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-success">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
-        <!-- END success modal -->
-        <!-- BEGIN danger modal -->
-        <button type="button" class="btn btn-danger my-1" (click)='openModal(defaultModalDanger)'>
-          Danger
-        </button>
-        <ng-template #defaultModalDanger>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Default modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-danger">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
-        <!-- END danger modal -->
-        <!-- BEGIN warning modal -->
-        <button type="button" class="btn btn-warning my-1" (click)='openModal(defaultModalWarning)'>
-          Warning
-        </button>
-        <ng-template #defaultModalWarning>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Default modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-warning">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
-        <!-- END warning modal -->
+        <button valor-launchpad-button theme='success' class="my-1" (click)='defaultSuccessModal.show()'>Success</button>
+        <valor-launchpad-modal
+          bsModal
+          #defaultSuccessModal="bs-modal"
+          heading='Default modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          [footer]='defaultSuccessModalFooter'>
+          <ng-template #defaultSuccessModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='defaultSuccessModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='success'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
+
+        <button valor-launchpad-button theme='danger' class="my-1" (click)='defaultDangerModal.show()'>Danger</button>
+        <valor-launchpad-modal
+          bsModal
+          #defaultDangerModal="bs-modal"
+          heading='Default modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          [footer]='defaultDangerModalFooter'>
+          <ng-template #defaultDangerModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='defaultDangerModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='danger'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
+
+        <button valor-launchpad-button theme='warning' class="my-1" (click)='defaultWarningModal.show()'>Warning</button>
+        <valor-launchpad-modal
+          bsModal
+          #defaultWarningModal="bs-modal"
+          heading='Default modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          [footer]='defaultWarningModalFooter'>
+          <ng-template #defaultWarningModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='defaultWarningModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='warning'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
       </div>
     </div>
   </div>
 
-  <div class="col-12 col-lg-6">
+  <div valorLaunchpadCol [lg]='6' [span]='12'>
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">Colored modal</h5>
@@ -103,90 +75,70 @@
         <p>Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
 
         <!-- BEGIN primary modal -->
-        <button type="button" class="btn btn-primary my-1" (click)='openColoredModal(coloredModalPrimary, "modal-primary")'>
-          Primary
-        </button>
-        <ng-template #coloredModalPrimary>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Colored modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-light">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='primary' class="my-1" (click)='coloredPrimaryModal.show()'>Primary</button>
+        <valor-launchpad-modal
+          bsModal
+          #coloredPrimaryModal='bs-modal'
+          heading='Colored modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          theme='primary'
+          [footer]='coloredPrimaryModalFooter'>
+          <ng-template #coloredPrimaryModalFooter>
+            <button valor-launchpad-button theme='light' (click)='coloredPrimaryModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='light'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END primary modal -->
         <!-- BEGIN success modal -->
-        <button type="button" class="btn btn-success my-1" (click)='openColoredModal(coloredModalSuccess, "modal-success")'>
-          Success
-        </button>
-        <ng-template #coloredModalSuccess>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Colored modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-light">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='success' class="my-1" (click)='coloredSuccessModal.show()'>Success</button>
+        <valor-launchpad-modal
+          bsModal
+          #coloredSuccessModal='bs-modal'
+          heading='Colored modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          theme='success'
+          [footer]='coloredSuccessModalFooter'>
+          <ng-template #coloredSuccessModalFooter>
+            <button valor-launchpad-button theme='light' (click)='coloredSuccessModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='light'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END success modal -->
         <!-- BEGIN danger modal -->
-        <button type="button" class="btn btn-danger my-1" (click)='openColoredModal(coloredModalDanger, "modal-danger")'>
-          Danger
-        </button>
-        <ng-template #coloredModalDanger>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Colored modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-light">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='danger' class="my-1" (click)='coloredDangerModal.show()'>Danger</button>
+        <valor-launchpad-modal
+          bsModal
+          #coloredDangerModal='bs-modal'
+          heading='Colored modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          theme='danger'
+          [footer]='coloredDangerModalFooter'>
+          <ng-template #coloredDangerModalFooter>
+            <button valor-launchpad-button theme='light' (click)='coloredDangerModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='light'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END danger modal -->
         <!-- BEGIN warning modal -->
-        <button type="button" class="btn btn-warning my-1" (click)='openColoredModal(coloredModalWarning, "modal-warning")'>
-          Warning
-        </button>
-        <ng-template #coloredModalWarning>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Colored modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-light">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='warning' class="my-1" (click)='coloredWarningModal.show()'>Warning</button>
+        <valor-launchpad-modal
+          bsModal
+          #coloredWarningModal='bs-modal'
+          heading='Colored modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          theme='warning'
+          [footer]='coloredWarningModalFooter'>
+          <ng-template #coloredWarningModalFooter>
+            <button valor-launchpad-button theme='light' (click)='coloredWarningModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='light'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END warning modal -->
       </div>
     </div>
   </div>
 
-  <div class="col-12 col-lg-6">
+  <div valorLaunchpadCol [lg]='6' [span]='12'>
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">Centered modal</h5>
@@ -196,90 +148,70 @@
         <p>Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
 
         <!-- BEGIN primary modal -->
-        <button type="button" class="btn btn-primary my-1" (click)='openCenteredModal(centeredModalPrimary)'>
-          Primary
-        </button>
-        <ng-template #centeredModalPrimary>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Centered modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='primary' class="my-1" (click)='centeredPrimaryModal.show()'>Primary</button>
+        <valor-launchpad-modal
+          bsModal
+          #centeredPrimaryModal='bs-modal'
+          heading='Centered modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          [centered]='true'
+          [footer]='centeredPrimaryModalFooter'>
+          <ng-template #centeredPrimaryModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='centeredPrimaryModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='primary'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END primary modal -->
         <!-- BEGIN success modal -->
-        <button type="button" class="btn btn-success my-1" (click)='openCenteredModal(centeredModalSuccess)'>
-          Success
-        </button>
-        <ng-template #centeredModalSuccess>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Centered modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-success">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='success' class="my-1" (click)='centeredSuccessModal.show()'>Success</button>
+        <valor-launchpad-modal
+          bsModal
+          #centeredSuccessModal='bs-modal'
+          heading='Centered modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          [centered]='true'
+          [footer]='centeredSuccessModalFooter'>
+          <ng-template #centeredSuccessModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='centeredSuccessModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='success'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END success modal -->
         <!-- BEGIN danger modal -->
-        <button type="button" class="btn btn-danger my-1" (click)='openCenteredModal(centeredModalDanger)'>
-          Danger
-        </button>
-        <ng-template #centeredModalDanger>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Centered modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-danger">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='danger' class="my-1" (click)='centeredDangerModal.show()'>Danger</button>
+        <valor-launchpad-modal
+          bsModal
+          #centeredDangerModal='bs-modal'
+          heading='Centered modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          [centered]='true'
+          [footer]='centeredDangerModalFooter'>
+          <ng-template #centeredDangerModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='centeredDangerModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='danger'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END danger modal -->
         <!-- BEGIN warning modal -->
-        <button type="button" class="btn btn-warning my-1" (click)='openCenteredModal(centeredModalWarning)'>
-          Warning
-        </button>
-        <ng-template #centeredModalWarning>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Centered modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-warning">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='warning' class="my-1" (click)='centeredWarningModal.show()'>Warning</button>
+        <valor-launchpad-modal
+          bsModal
+          #centeredWarningModal='bs-modal'
+          heading='Centered modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          [centered]='true'
+          [footer]='centeredWarningModalFooter'>
+          <ng-template #centeredWarningModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='centeredWarningModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='warning'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END warning modal -->
       </div>
     </div>
   </div>
 
-  <div class="col-12 col-lg-6">
+  <div valorLaunchpadCol [lg]='6' [span]='12'>
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">Modal sizes</h5>
@@ -289,64 +221,49 @@
         <p>Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
 
         <!-- BEGIN  modal -->
-        <button type="button" class="btn btn-primary my-1" (click)='openSizedModal(sizedModalSm, "modal-sm")'>
-          Small
-        </button>
-        <ng-template #sizedModalSm>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Small modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='primary' class="my-1" (click)='sizedSmallModal.show()'>Small</button>
+        <valor-launchpad-modal
+          bsModal
+          #sizedSmallModal='bs-modal'
+          heading='Small modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          size='sm'
+          [footer]='sizedSmallModalFooter'>
+          <ng-template #sizedSmallModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='sizedSmallModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='primary'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END  modal -->
         <!-- BEGIN  modal -->
-        <button type="button" class="btn btn-primary my-1" (click)='openSizedModal(sizedModalMd, "modal-md")'>
-          Medium
-        </button>
-        <ng-template #sizedModalMd>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Medium modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='primary' class="my-1" (click)='sizedMediumModal.show()'>Medium</button>
+        <valor-launchpad-modal
+          bsModal
+          #sizedMediumModal='bs-modal'
+          heading='Medium modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          size='md'
+          [footer]='sizedMediumModalFooter'>
+          <ng-template #sizedMediumModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='sizedMediumModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='primary'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END  modal -->
         <!-- BEGIN  modal -->
-        <button type="button" class="btn btn-primary my-1" (click)='openSizedModal(sizedModalLg, "modal-lg")'>
-          Large
-        </button>
-        <ng-template #sizedModalLg>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Large modal</h5>
-              <button type="button" class="btn-close" (click)='closeModal()'></button>
-            </div>
-            <div class="modal-body m-3">
-              <p class="mb-0">Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)='closeModal()'>Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </ng-template>
+        <button valor-launchpad-button theme='primary' class="my-1" (click)='sizedLargeModal.show()'>Large</button>
+        <valor-launchpad-modal
+          bsModal
+          #sizedLargeModal='bs-modal'
+          heading='Large modal'
+          content='Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.'
+          size='lg'
+          [footer]='sizedLargeModalFooter'>
+          <ng-template #sizedLargeModalFooter>
+            <button valor-launchpad-button theme='secondary' (click)='sizedLargeModal.hide()'>Close</button>
+            <button valor-launchpad-button theme='primary'>Save changes</button>
+          </ng-template>
+        </valor-launchpad-modal>
         <!-- END  modal -->
       </div>
     </div>

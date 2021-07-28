@@ -2,17 +2,17 @@
   <div class="header">
     <h1>Order Summary</h1>
   </div>
-  <valor-launchpad-stripe-order-items class='me-4 ms-4'>
+  <valor-launchpad-stripe-order-items class="me-4 ms-4">
     <valor-launchpad-stripe-order-item
       *ngFor="let product of orderItems"
-      [orderItem]='product'>
+      [orderItem]="product">
     </valor-launchpad-stripe-order-item>
   </valor-launchpad-stripe-order-items>
-  <hr class='dropdown-divider me-4 ms-4'>
+  <hr class="dropdown-divider me-4 ms-4" />
   <valor-launchpad-stripe-order-total
-    class='me-4 ms-4'
-    [subtotal]='subtotal'
-    [live]='live'
-    [orderTotal]='orderTotal'
-  ></valor-launchpad-stripe-order-total>
+    class="me-4 ms-4"
+    [subtotal]="subtotal"
+    [live]="live"
+    [orderTotal]="orderTotal">
+  </valor-launchpad-stripe-order-total>
 </aside>

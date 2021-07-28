@@ -15,3 +15,12 @@
     color: $body-color;
   }
 }
+
+
+.card.panel-default {
+  margin-bottom: 0;
+}
+
+.panel-group {
+  margin-bottom: $grid-gutter-width;
+}

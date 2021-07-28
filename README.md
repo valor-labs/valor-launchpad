@@ -11,13 +11,14 @@ The stack used for this project is as follows.
 
 * Angular 11
 * NestJS 7
-* TypeORM 0.2.32
-* MySQL 8.0.23
-* Redis 6.2.3
+* Prisma 2.27.0
+* MySQL (MariaDB 10.6)
+* Redis 6.2.4
 
 ## Setup
 
-1) Make sure you have Redis and MySQL installed. MySQL credentials for local is in the .env file
+1) Make sure you have Docker installed and running
+1) run the `docker compose up -d` to setup the MySQL (MariaDB) and Redis
 1) run the `npm run seed:run` command to scaffold the seed database with its structure and default data
 1) run the server with `npm run start:server`
 1) run the client with `npm run start`
@@ -34,13 +35,13 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Blank                    | ✅              | ✅                   | N/A             | N/A          | ▢           | ▢                |        ▢ |
 | Sign In                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Sign Up                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
-| Calendar                 | ▢               | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-apexcharts        | ▢               | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-chartjs           | ▢               | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Chat                     | ✅              | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-chartjs           | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Chat                     | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Analytics      | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
-| Dashboard Crypto         | ✅              | ▢                   | ▢                | ▢            | ▢           | ▢                | ▢        |
+| Dashboard Crypto         | ✅              | ▢                    | ▢                | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Default        | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
 | Dashboard SaaS           | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Social         | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
@@ -58,7 +59,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Error Page               | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Forms Advanced Inputs    | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Basic Inputs       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Forms Editors            | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Forms Editors            | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Floating Labels    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Input Groups       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Layouts            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
@@ -75,19 +76,19 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Profile                  | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | Projects Detail          | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | Projects Listing         | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
-| Reset Password           | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Settings                 | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Tasks                    | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Reset Password           | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Settings                 | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Tasks                    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Alerts                | ✅              | ✅                   | ▢               | ▢               | ▢           | ▢                | ▢        |
-| UI Buttons               | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Cards                 | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Carousel              | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Embed Video           | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI General               | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Grid                  | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Modals                | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Off Canvas            | ▢               | ▢                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Tabs                  | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Buttons               | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Cards                 | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Carousel              | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Embed Video           | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI General               | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Grid                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Modals                | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Off Canvas            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Tabs                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Typography            | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Verify User              | ✅              | ✅                   | ✅               | ▢               | ▢           | ▢                | ▢        |
 
@@ -109,7 +110,7 @@ CMS functionality emulating [Strapi](https://strapi.io/) with added multi-tenanc
 1) Copy and paste raw HTML from hardcoded template files
 1) Migrate page logic to Angular Components and extract hardcoded raw data to Angular Services
 1) Create NestJS Controller and Services to manage hardcoded raw data
-1) Create TypeORM Entities and TypeORM Seeds and Factories for generating dynamic raw data
+1) Create Entities and Prisma Seeds for generating dynamic raw data
 
 # Boilerplate generation text
 

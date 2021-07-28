@@ -8,9 +8,8 @@ describe('DirectPayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DirectPayComponent ]
-    })
-    .compileComponents();
+      declarations: [DirectPayComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

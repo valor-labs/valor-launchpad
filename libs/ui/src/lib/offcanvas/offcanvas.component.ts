@@ -35,8 +35,8 @@ export class OffcanvasComponent implements OnInit {
 
   ngOnInit() {
   }
+
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes',changes);
      if(changes.show.currentValue){
        if(this.backdrop){
           document.body.setAttribute('class','offcanvas-backdrop');
@@ -47,9 +47,9 @@ export class OffcanvasComponent implements OnInit {
           document.body.setAttribute('style','overflow: auto;');
        }else{
           document.body.setAttribute('style','overflow: hidden; padding-right: 0px;');
-       }  
+       }
      }
-    
+
   }
 
 }

@@ -1,1 +1,41 @@
-<p>modal works!</p>
+<div
+  class='modal-dialog'
+  [class.modal-dialog-centered]='centered'
+  [class.modal-lg]='size === "lg"'
+  [class.modal-sm]='size === "sm"'
+  [class.modal-md]='size === "md"'>
+  <div class='modal-content'>
+    <div class="modal-header">
+      <ng-container *ngIf='isTemplate(heading); else strHeader'>
+        <ng-container *ngTemplateOutlet='heading'></ng-container>
+      </ng-container>
+      <ng-template #strHeader>
+        <h5 class="modal-title">{{ heading }}</h5>
+        <button type="button" class="btn-close" (click)='closeSelf()' *ngIf='closableByIcon'></button>
+      </ng-template>
+    </div>
+    <div class="modal-body m-3">
+      <ng-container *ngIf='isTemplate(content); else strContent'>
+        <ng-container *ngTemplateOutlet='content'></ng-container>
+      </ng-container>
+      <ng-template #strContent>
+        <p class="mb-0">{{ content }}</p>
+      </ng-template>
+    </div>
+    <div class="modal-footer">
+      <ng-container *ngIf='isFooterTemplate; else optionBuilder'>
+        <ng-container *ngTemplateOutlet='footer'></ng-container>
+      </ng-container>
+      <ng-template #optionBuilder>
+        <button
+          valor-launchpad-button
+          *ngFor='let btnOption of footer || []'
+          [theme]='btnOption.theme'
+          [outlined]='btnOption.outlined'
+          (click)='btnOption.onClick && btnOption.onClick()'>
+          {{btnOption.label}}
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>

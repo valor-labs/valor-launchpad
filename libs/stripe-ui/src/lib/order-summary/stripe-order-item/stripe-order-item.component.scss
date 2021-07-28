@@ -28,13 +28,14 @@
         padding-right: 5px;
 
         &:after {
-          content: ", ";
+          content: ', ';
         }
       }
     }
   }
 
-  & .count, & .price {
+  & .count,
+  & .price {
     font-size: 14px;
     padding-left: 10px;
     //align-self: right;

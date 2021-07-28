@@ -35,7 +35,7 @@
 
             <li class="mb-1">
               <i class="feather-sm me-1 fas fa-fw fa-briefcase"></i> Works at
-              <a [href]="profile.employer.url" target="_blank"> {{profile.employer.name}}</a>
+              <a [href]="profile.employers[0]?.employer.url" target="_blank"> {{profile.employers[0]?.employer.name}}</a>
             </li>
             <li class="mb-1">
               <i class="feather-sm me-1 fas fa-fw fa-map-pin"></i> From <a href="#">{{profile.from}}</a>

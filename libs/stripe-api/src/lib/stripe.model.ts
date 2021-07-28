@@ -1,9 +1,11 @@
+import type { Stripe } from 'stripe';
+
 export type AllCountriesResponse = Array<{
   key: string;
   value: string;
 }>;
 
-export type PayMethod =
+export type PayMethodID =
   | 'card'
   | 'ach_credit_transfer'
   | 'alipay'
@@ -17,12 +19,15 @@ export type PayMethod =
   | 'sofort'
   | 'wechat'
   | 'au_becs_debit';
-export type MethodsByCountryResponse = Array<{
-  id: PayMethod;
+
+export type PayMethod = {
+  id: PayMethodID;
   name: string;
   flow: string;
   currencies?: string[];
-}>;
+};
+
+export type MethodsByCountryResponse = PayMethod[];
 
 export type AllProductsResponse = Array<{
   id: string;
@@ -74,3 +79,46 @@ export type AllProductsResponse = Array<{
   updated: number;
   url?: any;
 }>;
+
+export interface PaymentIndentsInput {
+  items: {
+    product_name: string;
+    unit_amount: number;
+    currency: string;
+    quantity: number;
+  }[];
+  pay_method: string;
+}
+
+export interface PaymentIndentsResponse {
+  clientSecret: string;
+  amount: number;
+}
+
+export interface PaymentSourceInput {
+  type: PayMethodID; // ach_credit_transfer, multibanco
+  currency: string; // usd (ACH Credit Transfer payments must be in U.S. Dollars)
+  email: string; // the full email address of the customer
+  amount?: number; // amount is needed for multibanco, but unnecessary for ach_credit_transfer
+}
+
+export type PaymentSourceResponse = Pick<
+  Stripe.Source,
+  'id' | 'ach_credit_transfer' | 'multibanco' | 'wechat'
+>;
+
+export type PaymentIntentsStatusResponse = Pick<
+  Stripe.PaymentIntent,
+  'status' | 'last_payment_error'
+>;
+
+export type PaymentSourceStatusResponse = Pick<
+  Stripe.Source,
+  | 'status'
+  | 'flow'
+  | 'multibanco'
+  | 'ach_credit_transfer'
+  | 'wechat'
+  | 'amount'
+  | 'currency'
+>;

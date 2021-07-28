@@ -1,0 +1,35 @@
+<div class='editor-state-toolbar'>
+  <valor-launchpad-editor-slate-button
+    *ngFor="let toolbarItem of toolbarItems"
+    [class.active]="toolbarItem.active(toolbarItem.format)"
+    (click)="toolbarItem.action(toolbarItem.format)">
+    <i *ngIf='!!toolbarItem.icon' [ngClass]='toolbarItem.icon'></i>
+    <span *ngIf='!!toolbarItem.label'>{{toolbarItem.label}}</span>
+  </valor-launchpad-editor-slate-button>
+</div>
+<slate-editable
+  [editor]="editor"
+  [(ngModel)]="schema"
+  (ngModelChange)="valueChange($event)"
+  [renderElement]="elRenderer"
+  [renderText]="textRenderer"
+  [keydown]="keydown">
+  <ng-template #heading_1 let-context="context" let-viewContext="viewContext">
+    <h1 slateElement [context]="context" [viewContext]="viewContext"></h1>
+  </ng-template>
+  <ng-template #heading_2 let-context="context" let-viewContext="viewContext">
+    <h2 slateElement [context]="context" [viewContext]="viewContext"></h2>
+  </ng-template>
+  <ng-template #blockquote let-context="context" let-viewContext="viewContext">
+    <blockquote slateElement [context]="context" [viewContext]="viewContext"></blockquote>
+  </ng-template>
+  <ng-template #ul let-context="context" let-viewContext="viewContext">
+    <ul slateElement [context]="context" [viewContext]="viewContext"></ul>
+  </ng-template>
+  <ng-template #ol let-context="context" let-viewContext="viewContext">
+    <ol slateElement [context]="context" [viewContext]="viewContext"></ol>
+  </ng-template>
+  <ng-template #li let-context="context" let-viewContext="viewContext">
+    <li slateElement [context]="context" [viewContext]="viewContext"></li>
+  </ng-template>
+</slate-editable>

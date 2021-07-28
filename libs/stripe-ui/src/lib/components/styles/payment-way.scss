@@ -1,0 +1,91 @@
+fieldset {
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 1px 3px 0 rgba(50, 50, 93, 0.15),
+    0 4px 6px 0 rgba(112, 157, 199, 0.15);
+  border-radius: 4px;
+  border: none;
+}
+
+fieldset label {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 42px;
+  padding: 10px 0;
+  align-items: center;
+  justify-content: center;
+  color: #8898aa;
+  font-weight: 400;
+}
+
+fieldset label:not(:last-child) {
+  border-bottom: 1px solid #f0f5fa;
+}
+
+fieldset label.state {
+  display: inline-flex;
+  width: 75%;
+}
+
+fieldset:not(.with-state) label.state {
+  display: none;
+}
+
+fieldset label.zip {
+  display: inline-flex;
+  width: 25%;
+  padding-right: 60px;
+}
+
+fieldset:not(.with-state) label.zip {
+  width: 100%;
+}
+
+fieldset label span {
+  min-width: 125px;
+  padding: 0 15px;
+  text-align: right;
+}
+
+fieldset .redirect label span {
+  width: 100%;
+  text-align: center;
+}
+.field {
+  flex: 1;
+  padding: 0 15px;
+  background: transparent;
+  font-weight: 400;
+  color: #31325f;
+  outline: none;
+  cursor: text;
+}
+
+.field::-webkit-input-placeholder {
+  color: #aab7c4;
+}
+.field::-moz-placeholder {
+  color: #aab7c4;
+}
+.field:-ms-input-placeholder {
+  color: #aab7c4;
+}
+
+fieldset .select::after {
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 5px;
+  right: 20px;
+  top: 50%;
+  margin-top: -2px;
+  pointer-events: none;
+}
+
+fieldset input {
+  flex: 1;
+  border-style: none;
+  outline: none;
+  color: #313b3f;
+}

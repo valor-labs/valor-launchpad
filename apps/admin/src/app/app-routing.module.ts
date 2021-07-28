@@ -30,6 +30,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path: 'users',
+        loadChildren: () => import('@valor-launchpad/users-ui').then(m => m.UsersUiModule)
+      },
+      {
         path: 'dashboard-crypto',
         loadChildren: () => import('./pages/dashboard-crypto/dashboard-crypto.module').then(m => m.DashboardCryptoModule)
       },
@@ -120,10 +124,19 @@ const routes: Routes = [
         path: 'ui-cards', loadChildren: () => import('./pages/ui-cards/ui-cards.module').then(m => m.UiCardsModule)
       },
       {
+        path: 'ui-chips', loadChildren: () => import('./pages/ui-chips/ui-chips.module').then(m => m.UiChipsModule)
+      },
+      {
         path: 'ui-offcanvas', loadChildren: () => import('./pages/ui-offcanvas/ui-offcanvas.module').then(m => m.UiOffcanvasModule)
       },
       {
         path: 'ui-carousel', loadChildren: () => import('./pages/ui-carousel/ui-carousel.module').then(m => m.UiCarouselModule)
+      },
+      {
+        path: 'ui-embed-video', loadChildren: () => import('./pages/ui-embed-video/ui-embed-video.module').then(m => m.UiEmbedVideoModule)
+      },
+      {
+        path: 'ui-general', loadChildren: () => import('./pages/ui-general/ui-general.module').then(m => m.UiGeneralModule)
       },
       {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)

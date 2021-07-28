@@ -5,7 +5,6 @@ import { AlertComponent } from './alert/alert.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
-import { CardComponent } from './card/card.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { ChartComponent } from './chart/chart.component';
@@ -26,7 +25,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SizingComponent } from './sizing/sizing.component';
 import { StatsComponent } from './stats/stats.component';
 import { TablesComponent } from './tables/tables.component';
-import { TabsComponent } from './tabs/tabs.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TypeComponent } from './type/type.component';
 import { WizardComponent } from './wizard/wizard.component';
@@ -43,8 +41,9 @@ import { InputDirective } from './input/input.directive';
 import { InputGroupComponent } from './input-group/input-group.component';
 import { FormItemComponent } from './forms/form-item.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ReactiveFormsModule } from '@angular/forms';
+// import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TabsModule } from './tabs/tabs.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFieldDirective } from './dynamic-form/components/dynamic-field/dynamic-field.directive';
 import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dynamic-form.component';
 import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
@@ -52,17 +51,24 @@ import { FormInputComponent } from './dynamic-form/components/form-input/form-in
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
 import { RowDirective } from './grid/row.directive';
 import { ColDirective } from './grid/col.directive';
-import { CalendarComponent } from './calendar/calendar.component';
+import { EmbedVideoComponent } from './embed-video/embed-video.component';
+import { SafePipe } from './pipe/safe.pipe';
+import { EditorSlateComponent } from './editor-slate/editor-slate.component';
+import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
+import { SlateModule } from 'slate-angular';
+import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
+import { CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective } from './card';
+
+const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
 @NgModule({
-    imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule],
+  imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule, FormsModule, SlateModule],
   declarations: [
     AccordionComponent,
     AlertComponent,
     AvatarComponent,
     BadgeComponent,
     ButtonComponent,
-    CardComponent,
     CarouselComponent,
     CarouselItemComponent,
     ChartComponent,
@@ -83,7 +89,6 @@ import { CalendarComponent } from './calendar/calendar.component';
     SizingComponent,
     StatsComponent,
     TablesComponent,
-    TabsComponent,
     TimelineComponent,
     TypeComponent,
     WizardComponent,
@@ -106,13 +111,18 @@ import { CalendarComponent } from './calendar/calendar.component';
     FormSelectComponent,
     RowDirective,
     ColDirective,
-    CalendarComponent,
+    EmbedVideoComponent,
+    SafePipe,
+    EditorSlateComponent,
+    EditorSlateTextComponent,
+    EditorSlateButtonComponent,
+    ...cardPart
   ],
   exports: [
     TabsModule,
     AlertComponent,
     AvatarComponent,
-    CardComponent,
+    ButtonComponent,
     CarouselComponent,
     CarouselItemComponent,
     CheckboxGroupComponent,
@@ -134,6 +144,11 @@ import { CalendarComponent } from './calendar/calendar.component';
     DynamicFormComponent,
     RowDirective,
     ColDirective,
-  ],
+    ModalComponent,
+    EmbedVideoComponent,
+    EditorSlateComponent,
+    BadgeComponent,
+    ...cardPart
+  ]
 })
 export class UiModule {}

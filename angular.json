@@ -56,7 +56,6 @@
                 "apps/admin/scss/1-variables"
               ]
             }
-
           },
           "configurations": {
             "production": {
@@ -85,6 +84,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           }
         },
@@ -97,8 +104,12 @@
           "configurations": {
             "production": {
               "browserTarget": "admin:build:production"
+            },
+            "development": {
+              "browserTarget": "admin:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -117,7 +128,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/admin"],
+          "outputs": [
+            "coverage/apps/admin"
+          ],
           "options": {
             "jestConfig": "apps/admin/jest.config.js",
             "passWithNoTests": true
@@ -146,7 +159,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/admin-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/admin-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -164,12 +179,16 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -194,12 +213,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/api/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/api"],
+          "outputs": [
+            "coverage/apps/api"
+          ],
           "options": {
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
@@ -215,28 +238,133 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/api-interfaces/**/*.ts"
+            ]
           }
         }
       }
     },
-    "ui": {
+    "auth-api": {
+      "root": "libs/auth-api",
+      "sourceRoot": "libs/auth-api/src",
       "projectType": "library",
-      "root": "libs/ui",
-      "sourceRoot": "libs/ui/src",
-      "prefix": "valor-launchpad",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/auth-api/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ui"],
+          "outputs": [
+            "coverage/libs/auth-api"
+          ],
           "options": {
-            "jestConfig": "libs/ui/jest.config.js",
+            "jestConfig": "libs/auth-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "common-api": {
+      "root": "libs/common-api",
+      "sourceRoot": "libs/common-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/common-api/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/common-api"
+          ],
+          "options": {
+            "jestConfig": "libs/common-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "email": {
+      "root": "libs/email",
+      "sourceRoot": "libs/email/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/email/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/email"
+          ],
+          "options": {
+            "jestConfig": "libs/email/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "prisma": {
+      "root": "libs/prisma",
+      "sourceRoot": "libs/prisma/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/prisma/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/prisma"
+          ],
+          "options": {
+            "jestConfig": "libs/prisma/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "sms": {
+      "root": "libs/sms",
+      "sourceRoot": "libs/sms/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/sms/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/sms"
+          ],
+          "options": {
+            "jestConfig": "libs/sms/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -250,12 +378,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/stripe-api/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/stripe-api/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/stripe-api"],
+          "outputs": [
+            "coverage/libs/stripe-api"
+          ],
           "options": {
             "jestConfig": "libs/stripe-api/jest.config.js",
             "passWithNoTests": true
@@ -280,7 +412,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/stripe-ui"],
+          "outputs": [
+            "coverage/libs/stripe-ui"
+          ],
           "options": {
             "jestConfig": "libs/stripe-ui/jest.config.js",
             "passWithNoTests": true
@@ -288,44 +422,81 @@
         }
       }
     },
-    "email": {
-      "root": "libs/email",
-      "sourceRoot": "libs/email/src",
+    "ui": {
       "projectType": "library",
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "prefix": "valor-launchpad",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/email/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/ui/src/**/*.ts",
+              "libs/ui/src/**/*.html"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/email"],
+          "outputs": [
+            "coverage/libs/ui"
+          ],
           "options": {
-            "jestConfig": "libs/email/jest.config.js",
+            "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
           }
         }
       }
     },
-    "sms": {
-      "root": "libs/sms",
-      "sourceRoot": "libs/sms/src",
+    "users-api": {
+      "root": "libs/users-api",
+      "sourceRoot": "libs/users-api/src",
       "projectType": "library",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/sms/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/users-api/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/sms"],
+          "outputs": [
+            "coverage/libs/users-api"
+          ],
           "options": {
-            "jestConfig": "libs/sms/jest.config.js",
+            "jestConfig": "libs/users-api/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "users-ui": {
+      "projectType": "library",
+      "root": "libs/users-ui",
+      "sourceRoot": "libs/users-ui/src",
+      "prefix": "valor-launchpad",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/users-ui"
+          ],
+          "options": {
+            "jestConfig": "libs/users-ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/users-ui/src/**/*.ts",
+              "libs/users-ui/src/**/*.html"
+            ]
           }
         }
       }
