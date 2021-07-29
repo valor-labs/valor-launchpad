@@ -19,7 +19,8 @@ const routes: Routes = [
     path: 'sign-up', loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule)
   },
   {
-    path: 'verify-user', loadChildren: () => import('./pages/verify-user/verify-user.module').then(m => m.VerifyUserModule)
+    path: 'verify-user',
+    loadChildren: () => import('./pages/verify-user/verify-user.module').then(m => m.VerifyUserModule)
   },
   {
     path: 'reset-password',
@@ -72,28 +73,36 @@ const routes: Routes = [
         path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
       },
       {
-        path: 'forms-layouts', loadChildren: () => import('./pages/forms-layouts/forms-layouts.module').then(m => m.FormsLayoutsModule)
+        path: 'forms-layouts',
+        loadChildren: () => import('./pages/forms-layouts/forms-layouts.module').then(m => m.FormsLayoutsModule)
       },
       {
-        path: 'forms-basic-inputs', loadChildren: () => import('./pages/forms-basic-inputs/forms-basic-inputs.module').then(m => m.FormsBasicInputsModule)
+        path: 'forms-basic-inputs',
+        loadChildren: () => import('./pages/forms-basic-inputs/forms-basic-inputs.module').then(m => m.FormsBasicInputsModule)
       },
       {
-        path: 'forms-input-groups', loadChildren: () => import('./pages/forms-input-groups/forms-input-groups.module').then(m => m.FormsInputGroupsModule)
+        path: 'forms-input-groups',
+        loadChildren: () => import('./pages/forms-input-groups/forms-input-groups.module').then(m => m.FormsInputGroupsModule)
       },
       {
-        path: 'forms-floating-labels', loadChildren: () => import('./pages/forms-floating-labels/forms-floating-labels.module').then(m => m.FormsFloatingLabelsModule)
+        path: 'forms-floating-labels',
+        loadChildren: () => import('./pages/forms-floating-labels/forms-floating-labels.module').then(m => m.FormsFloatingLabelsModule)
       },
       {
-        path: 'forms-advanced-inputs', loadChildren: () => import('./pages/forms-advanced-inputs/forms-advanced-inputs.module').then(m => m.FormsAdvancedInputsModule)
+        path: 'forms-advanced-inputs',
+        loadChildren: () => import('./pages/forms-advanced-inputs/forms-advanced-inputs.module').then(m => m.FormsAdvancedInputsModule)
       },
       {
-        path: 'forms-editors', loadChildren: () => import('./pages/forms-editors/forms-editors.module').then(m => m.FormsEditorsModule)
+        path: 'forms-editors',
+        loadChildren: () => import('./pages/forms-editors/forms-editors.module').then(m => m.FormsEditorsModule)
       },
       {
-        path: 'forms-validation', loadChildren: () => import('./pages/forms-validation/forms-validation.module').then(m => m.FormsValidationModule)
+        path: 'forms-validation',
+        loadChildren: () => import('./pages/forms-validation/forms-validation.module').then(m => m.FormsValidationModule)
       },
       {
-        path: 'forms-wizard', loadChildren: () => import('./pages/forms-wizard/forms-wizard.module').then(m => m.FormsWizardModule)
+        path: 'forms-wizard',
+        loadChildren: () => import('./pages/forms-wizard/forms-wizard.module').then(m => m.FormsWizardModule)
       },
       {
         path: 'font-awesome',
@@ -127,16 +136,20 @@ const routes: Routes = [
         path: 'ui-chips', loadChildren: () => import('./pages/ui-chips/ui-chips.module').then(m => m.UiChipsModule)
       },
       {
-        path: 'ui-offcanvas', loadChildren: () => import('./pages/ui-offcanvas/ui-offcanvas.module').then(m => m.UiOffcanvasModule)
+        path: 'ui-offcanvas',
+        loadChildren: () => import('./pages/ui-offcanvas/ui-offcanvas.module').then(m => m.UiOffcanvasModule)
       },
       {
-        path: 'ui-carousel', loadChildren: () => import('./pages/ui-carousel/ui-carousel.module').then(m => m.UiCarouselModule)
+        path: 'ui-carousel',
+        loadChildren: () => import('./pages/ui-carousel/ui-carousel.module').then(m => m.UiCarouselModule)
       },
       {
-        path: 'ui-embed-video', loadChildren: () => import('./pages/ui-embed-video/ui-embed-video.module').then(m => m.UiEmbedVideoModule)
+        path: 'ui-embed-video',
+        loadChildren: () => import('./pages/ui-embed-video/ui-embed-video.module').then(m => m.UiEmbedVideoModule)
       },
       {
-        path: 'ui-general', loadChildren: () => import('./pages/ui-general/ui-general.module').then(m => m.UiGeneralModule)
+        path: 'ui-general',
+        loadChildren: () => import('./pages/ui-general/ui-general.module').then(m => m.UiGeneralModule)
       },
       {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
@@ -144,6 +157,10 @@ const routes: Routes = [
       {
         path: 'ui-typography',
         loadChildren: () => import('./pages/ui-typography/ui-typography.module').then(m => m.UiTypographyModule)
+      },
+      {
+        path: 'ui-color-palette',
+        loadChildren: () => import('./pages/color-palette/color-palette.module').then(m => m.ColorPaletteModule)
       },
       {
         path: 'ui-grid',
@@ -155,7 +172,7 @@ const routes: Routes = [
       },
       {
         path: 'payments',
-        loadChildren: () => import('./pages/payments/payments.module').then(m=> m.PaymentsModule)
+        loadChildren: () => import('./pages/payments/payments.module').then(m => m.PaymentsModule)
       },
       {
         path: 'calendar',
