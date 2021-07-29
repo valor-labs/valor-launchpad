@@ -164,7 +164,7 @@
           <span dropdown-nav class="nav-flag">
             <img [src]="currentLanguage.image.src" class="avatar img-fluid rounded-circle me-1" [alt]="currentLanguage.image.alt"/>
           </span>
-          <valor-launchpad-dropdown-actions-menu [data]="languageActions"></valor-launchpad-dropdown-actions-menu>
+          <valor-launchpad-dropdown-actions-menu [actions]="languageActions"></valor-launchpad-dropdown-actions-menu>
       </valor-launchpad-dropdown>
       <li class="nav-item dropdown">
         <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
@@ -177,7 +177,7 @@
             <valor-launchpad-avatar [src]="user?.avatar?.src" [alt]="user?.avatar?.alt"></valor-launchpad-avatar>
             <span class="text-dark">{{user?.firstName}} {{user?.lastName}}</span>
           </span>
-          <valor-launchpad-dropdown-actions-menu [data]="profileActions"></valor-launchpad-dropdown-actions-menu>
+          <valor-launchpad-dropdown-actions-menu [actions]="profileActions"></valor-launchpad-dropdown-actions-menu>
         </valor-launchpad-dropdown>
       </li>
     </ul>

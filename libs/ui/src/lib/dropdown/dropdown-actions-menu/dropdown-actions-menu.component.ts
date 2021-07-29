@@ -9,5 +9,5 @@ import { Action } from '@valor-launchpad/api-interfaces';
 })
 export class DropdownActionsMenuComponent {
   @Input()
-  public data: Action[];
+  public actions: Action[];
 }
