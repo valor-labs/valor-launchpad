@@ -4,7 +4,6 @@ services:
 
     database:
         image: mysql:8.0.26
-        platform: linux/amd64
         environment:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_ROOT_HOST: "%"
