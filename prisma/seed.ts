@@ -21,17 +21,28 @@ async function main() {
   const projectSummarySeed = new ProjectSummarySeed(prisma);
   const mediaSeed = new MediaSeed(prisma);
   const userEventSeed = new UserEventsSeed(prisma);
-
-  await dashboardSeed.createDashboard();
-  await dashboardAnalyticsSeed.createDashboardAnalytics();
-
   const roleSeed = new RoleSeed(prisma);
   const userSeed = new UserSeed(prisma);
   const profileSeed = new ProfileSeed(prisma);
 
+
+  /*
+  Create dashboards
+   */
+  await dashboardSeed.createDashboard();
+  await dashboardAnalyticsSeed.createDashboardAnalytics();
+
+
+  /*
+  Create user roles
+   */
   const userRole = await roleSeed.createRole({role: 'User'});
   const adminRole = await roleSeed.createRole({role: 'Admin'});
 
+
+  /*
+  Create users
+   */
   const user1 = <UserEntity>await userSeed.createUser({
     username: 'user1',
     email: 'user1@abc.com',
@@ -93,8 +104,12 @@ async function main() {
     }
   }, [userRole])
 
-  // //TODO this needs to be fixed to tie to the user itself
-  // //TODO employer, social media, skills all need to be extracted to their own entities and updated in profile
+
+  /*
+  Create user profiles
+   */
+  //TODO this needs to be fixed to tie to the user itself
+  //TODO employer, social media, skills all need to be extracted to their own entities and updated in profile
   const user1Profile = await profileSeed.createProfile({
     username: user1.username,
     name: user1.firstName + " " + user1.lastName
@@ -110,29 +125,47 @@ async function main() {
     name: user3.firstName + " " + user3.lastName
   })
 
+
+  /*
+  Create user events
+   */
   await userEventSeed.createUserEvent('Create Event', user1, user1);
   await userEventSeed.createUserEvent('A second Event', user1, user1);
   await userEventSeed.createUserEvent('A third Event', user1, user2);
   await userEventSeed.createUserEvent('Create Event', user2, user1);
   await userEventSeed.createUserEvent('Create Event', user3, user1);
 
+
+  /*
+  Create employers
+   */
   const employer1 = await prisma.employerEntity.create({
     data: {
       name: Faker.company.companyName(),
     }
   })
 
+  const employer2 = await prisma.employerEntity.create({
+    data: {
+      name: Faker.company.companyName(),
+    }
+  })
+
+  const employer3 = await prisma.employerEntity.create({
+    data: {
+      name: Faker.company.companyName(),
+    }
+  })
+
+
+  /*
+  Attach employers to user profiles
+   */
   await prisma.profileEmployerEntity.create({
     data: {
       employerId: employer1.id,
       profileId: user1Profile.id,
       current: true
-    }
-  })
-
-  const employer2 = await prisma.employerEntity.create({
-    data: {
-      name: Faker.company.companyName(),
     }
   })
 
@@ -144,12 +177,6 @@ async function main() {
     }
   })
 
-  const employer3 = await prisma.employerEntity.create({
-    data: {
-      name: Faker.company.companyName(),
-    }
-  })
-
   await prisma.profileEmployerEntity.create({
     data: {
       employerId: employer3.id,
@@ -157,6 +184,10 @@ async function main() {
       current: true
     }
   })
+
+  /*
+  Create projects
+   */
   //TODO: Fix the activity and children, need five activity records with one or two with two children
   await projectsSeed.createProjects([user1, user2, user3]);
 
@@ -206,6 +237,9 @@ async function main() {
     })
   }))
 
+  /*
+  Create project summaries
+   */
   return await projectSummarySeed.createProjectSummaries(createdProjects, [user1, user2, user3])
 }
 
