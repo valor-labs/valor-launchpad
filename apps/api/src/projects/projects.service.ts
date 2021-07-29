@@ -1,4 +1,5 @@
 import {Injectable} from '@nestjs/common';
+import {Prisma} from "@prisma/client";
 import {EventEmitter2} from '@nestjs/event-emitter'
 import {ProjectCreatedFatEvent, ProjectCreatedThinEvent} from './events/project-created.event';
 import {PrismaService} from '@valor-launchpad/prisma';
@@ -9,7 +10,7 @@ export class ProjectsService {
               private eventEmitter: EventEmitter2) {
   }
 
-  async createProject(projectDTO) {
+  async createProject(projectDTO: Prisma.ProjectsEntityCreateInput) {
     const persistedProject: any = this.prisma.projectsEntity.create({
       data: projectDTO
     })
