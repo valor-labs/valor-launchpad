@@ -1,8 +1,9 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { DashboardDefaultService } from './dashboard-default.service';
-import { ToastrService } from 'ngx-toastr';
-import { DatePipe } from '@angular/common';
-
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {DashboardDefaultService} from './dashboard-default.service';
+import {ToastrService} from 'ngx-toastr';
+import {DatePipe} from '@angular/common';
+import {AuthService} from '../../core/auth/auth.service';
+import {UserEntity} from '@valor-launchpad/common-api';
 
 class DateOnlyPipe extends DatePipe {
   public transform(value): any {
@@ -16,7 +17,7 @@ class DateOnlyPipe extends DatePipe {
   styleUrls: ['./dashboard-default.component.scss']
 })
 export class DashboardDefaultComponent implements OnInit {
-
+  user: UserEntity;
   dashboardData;
   salesRevenueChartData;
   salesRevenueConfig = {
@@ -54,16 +55,20 @@ export class DashboardDefaultComponent implements OnInit {
   bsInlineValue = new Date();
   appointmentsData;
   latestProjectsTableData;
-  @ViewChild('statusRef', { static: true }) statusTmpl: TemplateRef<any>;
+  @ViewChild('statusRef', {static: true}) statusTmpl: TemplateRef<any>;
   latestProjectsTableColumn;
 
   constructor(
     private dashboardDefaultService: DashboardDefaultService,
+    private authService: AuthService,
     private toastr: ToastrService
   ) {
   }
 
   ngOnInit(): void {
+    this.authService.user.subscribe(user => {
+      this.user = user;
+    })
     this.dashboardDefaultService.getData().subscribe((data: any) => {
       this.dashboardData = data.dashboardData;
       this.salesRevenueChartData = data.salesRevenueChartData;
@@ -73,11 +78,11 @@ export class DashboardDefaultComponent implements OnInit {
       this.latestProjectsTableData = data.latestProjectsTableData;
     });
     this.latestProjectsTableColumn = [
-      { name: 'Name', prop: 'name' },
-      { name: 'Start Date', prop: 'startDate', pipe: new DateOnlyPipe('en-US')},
-      { name: 'End Date', prop: 'endDate', pipe: new DateOnlyPipe('en-US') },
-      { name: 'Status', prop: 'status', cellTemplate: this.statusTmpl },
-      { name: 'Assignee', prop: 'assignee' }
+      {name: 'Name', prop: 'name'},
+      {name: 'Start Date', prop: 'startDate', pipe: new DateOnlyPipe('en-US')},
+      {name: 'End Date', prop: 'endDate', pipe: new DateOnlyPipe('en-US')},
+      {name: 'Status', prop: 'status', cellTemplate: this.statusTmpl},
+      {name: 'Assignee', prop: 'assignee'}
     ];
   }
 

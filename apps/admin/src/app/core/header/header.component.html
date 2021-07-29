@@ -15,45 +15,11 @@
   <ul class="navbar-nav">
     <li class="nav-item px-2 dropdown">
       <valor-launchpad-dropdown
-        [actions]="profileActions"
+        [megaMenu]="megaMenu"
+        direction="start"
         classes="nav-link dropdown-toggle d-none d-sm-inline-block">
         <span dropdown-nav>Mega menu</span>
       </valor-launchpad-dropdown>
-      <div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="servicesDropdown">
-        <div class="d-md-flex align-items-start justify-content-start">
-          <div class="dropdown-mega-list">
-            <div class="dropdown-header">UI Elements</div>
-            <a class="dropdown-item" href="#">Alerts</a>
-            <a class="dropdown-item" href="#">Buttons</a>
-            <a class="dropdown-item" href="#">Cards</a>
-            <a class="dropdown-item" href="#">Carousel</a>
-            <a class="dropdown-item" href="#">General</a>
-            <a class="dropdown-item" href="#">Grid</a>
-            <a class="dropdown-item" href="#">Modals</a>
-            <a class="dropdown-item" href="#">Tabs</a>
-            <a class="dropdown-item" href="#">Typography</a>
-          </div>
-          <div class="dropdown-mega-list">
-            <div class="dropdown-header">Forms</div>
-            <a class="dropdown-item" href="#">Layouts</a>
-            <a class="dropdown-item" href="#">Basic Inputs</a>
-            <a class="dropdown-item" href="#">Input Groups</a>
-            <a class="dropdown-item" href="#">Advanced Inputs</a>
-            <a class="dropdown-item" href="#">Editors</a>
-            <a class="dropdown-item" href="#">Validation</a>
-            <a class="dropdown-item" href="#">Wizard</a>
-          </div>
-          <div class="dropdown-mega-list">
-            <div class="dropdown-header">Tables</div>
-            <a class="dropdown-item" href="#">Basic Tables</a>
-            <a class="dropdown-item" href="#">Responsive Table</a>
-            <a class="dropdown-item" href="#">Table with Buttons</a>
-            <a class="dropdown-item" href="#">Column Search</a>
-            <a class="dropdown-item" href="#">Muulti Selection</a>
-            <a class="dropdown-item" href="#">Ajax Sourced Data</a>
-          </div>
-        </div>
-      </div>
     </li>
   </ul>
 
@@ -200,29 +166,6 @@
             <img [src]="currentLanguage.image.src" class="avatar img-fluid rounded-circle me-1" [alt]="currentLanguage.image.alt"/>
           </span>
       </valor-launchpad-dropdown>
-<!--      <li class="nav-item dropdown">-->
-<!--        <a class="nav-flag dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown">-->
-<!--          <img src="assets/img/flags/us.png" alt="English"/>-->
-<!--        </a>-->
-<!--        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">-->
-<!--          <a class="dropdown-item" href="#">-->
-<!--            <img src="assets/img/flags/us.png" alt="English" width="20" class="align-middle me-1"/>-->
-<!--            <span class="align-middle">English</span>-->
-<!--          </a>-->
-<!--          <a class="dropdown-item" href="#">-->
-<!--            <img src="assets/img/flags/es.png" alt="Spanish" width="20" class="align-middle me-1"/>-->
-<!--            <span class="align-middle">Spanish</span>-->
-<!--          </a>-->
-<!--          <a class="dropdown-item" href="#">-->
-<!--            <img src="assets/img/flags/de.png" alt="German" width="20" class="align-middle me-1"/>-->
-<!--            <span class="align-middle">German</span>-->
-<!--          </a>-->
-<!--          <a class="dropdown-item" href="#">-->
-<!--            <img src="assets/img/flags/nl.png" alt="Dutch" width="20" class="align-middle me-1"/>-->
-<!--            <span class="align-middle">Dutch</span>-->
-<!--          </a>-->
-<!--        </div>-->
-<!--      </li>-->
       <li class="nav-item dropdown">
         <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
           <i class="align-middle fas fa-fw fa-cogs"></i>
@@ -232,8 +175,8 @@
           [actions]="profileActions"
           classes="nav-link dropdown-toggle d-none d-sm-inline-block">
           <span dropdown-nav>
-            <img src="assets/img/avatars/avatar.jpg" class="avatar img-fluid rounded-circle me-1" alt="Chris Wood"/>
-            <span class="text-dark">Chris Wood</span>
+            <valor-launchpad-avatar [src]="user?.avatar?.src" [alt]="user?.avatar?.alt"></valor-launchpad-avatar>
+            <span class="text-dark">{{user?.firstName}} {{user?.lastName}}</span>
           </span>
         </valor-launchpad-dropdown>
       </li>

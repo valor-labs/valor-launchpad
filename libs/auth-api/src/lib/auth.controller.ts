@@ -28,6 +28,11 @@ export class AuthController {
     response.send(loginResult);
   }
 
+  @Get('current-user')
+  async getCurrentUser(@Req() req: RequestWithSession) {
+    return req.session.user;
+  }
+
   @Get('sign-out')
   async signOut(@Req() req: RequestWithSession, @Res() response: Response) {
     response.clearCookie('access_token');

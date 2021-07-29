@@ -8,6 +8,10 @@
         <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
         {{action.label}}
       </a>
+      <a class="dropdown-item" *ngIf="action.routerLink" [routerLink]="[action.routerLink]">
+        <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
+        {{action.label}}
+      </a>
       <a class="dropdown-item" *ngIf="action.event" (click)="action.event()">
         <img *ngIf="action.image" [alt]="action.image.alt" [src]="action.image.src"
              width="20" class="align-middle me-1">
@@ -16,5 +20,28 @@
       </a>
       <div *ngIf="action.divider" class="dropdown-divider"></div>
     </fragment>
+
+    <div *ngIf="megaMenu" class="d-md-flex align-items-start justify-content-start">
+      <div class="dropdown-mega-list" *ngFor="let menuItem of megaMenu">
+        <div class="dropdown-header">{{menuItem.label}}</div>
+        <fragment *ngFor="let action of menuItem.actions">
+          <a class="dropdown-item" [href]="action.link" *ngIf="action.link">
+            <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
+            {{action.label}}
+          </a>
+          <a class="dropdown-item" *ngIf="action.routerLink" [routerLink]="[action.routerLink]">
+            <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
+            {{action.label}}
+          </a>
+          <a class="dropdown-item" *ngIf="action.event" (click)="action.event()">
+            <img *ngIf="action.image" [alt]="action.image.alt" [src]="action.image.src"
+                 width="20" class="align-middle me-1">
+            <i *ngIf="action.icon" class="align-middle me-1 fas fa-fw fa-{{action.icon}}"></i>
+            {{action.label}}
+          </a>
+          <div *ngIf="action.divider" class="dropdown-divider"></div>
+        </fragment>
+      </div>
+    </div>
   </div>
 </div>
