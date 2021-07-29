@@ -24,12 +24,12 @@
                             text, images, lists, etc.
                         </div>
 
-                        <valor-launchpad-dropdown [classes]="'dropdown mt-3'" [actions]="dropdownActions">
+                        <valor-launchpad-dropdown [classes]="'dropdown mt-3'">
                             <button dropdown-nav class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown">
                                 Dropdown button
                             </button>
-
+                            <valor-launchpad-dropdown-actions-menu [data]="dropdownActions"></valor-launchpad-dropdown-actions-menu>
                         </valor-launchpad-dropdown>
 
                        

@@ -7,10 +7,10 @@
         <div class="card-actions float-end">
           
           <valor-launchpad-dropdown
-            [actions]="actions1"
             [direction]="'end'"
           >
              <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
+             <valor-launchpad-dropdown-actions-menu [data]="actions1"></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>  
           
 
@@ -34,10 +34,10 @@
       <div card-header>
         <div class="card-actions float-end"> 
             <valor-launchpad-dropdown
-            [actions]="actions2"
             [direction]="'end'"
           >
              <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
+             <valor-launchpad-dropdown-actions-menu [data]="actions2"></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>         
         </div>
         <h5 class="card-title mb-0">{{profile.detail.name}}</h5>

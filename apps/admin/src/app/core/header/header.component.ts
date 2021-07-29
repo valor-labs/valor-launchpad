@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
-import {Action} from '@valor-launchpad/api-interfaces';
+import {Action, MegaMenuColumn} from '@valor-launchpad/api-interfaces';
 import {NavigationService} from '../navigation/navigation.service';
 import {UserEntity} from '@valor-launchpad/common-api';
 
@@ -12,7 +12,7 @@ import {UserEntity} from '@valor-launchpad/common-api';
 export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
   user: UserEntity;
-  megaMenu: Array<{ label: string, actions: Action[] }> = [
+  megaMenu: MegaMenuColumn[] = [
     {
       label: 'UI Elements',
       actions: [
