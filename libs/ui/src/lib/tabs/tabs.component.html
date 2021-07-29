@@ -1,30 +1,25 @@
-<ul 
-  class="nav nav-{{type}}" 
-  role="tablist">
-
+<ul class="nav nav-{{type}}" role="tablist">
   <ng-container *ngFor="let tab of tabs">
     <li class="nav-item" (click)="select(tab.id)">
       <a
-        class="nav-link" 
+        class="nav-link"
         [class.disabled]="tab.disabled"
         [class.active]="tab.id == activeTab"
         [id]="tab.tabId === undefined ? '' : tab.tabId"
-        data-bs-toggle="tab" 
         role="tab">
         <ng-template *ngIf="!tab.title" [ngTemplateOutlet]="tab.titleTpl?.templateRef"></ng-template>
         <ng-container>{{ tab.title }}</ng-container>
       </a>
     </li>
   </ng-container>
-
 </ul>
 
 <div class="tab-content" *ngIf="showContent">
   <ng-container *ngFor="let tab of tabs">
-    <div 
-      class="tab-pane" 
-      role="tabpanel" 
-      *ngIf="tab.id == activeTab && !tabs.disabled" 
+    <div
+      class="tab-pane"
+      role="tabpanel"
+      *ngIf="tab.id == activeTab && !tabs.disabled"
       [class.active]="tab.id == activeTab">
       <ng-template [ngTemplateOutlet]="tab.contentTpl?.templateRef"></ng-template>
     </div>
