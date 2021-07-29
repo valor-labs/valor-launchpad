@@ -101,6 +101,7 @@
     "@angular/cli": "12.1.1",
     "@angular/compiler-cli": "12.1.1",
     "@angular/language-service": "12.1.1",
+    "@angular/localize": "^12.1.1",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
     "@nrwl/cli": "12.5.8",

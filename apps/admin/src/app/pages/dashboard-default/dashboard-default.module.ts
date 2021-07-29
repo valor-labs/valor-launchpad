@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { DashboardDefaultRoutingModule } from './dashboard-default-routing.module';
-import { DashboardDefaultComponent } from './dashboard-default.component';
+import {DashboardDefaultRoutingModule} from './dashboard-default-routing.module';
+import {DashboardDefaultComponent} from './dashboard-default.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {AuthModule} from '../../core/auth/auth.module';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     DashboardDefaultComponent
   ],
   imports: [
+    AuthModule,
     CommonModule,
     DashboardDefaultRoutingModule,
     NgxChartsModule,
@@ -22,4 +24,5 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NgxDatatableModule
   ]
 })
-export class DashboardDefaultModule { }
+export class DashboardDefaultModule {
+}
