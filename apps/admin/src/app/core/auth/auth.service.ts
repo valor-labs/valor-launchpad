@@ -39,7 +39,7 @@ export class AuthService {
     return this.httpClient.get('api/auth/v1/current-user')
       .pipe(
         map((data: any) => {
-          if (typeof data !== 'undefined') {
+          if (typeof data !== 'undefined' && data!==null) {
             this.user.next(data);
             return true;
           } else {

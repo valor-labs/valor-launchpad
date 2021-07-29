@@ -39,9 +39,7 @@ export class UsersListingComponent implements OnInit {
   }
 
   handleInputConfirm(): void {
-    debugger
     const selectedRole = this.availableRoles.find((role: any) => {
-      debugger
       if (role.role === this.rolesInputValue) {
         return role;
       }
@@ -87,9 +85,7 @@ export class UsersListingComponent implements OnInit {
 
   addUser(createUserForm: NgForm) {
     delete createUserForm.value.rolesInputValue;
-    debugger
     this.usersListingService.addUser(createUserForm.value).subscribe(() => {
-      debugger
       createUserForm.resetForm();
       this.fetchUsers();
     })

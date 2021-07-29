@@ -66,9 +66,7 @@ export class DashboardDefaultComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger
     this.authService.user.subscribe(user => {
-      debugger
       this.user = user;
     })
     this.dashboardDefaultService.getData().subscribe((data: any) => {
