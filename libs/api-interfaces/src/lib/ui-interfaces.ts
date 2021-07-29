@@ -11,6 +11,11 @@ export interface Action {
     alt: string;
   }
 }
+// for dropdown megamenu
+export interface MegaMenuColumn {
+    label: string;
+    actions: Action[];
+}
 
 export interface TimelineItem {
   title: string;

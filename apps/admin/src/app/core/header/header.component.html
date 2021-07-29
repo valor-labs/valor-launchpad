@@ -15,10 +15,10 @@
   <ul class="navbar-nav">
     <li class="nav-item px-2 dropdown">
       <valor-launchpad-dropdown
-        [megaMenu]="megaMenu"
         direction="start"
         classes="nav-link dropdown-toggle d-none d-sm-inline-block">
         <span dropdown-nav>Mega menu</span>
+        <valor-launchpad-dropdown-mega-menu [columns]="megaMenu"></valor-launchpad-dropdown-mega-menu>
       </valor-launchpad-dropdown>
     </li>
   </ul>
@@ -160,11 +160,11 @@
         </div>
       </li>
       <valor-launchpad-dropdown
-        [actions]="languageActions"
         classes="nav-item dropdown">
           <span dropdown-nav class="nav-flag">
             <img [src]="currentLanguage.image.src" class="avatar img-fluid rounded-circle me-1" [alt]="currentLanguage.image.alt"/>
           </span>
+          <valor-launchpad-dropdown-actions-menu [actions]="languageActions"></valor-launchpad-dropdown-actions-menu>
       </valor-launchpad-dropdown>
       <li class="nav-item dropdown">
         <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
@@ -172,12 +172,12 @@
         </a>
 
         <valor-launchpad-dropdown
-          [actions]="profileActions"
           classes="nav-link dropdown-toggle d-none d-sm-inline-block">
           <span dropdown-nav>
             <valor-launchpad-avatar [src]="user?.avatar?.src" [alt]="user?.avatar?.alt"></valor-launchpad-avatar>
             <span class="text-dark">{{user?.firstName}} {{user?.lastName}}</span>
           </span>
+          <valor-launchpad-dropdown-actions-menu [actions]="profileActions"></valor-launchpad-dropdown-actions-menu>
         </valor-launchpad-dropdown>
       </li>
     </ul>

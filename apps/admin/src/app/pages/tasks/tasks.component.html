@@ -6,8 +6,9 @@
     <div class="card">
       <div class="card-header">
         <div class="card-actions float-end">      
-            <valor-launchpad-dropdown [actions]="upComingActions" [direction]="'end'">
+            <valor-launchpad-dropdown [direction]="'end'">
               <i dropdown-nav class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+              <valor-launchpad-dropdown-actions-menu [actions]="upComingActions"></valor-launchpad-dropdown-actions-menu>
             </valor-launchpad-dropdown>       
         </div>
         <h5 class="card-title">Upcoming</h5>
@@ -43,8 +44,9 @@
     <div class="card">
       <div class="card-header">
         <div class="card-actions float-end">
-          <valor-launchpad-dropdown [actions]="inProgressActions" [direction]="'end'">
+          <valor-launchpad-dropdown [direction]="'end'">
             <i dropdown-nav class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+            <valor-launchpad-dropdown-actions-menu [actions]="inProgressActions"></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title">In Progress</h5>
@@ -80,8 +82,9 @@
     <div class="card">
       <div class="card-header">
         <div class="card-actions float-end">
-          <valor-launchpad-dropdown [actions]="completedActions" [direction]="'end'">
+          <valor-launchpad-dropdown [direction]="'end'">
             <i dropdown-nav class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+            <valor-launchpad-dropdown-actions-menu [actions]="completedActions"></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title">Completed</h5>

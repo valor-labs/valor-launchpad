@@ -1,5 +1,4 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Action} from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-dropdown',
@@ -9,12 +8,6 @@ import {Action} from '@valor-launchpad/api-interfaces';
 export class DropdownComponent implements OnInit, OnDestroy {
   @Input()
   direction: string = 'end';
-
-  @Input()
-  actions: Action[];
-
-  @Input()
-  megaMenu: any[];
 
   @Input()
   classes: string;
@@ -28,7 +21,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     document.removeEventListener('click', this.handleClick);
   }
-
 
   toggleDropdown(e) {
     e.stopPropagation();
