@@ -1,34 +1,36 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import {Action} from '@valor-launchpad/api-interfaces';
 import {NavigationService} from '../navigation/navigation.service';
+import {UserEntity} from '@valor-launchpad/common-api';
 
 @Component({
   selector: 'valor-launchpad-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
+  user: UserEntity;
   megaMenu: Array<{ label: string, actions: Action[] }> = [
     {
       label: 'UI Elements',
       actions: [
         {
-          label:'Alerts',
-          routerLink:'/ui-alerts'
+          label: 'Alerts',
+          routerLink: '/ui-alerts'
         },
         {
-          label:'Chips',
-          routerLink:'/ui-chips'
+          label: 'Chips',
+          routerLink: '/ui-chips'
         },
         {
-          label:'Cards',
-          routerLink:'/ui-cards'
+          label: 'Cards',
+          routerLink: '/ui-cards'
         },
         {
-          label:'Buttons',
-          routerLink:'/ui-buttons'
+          label: 'Buttons',
+          routerLink: '/ui-buttons'
         }
       ]
     },
@@ -36,20 +38,20 @@ export class HeaderComponent {
       label: 'Pages',
       actions: [
         {
-          label:'Users',
-          routerLink:'/users'
+          label: 'Users',
+          routerLink: '/users'
         },
         {
-          label:'Profile',
-          routerLink:'/profile'
+          label: 'Profile',
+          routerLink: '/profile'
         },
         {
-          label:'Settings',
-          routerLink:'/settings'
+          label: 'Settings',
+          routerLink: '/settings'
         },
         {
-          label:'Clients',
-          routerLink:'/clients'
+          label: 'Clients',
+          routerLink: '/clients'
         }
       ]
     }
@@ -116,6 +118,12 @@ export class HeaderComponent {
   ];
 
   constructor(private authService: AuthService, private navigationService: NavigationService) {
+  }
+
+  ngOnInit() {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    })
   }
 
   toggleMenu() {

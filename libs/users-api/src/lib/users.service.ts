@@ -339,10 +339,23 @@ export class UsersService {
   }
 
   async logIn(username): Promise<UserEntity> {
-    return await this.prisma.userEntity.update({
+    await this.prisma.userEntity.update({
       where: {username},
       data: {
         lastLogin: new Date()
+      }
+    })
+
+    return await this.prisma.userEntity.findUnique({
+      where: {username},
+      include: {
+        profile: true,
+        avatar: true,
+        userRoles: {
+          include: {
+            rolesEntity: true
+          }
+        }
       }
     }) as UserEntity
   }
@@ -377,6 +390,8 @@ export class UsersService {
         username
       },
       include: {
+        profile: true,
+        avatar: true,
         userRoles: {
           include: {
             rolesEntity: true

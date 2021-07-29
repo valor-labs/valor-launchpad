@@ -17,8 +17,7 @@ export class AuthService {
     if (typeof user === 'undefined') {
       return false;
     } else {
-      const validatedPassword = await this.crypt.validateHash(payload.password, user.password)
-      return validatedPassword;
+      return await this.crypt.validateHash(payload.password, user.password)
     }
   }
 
