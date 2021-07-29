@@ -1,7 +1,7 @@
-<div *ngIf="data" class="d-md-flex align-items-start justify-content-start">
-    <div class="dropdown-mega-list" *ngFor="let menuItem of data">
-      <div class="dropdown-header">{{menuItem.label}}</div>
-      <ng-container *ngFor="let action of menuItem.actions">
+<div *ngIf="columns" class="d-md-flex align-items-start justify-content-start">
+    <div class="dropdown-mega-list" *ngFor="let column of columns">
+      <div class="dropdown-header">{{column.label}}</div>
+      <ng-container *ngFor="let action of column.actions">
         <valor-launchpad-dropdown-action [action]="action"></valor-launchpad-dropdown-action>
       </ng-container>
     </div>

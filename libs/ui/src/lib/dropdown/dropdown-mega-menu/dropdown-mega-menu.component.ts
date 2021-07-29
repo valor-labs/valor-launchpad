@@ -1,4 +1,5 @@
-import {  Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { MegaMenuColumn } from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-dropdown-mega-menu',
@@ -8,5 +9,5 @@ import {  Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class DropdownMegaMenuComponent{
   @Input() 
-  public data: any[];
+  public columns: MegaMenuColumn[];
 }
