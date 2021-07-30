@@ -14,8 +14,7 @@ dotenv.config({path: process.cwd() + '/apps/api/.env'});
 
 const RedisStore = connectRedis(expressSession)
 const redisClient = redis.createClient({
-  host: 'localhost',
-  port: 6379,
+  url: process.env.REDIS_URL
 });
 
 async function bootstrap() {
