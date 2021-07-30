@@ -25,14 +25,13 @@
                         </div>
 
                         <valor-launchpad-dropdown [classes]="'dropdown mt-3'">
-                            <button dropdown-nav class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown">
+                            <button dropdown-nav class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton">
                                 Dropdown button
                             </button>
                             <valor-launchpad-dropdown-actions-menu [actions]="dropdownActions"></valor-launchpad-dropdown-actions-menu>
                         </valor-launchpad-dropdown>
 
-                       
+
                     </div>
                 </valor-launchpad-offcanvas>
             </div>
@@ -97,7 +96,7 @@
             <div class="card-header">
                 <h5 class="card-title">Offcanvas backdrop</h5>
                 <h6 class="card-subtitle text-muted">Scrolling the <code>&#x3C;body&#x3E;</code> element is disabled
-                    when an offcanvas and its backdrop are visible. 
+                    when an offcanvas and its backdrop are visible.
                 </h6>
             </div>
             <div class="card-body text-center">
@@ -105,7 +104,7 @@
                 <button class="btn btn-primary my-1" type="button" aria-controls="offcanvasScrolling" (click)="toggleShowScrolling()">Enable body
                     scrolling</button>
                 <button class="btn btn-primary my-1" type="button"
-                   aria-controls="offcanvasWithBackdrop" (click)="toggleShowBackdrop()">Enable backdrop 
+                   aria-controls="offcanvasWithBackdrop" (click)="toggleShowBackdrop()">Enable backdrop
                     (default)</button>
                 <button class="btn btn-primary my-1" type="button" aria-controls="offcanvasWithBothOptions" (click)="toggleShowScrollingBackdrop()">Enable both
                     scrolling & backdrop</button>
