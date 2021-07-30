@@ -2,7 +2,6 @@ import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {
   CryptService,
   UserEntity,
-  UserRolesEntity,
   CreateUser,
   RolesEntity
 } from '@valor-launchpad/common-api';
@@ -284,7 +283,7 @@ export class UsersService {
         createUser.password = this.generatePassword()
         await this.sendPasswordEmail(createUser.password, createUser.email);
       }
-      const userRole: any = new UserRolesEntity();
+      let userRole: any = {}
       //TODO: make this tie to the actual Role
       userRole.role = 'User';
       createUser.userRoles = [userRole];
