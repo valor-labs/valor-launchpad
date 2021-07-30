@@ -58,6 +58,7 @@ import { EditorSlateTextComponent } from './editor-slate/components/text/editor-
 import { SlateModule } from 'slate-angular';
 import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
 import { CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective } from './card';
+import {NOTYF, notyfFactory} from "./notyf/notyf.token";
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
@@ -149,6 +150,9 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     EditorSlateComponent,
     BadgeComponent,
     ...cardPart
+  ],
+  providers: [
+    { provide: NOTYF, useFactory: notyfFactory }
   ]
 })
 export class UiModule {}
