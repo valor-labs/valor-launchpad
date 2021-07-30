@@ -11,7 +11,7 @@ export class ResetPasswordService {
   }
 
   resetPassword(username) {
-    console.log('username:' +username)
-    return this.httpClient.post(this.baseURL + 'resetPassword', {username})
+    const url = `${this.baseURL} + 'resetPassword'`;
+    return this.httpClient.post(url, {username})
   }
 }

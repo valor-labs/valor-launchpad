@@ -1,16 +1,29 @@
 import {Injectable} from '@nestjs/common';
-import {InjectRepository} from "@nestjs/typeorm";
-import {ProfileEntity} from "./profile.entity";
-import {Repository} from "typeorm";
+import {PrismaService} from '@valor-launchpad/prisma';
 
 @Injectable()
 export class ProfileService {
-  constructor(@InjectRepository(ProfileEntity)
-              private profileRepository: Repository<ProfileEntity>) {
+  constructor(private prisma: PrismaService) {
   }
 
-  async getProfile() {
-    return await this.profileRepository.findOne({relations: ["activity", "activity.children"]})
+  async getProfile(username: string) {
+    //TODO: need to fix this and the seed after cleanup
+    return await this.prisma.profileEntity.findUnique({
+      where: {
+        username
+      },
+      include: {
+        employers: {
+          include: {
+            employer:true
+          }
+        },
+        activityEntity: {
+          include: {
+            children: true
+          }
+        }
+      }
+    });
   }
-
 }

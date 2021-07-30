@@ -238,173 +238,126 @@
         <div class="text-center">
           <div class="mb-3">
             <div class="btn-group">
-              <button valor-launchpad-button theme="primary" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Primary
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="primary" class="dropdown-toggle">
+                    Primary
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group">
-              <button valor-launchpad-button theme="secondary" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                Secondary
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="secondary" class="dropdown-toggle">
+                    Secondary
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group">
-              <button valor-launchpad-button theme="success" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Success
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="success" class="dropdown-toggle">
+                    Success
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group">
-              <button valor-launchpad-button theme="danger" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Danger
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="danger" class="dropdown-toggle">
+                    Danger
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group">
-              <button valor-launchpad-button theme="warning" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Warning
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="warning" class="dropdown-toggle">
+                    Warning
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group">
-              <button valor-launchpad-button theme="info" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Info
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="info" class="dropdown-toggle">
+                    Info
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
           </div>
-
           <div>
             <div class="btn-group btn-group-sm">
-              <button valor-launchpad-button theme="primary" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Primary
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="primary" class="dropdown-toggle btn-sm">
+                    Primary
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group btn-group-sm">
-              <button valor-launchpad-button theme="secondary" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                Secondary
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="secondary" class="dropdown-toggle btn-sm">
+                    Secondary
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group btn-group-sm">
-              <button valor-launchpad-button theme="success" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Success
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="success" class="dropdown-toggle btn-sm">
+                    Success
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group btn-group-sm">
-              <button valor-launchpad-button theme="danger" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Danger
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="danger" class="dropdown-toggle btn-sm">
+                    Danger
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group btn-group-sm">
-              <button valor-launchpad-button theme="warning" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Warning
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="warning" class="dropdown-toggle btn-sm">
+                    Warning
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
             <div class="btn-group btn-group-sm">
-              <button valor-launchpad-button theme="info" class="dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                Info
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              <valor-launchpad-dropdown classes="dropdown">
+                <div dropdown-nav>
+                  <button valor-launchpad-button theme="info" class="dropdown-toggle btn-sm">
+                    Info
+                  </button>
+                </div>
+                <valor-launchpad-dropdown-actions-menu [actions]="buttonActions"></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </div>
           </div>
         </div>

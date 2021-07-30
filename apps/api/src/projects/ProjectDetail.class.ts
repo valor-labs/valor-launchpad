@@ -1,11 +1,11 @@
 import {Project} from "./Project.class";
+import {UserEntity} from '@valor-launchpad/common-api';
 
 export class ProjectDetail extends Project {
   comments?: [
     {
       timestamp: number
-      author: string;
-      avatar: string;
+      author: UserEntity;
       body: string;
       reactions: [
         {
@@ -15,8 +15,7 @@ export class ProjectDetail extends Project {
       children?: [
         {
           timestamp: number;
-          avatar:string;
-          author: string;
+          author: UserEntity;
           body: string;
           reactions: [
             {
@@ -28,10 +27,7 @@ export class ProjectDetail extends Project {
     }
   ]
   summary: {
-    reporter: {
-      name: string;
-      url: string;
-    }
+    reporter: UserEntity
     createdDate: number;
     startDate: number;
     endDate: number;

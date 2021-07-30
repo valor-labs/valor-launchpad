@@ -56,7 +56,14 @@
               "apps/admin/src/styles.scss",
               "node_modules/notyf/notyf.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/qrcodejs/qrcode.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/admin/scss/1-variables"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -316,6 +323,31 @@
           ],
           "options": {
             "jestConfig": "libs/email/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "prisma": {
+      "root": "libs/prisma",
+      "sourceRoot": "libs/prisma/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/prisma/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/prisma"
+          ],
+          "options": {
+            "jestConfig": "libs/prisma/jest.config.js",
             "passWithNoTests": true
           }
         }

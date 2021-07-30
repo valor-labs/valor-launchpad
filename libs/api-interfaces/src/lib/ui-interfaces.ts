@@ -2,9 +2,19 @@
 export interface Action {
   label: string;
   link?: string;
+  routerLink?: string;
   event?: any;
   icon?: string;
   divider?: boolean;
+  image?: {
+    src: string;
+    alt: string;
+  }
+}
+// for dropdown megamenu
+export interface MegaMenuColumn {
+    label: string;
+    actions: Action[];
 }
 
 export interface TimelineItem {

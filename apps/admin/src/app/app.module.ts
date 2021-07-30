@@ -18,6 +18,7 @@ import {TokenInterceptor} from './core/auth/token.interceptor';
 import {ToastrModule} from 'ngx-toastr';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
@@ -26,6 +27,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
+    TypeaheadModule.forRoot(),
     UiModule, NgxChartsModule, ToastrModule.forRoot()
   ],
   providers: [CookieService,

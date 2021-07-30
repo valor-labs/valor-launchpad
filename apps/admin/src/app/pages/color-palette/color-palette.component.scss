@@ -1,0 +1,33 @@
+@import "app";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+@each $color, $value in $theme-colors {
+  .color-#{$color} {
+    background-color: $value;
+    color: color-contrast($value);
+  }
+  .color-#{$color}-dark {
+    background-color: darken($value, 15%);
+    color: color-contrast(darken($value, 15%));
+  }
+  .color-#{$color}-light {
+    background-color: lighten($value, 15%);
+    color: color-contrast(lighten($value, 15%));
+  }
+}
+
+@each $color, $value in $social-colors {
+  .color-#{$color} {
+    background-color: $value;
+    color: color-contrast($value);
+  }
+  .color-#{$color}-dark {
+    background-color: darken($value, 15%);
+    color: color-contrast(darken($value, 15%));
+  }
+  .color-#{$color}-light {
+    background-color: lighten($value, 15%);
+    color: color-contrast(lighten($value, 15%));
+  }
+}

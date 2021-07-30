@@ -1,9 +1,80 @@
 <!--  TODO add search / filtering here-->
 <valor-launchpad-card>
-  <div card-header>
-    <h2>Add / Edit User</h2>
-  </div>
-  <div card-body>
+  <valor-launchpad-card-header class="d-flex">
+    <h2 class="me-auto">All Users</h2>
+    <div class="actions">
+      <button type="button" class="btn btn-light" (click)="openAddEdit()">Add User<i class="fas fa-plus ms-2"></i></button>
+      <button type="button" class="btn btn-light" (click)="fetchUsers()"><i class="fas fa-sync"></i></button>
+    </div>
+  </valor-launchpad-card-header>
+  <valor-launchpad-card-content>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Tags</th>
+        <th scope="col">Last Log In</th>
+        <th scope="col">History</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}} <i class="fas fa-check-circle validated" *ngIf="user.emailVerified"></i></td>
+        <td>
+          <span class="badge bg-light text-dark" *ngFor="let userRole of user.userRoles">{{userRole.rolesEntity.role}}</span>
+        </td>
+        <td>
+          <span class="badge bg-light text-dark" *ngFor="let userTag of user.userTags">{{userTag.tag}}</span>
+        </td>
+        <td>
+          <span *ngIf="user.lastLogin">{{user.lastLogin|date:'short'}}</span>
+          <span *ngIf="!user.lastLogin"> - </span>
+        </td>
+        <td>
+          <div *ngFor="let userHistory of user.userHistory">
+            <span class="event-title">{{userHistory.event}}</span>
+            <span class="event-byline">by {{userHistory.actingUser?.username || 'Unknown'}}
+              @ {{userHistory.createdDate|date:'short'}}</span>
+          </div>
+        </td>
+        <td class="actions">
+          <div *ngIf="!user.deletedDate">
+            <i class="fas fa-edit" (click)="edit(user)"></i>
+            <i class="fas fa-trash" (click)="delete(user.username)"></i>
+          </div>
+          <div *ngIf="user.deletedDate">
+            <i class="fas fa-trash-restore" (click)="restore(user.username)"></i>
+          </div>
+          <div *ngIf="user.lastPasswordUpdateDate">
+            Last Password Update: {{user.lastPasswordUpdateDate|date:'short'}}
+          </div>
+          <div *ngIf="user.passwordResetNeeded" class="mt-2">
+            <button type="button" (click)="resendEmail(user.id)" class="btn btn-outline-warning">Resend Reset Email
+            </button>
+          </div>
+          <div *ngIf="!user.passwordResetNeeded" class="mt-2">
+            <button type="button" (click)="resetPassword(user.username)" class="btn btn-outline-warning">Reset
+              Password
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </valor-launchpad-card-content>
+</valor-launchpad-card>
+
+<valor-launchpad-offcanvas [show]="addEditVisible" [title]="'Add / Edit'" position="end"
+                           (onClose)="addEditCloseEvent()">
+  <div offcanvas-body>
     <form #addUserForm="ngForm" (ngSubmit)="addUser(addUserForm)">
       <div class="col-6">
         <div class="mb-3">
@@ -22,75 +93,32 @@
           <label class="form-label">email</label>
           <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="email"/>
         </div>
+        <nz-tag class="btn btn-outline-secondary"
+                *ngFor="let role of roles; let i = index" [nzMode]="'closeable'" (nzOnClose)="handleClose(role)">
+          {{ role.role }}
+        </nz-tag>
+        <nz-tag *ngIf="!rolesInputVisible"
+                style="border-style: dashed;"
+                class="btn btn-outline-secondary m-2" (click)="showRolesInput()">
+          Add Role
+          <i class="fas fa-plus"></i>
+        </nz-tag>
+<!--        TODO Make sure this doesnt allow roles that do not exist-->
+                <input #inputElement
+                       [hidden]="!rolesInputVisible"
+                       [(ngModel)]="rolesInputValue"
+                       typeaheadOptionField="role"
+                       autocomplete="off"
+                       name="rolesInputValue"
+                       type="text"
+                       style="width: 78px; border-style: dashed;"
+                       [typeahead]="availableRoles"
+                       (blur)="handleInputConfirm()"
+                       (keydown.enter)="handleInputConfirm()">
       </div>
-      <button type="submit" class="btn btn-lg btn-primary">Create User</button>
+      <button type="submit" class="mt-3 btn btn-lg btn-primary">Create User</button>
     </form>
+
+
   </div>
-</valor-launchpad-card>
-<valor-launchpad-card>
-  <div card-header class="d-flex">
-    <h2 class="me-auto">All Users</h2>
-    <div class="actions">
-      <button type="button" class="btn btn-light" (click)="fetchUsers()"><i class="fas fa-sync"></i></button>
-    </div>
-  </div>
-  <div card-body>
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Username</th>
-        <th scope="col">Email</th>
-        <th scope="col">Roles</th>
-        <th scope="col">Tags</th>
-        <th scope="col">Last Log In</th>
-        <th scope="col">History</th>
-        <th scope="col">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users">
-        <th>{{user.firstName}}</th>
-        <td>{{user.lastName}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.email}} <i class="fas fa-check-circle validated" *ngIf="user.emailVerified"></i></td>
-        <td>
-          <span class="badge bg-light text-dark" *ngFor="let userRole of user.userRoles">{{userRole.role}}</span>
-        </td>
-        <td>
-          <span class="badge bg-light text-dark" *ngFor="let userTag of user.userTags">{{userTag.tag}}</span>
-        </td>
-        <td>
-          <span *ngIf="user.lastLogin">{{user.lastLogin|date:'short'}}</span>
-          <span *ngIf="!user.lastLogin"> - </span>
-        </td>
-        <td>
-          <div *ngFor="let userHistory of user.userHistory">
-            <span class="event-title">{{userHistory.event}}</span>
-            <span class="event-byline">by {{userHistory.actingUser?.username || 'Unknown'}} @ {{userHistory.createDate|date:'short'}}</span>
-          </div>
-        </td>
-        <td class="actions">
-          <div *ngIf="!user.deletedDate">
-            <i class="fas fa-edit" (click)="edit(user)"></i>
-            <i class="fas fa-trash" (click)="delete(user.username)"></i>
-          </div>
-          <div *ngIf="user.deletedDate">
-            <i class="fas fa-trash-restore" (click)="restore(user.username)"></i>
-          </div>
-          <div *ngIf="user.lastPasswordUpdateDate">
-            Last Password Update: {{user.lastPasswordUpdateDate|date:'short'}}
-          </div>
-          <div *ngIf="user.passwordResetNeeded">
-            <button type="button" (click)="resendEmail(user.id)" class="btn btn-outline-warning">Resend Reset Email</button>
-          </div>
-          <div *ngIf="!user.passwordResetNeeded">
-            <button type="button" (click)="resetPassword(user.username)" class="btn btn-outline-warning">Reset Password</button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</valor-launchpad-card>
+</valor-launchpad-offcanvas>

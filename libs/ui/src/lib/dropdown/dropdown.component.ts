@@ -1,41 +1,34 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Action } from '@valor-launchpad/api-interfaces';
-
-
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent implements OnInit,OnDestroy {
+export class DropdownComponent implements OnInit, OnDestroy {
   @Input()
-  direction:string;
-
-  @Input()
-  actions:Action[];
+  direction: string = 'end';
 
   @Input()
-  classes:string;
+  classes: string;
 
-  show: boolean = false;
+  show = false;
 
-  constructor(){
-    this.handleClick=this.handleClick.bind(this);
+  constructor() {
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  ngOnDestroy(){
-     document.removeEventListener('click',this.handleClick);
+  ngOnDestroy() {
+    document.removeEventListener('click', this.handleClick);
   }
-
 
   toggleDropdown(e) {
     e.stopPropagation();
     this.show = !this.show;
   }
 
-  handleClick(){
-    this.show=false;
+  handleClick() {
+    this.show = false;
   }
 
   ngOnInit() {
@@ -43,6 +36,4 @@ export class DropdownComponent implements OnInit,OnDestroy {
   }
 
 
-
- 
 }

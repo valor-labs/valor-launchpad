@@ -1,0 +1,299 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ActivityEntity {
+  id          String           @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime         @default(now()) @db.DateTime(6)
+  updatedDate DateTime         @updatedAt
+  deletedDate DateTime?        @db.DateTime(6)
+  timestamp   DateTime         @db.DateTime(0)
+  type        String           @db.VarChar(255)
+  name        String           @db.VarChar(255)
+  avatar      String           @db.VarChar(255)
+  url         String?          @db.VarChar(255)
+  body        String?          @db.LongText
+  reactions   Json?            @db.Json
+  profile_id  String?          @db.VarChar(36)
+  parentId    String?          @db.VarChar(36)
+  parent      ActivityEntity?  @relation("activity_entityToactivity_entity_parentId", fields: [parentId], references: [id])
+  profile     ProfileEntity?   @relation("profileEntity", fields: [profile_id], references: [id])
+  children    ActivityEntity[] @relation("activity_entityToactivity_entity_parentId")
+}
+
+model CommentEntity {
+  id             String          @id @default(uuid()) @db.VarChar(36)
+  createdDate    DateTime        @default(now()) @db.DateTime(6)
+  updatedDate    DateTime        @updatedAt
+  deletedDate    DateTime?       @db.DateTime(6)
+  author_id      String          @db.VarChar(36)
+  author         UserEntity      @relation("commentAuthor", fields: [author_id], references: [id])
+  body           String          @db.LongText
+  reactions      Json?           @db.Json
+  project_id     String?         @db.VarChar(36)
+  parentId       String?         @db.VarChar(36)
+  CommentEntity  CommentEntity?  @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
+  ProjectsEntity ProjectsEntity? @relation("projectComments", fields: [project_id], references: [id])
+  children       CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
+}
+
+model DashboardAnalyticsEntity {
+  id                     String    @id @default(uuid()) @db.VarChar(36)
+  createdDate            DateTime  @default(now()) @db.DateTime(6)
+  updatedDate            DateTime  @updatedAt
+  deletedDate            DateTime? @db.DateTime(6)
+  analyticsInfo          Json      @db.Json
+  languagesData          Json      @db.Json
+  mobileDesktopChartData Json      @db.Json
+  sourceMediumChartData  Json      @db.Json
+  sourceMediumTableData  Json      @db.Json
+  trafficTableData       Json      @db.Json
+}
+
+model DashboardEntity {
+  id                      String    @id @default(uuid()) @db.VarChar(36)
+  createdDate             DateTime  @default(now()) @db.DateTime(6)
+  updatedDate             DateTime  @updatedAt
+  deletedDate             DateTime? @db.DateTime(6)
+  dashboardData           Json      @db.Json
+  salesRevenueChartData   Json      @db.Json
+  weeklySalesChartData    Json      @db.Json
+  weeklySalesTableData    Json      @db.Json
+  appointmentsData        Json      @db.Json
+  latestProjectsTableData Json      @db.Json
+}
+
+model ProfileEntity {
+  id             String                      @id @default(uuid()) @db.VarChar(36)
+  createdDate    DateTime                    @default(now()) @db.DateTime(6)
+  updatedDate    DateTime                    @updatedAt
+  deletedDate    DateTime?                   @db.DateTime(6)
+  name           String                      @db.VarChar(255)
+  avatar         MediaAsset?                 @relation("profileImage")
+  username       String                      @unique @db.VarChar(255)
+  user           UserEntity                  @relation("userProfile", fields: [username], references: [username])
+  title          String?                     @db.VarChar(255)
+  following      Boolean?                    @db.TinyInt
+  location       String?                     @db.VarChar(255)
+  from           String?                     @db.VarChar(255)
+  employers      ProfileEmployerEntity[]
+  socialMedia    SocialMediaMatchingEntity[]
+  skills         ProfileSkillsEntity[]
+  activityEntity ActivityEntity[]            @relation("profileEntity")
+}
+
+model ProfileSkillsEntity {
+  id          String        @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime      @default(now()) @db.DateTime(6)
+  updatedDate DateTime      @updatedAt
+  deletedDate DateTime?     @db.DateTime(6)
+  profileId   String        @db.VarChar(36)
+  profile     ProfileEntity @relation(fields: [profileId], references: [id])
+  skillsId    String        @db.VarChar(36)
+  skill       SkillsEntity  @relation(fields: [skillsId], references: [id])
+}
+
+model SkillsEntity {
+  id          String                @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime              @default(now()) @db.DateTime(6)
+  updatedDate DateTime              @updatedAt
+  deletedDate DateTime?             @db.DateTime(6)
+  profiles    ProfileSkillsEntity[]
+}
+
+model SocialMediaEntity {
+  id            String                      @id @default(uuid()) @db.VarChar(36)
+  createdDate   DateTime                    @default(now()) @db.DateTime(6)
+  updatedDate   DateTime                    @updatedAt
+  deletedDate   DateTime?                   @db.DateTime(6)
+  icon          String                      @db.VarChar(255)
+  baseUrl       String                      @db.VarChar(255)
+  name          String                      @db.VarChar(255)
+  platformUsers SocialMediaMatchingEntity[]
+}
+
+model SocialMediaMatchingEntity {
+  id            String            @id @default(uuid()) @db.VarChar(36)
+  createdDate   DateTime          @default(now()) @db.DateTime(6)
+  updatedDate   DateTime          @updatedAt
+  deletedDate   DateTime?         @db.DateTime(6)
+  profileId     String?           @db.VarChar(36)
+  profile       ProfileEntity?    @relation(fields: [profileId], references: [id])
+  socialMediaId String            @db.VarChar(36)
+  socialMedia   SocialMediaEntity @relation(fields: [socialMediaId], references: [id])
+  employerId    String?           @db.VarChar(36)
+  employer      EmployerEntity?   @relation(fields: [employerId], references: [id])
+}
+
+model EmployerEntity {
+  id          String                      @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime                    @default(now()) @db.DateTime(6)
+  updatedDate DateTime                    @updatedAt
+  deletedDate DateTime?                   @db.DateTime(6)
+  name        String?                     @db.VarChar(255)
+  url         String?                     @db.VarChar(255)
+  avatar      String?                     @db.VarChar(255)
+  profiles    ProfileEmployerEntity[]
+  socialMedia SocialMediaMatchingEntity[]
+}
+
+model ProfileEmployerEntity {
+  id          String         @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime       @default(now()) @db.DateTime(6)
+  updatedDate DateTime       @updatedAt
+  deletedDate DateTime?      @db.DateTime(6)
+  current     Boolean?       @db.TinyInt
+  employerId  String         @db.VarChar(36)
+  employer    EmployerEntity @relation(fields: [employerId], references: [id])
+  profileId   String         @db.VarChar(36)
+  profile     ProfileEntity  @relation(fields: [profileId], references: [id])
+}
+
+model ProjectsEntity {
+  id          String                   @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime                 @default(now()) @db.DateTime(6)
+  updatedDate DateTime                 @updatedAt
+  deletedDate DateTime?                @db.DateTime(6)
+  title       String                   @db.VarChar(255)
+  body        String                   @db.LongText
+  badge       Json?                    @db.Json
+  actions     Json?                    @db.Json
+  progress    Int?
+  rollupData  Json?                    @db.Json
+  assignee    ProjectsAssigneeEntity[] @relation("projectsAssignee")
+  comments    CommentEntity[]          @relation("projectComments")
+  hero        MediaAsset?              @relation("projectHeroMedia")
+  summary     ProjectSummaryEntity?    @relation("projectSummary")
+}
+
+model ProjectSummaryEntity {
+  id                String         @id @default(uuid()) @db.VarChar(36)
+  createdDate       DateTime       @default(now()) @db.DateTime(6)
+  updatedDate       DateTime       @updatedAt
+  deletedDate       DateTime?      @db.DateTime(6)
+  endDate           DateTime?      @db.DateTime(6)
+  startDate         DateTime?      @db.DateTime(6)
+  project_id        String         @unique @db.VarChar(36)
+  project           ProjectsEntity @relation("projectSummary", fields: [project_id], references: [id])
+  reporting_user_id String         @db.VarChar(36)
+  reporter          UserEntity     @relation("reportingUser", fields: [reporting_user_id], references: [id])
+  budget            Int?           @db.Int
+  logged            String?        @db.VarChar(255)
+  estimated         String?        @db.VarChar(255)
+}
+
+model ProjectsAssigneeEntity {
+  id          String         @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime       @default(now()) @db.DateTime(6)
+  updatedDate DateTime       @updatedAt
+  deletedDate DateTime?      @db.DateTime(6)
+  projectsId  String         @db.VarChar(36)
+  project     ProjectsEntity @relation("projectsAssignee", fields: [projectsId], references: [id])
+  userId      String         @db.VarChar(36)
+  user        UserEntity     @relation("assigneeUser", fields: [userId], references: [id])
+}
+
+model RolesEntity {
+  id          String            @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime          @default(now()) @db.DateTime(6)
+  updatedDate DateTime          @updatedAt
+  deletedDate DateTime?         @db.DateTime(6)
+  role        String            @unique @db.VarChar(255)
+  userRoles   UserRolesEntity[] @relation("userRoles")
+}
+
+model UserEntity {
+  id                     String                   @id @default(uuid()) @db.VarChar(36)
+  username               String                   @unique @db.VarChar(255)
+  email                  String                   @db.VarChar(255)
+  password               String                   @db.VarChar(255)
+  firstName              String                   @db.VarChar(255)
+  lastName               String                   @db.VarChar(255)
+  passwordResetNeeded    Boolean?                 @db.TinyInt
+  lastPasswordUpdateDate DateTime?                @db.DateTime(0)
+  emailVerified          Boolean                  @default(false) @db.TinyInt
+  emailVerifyToken       String?                  @unique @db.VarChar(255)
+  phone                  String?                  @db.VarChar(255)
+  phoneVerifyToken       String?                  @db.VarChar(255)
+  suspended              Boolean                  @default(false) @db.TinyInt
+  lastLogin              DateTime?                @db.DateTime(0)
+  deletedDate            DateTime?                @db.DateTime(6)
+  createdDate            DateTime                 @default(now()) @db.DateTime(6)
+  updatedDate            DateTime                 @updatedAt
+  userHistory            UserEventsEntity[]       @relation("targetUser")
+  userActivity           UserEventsEntity[]       @relation("actingUser")
+  userRoles              UserRolesEntity[]        @relation("userEntity")
+  userTags               UserTagsEntity[]         @relation("userTags")
+  projects               ProjectsAssigneeEntity[] @relation("assigneeUser")
+  reportedProjects       ProjectSummaryEntity[]   @relation("reportingUser")
+  comments               CommentEntity[]          @relation("commentAuthor")
+  avatar                 MediaAsset?              @relation("userProfileImage")
+  profile                ProfileEntity?           @relation("userProfile")
+}
+
+model UserEventsEntity {
+  id             String      @id @default(uuid()) @db.VarChar(36)
+  event          String      @db.VarChar(255)
+  createdDate    DateTime    @default(now()) @db.DateTime(6)
+  updatedDate    DateTime    @updatedAt
+  deletedDate    DateTime?   @db.DateTime(6)
+  target_user_id String?     @db.VarChar(36)
+  acting_user_id String?     @db.VarChar(36)
+  targetUser     UserEntity? @relation("targetUser", fields: [target_user_id], references: [id])
+  actingUser     UserEntity? @relation("actingUser", fields: [acting_user_id], references: [id])
+}
+
+model UserRolesEntity {
+  id          String      @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime    @default(now()) @db.DateTime(6)
+  updatedDate DateTime    @updatedAt
+  deletedDate DateTime?   @db.DateTime(6)
+  role_id     String      @db.VarChar(36)
+  rolesEntity RolesEntity @relation("userRoles", fields: [role_id], references: [id])
+  user_id     String      @db.VarChar(36)
+  userEntity  UserEntity  @relation("userEntity", fields: [user_id], references: [id])
+}
+
+model UserTagsEntity {
+  id          String     @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime   @default(now()) @db.DateTime(6)
+  updatedDate DateTime   @updatedAt
+  deletedDate DateTime?  @db.DateTime(6)
+  user_id     String     @db.VarChar(36)
+  userEntity  UserEntity @relation("userTags", fields: [user_id], references: [id])
+  tag_id      String     @db.VarChar(36)
+  tagsEntity  TagsEntity @relation("tags", fields: [tag_id], references: [id])
+}
+
+model TagsEntity {
+  id          String           @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime         @default(now()) @db.DateTime(6)
+  updatedDate DateTime         @updatedAt
+  deletedDate DateTime?        @db.DateTime(6)
+  name        String           @db.VarChar(255)
+  userTags    UserTagsEntity[] @relation("tags")
+}
+
+model MediaAsset {
+  id          String          @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime        @default(now()) @db.DateTime(6)
+  updatedDate DateTime        @updatedAt
+  deletedDate DateTime?       @db.DateTime(6)
+  type        String          @db.VarChar(255)
+  src         String          @db.VarChar(255)
+  alt         String          @db.VarChar(255)
+  profile_id  String?         @db.VarChar(36)
+  project_id  String?         @db.VarChar(36)
+  user_id     String?         @db.VarChar(36)
+  profile     ProfileEntity?  @relation("profileImage", fields: [profile_id], references: [id])
+  project     ProjectsEntity? @relation("projectHeroMedia", fields: [project_id], references: [id])
+  user        UserEntity?     @relation("userProfileImage", fields: [user_id], references: [id])
+  @@unique([src, alt], name: "src_alt_unique_constraint")
+  @@unique([profile_id, alt], name: "profile_alt_unique_constraint")
+  @@unique([project_id, alt], name: "project_alt_unique_constraint")
+}

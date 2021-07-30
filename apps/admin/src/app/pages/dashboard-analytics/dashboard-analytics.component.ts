@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { DashboardAnalyticsService } from './dashboard-analytics.service';
+import {Component, OnInit} from '@angular/core';
+import {DashboardAnalyticsService} from './dashboard-analytics.service';
+import {Action} from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-dashboard-analytics',

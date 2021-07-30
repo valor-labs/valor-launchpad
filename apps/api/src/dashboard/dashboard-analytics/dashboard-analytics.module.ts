@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { DashboardAnalyticsController } from './dashboard-analytics.controller';
 import { DashboardAnalyticsService } from './dashboard-analytics.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DashboardAnalyticsEntity } from './dashboard-analytics.entity';
+import {PrismaModule} from '@valor-launchpad/prisma';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([DashboardAnalyticsEntity])],
+  imports: [PrismaModule],
   controllers: [DashboardAnalyticsController],
   providers: [DashboardAnalyticsService]
 })

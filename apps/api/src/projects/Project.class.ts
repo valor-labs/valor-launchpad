@@ -1,3 +1,5 @@
+import {UserEntity} from '@valor-launchpad/common-api';
+
 export class Project {
   createdDate: number;
   updatedDate: number;
@@ -20,7 +22,6 @@ export class Project {
   }>
   progress: number;
   assignee: Array<{
-    name: string;
-    url: string;
+    user: UserEntity
   }>
 }

@@ -2,6 +2,47 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  // hack tab style
+  & ::ng-deep tabset {
+    & > .nav {
+      border-bottom: 2px solid #e8e8fb;
+      margin-bottom: 20px;
+      & > .nav-item {
+        margin: 0 20px 0 0;
+        & > .nav-link {
+          position: relative;
+          margin-bottom: 0;
+          border: none;
+          padding: 5px 0;
+          color: #525f7f;
+          &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            bottom: -2px;
+            left: 0;
+            border-bottom: 2px solid #6772e5;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: all 0.25s ease-in-out;
+          }
+          &.active, &:hover {
+            border: none;
+            color: #6772e5;
+            &::before {
+              opacity: 1;
+              transform: scaleX(1);
+            }
+          }
+        }
+      }
+    }
+    & > .tab-content {
+      padding: 0;
+    }
+  }
+
 }
 
 /* Overall Container */
@@ -83,96 +124,6 @@ span#generate:hover {
 
 #main.checkout:not(.success):not(.error) + ::ng-deep#summary {
   right: 0;
-}
-
-/* Order Confirmation */
-
-#confirmation {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 80px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  visibility: hidden;
-  overflow-x: hidden;
-  opacity: 0;
-  background: #f8fbfd;
-  text-align: left;
-  transition: visibility 0s, opacity 0.5s linear 0.5s;
-}
-
-#main.success #confirmation,
-#main.error #confirmation {
-  //TODO: make this take over the screen more clean
-  visibility: visible;
-  opacity: 1;
-}
-
-#main.success #order,
-#main.error #order {
-  visibility: hidden;
-  opacity: 0;
-}
-
-#confirmation h1 {
-  font-size: 42px;
-  font-weight: 300;
-  color: #6863d8;
-  letter-spacing: 0.3px;
-  margin-bottom: 30px;
-}
-
-#confirmation .status {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 75px 0 275px;
-  max-width: 75%;
-  height: 350px;
-  margin: 100px auto;
-  background: #fff url(../assets/order.svg) 75px center no-repeat;
-  box-shadow: 0 1px 3px 0 rgba(50, 50, 93, 0.15);
-  border-radius: 6px;
-}
-
-#confirmation .status.error {
-  display: none;
-}
-
-#confirmation .status p {
-  margin: 0 0 15px;
-}
-
-#confirmation .status li {
-  margin-bottom: 5px;
-  list-style: none;
-}
-
-#main.success:not(.processing) #confirmation .status.processing,
-#main.success:not(.receiver) #confirmation .status.receiver {
-  display: none;
-}
-
-#main.processing #confirmation .status.success,
-#main.receiver #confirmation .status.success {
-  display: none;
-}
-
-#main.error #confirmation .status.success,
-#main.error #confirmation .status.processing,
-#main.error #confirmation .status.receiver {
-  display: none;
-}
-
-#main.error #confirmation .status.error {
-  display: flex;
-}
-
-#main.error #confirmation .error-message {
-  font-family: monospace;
 }
 
 /* Media Queries */

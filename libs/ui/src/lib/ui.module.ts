@@ -58,12 +58,18 @@ import { EditorSlateTextComponent } from './editor-slate/components/text/editor-
 import { SlateModule } from 'slate-angular';
 import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
 import { CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective } from './card';
+import {RouterModule} from '@angular/router';
+import { DropdownMegaMenuComponent } from './dropdown/dropdown-mega-menu/dropdown-mega-menu.component';
+import { DropdownActionsMenuComponent } from './dropdown/dropdown-actions-menu/dropdown-actions-menu.component';
+import { DropdownActionComponent } from './dropdown/dropdown-action/dropdown-action.component';
 import {NOTYF, notyfFactory} from "./notyf/notyf.token";
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
 @NgModule({
-  imports: [CommonModule, AlertModule, ProgressbarModule, TabsModule, ReactiveFormsModule, FormsModule, SlateModule],
+  imports: [CommonModule, RouterModule,
+    AlertModule, ProgressbarModule, TabsModule,
+    ReactiveFormsModule, FormsModule, SlateModule],
   declarations: [
     AccordionComponent,
     AlertComponent,
@@ -117,7 +123,10 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     EditorSlateComponent,
     EditorSlateTextComponent,
     EditorSlateButtonComponent,
-    ...cardPart
+    DropdownMegaMenuComponent,
+    DropdownActionsMenuComponent,
+    ...cardPart,
+    DropdownActionComponent,
   ],
   exports: [
     TabsModule,
@@ -149,7 +158,10 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     EmbedVideoComponent,
     EditorSlateComponent,
     BadgeComponent,
-    ...cardPart
+    DropdownMegaMenuComponent,
+    DropdownActionsMenuComponent,
+    ...cardPart,
+    DropdownActionComponent
   ],
   providers: [
     { provide: NOTYF, useFactory: notyfFactory }

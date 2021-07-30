@@ -11,7 +11,7 @@ The stack used for this project is as follows.
 
 * Angular 11
 * NestJS 7
-* TypeORM 0.2.32
+* Prisma 2.27.0
 * MySQL (MariaDB 10.6)
 * Redis 6.2.4
 
@@ -110,7 +110,7 @@ CMS functionality emulating [Strapi](https://strapi.io/) with added multi-tenanc
 1) Copy and paste raw HTML from hardcoded template files
 1) Migrate page logic to Angular Components and extract hardcoded raw data to Angular Services
 1) Create NestJS Controller and Services to manage hardcoded raw data
-1) Create TypeORM Entities and TypeORM Seeds and Factories for generating dynamic raw data
+1) Create Entities and Prisma Seeds for generating dynamic raw data
 
 # Boilerplate generation text
 

@@ -1,7 +1,7 @@
-<nav id="sidebar" class="sidebar">
+<nav id="sidebar" class="sidebar" [ngClass]="{'collapsed': collapsed}">
 <!--  TODO: Refactor entire menu into a service -->
-  <div class="sidebar-content js-simplebar">
-    <a class="sidebar-brand" href="index.html">
+  <div class="sidebar-content">
+    <a class="sidebar-brand" routerLink="/">
       <img src="assets/Valor%20Light.svg">
 
       <span class="align-middle me-3">Admin Panel</span>
@@ -37,6 +37,7 @@
         <a class="sidebar-link" (click)="toggleCollapse('pages')">
           <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pages</span>
         </a>
+<!--     TODO:   This and the items from Header need to come from a service-->
         <ul id="pages" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['pages']">
           <li class="sidebar-item" routerLinkActive="active">
             <a class="sidebar-link" routerLink="users">Users</a>
@@ -133,6 +134,9 @@
         <ul id="ui" class="sidebar-dropdown list-unstyled" [collapse]="menuCollapseState['ui']">
           <li class="sidebar-item" routerLinkActive="active">
             <a class="sidebar-link" routerLink="ui-alerts">Alerts</a>
+          </li>
+          <li class="sidebar-item" routerLinkActive="active">
+            <a class="sidebar-link" routerLink="ui-color-palette">Color Palette</a>
           </li>
           <li class="sidebar-item" routerLinkActive="active">
             <a class="sidebar-link" routerLink="ui-chips">Chips</a>
@@ -311,7 +315,7 @@
         </div>
 
         <div class="d-grid">
-          <a href="https://themes.getbootstrap.com/product/appstack-responsive-admin-template/" class="btn btn-primary" target="_blank">Download</a>
+          <a href="https://valor-software.com/launchpad" class="btn btn-primary" target="_blank">Download</a>
         </div>
       </div>
     </div>
