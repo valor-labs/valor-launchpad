@@ -1,0 +1,175 @@
+<h1 class="h3 mb-3">Validation</h1>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Angular Validation</h5>
+      </div>
+      <div class="card-body">
+        <form id="validation-form" novalidate="novalidate" [formGroup]='validateForm'>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control is-invalid" [class.is-invalid]='isDirtyAndInvalid("email")' name="validation-email" placeholder="Email" id='validation-email' formControlName='email'>
+            <small class="form-text d-block text-muted">Example block-level help text here.</small>
+            <label  id="validation-email-error" class="error small form-text invalid-feedback" for="validation-email">
+              <ng-container *ngIf='validateForm.get("email").hasError("required")'>This field is required.</ng-container>
+              <ng-container *ngIf='validateForm.get("email").hasError("email")'>Please enter a valid email address.</ng-container>
+            </label>
+          </div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" [class.is-invalid]='isDirtyAndInvalid("password")' name="validation-password" placeholder="Password" id='validation-password' formControlName='password'>
+            <small class="form-text d-block text-muted">Example block-level help text here.</small>
+            <label *ngIf='isDirtyAndInvalid("password")' id="validation-password-error" class="error small form-text invalid-feedback" for="validation-password">
+              <ng-container *ngIf='validateForm.get("password").hasError("required")'>This field is required.</ng-container>
+              <ng-container *ngIf='validateForm.get("password").hasError("minlength")'>Please enter at least 6 characters.</ng-container>
+              <ng-container *ngIf='validateForm.get("password").hasError("maxlength")'>Please enter no more than 20 characters.</ng-container>
+            </label></div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Confirm password</label>
+            <input type="password" class="form-control" [class.is-invalid]='isDirtyAndInvalid("passwordConfirm")' name="validation-password-confirmation" placeholder="Confirm password" id='validation-password-confirmation' formControlName='passwordConfirm'>
+            <label id="validation-password-confirmation-error" class="error small form-text invalid-feedback" for="validation-password-confirmation">
+              <ng-container *ngIf='validateForm.get("passwordConfirm").hasError("required")'>This field is required.</ng-container>
+              <ng-container *ngIf='validateForm.get("passwordConfirm").hasError("notEqual")'>Please enter the same value again.</ng-container>
+            </label>
+          </div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Required</label>
+            <input type="text" class="form-control" [class.is-invalid]='isDirtyAndInvalid("requiredField")' name="validation-required" placeholder="Required" id='validation-required' formControlName='requiredField'>
+            <label *ngIf='isDirtyAndInvalid("requiredField")' id="validation-required-error" class="error small form-text invalid-feedback" for="validation-required">This field is required.</label></div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">URL</label>
+            <input type="text" class="form-control" [class.is-invalid]='isDirtyAndInvalid("url")' name="validation-url" placeholder="URL" id='validation-url' formControlName='url'>
+            <label *ngIf='isDirtyAndInvalid("url")' id="validation-url-error" class="error small form-text invalid-feedback" for="validation-url">
+              <ng-container *ngIf='validateForm.get("url").hasError("required")'>This field is required.</ng-container>
+              <ng-container *ngIf='validateForm.get("url").hasError("pattern")'>Please enter a valid URL.</ng-container>
+            </label>
+          </div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Select</label>
+            <select class="form-control" [class.is-invalid]='isDirtyAndInvalid("nativeSelect")' name="validation-select" id='validation-select' formControlName='nativeSelect'>
+              <option value="">Select gear...</option>
+              <optgroup label="Climbing">
+                <option value="pitons">Pitons</option>
+                <option value="cams">Cams</option>
+                <option value="nuts">Nuts</option>
+                <option value="bolts">Bolts</option>
+                <option value="stoppers">Stoppers</option>
+                <option value="sling">Sling</option>
+              </optgroup>
+              <optgroup label="Skiing">
+                <option value="skis">Skis</option>
+                <option value="skins">Skins</option>
+                <option value="poles">Poles</option>
+              </optgroup>
+            </select>
+            <label *ngIf='isDirtyAndInvalid("nativeSelect")' id="validation-select-error" class="error small form-text invalid-feedback" for="validation-select">This field is required.</label>
+          </div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Multiselect</label>
+            <select class="form-control" [class.is-invalid]='isDirtyAndInvalid("nativeMultiSelect")' name="validation-multiselect" multiple="" id='validation-multiselect' formControlName='nativeMultiSelect'>
+              <optgroup label="Climbing">
+                <option value="pitons">Pitons</option>
+                <option value="cams">Cams</option>
+                <option value="nuts">Nuts</option>
+                <option value="bolts">Bolts</option>
+                <option value="stoppers">Stoppers</option>
+                <option value="sling">Sling</option>
+              </optgroup>
+              <optgroup label="Skiing">
+                <option value="skis">Skis</option>
+                <option value="skins">Skins</option>
+                <option value="poles">Poles</option>
+              </optgroup>
+            </select>
+            <label *ngIf='isDirtyAndInvalid("nativeMultiSelect")' id="validation-multiselect-error" class="error small form-text invalid-feedback" for="validation-multiselect">Please enter at least 2 characters.</label>
+          </div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Select2</label>
+            <div class="d-flex" [class.is-invalid]='isDirtyAndInvalid("uiSelect")'>
+              <ng-select
+                bindLabel="name"
+                bindValue="name"
+                groupBy="category"
+                formControlName='uiSelect'
+                style='width: 100%'
+                [items]='gears'
+                placeholder='Select gear'
+              >
+                <ng-template ng-optgroup-tmp let-item="item">
+                  {{item.category || 'Unnamed group'}}
+                </ng-template>
+              </ng-select>
+            </div>
+            <label id="validation-select2-error" class="error small form-text invalid-feedback">This field is required.</label>
+          </div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Select2 Multiple</label>
+            <div class="d-flex" [class.is-invalid]='isDirtyAndInvalid("uiMultiSelect")'>
+              <ng-select
+                bindLabel="name"
+                bindValue="name"
+                groupBy="category"
+                formControlName='uiMultiSelect'
+                style='width: 100%'
+                [items]='gears'
+                placeholder='Select gear'
+                [multiple]="true"
+                [closeOnSelect]="false"
+              >
+                <ng-template ng-optgroup-tmp let-item="item">
+                  {{item.category || 'Unnamed group'}}
+                </ng-template>
+              </ng-select>
+            </div>
+            <label id="validation-select2-multi-error" class="error small form-text invalid-feedback">This field is required.</label>
+          </div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Text</label>
+            <textarea class="form-control" [class.is-invalid]='isDirtyAndInvalid("longText")' name="validation-text" id='validation-text' formControlName='longText'></textarea>
+            <label *ngIf='isDirtyAndInvalid("longText")' id="validation-text-error" class="error small form-text invalid-feedback" for="validation-text">This field is required.</label></div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">File</label>
+            <div>
+              <input type="file" class="validation-file" [class.is-invalid]='isDirtyAndInvalid("file")' name="validation-file" id='validation-file' formControlName='file'>
+            </div>
+            <label *ngIf='isDirtyAndInvalid("file")' id="validation-file-error" class="error small form-text invalid-feedback" for="validation-file" style="display: inline-block;">This field is required.</label></div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Radios</label>
+            <label class="form-check">
+              <input name="validationRadios" type="radio" class="form-check-input" value="Option one is this and that—be sure to include why it's great" formControlName='validationRadios'>
+              <span class="form-check-label">Option one is this and that—be sure to include why it's great</span>
+            </label>
+            <label class="form-check">
+              <input name="validationRadios" type="radio" class="form-check-input" value='Option two can be something else and selecting it will deselect option one' formControlName='validationRadios'>
+              <span class="form-check-label">Option two can be something else and selecting it will deselect option one</span>
+            </label>
+            <label class="form-check">
+              <input name="validationRadios" type="radio" class="form-check-input" value='Option three is disabled' formControlName='validationRadios'>
+              <span class="form-check-label">Option three is disabled</span>
+            </label>
+            <label *ngIf='isDirtyAndInvalid("validationRadios")' id="validation-radios-error" class="error small form-text invalid-feedback" style="display: inline-block;">This field is required.</label>
+          </div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Checkbox</label>
+            <br>
+            <label class="form-check d-block">
+              <input type="checkbox" class="form-check-input" [class.is-invalid]='isDirtyAndInvalid("validationCheckbox")' name="validation-checkbox" id='validation-checkbox' formControlName='validationCheckbox'>
+              <span class="form-check-label">Check me</span>
+            </label>
+            <label *ngIf='isDirtyAndInvalid("validationCheckbox")' class="error small form-text invalid-feedback" for="validation-checkbox" style="display: inline-block;">This field is required.</label>
+          </div>
+          <div class="mb-3 error-placeholder">
+            <label class="form-label">Checkbox group</label>
+<!--            <valor-launchpad-checkbox-group [class.is-invalid]='isDirtyAndInvalid("validationCheckboxGroup")' [options]='checkboxGroupOptions' formControlName='validationCheckboxGroup'></valor-launchpad-checkbox-group>-->
+            <label *ngIf='isDirtyAndInvalid("validationCheckboxGroup")' class="error small form-text invalid-feedback" style="display: inline-block;">
+              Please fill at least {{validateForm.get('validationCheckboxGroup').errors.checkAtLeast}} of these fields.
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary" (click)='submit()'>Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
