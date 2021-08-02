@@ -38,6 +38,7 @@ import { RadioComponent } from './radio/radio.component';
 import { RadioGroupComponent } from './radio/radio-group.component';
 import { SwitchComponent } from './switch/switch.component';
 import { InputDirective } from './input/input.directive';
+import { IconDirective } from './icon/icon.directive';
 import { InputGroupComponent } from './input-group/input-group.component';
 import { FormItemComponent } from './forms/form-item.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
@@ -106,6 +107,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     RadioGroupComponent,
     SwitchComponent,
     InputDirective,
+    IconDirective,
     InputGroupComponent,
     FormItemComponent,
     StepComponent,
@@ -147,6 +149,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     RadioGroupComponent,
     SwitchComponent,
     InputDirective,
+    IconDirective,
     InputGroupComponent,
     FormItemComponent,
     CheckboxComponent,
