@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { StripeElements, StripeP24BankElement } from '@stripe/stripe-js';
-import { customStyle } from '../../custom-style';
+import { customStyle } from '../../constants/custom-style';
 
 @Component({
   selector: 'valor-launchpad-payment-p24',

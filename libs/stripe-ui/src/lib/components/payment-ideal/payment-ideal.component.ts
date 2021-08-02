@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { StripeElements, StripeIdealBankElement } from '@stripe/stripe-js';
-import { customStyle } from '../../custom-style';
+import { customStyle } from '../../constants/custom-style';
 
 @Component({
   selector: 'valor-launchpad-payment-ideal',

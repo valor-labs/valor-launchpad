@@ -1,17 +1,13 @@
 import { Body, Controller, Post, Req, Res } from '@nestjs/common';
 import { Stripe } from 'stripe';
 import { RawBody } from '@valor-launchpad/common-api';
+import { InjectStripe } from 'nestjs-stripe';
 
 @Controller('v1')
 export class StripeHooksController {
-  stripe: Stripe;
   endpointSecret = 'whsec_CfYnVo8i3Q6h40NAxfmMvwIGTsEdBDmb';
-  constructor() {
-    this.stripe = new Stripe(
-      'sk_test_51IyGuEAcm152H20W2X1CYZjtI2PAamDitY4gBlLVkoT8LeYc1WA3xT6dBCz1rOLmFEMfrqzo0AopbMwO6wVdxIvn00T63xshwx',
-      { apiVersion: '2020-08-27' }
-    );
-  }
+
+  constructor(@InjectStripe() private readonly stripe: Stripe) {}
 
   @Post('hooks')
   async stripeHook(
