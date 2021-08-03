@@ -1,7 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Notyf} from "notyf";
-import {NOTYF} from "../../../../../../libs/ui/src/lib/notyf/notyf.token";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { Component, Inject, OnInit } from '@angular/core';
+import { NOTYFToken, Notyf } from '@valor-launchpad/ui';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'valor-launchpad-ui-notifications',
@@ -13,7 +12,7 @@ export class UiNotificationsComponent implements OnInit {
   notifSettingForm: FormGroup;
 
   constructor(
-    @Inject(NOTYF) private notyf: Notyf,
+    @Inject(NOTYFToken) private notyf: Notyf,
     private fb: FormBuilder
   ) {
   }
@@ -39,7 +38,7 @@ export class UiNotificationsComponent implements OnInit {
         duration: form.duration,
         ripple: form.withRipple,
         dismissible: form.dismissible,
-        position: {x: form.horizontalPosition, y: form.verticalPosition}
+        position: { x: form.horizontalPosition, y: form.verticalPosition }
       });
   }
 
