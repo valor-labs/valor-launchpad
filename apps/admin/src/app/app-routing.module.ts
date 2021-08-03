@@ -133,6 +133,9 @@ const routes: Routes = [
         path: 'ui-cards', loadChildren: () => import('./pages/ui-cards/ui-cards.module').then(m => m.UiCardsModule)
       },
       {
+        path: 'ui-notification', loadChildren: () => import('./pages/ui-notifications/ui-notifications.module').then(m => m.UiNotificationsModule)
+      },
+      {
         path: 'ui-chips', loadChildren: () => import('./pages/ui-chips/ui-chips.module').then(m => m.UiChipsModule)
       },
       {

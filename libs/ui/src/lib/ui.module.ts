@@ -63,6 +63,7 @@ import {RouterModule} from '@angular/router';
 import { DropdownMegaMenuComponent } from './dropdown/dropdown-mega-menu/dropdown-mega-menu.component';
 import { DropdownActionsMenuComponent } from './dropdown/dropdown-actions-menu/dropdown-actions-menu.component';
 import { DropdownActionComponent } from './dropdown/dropdown-action/dropdown-action.component';
+import {NOTYFToken, notyfFactory} from "./notyf";
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
@@ -164,6 +165,9 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     DropdownActionsMenuComponent,
     ...cardPart,
     DropdownActionComponent
+  ],
+  providers: [
+    { provide: NOTYFToken, useFactory: notyfFactory }
   ]
 })
 export class UiModule {}
