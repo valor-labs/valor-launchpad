@@ -23,7 +23,9 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   const rawBodyBuffer = (req, res, buffer, encoding) => {
-    if (!req.headers['stripe-signature']) { return; }
+    if (!req.headers['stripe-signature']) {
+      return;
+    }
 
     if (buffer && buffer.length) {
       req.rawBody = buffer.toString(encoding || 'utf8');
@@ -38,36 +40,10 @@ async function bootstrap() {
     undefined,
   ];
 
-  app.enableCors({
-    origin: function (origin, callback) {
-      console.log(origin);
-      if (whitelist.filter((x) => x && x.startsWith(origin))) {
-        console.log('The CORS policy for this site allow access from ', origin);
-        callback(null, true);
-      } else {
-        console.log(
-          '\n\n\nThe CORS policy for this site does not allow access from ',
-          origin,
-        );
-        callback(
-          new Error(
-            '\n\n\n\n\n The CORS policy for this site does not allow access from ' +
-            origin,
-          ),
-          false,
-        );
-      }
-    },
-    allowedHeaders:
-      'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
-    methods: 'GET, OPTIONS',
-    credentials: true,
-    preflightContinue: true,
-    optionsSuccessStatus: 200,
-  });
+  app.enableCors({origin: '*'});
 
-  app.use(bodyParser.urlencoded({ verify: rawBodyBuffer, extended: true }));
-  app.use(bodyParser.json({ verify: rawBodyBuffer }));
+  app.use(bodyParser.urlencoded({verify: rawBodyBuffer, extended: true}));
+  app.use(bodyParser.json({verify: rawBodyBuffer}));
 
   app.use(compression());
   app.use(cookieParser());

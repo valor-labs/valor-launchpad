@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://vs-launchpad-staging.herokuapp.com",
+    "target": "http://localhost:3333",
     "secure": false
   }
 }
