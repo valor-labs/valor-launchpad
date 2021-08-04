@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
-import {ReplaySubject} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {ReplaySubject, throwError} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 import {UserEntity} from '@valor-launchpad/common-api';
 
 @Injectable({
@@ -39,6 +39,7 @@ export class AuthService {
     return this.httpClient.get('api/auth/v1/current-user')
       .pipe(
         map((data: any) => {
+          debugger
           if (typeof data !== 'undefined' && data!==null) {
             this.user.next(data);
             return true;

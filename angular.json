@@ -53,7 +53,8 @@
               "apps/admin/src/assets"
             ],
             "styles": [
-              "apps/admin/src/styles.scss"
+              "apps/admin/src/styles.scss",
+              "node_modules/notyf/notyf.min.css"
             ],
             "scripts": [
               "node_modules/qrcodejs/qrcode.js"
