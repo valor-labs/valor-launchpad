@@ -23,7 +23,7 @@ export class InputDirective {
     if (!this.ngControl) {
       return false;
     }
-    return this.ngControl.dirty && this.ngControl.invalid;
+    return (this.ngControl.dirty || this.ngControl.touched) && this.ngControl.invalid;
   }
 
   constructor(

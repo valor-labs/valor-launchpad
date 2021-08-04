@@ -67,9 +67,9 @@ export class FormsValidationComponent implements OnInit {
       /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
     this.validateForm = this.fb.group(
       {
-        email: [null, [Validators.required, Validators.email]],
+        email: ['', [Validators.required, Validators.email]],
         password: [
-          null,
+          '',
           [
             Validators.required,
             Validators.minLength(6),

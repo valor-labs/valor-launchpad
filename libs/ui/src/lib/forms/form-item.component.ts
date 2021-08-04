@@ -20,7 +20,9 @@ import { NgControl } from '@angular/forms';
       </label>
     </ng-container>
     <ng-template #templateOutlet>
-      <ng-container *ngTemplateOutlet="errTip"></ng-container>
+      <div *ngIf='dirtyAndInvalid' class="error jquery-validation-error small form-text invalid-feedback">
+        <ng-container *ngTemplateOutlet="errTip; context: {$implicit: controls.get(0)}"></ng-container>
+      </div>
     </ng-template>
   `,
   styles: [
@@ -40,7 +42,7 @@ export class FormItemComponent {
   }
 
   get dirtyAndInvalid(): boolean {
-    return !!this.controls.toArray().find((i) => i.dirty && i.invalid);
+    return !!this.controls.toArray().find((i) => (i.dirty || i.touched) && i.invalid);
   }
 
   @HostBinding('class.form-floating')
