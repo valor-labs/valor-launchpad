@@ -11,6 +11,13 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "redirects": [
+      {
+        "source": "/api/:path*",
+        "destination": "https://api.testadmindomain.xyz/api/:path*",
+        "type": 301
+      }
+    ]      
   }
 }
