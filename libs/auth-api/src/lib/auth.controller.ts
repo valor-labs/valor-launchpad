@@ -29,8 +29,12 @@ export class AuthController {
   }
 
   @Get('current-user')
-  async getCurrentUser(@Req() req: RequestWithSession) {
-    return req.session.user;
+  async getCurrentUser(@Req() req: RequestWithSession, @Res() response: Response) {
+    if(req.session && req.session.user){
+      return req.session.user;
+    } else {
+      return response.status(HttpStatus.FORBIDDEN).send({status: 'no current session for user or no user'})
+    }
   }
 
   @Get('sign-out')
