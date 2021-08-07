@@ -15,12 +15,12 @@ import { NgControl } from '@angular/forms';
     <ng-container *ngIf="!isTemplate; else templateOutlet">
       <label
         *ngIf='dirtyAndInvalid'
-        class="error jquery-validation-error small form-text invalid-feedback">
+        class="error small form-text invalid-feedback">
         {{ errTip }}
       </label>
     </ng-container>
     <ng-template #templateOutlet>
-      <div *ngIf='dirtyAndInvalid' class="error jquery-validation-error small form-text invalid-feedback">
+      <div *ngIf='dirtyAndInvalid' class="error small form-text invalid-feedback">
         <ng-container *ngTemplateOutlet="errTip; context: {$implicit: controls.get(0)}"></ng-container>
       </div>
     </ng-template>
