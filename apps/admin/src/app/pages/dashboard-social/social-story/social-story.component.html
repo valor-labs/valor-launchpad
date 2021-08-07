@@ -1,0 +1,33 @@
+<div class='d-flex align-items-start'>
+  <img [src]='story.avatarUrl' width='56' height='56' class='rounded-circle me-3' [alt]='story.username'>
+  <div class='flex-grow-1'>
+    <small class='float-end'>{{story.createdAt | timeAgo}}</small>
+    <p class='mb-2'><strong>{{story.username}}</strong></p>
+    <p>{{story.content}}</p>
+
+    <div class='row g-0 mt-1' *ngIf='story.images && story.images.length > 0'>
+      <div class='col-6' *ngFor='let image of story.images'>
+        <img [src]='image' class='img-fluid pe-1' alt='Unsplash'>
+      </div>
+    </div>
+
+    <small class='text-muted'>{{story.createdAt | date: 'MMM d h:mm a'}}</small><br />
+    <button valor-launchpad-button size='sm' theme='danger' class='mt-1'><i class='feather-sm far fa-fw fa-heart'></i> Like</button>
+
+    <div class='d-flex align-items-start mt-3' *ngFor='let comment of story.comments'>
+      <a class='pe-2'>
+        <img [src]='comment.avatarUrl'
+             width='36'
+             height='36'
+             class='rounded-circle me-2'
+             [alt]='comment.username'>
+      </a>
+      <div class='flex-grow-1'>
+        <p class='text-muted'>
+          <strong>{{comment.username}}</strong>: {{comment.content}}
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
