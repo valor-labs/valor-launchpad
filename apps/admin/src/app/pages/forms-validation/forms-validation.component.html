@@ -126,38 +126,33 @@
             <label class="form-label">File</label>
             <input type="file" valorLaunchpadInput id='validation-file' formControlName='file'>
           </valor-launchpad-form-item>
-          <div class="mb-3 error-placeholder">
-            <label class="form-label">Radios</label>
-            <label class="form-check">
-              <input name="validationRadios" type="radio" class="form-check-input" value="Option one is this and that—be sure to include why it's great" formControlName='validationRadios'>
-              <span class="form-check-label">Option one is this and that—be sure to include why it's great</span>
-            </label>
-            <label class="form-check">
-              <input name="validationRadios" type="radio" class="form-check-input" value='Option two can be something else and selecting it will deselect option one' formControlName='validationRadios'>
-              <span class="form-check-label">Option two can be something else and selecting it will deselect option one</span>
-            </label>
-            <label class="form-check">
-              <input name="validationRadios" type="radio" class="form-check-input" value='Option three is disabled' formControlName='validationRadios'>
-              <span class="form-check-label">Option three is disabled</span>
-            </label>
-            <label *ngIf='isDirtyAndInvalid("validationRadios")' id="validation-radios-error" class="error small form-text invalid-feedback" style="display: inline-block;">This field is required.</label>
-          </div>
-          <div class="mb-3 error-placeholder">
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <label class="form-label">Radios{{validateForm.get('validationRadios').touched}}</label>
+            <label class="form-label">Radios{{validateForm.get('validationRadios').dirty}}</label>
+            <label class="form-label">Radios{{validateForm.get('validationRadios').invalid}}</label>
+            <valor-launchpad-radio-group [formControlName]='"validationRadios"'>
+              <label valor-launchpad-radio [value]='"option1"'>
+                Option one is this and that—be sure to include why it's great
+              </label>
+              <label valor-launchpad-radio [value]='"option2"'>
+                Option two can be something else and selecting it will deselect option one
+              </label>
+              <label valor-launchpad-radio [value]='"option3"' [disabled]='true'>
+                Option three is disabled
+              </label>
+            </valor-launchpad-radio-group>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
             <label class="form-label">Checkbox</label>
-            <br>
-            <label class="form-check d-block">
-              <input type="checkbox" class="form-check-input" [class.is-invalid]='isDirtyAndInvalid("validationCheckbox")' name="validation-checkbox" id='validation-checkbox' formControlName='validationCheckbox'>
-              <span class="form-check-label">Check me</span>
-            </label>
-            <label *ngIf='isDirtyAndInvalid("validationCheckbox")' class="error small form-text invalid-feedback" for="validation-checkbox" style="display: inline-block;">This field is required.</label>
-          </div>
-          <div class="mb-3 error-placeholder">
+            <label valor-launchpad-checkbox formControlName='validationCheckbox'>Check me</label>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item [errTip]='validationCheckboxGroupErr'>
             <label class="form-label">Checkbox group</label>
-<!--            <valor-launchpad-checkbox-group [class.is-invalid]='isDirtyAndInvalid("validationCheckboxGroup")' [options]='checkboxGroupOptions' formControlName='validationCheckboxGroup'></valor-launchpad-checkbox-group>-->
-            <label *ngIf='isDirtyAndInvalid("validationCheckboxGroup")' class="error small form-text invalid-feedback" style="display: inline-block;">
-              Please fill at least {{validateForm.get('validationCheckboxGroup').errors.checkAtLeast}} of these fields.
-            </label>
-          </div>
+            <valor-launchpad-checkbox-group [options]='checkboxGroupOptions' formControlName='validationCheckboxGroup'></valor-launchpad-checkbox-group>
+            <ng-template #validationCheckboxGroupErr let-control>
+              Please fill at least {{control.errors.checkAtLeast}} of these fields.
+            </ng-template>
+          </valor-launchpad-form-item>
           <button type="submit" class="btn btn-primary" (click)='submit()'>Submit</button>
         </form>
       </valor-launchpad-card-content>

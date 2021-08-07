@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   ValidatorFn,
   Validators,
@@ -94,7 +93,6 @@ export class FormsValidationComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.validateForm.value);
     for (const c of Object.values(this.validateForm.controls)) {
       c.markAsDirty();
       c.updateValueAndValidity();

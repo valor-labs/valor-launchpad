@@ -49,7 +49,7 @@ export class FormItemComponent {
   @Input()
   vlOutlined = false;
 
-  @Input() errTip: string | TemplateRef<void>;
+  @Input() errTip: string | TemplateRef<unknown>;
 
   get isTemplate() {
     return this.errTip instanceof TemplateRef;
