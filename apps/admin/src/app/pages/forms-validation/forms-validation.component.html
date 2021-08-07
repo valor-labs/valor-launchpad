@@ -127,9 +127,7 @@
             <input type="file" valorLaunchpadInput id='validation-file' formControlName='file'>
           </valor-launchpad-form-item>
           <valor-launchpad-form-item errTip='This field is required.'>
-            <label class="form-label">Radios{{validateForm.get('validationRadios').touched}}</label>
-            <label class="form-label">Radios{{validateForm.get('validationRadios').dirty}}</label>
-            <label class="form-label">Radios{{validateForm.get('validationRadios').invalid}}</label>
+            <label class="form-label">Radios</label>
             <valor-launchpad-radio-group [formControlName]='"validationRadios"'>
               <label valor-launchpad-radio [value]='"option1"'>
                 Option one is this and that—be sure to include why it's great
