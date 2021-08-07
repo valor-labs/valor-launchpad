@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ResetPasswordService } from './reset-password.service';
 
 @Component({
   selector: 'valor-launchpad-reset-password',
@@ -9,11 +10,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ResetPasswordComponent implements OnInit {
   formGroup: FormGroup;
   message = 'Please enter your username to reset your password.'
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private resetPasswordService: ResetPasswordService) { }
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
-      email: [null, [Validators.required, Validators.email]],
+      username: [null, [Validators.required]],
     })
   }
 
@@ -24,6 +25,11 @@ export class ResetPasswordComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-    console.log(this.formGroup.value);
+    this.message = 'Requesting your password reset';
+    this.resetPasswordService.resetPassword(this.formGroup.value.username).subscribe(()=>{
+      this.message = 'Your password has been reset please check your email!'
+    }, () => {
+      this.message = 'Something went wrong'
+    })
   }
 }
