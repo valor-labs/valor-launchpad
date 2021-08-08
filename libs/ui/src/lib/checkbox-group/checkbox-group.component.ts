@@ -1,6 +1,6 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {VLCheckBoxOption} from './VLCheckBoxOption.interface';
+import { Component, forwardRef, HostBinding, Injector, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { VLCheckBoxOption } from './VLCheckBoxOption.interface';
 
 @Component({
   selector: 'valor-launchpad-checkbox-group',
@@ -14,16 +14,30 @@ import {VLCheckBoxOption} from './VLCheckBoxOption.interface';
     },
   ],
 })
-export class CheckboxGroupComponent implements ControlValueAccessor {
+export class CheckboxGroupComponent implements ControlValueAccessor, OnInit {
   @Input() options: VLCheckBoxOption[] = [];
   @Input() inline = false;
 
+  @HostBinding('class.is-invalid') get isDirtyAndInvalid(): boolean {
+    if (!this.ngControl) {
+      return false;
+    }
+    return (this.ngControl.dirty || this.ngControl.touched) && this.ngControl.invalid;
+  }
   checkedItems = new Set<string>();
+
+  private ngControl: NgControl;
 
   onTouched: () => void = () => null;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChange = (arg: string[]) => null;
+
+  constructor(private injector: Injector) {}
+
+  ngOnInit() {
+    this.ngControl = this.injector.get(NgControl)
+  }
 
   trackByOption(_: number, option: VLCheckBoxOption): string {
     return option.value;
