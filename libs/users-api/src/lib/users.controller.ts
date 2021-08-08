@@ -5,10 +5,12 @@ import {Roles} from './roles.decorator';
 import {AuthGuard} from '@nestjs/passport';
 import {User} from './user.decorator';
 import {CreateUser, UserEntity} from '@valor-launchpad/common-api';
+import { MessagesService } from './messages/messages.service';
+import { NotificationsService } from './notifications/notifications.service';
 
 @Controller('v1')
 export class UsersController {
-  constructor(private usersService: UsersService) {
+  constructor(private usersService: UsersService,private messageService:MessagesService,private notificationSerivce:NotificationsService) {
   }
 
   @Get('getRoles')
@@ -58,5 +60,15 @@ export class UsersController {
   @Post('resendEmail')
   async resendEmail(@Body() user, @User() actingUser: UserEntity) {
     return await this.usersService.resendEmail(user.id, actingUser);
+  }
+
+  @Get('messages')
+  async getMessages(@Body() user, @User() actingUser: UserEntity){
+    return await this.messageService.getMessages(user.id,actingUser)
+  }
+
+  @Get('notifications')
+  async getNotifications(@Body() user, @User() actingUser: UserEntity){
+    return await this.notificationSerivce.getNotifications(user.id,actingUser)
   }
 }

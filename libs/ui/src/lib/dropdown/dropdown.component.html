@@ -2,9 +2,13 @@
   <a (click)="toggleDropdown($event)" [class]="classes">
     <ng-content select="[dropdown-nav]"></ng-content>
   </a>
-  <div class="dropdown-menu dropdown-menu-{{ direction }}" [class.show]="show">
-
-    <ng-content select="[dropdown-content],valor-launchpad-dropdown-mega-menu,valor-launchpad-dropdown-actions-menu"></ng-content>
-
+  <div
+    class="dropdown-menu dropdown-menu-{{ direction }}"
+    [class.show]="show"
+    [ngClass]="size ? 'dropdown-menu-' + size : ''"
+  >
+    <ng-content
+      select="[dropdown-content],valor-launchpad-dropdown-mega-menu,valor-launchpad-dropdown-actions-menu"
+    ></ng-content>
   </div>
 </div>

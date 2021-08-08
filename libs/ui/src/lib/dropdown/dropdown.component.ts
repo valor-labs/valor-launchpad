@@ -12,6 +12,9 @@ export class DropdownComponent implements OnInit, OnDestroy {
   @Input()
   classes: string;
 
+  @Input()
+  size:''|'lg'=''
+
   show = false;
 
   constructor() {

@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import {Action, MegaMenuColumn} from '@valor-launchpad/api-interfaces';
+import {Message,Notification} from '@valor-launchpad/api-interfaces';
 import {NavigationService} from '../navigation/navigation.service';
 import {UserEntity} from '@valor-launchpad/common-api';
+import { HeaderService } from './header.service';
 
 @Component({
   selector: 'valor-launchpad-header',
@@ -12,6 +14,8 @@ import {UserEntity} from '@valor-launchpad/common-api';
 export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
   user: UserEntity;
+  messages:Message[];
+  notifications:Notification[];
   megaMenu: MegaMenuColumn[] = [
     {
       label: 'UI Elements',
@@ -117,13 +121,24 @@ export class HeaderComponent implements OnInit {
     },
   ];
 
-  constructor(private authService: AuthService, private navigationService: NavigationService) {
+  constructor(private authService: AuthService, private headerService:HeaderService,private navigationService: NavigationService) {
   }
 
   ngOnInit() {
     this.authService.user.subscribe(user => {
       this.user = user;
     })
+
+    this.headerService.getMessages().subscribe(messages=>{
+        this.messages=messages
+        console.log('messages',this.messages)
+    })
+
+    this.headerService.getNotifications().subscribe(notifications=>{
+      this.notifications=notifications
+      console.log('notification',this.notifications)
+    })
+  
   }
 
   toggleMenu() {
