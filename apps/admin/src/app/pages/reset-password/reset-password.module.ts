@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { UiModule } from '@valor-launchpad/ui';
 import { ResetPasswordRoutingModule } from './reset-password-routing.module';
 import { ResetPasswordComponent } from './reset-password.component';
-import {ResetPasswordService} from './reset-password.service';
-import {FormsModule} from '@angular/forms';
+import { ResetPasswordService } from './reset-password.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import {FormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     ResetPasswordRoutingModule,
-    FormsModule
+    FormsModule,
+    UiModule,
+    ReactiveFormsModule
   ]
 })
 export class ResetPasswordModule { }

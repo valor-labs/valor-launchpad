@@ -23,15 +23,27 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   const rawBodyBuffer = (req, res, buffer, encoding) => {
-    if (!req.headers['stripe-signature']) { return; }
+    if (!req.headers['stripe-signature']) {
+      return;
+    }
 
     if (buffer && buffer.length) {
       req.rawBody = buffer.toString(encoding || 'utf8');
     }
   };
+  const whitelist = [
+    'http://localhost:4200/',
+    'http://localhost:4200',
+    'https://valor-launchpad.testadmindomain.xyz/',
+    'https://valor-launchpad.testadmindomain.xyz',
+    '*',
+    undefined,
+  ];
 
-  app.use(bodyParser.urlencoded({ verify: rawBodyBuffer, extended: true }));
-  app.use(bodyParser.json({ verify: rawBodyBuffer }));
+  app.enableCors({origin: '*'});
+
+  app.use(bodyParser.urlencoded({verify: rawBodyBuffer, extended: true}));
+  app.use(bodyParser.json({verify: rawBodyBuffer}));
 
   app.use(compression());
   app.use(cookieParser());
