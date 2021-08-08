@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {ReplaySubject, throwError} from 'rxjs';
+import {Observable, ReplaySubject, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {UserEntity} from '@valor-launchpad/common-api';
+import { Message } from '@valor-launchpad/api-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +34,13 @@ export class AuthService {
     return this.access_token;
   }
 
+
   isLoggedIn() {
     const allCookies = this.cookieService.getAll();
     this.access_token = allCookies.access_token;
     return this.httpClient.get('api/auth/v1/current-user')
       .pipe(
         map((data: any) => {
-          debugger
           if (typeof data !== 'undefined' && data!==null) {
             this.user.next(data);
             return true;

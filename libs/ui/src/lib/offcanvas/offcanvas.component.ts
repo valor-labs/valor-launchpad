@@ -1,55 +1,70 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-offcanvas',
   templateUrl: './offcanvas.component.html',
-  styleUrls: ['./offcanvas.component.css']
+  styleUrls: ['./offcanvas.component.css'],
 })
 export class OffcanvasComponent implements OnInit {
+  @Input()
+  show: boolean = false;
 
   @Input()
-  show:boolean=false;
+  title: string = 'Offcanvas';
 
   @Input()
-  title:string="Offcanvas";
+  position: 'start' | 'end' | 'bottom' = 'start';
 
   @Input()
-  position:"start"|"end"|"bottom"="start"
+  scrolling: boolean = false;
 
   @Input()
-  scrolling:boolean=false;
+  backdrop: boolean = true;
 
   @Input()
-  backdrop:boolean=true;
+  headerClass: string = '';
+
+  @Input()
+  bodyClass: string = '';
 
   @Output()
-  onClose=new EventEmitter();
+  onClose = new EventEmitter();
 
-  handleClose(){
+  handleClose() {
     this.onClose.emit();
-    document.body.setAttribute('class','');
-    document.body.setAttribute('style','');
+    document.body.setAttribute('class', '');
+    document.body.setAttribute('style', '');
   }
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-     if(changes.show.currentValue){
-       if(this.backdrop){
-          document.body.setAttribute('class','offcanvas-backdrop');
-       }else{
-          document.body.setAttribute('class','');
-       }
-       if(this.scrolling){
-          document.body.setAttribute('style','overflow: auto;');
-       }else{
-          document.body.setAttribute('style','overflow: hidden; padding-right: 0px;');
-       }
-     }
-
+    if (changes.show.currentValue) {
+      if (this.backdrop) {
+        document.body.setAttribute('class', 'offcanvas-backdrop');
+      } else {
+        document.body.setAttribute('class', '');
+      }
+      if (this.scrolling) {
+        document.body.setAttribute('style', 'overflow: auto;');
+      } else {
+        document.body.setAttribute(
+          'style',
+          'overflow: hidden; padding-right: 0px;'
+        );
+      }
+    } else {
+      document.body.setAttribute('class', '');
+      document.body.setAttribute('style', '');
+    }
   }
-
 }

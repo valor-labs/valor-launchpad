@@ -5,7 +5,12 @@
 
   <form class="d-none d-sm-inline-block">
     <div class="input-group input-group-navbar">
-      <input type="text" class="form-control" placeholder="Search projects…" aria-label="Search">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search projects…"
+        aria-label="Search"
+      />
       <button class="btn" type="button">
         <i class="align-middle fas fa-fw fa-search"></i>
       </button>
@@ -16,140 +21,100 @@
     <li class="nav-item px-2 dropdown">
       <valor-launchpad-dropdown
         direction="start"
-        classes="nav-link dropdown-toggle d-none d-sm-inline-block">
+        classes="nav-link dropdown-toggle d-none d-sm-inline-block"
+      >
         <span dropdown-nav>Mega menu</span>
-        <valor-launchpad-dropdown-mega-menu [columns]="megaMenu"></valor-launchpad-dropdown-mega-menu>
+        <valor-launchpad-dropdown-mega-menu
+          [columns]="megaMenu"
+        ></valor-launchpad-dropdown-mega-menu>
       </valor-launchpad-dropdown>
     </li>
   </ul>
 
   <div class="navbar-collapse collapse">
     <ul class="navbar-nav navbar-align">
-      <li class="nav-item dropdown">
-        <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown">
-          <div class="position-relative">
-            <i class="align-middle far fa-fw fa-comment-alt"></i>
-            <span class="indicator">4</span>
-          </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
+      <valor-launchpad-dropdown size="lg" classes="nav-icon dropdown-toggle">
+        <div
+          class="position-relative nav-item"
+          dropdown-nav
+          id="messagesDropdown"
+        >
+          <i class="align-middle far fa-fw fa-comment-alt"></i>
+          <span class="indicator">{{ messages.length }}</span>
+        </div>
+
+        <div dropdown-content>
           <div class="dropdown-menu-header">
             <div class="position-relative">
-              4 New Messages
+              {{ messages.length }} New Messages
             </div>
           </div>
           <div class="list-group">
-            <a href="#" class="list-group-item">
+            <a
+              href="#"
+              class="list-group-item"
+              *ngFor="let message of messages"
+            >
               <div class="row g-0 align-items-center">
                 <div class="col-2">
-                  <img src="assets/img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
-                       alt="Ashley Briggs">
+                  <img
+                    [src]="message.user.avatar"
+                    class="avatar img-fluid rounded-circle"
+                    [alt]="message.user.name"
+                  />
                 </div>
                 <div class="col-10 ps-2">
-                  <div class="text-dark">Ashley Briggs</div>
-                  <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
-                  <div class="text-muted small mt-1">15m ago</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="list-group-item">
-              <div class="row g-0 align-items-center">
-                <div class="col-2">
-                  <img src="assets/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="Carl Jenkins">
-                </div>
-                <div class="col-10 ps-2">
-                  <div class="text-dark">Carl Jenkins</div>
-                  <div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
-                  <div class="text-muted small mt-1">2h ago</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="list-group-item">
-              <div class="row g-0 align-items-center">
-                <div class="col-2">
-                  <img src="assets/img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Stacie Hall">
-                </div>
-                <div class="col-10 ps-2">
-                  <div class="text-dark">Stacie Hall</div>
-                  <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
-                  <div class="text-muted small mt-1">4h ago</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="list-group-item">
-              <div class="row g-0 align-items-center">
-                <div class="col-2">
-                  <img src="assets/img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
-                       alt="Bertha Martin">
-                </div>
-                <div class="col-10 ps-2">
-                  <div class="text-dark">Bertha Martin</div>
-                  <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>
-                  <div class="text-muted small mt-1">5h ago</div>
+                  <div class="text-dark">{{ message.user.name }}</div>
+                  <div class="text-muted small mt-1">{{ message.message }}</div>
+                  <div class="text-muted small mt-1">{{ message.time }}</div>
                 </div>
               </div>
             </a>
           </div>
+
           <div class="dropdown-menu-footer">
             <a href="#" class="text-muted">Show all messages</a>
           </div>
         </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown">
-          <div class="position-relative">
-            <i class="align-middle far fa-fw fa-bell-slash"></i>
-          </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
+      </valor-launchpad-dropdown>
+
+      <valor-launchpad-dropdown classes="nav-icon dropdown-toggle" size="lg">
+        <div
+          dropdown-nav
+          class="position-relative nav-item"
+          id="alertsDropdown"
+        >
+          <i class="align-middle far fa-fw fa-bell-slash"></i>
+        </div>
+        <div dropdown-content>
           <div class="dropdown-menu-header">
-            4 New Notifications
+            {{ notifications.length }} New Notifications
           </div>
           <div class="list-group">
-            <a href="#" class="list-group-item">
+            <a
+              href="#"
+              class="list-group-item"
+              *ngFor="let notification of notifications"
+            >
               <div class="row g-0 align-items-center">
                 <div class="col-2">
-                  <i class="text-danger fas fa-fw fa-exclamation-circle"></i>
+                  <i
+                    class="text-{{ notification.level }} fas fa-fw fa-{{
+                      notification.type
+                    }}"
+                  ></i>
                 </div>
                 <div class="col-10">
-                  <div class="text-dark">Update completed</div>
-                  <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-                  <div class="text-muted small mt-1">2h ago</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="list-group-item">
-              <div class="row g-0 align-items-center">
-                <div class="col-2">
-                  <i class="text-warning far fa-fw fa-bell"></i>
-                </div>
-                <div class="col-10">
-                  <div class="text-dark">Lorem ipsum</div>
-                  <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
-                  <div class="text-muted small mt-1">6h ago</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="list-group-item">
-              <div class="row g-0 align-items-center">
-                <div class="col-2">
-                  <i class="text-primary fas fa-fw fa-home"></i>
-                </div>
-                <div class="col-10">
-                  <div class="text-dark">Login from 192.186.1.1</div>
-                  <div class="text-muted small mt-1">8h ago</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="list-group-item">
-              <div class="row g-0 align-items-center">
-                <div class="col-2">
-                  <i class="text-success fas fa-fw fa-user-plus"></i>
-                </div>
-                <div class="col-10">
-                  <div class="text-dark">New connection</div>
-                  <div class="text-muted small mt-1">Anna accepted your request.</div>
-                  <div class="text-muted small mt-1">12h ago</div>
+                  <div class="text-dark">{{ notification.title }}</div>
+                  <div
+                    class="text-muted small mt-1"
+                    *ngIf="notification.description"
+                  >
+                    {{ notification.description }}
+                  </div>
+                  <div class="text-muted small mt-1">
+                    {{ notification.time }}
+                  </div>
                 </div>
               </div>
             </a>
@@ -158,13 +123,19 @@
             <a href="#" class="text-muted">Show all notifications</a>
           </div>
         </div>
-      </li>
-      <valor-launchpad-dropdown
-        classes="nav-item dropdown">
-          <span dropdown-nav class="nav-flag">
-            <img [src]="currentLanguage.image.src" class="avatar img-fluid rounded-circle me-1" [alt]="currentLanguage.image.alt"/>
-          </span>
-          <valor-launchpad-dropdown-actions-menu [actions]="languageActions"></valor-launchpad-dropdown-actions-menu>
+      </valor-launchpad-dropdown>
+
+      <valor-launchpad-dropdown classes="nav-item dropdown">
+        <span dropdown-nav class="nav-flag">
+          <img
+            [src]="currentLanguage.image.src"
+            class="avatar img-fluid rounded-circle me-1"
+            [alt]="currentLanguage.image.alt"
+          />
+        </span>
+        <valor-launchpad-dropdown-actions-menu
+          [actions]="languageActions"
+        ></valor-launchpad-dropdown-actions-menu>
       </valor-launchpad-dropdown>
       <li class="nav-item dropdown">
         <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#">
@@ -172,12 +143,20 @@
         </a>
 
         <valor-launchpad-dropdown
-          classes="nav-link dropdown-toggle d-none d-sm-inline-block">
+          classes="nav-link dropdown-toggle d-none d-sm-inline-block"
+        >
           <span dropdown-nav>
-            <valor-launchpad-avatar [src]="user?.avatar?.src" [alt]="user?.avatar?.alt"></valor-launchpad-avatar>
-            <span class="text-dark">{{user?.firstName}} {{user?.lastName}}</span>
+            <valor-launchpad-avatar
+              [src]="user?.avatar?.src"
+              [alt]="user?.avatar?.alt"
+            ></valor-launchpad-avatar>
+            <span class="text-dark"
+              >{{ user?.firstName }} {{ user?.lastName }}</span
+            >
           </span>
-          <valor-launchpad-dropdown-actions-menu [actions]="profileActions"></valor-launchpad-dropdown-actions-menu>
+          <valor-launchpad-dropdown-actions-menu
+            [actions]="profileActions"
+          ></valor-launchpad-dropdown-actions-menu>
         </valor-launchpad-dropdown>
       </li>
     </ul>
