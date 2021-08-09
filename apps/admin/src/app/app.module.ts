@@ -21,6 +21,8 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {HttpModule} from './core/http/http.module';
 import {environment} from '../environments/environment';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
@@ -31,7 +33,9 @@ import {environment} from '../environments/environment';
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
     UiModule, NgxChartsModule, ToastrModule.forRoot(),
-    HttpModule.forRoot({ environment })
+    HttpModule.forRoot({ environment }),
+    BsDatepickerModule.forRoot(),
+    NgxMaskModule.forRoot(),
   ],
   providers: [CookieService,
     {
