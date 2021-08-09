@@ -2,7 +2,7 @@
   <div valorLaunchpadCol [span]='12' [lg]='8'>
     <valor-launchpad-card>
       <valor-launchpad-card-content class="h-100">
-        <ng-container  *ngFor='let s of stories; index as i'>
+        <ng-container  *ngFor='let s of (stories$ | async) as stories; index as i'>
           <valor-launchpad-social-story [story]='s'></valor-launchpad-social-story>
           <hr *ngIf='i !== stories.length - 1'/>
         </ng-container>
@@ -13,15 +13,17 @@
   <div valorLaunchpadCol [span]='12' [lg]='4'>
     <valor-launchpad-card class="mb-3">
       <valor-launchpad-card-content class="text-center">
-        <img [src]="userinfo.avatarUrl" [alt]="userinfo.username" class="img-fluid rounded-circle mb-2" width="128" height="128"/>
-        <h4 class="card-title mb-0">{{userinfo.username}}</h4>
-        <div class="text-muted mb-2">{{userinfo.job}}</div>
+        <ng-container *ngIf='(userinfo$ | async) as userinfo'>
+          <img [src]="userinfo.avatarUrl" [alt]="userinfo.username" class="img-fluid rounded-circle mb-2" width="128" height="128"/>
+          <h4 class="card-title mb-0">{{userinfo.username}}</h4>
+          <div class="text-muted mb-2">{{userinfo.job}}</div>
 
-        <div>
-          <button valor-launchpad-button size='sm' *ngIf='!userinfo.followed'>Follow</button>
-          <button valor-launchpad-button size='sm' [outlined]='true' *ngIf='userinfo.followed'>Unfollow</button>
-          <button valor-launchpad-button size='sm'><i class="align-middle me-2 far fa-fw fa-comment-alt"></i> Message</button>
-        </div>
+          <div>
+            <button valor-launchpad-button size='sm' *ngIf='!userinfo.followed'>Follow</button>
+            <button valor-launchpad-button size='sm' [outlined]='true' *ngIf='userinfo.followed'>Unfollow</button>
+            <button valor-launchpad-button size='sm'><i class="align-middle me-2 far fa-fw fa-comment-alt"></i> Message</button>
+          </div>
+        </ng-container>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
 
@@ -42,7 +44,7 @@
         <h5 class="card-title mb-0">Following</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <ng-container *ngFor='let item of followings; index as i'>
+        <ng-container *ngFor='let item of (followings$ | async) as followings; index as i'>
           <div class="d-flex align-items-start">
             <img [src]="item.avatarUrl" width="56" height="56" class="rounded-circle me-2" [alt]="item.username">
             <div class="flex-grow-1">
@@ -73,7 +75,7 @@
         <h5 class="card-title mb-0">Activities</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content class="h-100">
-        <ng-container *ngFor='let activity of activities;'>
+        <ng-container *ngFor='let activity of activities$ | async'>
           <valor-launchpad-social-activity  [activity]='activity'></valor-launchpad-social-activity>
           <hr />
         </ng-container>
