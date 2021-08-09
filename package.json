@@ -10,7 +10,7 @@
     "start:server-prod": "node dist/apps/api/main.js",
     "start:server": "ng serve api",
     "build": "ng build api",
-    "build:front": "ng build",
+    "build:front": "ng build --prod",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
