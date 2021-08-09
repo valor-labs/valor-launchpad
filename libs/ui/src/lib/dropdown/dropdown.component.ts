@@ -23,7 +23,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
   index:number=-1;
 
   constructor() {
-    console.log('dropdown collection',$DropdownCollection)
     this.index=$DropdownCollectionKey;
     $DropdownCollection[this.index]=this;
     $DropdownCollectionKey++;
