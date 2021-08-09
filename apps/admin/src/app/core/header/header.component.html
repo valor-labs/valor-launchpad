@@ -34,27 +34,23 @@
   <div class="navbar-collapse collapse">
     <ul class="navbar-nav navbar-align">
       <valor-launchpad-dropdown size="lg" classes="nav-icon dropdown-toggle">
-        <div
-          class="position-relative nav-item"
+        <div class="position-relative nav-item"
           dropdown-nav
-          id="messagesDropdown"
-        >
+          id="messagesDropdown">
           <i class="align-middle far fa-fw fa-comment-alt"></i>
-          <span class="indicator">{{ messages.length }}</span>
+          <span class="indicator">{{ messages?.length }}</span>
         </div>
 
         <div dropdown-content>
           <div class="dropdown-menu-header">
             <div class="position-relative">
-              {{ messages.length }} New Messages
+              {{ messages?.length }} New Messages
             </div>
           </div>
           <div class="list-group">
-            <a
-              href="#"
+            <a href="#"
               class="list-group-item"
-              *ngFor="let message of messages"
-            >
+              *ngFor="let message of messages">
               <div class="row g-0 align-items-center">
                 <div class="col-2">
                   <img
@@ -82,34 +78,24 @@
         <div
           dropdown-nav
           class="position-relative nav-item"
-          id="alertsDropdown"
-        >
+          id="alertsDropdown">
           <i class="align-middle far fa-fw fa-bell-slash"></i>
         </div>
         <div dropdown-content>
           <div class="dropdown-menu-header">
-            {{ notifications.length }} New Notifications
+            {{ notifications?.length }} New Notifications
           </div>
           <div class="list-group">
-            <a
-              href="#"
+            <a href="#"
               class="list-group-item"
-              *ngFor="let notification of notifications"
-            >
+              *ngFor="let notification of notifications">
               <div class="row g-0 align-items-center">
                 <div class="col-2">
-                  <i
-                    class="text-{{ notification.level }} fas fa-fw fa-{{
-                      notification.type
-                    }}"
-                  ></i>
+                  <i class="text-{{ notification.level }} fas fa-fw fa-{{notification.type}}"></i>
                 </div>
                 <div class="col-10">
                   <div class="text-dark">{{ notification.title }}</div>
-                  <div
-                    class="text-muted small mt-1"
-                    *ngIf="notification.description"
-                  >
+                  <div class="text-muted small mt-1" *ngIf="notification.description">
                     {{ notification.description }}
                   </div>
                   <div class="text-muted small mt-1">
