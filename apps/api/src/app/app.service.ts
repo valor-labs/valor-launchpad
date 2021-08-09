@@ -27,8 +27,8 @@ export class AppService {
   amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit
   vel, luctus pulvinar, hendrerit id, lorem.`,
   }];
-  
-  getData(): Message {
+
+  getData() {
     return { message: 'Welcome to api!' };
   }
 
