@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 
 
-const $DropdownList=[];
-let $DropdownListIndex=0;
+const $DropdownCollection:Record<number,any>={};
+let $DropdownCollectionKey:number=0;
 
 @Component({
   selector: 'valor-launchpad-dropdown',
@@ -23,24 +23,25 @@ export class DropdownComponent implements OnInit, OnDestroy {
   index:number=-1;
 
   constructor() {
-    this.index=$DropdownListIndex;
-    $DropdownList.push(this);
-    $DropdownListIndex++;
+    console.log('dropdown collection',$DropdownCollection)
+    this.index=$DropdownCollectionKey;
+    $DropdownCollection[this.index]=this;
+    $DropdownCollectionKey++;
     this.handleClick = this.handleClick.bind(this);
   }
 
   ngOnDestroy() {
     document.removeEventListener('click', this.handleClick);
-    $DropdownList.splice(this.index,1);
+    delete $DropdownCollection[this.index]
   }
 
   toggleDropdown(e) {
     e.stopPropagation();
     this.show = !this.show;
     if(this.show){
-      $DropdownList.forEach((instance)=>{
-        if(instance.index!==this.index){
-          instance.show=false
+      Object.keys($DropdownCollection).forEach(key=>{
+        if(this.index!==parseInt(key)){
+          $DropdownCollection[key].show=false;
         }
       })
     }
