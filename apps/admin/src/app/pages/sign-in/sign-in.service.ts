@@ -16,8 +16,9 @@ export class SignInService {
   async login(signInForm) {
     const httpOptions = {
       withCredentials: true
-    };
-    await this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/login', signInForm, httpOptions).subscribe((data: any) => {
+    };  
+    
+    this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/login', signInForm, httpOptions).subscribe((data: any) => {
       this.authService.user.next(data.user);
       this.router.navigate(['/dashboard-default']);
     })
