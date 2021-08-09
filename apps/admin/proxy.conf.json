@@ -1,6 +1,0 @@
-{
-  "/api": {
-   "target": "api.testadmindomain.xyz",
-    "secure": false
-  }
-}
