@@ -32,7 +32,10 @@ async function bootstrap() {
     }
   };
 
-  app.enableCors({origin: '*'});
+  app.enableCors({
+    credentials: true,
+    origin: [process.env.HOST]
+  });
 
   app.use(bodyParser.urlencoded({verify: rawBodyBuffer, extended: true}));
   app.use(bodyParser.json({verify: rawBodyBuffer}));
