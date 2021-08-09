@@ -29,8 +29,9 @@ export class AuthController {
   }
 
   @Get('current-user')
-  async getCurrentUser(@Req() req: RequestWithSession, @Res() response: Response) {
-    if(req.session && req.session.user){
+  async getCurrentUser(@Req() req: RequestWithSession, @User() currentUser: UserEntity, @Res() response: Response) {
+    console.log(currentUser);
+    if (req.session && req.session.user) {
       response.send(req.session.user);
     } else {
       response.status(HttpStatus.OK).send(null)

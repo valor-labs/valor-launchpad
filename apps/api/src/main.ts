@@ -31,16 +31,11 @@ async function bootstrap() {
       req.rawBody = buffer.toString(encoding || 'utf8');
     }
   };
-  const whitelist = [
-    'http://localhost:4200/',
-    'http://localhost:4200',
-    'https://valor-launchpad.testadmindomain.xyz/',
-    'https://valor-launchpad.testadmindomain.xyz',
-    '*',
-    undefined,
-  ];
 
-  app.enableCors({origin: '*'});
+  app.enableCors({
+    credentials: true,
+    origin: [process.env.HOST]
+  });
 
   app.use(bodyParser.urlencoded({verify: rawBodyBuffer, extended: true}));
   app.use(bodyParser.json({verify: rawBodyBuffer}));

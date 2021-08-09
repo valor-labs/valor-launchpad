@@ -1,25 +1,27 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {
   AllProductsResponse,
   MethodsByCountryResponse,
 } from '@valor-launchpad/stripe-api';
+import {ENV_CONFIG, EnvironmentConfig} from '../../../../../apps/admin/src/app/core/http/environment-config.interface';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class EmbeddedPayService {
-  constructor(private http: HttpClient) {}
+  constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private http: HttpClient) {
+  }
 
   getProducts() {
-    return this.http.get<AllProductsResponse>('/api/stripe/v1/products');
+    return this.http.get<AllProductsResponse>(this.config.environment.apiBase + 'api/stripe/v1/products');
   }
 
   getPaymentIntents() {
-    return this.http.post('/api/stripe/v1/payment_intents', {});
+    return this.http.post(this.config.environment.apiBase + 'api/stripe/v1/payment_intents', {});
   }
 
   getPayMethodsByCountry(country: string, currency: string) {
     return this.http.get<MethodsByCountryResponse>(
-      `/api/stripe/v1/countries/${country}/pay-methods/${currency}`
+      this.config.environment.apiBase + `api/stripe/v1/countries/${country}/pay-methods/${currency}`
     );
   }
 }

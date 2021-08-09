@@ -1,13 +1,14 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {ENV_CONFIG, EnvironmentConfig} from '../../core/http/environment-config.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResetPasswordService {
-  baseURL = '/api/users/v1/'
+  baseURL = this.config.environment.apiBase +'api/users/v1/'
 
-  constructor(private httpClient: HttpClient) {
+  constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private httpClient: HttpClient) {
   }
 
   resetPassword(username) {
