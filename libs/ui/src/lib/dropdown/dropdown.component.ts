@@ -1,7 +1,5 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 
-
-
 @Component({
   selector: 'valor-launchpad-dropdown',
   templateUrl: './dropdown.component.html',
@@ -20,7 +18,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
   size:''|'lg'=''
 
   show = false;
-  index:number=-1;
+ 
 
   constructor() {
     this.handleClickOutside=this.handleClickOutside.bind(this);
