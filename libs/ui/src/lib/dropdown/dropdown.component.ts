@@ -13,7 +13,7 @@ import {
   styleUrls: ['./dropdown.component.scss'],
 })
 export class DropdownComponent implements OnInit, OnDestroy {
-  @ViewChild('dropdownTripper', { static: true }) dropdownTripper: ElementRef;
+  @ViewChild('dropdownTrigger', { static: true }) dropdownTrigger: ElementRef;
 
   @Input()
   direction: string = 'end';
@@ -45,8 +45,8 @@ export class DropdownComponent implements OnInit, OnDestroy {
 
   handleClickOutside(e) {
     if (
-      !this.dropdownTripper ||
-      this.dropdownTripper.nativeElement.contains(e.target as HTMLElement)
+      !this.dropdownTrigger ||
+      this.dropdownTrigger.nativeElement.contains(e.target as HTMLElement)
     ) {
       return;
     }
