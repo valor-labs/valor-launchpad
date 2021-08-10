@@ -1,9 +1,16 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-dropdown',
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.scss']
+  styleUrls: ['./dropdown.component.scss'],
 })
 export class DropdownComponent implements OnInit, OnDestroy {
   @ViewChild('dropdownTripper', { static: true }) dropdownTripper: ElementRef;
@@ -15,36 +22,33 @@ export class DropdownComponent implements OnInit, OnDestroy {
   classes: string;
 
   @Input()
-  size:''|'lg'=''
+  size: '' | 'lg' = '';
 
   show = false;
- 
 
   constructor() {
-    this.handleClickOutside=this.handleClickOutside.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   ngOnDestroy() {
-    document.removeEventListener('click',this.handleClickOutside); 
+    document.removeEventListener('click', this.handleClickOutside);
   }
 
   toggleDropdown(e) {
     this.show = !this.show;
   }
 
-  handleClose() {
-    this.show = false;
-  }
-
   ngOnInit() {
-    document.addEventListener('click',this.handleClickOutside)
+    document.addEventListener('click', this.handleClickOutside);
   }
 
- 
-  handleClickOutside(e){
-    if(!this.dropdownTripper || this.dropdownTripper.nativeElement.contains(e.target as HTMLElement)){
-      return 
+  handleClickOutside(e) {
+    if (
+      !this.dropdownTripper ||
+      this.dropdownTripper.nativeElement.contains(e.target as HTMLElement)
+    ) {
+      return;
     }
-    this.show=false  
+    this.show = false;
   }
 }
