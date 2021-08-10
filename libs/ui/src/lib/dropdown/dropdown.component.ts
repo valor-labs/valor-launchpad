@@ -1,8 +1,6 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 
 
-const $DropdownCollection:Record<number,any>={};
-let $DropdownCollectionKey:number=0;
 
 @Component({
   selector: 'valor-launchpad-dropdown',
@@ -10,6 +8,8 @@ let $DropdownCollectionKey:number=0;
   styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownComponent implements OnInit, OnDestroy {
+  @ViewChild('dropdownTripper', { static: true }) dropdownTripper: ElementRef;
+
   @Input()
   direction: string = 'end';
 
@@ -23,36 +23,30 @@ export class DropdownComponent implements OnInit, OnDestroy {
   index:number=-1;
 
   constructor() {
-    this.index=$DropdownCollectionKey;
-    $DropdownCollection[this.index]=this;
-    $DropdownCollectionKey++;
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClickOutside=this.handleClickOutside.bind(this);
   }
 
   ngOnDestroy() {
-    document.removeEventListener('click', this.handleClick);
-    delete $DropdownCollection[this.index]
+    document.removeEventListener('click',this.handleClickOutside); 
   }
 
   toggleDropdown(e) {
-    e.stopPropagation();
     this.show = !this.show;
-    if(this.show){
-      Object.keys($DropdownCollection).forEach(key=>{
-        if(this.index!==parseInt(key)){
-          $DropdownCollection[key].show=false;
-        }
-      })
-    }
   }
 
-  handleClick() {
+  handleClose() {
     this.show = false;
   }
 
   ngOnInit() {
-    document.addEventListener('click', this.handleClick);
+    document.addEventListener('click',this.handleClickOutside)
   }
 
-
+ 
+  handleClickOutside(e){
+    if(!this.dropdownTripper || this.dropdownTripper.nativeElement.contains(e.target as HTMLElement)){
+      return 
+    }
+    this.show=false  
+  }
 }

@@ -1,5 +1,5 @@
 <div class="dropdown show">
-  <a (click)="toggleDropdown($event)" [class]="classes">
+  <a (click)="toggleDropdown($event)" [class]="classes" #dropdownTripper>
     <ng-content select="[dropdown-nav]"></ng-content>
   </a>
   <div
