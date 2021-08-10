@@ -35,6 +35,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
   }
 
   toggleDropdown(e) {
+    e.preventDefault();
     this.show = !this.show;
   }
 
