@@ -14,8 +14,8 @@ import { HeaderService } from './header.service';
 export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
   user: UserEntity;
-  messages:Message[];
-  notifications:Notification[];
+  messages:Message[]=[];
+  notifications:Notification[]=[];
   megaMenu: MegaMenuColumn[] = [
     {
       label: 'UI Elements',
@@ -131,12 +131,10 @@ export class HeaderComponent implements OnInit {
 
     this.headerService.getMessages().subscribe(messages=>{
         this.messages=messages
-        console.log('messages',this.messages)
     })
 
     this.headerService.getNotifications().subscribe(notifications=>{
       this.notifications=notifications
-      console.log('notification',this.notifications)
     })
   
   }
