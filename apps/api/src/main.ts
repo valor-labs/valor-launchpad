@@ -23,15 +23,22 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   const rawBodyBuffer = (req, res, buffer, encoding) => {
-    if (!req.headers['stripe-signature']) { return; }
+    if (!req.headers['stripe-signature']) {
+      return;
+    }
 
     if (buffer && buffer.length) {
       req.rawBody = buffer.toString(encoding || 'utf8');
     }
   };
 
-  app.use(bodyParser.urlencoded({ verify: rawBodyBuffer, extended: true }));
-  app.use(bodyParser.json({ verify: rawBodyBuffer }));
+  app.enableCors({
+    credentials: true,
+    origin: [process.env.HOST]
+  });
+
+  app.use(bodyParser.urlencoded({verify: rawBodyBuffer, extended: true}));
+  app.use(bodyParser.json({verify: rawBodyBuffer}));
 
   app.use(compression());
   app.use(cookieParser());
@@ -49,6 +56,7 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {
+    Logger.log('Allowing CORS requests from: ' + process.env.HOST)
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
   });
 }

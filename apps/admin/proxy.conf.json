@@ -1,6 +1,0 @@
-{
-  "/api": {
-    "target": "https://vs-launchpad-staging.herokuapp.com",
-    "secure": false
-  }
-}

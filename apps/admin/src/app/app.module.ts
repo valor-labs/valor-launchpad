@@ -19,6 +19,8 @@ import {ToastrModule} from 'ngx-toastr';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+import {HttpModule} from './core/http/http.module';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
@@ -28,7 +30,8 @@ import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
-    UiModule, NgxChartsModule, ToastrModule.forRoot()
+    UiModule, NgxChartsModule, ToastrModule.forRoot(),
+    HttpModule.forRoot({ environment })
   ],
   providers: [CookieService,
     {

@@ -1,0 +1,14 @@
+.ng-select {
+  &.is-invalid {
+    & > .ng-select-container {
+      border-color: $red !important;
+    }
+    &.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+      box-shadow: 0 0 0 0.2rem rgb(217 83 79 / 25%);
+    }
+  }
+  &.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+    border-color: $input-focus-border-color;
+    box-shadow: 0 0 0 0.2rem rgb(63 128 234 / 25%);
+  }
+}

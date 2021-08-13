@@ -1,0 +1,159 @@
+<h1 class="h3 mb-3">Validation</h1>
+
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol [span]='12'>
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 class="card-title mb-0">Angular Validation</h5>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <form id="validation-form" novalidate="novalidate" [formGroup]='validateForm'>
+          <valor-launchpad-form-item [errTip]='usernameErr'>
+            <label class="form-label" for='email'>Email</label>
+            <input valorLaunchpadInput formControlName='email' placeholder='email' id='email'>
+            <ng-template #usernameErr let-control>
+              <label *ngIf='control.hasError("email")'>Please enter a valid email address.</label>
+              <label *ngIf='control.hasError("required")'>This field is required.</label>
+            </ng-template>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item [errTip]='passwordErr'>
+            <label class="form-label" for='validation-password'>Password</label>
+            <input valorLaunchpadInput type="password" placeholder="Password" id='validation-password' formControlName='password'>
+            <ng-template #passwordErr let-control>
+              <ng-container *ngIf='control.hasError("required")'>This field is required.</ng-container>
+              <ng-container *ngIf='control.hasError("minlength")'>Please enter at least 6 characters.</ng-container>
+              <ng-container *ngIf='control.hasError("maxlength")'>Please enter no more than 20 characters.</ng-container>
+            </ng-template>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item [errTip]='confirmPwdErr'>
+            <label class="form-label" for='validation-password-confirmation'>Confirm password</label>
+            <input type="password" valorLaunchpadInput placeholder="Confirm password" id='validation-password-confirmation' formControlName='passwordConfirm'>
+            <ng-template #confirmPwdErr let-control>
+              <ng-container *ngIf='control.hasError("required")'>This field is required.</ng-container>
+              <ng-container *ngIf='control.hasError("notEqual")'>Please enter the same value again.</ng-container>
+            </ng-template>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <label class="form-label" for='validation-required'>Required</label>
+            <input type="text" valorLaunchpadInput placeholder="Required" id='validation-required' formControlName='requiredField'>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item [errTip]='urlErr'>
+            <label class="form-label" for='validation-url'>URL</label>
+            <input type="text" valorLaunchpadInput placeholder="URL" id='validation-url' formControlName='url'>
+            <ng-template #urlErr let-control>
+              <ng-container *ngIf='control.hasError("required")'>This field is required.</ng-container>
+              <ng-container *ngIf='control.hasError("pattern")'>Please enter a valid URL.</ng-container>
+            </ng-template>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <label class="form-label" for='validation-select'>Select</label>
+            <select class="form-control" [class.is-invalid]='isDirtyAndInvalid("nativeSelect")' id='validation-select' formControlName='nativeSelect'>
+              <option value="">Select gear...</option>
+              <optgroup label="Climbing">
+                <option value="pitons">Pitons</option>
+                <option value="cams">Cams</option>
+                <option value="nuts">Nuts</option>
+                <option value="bolts">Bolts</option>
+                <option value="stoppers">Stoppers</option>
+                <option value="sling">Sling</option>
+              </optgroup>
+              <optgroup label="Skiing">
+                <option value="skis">Skis</option>
+                <option value="skins">Skins</option>
+                <option value="poles">Poles</option>
+              </optgroup>
+            </select>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
+            <label class="form-label" for='validation-multiselect'>Multiselect</label>
+            <select class="form-control" [class.is-invalid]='isDirtyAndInvalid("nativeMultiSelect")' multiple id='validation-multiselect' formControlName='nativeMultiSelect'>
+              <optgroup label="Climbing">
+                <option value="pitons">Pitons</option>
+                <option value="cams">Cams</option>
+                <option value="nuts">Nuts</option>
+                <option value="bolts">Bolts</option>
+                <option value="stoppers">Stoppers</option>
+                <option value="sling">Sling</option>
+              </optgroup>
+              <optgroup label="Skiing">
+                <option value="skis">Skis</option>
+                <option value="skins">Skins</option>
+                <option value="poles">Poles</option>
+              </optgroup>
+            </select>
+            <label *ngIf='isDirtyAndInvalid("nativeMultiSelect")' id="validation-multiselect-error" class="error small form-text invalid-feedback" for="validation-multiselect">Please enter at least 2 characters.</label>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <label class="form-label">Select2</label>
+            <ng-select
+              [class.is-invalid]='isDirtyAndInvalid("uiSelect")'
+              bindLabel="name"
+              bindValue="name"
+              groupBy="category"
+              formControlName='uiSelect'
+              style='width: 100%'
+              [items]='gears'
+              placeholder='Select gear'>
+              <ng-template ng-optgroup-tmp let-item="item">
+                {{item.category || 'Unnamed group'}}
+              </ng-template>
+            </ng-select>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
+            <label class="form-label">Select2 Multiple</label>
+            <ng-select
+              [class.is-invalid]='isDirtyAndInvalid("uiMultiSelect")'
+              bindLabel="name"
+              bindValue="name"
+              groupBy="category"
+              formControlName='uiMultiSelect'
+              style='width: 100%'
+              [items]='gears'
+              placeholder='Select gears'
+              [multiple]="true"
+              [closeOnSelect]="false">
+              <ng-template ng-optgroup-tmp let-item="item">
+                {{item.category || 'Unnamed group'}}
+              </ng-template>
+            </ng-select>
+            <label id="validation-select2-multi-error" class="error small form-text invalid-feedback">This field is required.</label>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <label class="form-label" for='validation-text'>Text</label>
+            <textarea valorLaunchpadInput id='validation-text' formControlName='longText'></textarea>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='Please select a file.'>
+            <label class="form-label">File</label>
+            <input type="file" valorLaunchpadInput id='validation-file' formControlName='file'>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <label class="form-label">Radios</label>
+            <valor-launchpad-radio-group [formControlName]='"validationRadios"'>
+              <label valor-launchpad-radio [value]='"option1"'>
+                Option one is this and that—be sure to include why it's great
+              </label>
+              <label valor-launchpad-radio [value]='"option2"'>
+                Option two can be something else and selecting it will deselect option one
+              </label>
+              <label valor-launchpad-radio [value]='"option3"' [disabled]='true'>
+                Option three is disabled
+              </label>
+            </valor-launchpad-radio-group>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <label class="form-label">Checkbox</label>
+            <label valor-launchpad-checkbox formControlName='validationCheckbox'>Check me</label>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item [errTip]='validationCheckboxGroupErr'>
+            <label class="form-label">Checkbox group</label>
+            <valor-launchpad-checkbox-group [options]='checkboxGroupOptions' formControlName='validationCheckboxGroup'></valor-launchpad-checkbox-group>
+            <ng-template #validationCheckboxGroupErr let-control>
+              Please fill at least {{control.errors.checkAtLeast}} of these fields.
+            </ng-template>
+          </valor-launchpad-form-item>
+          <button type="submit" class="btn btn-primary" (click)='submit()'>Submit</button>
+        </form>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+</div>

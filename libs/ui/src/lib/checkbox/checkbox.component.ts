@@ -1,9 +1,9 @@
-import { Component, forwardRef, HostBinding, HostListener, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, HostBinding, HostListener, Injector, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: '[valor-launchpad-checkbox]',
+  selector: 'label[valor-launchpad-checkbox]',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
   providers: [{
@@ -12,11 +12,19 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     multi: true
   }]
 })
-export class CheckboxComponent implements ControlValueAccessor {
+export class CheckboxComponent implements ControlValueAccessor, OnInit {
   @Input() vlDisabled = false;
   @HostBinding('class.form-check') basicClass = true;
+  @HostBinding('class.is-invalid') get isDirtyAndInvalid(): boolean {
+    if (!this.ngControl) {
+      return false;
+    }
+    return (this.ngControl.dirty || this.ngControl.touched) && this.ngControl.invalid;
+  }
 
   checked: boolean;
+
+  private ngControl: NgControl;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChange = (val: boolean) => null;
@@ -29,6 +37,13 @@ export class CheckboxComponent implements ControlValueAccessor {
       this.checked = !this.checked;
       this.onChange(this.checked);
     }
+  }
+
+  constructor(private injector: Injector) {
+  }
+
+  ngOnInit() {
+    this.ngControl = this.injector.get(NgControl);
   }
 
   writeValue(value: boolean) {

@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/api/:path*",
+        "destination": "https://api.testadmindomain.xyz/api/:path*"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
