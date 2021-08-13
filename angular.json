@@ -48,9 +48,17 @@
             "polyfills": "apps/admin/src/polyfills.ts",
             "tsConfig": "apps/admin/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
-            "styles": ["apps/admin/src/styles.scss"],
-            "scripts": ["node_modules/apexcharts/dist/apexcharts.min.js", "node_modules/qrcodejs/qrcode.js"],
+            "assets": [
+              "apps/admin/src/favicon.ico",
+              "apps/admin/src/assets"
+            ],
+            "styles": [
+              "apps/admin/src/styles.scss",
+              "node_modules/notyf/notyf.min.css"
+            ],
+            "scripts": [
+              "node_modules/apexcharts/dist/apexcharts.min.js", "node_modules/qrcodejs/qrcode.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "apps/admin/scss/1-variables"
@@ -81,7 +89,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumError": "200kb"
                 }
               ]
             },
@@ -98,8 +106,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "admin:build",
-            "proxyConfig": "apps/admin/proxy.conf.json"
+            "browserTarget": "admin:build"
           },
           "configurations": {
             "production": {
