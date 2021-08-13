@@ -1,275 +1,86 @@
-<div class="row">
-  <div class="col-12 col-lg-8">
-    <div class="card">
-      <div class="card-body h-100">
-
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-5.jpg" width="56" height="56" class="rounded-circle me-3" alt="Ashley Briggs">
-          <div class="flex-grow-1">
-            <small class="float-end">5m ago</small>
-            <p class="mb-2"><strong>Ashley Briggs</strong></p>
-            <p>Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet
-              adipiscing sem neque sed ipsum. Nam quam nunc, blandit
-              vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien
-              ut libero venenatis faucibus.</p>
-
-            <div class="row g-0 mt-1">
-              <div class="col-6">
-                <img src="assets/img/photos/unsplash-2.jpg" class="img-fluid pe-1" alt="Unsplash">
-              </div>
-              <div class="col-6">
-                <img src="assets/img/photos/unsplash-3.jpg" class="img-fluid ps-1" alt="Unsplash">
-              </div>
-            </div>
-
-            <small class="text-muted">Today 7:51 pm</small><br/>
-            <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm far fa-fw fa-heart"></i> Like</a>
-
-            <div class="d-flex align-items-start mt-3">
-              <a class="pe-2" href="#">
-                <img src="assets/img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2"
-                     alt="Stacie Hall">
-              </a>
-              <div class="flex-grow-1">
-                <p class="text-muted">
-                  <strong>Stacie Hall</strong>: Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet
-                  nec, imperdiet iaculis, ipsum. Sed aliquam ultrices
-                  mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <hr/>
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar.jpg" width="56" height="56" class="rounded-circle me-3" alt="Chris Wood">
-          <div class="flex-grow-1">
-            <small class="float-end">30m ago</small>
-            <p class="mb-2"><strong>Chris Wood</strong></p>
-            <p>
-              Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet
-              adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus
-              pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero
-              venenatis faucibus. Nullam quis ante.
-            </p>
-            <small class="text-muted">Today 7:21 pm</small><br/>
-            <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm far fa-fw fa-heart"></i> Like</a>
-          </div>
-        </div>
-
-        <hr/>
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-2.jpg" width="56" height="56" class="rounded-circle me-3" alt="Carl Jenkins">
-          <div class="flex-grow-1">
-            <small class="float-end">3h ago</small>
-            <p class="mb-2"><strong>Carl Jenkins</strong></p>
-
-            <img src="assets/img/photos/unsplash-1.jpg" class="img-fluid" alt="Unsplash">
-
-            <small class="text-muted">Today 5:12 pm</small><br/>
-            <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm far fa-fw fa-heart"></i> Like</a>
-
-            <div class="d-flex align-items-start mt-3">
-              <a class="pe-2" href="#">
-                <img src="assets/img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2"
-                     alt="Stacie Hall">
-              </a>
-              <div class="flex-grow-1">
-                <p class="text-muted">
-                  <strong>Stacie Hall</strong>: Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet
-                  nec, imperdiet iaculis, ipsum. Sed aliquam ultrices
-                  mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <hr/>
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-5.jpg" width="56" height="56" class="rounded-circle me-3" alt="Ashley Briggs">
-          <div class="flex-grow-1">
-            <small class="float-end">4h ago</small>
-            <p class="mb-2"><strong>Ashley Briggs</strong></p>
-            <p>
-              Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet
-              adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus
-              pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero
-              venenatis faucibus. Nullam quis ante.
-            </p>
-            <small class="text-muted">Today 4:21 pm</small><br/>
-            <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm far fa-fw fa-heart"></i> Like</a>
-          </div>
-        </div>
-      </div>
-    </div>
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol [span]='12' [lg]='8'>
+    <valor-launchpad-card>
+      <valor-launchpad-card-content class="h-100">
+        <ng-container  *ngFor='let s of (stories$ | async) as stories; index as i'>
+          <valor-launchpad-social-story [story]='s'></valor-launchpad-social-story>
+          <hr *ngIf='i !== stories.length - 1'/>
+        </ng-container>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
   </div>
 
-  <div class="col-12 col-lg-4">
-    <div class="card mb-3">
-      <div class="card-body text-center">
-        <img src="assets/img/avatars/avatar.jpg" alt="Chris Wood" class="img-fluid rounded-circle mb-2" width="128"
-             height="128"/>
-        <h4 class="card-title mb-0">Chris Wood</h4>
-        <div class="text-muted mb-2">UX Engineer</div>
+  <div valorLaunchpadCol [span]='12' [lg]='4'>
+    <valor-launchpad-card class="mb-3">
+      <valor-launchpad-card-content class="text-center">
+        <ng-container *ngIf='(userinfo$ | async) as userinfo'>
+          <img [src]="userinfo.avatarUrl" [alt]="userinfo.username" class="img-fluid rounded-circle mb-2" width="128" height="128"/>
+          <h4 class="card-title mb-0">{{userinfo.username}}</h4>
+          <div class="text-muted mb-2">{{userinfo.job}}</div>
 
-        <div>
-          <a class="btn btn-primary btn-sm" href="#">Follow</a>
-          <a class="btn btn-primary btn-sm" href="#"><i class="align-middle me-2 far fa-fw fa-comment-alt"></i> Message</a>
-        </div>
-      </div>
-    </div>
+          <div>
+            <button valor-launchpad-button size='sm' *ngIf='!userinfo.followed'>Follow</button>
+            <button valor-launchpad-button size='sm' [outlined]='true' *ngIf='userinfo.followed'>Unfollow</button>
+            <button valor-launchpad-button size='sm'><i class="align-middle me-2 far fa-fw fa-comment-alt"></i> Message</button>
+          </div>
+        </ng-container>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
 
-    <div class="card mb-3">
-      <div class="card-header">
+    <valor-launchpad-card class="mb-3">
+      <valor-launchpad-card-header>
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+          <div dropdown placement='bottom right' container='body'>
+            <a dropdownToggle>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
-
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class="dropdown-item">Action</a>
+              <a class="dropdown-item">Another action</a>
+              <a class="dropdown-item">Something else here</a>
             </div>
           </div>
         </div>
         <h5 class="card-title mb-0">Following</h5>
-      </div>
-      <div class="card-body">
-
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-5.jpg" width="56" height="56" class="rounded-circle me-2" alt="Chris Wood">
-          <div class="flex-grow-1">
-            <p class="my-1"><strong>Ashley Briggs</strong></p>
-            <a class="btn btn-sm btn-outline-primary" href="#">Unfollow</a>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <ng-container *ngFor='let item of (followings$ | async) as followings; index as i'>
+          <div class="d-flex align-items-start">
+            <img [src]="item.avatarUrl" width="56" height="56" class="rounded-circle me-2" [alt]="item.username">
+            <div class="flex-grow-1">
+              <p class="my-1"><strong>{{item.username}}</strong></p>
+              <button valor-launchpad-button size='sm' *ngIf='!item.followed'>Follow</button>
+              <button valor-launchpad-button size='sm' [outlined]='true' *ngIf='item.followed'>Unfollow</button>
+            </div>
           </div>
-        </div>
+          <hr class="my-2" *ngIf='i !== followings.length - 1'/>
+        </ng-container>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
 
-        <hr class="my-2"/>
-
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-2.jpg" width="56" height="56" class="rounded-circle me-2" alt="Carl Jenkins">
-          <div class="flex-grow-1">
-            <p class="my-1"><strong>Carl Jenkins</strong></p>
-            <a class="btn btn-sm btn-outline-primary" href="#">Unfollow</a>
-          </div>
-        </div>
-
-        <hr class="my-2"/>
-
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-4.jpg" width="56" height="56" class="rounded-circle me-2" alt="Stacie Hall">
-          <div class="flex-grow-1">
-            <p class="my-1"><strong>Stacie Hall</strong></p>
-            <a class="btn btn-sm btn-outline-primary" href="#">Unfollow</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+          <div dropdown placement='bottom right' container='body'>
+            <a dropdownToggle>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
-
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class="dropdown-item">Action</a>
+              <a class="dropdown-item">Another action</a>
+              <a class="dropdown-item">Something else here</a>
             </div>
           </div>
         </div>
         <h5 class="card-title mb-0">Activities</h5>
-      </div>
-      <div class="card-body h-100">
-
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-5.jpg" width="36" height="36" class="rounded-circle me-2" alt="Ashley Briggs">
-          <div class="flex-grow-1">
-            <small class="float-end">5m ago</small>
-            <strong>Ashley Briggs</strong> started following <strong>Stacie Hall</strong><br/>
-            <small class="text-muted">Today 7:51 pm</small><br/>
-          </div>
-        </div>
-
-        <hr/>
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2" alt="Chris Wood">
-          <div class="flex-grow-1">
-            <small class="float-end">30m ago</small>
-            <strong>Chris Wood</strong> posted something on <strong>Stacie Hall</strong>'s timeline<br/>
-            <small class="text-muted">Today 7:21 pm</small>
-
-            <div class="border text-sm text-muted p-2 mt-1">
-              Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam..
-            </div>
-          </div>
-        </div>
-
-        <hr/>
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2" alt="Stacie Hall">
-          <div class="flex-grow-1">
-            <small class="float-end">1h ago</small>
-            <strong>Stacie Hall</strong> posted a new blog<br/>
-
-            <small class="text-muted">Today 6:35 pm</small>
-          </div>
-        </div>
-
-        <hr/>
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-2.jpg" width="36" height="36" class="rounded-circle me-2" alt="Carl Jenkins">
-          <div class="flex-grow-1">
-            <small class="float-end">3h ago</small>
-            <strong>Carl Jenkins</strong> posted two photos on <strong>Stacie Hall</strong>'s timeline<br/>
-            <small class="text-muted">Today 5:12 pm</small>
-
-            <div class="row g-0 mt-1">
-              <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                <img src="assets/img/photos/unsplash-1.jpg" class="img-fluid pe-2" alt="Unsplash">
-              </div>
-              <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                <img src="assets/img/photos/unsplash-2.jpg" class="img-fluid pe-2" alt="Unsplash">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <hr/>
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2" alt="Stacie Hall">
-          <div class="flex-grow-1">
-            <small class="float-end">1d ago</small>
-            <strong>Stacie Hall</strong> posted a new blog<br/>
-            <small class="text-muted">Yesterday 2:43 pm</small>
-          </div>
-        </div>
-
-        <hr/>
-        <div class="d-flex align-items-start">
-          <img src="assets/img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2" alt="Chris Wood">
-          <div class="flex-grow-1">
-            <small class="float-end">1d ago</small>
-            <strong>Chris Wood</strong> started following <strong>Stacie Hall</strong><br/>
-            <small class="text-muted">Yesterdag 1:51 pm</small>
-          </div>
-        </div>
-
-        <hr/>
-
-        <div class="d-grid">
-          <a href="#" class="btn btn-primary">Load more</a>
-        </div>
-      </div>
-    </div>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content class="h-100">
+        <ng-container *ngFor='let activity of activities$ | async'>
+          <valor-launchpad-social-activity  [activity]='activity'></valor-launchpad-social-activity>
+          <hr />
+        </ng-container>
+        <button valor-launchpad-button class='w-100'>Load More</button>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
   </div>
 </div>
