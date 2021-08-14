@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChartsApexchartsComponent } from './charts-apexcharts.component';
 import { ChartsApexchartsRoutingModule } from './charts-apexcharts-routing.module';
 import { NgApexchartsModule } from 'ng-apexcharts'
+import {UiModule} from "@valor-launchpad/ui";
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { NgApexchartsModule } from 'ng-apexcharts'
   imports: [
     CommonModule,
     ChartsApexchartsRoutingModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    UiModule
   ]
 })
 export class ChartsApexchartsModule { }
