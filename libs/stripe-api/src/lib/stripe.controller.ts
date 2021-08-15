@@ -1,9 +1,9 @@
-import { Bind, Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
-import { Stripe } from 'stripe';
-import { RequestWithSession } from '@valor-launchpad/common-api';
+import { Bind, Body, Controller, Get, Param, Post } from '@nestjs/common';
 import {
   AllCountriesResponse,
   AllProductsResponse,
+  CheckoutSessionInput,
+  CheckoutSessionResponse,
   MethodsByCountryResponse,
   PaymentIndentsInput,
   PaymentIndentsResponse,
@@ -12,17 +12,12 @@ import {
   PaymentSourceResponse,
   PaymentSourceStatusResponse,
 } from './stripe.model';
-import { InjectStripe } from 'nestjs-stripe';
 import { StripeService } from './stripe.service';
 
 @Controller('v1')
 export class StripeController {
-  endpointSecret = 'whsec_CfYnVo8i3Q6h40NAxfmMvwIGTsEdBDmb';
 
-  constructor(
-    @InjectStripe() private readonly stripe: Stripe,
-    private stripeService: StripeService
-  ) {}
+  constructor(private stripeService: StripeService) {}
 
   @Post('payment_intents')
   async createPaymentIntents(
@@ -77,28 +72,18 @@ export class StripeController {
     };
   }
 
+  @Get('checkout_session/:id')
+  @Bind(Param('id'))
+  async getCheckoutSession(id: string) {
+    return await this.stripeService.findCheckoutSession(id);
+  }
+
   @Post('create-checkout-session')
-  async createCheckoutSession(@Body() body, @Req() req: RequestWithSession) {
-    const session = await this.stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Stubborn Attachments',
-              images: ['https://i.imgur.com/EHyR2nP.png'],
-            },
-            unit_amount: 2000,
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `http://localhost:4200/success.html`,
-      cancel_url: `http://localhost:4200/cancel.html`,
-    });
-    console.log(session['url']);
+  async createCheckoutSession(
+    @Body() body: CheckoutSessionInput
+  ): Promise<CheckoutSessionResponse> {
+    const url = await this.stripeService.createCheckoutSession(body);
+    return { url };
   }
 
   @Get('countries')

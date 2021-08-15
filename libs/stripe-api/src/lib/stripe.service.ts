@@ -3,6 +3,7 @@ import { InjectStripe } from 'nestjs-stripe';
 import { Stripe } from 'stripe';
 import {
   AllProductsResponse,
+  CheckoutSessionInput,
   MethodsByCountryResponse,
   PaymentIndentsInput,
   PaymentSourceInput,
@@ -21,6 +22,29 @@ export class StripeService {
       currency: items[0].currency,
       payment_method_types: [pay_method],
     });
+  }
+
+  async createCheckoutSession(input: CheckoutSessionInput) {
+    const session = await this.stripe.checkout.sessions.create({
+      allow_promotion_codes: true,
+      shipping_address_collection: { allowed_countries: ['US', 'CN'] },
+      payment_method_types: ['card'],
+      mode: 'payment',
+      cancel_url: input.cancelUrl,
+      success_url: input.successUrl,
+      line_items: input.items.map((i) => ({
+        price_data: {
+          currency: i.currency,
+          unit_amount: i.unitAmount,
+          product_data: {
+            name: i.productName,
+            images: ['https://i.imgur.com/EHyR2nP.png'],
+          },
+        },
+        quantity: i.quantity,
+      })),
+    });
+    return session.url;
   }
 
   async findPaymentIntent(intentId: string) {
@@ -46,6 +70,10 @@ export class StripeService {
 
   async findPaymentSource(sourceId: string) {
     return await this.stripe.sources.retrieve(sourceId);
+  }
+
+  async findCheckoutSession(sessionId: string) {
+    return await this.stripe.checkout.sessions.retrieve(sessionId);
   }
 
   async findAllCountries() {

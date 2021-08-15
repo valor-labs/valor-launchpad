@@ -4,6 +4,8 @@ import { Validators } from '@angular/forms';
 import { OrderItem } from '../order-summary/order-summary.model';
 import { StripeUiService } from '../stripe-ui.service';
 import { DynamicFormComponent } from '@valor-launchpad/ui';
+import { localUrlFactory } from '../utils';
+import { paymentStatusRoute } from '../constants';
 
 @Component({
   selector: 'valor-launchpad-direct-pay',
@@ -20,7 +22,7 @@ export class DirectPayComponent implements OnInit {
       sku: {
         attributes: {},
       },
-      quantity: '2',
+      quantity: 2,
       skuPrice: '$12',
       unitAmount: 1200,
       lineItemPrice: '$24.00',
@@ -32,7 +34,11 @@ export class DirectPayComponent implements OnInit {
   shipping = '$90.00';
   orderTotal = '$114.00';
 
-  constructor(private stripeUiService: StripeUiService) {}
+  private returnURL: string;
+
+  constructor(private stripeUiService: StripeUiService) {
+    this.returnURL = localUrlFactory(paymentStatusRoute);
+  }
 
   ngOnInit(): void {
     this.stripeUiService.getAllCountries().subscribe((allCountries) => {
@@ -108,9 +114,19 @@ export class DirectPayComponent implements OnInit {
   }
 
   submit(form: DynamicFormComponent) {
-    if (form.invalid) {
-      this.stripeUiService.loopFormGroup(form.form);
-      return;
-    }
+    this.stripeUiService
+      .createCheckoutSession({
+        successUrl: this.returnURL + '?session_id={CHECKOUT_SESSION_ID}',
+        cancelUrl: location.href,
+        items: this.orderItems.map((i) => ({
+          productName: i.name,
+          unitAmount: i.unitAmount,
+          currency: 'usd',
+          quantity: i.quantity,
+        })),
+      })
+      .subscribe(({ url }) => {
+        window.location.href = url;
+      });
   }
 }

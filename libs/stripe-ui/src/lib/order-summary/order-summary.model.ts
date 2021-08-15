@@ -4,7 +4,7 @@ export interface OrderItem {
   sku: {
     attributes: any;
   };
-  quantity: string;
+  quantity: number;
   skuPrice: string;
   unitAmount: number;
   lineItemPrice: string;

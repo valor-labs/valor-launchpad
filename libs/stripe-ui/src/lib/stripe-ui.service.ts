@@ -2,6 +2,8 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {
   AllCountriesResponse,
+  CheckoutSessionInput,
+  CheckoutSessionResponse,
   PaymentIndentsInput,
   PaymentIndentsResponse,
   PaymentIntentsStatusResponse,
@@ -52,6 +54,17 @@ export class StripeUiService {
   getPaymentSourceStatus(source: string) {
     return this.http.get<PaymentSourceStatusResponse>(
       this.config.environment.apiBase + `api/stripe/v1/payment_source/${source}/status`
+    );
+  }
+
+  getCheckoutSession(sessionId: string) {
+    return this.http.get(`/api/stripe/v1/checkout_session/${sessionId}`);
+  }
+
+  createCheckoutSession(input: CheckoutSessionInput) {
+    return this.http.post<CheckoutSessionResponse>(
+      '/api/stripe/v1/create-checkout-session',
+      input
     );
   }
 }
