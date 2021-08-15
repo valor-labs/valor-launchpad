@@ -1,0 +1,128 @@
+
+
+
+
+<h1 class="h3 mb-3">Chart.js</h1>
+
+<div class="row">
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Line Chart</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">A line chart is a way of plotting data points on a
+          line.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="chart">
+          <ngx-charts-line-chart
+            [results]="linechartData"
+            [scheme]="linechartColorScheme"
+            [curve] = d3curve
+            [xAxis]="true"
+            [yAxis]="true"
+            [roundDomains]="true"
+          >
+          </ngx-charts-line-chart>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Bar Chart</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="chart">
+          <ngx-charts-bar-vertical-2d
+            [scheme]="barchartColorScheme"
+            [results]="barchartData"
+            [xAxis]="true"
+            [yAxis]="true"
+            [yAxisTicks]="barchartyAxisTicks"
+          >
+          </ngx-charts-bar-vertical-2d>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Doughnut Chart</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Doughnut charts are excellent at showing the relational proportions between data.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="chart">
+          <ngx-charts-pie-chart
+            [scheme]="doughnutChartColorScheme"
+            [results]="doughnutResult"
+            [doughnut]="true"
+          >
+          </ngx-charts-pie-chart>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Pie Chart</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Pie charts are excellent at showing the relational proportions between data.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="chart">
+          <ngx-charts-pie-chart
+            [scheme]="pieChartColorScheme"
+            [results]="pieChartResult"
+            [doughnut]="false"
+          >
+          </ngx-charts-pie-chart>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Radar Chart</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">A radar chart is a way of showing multiple data points and the variation between them.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="chart">
+          <ngx-charts-polar-chart
+            [scheme]="radarChartColorScheme"
+            [legend]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [curve]="d3Line"
+            [results]="radarChartResult">
+          </ngx-charts-polar-chart>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+  <div class="col-12 col-lg-6">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Polar Area Chart</h5>
+        <h6 valor-launchpad-card-subtitle class="text-muted">Polar area charts are similar to pie charts, but each segment has the same angle.</h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="chart">
+          <ngx-charts-polar-chart
+            [scheme]="polarAreaChartColorScheme"
+            [legend]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [curve]="d3Line"
+            [results]="polarAreaChartColorResult">
+          </ngx-charts-polar-chart>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+</div>
