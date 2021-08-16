@@ -57,6 +57,7 @@
               "node_modules/notyf/notyf.min.css"
             ],
             "scripts": [
+              "node_modules/apexcharts/dist/apexcharts.min.js",
               "node_modules/qrcodejs/qrcode.js"
             ],
             "stylePreprocessorOptions": {
