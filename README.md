@@ -37,7 +37,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Sign Up                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Charts-apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-chartjs           | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-chartjs           | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Chat                     | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Analytics      | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
@@ -63,7 +63,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Forms Floating Labels    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Input Groups       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Layouts            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Forms Validation         | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Forms Validation         | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Wizard             | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Icons Font Awesome       | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Invoice                  | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
