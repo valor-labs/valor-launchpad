@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable/lib/types/table-column.type';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { tableData } from './fakeData';
@@ -17,6 +17,7 @@ class CustomDatePipe extends DatePipe {
 })
 export class TableResponsiveComponent implements OnInit {
 
+  @ViewChild('myTable') table: any;
   tableResponsiveData = tableData;
   pageNumLimit = 10;
   tableResponsiveColumns: Array<TableColumn> = [
@@ -45,6 +46,10 @@ export class TableResponsiveComponent implements OnInit {
     } else {
       this.tableResponsiveData = tableData.filter(rowData => Object.values(rowData).includes(inputVal));
     }
+  }
+
+  toggleExpandRow(row): void {
+    this.table.rowDetail.toggleExpandRow(row);
   }
 
 }
