@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { StripeElements, StripeIbanElement } from '@stripe/stripe-js';
-import { customStyle } from '../../custom-style';
+import { customStyle } from '../../constants/custom-style';
 
 @Component({
   selector: 'valor-launchpad-payment-sepa',

@@ -122,3 +122,16 @@ export type PaymentSourceStatusResponse = Pick<
   | 'amount'
   | 'currency'
 >;
+
+export type CheckoutSessionInput = {
+  successUrl: string;
+  cancelUrl: string;
+  items: {
+    productName: string;
+    unitAmount: number;
+    currency: string;
+    quantity: number;
+  }[];
+};
+
+export type CheckoutSessionResponse = { url: string };

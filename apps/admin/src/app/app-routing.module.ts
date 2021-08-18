@@ -73,6 +73,9 @@ const routes: Routes = [
         path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule)
       },
       {
+        path: 'charts', loadChildren: () => import('./pages/charts-chartjs/charts-chartjs.module').then(m => m.ChartsChartjsModule)
+      },
+      {
         path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
       },
       {

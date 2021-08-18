@@ -237,14 +237,14 @@
         </ul>
       </li>
 
-      <li class="sidebar-item">
-        <a data-bs-target="#charts" data-bs-toggle="collapse" class="sidebar-link collapsed">
-          <i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Charts</span>
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['charts']}">
+        <a data-bs-target="#charts" data-bs-toggle="collapse" class="sidebar-link collapsed" (click)="toggleCollapse('charts')">
+          <i class="align-middle me-2 fas fa-fw fa-chart-pie" data-feather="pie-chart"></i> <span class="align-middle">Charts</span>
           <span class="badge badge-sidebar-primary">New</span>
         </a>
-        <ul id="charts" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="charts-chartjs.html">Chart.js</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="charts-apexcharts.html">ApexCharts <span class="badge badge-sidebar-primary">New</span></a></li>
+        <ul id="charts" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar" [collapse]="menuCollapseState['charts']">
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink='charts'>Chart.js</a></li>
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link">ApexCharts <span class="badge badge-sidebar-primary">New</span></a></li>
         </ul>
       </li>
       <li class="sidebar-item">

@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 interface PaymentStatusRouteParam {
   payment_intent?: string;
   payment_source?: string;
+  session_id?: string;
 }
 type PaymentStatus = 'success' | 'processing' | 'receiver' | 'error';
 const pollTimeInterval = 3000; // 3s
@@ -88,6 +89,10 @@ export class PaymentStatusComponent implements OnInit, OnDestroy {
             this.status$.next('error');
           }
         });
+    } else if (Reflect.has(params, 'session_id')) {
+      this.stripeUiService.getCheckoutSession(params.session_id).subscribe(() => {
+        this.status$.next('success');
+      });
     }
   }
 

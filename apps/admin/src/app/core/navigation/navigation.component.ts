@@ -16,6 +16,7 @@ export class NavigationComponent {
     forms: true,
     formPlugins: true,
     datatables: true,
+    charts: true,
   };
 
   subMenuCollapseState = {
