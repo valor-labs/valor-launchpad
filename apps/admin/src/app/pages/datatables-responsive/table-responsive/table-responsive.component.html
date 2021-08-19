@@ -136,7 +136,15 @@
                 let-offset='offset'
               >
                 <div class='page-count'>
-                  Showing {{curPage}} to {{pageSize}} of {{rowCount}} entries
+                  Showing
+                  {{curPage === 1 ? 1 : (curPage - 1) * pageSize + 1}}
+                  to
+                  {{
+                    pageSize * curPage > rowCount ? rowCount : pageSize * curPage
+                  }}
+                  of
+                  {{rowCount}}
+                  entries
                 </div>
                 <datatable-pager
                   [pagerLeftArrowIcon]="'datatable-valor-left'"

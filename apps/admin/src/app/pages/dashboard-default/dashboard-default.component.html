@@ -4,7 +4,7 @@
   </div>
 
   <div class='col-auto ms-auto text-end mt-n1'>
-    <div class='dropdown me-2 d-inline-block' dropdown container="body" placement="bottom right">
+    <div class='dropdown me-2 d-inline-block' dropdown container='body' placement='bottom right'>
       <a class='btn btn-light bg-white shadow-sm dropdown-toggle' dropdownToggle data-bs-toggle='dropdown'
          data-bs-display='static'>
         <i class='align-middle mt-n1  far fa-fw fa-calendar'></i> Today
@@ -12,9 +12,9 @@
 
       <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
         <h6 class='dropdown-header'>Settings</h6>
-        <a class='dropdown-item' (click)="onClickAction()">Action</a>
-        <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
-        <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
+        <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+        <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+        <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
         <div class='dropdown-divider'></div>
         <a class='dropdown-item'>Separated link</a>
       </div>
@@ -126,9 +126,9 @@
             </a>
 
             <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' (click)="onClickAction()">Action</a>
-              <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
-              <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -164,18 +164,18 @@
                alt='Ashley Briggs'>
           <div class='flex-grow-1'>
             <small class='float-end'>5m ago</small>
-            <strong>Ashley Briggs</strong> started following <strong>Stacie Hall</strong><br/>
-            <small class='text-muted'>Today 7:51 pm</small><br/>
+            <strong>Ashley Briggs</strong> started following <strong>Stacie Hall</strong><br />
+            <small class='text-muted'>Today 7:51 pm</small><br />
 
           </div>
         </div>
 
-        <hr/>
+        <hr />
         <div class='d-flex align-items-start'>
           <img src='assets/img/avatars/avatar.jpg' width='36' height='36' class='rounded-circle me-2' alt='Chris Wood'>
           <div class='flex-grow-1'>
             <small class='float-end'>30m ago</small>
-            <strong>Chris Wood</strong> posted something on <strong>Stacie Hall</strong>'s timeline<br/>
+            <strong>Chris Wood</strong> posted something on <strong>Stacie Hall</strong>'s timeline<br />
             <small class='text-muted'>Today 7:21 pm</small>
 
             <div class='border text-sm text-muted p-2 mt-1'>
@@ -185,19 +185,19 @@
           </div>
         </div>
 
-        <hr/>
+        <hr />
         <div class='d-flex align-items-start'>
           <img src='assets/img/avatars/avatar-4.jpg' width='36' height='36' class='rounded-circle me-2'
                alt='Stacie Hall'>
           <div class='flex-grow-1'>
             <small class='float-end'>1h ago</small>
-            <strong>Stacie Hall</strong> posted a new blog<br/>
+            <strong>Stacie Hall</strong> posted a new blog<br />
 
             <small class='text-muted'>Today 6:35 pm</small>
           </div>
         </div>
 
-        <hr/>
+        <hr />
         <div class='d-grid'>
           <a href='#' class='btn btn-primary'>Load more</a>
         </div>
@@ -217,9 +217,9 @@
             </a>
 
             <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' (click)="onClickAction()">Action</a>
-              <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
-              <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -247,9 +247,9 @@
             </a>
 
             <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' (click)="onClickAction()">Action</a>
-              <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
-              <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -280,8 +280,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of weeklySalesTableData">
-              <td><i [ngClass]="item.type"></i> {{item.source}}</td>
+            <tr *ngFor='let item of weeklySalesTableData'>
+              <td><i [ngClass]='item.type'></i> {{item.source}}</td>
               <td class='text-end'>{{item.revenue}}</td>
               <td class='text-end text-success'>{{item.value}}</td>
             </tr>
@@ -295,15 +295,15 @@
     <div class='card flex-fill w-100'>
       <div class='card-header'>
         <div class='card-actions float-end'>
-          <div class='dropdown show' dropdown container="body">
+          <div class='dropdown show' dropdown container='body'>
             <a data-bs-toggle='dropdown' data-bs-display='static' dropdownToggle>
               <i class='align-middle    fas fa-fw fa-ellipsis-h'></i>
             </a>
 
             <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' (click)="onClickAction()">Action</a>
-              <a class='dropdown-item' (click)="onClickAnotherAction()">Another action</a>
-              <a class='dropdown-item' (click)="onClickSomethingElse()">Something else here</a>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -311,7 +311,7 @@
       </div>
       <div class='card-body'>
         <ul class='timeline'>
-          <li *ngFor="let item of appointmentsData" class='timeline-item'>
+          <li *ngFor='let item of appointmentsData' class='timeline-item'>
             <strong>{{item.title}}</strong>
             <span class='float-end text-muted text-sm'>{{item.timeElapse}}</span>
             <p>{{item.content}}</p>
@@ -340,42 +340,49 @@
     <h5 class='card-title mb-0'>Latest Projects</h5>
   </div>
   <div>
-    <ngx-datatable class="table table-striped my-0"
+    <ngx-datatable class='table table-striped my-0'
                    #myTable
-                   [rows]="latestProjectsTableData"
-                   [columns]="latestProjectsTableColumn"
-                   [headerHeight]="50"
-                   [footerHeight]="50"
-                   rowHeight="auto"
+                   [rows]='latestProjectsTableData'
+                   [columns]='latestProjectsTableColumn'
+                   [headerHeight]='50'
+                   [footerHeight]='50'
+                   rowHeight='auto'
                    [columnMode]="'force'"
-                   [rowHeight]="46"
-                   [limit]="5"
+                   [rowHeight]='46'
+                   [limit]='5'
     >
       <ngx-datatable-footer>
         <ng-template
           ngx-datatable-footer-template
-          let-rowCount="rowCount"
-          let-pageSize="pageSize"
-          let-curPage="curPage"
-          let-offset="offset"
+          let-rowCount='rowCount'
+          let-pageSize='pageSize'
+          let-curPage='curPage'
+          let-offset='offset'
         >
-          <div class="page-count">
-            Showing {{curPage}} to {{pageSize}} of {{rowCount}} entries
+          <div class='page-count'>
+            Showing
+            {{curPage === 1 ? 1 : (curPage - 1) * pageSize + 1}}
+            to
+            {{
+            pageSize * curPage > rowCount ? rowCount : pageSize * curPage
+            }}
+            of
+            {{rowCount}}
           </div>
           <datatable-pager
             [pagerLeftArrowIcon]="'datatable-valor-left'"
             [pagerRightArrowIcon]="'datatable-valor-right'"
-            [page]="curPage"
-            [size]="pageSize"
-            [count]="rowCount"
-            [hidden]="!((rowCount / pageSize) > 1)"
-            (change)="myTable.onFooterPage($event)"
+            [page]='curPage'
+            [size]='pageSize'
+            [count]='rowCount'
+            [hidden]='!((rowCount / pageSize) > 1)'
+            (change)='myTable.onFooterPage($event)'
           ></datatable-pager>
         </ng-template>
       </ngx-datatable-footer>
     </ngx-datatable>
-    <ng-template #statusRef let-row="row">
-      <span [ngClass]="row.badgeType">{{row.status}}</span>
+    <ng-template #statusRef let-row='row'>
+      <span [ngClass]='row.badgeType'>{{row.status}}</span>
     </ng-template>
   </div>
 </div>
