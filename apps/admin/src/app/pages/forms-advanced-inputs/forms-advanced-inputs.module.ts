@@ -6,6 +6,7 @@ import { FormsAdvancedInputsRoutingModule } from './forms-advanced-inputs-routin
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxMaskModule } from 'ngx-mask';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @NgModule({
   declarations: [FormsAdvancedInputsComponent],
@@ -16,6 +17,7 @@ import { NgxMaskModule } from 'ngx-mask';
     NgSelectModule,
     BsDatepickerModule,
     NgxMaskModule,
+    NzDatePickerModule
   ],
 })
 export class FormsAdvancedInputsModule {}

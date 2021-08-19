@@ -17,3 +17,8 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
 @import "~ngx-bootstrap/datepicker/bs-datepicker";
+
+//TODO: remove if find new method for dateRangePicker with timepicker
+@import "~ng-zorro-antd/style/index.min.css";
+@import "~ng-zorro-antd/date-picker/style/index.min.css";
+@import "~ng-zorro-antd/button/style/index.min.css";
