@@ -28,7 +28,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "valor-launchpad-br-main"
+          heroku_app_name: "valor-launchpad-br-main1"
           heroku_email: "sergey.melnik@valor-software.com"
           appdir: "dist/apps/api"
 
