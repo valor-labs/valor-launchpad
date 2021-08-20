@@ -14,7 +14,7 @@ export class AuthService {
 
   async validateUser(payload): Promise<any> {
     const user = await this.usersService.findOneUnsafe(payload.username);
-    if (typeof user === 'undefined') {
+    if (typeof user === 'undefined' || user == null) {
       return false;
     } else {
       return await this.crypt.validateHash(payload.password, user.password)

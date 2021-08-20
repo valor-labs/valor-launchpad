@@ -39,7 +39,8 @@ export class AuthController {
   }
 
   @Get('sign-out')
-  async signOut(@Req() req: RequestWithSession, @Res() response: Response) {
+  async signOut(@Req() req: RequestWithSession, @User() currentUser: UserEntity, @Res() response: Response) {
+    console.log(currentUser);
     req.session.destroy();
     response.clearCookie('access_token');
     response.status(HttpStatus.OK).send({status: 'logout successful'});

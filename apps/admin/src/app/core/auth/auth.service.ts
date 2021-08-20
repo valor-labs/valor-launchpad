@@ -5,7 +5,7 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Observable, ReplaySubject, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {UserEntity} from '@valor-launchpad/common-api';
-import { Message } from '@valor-launchpad/api-interfaces';
+import {Message} from '@valor-launchpad/api-interfaces';
 import {ENV_CONFIG, EnvironmentConfig} from '../http/environment-config.interface';
 
 @Injectable({
@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   signOut() {
-    this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).subscribe(() => {
+    this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`, {withCredentials: true}).subscribe(() => {
       this.access_token = undefined;
       this.router.navigate(['/sign-in'])
     })
@@ -42,7 +42,7 @@ export class AuthService {
     return this.httpClient.get(this.config.environment.apiBase + 'api/auth/v1/current-user', {withCredentials: true})
       .pipe(
         map((data: any) => {
-          if (typeof data !== 'undefined' && data!==null) {
+          if (typeof data !== 'undefined' && data !== null) {
             this.user.next(data);
             return true;
           } else {
