@@ -30,7 +30,6 @@ jobs:
           heroku_app_name: "valor-launchpad-br-main"
           heroku_email: "sergey.melnik@valor-software.com"
           appdir: "dist/apps/api"
-          procfile: "web: npm run start:server-prod"
 
       - run: npm run build:front
       - uses: FirebaseExtended/action-hosting-deploy@v0
