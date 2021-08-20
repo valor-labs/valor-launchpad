@@ -32,9 +32,9 @@ jobs:
 
       - run: npm run build
       - uses: akhileshns/heroku-deploy@v3.12.12
-          with:
-            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: "vs-launchpad"
-            heroku_email: "sergey.melnik@valor-software.com"
-            appdir: "apps/api"
-            procfile: "web: npm run start:server-prod"
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "vs-launchpad"
+          heroku_email: "sergey.melnik@valor-software.com"
+          appdir: "apps/api"
+          procfile: "web: npm run start:server-prod"
