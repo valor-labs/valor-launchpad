@@ -70,6 +70,9 @@ const routes: Routes = [
         path: 'responsive-table', loadChildren: () => import('./pages/datatables-responsive/datatables-responsive.module').then(m => m.DatatablesResponsiveModule)
       },
       {
+        path: 'multi-select-table', loadChildren: () => import('./pages/datatables-multi/datatables-multi.module').then(m => m.DatatablesMultiModule)
+      },
+      {
         path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule)
       },
       {
