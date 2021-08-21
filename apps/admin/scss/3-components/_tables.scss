@@ -83,9 +83,11 @@
   width: calc(100% - 2px);
 }
 
+table.dataTable .datatable-body-row.active,
 table.dataTable tbody > tr.selected,
 table.dataTable tbody > tr > .selected {
   --bs-table-accent-bg: $primary;
+  background: $primary;
 }
 
 
