@@ -67,6 +67,9 @@ const routes: Routes = [
         path: 'blank', loadChildren: () => import('./pages/blank/blank.module').then(m => m.BlankModule)
       },
       {
+        path: 'responsive-table', loadChildren: () => import('./pages/datatables-responsive/datatables-responsive.module').then(m => m.DatatablesResponsiveModule)
+      },
+      {
         path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule)
       },
       {

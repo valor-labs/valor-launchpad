@@ -15,6 +15,7 @@ export class NavigationComponent {
     ui: true,
     forms: true,
     formPlugins: true,
+    datatables: true,
     charts: true,
   };
 
