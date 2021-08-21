@@ -50,7 +50,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Datatables Column Search | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Fixed Header  | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Multi         | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Responsive    | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Responsive    | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Changelog           | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Customization       | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Installation        | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
