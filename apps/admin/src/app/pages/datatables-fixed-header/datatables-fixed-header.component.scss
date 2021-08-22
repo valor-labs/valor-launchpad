@@ -1,0 +1,35 @@
+div.dataTables_wrapper div.dataTables_length select {
+  width: auto;
+  display: inline-block;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+  text-align: right;
+
+  label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+  }
+}
+
+:host ::ng-deep {
+  .table.ngx-datatable.fix-header {
+    transform: none;
+    .datatable-header {
+      position: fixed;
+      top: 0;
+      border-bottom-color: #fff !important;
+      background: #fff;
+      z-index: 9999;
+      width: 75%!important;
+    }
+  }
+}
+

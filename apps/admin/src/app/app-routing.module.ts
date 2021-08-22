@@ -70,6 +70,9 @@ const routes: Routes = [
         path: 'responsive-table', loadChildren: () => import('./pages/datatables-responsive/datatables-responsive.module').then(m => m.DatatablesResponsiveModule)
       },
       {
+        path: 'fixed-header-table', loadChildren: () => import('./pages/datatables-fixed-header/datatables-fixed-header.module').then(m => m.DatatablesFixedHeaderModule)
+      },
+      {
         path: 'multi-select-table', loadChildren: () => import('./pages/datatables-multi/datatables-multi.module').then(m => m.DatatablesMultiModule)
       },
       {
