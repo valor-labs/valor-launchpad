@@ -1,0 +1,262 @@
+<h1 class="h3 mb-3">Advanced Inputs</h1>
+
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol [span]="12" [lg]="5" [xxl]="6">
+    <valor-launchpad-card class="w-100">
+      <valor-launchpad-card-header>
+        <h5 class="card-title">Select2</h5>
+        <h6 class="card-subtitle text-muted">
+          The ng-select replacement for select boxes.
+        </h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="mb-3">
+          <ng-select
+            bindLabel="name"
+            bindValue="value"
+            groupBy="timezone"
+            [items]="countries"
+            placeholder="Select country">
+            <ng-template ng-optgroup-tmp let-item="item">
+              {{ item.timezone }}
+            </ng-template>
+          </ng-select>
+        </div>
+
+        <div class="mb-3">
+          <ng-select
+            bindLabel="name"
+            bindValue="value"
+            groupBy="timezone"
+            [items]="countries"
+            [multiple]="true"
+            placeholder="Select countries">
+            <ng-template ng-optgroup-tmp let-item="item">
+              {{ item.timezone }}
+            </ng-template>
+          </ng-select>
+        </div>
+
+        <div>
+          <ng-select
+            bindLabel="name"
+            bindValue="value"
+            [items]="optionsWithDisabled"
+            [multiple]="true"
+            placeholder="Select value">
+          </ng-select>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+
+  <div valorLaunchpadCol [span]="12" [lg]="7" [xxl]="6">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 class="card-title">Date Range Picker</h5>
+        <h6 class="card-subtitle text-muted">
+          Component for choosing date ranges, dates and times.
+        </h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div valorLaunchpadRow>
+          <div valorLaunchpadCol [span]="12" [xl]="4">
+            <valor-launchpad-form-item>
+              <label class="form-label">Date Range</label>
+              <input
+                type="text"
+                placeholder="DateRangepicker"
+                valorLaunchpadInput
+                bsDaterangepicker />
+            </valor-launchpad-form-item>
+          </div>
+
+          <div valorLaunchpadCol [span]="12" [xl]="8">
+            <valor-launchpad-form-item>
+              <label class="form-label">Date Range with Times</label>
+              <input
+                type="text"
+                placeholder="DateRangepicker"
+                valorLaunchpadInput
+                bsDaterangepicker />
+            </valor-launchpad-form-item>
+          </div>
+
+          <div valorLaunchpadCol [span]="12" [xl]="4">
+            <valor-launchpad-form-item>
+              <label class="form-label">Date</label>
+              <input
+                type="text"
+                placeholder="Datepicker"
+                valorLaunchpadInput
+                bsDatepicker />
+            </valor-launchpad-form-item>
+          </div>
+
+          <div valorLaunchpadCol [span]="12" [xl]="8">
+            <valor-launchpad-form-item>
+              <label class="form-label">Predefined Date Ranges</label>
+              <input
+                type="text"
+                placeholder="Datepicker"
+                valorLaunchpadInput
+                bsDaterangepicker
+                placement="bottom right"
+                [bsConfig]="{ranges: ranges}" />
+            </valor-launchpad-form-item>
+          </div>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+</div>
+
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol [span]="12">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
+        <h5 class="card-title">Input Masks</h5>
+        <h6 class="card-subtitle text-muted">
+          ngx-mask Plugin to make masks on form fields.
+        </h6>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div valorLaunchpadRow>
+          <div valorLaunchpadCol [span]="12" [lg]="6">
+            <valor-launchpad-form-item helpTip='e.g "DD/MM/YYYY"'>
+              <label>Date</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                [mask]="'00/00/0000'"
+                autocomplete="off"
+                maxlength="10" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "HH:MM:SS"'>
+              <label>Hour</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="00:00:00"
+                autocomplete="off"
+                maxlength="8" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "DD/MM/YYYY HH:MM:SS"'>
+              <label>Date & Hour</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="00/00/0000 00:00:00"
+                autocomplete="off"
+                maxlength="19" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "xxxxx-xxx"'>
+              <label>ZIP Code</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="00000-000"
+                autocomplete="off"
+                maxlength="9" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "x-xx-xx-xx"'>
+              <label>Crazy Zip Code</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="0-00-00-00"
+                autocomplete="off"
+                maxlength="10" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "Your money"'>
+              <label>Money</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="separator.2"
+                thousandSeparator=","
+                autocomplete="off"
+                maxlength="22" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "#.##0,00"'>
+              <label>Money 2</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="0.000,00"
+                autocomplete="off" />
+            </valor-launchpad-form-item>
+          </div>
+          <div valorLaunchpadCol [span]="12" [lg]="6">
+            <valor-launchpad-form-item helpTip='e.g "xxxx-xxxx"'>
+              <label>Telephone</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="0000-0000"
+                autocomplete="off"
+                maxlength="9" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "(xx) xxxx-xxxx"'>
+              <label>Telephone with Code Area</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="(00) 0000-0000"
+                autocomplete="off"
+                maxlength="14" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "(xxx) xxx-xxxx"'>
+              <label>US Telephone</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="(000) 000-0000"
+                autocomplete="off"
+                maxlength="14" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "(xx) xxxxx-xxxx"'>
+              <label>São Paulo Celphones</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="(00) 00000-0000"
+                autocomplete="off"
+                maxlength="15" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "xxx.xxx.xxxx-xx"'>
+              <label>CPF</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="000.000.000-00"
+                data-reverse="true"
+                autocomplete="off"
+                maxlength="14" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "xx.xxx.xxx/xxxx-xx"'>
+              <label>CNPJ</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="00.000.000/0000-00"
+                data-reverse="true"
+                autocomplete="off"
+                maxlength="18" />
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item helpTip='e.g "xxx.xxx.xxx.xxx"'>
+              <label>IP Address</label>
+              <input
+                valorLaunchpadInput
+                type="text"
+                mask="099.099.099.099"
+                data-reverse="true"
+                autocomplete="off"
+                maxlength="15" />
+            </valor-launchpad-form-item>
+          </div>
+        </div>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
+  </div>
+</div>
