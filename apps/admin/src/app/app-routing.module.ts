@@ -132,6 +132,9 @@ const routes: Routes = [
         path: 'settings', loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule)
       },
       {
+        path:'docs',loadChildren:()=>import('./pages/documentation/documentation.module').then(m=>m.DocumentationModule)
+      },
+      {
         path: 'tasks', loadChildren: () => import('./pages/tasks/tasks.module').then(m => m.TasksModule)
       },
       {

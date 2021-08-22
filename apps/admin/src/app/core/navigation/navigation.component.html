@@ -111,16 +111,16 @@
           </li>
         </ul>
       </li>
-      <li class="sidebar-item">
-        <a data-bs-target="#documentation" data-bs-toggle="collapse" class="sidebar-link collapsed">
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['documentation']}" data-bs-toggle="collapse" routerLinkActive="active">
+        <a class="sidebar-link" (click)="toggleCollapse('documentation')">
           <i class="align-middle me-2 fas fa-fw fa-book-open"></i> <span class="align-middle">Documentation</span>
         </a>
-        <ul id="documentation" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="docs-introduction.html">Introduction</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="docs-installation.html">Getting Started</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="docs-customization.html">Customization</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="docs-plugins.html">Plugins</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="docs-changelog.html">Changelog</a></li>
+        <ul id="documentation" class="sidebar-dropdown list-unstyled " [collapse]="menuCollapseState['documentation']">
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink="/docs/introduction">Introduction</a></li>
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink="/docs/installation">Getting Started</a></li>
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink="/docs/customization">Customization</a></li>
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink="/docs/plugins">Plugins</a></li>
+          <li class="sidebar-item"routerLinkActive="active"><a class="sidebar-link" routerLink="/docs/changelog">Changelog</a></li>
         </ul>
       </li>
 
