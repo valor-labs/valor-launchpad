@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {DashboardCryptoComponent} from "./dashboard-crypto.component";
+import { DashboardCryptoComponent } from './dashboard-crypto.component';
 
 const routes: Routes = [
   {
-    path:'', component: DashboardCryptoComponent
-  }
+    path: '',
+    component: DashboardCryptoComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DashboardCryptoRoutingModule { }
+export class DashboardCryptoRoutingModule {}
