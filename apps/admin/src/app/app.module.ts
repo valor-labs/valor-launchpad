@@ -23,12 +23,6 @@ import {HttpModule} from './core/http/http.module';
 import {environment} from '../environments/environment';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {NgxMaskModule} from 'ngx-mask';
-// TODO: remove if find new method for dateRangePicker with timepicker
-// for ng-zorro's datepicker
-import {registerLocaleData} from '@angular/common';
-import en from '@angular/common/locales/en';
-import {NZ_I18N, en_US} from 'ng-zorro-antd/i18n';
-registerLocaleData(en);
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
@@ -49,7 +43,6 @@ registerLocaleData(en);
       useClass: TokenInterceptor,
       multi: true
     },
-    { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]
 })

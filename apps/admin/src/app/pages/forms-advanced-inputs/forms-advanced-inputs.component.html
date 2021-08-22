@@ -74,12 +74,11 @@
           <div valorLaunchpadCol [span]="12" [xl]="8">
             <valor-launchpad-form-item>
               <label class="form-label">Date Range with Times</label>
-<!--          TODO: remove if find new method for dateRangePicker with timepicker-->
-              <nz-range-picker
-                class='w-100'
-                [nzShowTime]="{ nzFormat: 'HH:mm' }"
-                nzFormat="yyyy-MM-dd HH:mm"
-              ></nz-range-picker>
+              <input
+                type="text"
+                placeholder="DateRangepicker"
+                valorLaunchpadInput
+                bsDaterangepicker />
             </valor-launchpad-form-item>
           </div>
 
