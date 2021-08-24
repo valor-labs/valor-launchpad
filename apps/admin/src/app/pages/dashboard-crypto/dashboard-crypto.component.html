@@ -4,7 +4,6 @@
   </div>
 
   <div valorLaunchpadCol [span]='"auto"' class="ms-auto text-end mt-n1">
-
     <div class="dropdown me-2 d-inline-block">
       <valor-launchpad-dropdown>
         <button valor-launchpad-button dropdown-nav theme='light' class='bg-white shadow-sm dropdown-toggle'>
@@ -23,92 +22,20 @@
   </div>
 </div>
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol span='xl'>
+  <div valorLaunchpadCol span='xl' *ngFor='let item of mainInfos$ | async'>
     <valor-launchpad-card>
       <valor-launchpad-card-content>
-        <div class="float-end text-danger">
-          -5.28%
+        <div class="float-end" [class.text-success]='item.change >= 0' [class.text-danger]='item.change < 0'>
+          {{item.change}}%
         </div>
-        <h4 class="mb-2">HSR/BTC</h4>
+        <h4 class="mb-2">{{item.title}}</h4>
         <div class="mb-1">
           <strong>
-            0.001416
-          </strong> $16.61
+            {{item.price}}
+          </strong> {{item.priceByUS | currency}}
         </div>
         <div>
-          Volume: 2,692.47 BTC
-        </div>
-      </valor-launchpad-card-content>
-    </valor-launchpad-card>
-  </div>
-  <div valorLaunchpadCol span='xl'>
-    <valor-launchpad-card>
-      <valor-launchpad-card-content>
-        <div class="float-end text-success">
-          2.61%
-        </div>
-        <h4 class="mb-2">BNB/BTC</h4>
-        <div class="mb-1">
-          <strong>
-            0.00022004
-          </strong> $2.58
-        </div>
-        <div>
-          Volume: 842.52 BTC
-        </div>
-      </valor-launchpad-card-content>
-    </valor-launchpad-card>
-  </div>
-  <div valorLaunchpadCol span='xl'>
-    <valor-launchpad-card>
-      <valor-launchpad-card-content>
-        <div class="float-end text-danger">
-          -7.27%
-        </div>
-        <h4 class="mb-2">POWR/BTC</h4>
-        <div class="mb-1">
-          <strong>
-            0.00005806
-          </strong> $0.68
-        </div>
-        <div>
-          Volume: 393.03 BTC
-        </div>
-      </valor-launchpad-card-content>
-    </valor-launchpad-card>
-  </div>
-  <div valorLaunchpadCol span='xl'>
-    <valor-launchpad-card>
-      <valor-launchpad-card-content>
-        <div class="float-end text-danger">
-          -4.98%
-        </div>
-        <h4 class="mb-2">TRX/BTC</h4>
-        <div class="mb-1">
-          <strong>
-            0.00000229
-          </strong> $0.04
-        </div>
-        <div>
-          Volume: 6,836.31 BTC
-        </div>
-      </valor-launchpad-card-content>
-    </valor-launchpad-card>
-  </div>
-  <div valorLaunchpadCol span='xl'>
-    <valor-launchpad-card>
-      <valor-launchpad-card-content>
-        <div class="float-end text-success">
-          16.11%
-        </div>
-        <h4 class="mb-2">IOTA/BTC</h4>
-        <div class="mb-1">
-          <strong>
-            0.00025800
-          </strong> $3.03
-        </div>
-        <div>
-          Volume: 14,065.87 BTC
+          Volume: {{item.volume | number}} BTC
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
@@ -129,7 +56,7 @@
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <ngx-datatable
-          [rows]="rows"
+          [rows]="markets$ | async"
           [columns]="columns"
           [columnMode]="'force'"
           [headerHeight]="32"
@@ -152,6 +79,7 @@
       <valor-launchpad-card-content>
         <div class="chart w-100">
           <apx-chart
+            *ngIf='(chartOptions$ | async) as chartOptions'
             [series]="chartOptions.series"
             [chart]="chartOptions.chart"
             [xaxis]="chartOptions.xaxis"></apx-chart>
@@ -176,7 +104,7 @@
       <valor-launchpad-card-content>
         <ngx-datatable
           [columns]='sellOrderColumns'
-          [rows]='sellOrders'
+          [rows]='sellOrders$ | async'
           [columnMode]="'force'"
           [headerHeight]="32"
           [rowHeight]="32"
@@ -198,7 +126,7 @@
       <valor-launchpad-card-content>
         <ngx-datatable
           [columns]='buyOrderColumns'
-          [rows]='buyOrders'
+          [rows]='buyOrders$ | async'
           [columnMode]="'force'"
           [headerHeight]="32"
           [rowHeight]="32"
