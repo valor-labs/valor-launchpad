@@ -28,14 +28,14 @@ export class DatatablesMultiComponent implements OnInit {
   tableResponsiveData;
   pageNumLimit = 10;
   tableResponsiveColumns: Array<TableColumn> = [
-    { name: 'Name', prop: 'name' },
-    { name: 'Position', prop: 'position' },
-    { name: 'Office', prop: 'office' },
-    { name: 'Age', prop: 'age' },
+    { name: 'Name', prop: 'name', cellClass: 'd-flex align-items-center' },
+    { name: 'Position', prop: 'position', cellClass: 'd-flex align-items-center' },
+    { name: 'Office', prop: 'office', cellClass: 'd-flex align-items-center' },
+    { name: 'Age', prop: 'age', cellClass: 'd-flex align-items-center' },
     {
-      name: 'Start date', prop: 'startDate', pipe: new CustomDatePipe(this.locale)
+      name: 'Start date', prop: 'startDate', pipe: new CustomDatePipe(this.locale), cellClass: 'd-flex align-items-center'
     },
-    { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale) }
+    { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale), cellClass: 'd-flex align-items-center' }
   ];
   rowClassFunc = (row) => ({
     'selected': row.selected === true
