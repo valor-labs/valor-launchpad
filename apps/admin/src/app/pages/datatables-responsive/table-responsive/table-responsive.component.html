@@ -71,6 +71,7 @@
               [sortable]='false'
               [draggable]='false'
               [canAutoResize]='false'
+              cellClass='d-flex align-items-center'
             >
               <ng-template let-row='row' let-expanded='expanded' ngx-datatable-cell-template>
                 <a
@@ -84,9 +85,9 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name='Name' props='name'>
+            <ngx-datatable-column name='Name' props='name' cellClass='d-flex align-items-center'>
             </ngx-datatable-column>
-            <ngx-datatable-column name='Position' props='position'>
+            <ngx-datatable-column name='Position' props='position' cellClass='d-flex align-items-center'>
               <ng-template let-column='column' ngx-datatable-header-template>
                 <span class='mobile-hidden'>{{ column.name }}</span>
               </ng-template>
@@ -94,7 +95,7 @@
                 <span class='mobile-hidden'>{{ value }}</span>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name='Office' props='office'>
+            <ngx-datatable-column name='Office' props='office' cellClass='d-flex align-items-center'>
               <ng-template let-column='column' ngx-datatable-header-template>
                 <span class='mobile-hidden'>{{ column.name }}</span>
               </ng-template>
@@ -102,7 +103,7 @@
                 <span class='mobile-hidden'>{{ value }}</span>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name='Age' props='age'>
+            <ngx-datatable-column name='Age' props='age' cellClass='d-flex align-items-center'>
               <ng-template let-column='column' ngx-datatable-header-template>
                 <span class='mobile-hidden'>{{ column.name }}</span>
               </ng-template>
@@ -110,7 +111,7 @@
                 <span class='mobile-hidden'>{{ value }}</span>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name='Start date' props='startDate'>
+            <ngx-datatable-column name='Start date' props='startDate' cellClass='d-flex align-items-center'>
               <ng-template let-column='column' ngx-datatable-header-template>
                 <span class='mobile-hidden'>{{ column.name }}</span>
               </ng-template>
@@ -118,7 +119,7 @@
                 <span class='mobile-hidden'> {{value | date:'y/MM/dd'}}</span>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name='Salary' props='salary'>
+            <ngx-datatable-column name='Salary' props='salary' cellClass='d-flex align-items-center'>
               <ng-template let-column='column' ngx-datatable-header-template>
                 <span class='mobile-hidden'>{{ column.name }}</span>
               </ng-template>
