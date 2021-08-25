@@ -70,10 +70,19 @@ const routes: Routes = [
         path: 'responsive-table', loadChildren: () => import('./pages/datatables-responsive/datatables-responsive.module').then(m => m.DatatablesResponsiveModule)
       },
       {
+        path: 'buttons-table', loadChildren: () => import('./pages/datatables-buttons/datatables-buttons.module').then(m => m.DatatablesButtonsModule)
+      },
+      {
+        path: 'column-search-table', loadChildren: () => import('./pages/datatables-column-search/datatables-column-search.module').then(m => m.DatatablesColumnSearchModule)
+      },
+      {
         path: 'fixed-header-table', loadChildren: () => import('./pages/datatables-fixed-header/datatables-fixed-header.module').then(m => m.DatatablesFixedHeaderModule)
       },
       {
         path: 'multi-select-table', loadChildren: () => import('./pages/datatables-multi/datatables-multi.module').then(m => m.DatatablesMultiModule)
+      },
+      {
+        path: 'ajax-sourced-table', loadChildren: () => import('./pages/datatables-ajax/datatables-ajax.module').then(m => m.DatatablesAjaxModule)
       },
       {
         path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule)
