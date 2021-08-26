@@ -25,6 +25,8 @@ export class ColDirective implements OnChanges {
   // col-xxl-1...
   @Input() xxl: string | number = null;
 
+  @Input() expand = false;
+
   private builtClasses = new Set<string>();
 
   constructor(private renderer: Renderer2, private el: ElementRef<HTMLElement>) { }
@@ -36,6 +38,9 @@ export class ColDirective implements OnChanges {
   private buildColClass(): void {
     const sizes = ['span', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
     const newClasses = new Set<string>();
+    if (this.expand) {
+      newClasses.add('col');
+    }
     sizes.forEach(size => {
       if (this[size] !== null && this[size] !== undefined && (['number', 'string'].includes(typeof this[size]))) {
         if (size === 'span') {
