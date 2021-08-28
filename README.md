@@ -56,7 +56,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Docs Installation        | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Introduction        | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Plugins             | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Error Page               | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Error Page               | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Forms Advanced Inputs    | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Basic Inputs       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Editors            | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
@@ -69,7 +69,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Invoice                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Maps Google              | ✅              |✅                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Maps Vector              | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Not Found                | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Not Found                | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Notifications            | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Payments                 | ✅              | ✅                   | ✅               | ▢               | ▢           | ▢                | ▢        |
 | Pricing                  | ✅              | ✅                   | ▢               | ▢               | ▢           | ▢                | ▢        |
