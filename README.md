@@ -37,19 +37,19 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Sign Up                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Charts-apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-chartjs           | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-chartjs           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Chat                     | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Analytics      | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
-| Dashboard Crypto         | ✅              | ▢                    | ▢                | ▢            | ▢           | ▢                | ▢        |
+| Dashboard Crypto         | ✅              | ✅                   | ▢                | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Default        | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
 | Dashboard SaaS           | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Social         | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Datatables Ajax          | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Buttons       | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Column Search | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Fixed Header  | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Multi         | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Fixed Header  | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Multi         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Responsive    | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Changelog           | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Customization       | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
