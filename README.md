@@ -43,7 +43,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Dashboard Analytics      | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
 | Dashboard Crypto         | ✅              | ✅                   | ▢                | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Default        | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
-| Dashboard SaaS           | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Dashboard SaaS           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Social         | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Datatables Ajax          | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Buttons       | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
@@ -56,18 +56,18 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Docs Installation        | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Introduction        | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Plugins             | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Error Page               | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Error Page               | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Forms Advanced Inputs    | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Basic Inputs       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Editors            | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Floating Labels    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Input Groups       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Layouts            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Forms Validation         | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Forms Validation         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Wizard             | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Icons Font Awesome       | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Invoice                  | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Maps Google              | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Invoice                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Maps Google              | ✅              |✅                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Maps Vector              | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Not Found                | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Notifications            | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
