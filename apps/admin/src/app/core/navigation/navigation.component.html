@@ -252,12 +252,12 @@
           <i class="align-middle me-2 far fa-fw fa-bell"></i> <span class="align-middle">Notifications</span>
         </a>
       </li>
-      <li class="sidebar-item">
-        <a data-bs-target="#maps" data-bs-toggle="collapse" class="sidebar-link collapsed">
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['maps']}">
+        <a data-bs-target="#maps" data-bs-toggle="collapse" class="sidebar-link collapsed" (click)="toggleCollapse('maps')">
           <i class="align-middle fas fa-fw fa-map-pin"></i> <span class="align-middle">Maps</span>
         </a>
-        <ul id="maps" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="maps-google.html">Google Maps</a></li>
+        <ul id="maps" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar" [collapse]="menuCollapseState['maps']">
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink='ui-maps-google'>Google Maps</a></li>
           <li class="sidebar-item"><a class="sidebar-link" href="maps-vector.html">Vector Maps</a></li>
         </ul>
       </li>

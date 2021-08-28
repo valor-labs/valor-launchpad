@@ -74,6 +74,7 @@
     "express-session": "^1.17.2",
     "faker": "^5.5.3",
     "generate-password": "^1.6.0",
+    "jsvectormap": "^1.3.2",
     "mysql": "^2.18.1",
     "nest-router": "^1.0.9",
     "nestjs-stripe": "^0.4.1",
