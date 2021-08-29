@@ -4,6 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {MainLayoutComponent} from "./main-layout/main-layout.component";
 import {AuthModule} from "./core/auth/auth.module";
 import {AuthGuard} from "./core/auth/auth.guard";
+import { MapsGoogleModule } from './pages/maps-google/maps-google.module';
 
 const routes: Routes = [
   {
@@ -168,6 +169,9 @@ const routes: Routes = [
       },
       {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
+      },
+      {
+        path: 'ui-maps-google', loadChildren: () => import('./pages/maps-google/maps-google.module').then(m => m.MapsGoogleModule)
       },
       {
         path: 'ui-typography',
