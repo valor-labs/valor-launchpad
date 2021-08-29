@@ -1,0 +1,29 @@
+div.dataTables_wrapper div.dataTables_length select {
+  width: auto;
+  display: inline-block;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+  text-align: right;
+
+  label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+  }
+}
+
+:host {
+  ::ng-deep {
+    .ngx-datatable.table .datatable-body-row.active {
+      background-color: #3F80EA;
+      color: #fff;
+    }
+  }
+}

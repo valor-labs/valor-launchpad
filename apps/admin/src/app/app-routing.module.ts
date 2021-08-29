@@ -4,6 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {MainLayoutComponent} from "./main-layout/main-layout.component";
 import {AuthModule} from "./core/auth/auth.module";
 import {AuthGuard} from "./core/auth/auth.guard";
+import { MapsGoogleModule } from './pages/maps-google/maps-google.module';
 
 const routes: Routes = [
   {
@@ -67,7 +68,19 @@ const routes: Routes = [
         path: 'blank', loadChildren: () => import('./pages/blank/blank.module').then(m => m.BlankModule)
       },
       {
+        path: 'responsive-table', loadChildren: () => import('./pages/datatables-responsive/datatables-responsive.module').then(m => m.DatatablesResponsiveModule)
+      },
+      {
+        path: 'fixed-header-table', loadChildren: () => import('./pages/datatables-fixed-header/datatables-fixed-header.module').then(m => m.DatatablesFixedHeaderModule)
+      },
+      {
+        path: 'multi-select-table', loadChildren: () => import('./pages/datatables-multi/datatables-multi.module').then(m => m.DatatablesMultiModule)
+      },
+      {
         path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule)
+      },
+      {
+        path: 'charts', loadChildren: () => import('./pages/charts-chartjs/charts-chartjs.module').then(m => m.ChartsChartjsModule)
       },
       {
         path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
@@ -156,6 +169,9 @@ const routes: Routes = [
       },
       {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
+      },
+      {
+        path: 'ui-maps-google', loadChildren: () => import('./pages/maps-google/maps-google.module').then(m => m.MapsGoogleModule)
       },
       {
         path: 'ui-typography',

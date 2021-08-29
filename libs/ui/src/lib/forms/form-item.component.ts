@@ -12,6 +12,7 @@ import { NgControl } from '@angular/forms';
   selector: 'valor-launchpad-form-item',
   template: `
     <ng-content></ng-content>
+    <span *ngIf='!!helpTip' class="font-13 text-muted">{{helpTip}}</span>
     <ng-container *ngIf="!isTemplate; else templateOutlet">
       <label
         *ngIf='dirtyAndInvalid'
@@ -50,6 +51,7 @@ export class FormItemComponent {
   vlOutlined = false;
 
   @Input() errTip: string | TemplateRef<unknown>;
+  @Input() helpTip: string;
 
   get isTemplate() {
     return this.errTip instanceof TemplateRef;

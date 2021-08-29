@@ -25,13 +25,12 @@ import {
 } from '@stripe/stripe-js';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { from, partition, throwError } from 'rxjs';
-import { fmtCurrency } from '../utils';
+import { fmtCurrency, localUrlFactory } from '../utils';
 import { Router } from '@angular/router';
+import { paymentStatusRoute } from '../constants';
 
 const publicKey =
   'pk_test_51IyGuEAcm152H20WJusvJbWOGaqsdj4TXzS0cQtSEHD3jE9GGQJ0hay5Tn8i5h3IL8TShk4XKd5VghIKlHxo2gvT00IDgRx1Bu';
-
-const paymentStatusRoute = '/payments/stripe/status';
 
 @Component({
   selector: 'valor-launchpad-embedded-pay',
@@ -74,11 +73,7 @@ export class EmbeddedPayComponent implements OnInit {
         this.stripeElements = this.stripe.elements();
       }
     });
-    this.returnURL =
-      window.location.protocol +
-      '//' +
-      window.location.host +
-      paymentStatusRoute;
+    this.returnURL = localUrlFactory(paymentStatusRoute);
   }
 
   formConfig: FieldConfig[];

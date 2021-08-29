@@ -223,28 +223,28 @@
           </li>
         </ul>
       </li>
-      <li class="sidebar-item">
-        <a data-bs-target="#datatables" data-bs-toggle="collapse" class="sidebar-link collapsed">
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['datatables']}" data-bs-toggle="collapse" routerLinkActive="active">
+        <a class="sidebar-link" (click)="toggleCollapse('datatables')">
           <i class="align-middle fas fa-fw fa-list"></i> <span class="align-middle">DataTables</span>
         </a>
-        <ul id="datatables" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="tables-datatables-responsive.html">Responsive Table</a></li>
+        <ul id="datatables" class="sidebar-dropdown list-unstyled " [collapse]="menuCollapseState['datatables']">
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink='responsive-table'>Responsive Table</a></li>
           <li class="sidebar-item"><a class="sidebar-link" href="tables-datatables-buttons.html">Table with Buttons</a></li>
           <li class="sidebar-item"><a class="sidebar-link" href="tables-datatables-column-search.html">Column Search</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="tables-datatables-fixed-header.html">Fixed Header</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="tables-datatables-multi.html">Multi Selection</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" routerLink='fixed-header-table'>Fixed Header</a></li>
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink='multi-select-table'>Multi Selection</a></li>
           <li class="sidebar-item"><a class="sidebar-link" href="tables-datatables-ajax.html">Ajax Sourced Data</a></li>
         </ul>
       </li>
 
-      <li class="sidebar-item">
-        <a data-bs-target="#charts" data-bs-toggle="collapse" class="sidebar-link collapsed">
-          <i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Charts</span>
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['charts']}">
+        <a data-bs-target="#charts" data-bs-toggle="collapse" class="sidebar-link collapsed" (click)="toggleCollapse('charts')">
+          <i class="align-middle me-2 fas fa-fw fa-chart-pie" data-feather="pie-chart"></i> <span class="align-middle">Charts</span>
           <span class="badge badge-sidebar-primary">New</span>
         </a>
-        <ul id="charts" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="charts-chartjs.html">Chart.js</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="charts-apexcharts.html">ApexCharts <span class="badge badge-sidebar-primary">New</span></a></li>
+        <ul id="charts" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar" [collapse]="menuCollapseState['charts']">
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink='charts'>Chart.js</a></li>
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link">ApexCharts <span class="badge badge-sidebar-primary">New</span></a></li>
         </ul>
       </li>
       <li class="sidebar-item">
@@ -252,12 +252,12 @@
           <i class="align-middle me-2 far fa-fw fa-bell"></i> <span class="align-middle">Notifications</span>
         </a>
       </li>
-      <li class="sidebar-item">
-        <a data-bs-target="#maps" data-bs-toggle="collapse" class="sidebar-link collapsed">
+      <li class="sidebar-item" [ngClass]="{'collapsed':menuCollapseState['maps']}">
+        <a data-bs-target="#maps" data-bs-toggle="collapse" class="sidebar-link collapsed" (click)="toggleCollapse('maps')">
           <i class="align-middle fas fa-fw fa-map-pin"></i> <span class="align-middle">Maps</span>
         </a>
-        <ul id="maps" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-          <li class="sidebar-item"><a class="sidebar-link" href="maps-google.html">Google Maps</a></li>
+        <ul id="maps" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar" [collapse]="menuCollapseState['maps']">
+          <li class="sidebar-item" routerLinkActive="active"><a class="sidebar-link" routerLink='ui-maps-google'>Google Maps</a></li>
           <li class="sidebar-item"><a class="sidebar-link" href="maps-vector.html">Vector Maps</a></li>
         </ul>
       </li>

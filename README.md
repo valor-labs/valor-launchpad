@@ -37,20 +37,20 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Sign Up                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Charts-apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-chartjs           | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-chartjs           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Chat                     | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Analytics      | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
-| Dashboard Crypto         | ✅              | ▢                    | ▢                | ▢            | ▢           | ▢                | ▢        |
+| Dashboard Crypto         | ✅              | ✅                   | ▢                | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Default        | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
-| Dashboard SaaS           | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Dashboard SaaS           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Social         | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Datatables Ajax          | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Buttons       | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Column Search | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Fixed Header  | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Multi         | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Responsive    | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Fixed Header  | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Multi         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Responsive    | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Changelog           | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Customization       | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Installation        | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
@@ -63,13 +63,13 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Forms Floating Labels    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Input Groups       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Layouts            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Forms Validation         | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Forms Validation         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Wizard             | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Icons Font Awesome       | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Invoice                  | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Maps Google              | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Invoice                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Maps Google              | ✅              |✅                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Maps Vector              | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Not Found                | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Not Found                | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Notifications            | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Payments                 | ✅              | ✅                   | ✅               | ▢               | ▢           | ▢                | ▢        |
 | Pricing                  | ✅              | ✅                   | ▢               | ▢               | ▢           | ▢                | ▢        |
