@@ -11,6 +11,7 @@ export class NavigationComponent {
   menuCollapseState = {
     dashboards: false,
     pages: true,
+    documentation:true,
     auth: true,
     ui: true,
     forms: true,
