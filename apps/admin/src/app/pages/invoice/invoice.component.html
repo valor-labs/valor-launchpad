@@ -1,112 +1,109 @@
-<h1 class="h3 mb-3">Invoice</h1>
+<h1 class="h3 mb-3 d-print-none">Invoice</h1>
 
-<div class="row">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body m-sm-3 m-md-5">
-        <div class="mb-4">
-          Hello <strong>Chris Wood</strong>,
-          <br/> This is the receipt for a payment of <strong>$268.00</strong> (USD) you made to Valor Software.
-        </div>
+<div valorLaunchpadRow class='d-print-none'>
+  <div valorLaunchpadCol [span]='12'>
+    <valor-launchpad-card>
+      <valor-launchpad-card-content class="m-sm-3 m-md-5">
+        <ng-container *ngTemplateOutlet='invoice'></ng-container>
 
-        <div class="row">
-          <div class="col-md-6">
-            <div class="text-muted">Payment No.</div>
-            <strong>741037024</strong>
-          </div>
-          <div class="col-md-6 text-md-right">
-            <div class="text-muted">Payment Date</div>
-            <strong>October 2, 2018 - 03:45 pm</strong>
-          </div>
-        </div>
-
-        <hr class="my-4"/>
-
-        <div class="row mb-4">
-          <div class="col-md-6">
-            <div class="text-muted">Client</div>
-            <strong>
-              Chris Wood
-            </strong>
-            <p>
-              4183 Forest Avenue <br> New York City <br> 10011 <br> USA <br>
-              <a href="#">
-                chris.wood@gmail.com
-              </a>
-            </p>
-          </div>
-          <div class="col-md-6 text-md-right">
-            <div class="text-muted">Payment To</div>
-            <strong>
-              Valor Software LLC
-            </strong>
-            <p>
-              Kharkiv <br> Ukraine <br>
-              <a href="#">
-                sales@valor-software.com
-              </a>
-            </p>
-          </div>
-        </div>
-
-        <table class="table table-sm">
-          <thead>
-          <tr>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th class="text-end">Amount</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>Admin Theme Customization</td>
-            <td>2</td>
-            <td class="text-end">$150.00</td>
-          </tr>
-          <tr>
-            <td>Monthly Subscription</td>
-            <td>3</td>
-            <td class="text-end">$25.00</td>
-          </tr>
-          <tr>
-            <td>Additional Service</td>
-            <td>1</td>
-            <td class="text-end">$100.00</td>
-          </tr>
-          <tr>
-            <th>&nbsp;</th>
-            <th>Subtotal</th>
-            <th class="text-end">$275.00</th>
-          </tr>
-          <tr>
-            <th>&nbsp;</th>
-            <th>Shipping</th>
-            <th class="text-end">$8.00</th>
-          </tr>
-          <tr>
-            <th>&nbsp;</th>
-            <th>Discount</th>
-            <th class="text-end">5%</th>
-          </tr>
-          <tr>
-            <th>&nbsp;</th>
-            <th>Total</th>
-            <th class="text-end">$268.85</th>
-          </tr>
-          </tbody>
-        </table>
-
-        <div class="text-center">
+        <div class="text-center d-print-none">
           <p class="text-sm">
             <strong>Extra note:</strong> Please send all items at the same time to the shipping address. Thanks in
             advance.
           </p>
 
-          <a href="#" class="btn btn-primary">
+          <button valor-launchpad-button (click)='onPrint()'>
             Print this receipt
-          </a>
+          </button>
         </div>
-      </div>
-    </div>
+
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
   </div>
 </div>
+
+<div class='d-none d-print-block'>
+  <ng-container *ngTemplateOutlet='invoice'></ng-container>
+</div>
+
+<ng-template #invoice>
+  <ng-container *ngIf='invoiceDetail$ | async as invoiceDetail'>
+    <div class="mb-4">
+      Hello <strong>{{invoiceDetail.clientName}}</strong>,
+      <br/> This is the receipt for a payment of <strong>{{invoiceDetail.amount | currency: invoiceDetail.currency}}</strong> ({{invoiceDetail.currency}}) you made to {{invoiceDetail.merchantName}}.
+    </div>
+    <div valorLaunchpadRow>
+      <div valorLaunchpadCol [md]='6'>
+        <div class="text-muted">Payment No.</div>
+        <strong>{{invoiceDetail.paymentNo}}</strong>
+      </div>
+      <div valorLaunchpadCol [md]='6' class="text-md-right">
+        <div class="text-muted">Payment Date</div>
+        <strong>{{invoiceDetail.date | date: 'LLLL d, yyyy - hh:mm a'}}</strong>
+      </div>
+    </div>
+    <hr class="my-4"/>
+    <div valorLaunchpadRow class="mb-4">
+      <div valorLaunchpadCol [md]='6'>
+        <div class="text-muted">Client</div>
+        <strong>
+          {{invoiceDetail.clientName}}
+        </strong>
+        <p>
+          <ng-container *ngFor='let a of invoiceDetail.clientAddress'>{{a}}<br></ng-container>
+          <a [href]="'mailto:'+invoiceDetail.clientEmail">
+            {{invoiceDetail.clientEmail}}
+          </a>
+        </p>
+      </div>
+      <div  valorLaunchpadCol [md]='6' class="text-md-right">
+        <div class="text-muted">Payment To</div>
+        <strong>
+          {{invoiceDetail.merchantName}}
+        </strong>
+        <p>
+          <ng-container *ngFor='let a of invoiceDetail.merchantAddress'>{{a}}<br></ng-container>
+          <a [href]="'mailto:'+invoiceDetail.merchantEmail">
+            {{invoiceDetail.merchantEmail}}
+          </a>
+        </p>
+      </div>
+    </div>
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th class="text-end">Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor='let line of invoiceDetail.lines'>
+        <td>{{line.desc}}</td>
+        <td>{{line.qty}}</td>
+        <td class="text-end">{{line.amount | currency: invoiceDetail.currency}}</td>
+      </tr>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Subtotal</th>
+        <th class="text-end">{{invoiceDetail.subtotal | currency: invoiceDetail.currency}}</th>
+      </tr>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Shipping</th>
+        <th class="text-end">{{invoiceDetail.shipping | currency: invoiceDetail.currency}}</th>
+      </tr>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Discount</th>
+        <th class="text-end">{{invoiceDetail.discount | percent}}</th>
+      </tr>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Total</th>
+        <th class="text-end">{{invoiceDetail.total | currency: invoiceDetail.currency}}</th>
+      </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</ng-template>

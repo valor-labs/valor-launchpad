@@ -4,6 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {MainLayoutComponent} from "./main-layout/main-layout.component";
 import {AuthModule} from "./core/auth/auth.module";
 import {AuthGuard} from "./core/auth/auth.guard";
+import { MapsGoogleModule } from './pages/maps-google/maps-google.module';
 
 const routes: Routes = [
   {
@@ -141,6 +142,9 @@ const routes: Routes = [
         path: 'settings', loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule)
       },
       {
+        path:'docs',loadChildren:()=>import('./pages/documentation/documentation.module').then(m=>m.DocumentationModule)
+      },
+      {
         path: 'tasks', loadChildren: () => import('./pages/tasks/tasks.module').then(m => m.TasksModule)
       },
       {
@@ -177,6 +181,13 @@ const routes: Routes = [
       },
       {
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
+      },
+      {
+        path: 'maps-vector',
+        loadChildren: () => import('./pages/maps-vector/maps-vector.module').then(m => m.MapsVectorModule)
+      },
+      {
+        path: 'ui-maps-google', loadChildren: () => import('./pages/maps-google/maps-google.module').then(m => m.MapsGoogleModule)
       },
       {
         path: 'ui-typography',

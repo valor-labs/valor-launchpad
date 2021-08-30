@@ -11,12 +11,14 @@ export class NavigationComponent {
   menuCollapseState = {
     dashboards: false,
     pages: true,
+    documentation:true,
     auth: true,
     ui: true,
     forms: true,
     formPlugins: true,
     datatables: true,
     charts: true,
+    maps: true
   };
 
   subMenuCollapseState = {
