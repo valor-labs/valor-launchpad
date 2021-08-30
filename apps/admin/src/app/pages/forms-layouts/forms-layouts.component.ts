@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'valor-launchpad-forms-layouts',
@@ -46,11 +46,4 @@ export class FormsLayoutsComponent implements OnInit {
       remembered: [],
     });
   }
-
-  submitBasicForm() {
-    if (this.basicFormGroup.valid) {
-      console.log(this.basicFormGroup.value);
-    }
-  }
-
 }

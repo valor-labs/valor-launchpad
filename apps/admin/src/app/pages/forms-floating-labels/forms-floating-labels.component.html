@@ -3,10 +3,10 @@
 <div class="row">
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header class="pb-0">
+      <valor-launchpad-card-header class="pb-0">
         <h5 class="card-title mb-0">Input</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <valor-launchpad-form-item [vlOutlined]='true' class="mb-3">
           <input type="email" valorLaunchpadInput id="floatingInput1" placeholder="name@example.com">
           <label for="floatingInput1">Email address</label>
@@ -15,28 +15,28 @@
           <input type="email" valorLaunchpadInput id="floatingInput2" placeholder="name@example.com" value="name@example.com">
           <label for="floatingInput2">Email address</label>
         </valor-launchpad-form-item>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
 
     <valor-launchpad-card>
-      <div card-header class="pb-0">
+      <valor-launchpad-card-header class="pb-0">
         <h5 class="card-title mb-0">Textarea</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <valor-launchpad-form-item [vlOutlined]='true'>
           <textarea valorLaunchpadInput placeholder="Leave a comment here" id="floatingTextarea1" style="height: 100px"></textarea>
           <label for="floatingTextarea1">Comments</label>
         </valor-launchpad-form-item>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
   <div class="col-12 col-lg-6">
     <valor-launchpad-card>
-      <div card-header class="pb-0">
+      <valor-launchpad-card-header class="pb-0">
         <h5 class="card-title mb-0">Select</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <valor-launchpad-form-item [vlOutlined]='true'>
           <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
             <option selected="">Open this select menu</option>
@@ -46,14 +46,14 @@
           </select>
           <label for="floatingSelect">Works with selects</label>
         </valor-launchpad-form-item>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
 
     <valor-launchpad-card>
-      <div card-header class="pb-0">
+      <valor-launchpad-card-header class="pb-0">
         <h5 class="card-title mb-0">Layout</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="row g-2">
           <div class="col-md">
             <valor-launchpad-form-item [vlOutlined]='true'>
@@ -73,19 +73,19 @@
             </valor-launchpad-form-item>
           </div>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
 
     <valor-launchpad-card>
-      <div card-header class="pb-0">
+      <valor-launchpad-card-header class="pb-0">
         <h5 class="card-title mb-0">Read only</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <valor-launchpad-form-item [vlOutlined]='true'>
           <input valorLaunchpadInput type="text" placeholder="Readonly input" value="Contents" readonly="">
           <label for="floatingInput1">Readonly input</label>
         </valor-launchpad-form-item>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>
