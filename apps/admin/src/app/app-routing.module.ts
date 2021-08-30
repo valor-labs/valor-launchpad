@@ -174,6 +174,10 @@ const routes: Routes = [
         path: 'ui-tabs', loadChildren: () => import('./pages/ui-tabs/ui-tabs.module').then(m => m.UiTabsModule)
       },
       {
+        path: 'maps-vector',
+        loadChildren: () => import('./pages/maps-vector/maps-vector.module').then(m => m.MapsVectorModule)
+      },
+      {
         path: 'ui-maps-google', loadChildren: () => import('./pages/maps-google/maps-google.module').then(m => m.MapsGoogleModule)
       },
       {
