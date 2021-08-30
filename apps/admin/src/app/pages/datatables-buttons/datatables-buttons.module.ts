@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { DatatablesButtonsRoutingModule } from './datatables-buttons-routing.module';
 import { DatatablesButtonsComponent } from './datatables-buttons.component';
-
+import { FormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UiModule } from '@valor-launchpad/ui';
 
 @NgModule({
   declarations: [
@@ -11,7 +13,10 @@ import { DatatablesButtonsComponent } from './datatables-buttons.component';
   ],
   imports: [
     CommonModule,
-    DatatablesButtonsRoutingModule
+    DatatablesButtonsRoutingModule,
+    FormsModule,
+    NgxDatatableModule,
+    UiModule
   ]
 })
 export class DatatablesButtonsModule { }
