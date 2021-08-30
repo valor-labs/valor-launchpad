@@ -62,6 +62,7 @@ import {RouterModule} from '@angular/router';
 import { DropdownMegaMenuComponent } from './dropdown/dropdown-mega-menu/dropdown-mega-menu.component';
 import { DropdownActionsMenuComponent } from './dropdown/dropdown-actions-menu/dropdown-actions-menu.component';
 import { DropdownActionComponent } from './dropdown/dropdown-action/dropdown-action.component';
+import { VectorMapComponent } from './vector-map/vector-map.component';
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
@@ -126,6 +127,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     DropdownActionsMenuComponent,
     ...cardPart,
     DropdownActionComponent,
+    VectorMapComponent,
   ],
   exports: [
     TabsModule,
@@ -160,7 +162,8 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     DropdownMegaMenuComponent,
     DropdownActionsMenuComponent,
     ...cardPart,
-    DropdownActionComponent
+    DropdownActionComponent,
+    VectorMapComponent
   ]
 })
 export class UiModule {}

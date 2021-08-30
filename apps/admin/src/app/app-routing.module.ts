@@ -175,6 +175,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/payments/payments.module').then(m => m.PaymentsModule)
       },
       {
+        path: 'maps-vector',
+        loadChildren: () => import('./pages/maps-vector/maps-vector.module').then(m => m.MapsVectorModule)
+      },
+      {
         path: 'calendar',
         loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarModule)
       },
