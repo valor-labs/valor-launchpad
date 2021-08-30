@@ -1,6 +1,6 @@
 # ValorLaunchpad
 
-## Purpose
+### Purpose
 
 The current state of this repo is a proof of concept around creating a seed project to launch new projects to success in
 a more rapid manner. That is how the name, Valor Launchpad came to be.
