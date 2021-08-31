@@ -8,6 +8,8 @@ jobs:
   build_and_deploy_backend:
     runs-on: ubuntu-latest
     steps:
+      - env:
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
       - uses: actions/checkout@v2.3.4
       - uses: actions/cache@v2.1.4
         id: cache-build
@@ -25,9 +27,6 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "valor-launchpad-staging"
           heroku_email: "sergey.melnik@valor-software.com"
-
-      env:
-        DATABASE_URL: ${{secrets.DATABASE_URL}}
       - run: npm run schema:drop
       - run: npm run schema:sync
       - run: npm run seed:run
