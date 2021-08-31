@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: ${{secrets.DATABASE_URL}}
+      CYPRESS_INSTALL_BINARY: 0
     steps:
       - uses: actions/checkout@v2.3.4
       - uses: actions/cache@v2.1.4
@@ -19,7 +20,7 @@ jobs:
             node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - run: npm ci
+      - run: npm ci --ignore-scripts
         if: steps.cache-build.outputs.cache-hit != 'true'
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
@@ -27,7 +28,6 @@ jobs:
           heroku_app_name: "valor-launchpad-staging"
           heroku_email: "sergey.melnik@valor-software.com"
       - run: npm run schema:drop
-      - run: npm run schema:sync
       - run: npm run seed:run
 
   build_and_deploy_frontend:
