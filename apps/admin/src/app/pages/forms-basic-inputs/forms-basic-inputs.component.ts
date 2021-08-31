@@ -66,8 +66,6 @@ export class FormsBasicInputsComponent implements OnInit {
   // Read only
   readonlyInput = new FormControl();
 
-  ngOnInit(): void {
-    this.multiSelect.valueChanges.subscribe(console.log)
-  }
+  ngOnInit(): void {}
 
 }

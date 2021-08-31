@@ -1,12 +1,12 @@
 <h1 class="h3 mb-3">Input Groups</h1>
 
-<div class="row">
-  <div class="col-12 col-lg-6">
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol [span]='12' [lg]='6'>
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Default</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <valor-launchpad-input-group [vlPrefix]='"@"' class='mb-3'>
           <input type="text" valorLaunchpadInput placeholder="Username">
         </valor-launchpad-input-group>
@@ -22,14 +22,14 @@
         <valor-launchpad-input-group [vlPrefix]='["$", "0.00"]'>
           <input type="text" valorLaunchpadInput>
         </valor-launchpad-input-group>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
 
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Checkbox and radio addons</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="row">
           <div class="col-md">
             <div class="mb-0">
@@ -47,19 +47,19 @@
                 <ng-template #radioPrefix>
                   <input type="radio">
                 </ng-template>
-                <input type="text" class="form-control" placeholder="Radio">
+                <input type="text" valorLaunchpadInput placeholder="Radio">
               </valor-launchpad-input-group>
             </div>
           </div>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
 
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Sizing</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <valor-launchpad-input-group vlPrefix='@' vlSize='large' class='mb-3'>
           <input type="text" valorLaunchpadInput placeholder="Username">
         </valor-launchpad-input-group>
@@ -69,16 +69,16 @@
         <valor-launchpad-input-group vlPrefix='@' vlSize='small'>
           <input type="text" valorLaunchpadInput placeholder="Username">
         </valor-launchpad-input-group>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div class="col-12 col-lg-6">
+  <div valorLaunchpadCol [span]='12' [lg]='6'>
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Select addons</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <valor-launchpad-input-group class='mb-3'>
           <select class="form-select flex-grow-1">
             <option>Select...</option>
@@ -118,14 +118,14 @@
             <option>Three</option>
           </select>
         </valor-launchpad-input-group>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
 
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Button addons</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <div class="row">
           <div class="col-md">
             <div class="mb-3">
@@ -154,14 +154,14 @@
             </div>
           </div>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
 
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Buttons with dropdowns</h5>
-      </div>
-      <div card-body class="demo-vertical-spacing-sm button-dropdown-input-group-demo">
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content class="demo-vertical-spacing-sm button-dropdown-input-group-demo">
         <div class="row">
           <div class="col-md">
             <valor-launchpad-input-group>
@@ -198,14 +198,14 @@
             </valor-launchpad-input-group>
           </div>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
 
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Segmented buttons</h5>
-      </div>
-      <div card-body class="demo-vertical-spacing-sm button-dropdown-input-group-demo">
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content class="demo-vertical-spacing-sm button-dropdown-input-group-demo">
         <div class="row">
           <div class="col-md">
             <valor-launchpad-input-group>
@@ -242,7 +242,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>

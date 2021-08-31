@@ -1,162 +1,172 @@
 <h1 class="h3 mb-3">Form Layouts</h1>
 
-<div class='row'>
-  <div class='col-md-6'>
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol [md]='6'>
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title">Basic form</h5>
         <h6 class="card-subtitle text-muted">Default Bootstrap form layout.</h6>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <form [formGroup]='basicFormGroup'>
-          <div class="mb-3">
+          <valor-launchpad-form-item>
             <label for="email" class="form-label">Email Address</label>
             <input type="email" valorLaunchpadInput id="email" placeholder="Email" formControlName='email'>
-          </div>
-          <div class="mb-3">
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
             <label for="password" class="form-label">Password</label>
             <input type="password" valorLaunchpadInput id="password" placeholder="Password" formControlName='password'>
-          </div>
-          <div class="mb-3">
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
             <label for="textarea" class="form-label">Textarea</label>
             <textarea rows='1' valorLaunchpadInput id="textarea" placeholder="Textarea" formControlName='textarea'></textarea>
-          </div>
-          <div class="mb-3">
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
             <label for="file-input" class="form-label">File input</label>
             <input type='file' valorLaunchpadInput id='file-input' formControlName='files'>
-          </div>
-          <div class="mb-3">
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
             <label class="form-check m-0">
               <input type="checkbox" class="form-check-input" formControlName='checked'>
               <span class="form-check-label">Check me out</span>
             </label>
-          </div>
-          <button class="btn btn-primary">Submit</button>
+          </valor-launchpad-form-item>
+          <button valor-launchpad-button>Submit</button>
         </form>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div class='col-md-6'>
+  <div valorLaunchpadCol [md]='6'>
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title">Horizontal form</h5>
         <h6 class="card-subtitle text-muted">Horizontal Bootstrap layout.</h6>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <form [formGroup]='horizontalFormGroup'>
-          <div class="mb-3 row">
-            <label for='h-email' class="col-form-label col-sm-2 text-sm-right">Email</label>
-            <div class="col-sm-10">
-              <input type="email" id='h-email' valorLaunchpadInput placeholder="Email" formControlName='email'>
+          <valor-launchpad-form-item>
+            <div valorLaunchpadRow>
+              <label valorLaunchpadCol [sm]='2' for='h-email' class="col-form-label text-sm-right">Email</label>
+              <div valorLaunchpadCol [sm]='10'>
+                <input type="email" id='h-email' valorLaunchpadInput placeholder="Email" formControlName='email'>
+              </div>
             </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="h-password" class="col-form-label col-sm-2 text-sm-right">Password</label>
-            <div class="col-sm-10">
-              <input type="password" valorLaunchpadInput id="h-password" placeholder="Password" formControlName='password'>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
+            <div valorLaunchpadRow>
+              <label valorLaunchpadCol [sm]='2' for="h-password" class="col-form-label text-sm-right">Password</label>
+              <div valorLaunchpadCol [sm]='10'>
+                <input type="password" valorLaunchpadInput id="h-password" placeholder="Password" formControlName='password'>
+              </div>
             </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="h-textarea" class="col-form-label col-sm-2 text-sm-right">Textarea</label>
-            <div class="col-sm-10">
-             <textarea rows='3' valorLaunchpadInput id="h-textarea" placeholder="Textarea" formControlName='textarea'></textarea>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
+            <div valorLaunchpadRow>
+              <label valorLaunchpadCol [sm]='2' for="h-textarea" class="col-form-label text-sm-right">Textarea</label>
+              <div valorLaunchpadCol [sm]='10'>
+                <textarea rows='3' valorLaunchpadInput id="h-textarea" placeholder="Textarea" formControlName='textarea'></textarea>
+              </div>
             </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-form-label col-sm-2 text-sm-right pt-sm-0">Radios</label>
-            <div class="col-sm-10">
-              <valor-launchpad-radio-group formControlName='radio'>
-                <label valor-launchpad-radio value='Default radio'>Default radio</label>
-                <label valor-launchpad-radio value='Second default radio'>Second default radio</label>
-                <label valor-launchpad-radio value='Disabled radio' [disabled]='true'>Disabled radio</label>
-              </valor-launchpad-radio-group>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
+            <div valorLaunchpadRow>
+              <label valorLaunchpadCol [sm]='2' class="col-form-label text-sm-right pt-sm-0">Radios</label>
+              <div valorLaunchpadCol [sm]='10'>
+                <valor-launchpad-radio-group formControlName='radio'>
+                  <label valor-launchpad-radio value='Default radio'>Default radio</label>
+                  <label valor-launchpad-radio value='Second default radio'>Second default radio</label>
+                  <label valor-launchpad-radio value='Disabled radio' [disabled]='true'>Disabled radio</label>
+                </valor-launchpad-radio-group>
+              </div>
             </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-form-label col-sm-2 text-sm-right pt-sm-0">Checkbox</label>
-            <div class="col-sm-10">
-              <label class="form-check m-0">
-                <input type="checkbox" class="form-check-input" formControlName='checked'>
-                <span class="form-check-label">Check me out</span>
-              </label>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
+            <div valorLaunchpadRow>
+              <label valorLaunchpadCol [sm]='2' class="col-form-label text-sm-right pt-sm-0">Checkbox</label>
+              <div valorLaunchpadCol [sm]='10'>
+                <label class="form-check m-0">
+                  <input type="checkbox" class="form-check-input" formControlName='checked'>
+                  <span class="form-check-label">Check me out</span>
+                </label>
+              </div>
             </div>
-          </div>
-          <button class="btn btn-primary">Submit</button>
+          </valor-launchpad-form-item>
+          <button valor-launchpad-button>Submit</button>
         </form>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div class='col-12'>
+  <div valorLaunchpadCol [span]='12'>
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title">Form row</h5>
         <h6 class="card-subtitle text-muted">Bootstrap column layout.</h6>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <form [formGroup]='rowFormGroup'>
-          <div class="row">
-            <div class="mb-3 col-md-6">
+          <div valorLaunchpadRow>
+            <valor-launchpad-form-item valorLaunchpadCol [md]='6'>
               <label class="form-label" for="r-email">Email</label>
               <input type="email" valorLaunchpadInput id="r-email" placeholder="Email" formControlName='email'>
-            </div>
-            <div class="mb-3 col-md-6">
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item valorLaunchpadCol [md]='6'>
               <label class="form-label" for="r-password">Password</label>
               <input type="password" valorLaunchpadInput id="r-password" placeholder="Password" formControlName='password'>
-            </div>
+            </valor-launchpad-form-item>
           </div>
-          <div class="mb-3">
+          <valor-launchpad-form-item>
             <label class="form-label" for="r-address">Address</label>
             <input type="text" valorLaunchpadInput id="r-address" placeholder="1234 Main St" formControlName='address'>
-          </div>
-          <div class="mb-3">
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
             <label class="form-label" for="r-address2">Address 2</label>
             <input type="text" valorLaunchpadInput id="r-address2" placeholder="Apartment, studio, or floor" formControlName='address2'>
-          </div>
-          <div class="row">
-            <div class="mb-3 col-md-6">
+          </valor-launchpad-form-item>
+          <div valorLaunchpadRow class="row">
+            <valor-launchpad-form-item valorLaunchpadCol [md]='6'>
               <label class="form-label" for="inputCity">City</label>
               <input type="text" valorLaunchpadInput id="inputCity" formControlName='city'>
-            </div>
-            <div class="mb-3 col-md-4">
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item valorLaunchpadCol [md]='4'>
               <label class="form-label" for="inputState">State</label>
               <select id="inputState" class="form-select" formControlName='state'>
                 <option selected="">Choose...</option>
                 <option>...</option>
               </select>
-            </div>
-            <div class="mb-3 col-md-2">
+            </valor-launchpad-form-item>
+            <valor-launchpad-form-item valorLaunchpadCol [md]='2'>
               <label class="form-label" for="inputZip">Zip</label>
               <input type="text" valorLaunchpadInput id="inputZip" formControlName='zip'>
-            </div>
+            </valor-launchpad-form-item>
           </div>
-          <div class="mb-3">
+          <valor-launchpad-form-item>
             <label class="form-check m-0">
               <input type="checkbox" class="form-check-input" formControlName='checked'>
               <span class="form-check-label">Check me out</span>
             </label>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          </valor-launchpad-form-item>
+          <button valor-launchpad-button type="submit">Submit</button>
         </form>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div class='col-12'>
+  <div valorLaunchpadCol [span]='12'>
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <h5 class="card-title">Inline form</h5>
         <h6 class="card-subtitle text-muted">Single horizontal row.</h6>
-      </div>
-      <div card-body>
-        <form class="row row-cols-md-auto align-items-center" [formGroup]='inlineFormGroup'>
-          <div class="col-12">
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <form valorLaunchpadRow class="align-items-center" [formGroup]='inlineFormGroup'>
+          <div valorLaunchpadCol [span]='12' [md]='"auto"'>
             <label class="sr-only" for="inlineFormInputName2">Name</label>
             <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe" formControlName='name'>
           </div>
 
-          <div class="col-12">
+          <div valorLaunchpadCol [span]='12' [md]='"auto"'>
             <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
             <div class="input-group mb-2 mr-sm-2">
               <div class="input-group-text">@</div>
@@ -164,18 +174,18 @@
             </div>
           </div>
 
-          <div class="col-12">
+          <div valorLaunchpadCol [span]='12' [md]='"auto"'>
             <div class="form-check mb-1 mr-sm-2">
               <input type="checkbox" class="form-check-input" id="customControlInline" formControlName='remembered'>
               <label class="form-check-label" for="customControlInline">Remember me</label>
             </div>
           </div>
 
-          <div class="col-12">
+          <div valorLaunchpadCol [span]='12' [md]='"auto"'>
             <button type="submit" class="btn btn-primary mb-2">Submit</button>
           </div>
         </form>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>
