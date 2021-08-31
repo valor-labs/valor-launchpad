@@ -4,9 +4,8 @@ on:
     branches:
       - main
 
-
 jobs:
-  build_and_deploy_backend:
+  prepare_build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
@@ -18,33 +17,23 @@ jobs:
             node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
       - run: npm ci
         if: steps.cache-build.outputs.cache-hit != 'true'
+
+  build_and_deploy_backend:
+    needs: prepare_build
+    runs-on: ubuntu-latest
+    steps:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "valor-launchpad-staging"
           heroku_email: "sergey.melnik@valor-software.com"
-      - run: npm run schema:drop
-      - run: npm run schema:sync
-      - run: npm run seed:run
 
   build_and_deploy_frontend:
+    needs: prepare_build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: actions/cache@v2.1.4
-        id: cache-build
-        with:
-          path: |
-            ~/.npm
-            node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - run: npm ci
-        if: steps.cache-build.outputs.cache-hit != 'true'
       - run: npm run build:front
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -52,3 +41,13 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}'
           channelId: live
           projectId: valor-launchpad-3824c
+
+  refresh_database:
+    needs: [prepare_build, build_and_deploy_backend]
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{secrets.DATABASE_URL}}
+    steps:
+      - run: npm run schema:drop
+      - run: npm run schema:sync
+      - run: npm run seed:run
