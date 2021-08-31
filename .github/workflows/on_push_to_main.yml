@@ -21,9 +21,10 @@ jobs:
           restore-keys: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
         if: steps.cache-build.outputs.cache-hit != 'true'
-
+      - run: npm run build
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
+          appdir: "dist/api"
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "valor-launchpad-staging"
           heroku_email: "sergey.melnik@valor-software.com"
