@@ -24,7 +24,7 @@ jobs:
       - run: npm run build
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          appdir: "dist/api"
+          appdir: "dist/apps/api"
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "valor-launchpad-staging"
           heroku_email: "sergey.melnik@valor-software.com"
