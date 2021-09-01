@@ -83,6 +83,9 @@ const routes: Routes = [
         path: 'charts', loadChildren: () => import('./pages/charts-chartjs/charts-chartjs.module').then(m => m.ChartsChartjsModule)
       },
       {
+        path: 'apexcharts', loadChildren: () => import('./pages/charts-apexcharts/charts-apexcharts.module').then(m => m.ChartsApexchartsModule)
+      },
+      {
         path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
       },
       {

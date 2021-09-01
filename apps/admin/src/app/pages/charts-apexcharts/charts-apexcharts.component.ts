@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit  } from '@angular/core';
 import { ChartComponent } from "ng-apexcharts";
+import * as ApexCharts from 'apexcharts'
 
 @Component({
   selector: 'valor-launchpad-charts-apexcharts',
   templateUrl: './charts-apexcharts.component.html',
   styleUrls: ['./charts-apexcharts.component.scss']
 })
-export class ChartsApexchartsComponent implements OnInit {
+export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptionsLine: Partial<any>;
   public chartOptionsArea: Partial<any>;
@@ -501,11 +502,34 @@ export class ChartsApexchartsComponent implements OnInit {
         type: "datetime"
       }
     };
-
-
-
   }
+
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void{
+    var chartLine = new ApexCharts(document.querySelector('#apexcharts-line'), this.chartOptionsLine);
+    chartLine.render();
+
+    var chartArea = new ApexCharts(document.querySelector('#apexcharts-area'), this.chartOptionsArea);
+    chartArea.render();
+
+    var chartBar = new ApexCharts(document.querySelector('#apexcharts-bar'), this.chartOptionsBar);
+    chartBar.render();
+
+    var chartColumn = new ApexCharts(document.querySelector('#apexcharts-column'), this.chartOptionsColumn);
+    chartColumn.render();
+
+    var chartPie = new ApexCharts(document.querySelector('#apexcharts-pie'), this.chartOptionsPie);
+    chartPie.render();
+
+    var chartHeatmap = new ApexCharts(document.querySelector('#apexcharts-heatmap'), this.chartOptionsHeatMap);
+    chartHeatmap.render();
+
+    var chartMixed = new ApexCharts(document.querySelector('#apexcharts-mixed'), this.chartOptionsMixed);
+    chartMixed.render();
+
+    var chartCandlestick = new ApexCharts(document.querySelector('#apexcharts-candlestick'), this.chartOptionscandlestick);
+    chartCandlestick.render();
+  }
 }
