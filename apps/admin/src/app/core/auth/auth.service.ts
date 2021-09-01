@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   signOut() {
-    this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`, {withCredentials: true}).subscribe(() => {
+    this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).subscribe(() => {
       this.access_token = undefined;
       this.router.navigate(['/sign-in'])
     })
@@ -39,7 +39,7 @@ export class AuthService {
   isLoggedIn() {
     const allCookies = this.cookieService.getAll();
     this.access_token = allCookies.access_token;
-    return this.httpClient.get(this.config.environment.apiBase + 'api/auth/v1/current-user', {withCredentials: true})
+    return this.httpClient.get(this.config.environment.apiBase + 'api/auth/v1/current-user')
       .pipe(
         map((data: any) => {
           if (typeof data !== 'undefined' && data !== null) {

@@ -6,7 +6,7 @@ import {ENV_CONFIG, EnvironmentConfig} from '../../../../../apps/admin/src/app/c
   providedIn: 'root'
 })
 export class UsersListingService {
-  baseURL = this.config.environment.apiBase + '/api/users/v1/'
+  baseURL = this.config.environment.apiBase + 'api/users/v1/'
 
   constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private httpClient: HttpClient) {
   }

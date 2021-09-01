@@ -1,6 +1,6 @@
 # ValorLaunchpad
 
-## Purpose
+### Purpose
 
 The current state of this repo is a proof of concept around creating a seed project to launch new projects to success in
 a more rapid manner. That is how the name, Valor Launchpad came to be.
@@ -36,28 +36,28 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Sign In                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Sign Up                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-apexcharts        | ✅              | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Charts-chartjs           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Chat                     | ✅              | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Chat                     | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Analytics      | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
-| Dashboard Crypto         | ✅              | ✅                   | ▢                | ▢            | ▢           | ▢                | ▢        |
-| Dashboard Default        | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
+| Dashboard Crypto         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Dashboard Default        | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
 | Dashboard SaaS           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Dashboard Social         | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Datatables Ajax          | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Buttons       | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Column Search | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Fixed Header  | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Dashboard Social         | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Datatables Ajax          | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Buttons       | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Column Search | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Fixed Header  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Multi         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Responsive    | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Docs Changelog           | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Docs Customization       | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Docs Installation        | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Docs Introduction        | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Docs Plugins             | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Error Page               | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Forms Advanced Inputs    | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Docs Changelog           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Docs Customization       | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Docs Installation        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Docs Introduction        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Docs Plugins             | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Error Page               | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Forms Advanced Inputs    | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Basic Inputs       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Editors            | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Floating Labels    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
@@ -67,10 +67,10 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Forms Wizard             | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Icons Font Awesome       | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Invoice                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Maps Google              | ✅              |✅                    | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Maps Vector              | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Maps Google              | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Maps Vector              | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Not Found                | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Notifications            | ▢               | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Notifications            | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Payments                 | ✅              | ✅                   | ✅               | ▢               | ▢           | ▢                | ▢        |
 | Pricing                  | ✅              | ✅                   | ▢               | ▢               | ▢           | ▢                | ▢        |
 | Profile                  | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |

@@ -81,6 +81,7 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 //@import "~tempusdominus-bootstrap-4/src/sass/tempusdominus-bootstrap-4";
 
 // 3rd party plugin styles
+@import "5-vendor/datables";
 @import "5-vendor/datatables-select";
 @import "5-vendor/daterangepicker";
 @import "5-vendor/datetimepicker";
