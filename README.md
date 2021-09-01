@@ -45,9 +45,9 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Dashboard Default        | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
 | Dashboard SaaS           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Social         | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Datatables Ajax          | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Buttons       | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Column Search | ▢               | ▢                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Ajax          | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Buttons       | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Column Search | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Fixed Header  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Multi         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Responsive    | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
