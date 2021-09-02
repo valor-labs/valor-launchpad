@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'valor-launchpad-forms-wizard',
@@ -13,4 +14,45 @@ export class FormsWizardComponent {
     {mainTitle: 'Third step', description: 'Step description'},
     {mainTitle: 'Forth step', description: 'Step description'},
   ];
+
+  formIndex = 1;
+  formSteps = [
+    {mainTitle: 'First step', description: 'Step description'},
+    {mainTitle: 'Second step', description: 'Step description'},
+    {mainTitle: 'Third step', description: 'Step description'},
+  ];
+
+  firstStepForm = this.fb.group({
+    username: [null, [Validators.required]],
+    password: [null, [Validators.required]],
+    confirmedPassword: [null, [Validators.required]],
+  });
+
+  secondStepForm = this.fb.group({
+    firstname: [null, [Validators.required]],
+    lastname: [null, [Validators.required]],
+    email: [null, [Validators.required, Validators.email]],
+    address: [null],
+  });
+
+  thirdStepForm = this.fb.group({
+    agreed: [false, [Validators.requiredTrue]],
+  })
+
+  onBeforeNext = () => {
+    const forms = [this.firstStepForm, this.secondStepForm];
+    const currentForm = forms[this.formIndex];
+    const invalid = currentForm.invalid;
+    if (invalid) {
+      for (const c of Object.values(currentForm.controls)) {
+        c.markAsDirty();
+        c.updateValueAndValidity();
+      }
+    }
+    return !invalid;
+  }
+  constructor(private fb: FormBuilder) {
+  }
+
+
 }
