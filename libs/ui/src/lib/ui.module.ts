@@ -65,6 +65,7 @@ import { DropdownActionsMenuComponent } from './dropdown/dropdown-actions-menu/d
 import { DropdownActionComponent } from './dropdown/dropdown-action/dropdown-action.component';
 import {NOTYFToken, notyfFactory} from "./notyf";
 import { FormLabelComponent } from './forms/form-label.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
@@ -131,6 +132,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     DropdownActionsMenuComponent,
     ...cardPart,
     DropdownActionComponent,
+    SpinnerComponent,
   ],
   exports: [
     TabsModule,
@@ -167,7 +169,8 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     DropdownMegaMenuComponent,
     DropdownActionsMenuComponent,
     ...cardPart,
-    DropdownActionComponent
+    DropdownActionComponent,
+    SpinnerComponent,
   ],
   providers: [
     { provide: NOTYFToken, useFactory: notyfFactory }
