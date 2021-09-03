@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Action } from '@valor-launchpad/api-interfaces';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 interface Tasks{
   upcoming:Task[],
@@ -52,6 +53,19 @@ export class TasksComponent implements OnInit {
     { label: 'Another action', link: '#' },
     { label: 'Something else here', link: '#' },
   ];
+
+  onDrop(event: CdkDragDrop<Task[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
 
   ngOnInit(){
     this.tasks.upcoming.push({id:1,brief:'Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada.',user:{id:1,avatar:'assets/img/avatars/avatar.jpg'}})

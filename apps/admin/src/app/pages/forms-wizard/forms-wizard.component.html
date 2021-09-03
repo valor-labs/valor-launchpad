@@ -1,45 +1,94 @@
 <h1 class="h3 mb-3">Wizard</h1>
 
-<div class="row">
-  <div class='col-12 col-xxl-6'>
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol [span]='12' [xxl]='6'>
     <valor-launchpad-wizard colorTheme='primary' [steps]='steps' [(currentIndex)]='index'>
       <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
-  <div class='col-12 col-xxl-6'>
+  <div valorLaunchpadCol [span]='12' [xxl]='6'>
     <valor-launchpad-wizard colorTheme='danger' [steps]='steps' [(currentIndex)]='index'>
       <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
-  <div class='col-12 col-xxl-6'>
+  <div valorLaunchpadCol [span]='12' [xxl]='6'>
     <valor-launchpad-wizard colorTheme='success' [steps]='steps' [(currentIndex)]='index'>
       <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
-  <div class='col-12 col-xxl-6'>
+  <div valorLaunchpadCol [span]='12' [xxl]='6'>
     <valor-launchpad-wizard styleTheme='arrows' colorTheme='primary' [steps]='steps' [(currentIndex)]='index'>
       <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
-  <div class='col-12 col-xxl-6'>
+  <div valorLaunchpadCol [span]='12' [xxl]='6'>
     <valor-launchpad-wizard styleTheme='arrows' colorTheme='danger' [steps]='steps' [(currentIndex)]='index'>
       <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
-  <div class='col-12 col-xxl-6'>
+  <div valorLaunchpadCol [span]='12' [xxl]='6'>
     <valor-launchpad-wizard styleTheme='arrows' colorTheme='success' [steps]='steps' [(currentIndex)]='index'>
       <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
         Step content {{i}}
+      </div>
+    </valor-launchpad-wizard>
+  </div>
+  <div valorLaunchpadCol [span]='12'>
+    <valor-launchpad-wizard colorTheme='primary' [steps]='formSteps' [(currentIndex)]='formIndex' [onBeforeNext]='onBeforeNext'>
+      <div class='tab-pane' style='display: block' [hidden]='0 !== formIndex'>
+        <form [formGroup]='firstStepForm'>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <valor-launchpad-form-label [required]='true'>User name</valor-launchpad-form-label>
+            <input type='text' valorLaunchpadInput formControlName='username'>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <valor-launchpad-form-label [required]='true'>Password</valor-launchpad-form-label>
+            <input type='text' valorLaunchpadInput formControlName='password'>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <valor-launchpad-form-label [required]='true'>Confirm Password</valor-launchpad-form-label>
+            <input type='text' valorLaunchpadInput formControlName='confirmedPassword'>
+          </valor-launchpad-form-item>
+        </form>
+      </div>
+
+      <div class='tab-pane' style='display: block' [hidden]='1 !== formIndex'>
+        <form [formGroup]='secondStepForm'>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <valor-launchpad-form-label [required]='true'>First name</valor-launchpad-form-label>
+            <input type='text' valorLaunchpadInput formControlName='firstname'>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <valor-launchpad-form-label [required]='true'>Last name</valor-launchpad-form-label>
+            <input type='text' valorLaunchpadInput formControlName='lastname'>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item [errTip]='this.secondStepForm.get("email").hasError("email") ? "Please input correct email." : "This field is required."'>
+            <valor-launchpad-form-label [required]='true'>Email</valor-launchpad-form-label>
+            <input type='text' valorLaunchpadInput formControlName='email'>
+          </valor-launchpad-form-item>
+          <valor-launchpad-form-item>
+            <valor-launchpad-form-label>Address</valor-launchpad-form-label>
+            <input type='text' valorLaunchpadInput formControlName='address'>
+          </valor-launchpad-form-item>
+        </form>
+      </div>
+
+      <div class='tab-pane' style='display: block' [hidden]='2 !== formIndex'>
+        <form [formGroup]='thirdStepForm'>
+          <valor-launchpad-form-item errTip='This field is required.'>
+            <label valor-launchpad-checkbox formControlName='agreed'>I agree with the Terms and Conditions</label>
+          </valor-launchpad-form-item>
+        </form>
       </div>
     </valor-launchpad-wizard>
   </div>

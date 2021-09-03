@@ -1,50 +1,42 @@
 <h1 class="h3 mb-3">Clients</h1>
 
-<div class="row">
-  <div class="col-xl-8">
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol [xl]="8">
     <valor-launchpad-card>
-      <div card-header>
+      <valor-launchpad-card-header>
         <div class="card-actions float-end">
-          
-          <valor-launchpad-dropdown
-            [direction]="'end'"
-          >
+          <valor-launchpad-dropdown [direction]="'end'">
              <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
              <valor-launchpad-dropdown-actions-menu [actions]="actions1"></valor-launchpad-dropdown-actions-menu>
-          </valor-launchpad-dropdown>  
-          
-
-
+          </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">Clients</h5>
-      </div>
-      <div card-body>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
         <valor-launchpad-tables
           [data]="tableData"
           [columns]="tableColumns"
           [class]="'table-striped'"
           [style]="'width:100%'"
         ></valor-launchpad-tables>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div class="col-xl-4">
+  <div valorLaunchpadCol [xl]="4">
     <valor-launchpad-card>
-      <div card-header>
-        <div class="card-actions float-end"> 
-            <valor-launchpad-dropdown
-            [direction]="'end'"
-          >
-             <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
-             <valor-launchpad-dropdown-actions-menu [actions]="actions2"></valor-launchpad-dropdown-actions-menu>
-          </valor-launchpad-dropdown>         
+      <valor-launchpad-card-header>
+        <div class="card-actions float-end">
+          <valor-launchpad-dropdown [direction]="'end'">
+            <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
+            <valor-launchpad-dropdown-actions-menu [actions]="actions2"></valor-launchpad-dropdown-actions-menu>
+          </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">{{profile.detail.name}}</h5>
-      </div>
-      <div card-body>
-        <div class="row g-0">
-          <div class="col-sm-3 col-xl-12 col-xxl-3 text-center">
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div valorLaunchpadRow class="g-0">
+          <div valorLaunchpadCol [sm]="3" [xl]="12" [xxl]="3" class="text-center">
             <valor-launchpad-avatar
               [src]="profile.avatar"
               [size]="'xl'"
@@ -52,7 +44,7 @@
               [alt]="'Angelica Ramos'"
             ></valor-launchpad-avatar>
           </div>
-          <div class="col-sm-9 col-xl-12 col-xxl-9">
+          <div valorLaunchpadCol [sm]="9" [xl]="12" [xxl]="9">
             <strong>About me</strong>
             <p>{{ profile.description }}</p>
           </div>
@@ -74,7 +66,7 @@
         <valor-launchpad-timeline
           [timeline]="timeline" [classes]="'mt-2 mb-0'"
         ></valor-launchpad-timeline>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>
