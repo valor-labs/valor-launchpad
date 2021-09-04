@@ -165,9 +165,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'clients',
-        loadChildren: () =>
-          import('./pages/clients/clients.module').then((m) => m.ClientsModule),
+        path: 'apexcharts', loadChildren: () => import('./pages/charts-apexcharts/charts-apexcharts.module').then(m => m.ChartsApexchartsModule)
+      },
+      {
+        path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
       },
       {
         path: 'forms-layouts',
