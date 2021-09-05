@@ -89,7 +89,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | UI Modals                | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Off Canvas            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Tabs                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Typography            | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Typography            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Verify User              | ✅              | ✅                   | ✅               | ▢               | ▢           | ▢                | ▢        |
 
 ## Future Features
