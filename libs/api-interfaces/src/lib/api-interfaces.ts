@@ -27,3 +27,12 @@ export interface Notification{
   description:string;
   time:string;
 }
+
+export interface Menu {
+  id: string;
+  name: string;
+  route: string;
+  icon: string;
+  isMega: boolean;
+  children: Menu[];
+}
