@@ -36,7 +36,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Sign In                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Sign Up                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-apexcharts        | ✅              | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Charts-chartjs           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Chat                     | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
