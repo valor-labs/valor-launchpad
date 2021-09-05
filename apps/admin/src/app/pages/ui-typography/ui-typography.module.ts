@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UiTypographyRoutingModule } from './ui-typography-routing.module';
 import { UiTypographyComponent } from './ui-typography.component';
+import { UiModule } from "@valor-launchpad/ui";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { UiTypographyComponent } from './ui-typography.component';
   ],
   imports: [
     CommonModule,
-    UiTypographyRoutingModule
+    UiTypographyRoutingModule,
+    UiModule
   ]
 })
 export class UiTypographyModule { }
