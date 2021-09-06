@@ -4,17 +4,17 @@ import {CommonModule} from '@angular/common';
 import {NavigationRoutingModule} from './navigation-routing.module';
 import {NavigationComponent} from './navigation.component';
 import {CollapseModule} from "ngx-bootstrap/collapse";
-import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
+import {NavigationService} from './navigation.service';
 
 
 @NgModule({
   declarations: [
-    NavigationComponent,
-    SidebarItemComponent
+    NavigationComponent
   ],
   exports: [
     NavigationComponent
   ],
+  providers: [NavigationService],
   imports: [
     CollapseModule,
     CommonModule,

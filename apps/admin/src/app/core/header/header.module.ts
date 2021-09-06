@@ -10,6 +10,7 @@ import {NavigationService} from '../navigation/navigation.service';
   declarations: [
     HeaderComponent
   ],
+  providers: [NavigationService],
   exports: [
     HeaderComponent
   ],

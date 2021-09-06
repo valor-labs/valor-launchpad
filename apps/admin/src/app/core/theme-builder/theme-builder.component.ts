@@ -6,6 +6,7 @@ import { defaultProps, themeConfig, themeConfigKeys, themeType, ValorThemeServic
   selector: 'valor-launchpad-theme-builder',
   templateUrl: './theme-builder.component.html',
   styleUrls: ['./theme-builder.component.scss'],
+  providers: [ValorThemeService]
 })
 export class ThemeBuilderComponent implements OnInit, AfterViewInit {
 

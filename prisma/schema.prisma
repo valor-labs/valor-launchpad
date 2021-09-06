@@ -199,13 +199,12 @@ model ProjectsAssigneeEntity {
 }
 
 model RolesEntity {
-  id              String            @id @default(uuid()) @db.VarChar(36)
-  createdDate     DateTime          @default(now()) @db.DateTime(6)
-  updatedDate     DateTime          @updatedAt
-  deletedDate     DateTime?         @db.DateTime(6)
-  role            String            @unique @db.VarChar(255)
-  userRoles       UserRolesEntity[] @relation("userRoles")
-  RoleMenusEntity RoleMenusEntity[] @relation("roleMenuRoles")
+  id          String            @id @default(uuid()) @db.VarChar(36)
+  createdDate DateTime          @default(now()) @db.DateTime(6)
+  updatedDate DateTime          @updatedAt
+  deletedDate DateTime?         @db.DateTime(6)
+  role        String            @unique @db.VarChar(255)
+  userRoles   UserRolesEntity[] @relation("userRoles")
 }
 
 model UserEntity {
@@ -294,34 +293,7 @@ model MediaAsset {
   profile     ProfileEntity?  @relation("profileImage", fields: [profile_id], references: [id])
   project     ProjectsEntity? @relation("projectHeroMedia", fields: [project_id], references: [id])
   user        UserEntity?     @relation("userProfileImage", fields: [user_id], references: [id])
-
   @@unique([src, alt], name: "src_alt_unique_constraint")
   @@unique([profile_id, alt], name: "profile_alt_unique_constraint")
   @@unique([project_id, alt], name: "project_alt_unique_constraint")
-}
-
-model MenusEntity {
-  id              String            @id @default(uuid()) @db.VarChar(36)
-  createdDate     DateTime          @default(now()) @db.DateTime(6)
-  updatedDate     DateTime          @updatedAt
-  deletedDate     DateTime?         @db.DateTime(6)
-  key             String            @unique @db.VarChar(255)
-  name            String            @db.VarChar(255)
-  isMega          Boolean           @db.TinyInt
-  route           String?           @db.VarChar(255)
-  icon            String?           @db.VarChar(255)
-  parentId        String?           @db.VarChar(36)
-  parentMenu      MenusEntity?      @relation("menu", fields: [parentId], references: [id])
-  Menu            MenusEntity[]     @relation("menu")
-  RoleMenusEntity RoleMenusEntity[] @relation("roleMenuMenus")
-}
-
-model RoleMenusEntity {
-  id          String      @id @default(uuid()) @db.VarChar(36)
-  roleId      String      @db.VarChar(36)
-  menuId      String      @db.VarChar(36)
-  rolesEntity RolesEntity @relation("roleMenuRoles", fields: [roleId], references: [id])
-  menusEntity MenusEntity @relation("roleMenuMenus", fields: [menuId], references: [id])
-
-  @@unique([roleId, menuId])
 }

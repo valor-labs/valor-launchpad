@@ -73,8 +73,8 @@ a.sidebar-link {
   }
 }
 
-.sidebar-item > .sidebar-link.active,
-.sidebar-item .sidebar-link.active:hover {
+.sidebar-item.active > .sidebar-link,
+.sidebar-item.active .sidebar-link:hover {
   @include theme("color", $sidebar-link-active-color);
 
   i,
@@ -95,12 +95,9 @@ a.sidebar-link {
   @include theme("color", $sidebar-link-child-hover-color);
 }
 
-.sidebar-dropdown .sidebar-item .sidebar-link.active {
+.sidebar-dropdown .sidebar-item.active .sidebar-link {
   font-weight: $sidebar-link-active-font-weight;
   @include theme("color", $sidebar-link-child-active-color);
-  &.is-group {
-    @include theme("color", $sidebar-link-active-color);
-  }
 }
 
 // Chevron
@@ -278,7 +275,7 @@ body[data-sidebar-position=right] {
   margin: $sidebar-cta-margin;
   border-radius: $sidebar-cta-border-radius;
   @include theme("background", $sidebar-cta-bg);
-
+  
   &,
   strong {
     @include theme("color", $sidebar-cta-color);
