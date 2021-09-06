@@ -7,12 +7,13 @@ import {UsersController} from './users.controller';
 import {RolesGuard} from './roles.guard';
 import {EmailModule} from '@valor-launchpad/email';
 import {PrismaService} from '@valor-launchpad/prisma';
+import { MenuService } from './menus/menu.service';
 
 @Module({
   imports: [
     EmailModule
   ],
-  providers: [UsersService,MessagesService, NotificationsService,CryptService, RolesGuard, PrismaService],
+  providers: [UsersService,MessagesService, NotificationsService,CryptService, RolesGuard, PrismaService, MenuService],
   controllers: [UsersController],
   exports: [UsersService]
 })

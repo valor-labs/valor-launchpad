@@ -7,11 +7,17 @@ import {User} from './user.decorator';
 import {CreateUser, UserEntity} from '@valor-launchpad/common-api';
 import { MessagesService } from './messages/messages.service';
 import { NotificationsService } from './notifications/notifications.service';
+import { MenuService } from './menus/menu.service';
+import { Menu } from '@valor-launchpad/api-interfaces';
 
 @Controller('v1')
 export class UsersController {
-  constructor(private usersService: UsersService,private messageService:MessagesService,private notificationSerivce:NotificationsService) {
-  }
+  constructor(
+    private usersService: UsersService,
+    private messageService:MessagesService,
+    private notificationSerivce:NotificationsService,
+    private menuService: MenuService,
+  ) {}
 
   @Get('getRoles')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -70,5 +76,12 @@ export class UsersController {
   @Get('notifications')
   async getNotifications(@Body() user, @User() actingUser: UserEntity){
     return await this.notificationSerivce.getNotifications(user.id,actingUser)
+  }
+
+  @Get('menus')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  async getMenus(@User() actingUser: UserEntity): Promise<Menu[]> {
+    const currentUserRoles = actingUser.userRoles.map(i => i.role_id);
+    return await this.menuService.getMenus(currentUserRoles);
   }
 }

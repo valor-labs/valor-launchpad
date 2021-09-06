@@ -11,6 +11,8 @@ import {ProjectSummarySeed} from './project-summary.seed';
 import {MediaSeed} from './media.seed';
 import {UserEventsSeed} from './user-events.seed';
 import {UserEntity} from '../libs/common-api/src';
+import { MenuSeed } from './menu.seed';
+import { RoleMenuSeed } from './role-menu.seed';
 
 const prisma = new PrismaClient()
 
@@ -24,6 +26,8 @@ async function main() {
   const roleSeed = new RoleSeed(prisma);
   const userSeed = new UserSeed(prisma);
   const profileSeed = new ProfileSeed(prisma);
+  const menuSeed = new MenuSeed(prisma);
+  const roleMenuSeed = new RoleMenuSeed(prisma);
 
 
   /*
@@ -39,6 +43,15 @@ async function main() {
   const userRole = await roleSeed.createRole({role: 'User'});
   const adminRole = await roleSeed.createRole({role: 'Admin'});
 
+  /*
+  Create menus
+   */
+  await menuSeed.insertAllMenus();
+
+  /*
+  Create role menu relations
+   */
+  await roleMenuSeed.createRoleMenu();
 
   /*
   Create users

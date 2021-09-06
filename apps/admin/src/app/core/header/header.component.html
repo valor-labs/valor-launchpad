@@ -25,7 +25,7 @@
       >
         <span dropdown-nav>Mega menu</span>
         <valor-launchpad-dropdown-mega-menu
-          [columns]="megaMenu"
+          [columns]="megaMenus$ | async"
         ></valor-launchpad-dropdown-mega-menu>
       </valor-launchpad-dropdown>
     </li>

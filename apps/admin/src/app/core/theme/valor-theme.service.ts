@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export type themeType = "default" | "colored" | "dark" | "light"
 
 export type themeConfigKeys = 'theme' | 'layout' | 'sidebarPosition' | 'sidebarBehavior';
 export type themeConfig = Record<themeConfigKeys, string>;
 
-export const defaultProps= {
+export const defaultProps: themeConfig = {
   theme: "default",
   layout: "fluid",
   sidebarPosition: "left",
@@ -14,18 +15,25 @@ export const defaultProps= {
 
 const stylesheetClassName = ".js-stylesheet";
 const settingsPrefix = "valor-launchpad-config-";
-@Injectable()
+
+@Injectable({providedIn: 'root'})
 export class ValorThemeService {
+  sidebarBehavior$: Observable<string>;
+  private sidebarBehavior = new BehaviorSubject(null);
 
-  constructor() { }
+  constructor() {
+    this.sidebarBehavior$ = this.sidebarBehavior.asObservable();
+  }
 
-  changeTheme(name, value): void {
-
+  changeTheme(name: themeConfigKeys, value: string): void {
     // Toggle stylesheet (light/dark)
     if(name === "theme"){
       const theme = value === "dark" ? "dark" : "light";
       const stylesheet = document.querySelector(stylesheetClassName);
       stylesheet.setAttribute("href", `${theme}.css`);
+    }
+    if (name === 'sidebarBehavior') {
+      this.sidebarBehavior.next(value);
     }
 
     // Set data attributes on body element
