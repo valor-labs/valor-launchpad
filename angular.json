@@ -55,7 +55,17 @@
             "styles": [
               "apps/admin/src/styles.scss",
               "node_modules/notyf/notyf.min.css",
-              "node_modules/jsvectormap/dist/css/jsvectormap.min.css"
+              "node_modules/jsvectormap/dist/css/jsvectormap.min.css",
+              {
+                "input": "apps/admin/scss/dark.scss",
+                "bundleName": "dark",
+                "inject": false
+              },
+              {
+                "input": "apps/admin/scss/light.scss",
+                "bundleName": "light",
+                "inject": false
+              }
             ],
             "scripts": [
               "node_modules/qrcodejs/qrcode.js",

@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../auth/auth.service";
-import {Action, MegaMenuColumn} from '@valor-launchpad/api-interfaces';
-import {Message,Notification} from '@valor-launchpad/api-interfaces';
-import {NavigationService} from '../navigation/navigation.service';
-import {UserEntity} from '@valor-launchpad/common-api';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { Action, MegaMenuColumn, Menu } from '@valor-launchpad/api-interfaces';
+import { Message, Notification } from '@valor-launchpad/api-interfaces';
+import { NavigationService } from '../navigation/navigation.service';
+import { UserEntity } from '@valor-launchpad/common-api';
 import { HeaderService } from './header.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'valor-launchpad-header',
@@ -14,52 +16,20 @@ import { HeaderService } from './header.service';
 export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
   user: UserEntity;
-  messages:Message[]=[];
-  notifications:Notification[]=[];
-  megaMenu: MegaMenuColumn[] = [
-    {
-      label: 'UI Elements',
-      actions: [
-        {
-          label: 'Alerts',
-          routerLink: '/ui-alerts'
-        },
-        {
-          label: 'Chips',
-          routerLink: '/ui-chips'
-        },
-        {
-          label: 'Cards',
-          routerLink: '/ui-cards'
-        },
-        {
-          label: 'Buttons',
-          routerLink: '/ui-buttons'
-        }
-      ]
-    },
-    {
-      label: 'Pages',
-      actions: [
-        {
-          label: 'Users',
-          routerLink: '/users'
-        },
-        {
-          label: 'Profile',
-          routerLink: '/profile'
-        },
-        {
-          label: 'Settings',
-          routerLink: '/settings'
-        },
-        {
-          label: 'Clients',
-          routerLink: '/clients'
-        }
-      ]
-    }
-  ];
+  messages: Message[] = [];
+  notifications: Notification[] = [];
+  megaMenus$: Observable<MegaMenuColumn[]> =
+    this.navigationService.megaMenus$.pipe(
+      map<Menu[], MegaMenuColumn[]>((menus) =>
+        menus.map((parent) => ({
+          label: parent.name,
+          actions: parent.children.map((sub) => ({
+            label: sub.name,
+            routerLink: sub.route,
+          })),
+        }))
+      )
+    );
   languageActions: Action[] = [
     {
       image: {
@@ -136,7 +106,7 @@ export class HeaderComponent implements OnInit {
     this.headerService.getNotifications().subscribe(notifications=>{
       this.notifications=notifications
     })
-  
+
   }
 
   toggleMenu() {

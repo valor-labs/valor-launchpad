@@ -1,17 +1,23 @@
-import {Body, Controller, Get, Post, UseGuards} from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import {UsersService} from './users.service';
 import {RolesGuard} from './roles.guard';
 import {Roles} from './roles.decorator';
 import {AuthGuard} from '@nestjs/passport';
 import {User} from './user.decorator';
-import {CreateUser, UserEntity} from '@valor-launchpad/common-api';
+import { CreateUser, RequestWithSession, UserEntity } from '@valor-launchpad/common-api';
 import { MessagesService } from './messages/messages.service';
 import { NotificationsService } from './notifications/notifications.service';
+import { MenuService } from './menus/menu.service';
+import { Menu } from '@valor-launchpad/api-interfaces';
 
 @Controller('v1')
 export class UsersController {
-  constructor(private usersService: UsersService,private messageService:MessagesService,private notificationSerivce:NotificationsService) {
-  }
+  constructor(
+    private usersService: UsersService,
+    private messageService:MessagesService,
+    private notificationSerivce:NotificationsService,
+    private menuService: MenuService,
+  ) {}
 
   @Get('getRoles')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -70,5 +76,11 @@ export class UsersController {
   @Get('notifications')
   async getNotifications(@Body() user, @User() actingUser: UserEntity){
     return await this.notificationSerivce.getNotifications(user.id,actingUser)
+  }
+
+  @Get('menus')
+  async getMenus(@Req() req: RequestWithSession, @User() actingUser: UserEntity): Promise<Menu[]> {
+    const currentUserRoles = req.session.user.userRoles.map(i => i.role_id);
+    return await this.menuService.getMenus(currentUserRoles);
   }
 }

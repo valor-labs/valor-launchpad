@@ -36,7 +36,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Sign In                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Sign Up                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
 | Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-apexcharts        | ✅              | ▢                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Charts-chartjs           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Chat                     | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
@@ -65,7 +65,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Forms Layouts            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Validation         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Wizard             | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Icons Font Awesome       | ✅              | ▢                    | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Icons Font Awesome       | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Invoice                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Maps Google              | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Maps Vector              | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
@@ -89,7 +89,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | UI Modals                | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Off Canvas            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Tabs                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| UI Typography            | ✅              | ▢                    | ▢               | ▢              | ▢           | ▢                | ▢        |
+| UI Typography            | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Verify User              | ✅              | ✅                   | ✅               | ▢               | ▢           | ▢                | ▢        |
 
 ## Future Features

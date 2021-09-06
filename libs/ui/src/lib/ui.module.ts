@@ -64,6 +64,9 @@ import { DropdownMegaMenuComponent } from './dropdown/dropdown-mega-menu/dropdow
 import { DropdownActionsMenuComponent } from './dropdown/dropdown-actions-menu/dropdown-actions-menu.component';
 import { DropdownActionComponent } from './dropdown/dropdown-action/dropdown-action.component';
 import {NOTYFToken, notyfFactory} from "./notyf";
+import { FormLabelComponent } from './forms/form-label.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { TypographyDirective } from './typography/typography.directive';
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
@@ -111,6 +114,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     IconDirective,
     InputGroupComponent,
     FormItemComponent,
+    FormLabelComponent,
     StepComponent,
     CheckboxComponent,
     DynamicFieldDirective,
@@ -129,6 +133,8 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     DropdownActionsMenuComponent,
     ...cardPart,
     DropdownActionComponent,
+    SpinnerComponent,
+    TypographyDirective
   ],
   exports: [
     TabsModule,
@@ -153,6 +159,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     IconDirective,
     InputGroupComponent,
     FormItemComponent,
+    FormLabelComponent,
     CheckboxComponent,
     DynamicFormComponent,
     RowDirective,
@@ -164,7 +171,9 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     DropdownMegaMenuComponent,
     DropdownActionsMenuComponent,
     ...cardPart,
-    DropdownActionComponent
+    DropdownActionComponent,
+    SpinnerComponent,
+    TypographyDirective
   ],
   providers: [
     { provide: NOTYFToken, useFactory: notyfFactory }

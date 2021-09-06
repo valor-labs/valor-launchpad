@@ -23,9 +23,11 @@ import {HttpModule} from './core/http/http.module';
 import {environment} from '../environments/environment';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {NgxMaskModule} from 'ngx-mask';
+import { ThemeBuilderComponent } from './core/theme-builder/theme-builder.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent],
+  declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent, ThemeBuilderComponent],
   imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, AppRoutingModule,
     RouterModule, FooterModule, NavigationModule, HeaderModule,
     CollapseModule.forRoot(),
@@ -35,7 +37,7 @@ import {NgxMaskModule} from 'ngx-mask';
     UiModule, NgxChartsModule, ToastrModule.forRoot(),
     HttpModule.forRoot({ environment }),
     BsDatepickerModule.forRoot(),
-    NgxMaskModule.forRoot(),
+    NgxMaskModule.forRoot(), ReactiveFormsModule
   ],
   providers: [CookieService,
     {

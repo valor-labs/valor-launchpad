@@ -13,15 +13,15 @@ $settings-width: 320px;
   background: $white;
   color: $black;
   position: fixed;
-  top: 200px;
+  top: 0px;
   z-index: 10;
-  right: 0;
-  width: 54px;
-  height: 150px;
+  right: 450px;
+  width: 161px;
+  height: 54px;
   padding: $spacer*0.5;
   border-top-left-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
-  box-shadow: -5px 0px 10px 0px rgba(0,0,0,0.1);
+  box-shadow: -5px 0px 10px 0px rgba(0, 0, 0, 0.1);
   transition: all .1s ease-in-out;
   cursor: pointer;
 }
@@ -33,31 +33,33 @@ body[data-theme=dark] {
 }
 
 .settings-toggle-option {
-  display: block;
+  display: inline-block;
   text-align: center;
   text-transform: uppercase;
   font-size: 0.875rem;
   font-weight: $font-weight-bold;
-  writing-mode: vertical-rl;
   color: $black;
   background: darken($gray-100, 2);
   padding: $spacer*0.5;
   border-radius: $border-radius;
-  height: 34px;
 
   &:hover {
     background: darken($gray-100, 5);
     color: $black;
   }
-  
+
   &:first-child {
     color: darken($primary, 10);
-    margin-bottom: $spacer*0.5;
+    margin-right: $spacer*0.5;
   }
 
   svg {
     stroke-width: 2;
   }
+}
+
+.settings-toggle-documentation {
+  width: 40px
 }
 
 body[data-theme=dark] {
@@ -74,13 +76,6 @@ body[data-theme=dark] {
   }
 }
 
-.settings-toggle-option-text {
-  height: 93px;
-
-  svg {
-    transform: rotate(-90deg);
-  }
-}
 
 .settings-panel {
   background: $white;
