@@ -9,12 +9,14 @@ import { TimeAgoPipe } from './time-ago.pipe';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { SocialActivityComponent } from './social-activity/social-activity.component';
 
-
 @NgModule({
   declarations: [
     DashboardSocialComponent,
     SocialStoryComponent,
     TimeAgoPipe,
+    SocialActivityComponent
+  ],
+  exports: [
     SocialActivityComponent
   ],
   imports: [

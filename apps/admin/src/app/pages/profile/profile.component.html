@@ -1,32 +1,36 @@
 <h1 class="h3 mb-3">Profile</h1>
 
-<div class="row" *ngIf="profile">
-  <div class="col-md-4 col-xl-3">
+<div valorLaunchpadRow *ngIf="profile">
+  <div valorLaunchpadCol [md]="4" [xl]="3">
     <valor-launchpad-card>
-      <div card-header>
-        <h5 class="card-title mb-0">Profile Details</h5>
-      </div>
-      <div card-body>
-<!--        TODO: refactor these to not have card-body classes-->
-        <div class="card-body text-center">
-          <valor-launchpad-avatar [src]="profile.avatar" size="xxl" classes="mb-2 img-fluid"
-                                  [alt]="profile.name"></valor-launchpad-avatar>
+      <valor-launchpad-card-header>
+        <h5 valor-launchpad-card-title>Profile Details</h5>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content>
+        <div class="m-3 text-center">
+          <valor-launchpad-avatar
+            [src]="profile.avatar || 'assets/img/avatars/avatar.jpg'"
+            size="xxl"
+            classes="mb-2 img-fluid"
+            [alt]="profile.name">
+          </valor-launchpad-avatar>
           <h5 class="card-title mb-0">{{profile.name}}</h5>
           <div class="text-muted mb-2">{{profile.title}}</div>
           <div>
-            <a *ngIf="!profile.following" class="btn btn-primary btn-sm" href="#">Follow</a>
-            <a *ngIf="profile.following" class="btn btn-primary btn-sm" href="#">Unfollow</a>
-            <a class="btn btn-primary btn-sm" href="#"><i class="align-middle me-2 fas fa-fw fa-comment-alt"></i>
-              Message</a>
+            <button valor-launchpad-button size="sm" *ngIf="!profile.following">Follow</button>
+            <button valor-launchpad-button size="sm" *ngIf="profile.following">Unfollow</button>
+            <button valor-launchpad-button size="sm">
+              <i class="align-middle me-2 fas fa-fw fa-comment-alt"></i>Message
+            </button>
           </div>
         </div>
         <hr class="my-0"/>
-        <div class="card-body">
+        <div class="m-3">
           <h5 class="h6 card-title">Skills</h5>
           <a href="#" class="badge bg-primary me-1 my-1" *ngFor="let skill of profile.skills">{{skill.name}}</a>
         </div>
         <hr class="my-0"/>
-        <div class="card-body">
+        <div class="m-3">
           <h5 class="h6 card-title">About</h5>
           <ul class="list-unstyled mb-0">
             <li class="mb-1">
@@ -43,7 +47,7 @@
           </ul>
         </div>
         <hr class="my-0"/>
-        <div class="card-body">
+        <div class="m-3">
           <h5 class="h6 card-title">Elsewhere</h5>
           <ul class="list-unstyled mb-0">
             <li class="mb-1" *ngFor="let social of profile.social_media">
@@ -52,112 +56,30 @@
             </li>
           </ul>
         </div>
-      </div>
+      </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div class="col-md-8 col-xl-9">
-    <div class="card">
-      <div class="card-header">
+  <div valorLaunchpadCol [md]="8" [xl]="9">
+    <valor-launchpad-card>
+      <valor-launchpad-card-header>
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
+          <valor-launchpad-dropdown>
+            <span dropdown-nav><i class="fas fa-fw fa-ellipsis-h"></i></span>
+            <valor-launchpad-dropdown-actions-menu [actions]="actions"></valor-launchpad-dropdown-actions-menu>
+          </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">Activities</h5>
-      </div>
-      <div class="card-body h-100">
-        <div *ngFor="let item of profile.activity">
-          <div *ngIf="item.type=='follower'">
-            <div class="d-flex align-items-start">
-              <valor-launchpad-avatar [src]="item.avatar" size="md" class="me-2"
-                                      [alt]="item.name"></valor-launchpad-avatar>
-              <div class="flex-grow-1">
-                <small class="float-end">5m ago</small>
-                <strong>{{item.name}}</strong> started following <strong>{{profile.name}}</strong><br/>
-                <small class="text-muted">Today 7:51 pm</small><br/>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="item.type=='wall'">
-            <div class="d-flex align-items-start">
-              <valor-launchpad-avatar [src]="item.avatar" size="md" class="me-2"
-                                      [alt]="item.name"></valor-launchpad-avatar>
-              <div class="flex-grow-1">
-                <small class="float-end">30m ago</small>
-                <strong>{{item.name}}</strong> posted something on <strong>{{profile.name}}</strong>'s timeline<br/>
-                <small class="text-muted">Today 7:21 pm</small>
-
-                <div class="border text-sm text-muted p-2 mt-1" [innerHTML]="item.body">
-
-                </div>
-                <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm far fa-fw fa-heart"></i> Like</a>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="item.type=='post'">
-            <div class="d-flex align-items-start">
-              <valor-launchpad-avatar [src]="item.avatar" size="md" class="me-2"
-                                      [alt]="item.name"></valor-launchpad-avatar>
-              <div class="flex-grow-1">
-                <small class="float-end">3h ago</small>
-                <strong>{{item.name}}</strong> posted {{item.description}} on <strong>{{profile.name}}</strong>'s
-                timeline<br/>
-                <small class="text-muted">Today 5:12 pm</small>
-
-                <div class="row g-0 mt-1" [innerHTML]="item.body"></div>
-
-                <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm far fa-fw fa-heart"></i> Like</a>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="item.type =='blog'">
-            <div class="d-flex align-items-start">
-              <valor-launchpad-avatar [src]="item.avatar" size="md" class="me-2"
-                                      [alt]="item.name"></valor-launchpad-avatar>
-              <div class="flex-grow-1">
-                <small class="float-end">1d ago</small>
-                <strong>Stacie Hall</strong> posted a new blog<br/>
-                <small class="text-muted">Yesterday 2:43 pm</small>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="item.type=='follower_with_comments'">
-            <div class="d-flex align-items-start">
-              <valor-launchpad-avatar [src]="item.avatar" size="md" class="me-2"
-                                      [alt]="item.name"></valor-launchpad-avatar>
-              <div class="flex-grow-1">
-                <small class="float-end">1d ago</small>
-                <strong>{{item.name}}</strong> started following <strong>{{profile.name}}</strong><br/>
-                <small class="text-muted">Yesterday 3:12 pm</small>
-
-                <div class="d-flex align-items-start mt-1" *ngFor="let child of item.children">
-                  <a class="pe-3" href="#">
-                    <valor-launchpad-avatar [src]="child.avatar" size="md" class="me-2"
-                                            [alt]="child.name"></valor-launchpad-avatar>
-                  </a>
-                  <div class="flex-grow-1">
-                    <div class="border text-sm text-muted p-2 mt-1" [innerHTML]="child.body"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr/>
-        </div>
-<!--        TODO implement this-->
-        <div class="d-grid">
-          <a href="#" class="btn btn-primary">Load more</a>
-        </div>
-      </div>
-    </div>
+      </valor-launchpad-card-header>
+      <valor-launchpad-card-content class="h-100">
+        <ng-container *ngFor='let activity of activities'>
+<!--          todo: the following component can be move to a common module-->
+          <valor-launchpad-social-activity  [activity]='activity'></valor-launchpad-social-activity>
+          <hr />
+        </ng-container>
+        <!--        TODO implement this-->
+        <button valor-launchpad-button class='w-100'>Load More</button>
+      </valor-launchpad-card-content>
+    </valor-launchpad-card>
   </div>
 </div>
