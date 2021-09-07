@@ -24,8 +24,7 @@ export class AuthController {
       const loginResponse = await this.authService.login(body);
       req.session.token = loginResponse.access_token;
       req.session.user = loginResponse.user;
-      const url = new URL(process.env.HOST);
-      response.cookie('access_token', loginResponse.access_token, { domain: url.host });
+      response.cookie('access_token', loginResponse.access_token)
       const loginResult = await this.authService.login(body);
       response.send(loginResult);
     } catch (error) {
