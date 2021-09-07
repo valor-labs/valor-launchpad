@@ -17,9 +17,9 @@
           <h5 class="card-title mb-0">{{profile.name}}</h5>
           <div class="text-muted mb-2">{{profile.title}}</div>
           <div>
-            <button valor-launchpad-button [size]="'sm'" *ngIf="!profile.following">Follow</button>
-            <button valor-launchpad-button [size]="'sm'" *ngIf="profile.following">Unfollow</button>
-            <button valor-launchpad-button [size]="'sm'">
+            <button valor-launchpad-button size="sm" *ngIf="!profile.following">Follow</button>
+            <button valor-launchpad-button size="sm" *ngIf="profile.following">Unfollow</button>
+            <button valor-launchpad-button size="sm">
               <i class="align-middle me-2 fas fa-fw fa-comment-alt"></i>Message
             </button>
           </div>
