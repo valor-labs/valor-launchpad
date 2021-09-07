@@ -9,6 +9,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { CalendarRoutingModule } from './calendar-routing.module'
 
 import { CalendarComponent } from './calendar.component'
+import {UiModule} from "@valor-launchpad/ui";
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -22,7 +23,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   imports: [
     CommonModule,
     CalendarRoutingModule,
-    FullCalendarModule
+    FullCalendarModule,
+    UiModule
   ]
 })
 export class CalendarModule { }

@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, FullCalendarComponent } from '@fullcalendar/angular'
-// import zhLocale from '@fullcalendar/core/locales/zh-cn'
+import { Component, OnInit } from '@angular/core'
+import { CalendarOptions, DateSelectArg, EventApi, EventClickArg } from '@fullcalendar/angular'
 
 
 @Component({
@@ -9,8 +8,6 @@ import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, FullCalendarCo
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
-
-  @ViewChild(FullCalendarComponent, { static: false }) public calendarComponent: FullCalendarComponent
 
   public currentEvents: EventApi[] = []
   public showDate = []
@@ -74,10 +71,7 @@ export class CalendarComponent implements OnInit {
     ]
 }
 
-  // constructor() { }
-
   ngOnInit(): void {
-    // console.log('FullCalendarModule', FullCalendarComponent)
   }
 
   public toggleWeekends(): void {
@@ -88,7 +82,7 @@ export class CalendarComponent implements OnInit {
     const calendarApi = selectInfo.view.calendar
     calendarApi.unselect() // clear date selection
     calendarApi.addEvent({
-      title: '选中',
+      title: 'selected',
       start: selectInfo.startStr,
       end: selectInfo.endStr,
       allDay: selectInfo.allDay
