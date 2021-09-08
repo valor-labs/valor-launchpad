@@ -6,8 +6,6 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import 'jsvectormap';
-import 'jsvectormap/dist/maps/us-aea-en.js';
 import type { TableColumn } from '@swimlane/ngx-datatable';
 import { Action } from '@valor-launchpad/api-interfaces';
 import { DashboardSaasService } from './dashboard-saas.service';
@@ -71,7 +69,7 @@ export class DashboardSaasComponent implements OnInit, AfterViewInit {
   private initUsMap() {
     this.usMap = new jsVectorMap({
       map: 'us_aea_en',
-      selector: '#usa_map',
+      selector: '#sales-by-state',
       zoomButtons: true,
       markerStyle: {
         initial: {
