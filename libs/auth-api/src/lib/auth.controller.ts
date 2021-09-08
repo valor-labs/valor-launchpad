@@ -24,13 +24,7 @@ export class AuthController {
       const loginResponse = await this.authService.login(body);
       req.session.token = loginResponse.access_token;
       req.session.user = loginResponse.user;
-      const host = new URL(process.env.HOST).host;
-      if (host.includes('localhost')) {
-        response.cookie('access_token', loginResponse.access_token);
-      } else {
-        // todo: hardcode temporarily
-        response.cookie('access_token', loginResponse.access_token, {domain: 'testadmindomain.xyz'});
-      }
+      response.cookie('access_token', loginResponse.access_token)
       const loginResult = await this.authService.login(body);
       response.send(loginResult);
     } catch (error) {
