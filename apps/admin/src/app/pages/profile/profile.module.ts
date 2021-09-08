@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import {ProfileRoutingModule} from "./profile-routing.module";
 import {UiModule} from "@valor-launchpad/ui";
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 
@@ -13,7 +14,8 @@ import {UiModule} from "@valor-launchpad/ui";
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    UiModule
+    UiModule,
+    BsDropdownModule.forRoot(),
   ]
 })
 export class ProfileModule { }

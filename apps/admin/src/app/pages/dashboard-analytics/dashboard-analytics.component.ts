@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DashboardAnalyticsService} from './dashboard-analytics.service';
 import {Action} from '@valor-launchpad/api-interfaces';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'valor-launchpad-dashboard-analytics',
@@ -133,7 +134,8 @@ export class DashboardAnalyticsComponent implements OnInit {
 
 
   constructor(
-    private dashboardAnalyticsService: DashboardAnalyticsService
+    private dashboardAnalyticsService: DashboardAnalyticsService,
+    private toastr: ToastrService
   ) {
   }
 
@@ -146,6 +148,18 @@ export class DashboardAnalyticsComponent implements OnInit {
       this.sourceMediumTableData = data.sourceMediumTableData;
       this.trafficTableData = data.trafficTableData;
     });
+  }
+
+  onClickAction(): void {
+    this.toastr.success('Action!', 'You Click the Action!');
+  }
+
+  onClickAnotherAction(): void {
+    alert('You Click the Another Action!');
+  }
+
+  onClickSomethingElse(): void {
+    console.log('You click the something else');
   }
 
 }

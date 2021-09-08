@@ -5,17 +5,16 @@
 
   <div class="col-auto ms-auto text-end mt-n1">
 
-    <div class="dropdown me-2 d-inline-block">
-      <a class="btn btn-light bg-white shadow-sm dropdown-toggle" href="#" data-bs-toggle="dropdown"
-         data-bs-display="static">
+    <div class="dropdown me-2 d-inline-block" dropdown container='body'>
+      <a class="btn btn-light bg-white shadow-sm dropdown-toggle" dropdownToggle>
         <i class="align-middle mt-n1  far fa-fw fa-calendar"></i> Today
       </a>
 
-      <div class="dropdown-menu dropdown-menu-end">
+      <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
         <h6 class="dropdown-header">Settings</h6>
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
+        <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+        <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+        <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Separated link</a>
       </div>
@@ -128,15 +127,15 @@
     <div class="card flex-fill w-100">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown show" dropdown container='body'>
+            <a dropdownToggle>
               <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -156,15 +155,15 @@
     <div class="card flex-fill w-100">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown show" dropdown>
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -198,15 +197,15 @@
     <div class="card flex-fill w-100">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown show" dropdown>
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -235,15 +234,15 @@
     <div class="card flex-fill">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown show" dropdown container="body">
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -272,15 +271,15 @@
     <div class="card flex-fill w-100">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown" dropdown>
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -326,15 +325,15 @@
     <div class="card flex-fill">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown" dropdown container="body">
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
