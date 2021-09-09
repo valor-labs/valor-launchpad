@@ -1,6 +1,9 @@
 import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
 import {DashboardAnalyticsService} from './dashboard-analytics.service';
 
+import "jsvectormap/dist/js/jsvectormap.js"
+import 'jsvectormap/dist/maps/world.js';
+
 declare const jsVectorMap: any;
 
 const worldMarkers = [

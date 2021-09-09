@@ -10,6 +10,9 @@ import type { TableColumn } from '@swimlane/ngx-datatable';
 import { Action } from '@valor-launchpad/api-interfaces';
 import { DashboardSaasService } from './dashboard-saas.service';
 
+import "jsvectormap/dist/js/jsvectormap.js"
+import 'jsvectormap/dist/maps/us-aea-en.js';
+
 declare const jsVectorMap: any;
 
 @Component({

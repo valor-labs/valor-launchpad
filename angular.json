@@ -69,10 +69,7 @@
             ],
             "scripts": [
               "node_modules/qrcodejs/qrcode.js",
-              "node_modules/apexcharts/dist/apexcharts.min.js",
-              "node_modules/jsvectormap/dist/js/jsvectormap.js",
-              "node_modules/jsvectormap/dist/maps/us-aea-en.js",
-              "node_modules/jsvectormap/dist/maps/world.js"
+              "node_modules/apexcharts/dist/apexcharts.min.js"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -91,7 +88,7 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
