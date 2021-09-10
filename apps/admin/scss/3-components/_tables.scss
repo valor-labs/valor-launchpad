@@ -101,7 +101,7 @@ datatable-header {
 
 
 .datatable-row-even {
-  background: #f4f7f9;
+  background: $table-striped-bg;
 }
 
 .datatable-header-cell {
@@ -119,10 +119,10 @@ datatable-header {
     a {
       &:hover, &:hover i:before {
         z-index: 2;
-        color: #020202 !important;;
+        color: $gray-800 !important;;
         text-decoration: none;
-        background-color: #e2e8ee !important;
-        border-color: #dee6ed !important;
+        background-color: $gray-200 !important;
+        border-color: $gray-300 !important;
       }
     }
   }
@@ -131,9 +131,9 @@ datatable-header {
   .pages {
     &.active a {
       z-index: 3;
-      color: #fff;
-      background-color: #3F80EA;
-      border-color: #3F80EA;
+      color: $white;
+      background-color: $primary;
+      border-color: $primary;
     }
 
     a {
@@ -141,9 +141,9 @@ datatable-header {
       padding: 0.3rem 0.75rem;
       position: relative;
       display: block;
-      color: #6c757d;
-      background-color: #fff;
-      border: 1px solid #dee6ed;
+      color: $gray-600;
+      background-color: $white;
+      border: 1px solid $gray-300;
       transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
   }
@@ -151,26 +151,25 @@ datatable-header {
 
 .datatable-valor-left:before, .datatable-valor-right:before {
   display: block;
-  border-top-left-radius: 0.2rem;
-  border-bottom-left-radius: 0.2rem;
-  color: #6c757d;
+  color: $gray-600;
   pointer-events: none;
-  background-color: #fff;
-  border-color: #dee6ed;
+  background-color: $white;
   padding: 0.3rem 0.75rem;
   position: relative;
-  display: block;
-  color: #6c757d;
-  background-color: #fff;
-  border: 1px solid #dee6ed;
+  border: 1px solid $gray-300;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   font-style: normal;
 }
 
 .datatable-valor-left:before {
+  border-top-left-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem;
   content: 'Pervious';
 }
 
 .datatable-valor-right:before {
+  border-top-right-radius: 0.2rem;
+  border-bottom-right-radius: 0.2rem;
+  margin-left: -1px;
   content: 'Next';
 }
