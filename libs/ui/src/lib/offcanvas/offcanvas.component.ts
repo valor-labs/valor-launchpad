@@ -2,8 +2,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  Renderer2,
   SimpleChanges,
 } from '@angular/core';
 
@@ -12,7 +14,7 @@ import {
   templateUrl: './offcanvas.component.html',
   styleUrls: ['./offcanvas.component.css'],
 })
-export class OffcanvasComponent implements OnInit {
+export class OffcanvasComponent implements OnInit, OnChanges {
   @Input()
   show: boolean = false;
 
@@ -39,32 +41,21 @@ export class OffcanvasComponent implements OnInit {
 
   handleClose() {
     this.onClose.emit();
-    document.body.setAttribute('class', '');
-    document.body.setAttribute('style', '');
   }
 
-  constructor() {}
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.show.currentValue) {
-      if (this.backdrop) {
-        document.body.setAttribute('class', 'offcanvas-backdrop');
-      } else {
-        document.body.setAttribute('class', '');
-      }
       if (this.scrolling) {
-        document.body.setAttribute('style', 'overflow: auto;');
+        this.renderer.removeClass(document.body, 'no-scroll');
       } else {
-        document.body.setAttribute(
-          'style',
-          'overflow: hidden; padding-right: 0px;'
-        );
+        this.renderer.addClass(document.body, 'no-scroll');
       }
     } else {
-      document.body.setAttribute('class', '');
-      document.body.setAttribute('style', '');
+      this.renderer.removeClass(document.body, 'no-scroll');
     }
   }
 }
