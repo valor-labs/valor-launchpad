@@ -69,7 +69,7 @@ export class HeaderComponent implements OnInit {
     {
       label: 'Profile',
       icon: 'user',
-      link: 'pages-profile.html',
+      routerLink: '/profile',
     },
     {
       label: 'Analytics',

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
 import {DashboardAnalyticsService} from './dashboard-analytics.service';
-
+import { ToastrService } from 'ngx-toastr';
 import "jsvectormap/dist/js/jsvectormap.js"
 import 'jsvectormap/dist/maps/world.js';
 
@@ -84,6 +84,7 @@ const worldMarkers = [
     name: "Madrid"
   }
 ];
+
 
 @Component({
   selector: 'valor-launchpad-dashboard-analytics',
@@ -217,9 +218,10 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
   private worldMap; // jsVectorMap instance
 
   constructor(
-    private dashboardAnalyticsService: DashboardAnalyticsService
-  ) { }
-
+    private dashboardAnalyticsService: DashboardAnalyticsService,
+    private toastr: ToastrService
+  ) {
+  }
   @HostListener('window:resize')
   onWindowResize() {
     this.worldMap?.updateSize();
@@ -263,4 +265,16 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
       }
     })
   }
+  onClickAction(): void {
+    this.toastr.success('Action!', 'You Click the Action!');
+  }
+
+  onClickAnotherAction(): void {
+    alert('You Click the Another Action!');
+  }
+
+  onClickSomethingElse(): void {
+    console.log('You click the something else');
+  }
+
 }

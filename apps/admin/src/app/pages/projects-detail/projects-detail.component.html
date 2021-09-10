@@ -1,104 +1,107 @@
-<h1 class="h3 mb-3">Project Details</h1>
+<h1 class='h3 mb-3'>Project Details</h1>
 
-<div class="row">
-  <div class="col-lg-6 col-xl-3 d-flex" *ngFor="let rollupItem of project?.rollupData | keyvalue">
-    <div class="card flex-fill">
-      <div class="card-header">
-        <h5 class="card-title mb-0 mt-2">{{rollupItem.key}}</h5>
+<div class='row'>
+  <div class='col-lg-6 col-xl-3 d-flex' *ngFor='let rollupItem of project?.rollupData | keyvalue'>
+    <div class='card flex-fill'>
+      <div class='card-header'>
+        <h5 class='card-title mb-0 mt-2'>{{rollupItem.key}}</h5>
       </div>
-      <div class="card-body my-0 pt-0">
-        <div class="row d-flex align-items-center mb-3">
-          <div class="col-8">
-            <h3 class="d-flex align-items-center mb-0 fw-light">
+      <div class='card-body my-0 pt-0'>
+        <div class='row d-flex align-items-center mb-3'>
+          <div class='col-8'>
+            <h3 class='d-flex align-items-center mb-0 fw-light'>
               {{rollupItem.value.current|number}}
             </h3>
           </div>
-          <div class="col-4 text-end">
-            <span class="text-muted">{{(rollupItem.value.current / rollupItem.value.goal) * 100|number:'1.0-0'}}%</span>
+          <div class='col-4 text-end'>
+            <span class='text-muted'>{{(rollupItem.value.current / rollupItem.value.goal) * 100|number:'1.0-0'}}%</span>
           </div>
         </div>
 
-        <div class="progress progress-sm shadow-sm mb-1">
-          <div class="progress-bar" [ngClass]="rollupItem.value.status" role="progressbar"
-               style="width: {{(rollupItem.value.current / rollupItem.value.goal)*100}}%"></div>
+        <div class='progress progress-sm shadow-sm mb-1'>
+          <div class='progress-bar' [ngClass]='rollupItem.value.status' role='progressbar'
+               style='width: {{(rollupItem.value.current / rollupItem.value.goal)*100}}%'></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-lg-6 col-xxl-8">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
+<div class='row'>
+  <div class='col-lg-6 col-xxl-8'>
+    <div class='card'>
+      <div class='card-header'>
+        <div class='card-actions float-end'>
+          <div class='dropdown' dropdown>
+            <a dropdownToggle>
+              <i class='align-middle fas fa-fw fa-ellipsis-h'></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class='dropdown-menu' *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
-        <h5 class="card-title mb-0">Upgrade CRM software</h5>
-        <div class="badge my-2" [ngClass]="project?.badge?.status">{{project?.badge?.title}}</div>
+        <h5 class='card-title mb-0'>Upgrade CRM software</h5>
+        <div class='badge my-2' [ngClass]='project?.badge?.status'>{{project?.badge?.title}}</div>
       </div>
-      <div class="card-body pt-0">
+      <div class='card-body pt-0'>
         <h5>Description</h5>
 
-        <p class="text-muted" [innerHTML]="project?.body">
+        <p class='text-muted' [innerHTML]='project?.body'>
         </p>
 
         <div>
           <h5>Assignee</h5>
-          <valor-launchpad-avatar *ngFor="let assignee of project?.assignee" [src]="assignee.user.avatar.src" classes="me-1"
-                                  [alt]="assignee.user.avatar.alt"
-                                  size="md"></valor-launchpad-avatar>
+          <valor-launchpad-avatar *ngFor='let assignee of project?.assignee' [src]='assignee.user?.avatar?.src'
+                                  classes='me-1'
+                                  [alt]='assignee.user?.avatar?.alt'
+                                  size='md'></valor-launchpad-avatar>
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+    <div class='card'>
+      <div class='card-header'>
+        <div class='card-actions float-end'>
+          <div class='dropdown' dropdown>
+            <a dropdownToggle>
+              <i class='align-middle  fas fa-fw fa-ellipsis-h'></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class='dropdown-menu' *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
         <!--          TODO: Do comments include child comments?-->
         <!--          TODO: pluralize the comments string-->
         <!--        TODO: Have something for no comments-->
-        <h5 class="card-title mb-0">Comments ({{project?.comments?.length}})</h5>
+        <h5 class='card-title mb-0'>Comments ({{project?.comments?.length}})</h5>
       </div>
-      <div class="card-body">
+      <div class='card-body'>
         <!--TODO add HR after each of these but last one-->
-        <div class="d-flex align-items-start" *ngFor="let comment of project?.comments">
-          <valor-launchpad-avatar size="xl" [src]="comment.author.avatar.src" classes="me-3" [alt]="comment.author.avatar.alt"></valor-launchpad-avatar>
-          <div class="flex-grow-1">
-            <small class="float-end">45m ago</small>
-            <p class="mb-2"><strong>{{comment.author.firstName}}</strong></p>
-            <p [innerHTML]="comment.body"></p>
+        <div class='d-flex align-items-start' *ngFor='let comment of project?.comments'>
+          <valor-launchpad-avatar size='xl' [src]='comment?.author?.avatar?.src' classes='me-3'
+                                  [alt]='comment?.author?.avatar?.alt'></valor-launchpad-avatar>
+          <div class='flex-grow-1'>
+            <small class='float-end'>45m ago</small>
+            <p class='mb-2'><strong>{{comment?.author?.firstName}}</strong></p>
+            <p [innerHTML]='comment.body'></p>
             <!--              TODO: Make this say 'today' or 'yesterday' when appropriate-->
-            <small class="text-muted">{{comment.timestamp|date:'short'}}</small><br/>
-            <div class="d-flex align-items-start mt-3" *ngFor="let child of comment.children">
-              <a class="pe-2" href="#">
-                <valor-launchpad-avatar size="md" [src]="child.author.avatar.src" classes="me-2" [alt]="child.author.avatar.alt"></valor-launchpad-avatar>
+            <small class='text-muted'>{{comment?.timestamp|date:'short'}}</small><br />
+            <div class='d-flex align-items-start mt-3' *ngFor='let child of comment?.children'>
+              <a class='pe-2' href='#'>
+                <valor-launchpad-avatar size='md' [src]='child?.author?.avatar?.src' classes='me-2'
+                                        [alt]='child?.author?.avatar?.alt'></valor-launchpad-avatar>
               </a>
-              <div class="flex-grow-1">
-                <p class="text-muted">
-                  <strong>{{child.author.firstName}}</strong>: {{child.body}}
+              <div class='flex-grow-1'>
+                <p class='text-muted'>
+                  <strong>{{child?.author?.firstName}}</strong>: {{child.body}}
                   <!--                    TODO: we need to add some time around these as well-->
                 </p>
               </div>
@@ -108,109 +111,110 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 col-xxl-4">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+  <div class='col-lg-6 col-xxl-4'>
+    <div class='card'>
+      <div class='card-header'>
+        <div class='card-actions float-end'>
+          <div class='dropdown' dropdown container='body'>
+            <a dropdownToggle>
+              <i class='align-middle fas fa-fw fa-ellipsis-h'></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
-        <h5 class="card-title mb-0">Information</h5>
+        <h5 class='card-title mb-0'>Information</h5>
       </div>
-      <div class="card-body">
+      <div class='card-body'>
 
-        <dl class="row">
-          <dt class="col-4 col-xxl-3">Assignee</dt>
-          <dd class="col-8 col-xxl-9">
-            <valor-launchpad-avatar *ngFor="let assignee of project?.assignee" [src]="assignee.user.avatar.src" classes="me-1 mt-n1"
-                                    [alt]="assignee.user.avatar.alt" size="sm"></valor-launchpad-avatar>
+        <dl class='row'>
+          <dt class='col-4 col-xxl-3'>Assignee</dt>
+          <dd class='col-8 col-xxl-9'>
+            <valor-launchpad-avatar *ngFor='let assignee of project?.assignee' [src]='assignee?.user?.avatar?.src'
+                                    classes='me-1 mt-n1'
+                                    [alt]='assignee?.user?.avatar?.alt' size='sm'></valor-launchpad-avatar>
           </dd>
 
-          <dt class="col-4 col-xxl-3 mb-0">Reporter</dt>
-          <dd class="col-8 col-xxl-9 mb-0">
-            <valor-launchpad-avatar [src]="project?.summary.reporter?.avatar?.src" classes="me-1 mt-n1" alt="Avatar"
-                                    size="sm"></valor-launchpad-avatar>
-          </dd>
-        </dl>
-
-        <hr/>
-
-        <dl class="row">
-          <dt class="col-4 col-xxl-3">Created</dt>
-          <dd class="col-8 col-xxl-9">
-            <p class="mb-1">{{project?.summary.createdDate |date: 'medium'}}</p>
-          </dd>
-
-          <dt class="col-4 col-xxl-3">Start</dt>
-          <dd class="col-8 col-xxl-9">
-            <p class="mb-1">{{project?.summary.startDate |date: 'medium'}}</p>
-          </dd>
-
-          <dt class="col-4 col-xxl-3 mb-0">End</dt>
-          <dd class="col-8 col-xxl-9 mb-0">
-            <p class="mb-0">{{project?.summary.endDate |date: 'medium'}}</p>
+          <dt class='col-4 col-xxl-3 mb-0'>Reporter</dt>
+          <dd class='col-8 col-xxl-9 mb-0'>
+            <valor-launchpad-avatar [src]='project?.summary.reporter?.avatar?.src' classes='me-1 mt-n1' alt='Avatar'
+                                    size='sm'></valor-launchpad-avatar>
           </dd>
         </dl>
 
-        <hr/>
+        <hr />
 
-        <dl class="row">
-          <dt class="col-4 col-xxl-3 mb-0">Budget</dt>
-          <dd class="col-8 col-xxl-9 mb-0">
-            <p class="mb-0">{{project?.summary.budget | currency: 'USD'}}</p>
+        <dl class='row'>
+          <dt class='col-4 col-xxl-3'>Created</dt>
+          <dd class='col-8 col-xxl-9'>
+            <p class='mb-1'>{{project?.summary.createdDate |date: 'medium'}}</p>
+          </dd>
+
+          <dt class='col-4 col-xxl-3'>Start</dt>
+          <dd class='col-8 col-xxl-9'>
+            <p class='mb-1'>{{project?.summary.startDate |date: 'medium'}}</p>
+          </dd>
+
+          <dt class='col-4 col-xxl-3 mb-0'>End</dt>
+          <dd class='col-8 col-xxl-9 mb-0'>
+            <p class='mb-0'>{{project?.summary.endDate |date: 'medium'}}</p>
           </dd>
         </dl>
 
-        <hr/>
+        <hr />
 
-        <dl class="row mb-1">
-          <dt class="col-4 col-xxl-3">Status</dt>
-          <dd class="col-8 col-xxl-9">
-            <span class="badge mb-1" [ngClass]="project?.badge?.status">{{project?.badge?.title}}</span>
+        <dl class='row'>
+          <dt class='col-4 col-xxl-3 mb-0'>Budget</dt>
+          <dd class='col-8 col-xxl-9 mb-0'>
+            <p class='mb-0'>{{project?.summary.budget | currency: 'USD'}}</p>
           </dd>
-          <dt class="col-4 col-xxl-3">Logged</dt>
-          <dd class="col-8 col-xxl-9">
-            <p class="mb-1">{{project?.summary.logged}}</p>
+        </dl>
+
+        <hr />
+
+        <dl class='row mb-1'>
+          <dt class='col-4 col-xxl-3'>Status</dt>
+          <dd class='col-8 col-xxl-9'>
+            <span class='badge mb-1' [ngClass]='project?.badge?.status'>{{project?.badge?.title}}</span>
           </dd>
-          <dt class="col-4 col-xxl-3 mb-0">Estimated</dt>
-          <dd class="col-8 col-xxl-9 mb-0">
-            <p class="mb-0">{{project?.summary.estimated}}</p>
+          <dt class='col-4 col-xxl-3'>Logged</dt>
+          <dd class='col-8 col-xxl-9'>
+            <p class='mb-1'>{{project?.summary.logged}}</p>
+          </dd>
+          <dt class='col-4 col-xxl-3 mb-0'>Estimated</dt>
+          <dd class='col-8 col-xxl-9 mb-0'>
+            <p class='mb-0'>{{project?.summary.estimated}}</p>
           </dd>
         </dl>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+    <div class='card'>
+      <div class='card-header'>
+        <div class='card-actions float-end'>
+          <div class='dropdown' dropdown container='body'>
+            <a dropdownToggle>
+              <i class='align-middle fas fa-fw fa-ellipsis-h'></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
+            <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
               <!--              TODO: All card actions need to be bound and created from API-->
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
-        <h5 class="card-title mb-0">Earnings</h5>
+        <h5 class='card-title mb-0'>Earnings</h5>
       </div>
-      <div class="card-body">
-        <div class="chart">
+      <div class='card-body'>
+        <div class='chart'>
           <!--            TODO: Fix this chart-->
-          <canvas id="chartjs-projects-bar"></canvas>
+          <canvas id='chartjs-projects-bar'></canvas>
         </div>
       </div>
     </div>

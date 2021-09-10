@@ -4,9 +4,8 @@
   </div>
 
   <div class='col-auto ms-auto text-end mt-n1'>
-    <div class='dropdown me-2 d-inline-block' dropdown container='body' placement='bottom right'>
-      <a class='btn btn-light bg-white shadow-sm dropdown-toggle' dropdownToggle data-bs-toggle='dropdown'
-         data-bs-display='static'>
+    <div class='dropdown me-2 d-inline-block' dropdown container='body'>
+      <a class='btn btn-light bg-white shadow-sm dropdown-toggle' dropdownToggle>
         <i class='align-middle mt-n1  far fa-fw fa-calendar'></i> Today
       </a>
 
@@ -296,7 +295,7 @@
       <div class='card-header'>
         <div class='card-actions float-end'>
           <div class='dropdown show' dropdown container='body'>
-            <a data-bs-toggle='dropdown' data-bs-display='static' dropdownToggle>
+            <a dropdownToggle>
               <i class='align-middle    fas fa-fw fa-ellipsis-h'></i>
             </a>
 
@@ -325,12 +324,12 @@
 <div class='card flex-fill'>
   <div class='card-header'>
     <div class='card-actions float-end'>
-      <div class='dropdown show'>
-        <a href='#' data-bs-toggle='dropdown' data-bs-display='static'>
-          <i class='align-middle    fas fa-fw fa-ellipsis-h'></i>
+      <div class='dropdown show' dropdown container='body'>
+        <a dropdownToggle>
+          <i class='align-middle fas fa-fw fa-ellipsis-h'></i>
         </a>
 
-        <div class='dropdown-menu dropdown-menu-end'>
+        <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
           <a class='dropdown-item' href='#'>Action</a>
           <a class='dropdown-item' href='#'>Another action</a>
           <a class='dropdown-item' href='#'>Something else here</a>
