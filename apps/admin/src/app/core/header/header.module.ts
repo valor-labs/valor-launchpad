@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {HeaderRoutingModule} from './header-routing.module';
-import {HeaderComponent} from './header.component';
 import {UiModule} from '@valor-launchpad/ui';
+import {HeaderComponent} from './header.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { AutocompleteModule } from '../../../../../../libs/ui/src/lib/autocomplete/autocomplete.module';
+import { AutocompleteModule } from '@valor-launchpad/ui';
 
 @NgModule({
   declarations: [
