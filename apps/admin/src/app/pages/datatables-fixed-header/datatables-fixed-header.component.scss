@@ -18,18 +18,3 @@ div.dataTables_wrapper div.dataTables_filter {
     width: auto;
   }
 }
-
-:host ::ng-deep {
-  .table.ngx-datatable.fix-header {
-    transform: none;
-    .datatable-header {
-      position: fixed;
-      top: 0;
-      border-bottom-color: #fff !important;
-      background: #fff;
-      z-index: 9999;
-      width: 75%!important;
-    }
-  }
-}
-
