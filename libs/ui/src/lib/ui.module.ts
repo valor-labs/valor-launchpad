@@ -134,7 +134,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     ...cardPart,
     DropdownActionComponent,
     SpinnerComponent,
-    TypographyDirective
+    TypographyDirective,
   ],
   exports: [
     TabsModule,

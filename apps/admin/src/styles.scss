@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../scss/light";
 
 
 // regular style toast
@@ -17,3 +16,4 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
 @import "~ngx-bootstrap/datepicker/bs-datepicker";
+@import "~@angular/cdk/overlay-prebuilt.css";
