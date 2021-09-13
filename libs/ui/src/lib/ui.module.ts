@@ -67,6 +67,7 @@ import {NOTYFToken, notyfFactory} from "./notyf";
 import { FormLabelComponent } from './forms/form-label.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { TypographyDirective } from './typography/typography.directive';
+import { CreasePipe } from './pipe/crease.pipe';
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
@@ -134,7 +135,8 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     ...cardPart,
     DropdownActionComponent,
     SpinnerComponent,
-    TypographyDirective
+    TypographyDirective,
+    CreasePipe
   ],
   exports: [
     TabsModule,
@@ -173,7 +175,8 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     ...cardPart,
     DropdownActionComponent,
     SpinnerComponent,
-    TypographyDirective
+    TypographyDirective,
+    CreasePipe
   ],
   providers: [
     { provide: NOTYFToken, useFactory: notyfFactory }
