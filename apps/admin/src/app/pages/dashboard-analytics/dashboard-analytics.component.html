@@ -66,7 +66,7 @@
               </div>
               <span class="h1 d-inline-block mt-1 mb-4">2.3647</span>
               <div class="mb-0">
-                <span class="badge badge-soft-success me-2"> <i class="mdi mdi-arrow-bottom-right"></i> +3.65% </span>
+                <span class="badge badge-soft-success me-2"> <i class="mdi mdi-arrow-bottom-right"></i>{{3.65 | crease:'+'}}</span>
                 <span class="text-muted">Since last week</span>
               </div>
             </div>
@@ -90,7 +90,7 @@
               </div>
               <span class="h1 d-inline-block mt-1 mb-4">1.856</span>
               <div class="mb-0">
-                <span class="badge badge-soft-success me-2"> <i class="mdi mdi-arrow-bottom-right"></i> +2.25% </span>
+                <span class="badge badge-soft-success me-2"> <i class="mdi mdi-arrow-bottom-right"></i>{{2.25 | crease:'+'}}</span>
                 <span class="text-muted">Since last week</span>
               </div>
             </div>
@@ -112,7 +112,7 @@
               </div>
               <span class="h1 d-inline-block mt-1 mb-4">17.212</span>
               <div class="mb-0">
-                <span class="badge badge-soft-danger me-2"> <i class="mdi mdi-arrow-bottom-right"></i> -1.25% </span>
+                <span class="badge badge-soft-danger me-2"> <i class="mdi mdi-arrow-bottom-right"></i>{{1.25 | crease:'-'}}</span>
                 <span class="text-muted">Since last week</span>
               </div>
             </div>
@@ -310,7 +310,7 @@
             <tbody>
             <tr *ngFor="let item of sourceMediumTableData">
               <td><i class="{{item.type}}"></i> {{item.source}}</td>
-              <td class="text-end">$ {{item.revenue}}</td>
+              <td class="text-end">{{item.revenue}}</td>
               <td class="text-end text-success">{{item.value}}</td>
             </tr>
             </tbody>
