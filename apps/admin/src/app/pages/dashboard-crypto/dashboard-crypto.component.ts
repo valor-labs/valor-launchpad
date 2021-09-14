@@ -28,16 +28,16 @@ export class DashboardCryptoComponent implements OnInit {
     {
       name: 'Price',
       prop: 'price',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
     },
     {
       name: 'Volume',
       prop: 'volume',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
     },
     {
       cellClass: ({ value }) => {
-        const baseClasses = 'd-flex align-items-center justify-content-end';
+        const baseClasses = 'd-flex align-items-center';
         const dynamic = value >= 0 ? 'text-success' : 'text-danger';
         return `${baseClasses} ${dynamic}`;
       },
@@ -53,25 +53,25 @@ export class DashboardCryptoComponent implements OnInit {
     {
       name: 'Price',
       prop: 'price',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
       sortable: false,
     },
     {
       name: 'ETH',
       prop: 'eth',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
       sortable: false,
     },
     {
       name: 'BTC',
       prop: 'btc',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
       sortable: false,
     },
     {
       name: 'Sum(BTC)',
       prop: 'sum',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
       sortable: false,
     },
   ];
@@ -79,25 +79,25 @@ export class DashboardCryptoComponent implements OnInit {
     {
       name: 'Price',
       prop: 'price',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
       sortable: false,
     },
     {
       name: 'ETH',
       prop: 'eth',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
       sortable: false,
     },
     {
       name: 'BTC',
       prop: 'btc',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
       sortable: false,
     },
     {
       name: 'Sum(BTC)',
       prop: 'sum',
-      cellClass: 'd-flex align-items-center justify-content-end',
+      cellClass: 'd-flex align-items-center',
       sortable: false,
     },
   ];
