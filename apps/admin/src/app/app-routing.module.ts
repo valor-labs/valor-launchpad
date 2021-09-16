@@ -234,6 +234,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'tables',
+        loadChildren: () =>
+          import('./pages/tables-bootstrap/tables-bootstrap.module').then(
+            (m) => m.TablesBootstrapModule
+          ),
+      },
+      {
         path: 'projects-detail',
         loadChildren: () =>
           import('./pages/projects-detail/projects-detail.module').then(
