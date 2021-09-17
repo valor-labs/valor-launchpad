@@ -13,6 +13,9 @@ import {UserEventsSeed} from './user-events.seed';
 import {UserEntity} from '../libs/common-api/src';
 import { MenuSeed } from './menu.seed';
 import { RoleMenuSeed } from './role-menu.seed';
+import { UserFollowerSeed } from './user-follower.seed';
+import { StorySeed } from './story.seed';
+import { USER_1, USER_2, USER_3 } from './seed-data/users';
 
 const prisma = new PrismaClient()
 
@@ -28,6 +31,8 @@ async function main() {
   const profileSeed = new ProfileSeed(prisma);
   const menuSeed = new MenuSeed(prisma);
   const roleMenuSeed = new RoleMenuSeed(prisma);
+  const userFollowerSeed = new UserFollowerSeed(prisma);
+  const storySeed = new StorySeed(prisma);
 
 
   /*
@@ -56,66 +61,11 @@ async function main() {
   /*
   Create users
    */
-  const user1 = <UserEntity>await userSeed.createUser({
-    username: 'user1',
-    email: 'user1@abc.com',
-    avatar: {
-      connectOrCreate: {
-        where: {
-          src_alt_unique_constraint: {
-            src: 'assets/img/avatars/avatar.jpg',
-            alt: 'user1 avatar picture'
-          }
-        },
-        create: {
-          type: 'image/jpg',
-          src: 'assets/img/avatars/avatar.jpg',
-          alt: 'user1 avatar picture'
-        }
-      }
-    }
-  }, [adminRole, userRole])
+  const user1 = <UserEntity>await userSeed.createUser(USER_1, [adminRole, userRole])
 
-  const user2 = <UserEntity>await userSeed.createUser({
-    username: 'user2',
-    email: 'user2@abc.com',
-    avatar: {
-      connectOrCreate: {
-        where: {
-          src_alt_unique_constraint: {
-            src: 'assets/img/avatars/avatar-2.jpg',
-            alt: 'user2 avatar picture'
-          }
-        },
-        create: {
-          type: 'image/jpg',
-          src: 'assets/img/avatars/avatar-2.jpg',
-          alt: 'user2 avatar picture'
-        }
-      }
-    }
-  }, [userRole])
+  const user2 = <UserEntity>await userSeed.createUser(USER_2, [userRole])
 
-  const user3 = <UserEntity>await userSeed.createUser({
-    username: 'user3',
-    emailVerified: false,
-    email: 'user3@abc.com',
-    avatar: {
-      connectOrCreate: {
-        where: {
-          src_alt_unique_constraint: {
-            src: 'assets/img/avatars/avatar-3.jpg',
-            alt: 'user3 avatar picture'
-          }
-        },
-        create: {
-          type: 'image/jpg',
-          src: 'assets/img/avatars/avatar-3.jpg',
-          alt: 'user3 avatar picture'
-        }
-      }
-    }
-  }, [userRole])
+  const user3 = <UserEntity>await userSeed.createUser(USER_3, [userRole])
 
 
   /*
@@ -197,6 +147,16 @@ async function main() {
       current: true
     }
   })
+
+  /*
+  Create user followers
+   */
+  await userFollowerSeed.seed();
+
+  /*
+  Create stories
+   */
+  await storySeed.seed();
 
   /*
   Create projects

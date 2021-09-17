@@ -1,27 +1,42 @@
-<img [src]="activity.avatarUrl" width="36" height="36" class="rounded-circle me-2" [alt]="activity.username">
+<img [src]="activity.operatorAvatarSrc" width="36" height="36" class="rounded-circle me-2" [alt]="activity.operatorFullName">
 <div class="flex-grow-1" [ngSwitch]='activity.action'>
-  <ng-template ngSwitchCase='startFollowing'>
-    <small class="float-end">{{activity.createdAt | timeAgo}}</small>
-    <strong>{{activity.username}}</strong> started following <strong>{{activity.targetUsername}}</strong><br/>
-    <small class="text-muted">{{activity.createdAt | date: 'MMM d h:mm a'}}</small><br/>
+  <ng-template ngSwitchCase='FOLLOWED'>
+    <small class="float-end">{{activity.createdDate | timeAgo}}</small>
+    <strong>{{activity.operatorFullName}}</strong> started following <strong>{{activity.targetUserFullName}}</strong><br/>
+    <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
   </ng-template>
-  <ng-template ngSwitchCase='postOnTimeline'>
-    <small class="float-end">{{activity.createdAt | timeAgo}}</small>
-    <strong>{{activity.username}}</strong> posted something on <strong>{{activity.targetUsername}}</strong>'s timeline<br/>
-    <small class="text-muted">{{activity.createdAt | date: 'MMM d h:mm a'}}</small><br/>
+  <ng-template ngSwitchCase='UNFOLLOWED'>
+    <small class="float-end">{{activity.createdDate | timeAgo}}</small>
+    <strong>{{activity.operatorFullName}}</strong> stopped following <strong>{{activity.targetUserFullName}}</strong><br/>
+    <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
+  </ng-template>
+  <ng-template ngSwitchCase="LIKED_STORY">
+    <small class="float-end">{{activity.createdDate | timeAgo}}</small>
+    <strong>{{activity.operatorFullName}}</strong> liked <strong>{{activity.targetUserFullName}}</strong>'s <span [attr.data-story]="activity.storyId">post</span><br/>
+    <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
+  </ng-template>
+  <ng-template ngSwitchCase="UNLIKED_STORY">
+    <small class="float-end">{{activity.createdDate | timeAgo}}</small>
+    <strong>{{activity.operatorFullName}}</strong> stopped liking <strong>{{activity.targetUserFullName}}</strong>'s <span [attr.data-story]="activity.storyId">post</span><br/>
+    <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
+  </ng-template>
+<!--  <ng-template ngSwitchCase='postOnTimeline'>-->
+<!--    <small class="float-end">{{activity.createdDate | timeAgo}}</small>-->
+<!--    <strong>{{activity.operatorFullName}}</strong> posted something on <strong>{{activity.targetUserFullName}}</strong>'s timeline<br/>-->
+<!--    <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>-->
 
-    <div class="border text-sm text-muted p-2 mt-1" *ngIf='activity.postDetails?.content'>
-      {{activity.postDetails?.content}}
-    </div>
-    <div class="row g-0 mt-1" *ngIf='activity.postDetails?.photos && activity.postDetails?.photos.length > 0'>
-      <div class="col-6 col-md-4 col-lg-4 col-xl-3" *ngFor='let photo of activity.postDetails?.photos'>
-        <img [src]="photo" class="img-fluid pe-2" alt="Unsplash">
-      </div>
-    </div>
-  </ng-template>
-  <ng-template ngSwitchCase='postBlog'>
-    <strong>{{activity.username}}</strong> posted a new blog<br/>
+<!--    <div class="border text-sm text-muted p-2 mt-1" *ngIf='activity.postDetails?.content'>-->
+<!--      {{activity.postDetails?.content}}-->
+<!--    </div>-->
+<!--    <div class="row g-0 mt-1" *ngIf='activity.postDetails?.photos && activity.postDetails?.photos.length > 0'>-->
+<!--      <div class="col-6 col-md-4 col-lg-4 col-xl-3" *ngFor='let photo of activity.postDetails?.photos'>-->
+<!--        <img [src]="photo" class="img-fluid pe-2" alt="Unsplash">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </ng-template>-->
+<!--  <ng-template ngSwitchCase='postBlog'>-->
+<!--    <strong>{{activity.operatorFullName}}</strong> posted a new blog<br/>-->
 
-    <small class="text-muted">{{activity.createdAt | date: 'MMM d h:mm a'}}</small><br/>
-  </ng-template>
+<!--    <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>-->
+<!--  </ng-template>-->
 </div>

@@ -1,3 +1,5 @@
+import type { SocialActivityAction } from '@prisma/client';
+
 interface IComment {
   username: string;
   avatarUrl: string;
@@ -5,12 +7,35 @@ interface IComment {
 }
 
 export interface IStory {
-  avatarUrl: string;
-  username: string;
-  createdAt: Date;
+  createdDate: Date;
+  mediaAsset: Array<{
+    src: string;
+    alt: string;
+  }>;
+  deletedDate: Date;
+  id: string;
+  userId: string;
+  user: {
+    firstName: string;
+    lastName: string;
+    avatar: {
+      src: string;
+      alt: string;
+    };
+  };
   content: string;
-  images: string[];
-  comments: IComment[];
+  comments: {
+    author: {
+      firstName: string;
+      lastName: string;
+      avatar: {
+        src: string;
+        alt: string;
+      };
+    };
+    body: string;
+  }[];
+  likedByYou: boolean;
 }
 
 export interface ISocialUserInfo {
@@ -27,13 +52,21 @@ export interface ISocialUser {
 }
 
 export interface ISocialActivity {
-  username: string;
-  avatarUrl: string;
-  createdAt: Date;
-  action: 'startFollowing' | 'postOnTimeline' | 'postBlog';
-  targetUsername?: string;
-  postDetails?: {
-    photos?: string[];
-    content?: string;
-  }
+  results: ISocialActivityItem[];
+  hasNext?: boolean;
+  stopAt?: number;
+}
+
+export interface ISocialActivityItem {
+  storyId: string;
+  operatorAvatarSrc: string;
+  createdDate: string;
+  deletedDate: string;
+  operatorFullName: string;
+  action: SocialActivityAction;
+  targetUserId: string;
+  targetUserFullName: string;
+  id: number;
+  targetUserAvatarSrc: string;
+  operatorId: string;
 }

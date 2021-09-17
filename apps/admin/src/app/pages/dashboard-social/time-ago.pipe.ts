@@ -1,20 +1,36 @@
-import { ChangeDetectorRef, NgZone, OnDestroy, Pipe, PipeTransform } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  NgZone,
+  OnDestroy,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 
 @Pipe({ name: 'timeAgo', pure: false })
 export class TimeAgoPipe implements PipeTransform, OnDestroy {
   private timer: number;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone) {
-  }
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {}
 
-  transform(d: Date) {
+  transform(val: Date | string) {
+    let d: Date;
+    if (typeof val === 'string') {
+      d = new Date(val);
+    } else if (val instanceof Date) {
+      d = val;
+    }
     if (!(d instanceof Date)) {
-      throw Error('The value should be a Date');
+      throw Error('The date is invalid');
     }
     this.removeTimerIfExists();
     const now = new Date();
     const seconds = Math.round(Math.abs((now.getTime() - d.getTime()) / 1000));
-    const timeToUpdate = (Number.isNaN(seconds)) ? 1000 : this.getInterval(seconds) * 1000;
+    const timeToUpdate = Number.isNaN(seconds)
+      ? 1000
+      : this.getInterval(seconds) * 1000;
     this.timer = this.ngZone.runOutsideAngular(() => {
       return window.setTimeout(() => {
         this.ngZone.run(() => this.changeDetectorRef.markForCheck());

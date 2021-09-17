@@ -72,13 +72,22 @@
         <h5 class="card-title mb-0">Activities</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content class="h-100">
-        <ng-container *ngFor='let activity of activities'>
-<!--          todo: the following component can be move to a common module-->
-          <valor-launchpad-social-activity  [activity]='activity'></valor-launchpad-social-activity>
-          <hr />
+        <ng-container *ngIf="activities$ | async; let activities">
+          <ng-container *ngFor='let activity of activities.results'>
+            <valor-launchpad-social-activity  [activity]='activity'></valor-launchpad-social-activity>
+            <hr />
+          </ng-container>
+          <button
+            *ngIf="activities.hasNext; else arrivedBottom"
+            valor-launchpad-button
+            class='w-100'
+            (click)="loadMoreActivities(activities.stopAt)">
+            Load More
+          </button>
+          <ng-template #arrivedBottom>
+            <p valorLaunchpadTypography>No more activities</p>
+          </ng-template>
         </ng-container>
-        <!--        TODO implement this-->
-        <button valor-launchpad-button class='w-100'>Load More</button>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>

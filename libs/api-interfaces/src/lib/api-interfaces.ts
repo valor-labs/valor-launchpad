@@ -36,3 +36,11 @@ export interface Menu {
   isMega: boolean;
   children: Menu[];
 }
+
+export interface UserFollower {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: {src: string; alt: string};
+  followed: boolean;
+}

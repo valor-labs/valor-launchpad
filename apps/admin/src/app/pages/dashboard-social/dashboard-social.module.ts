@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UiModule } from "@valor-launchpad/ui";
+import { UiModule } from '@valor-launchpad/ui';
 import { DashboardSocialRoutingModule } from './dashboard-social-routing.module';
 import { DashboardSocialComponent } from './dashboard-social.component';
 import { SocialStoryComponent } from './social-story/social-story.component';
@@ -14,16 +14,14 @@ import { SocialActivityComponent } from './social-activity/social-activity.compo
     DashboardSocialComponent,
     SocialStoryComponent,
     TimeAgoPipe,
-    SocialActivityComponent
+    SocialActivityComponent,
   ],
-  exports: [
-    SocialActivityComponent
-  ],
+  exports: [SocialActivityComponent],
   imports: [
     CommonModule,
     UiModule,
     DashboardSocialRoutingModule,
-    BsDropdownModule
-  ]
+    BsDropdownModule,
+  ],
 })
-export class DashboardSocialModule { }
+export class DashboardSocialModule {}

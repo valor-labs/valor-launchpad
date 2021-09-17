@@ -37,6 +37,8 @@ model CommentEntity {
   reactions      Json?           @db.Json
   project_id     String?         @db.VarChar(36)
   parentId       String?         @db.VarChar(36)
+  storyId        String?         @db.VarChar(36)
+  story          SocialStory?    @relation("storyComments", fields: [storyId], references: [id])
   CommentEntity  CommentEntity?  @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
   ProjectsEntity ProjectsEntity? @relation("projectComments", fields: [project_id], references: [id])
   children       CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
@@ -235,6 +237,10 @@ model UserEntity {
   comments               CommentEntity[]          @relation("commentAuthor")
   avatar                 MediaAsset?              @relation("userProfileImage")
   profile                ProfileEntity?           @relation("userProfile")
+  socialUserFollower     SocialUserFollower[]     @relation("follower")
+  socialUserFollowing    SocialUserFollower[]     @relation("following")
+  socialStory            SocialStory[]
+  socialStoryUserLike    SocialStoryUserLike[]    @relation("storyUserLikeUser")
 }
 
 model UserEventsEntity {
@@ -291,13 +297,16 @@ model MediaAsset {
   profile_id  String?         @db.VarChar(36)
   project_id  String?         @db.VarChar(36)
   user_id     String?         @db.VarChar(36)
+  story_id    String?         @db.VarChar(36)
   profile     ProfileEntity?  @relation("profileImage", fields: [profile_id], references: [id])
   project     ProjectsEntity? @relation("projectHeroMedia", fields: [project_id], references: [id])
   user        UserEntity?     @relation("userProfileImage", fields: [user_id], references: [id])
+  story       SocialStory?    @relation("storyImage", fields: [story_id], references: [id])
 
   @@unique([src, alt], name: "src_alt_unique_constraint")
   @@unique([profile_id, alt], name: "profile_alt_unique_constraint")
   @@unique([project_id, alt], name: "project_alt_unique_constraint")
+  @@unique([story_id, alt], name: "story_alt_unique_constraint")
 }
 
 model MenusEntity {
@@ -324,4 +333,68 @@ model RoleMenusEntity {
   menusEntity MenusEntity @relation("roleMenuMenus", fields: [menuId], references: [id])
 
   @@unique([roleId, menuId])
+}
+
+model SocialUserFollower {
+  id          String    @id @default(uuid()) @db.VarChar(36)
+  userId      String    @db.VarChar(36)
+  followerId  String    @db.VarChar(36)
+  createdDate DateTime  @default(now()) @db.DateTime(6)
+  deletedDate DateTime? @db.DateTime(6)
+
+  user     UserEntity @relation("following", fields: [userId], references: [id])
+  follower UserEntity @relation("follower", fields: [followerId], references: [id])
+
+  @@unique([userId, followerId])
+}
+
+model SocialStory {
+  id          String     @id @default(uuid()) @db.VarChar(36)
+  userId      String     @db.VarChar(36)
+  user        UserEntity @relation(fields: [userId], references: [id])
+  content     String     @db.Text
+  createdDate DateTime   @default(now()) @db.DateTime(6)
+  deletedDate DateTime?  @db.DateTime(6)
+
+  mediaAsset          MediaAsset[]          @relation("storyImage")
+  socialStoryUserLike SocialStoryUserLike[] @relation("storyUserLikeStory")
+  comments            CommentEntity[]       @relation("storyComments")
+  activities          SocialActivity[]      @relation("socialActivityStory")
+}
+
+model SocialStoryUserLike {
+  id          String    @id @default(uuid()) @db.VarChar(36)
+  storyId     String    @db.VarChar(36)
+  userId      String    @db.VarChar(36)
+  createdDate DateTime  @default(now()) @db.DateTime(6)
+  deletedDate DateTime? @db.DateTime(6)
+
+  story SocialStory @relation("storyUserLikeStory", fields: [storyId], references: [id])
+  user  UserEntity  @relation("storyUserLikeUser", fields: [userId], references: [id])
+
+  @@unique([storyId, userId])
+}
+
+enum SocialActivityAction {
+  FOLLOWED
+  UNFOLLOWED
+  POST_STORY
+  LIKED_STORY
+  UNLIKED_STORY
+}
+
+model SocialActivity {
+  id                  Int                  @id @default(autoincrement())
+  operatorId          String               @db.VarChar(36)
+  operatorFullName    String               @db.VarChar(255)
+  operatorAvatarSrc   String               @db.VarChar(255)
+  action              SocialActivityAction
+  targetUserId        String?              @db.VarChar(36)
+  targetUserFullName  String?              @db.VarChar(255)
+  targetUserAvatarSrc String?              @db.VarChar(255)
+  storyId             String?              @db.VarChar(36)
+  createdDate         DateTime             @default(now()) @db.DateTime(6)
+  deletedDate         DateTime?            @db.DateTime(6)
+
+  story SocialStory? @relation("socialActivityStory", fields: [storyId], references: [id])
 }
