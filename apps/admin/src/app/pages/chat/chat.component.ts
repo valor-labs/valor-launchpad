@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ValorLaunchpadMessenger } from './valor-launchpad-messenger/valor-launchpad-messenger.component';
 import { ValorLaunchpadMessage } from './valor-launchpad-message/valor-launchpad-message.component';
 
@@ -7,12 +7,16 @@ import { ValorLaunchpadMessage } from './valor-launchpad-message/valor-launchpad
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
 
   messengers: ValorLaunchpadMessenger[] = [];
   messages: ValorLaunchpadMessage[] = [];
+  @ViewChild('chatMsg') chatMsgRef: ElementRef<HTMLElement>;
 
   constructor() {
+  }
+  ngAfterViewInit(): void {
+    this.chatMsgRef.nativeElement.scrollTop = this.chatMsgRef.nativeElement.scrollHeight 
   }
 
   ngOnInit(): void {

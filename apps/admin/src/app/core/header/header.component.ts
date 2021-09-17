@@ -5,13 +5,16 @@ import { Message, Notification } from '@valor-launchpad/api-interfaces';
 import { NavigationService } from '../navigation/navigation.service';
 import { UserEntity } from '@valor-launchpad/common-api';
 import { HeaderService } from './header.service';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { ProjectsListService } from '../../pages/projects-list/projects-list.service';
+import { Project } from '@api/projects';
 
 @Component({
   selector: 'valor-launchpad-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
@@ -25,8 +28,8 @@ export class HeaderComponent implements OnInit {
           label: parent.name,
           actions: parent.children.map((sub) => ({
             label: sub.name,
-            routerLink: sub.route,
-          })),
+            routerLink: sub.route
+          }))
         }))
       )
     );
@@ -63,50 +66,55 @@ export class HeaderComponent implements OnInit {
       label: 'Dutch',
       event: this.setLanguage.bind(this, 'Dutch')
     }
-  ]
-  currentLanguage: Action = this.languageActions[0]
+  ];
+  currentLanguage: Action = this.languageActions[0];
   profileActions: Action[] = [
     {
       label: 'Profile',
       icon: 'user',
-      routerLink: '/profile',
+      routerLink: '/profile'
     },
     {
       label: 'Analytics',
       icon: 'area-chart',
       link: '#',
-      divider: true,
+      divider: true
     },
     {
       label: 'Settings & Privacy',
-      routerLink: '/settings',
+      routerLink: '/settings'
     },
     {
       label: 'Help',
-      link: 'pages-settings.html',
+      link: 'pages-settings.html'
     },
     {
       label: 'Sign out',
-      event: this.signOut.bind(this),
-    },
+      event: this.signOut.bind(this)
+    }
   ];
 
-  constructor(private authService: AuthService, private headerService:HeaderService,private navigationService: NavigationService) {
+  constructor(private authService: AuthService,
+              private headerService: HeaderService,
+              private navigationService: NavigationService,
+              private projectsListService: ProjectsListService
+  ) {
   }
 
   ngOnInit() {
     this.authService.user.subscribe(user => {
       this.user = user;
-    })
+    });
 
-    this.headerService.getMessages().subscribe(messages=>{
-        this.messages=messages
-    })
+    this.headerService.getMessages().subscribe(messages => {
+      this.messages = messages;
+    });
 
-    this.headerService.getNotifications().subscribe(notifications=>{
-      this.notifications=notifications
-    })
+    this.headerService.getNotifications().subscribe(notifications => {
+      this.notifications = notifications;
+    });
 
+    this._initProjectSearch();
   }
 
   toggleMenu() {
@@ -114,11 +122,44 @@ export class HeaderComponent implements OnInit {
   }
 
   signOut() {
-    this.authService.signOut()
+    this.authService.signOut();
   }
 
   setLanguage(language: string) {
     //TODO Handle langauge switch
     console.log('switching to ' + language);
   }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  projectSearchFc: FormControl;
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  projectOptions: Project[];
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  filteredProjectOptions: Project[];
+
+  private _initProjectSearch(): void {
+    this.projectSearchFc = new FormControl();
+    this.projectsListService.getProjects().subscribe(res => {
+      this.projectOptions = res;
+      this.projectSearchFc.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterProjects(value))
+        ).subscribe();
+    });
+  }
+
+  private _filterProjects(searchKey): void {
+    if (searchKey === '') {
+      this.filteredProjectOptions = this.projectOptions;
+    } else {
+      this.filteredProjectOptions = this.projectOptions.filter(
+        item =>
+          item.title
+            .toLowerCase()
+            .includes(searchKey.toLowerCase()) === true
+      );
+    }
+  }
+
 }

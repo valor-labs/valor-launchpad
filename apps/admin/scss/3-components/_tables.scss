@@ -95,10 +95,17 @@ datatable-header {
   border-bottom: 1px solid #333 !important;
 }
 
-//.datatable-body-cell-label {
-//  line-height: 46px;
-//}
-
+.table.ngx-datatable.fix-header {
+  transform: none;
+  .datatable-header {
+    position: fixed;
+    top: 0;
+    border-bottom-color: $black !important;
+    background: $white;
+    z-index: 9999;
+    width: 75% !important;
+  }
+}
 
 .datatable-row-even {
   background: $table-striped-bg;

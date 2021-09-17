@@ -41,7 +41,7 @@
       </div>
 
       <div class='position-relative'>
-        <div class='chat-messages p-4'>
+        <div class='chat-messages p-4' #chatMsg>
           <valor-launchpad-valor-launchpad-message *ngFor='let item of messages'
                                                    [message]='item'
           ></valor-launchpad-valor-launchpad-message>

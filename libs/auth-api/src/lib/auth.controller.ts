@@ -12,6 +12,12 @@ import {SmsService} from '@valor-launchpad/sms';
 
 @Controller('v1')
 export class AuthController {
+  private cookieDomain: string;
+
+  setCookieDomain(val: string) {
+    this.cookieDomain = val;
+  }
+
   constructor(private authService: AuthService, private usersService: UsersService,
               private smsService: SmsService,
               private emailService: EmailService) {
@@ -24,7 +30,7 @@ export class AuthController {
       const loginResponse = await this.authService.login(body);
       req.session.token = loginResponse.access_token;
       req.session.user = loginResponse.user;
-      response.cookie('access_token', loginResponse.access_token)
+      response.cookie('access_token', loginResponse.access_token, {domain: this.cookieDomain})
       const loginResult = await this.authService.login(body);
       response.send(loginResult);
     } catch (error) {

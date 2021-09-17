@@ -1,0 +1,9 @@
+::ng-deep {
+  .option-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 150px;
+    display: inline-block;
+  }
+}

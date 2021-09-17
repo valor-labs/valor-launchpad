@@ -295,5 +295,14 @@ bs-datepicker-inline-container {
       }
     }
   }
+
+  &-container{
+    width: 100%;
+    bs-days-calendar-view,
+    bs-month-calendar-view,
+    bs-years-calendar-view {
+      width: 100%;
+    }
+  }
 }
 

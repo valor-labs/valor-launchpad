@@ -9,6 +9,8 @@ import * as expressSession from 'express-session';
 import * as redis from 'redis';
 import * as cookieParser from 'cookie-parser';
 import {PrismaService} from '@valor-launchpad/prisma';
+import {parseDomain, ParseResultType} from "parse-domain";
+import {AuthController} from "@valor-launchpad/auth-api";
 
 dotenv.config({path: process.cwd() + '/apps/api/.env'});
 
@@ -53,6 +55,22 @@ async function bootstrap() {
 
   const prismaService: PrismaService = app.get(PrismaService);
   prismaService.enableShutdownHooks(app)
+
+  // extract domain from `HOST` env
+  const hostname = new URL(process.env.HOST).hostname;
+  const domainParsedResult = parseDomain(hostname);
+  let cookieDomain: string;
+  switch (domainParsedResult.type) {
+    case ParseResultType.Listed:
+      cookieDomain = `${domainParsedResult.domain}.${domainParsedResult.topLevelDomains.join('.')}`;
+      break;
+    default:
+      cookieDomain = hostname;
+      break;
+  }
+  Logger.log(`Will set cookie to domain: ${cookieDomain}`)
+  const authController = app.get(AuthController);
+  authController.setCookieDomain(cookieDomain);
 
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {
