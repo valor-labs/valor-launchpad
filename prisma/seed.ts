@@ -16,6 +16,7 @@ import { RoleMenuSeed } from './role-menu.seed';
 import { UserFollowerSeed } from './user-follower.seed';
 import { StorySeed } from './story.seed';
 import { USER_1, USER_2, USER_3 } from './seed-data/users';
+import { ActivitySeed } from './activity.seed';
 
 const prisma = new PrismaClient()
 
@@ -33,6 +34,7 @@ async function main() {
   const roleMenuSeed = new RoleMenuSeed(prisma);
   const userFollowerSeed = new UserFollowerSeed(prisma);
   const storySeed = new StorySeed(prisma);
+  const activitySeed = new ActivitySeed(prisma);
 
 
   /*
@@ -157,6 +159,11 @@ async function main() {
   Create stories
    */
   await storySeed.seed();
+
+  /*
+  Create activity
+   */
+  await activitySeed.seed();
 
   /*
   Create projects

@@ -211,36 +211,39 @@ model RolesEntity {
 }
 
 model UserEntity {
-  id                     String                   @id @default(uuid()) @db.VarChar(36)
-  username               String                   @unique @db.VarChar(255)
-  email                  String                   @db.VarChar(255)
-  password               String                   @db.VarChar(255)
-  firstName              String                   @db.VarChar(255)
-  lastName               String                   @db.VarChar(255)
-  passwordResetNeeded    Boolean?                 @db.TinyInt
-  lastPasswordUpdateDate DateTime?                @db.DateTime(0)
-  emailVerified          Boolean                  @default(false) @db.TinyInt
-  emailVerifyToken       String?                  @unique @db.VarChar(255)
-  phone                  String?                  @db.VarChar(255)
-  phoneVerifyToken       String?                  @db.VarChar(255)
-  suspended              Boolean                  @default(false) @db.TinyInt
-  lastLogin              DateTime?                @db.DateTime(0)
-  deletedDate            DateTime?                @db.DateTime(6)
-  createdDate            DateTime                 @default(now()) @db.DateTime(6)
-  updatedDate            DateTime                 @updatedAt
-  userHistory            UserEventsEntity[]       @relation("targetUser")
-  userActivity           UserEventsEntity[]       @relation("actingUser")
-  userRoles              UserRolesEntity[]        @relation("userEntity")
-  userTags               UserTagsEntity[]         @relation("userTags")
-  projects               ProjectsAssigneeEntity[] @relation("assigneeUser")
-  reportedProjects       ProjectSummaryEntity[]   @relation("reportingUser")
-  comments               CommentEntity[]          @relation("commentAuthor")
-  avatar                 MediaAsset?              @relation("userProfileImage")
-  profile                ProfileEntity?           @relation("userProfile")
-  socialUserFollower     SocialUserFollower[]     @relation("follower")
-  socialUserFollowing    SocialUserFollower[]     @relation("following")
-  socialStory            SocialStory[]
-  socialStoryUserLike    SocialStoryUserLike[]    @relation("storyUserLikeUser")
+  id                     String    @id @default(uuid()) @db.VarChar(36)
+  username               String    @unique @db.VarChar(255)
+  email                  String    @db.VarChar(255)
+  password               String    @db.VarChar(255)
+  firstName              String    @db.VarChar(255)
+  lastName               String    @db.VarChar(255)
+  passwordResetNeeded    Boolean?  @db.TinyInt
+  lastPasswordUpdateDate DateTime? @db.DateTime(0)
+  emailVerified          Boolean   @default(false) @db.TinyInt
+  emailVerifyToken       String?   @unique @db.VarChar(255)
+  phone                  String?   @db.VarChar(255)
+  phoneVerifyToken       String?   @db.VarChar(255)
+  suspended              Boolean   @default(false) @db.TinyInt
+  lastLogin              DateTime? @db.DateTime(0)
+  deletedDate            DateTime? @db.DateTime(6)
+  createdDate            DateTime  @default(now()) @db.DateTime(6)
+  updatedDate            DateTime  @updatedAt
+
+  userHistory              UserEventsEntity[]       @relation("targetUser")
+  userActivity             UserEventsEntity[]       @relation("actingUser")
+  userRoles                UserRolesEntity[]        @relation("userEntity")
+  userTags                 UserTagsEntity[]         @relation("userTags")
+  projects                 ProjectsAssigneeEntity[] @relation("assigneeUser")
+  reportedProjects         ProjectSummaryEntity[]   @relation("reportingUser")
+  comments                 CommentEntity[]          @relation("commentAuthor")
+  avatar                   MediaAsset?              @relation("userProfileImage")
+  profile                  ProfileEntity?           @relation("userProfile")
+  socialUserFollower       SocialUserFollower[]     @relation("follower")
+  socialUserFollowing      SocialUserFollower[]     @relation("following")
+  socialStory              SocialStory[]
+  socialStoryUserLike      SocialStoryUserLike[]    @relation("storyUserLikeUser")
+  socialActivities         SocialActivity[]         @relation("socialActivityOperator")
+  socialActivitiesAsTarget SocialActivity[]         @relation("socialActivityTargetUser")
 }
 
 model UserEventsEntity {
@@ -396,5 +399,7 @@ model SocialActivity {
   createdDate         DateTime             @default(now()) @db.DateTime(6)
   deletedDate         DateTime?            @db.DateTime(6)
 
-  story SocialStory? @relation("socialActivityStory", fields: [storyId], references: [id])
+  operator   UserEntity   @relation("socialActivityOperator", fields: [operatorId], references: [id])
+  targetUser UserEntity?  @relation("socialActivityTargetUser", fields: [targetUserId], references: [id])
+  story      SocialStory? @relation("socialActivityStory", fields: [storyId], references: [id])
 }
