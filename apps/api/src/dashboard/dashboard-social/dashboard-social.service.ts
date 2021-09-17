@@ -155,6 +155,14 @@ export class DashboardSocialService {
 
   async getActivities(lastReadAt: number | null, limit: number) {
     const results = await this.prisma.socialActivity.findMany({
+      include: {
+        story: {
+          select: {
+            content: true,
+            mediaAsset: { select: { src: true, alt: true } },
+          },
+        },
+      },
       orderBy: { id: 'desc' },
       where: lastReadAt === null ? {} : { id: { lt: lastReadAt } },
       take: limit,

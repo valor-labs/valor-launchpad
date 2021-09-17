@@ -20,23 +20,16 @@
     <strong>{{activity.operatorFullName}}</strong> stopped liking <strong>{{activity.targetUserFullName}}</strong>'s <span [attr.data-story]="activity.storyId">post</span><br/>
     <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
   </ng-template>
-<!--  <ng-template ngSwitchCase='postOnTimeline'>-->
-<!--    <small class="float-end">{{activity.createdDate | timeAgo}}</small>-->
-<!--    <strong>{{activity.operatorFullName}}</strong> posted something on <strong>{{activity.targetUserFullName}}</strong>'s timeline<br/>-->
-<!--    <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>-->
-
-<!--    <div class="border text-sm text-muted p-2 mt-1" *ngIf='activity.postDetails?.content'>-->
-<!--      {{activity.postDetails?.content}}-->
-<!--    </div>-->
-<!--    <div class="row g-0 mt-1" *ngIf='activity.postDetails?.photos && activity.postDetails?.photos.length > 0'>-->
-<!--      <div class="col-6 col-md-4 col-lg-4 col-xl-3" *ngFor='let photo of activity.postDetails?.photos'>-->
-<!--        <img [src]="photo" class="img-fluid pe-2" alt="Unsplash">-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </ng-template>-->
-<!--  <ng-template ngSwitchCase='postBlog'>-->
-<!--    <strong>{{activity.operatorFullName}}</strong> posted a new blog<br/>-->
-
-<!--    <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>-->
-<!--  </ng-template>-->
+  <ng-template ngSwitchCase='POST_STORY'>
+    <strong>{{activity.operatorFullName}}</strong> posted a new blog<br/>
+    <div class="border text-sm text-muted p-2 mt-1" *ngIf='activity.story.content'>
+      {{activity.story.content}}
+    </div>
+    <div class="row g-0 mt-1" *ngIf='activity.story.mediaAsset && activity.story.mediaAsset.length > 0'>
+      <div class="col-6 col-md-4 col-lg-4 col-xl-3" *ngFor='let photo of activity.story.mediaAsset'>
+        <img [src]="photo.src" class="img-fluid pe-2" [alt]="photo.alt">
+      </div>
+    </div>
+    <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
+  </ng-template>
 </div>

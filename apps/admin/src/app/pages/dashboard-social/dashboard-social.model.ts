@@ -72,4 +72,5 @@ export interface ISocialActivityItem {
   id: number;
   targetUserAvatarSrc: string;
   operatorId: string;
+  story: Pick<IStory, 'content' | 'mediaAsset'>;
 }
