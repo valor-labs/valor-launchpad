@@ -40,7 +40,6 @@ export class DashboardSocialController {
 
   @Post('unfollow')
   unfollow(@User() user: UserEntity, @Body() { userId }: FollowUserDTO) {
-    console.log(user);
     return this.dashboardSocialService.unfollow(userId, user.id);
   }
 
