@@ -1,20 +1,20 @@
-// Variables
-@import "../../../../scss/1-variables/app";
+// // Variables
+// @import "../../../../scss/1-variables/app";
 
-// Bootstrap
-@import "~bootstrap/scss/bootstrap";
+// // Bootstrap
+// @import "~bootstrap/scss/bootstrap";
 
-footer.footer {
-  background: $footer-background;
-  border-top: 1px solid $footer-border-top-color;
-  padding: $spacer $spacer*0.75;
-  direction: ltr;
+// footer.footer {
+//   background: $footer-background;
+//   border-top: 1px solid $footer-border-top-color;
+//   padding: $spacer $spacer*0.75;
+//   direction: ltr;
 
-  ul {
-    margin-bottom: 0;
-  }
+//   ul {
+//     margin-bottom: 0;
+//   }
 
-  @include media-breakpoint-down(md) {
-    width: 100vw;
-  }
-}
+//   @include media-breakpoint-down(md) {
+//     width: 100vw;
+//   }
+// }
