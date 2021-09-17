@@ -1,5 +1,3 @@
-import type { SocialActivityAction } from '@prisma/client';
-
 interface IComment {
   username: string;
   avatarUrl: string;
@@ -63,7 +61,12 @@ export interface ISocialActivityItem {
   createdDate: string;
   deletedDate: string;
   operatorFullName: string;
-  action: SocialActivityAction;
+  action:
+    | 'FOLLOWED'
+    | 'UNFOLLOWED'
+    | 'POST_STORY'
+    | 'LIKED_STORY'
+    | 'UNLIKED_STORY';
   targetUserId: string;
   targetUserFullName: string;
   id: number;
