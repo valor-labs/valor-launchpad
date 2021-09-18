@@ -1,30 +1,35 @@
 <div class='d-flex align-items-start'>
-  <img [src]='story.avatarUrl' width='56' height='56' class='rounded-circle me-3' [alt]='story.username'>
+  <img [src]='story.user.avatar.src' width='56' height='56' class='rounded-circle me-3' [alt]='story.user.avatar.alt'>
   <div class='flex-grow-1'>
-    <small class='float-end'>{{story.createdAt | timeAgo}}</small>
-    <p class='mb-2'><strong>{{story.username}}</strong></p>
+    <small class='float-end'>{{story.createdDate | timeAgo}}</small>
+    <p class='mb-2'><strong>{{story.user.firstName + ' ' + story.user.lastName}}</strong></p>
     <p>{{story.content}}</p>
 
-    <div class='row g-0 mt-1' *ngIf='story.images && story.images.length > 0'>
-      <div class='col-6' *ngFor='let image of story.images'>
-        <img [src]='image' class='img-fluid pe-1' alt='Unsplash'>
+    <div class='row g-0 mt-1' *ngIf='story.mediaAsset && story.mediaAsset.length > 0'>
+      <div class='col-6' *ngFor='let image of story.mediaAsset'>
+        <img [src]='image.src' class='img-fluid pe-1' [alt]='image.alt'>
       </div>
     </div>
 
-    <small class='text-muted'>{{story.createdAt | date: 'MMM d h:mm a'}}</small><br />
-    <button valor-launchpad-button size='sm' theme='danger' class='mt-1'><i class='feather-sm far fa-fw fa-heart'></i> Like</button>
+    <small class='text-muted'>{{story.createdDate | date: 'MMM d h:mm a'}}</small><br />
+    <button *ngIf="!story.likedByYou" valor-launchpad-button size='sm' theme='danger' class='mt-1' (click)="likeStory()">
+      <i class='feather-sm far fa-fw fa-heart'></i> Like
+    </button>
+    <button *ngIf="story.likedByYou" valor-launchpad-button size='sm' theme='danger' class='mt-1' [outlined]="true" (click)="unlikeStory()">
+      <i class='feather-sm far fa-fw fa-heart'></i> Unlike
+    </button>
 
     <div class='d-flex align-items-start mt-3' *ngFor='let comment of story.comments'>
       <a class='pe-2'>
-        <img [src]='comment.avatarUrl'
+        <img [src]='comment.author.avatar.src'
              width='36'
              height='36'
              class='rounded-circle me-2'
-             [alt]='comment.username'>
+             [alt]='comment.author.avatar.alt'>
       </a>
       <div class='flex-grow-1'>
         <p class='text-muted'>
-          <strong>{{comment.username}}</strong>: {{comment.content}}
+          <strong>{{comment.author.firstName + ' ' + comment.author.lastName}}</strong>: {{comment.body}}
         </p>
       </div>
     </div>
