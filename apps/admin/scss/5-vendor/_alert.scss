@@ -1,0 +1,97 @@
+alert {
+  .alert-message {
+    padding: $alert-padding-y $alert-padding-x;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .alert {
+    padding: 0;
+    display: flex;
+    color: $gray-900;
+    width: 100%;
+    box-sizing: border-box;
+
+    .alert-icon {
+      padding: $alert-padding-y $alert-padding-x;
+      background: rgba(255, 255, 255, .1);
+    }
+
+    b, strong {
+      color: $black;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: $alert-close-color;
+      opacity: 1;
+    }
+
+    button[aria-label="Close"] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+      padding: 1.1875rem 0.95rem;
+      box-sizing: content-box;
+      width: 1em;
+      height: 1em;
+      color: $alert-close-color;
+      border: 0;
+      border-radius: 0.2rem;
+      opacity: 0.5;
+      background: transparent $alert-close-svg center/1em auto no-repeat;
+
+      span[aria-hidden] {
+        display: none;
+      }
+    }
+  }
+
+}
+
+.alert-outline,
+.alert-outline-coloured {
+  .alert {
+    background: $white;
+
+    hr {
+      border-top-color: $gray-400;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: $gray-800;
+    }
+
+    .alert-message {
+      @include border-end-radius($alert-border-radius);
+      @include border-start-radius($alert-border-radius);
+      border: 1px solid $gray-400;
+    }
+
+    .alert-message:not(:nth-child(2)) {
+      @include border-start-radius(0);
+      border-left: 0;
+    }
+
+    .alert-icon {
+      @include border-start-radius($alert-border-radius);
+      color: $static-white;
+    }
+
+    @each $color, $value in $theme-colors {
+      &.alert-#{$color} .alert-icon {
+        background-color: $value;
+      }
+    }
+  }
+}
+
+.alert-outline-coloured {
+  @each $color, $value in $theme-colors {
+    &.alert-#{$color} .alert-message {
+      border-color: $value;
+    }
+  }
+}

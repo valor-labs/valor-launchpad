@@ -1,12 +1,24 @@
-import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { INestApplication, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { PrismaClient, Prisma } from '@prisma/client';
 
 @Injectable()
-export class PrismaService extends PrismaClient
+export class PrismaService extends PrismaClient<Prisma.PrismaClientOptions, 'query'>
   implements OnModuleInit {
+
+  private readonly logger = new Logger(PrismaService.name);
+
   constructor() {
-    super();
+    super({
+      log: [
+        { level: 'query', emit: 'event' },
+        { level: 'info', emit: 'stdout' },
+        { level: 'warn', emit: 'stdout' },
+        { level: 'error', emit: 'stdout' },
+      ]}
+    );
     this.setupSoftDelete();
+    this.setupDurationMiddleware();
+    this.logQueryAndParameter();
   }
   async onModuleInit() {
     await this.$connect();
@@ -38,6 +50,23 @@ export class PrismaService extends PrismaClient
         }
       }
       return next(params)
+    })
+  }
+
+  // https://www.prisma.io/docs/concepts/components/prisma-client/middleware/logging-middleware
+  setupDurationMiddleware() {
+    this.$use(async (params, next) => {
+      const before = Date.now()
+      const result = await next(params)
+      const after = Date.now()
+      this.logger.log(`Query ${params.model}.${params.action} took ${after - before}ms`)
+      return result
+    })
+  }
+
+  logQueryAndParameter() {
+    this.$on('query', async (e) => {
+      this.logger.log(`${e.query} ${e.params} ${e.duration}ms`);
     })
   }
 }
