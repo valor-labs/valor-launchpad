@@ -76,6 +76,14 @@ export class FormsWizardComponent {
     address: [null],
   });
 
+  dotsWizardIndex = 1;
+  dotsWizardSteps = [
+    {mainTitle: 'First step', description: 'Step description'},
+    {mainTitle: 'Second step', description: 'Step description'},
+    {mainTitle: 'Third step', description: 'Step description'},
+    {mainTitle: 'Forth step', description: 'Step description'},
+  ];
+
   thirdStepForm = this.fb.group({
     agreed: [false, [Validators.requiredTrue]],
   })
