@@ -28,9 +28,16 @@
 
 <ng-template #invoice>
   <ng-container *ngIf='invoiceDetail$ | async as invoiceDetail'>
-    <div class="mb-4">
-      Hello <strong>{{invoiceDetail.clientName}}</strong>,
+    <div class="head">
+      <div class="hello">
+        Hello <strong>{{invoiceDetail.clientName}}</strong>,
       <br/> This is the receipt for a payment of <strong>{{invoiceDetail.amount | currency: invoiceDetail.currency}}</strong> ({{invoiceDetail.currency}}) you made to {{invoiceDetail.merchantName}}.
+
+      </div>
+      <div class="logo">
+        <img src="assets/Valor%20Light.svg" class="gray" />
+      </div>
+      
     </div>
     <div valorLaunchpadRow>
       <div valorLaunchpadCol [md]='6'>

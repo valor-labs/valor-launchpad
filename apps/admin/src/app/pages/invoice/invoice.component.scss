@@ -1,0 +1,33 @@
+.head {
+  display: flex;
+  .hello {
+    flex: 1;
+  }
+  .logo {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: flex-start;
+    img {
+      width: 100px;
+      height: auto;
+    }
+  }
+}
+
+.gray {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: gray;
+}
+
+@media screen and (max-width: 767px) {
+  .head {
+    .logo {
+      display: none;
+    }
+  }
+}
