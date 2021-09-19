@@ -1,50 +1,60 @@
-<h1 class="h3 mb-3">Wizard</h1>
+<h1 class='h3 mb-3'>Wizard</h1>
 
 <div valorLaunchpadRow>
   <div valorLaunchpadCol [span]='12' [xxl]='6'>
-    <valor-launchpad-wizard colorTheme='primary' [steps]='steps' [(currentIndex)]='index'>
-      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+    <valor-launchpad-wizard colorTheme='primary' [steps]='primaryWizardSteps' [(currentIndex)]='primaryWizardIndex'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of primaryWizardSteps; index as i'
+           [hidden]='i !== primaryWizardIndex'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
   <div valorLaunchpadCol [span]='12' [xxl]='6'>
-    <valor-launchpad-wizard colorTheme='danger' [steps]='steps' [(currentIndex)]='index'>
-      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+    <valor-launchpad-wizard colorTheme='danger' [steps]='dangerWizardSteps' [(currentIndex)]='dangerWizardIndex'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of dangerWizardSteps; index as i'
+           [hidden]='i !== dangerWizardIndex'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
   <div valorLaunchpadCol [span]='12' [xxl]='6'>
-    <valor-launchpad-wizard colorTheme='success' [steps]='steps' [(currentIndex)]='index'>
-      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+    <valor-launchpad-wizard colorTheme='success' [steps]='successWizardSteps' [(currentIndex)]='successWizardIndex'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of successWizardSteps; index as i'
+           [hidden]='i !== successWizardIndex'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
   <div valorLaunchpadCol [span]='12' [xxl]='6'>
-    <valor-launchpad-wizard styleTheme='arrows' colorTheme='primary' [steps]='steps' [(currentIndex)]='index'>
-      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+    <valor-launchpad-wizard styleTheme='arrows' colorTheme='primary' [steps]='primaryArrowWizardSteps'
+                            [(currentIndex)]='primaryArrowWizardIndex'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of primaryArrowWizardSteps; index as i'
+           [hidden]='i !== primaryArrowWizardIndex'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
   <div valorLaunchpadCol [span]='12' [xxl]='6'>
-    <valor-launchpad-wizard styleTheme='arrows' colorTheme='danger' [steps]='steps' [(currentIndex)]='index'>
-      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+    <valor-launchpad-wizard styleTheme='arrows' colorTheme='danger' [steps]='dangerArrowWizardSteps'
+                            [(currentIndex)]='dangerArrowWizardIndex'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of dangerArrowWizardSteps; index as i'
+           [hidden]='i !== dangerArrowWizardIndex'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
   <div valorLaunchpadCol [span]='12' [xxl]='6'>
-    <valor-launchpad-wizard styleTheme='arrows' colorTheme='success' [steps]='steps' [(currentIndex)]='index'>
-      <div class='tab-pane' style='display: block' *ngFor='let s of steps; index as i' [hidden]='i !== index'>
+    <valor-launchpad-wizard styleTheme='arrows' colorTheme='success' [steps]='successArrowWizardSteps'
+                            [(currentIndex)]='successArrowWizardIndex'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of successArrowWizardSteps; index as i'
+           [hidden]='i !== successArrowWizardIndex'>
         Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
   <div valorLaunchpadCol [span]='12'>
-    <valor-launchpad-wizard colorTheme='primary' [steps]='formSteps' [(currentIndex)]='formIndex' [onBeforeNext]='onBeforeNext'>
+    <valor-launchpad-wizard colorTheme='primary' [steps]='formSteps' [(currentIndex)]='formIndex'
+                            [onBeforeNext]='onBeforeNext'>
       <div class='tab-pane' style='display: block' [hidden]='0 !== formIndex'>
         <form [formGroup]='firstStepForm'>
           <valor-launchpad-form-item errTip='This field is required.'>
@@ -72,7 +82,8 @@
             <valor-launchpad-form-label [required]='true'>Last name</valor-launchpad-form-label>
             <input type='text' valorLaunchpadInput formControlName='lastname'>
           </valor-launchpad-form-item>
-          <valor-launchpad-form-item [errTip]='this.secondStepForm.get("email").hasError("email") ? "Please input correct email." : "This field is required."'>
+          <valor-launchpad-form-item
+            [errTip]='this.secondStepForm.get("email").hasError("email") ? "Please input correct email." : "This field is required."'>
             <valor-launchpad-form-label [required]='true'>Email</valor-launchpad-form-label>
             <input type='text' valorLaunchpadInput formControlName='email'>
           </valor-launchpad-form-item>
@@ -89,6 +100,15 @@
             <label valor-launchpad-checkbox formControlName='agreed'>I agree with the Terms and Conditions</label>
           </valor-launchpad-form-item>
         </form>
+      </div>
+    </valor-launchpad-wizard>
+  </div>
+
+  <div valorLaunchpadCol [span]='12'>
+    <valor-launchpad-wizard styleTheme='dots' [steps]='dotsWizardSteps' [(currentIndex)]='dotsWizardIndex'>
+      <div class='tab-pane' style='display: block' *ngFor='let s of dotsWizardSteps; index as i'
+           [hidden]='i !== dotsWizardIndex'>
+        Step content {{i}}
       </div>
     </valor-launchpad-wizard>
   </div>
