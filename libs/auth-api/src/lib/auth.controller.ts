@@ -9,6 +9,8 @@ import {ResponseError, ResponseSuccess} from '@valor-launchpad/common-api';
 import {UsersService} from '@valor-launchpad/users-api';
 import {EmailService} from '@valor-launchpad/email';
 import {SmsService} from '@valor-launchpad/sms';
+import {JwtAuthGuard} from "./guards/jwt-auth.guard";
+import {ResetPasswordDTO} from "./auth.dto";
 
 @Controller('v1')
 export class AuthController {
@@ -102,8 +104,14 @@ export class AuthController {
     }
   }
 
+  @Post('update-password')
+  @UseGuards(JwtAuthGuard)
+  async updatePassword(@User() user: UserEntity, @Body() body: ResetPasswordDTO) {
+    await this.authService.updatePassword(user.username, body.oldPassword, body.newPassword);
+    return {};
+  }
+
   //TODO: add forgot password
-  //TODO: add reset password
   //TODO: add check username
   // @Post('check-username')
   // async checkUsername(@Body() username): Promise<IResponse> {

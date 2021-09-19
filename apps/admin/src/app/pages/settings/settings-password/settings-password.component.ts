@@ -5,6 +5,9 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { SettingsPasswordService } from './settings-password.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from "@angular/common/http";
 
 const pwdValidator: ValidatorFn = (fg: FormGroup) => {
   const newPassword = fg.get('newPassword');
@@ -22,7 +25,11 @@ const pwdValidator: ValidatorFn = (fg: FormGroup) => {
 export class SettingsPasswordComponent implements OnInit {
   formGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private passwordService: SettingsPasswordService,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.formGroup = this.fb.group(
@@ -42,6 +49,15 @@ export class SettingsPasswordComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-    console.log(this.formGroup.value);
+    const { currentPassword, newPassword } = this.formGroup.value;
+    this.passwordService.updatePassword(currentPassword, newPassword).subscribe(
+      () => {
+        this.toastrService.success('Password updated successfully');
+        this.formGroup.reset();
+      },
+      (err: HttpErrorResponse) => {
+        this.toastrService.error(err.error.message);
+      }
+    );
   }
 }

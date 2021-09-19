@@ -401,4 +401,19 @@ export class UsersService {
     const user = new UserEntity(fetchedUser)
     return classToPlain(user);
   }
+
+  async updatePassword(username: string, newPasswordCrypt: string) {
+    const now = new Date();
+    const user = await this.prisma.userEntity.update({
+      where: {username},
+      data: {password: newPasswordCrypt, lastPasswordUpdateDate: now},
+    });
+    await this.prisma.userEventsEntity.create({
+      data: {
+        target_user_id: user.id,
+        acting_user_id: user.id,
+        event: 'Password changed'
+      }
+    });
+  }
 }
