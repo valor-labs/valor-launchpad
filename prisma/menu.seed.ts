@@ -78,7 +78,6 @@ const menus: Menu[] = [
             key: 'Pages_Pages_Projects',
             children: [
               {name: 'List', key: 'Pages_Pages_Projects_List', route: '/projects-list'},
-              {name: 'Detail', key: 'Pages_Pages_Projects_Detail', route: '/projects-detail'},
             ]
           },
           {name: 'Invoice', key: 'Pages_Pages_Invoice', route: '/invoice'},
