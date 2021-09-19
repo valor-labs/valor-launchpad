@@ -65,4 +65,8 @@ export class ButtonComponent {
   @HostBinding('class.btn-lg') private get isLarge() {
     return this.size === 'lg';
   }
+
+  @HostBinding("class.spinner")
+  @HostBinding("class.disabled")
+  @Input() loading = false;
 }
