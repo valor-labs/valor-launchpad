@@ -46,7 +46,8 @@ export class ProjectsService {
           include: {
             user: {
               include: {
-                profile: true
+                profile: true,
+                avatar: { select: { src: true, alt: true } },
               }
             }
           }
@@ -56,7 +57,8 @@ export class ProjectsService {
           include: {
             reporter: {
               include: {
-                profile: true
+                profile: true,
+                avatar: { select: { src: true, alt: true } },
               }
             }
           }
@@ -65,14 +67,16 @@ export class ProjectsService {
           include: {
             author: {
               include: {
-                profile: true
+                profile: true,
+                avatar: { select: { src: true, alt: true } },
               }
             },
             children: {
               include: {
                 author: {
                   include: {
-                    profile: true
+                    profile: true,
+                    avatar: { select: { src: true, alt: true } },
                   }
                 }
               }
