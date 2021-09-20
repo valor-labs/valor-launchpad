@@ -1,5 +1,8 @@
 .badge {
   color: $static-white;
+  & + & {
+    margin-left: 3px;
+  }
 }
 
 @each $color, $value in $theme-colors {
