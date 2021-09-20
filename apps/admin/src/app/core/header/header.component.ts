@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
         }))
       )
     );
- 
+
   profileActions: Action[] = [
     {
       label: 'Profile',
