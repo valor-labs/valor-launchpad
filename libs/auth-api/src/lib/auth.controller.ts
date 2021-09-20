@@ -1,16 +1,15 @@
-import {Bind, Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, Res, UseGuards} from "@nestjs/common";
+import {Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards} from "@nestjs/common";
 import {LocalAuthGuard} from "./guards/local-auth-guard";
-import {CreateUser, RequestWithSession, UserEntity} from "@valor-launchpad/common-api";
+import {RequestWithSession, UserEntity} from "@valor-launchpad/common-api";
 import {AuthService} from "./auth.service";
 import {Response} from 'express';
-import {IResponse} from '@valor-launchpad/common-api';
 import {User} from '@valor-launchpad/users-api';
 import {ResponseError, ResponseSuccess} from '@valor-launchpad/common-api';
 import {UsersService} from '@valor-launchpad/users-api';
-import {EmailService} from '@valor-launchpad/email';
-import {SmsService} from '@valor-launchpad/sms';
-import {JwtAuthGuard} from "./guards/jwt-auth.guard";
-import {ResetPasswordDTO} from "./auth.dto";
+import {JwtAuthGuard} from './guards/jwt-auth.guard';
+import {RegisterDTO, ResetPasswordDTO} from './auth.dto';
+import {EventEmitter2} from '@nestjs/event-emitter';
+import {SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload} from './auth-events.constant';
 
 @Controller('v1')
 export class AuthController {
@@ -20,9 +19,9 @@ export class AuthController {
     this.cookieDomain = val;
   }
 
-  constructor(private authService: AuthService, private usersService: UsersService,
-              private smsService: SmsService,
-              private emailService: EmailService) {
+  constructor(private authService: AuthService,
+              private usersService: UsersService,
+              private eventEmitter: EventEmitter2) {
   }
 
   @UseGuards(LocalAuthGuard)
@@ -72,36 +71,20 @@ export class AuthController {
   }
 
   @Post('register')
-  @HttpCode(HttpStatus.OK)
-  async register(@Body() createUser: CreateUser, @User() actingUser: UserEntity): Promise<IResponse> {
-    try {
-      const createdUser = await this.usersService.createUser(new UserEntity(createUser), actingUser);
-      if (createUser.phone) {
-        await this.smsService.sendMessage(
-          {
-            body: `${createdUser.phoneVerifyToken} is your phone verification ID`,
-            from: '+18593491320',
-            to: createUser.phone
-          }
-        )
-      }
-      await this.emailService.sendEmail({
-        to: createUser.email,
-        from: 'zack.chapple@valor-software.com',
-        subject: 'Verify your email with valor-launchpad',
-        text: 'Super Easy',
-        html: '<strong>Please verify your email</strong></br></br>' +
-          `<a target="_blank" href="http://localhost:4200/verify-user/${createdUser.emailVerifyToken}">Verify Now</a>
-          </br>
-          </br>
-          Or, copy and paste the following URL into your browser:
-          <span>http://localhost:4200/verify-user/${createdUser.emailVerifyToken}</span>`,
-      })
-      //TODO: Save user email consent
-      return new ResponseSuccess('Registration Successful')
-    } catch (error) {
-      return new ResponseError('Registration Failed', error)
+  async register(@Body() createUser: RegisterDTO) {
+    const createdUser = await this.authService.register(createUser);
+    if (createUser.phone) {
+      this.eventEmitter.emit(SEND_SMS, new SendSMSPayload(createdUser.phone, createdUser.phoneVerifyToken));
     }
+    if (createdUser.email) {
+      this.eventEmitter.emit(SEND_EMAIL, new SendEmailPayload(createdUser.email, createdUser.emailVerifyToken));
+    }
+    return { username: createdUser.username };
+  }
+
+  @Get('verify-username')
+  async verifyUsername(@Query('username') username: string): Promise<{ existedUsername: boolean }> {
+    return { existedUsername: await this.usersService.verifyUsername(username) };
   }
 
   @Post('update-password')
@@ -112,9 +95,4 @@ export class AuthController {
   }
 
   //TODO: add forgot password
-  //TODO: add check username
-  // @Post('check-username')
-  // async checkUsername(@Body() username): Promise<IResponse> {
-  //
-  // }
 }

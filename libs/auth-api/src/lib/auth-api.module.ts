@@ -10,6 +10,7 @@ import {CryptModule} from '@valor-launchpad/common-api';
 import {AuthController} from './auth.controller';
 import {EmailModule} from '@valor-launchpad/email';
 import {SmsModule} from '@valor-launchpad/sms';
+import {AuthEventsService} from './auth-events.service';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import {SmsModule} from '@valor-launchpad/sms';
     SmsModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, AuthEventsService],
   exports: [AuthService],
 })
 export class AuthApiModule {

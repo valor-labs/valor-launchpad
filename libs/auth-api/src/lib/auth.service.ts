@@ -3,6 +3,7 @@ import {UsersService} from '@valor-launchpad/users-api';
 import {JwtService} from '@nestjs/jwt';
 import {CryptService} from '@valor-launchpad/common-api';
 import {IncorrectPasswordException} from "./exceptions/incorrect-password";
+import {RegisterDTO} from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -39,5 +40,9 @@ export class AuthService {
     }
     const newPasswordCrypt = await this.crypt.hashPassword(newPassword);
     return await this.usersService.updatePassword(username, newPasswordCrypt);
+  }
+
+  async register(payload: RegisterDTO) {
+    return this.usersService.createByRegister(payload);
   }
 }
