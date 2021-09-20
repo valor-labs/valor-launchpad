@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../core/auth/auth.service';
+import {debounceTime, distinctUntilChanged, filter, switchMap} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'valor-launchpad-sign-up',
@@ -9,30 +11,50 @@ import {AuthService} from '../../core/auth/auth.service';
 })
 export class SignUpComponent implements OnInit {
   signUpFormGroup = new FormGroup({
-    username: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(''),
+    username: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl(''),
-    password: new FormControl('')
+    password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private authService: AuthService) {
-  }
+  registerSucceed = false;
+
+  constructor(
+    private authService: AuthService,
+    private toastrService: ToastrService,
+  ) { }
 
   ngOnInit(): void {
+    this.signUpFormGroup.get('username')
+      .valueChanges
+      .pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        filter((val: string) => val && val.length > 0),
+        switchMap((val: string) => this.authService.checkIfUsernameExists(val)),
+      ).subscribe(({existedUsername}) => {
+        if (existedUsername) {
+          this.signUpFormGroup.get('username').setErrors({ duplicateUsername: true });
+        } else {
+          this.signUpFormGroup.get('username').setErrors(null);
+        }
+      });
   }
 
-  checkUsername(username) {
-    //  TODO: We need to check the username on a debounce as they type it
-  }
-
-  createUser(form) {
-    if (form.valid) {
-      this.authService.signUp(form.value)
-    } else {
-    //  TODO: do something with invalid form
+  createUser() {
+    if (this.signUpFormGroup.invalid) {
+      for (const ctrl of Object.values(this.signUpFormGroup.controls)) {
+        ctrl.markAsDirty();
+      }
+      return;
     }
+    this.authService.signUp(this.signUpFormGroup.value).subscribe(() => {
+      this.registerSucceed = true;
+    }, () => {
+      this.toastrService.error('Register failed, please try again.');
+    })
   }
 
 }
