@@ -1,15 +1,20 @@
-import {Injectable} from '@nestjs/common';
+import {HttpException, Injectable} from '@nestjs/common';
 import {UsersService} from '@valor-launchpad/users-api';
 import {JwtService} from '@nestjs/jwt';
 import {CryptService} from '@valor-launchpad/common-api';
 import {IncorrectPasswordException} from "./exceptions/incorrect-password";
 import {RegisterDTO} from './auth.dto';
+import * as uuid from 'uuid';
+import {RefreshTokenRedisService} from "./refresh-token-redis.service";
+import {PrismaService} from "@valor-launchpad/prisma";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly refreshTokenRedisService: RefreshTokenRedisService,
+    private prisma: PrismaService,
     private crypt: CryptService
   ) {
   }
@@ -27,8 +32,11 @@ export class AuthService {
     const payload = {username: user.username};
     const cleanUser = await this.usersService.findOne(payload.username);
     const loginServiceResult = await this.usersService.logIn(cleanUser.username);
+    const refreshToken = await this.crypt.hashPassword(uuid.v4());
+    await this.refreshTokenRedisService.saveRefreshToken(loginServiceResult.id, refreshToken);
     return {
       access_token: this.jwtService.sign(cleanUser),
+      refreshToken,
       user: cleanUser
     };
   }
@@ -50,5 +58,20 @@ export class AuthService {
     const newPasswordCrypt = await this.crypt.hashPassword(password);
 
     return await this.usersService.resetNewPassword(username, newPasswordCrypt);
+  }
+
+  async refreshToken(userId: string, refreshToken: string) {
+    const refreshTokenInRedis = await this.refreshTokenRedisService.getRefreshToken(userId);
+    const user = await this.prisma.userEntity.findFirst({
+      where: {id: userId},
+      select: {username: true},
+    });
+    console.log(refreshTokenInRedis, refreshToken);
+    // check if same
+    if (refreshTokenInRedis === refreshToken) {
+      return await this.login(user.username);
+    } else {
+      throw new HttpException('0000', 500);
+    }
   }
 }

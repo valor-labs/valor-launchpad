@@ -1,24 +1,23 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpErrorResponse
+  HttpInterceptor
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
+import {EMPTY, Observable, Subject, throwError} from "rxjs";
+import { catchError, switchMap, tap } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(public auth: AuthService, private router: Router,
-              @Inject(NOTYFToken) private notyf: Notyf,
-              ) {
-  }
+  refreshTokenInProgress = false;
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  tokenRefreshedSource = new Subject();
+  tokenRefreshed$ = this.tokenRefreshedSource.asObservable();
+  constructor(public auth: AuthService, private router: Router) {}
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
 
     request = request.clone({
       setHeaders: {
@@ -26,18 +25,59 @@ export class TokenInterceptor implements HttpInterceptor {
       }
     });
     return next.handle(request)
-      .pipe(
-        catchError(err => this._handleError(err))
-      );
+      .pipe(catchError(err => this.handleResponseError(err, request, next)));
   }
 
-  private _handleError(err: HttpErrorResponse): Observable<any> {
-    if (err.status === 401 || err.status === 403) {
-      this.router.navigate(['/sign-in']);
+  handleResponseError(error, request?, next?) {
+    if (error.status === 401) {
+      return this.refreshToken().pipe(
+        switchMap(() => {
+          request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${this.auth.getToken()}`
+            }
+          });
+          return next.handle(request);
+        }),
+        catchError(e => {
+          if (e.status !== 401) {
+            return this.handleResponseError(e);
+          } else {
+            this.logout();
+          }
+        })
+      );
     }
-    if (err.status === 500) {
-      this.notyf.error('Something wrong, please try again later.');
+    return throwError(error);
+  }
+
+  refreshToken(): Observable<any> {
+    if (this.refreshTokenInProgress) {
+      return new Observable(observer => {
+        this.tokenRefreshed$.subscribe(() => {
+          observer.next();
+          observer.complete();
+        });
+      });
+    } else {
+      this.refreshTokenInProgress = true;
+      return this.auth.refreshToken().pipe(
+        tap(() => {
+          this.refreshTokenInProgress = false;
+          this.tokenRefreshedSource.next();
+        }),
+        // catchError(() => {
+        //   this.refreshTokenInProgress = false;
+        //   this.logout();
+        //   return EMPTY;
+        // })
+      );
     }
-    return throwError(err);
+  }
+
+  logout() {
+    console.trace('123');
+    // this.auth.logout();
+    this.router.navigate(['sign-in']);
   }
 }

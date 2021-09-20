@@ -121,14 +121,14 @@ export class HeaderComponent implements OnInit {
 
   private _initProjectSearch(): void {
     this.projectSearchFc = new FormControl();
-    this.projectsListService.getProjects().subscribe(res => {
-      this.projectOptions = res;
-      this.projectSearchFc.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this._filterProjects(value))
-        ).subscribe();
-    });
+    // this.projectsListService.getProjects().subscribe(res => {
+    //   this.projectOptions = res;
+    //   this.projectSearchFc.valueChanges
+    //     .pipe(
+    //       startWith(''),
+    //       map(value => this._filterProjects(value))
+    //     ).subscribe();
+    // });
   }
 
   private _filterProjects(searchKey): void {

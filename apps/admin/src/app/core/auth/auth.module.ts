@@ -7,6 +7,6 @@ import {TokenInterceptor} from "./token.interceptor";
   imports: [
     CommonModule
   ],
-  providers: [TokenInterceptor]
+  providers: []
 })
 export class AuthModule { }

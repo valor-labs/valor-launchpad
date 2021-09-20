@@ -11,6 +11,9 @@ import {AuthController} from './auth.controller';
 import {EmailModule} from '@valor-launchpad/email';
 import {SmsModule} from '@valor-launchpad/sms';
 import {AuthEventsService} from './auth-events.service';
+import {RefreshTokenRedisService} from "./refresh-token-redis.service";
+import {PrismaService} from "@valor-launchpad/prisma";
+import {RefreshStrategy} from "./strategies/refresh.strategy";
 
 @Module({
   imports: [
@@ -18,14 +21,14 @@ import {AuthEventsService} from './auth-events.service';
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: {expiresIn: '60m'},
+      signOptions: {expiresIn: '10s'},
     }),
     CryptModule,
     EmailModule,
     SmsModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, AuthEventsService],
+  providers: [AuthService, LocalStrategy, JwtStrategy, AuthEventsService, RefreshStrategy, RefreshTokenRedisService, PrismaService],
   exports: [AuthService],
 })
 export class AuthApiModule {

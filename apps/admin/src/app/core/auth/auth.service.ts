@@ -54,6 +54,10 @@ export class AuthService {
     return this.access_token;
   }
 
+  refreshToken() {
+    const refreshToken = this.cookieService.get('refresh_token');
+    return this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/refresh-token', {refreshToken});
+  }
 
   isLoggedIn() {
     const allCookies = this.cookieService.getAll();

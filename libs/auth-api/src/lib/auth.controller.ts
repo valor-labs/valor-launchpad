@@ -10,6 +10,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RegisterDTO, ResetPasswordDTO, ResetNewPasswordDTO } from './auth.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload } from './auth-events.constant';
+import {RefreshAuthGuard} from "./guards/refresh-auth.guard";
 
 
 @Controller('v1')
@@ -32,9 +33,9 @@ export class AuthController {
       const loginResponse = await this.authService.login(body);
       req.session.token = loginResponse.access_token;
       req.session.user = loginResponse.user;
-      response.cookie('access_token', loginResponse.access_token, { domain: this.cookieDomain })
-      const loginResult = await this.authService.login(body);
-      response.send(loginResult);
+      response.cookie('access_token', loginResponse.access_token, {domain: this.cookieDomain})
+      response.cookie('refresh_token', loginResponse.refreshToken, {domain: this.cookieDomain})
+      response.send(loginResponse);
     } catch (error) {
       console.error(error)
       return new ResponseError('Login Failed', error)
@@ -72,6 +73,17 @@ export class AuthController {
     }
   }
 
+  @Post('refresh-token')
+  @UseGuards(RefreshAuthGuard)
+  async refreshToken(@Req() req: RequestWithSession, @Res() response: Response, @User() user: UserEntity, @Body() {refreshToken}) {
+    const loginResponse = await this.authService.refreshToken(user.id, refreshToken);
+    req.session.token = loginResponse.access_token;
+    req.session.user = loginResponse.user;
+    response.cookie('access_token', loginResponse.access_token, {domain: this.cookieDomain})
+    response.cookie('refresh_token', loginResponse.refreshToken, {domain: this.cookieDomain})
+    response.send(loginResponse);
+  }
+
   @Post('register')
   async register(@Body() createUser: RegisterDTO) {
     const createdUser = await this.authService.register(createUser);
@@ -107,7 +119,7 @@ export class AuthController {
 
     try {
       const user = await this.authService.resetPassword(username, password);
-      
+
       Object.assign(req.session.user, user);
 
       return new ResponseSuccess('Reset Password Success');
