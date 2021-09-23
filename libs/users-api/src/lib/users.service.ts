@@ -342,7 +342,6 @@ export class UsersService {
     const phoneVerifyToken = Math.random().toString().substr(2, 6);
     const createdUserId = v4();
     return await this.prisma.userEntity.create({
-      select: { username: true },
       data: {
         id: createdUserId,
         username,
