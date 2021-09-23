@@ -1,29 +1,33 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
-import {
-  CryptService,
-  UserEntity,
-  CreateUser,
-  RolesEntity
-} from '@valor-launchpad/common-api';
+import {CryptService, UserEntity, RolesEntity} from '@valor-launchpad/common-api';
 import {classToPlain} from 'class-transformer';
 import {EmailService} from '@valor-launchpad/email';
 import * as generatePassword from 'generate-password';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {PrismaService} from '@valor-launchpad/prisma';
+import {Prisma} from '@prisma/client';
 import {ExistedUserException} from './exceptions/existed-user';
 import {NeedVerifyEmailException} from './exceptions/need-verify-email';
-import * as uuid from 'uuid';
+import {v4} from 'uuid';
+import {CreateUserDto} from './dto/create-user.dto';
+import {RegisterDTO} from '../../../auth-api/src/lib/auth.dto';
+import {RESET_PASSWORD, ResetPasswordPayload} from './users-events.constant';
+import {UsersEventsService} from './users-events.service';
+import { EditUserDto } from './dto/edit-user.dto';
+import { RoleDto } from './dto/role.dto';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
 
 @Injectable()
 export class UsersService {
-  constructor(private crypto: CryptService,
-              private emailService: EmailService,
-              private eventEmitter: EventEmitter2,
-              private prisma: PrismaService) {
-  }
+  constructor(
+    private crypto: CryptService,
+    private emailService: EmailService,
+    private eventEmitter: EventEmitter2,
+    private prisma: PrismaService,
+    private usersEventsService: UsersEventsService,
+  ) {}
 
   //TODO: Add profile image function
 
@@ -40,23 +44,39 @@ export class UsersService {
     return await this.prisma.rolesEntity.findMany() as RolesEntity[];
   }
 
-  async findAll(): Promise<UserEntity[]> {
-    //Todo: this eventually needs to filter password field
+  async findAll() {
     return await this.prisma.userEntity.findMany({
-      include: {
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        username: true,
+        email: true,
+        emailVerified: true,
+        lastLogin: true,
+        deletedDate: true,
+        lastPasswordUpdateDate: true,
+        passwordResetNeeded: true,
         userRoles: {
           include: {
             rolesEntity: true
           }
         },
-        userTags: true,
+        userTags: {
+          include: {
+            tagsEntity: true
+          }
+        },
         userHistory: {
           include: {
             actingUser: true
+          },
+          orderBy: {
+            createdDate: 'desc'
           }
         }
       }
-    }) as UserEntity[]
+    });
   }
 
   //TODO verify this filters soft deletes after prisma conversion
@@ -83,15 +103,14 @@ export class UsersService {
   }
 
   async resendEmail(userId, actingUser): Promise<void> {
-    //TODO: figure out how to make these work without an `any`
-    const userCheck: UserEntity = await this.prisma.userEntity.findUnique({
+    const userCheck = await this.prisma.userEntity.findUnique({
       where: {
         id: userId
       },
       include: {
         userHistory: true
       },
-    }) as UserEntity;
+    });
     if (userCheck) {
       await this.prisma.userEventsEntity.create({
         data: {
@@ -101,7 +120,7 @@ export class UsersService {
         }
       })
       const newPassword = this.generatePassword();
-      await this.sendPasswordEmail(newPassword, userCheck.email);
+      await this.usersEventsService.sendResetPasswordEmail(userCheck.email, newPassword);
 
       await this.prisma.userEntity.update({
         where: {
@@ -139,7 +158,7 @@ export class UsersService {
         }
       })
       const newPassword = this.generatePassword();
-      await this.sendPasswordEmail(newPassword, userCheck.email);
+      this.emitResetPasswordEmail(userCheck.email, newPassword);
 
       await this.prisma.userEntity.update({
         where: {
@@ -282,7 +301,8 @@ export class UsersService {
     return !!userCheck;
   }
 
-  async createByRegister({username, email, firstName, lastName, phone, password}) {
+  async createUser(payload: CreateUserDto | RegisterDTO, operator?: UserEntity) {
+    const {username, email, firstName, lastName} = payload;
     // check if username duplicate
     const userCheck = await this.prisma.userEntity.findFirst({where: {username}});
     if (userCheck) {
@@ -294,11 +314,37 @@ export class UsersService {
     }
 
     // create user
+    let userRolesCreate: Prisma.UserRolesEntityCreateWithoutUserEntityInput[];
+    let password: string;
+    let phone: string;
+    let passwordResetNeeded: boolean;
+    if (payload instanceof CreateUserDto) {
+      userRolesCreate = payload.roles.map(r => ({
+        rolesEntity: {
+          connectOrCreate: {
+            where: {role: r.name},
+            create: {role: r.name},
+          }
+        }
+      }));
+      password = this.generatePassword();
+      passwordResetNeeded = true;
+      this.emitResetPasswordEmail(email, password);
+    } else {
+      userRolesCreate = [{ rolesEntity: { connect: { role: 'User' } } }];
+      password = payload.password;
+      phone = payload.phone;
+      passwordResetNeeded = false;
+    }
+
     const passwordCrypt = await this.crypto.hashPassword(password);
-    const emailVerifyToken = uuid.v4();
+    const emailVerifyToken = v4();
     const phoneVerifyToken = Math.random().toString().substr(2, 6);
-    const createdUser = await this.prisma.userEntity.create({
+    const createdUserId = v4();
+    return await this.prisma.userEntity.create({
+      select: { username: true },
       data: {
+        id: createdUserId,
         username,
         email,
         firstName,
@@ -306,79 +352,80 @@ export class UsersService {
         phone,
         phoneVerifyToken,
         emailVerifyToken,
+        passwordResetNeeded,
         password: passwordCrypt,
-        userRoles: {
-          create: [{
-            rolesEntity: {
-              connect: {
-                // todo: replace hardcode `User`
-                // user registered is `User` role
-                role: 'User',
-              }
-            }
-          }]
+        userRoles: { create: userRolesCreate },
+        userHistory: {
+          create: {
+            // when operator is nil, means it's register flow
+            acting_user_id: operator?.id || createdUserId,
+            event: 'User Created'
+          }
         }
       }
     });
-
-    // add events
-    await this.prisma.userEventsEntity.create({
-      data: {
-        target_user_id: createdUser.id,
-        acting_user_id: createdUser.id,
-        event: 'User Created'
-      }
-    });
-
-    return createdUser;
   }
 
-  async createUser(user: CreateUser, actingUser: UserEntity): Promise<UserEntity> {
-    const userCheck = await this.findByUsername(user.username);
-    if (!userCheck) {
+  async editUser(user: EditUserDto, operator: UserEntity) {
+    const userRoles = await this.prisma.userRolesEntity.findMany({
+      where: { user_id: user.id, deletedDate: null },
+      select: { id: true, role_id: true }
+    });
+    const oldRoleIds = userRoles.map(i => i.role_id);
+    const { roles } = user;
 
-      const createUser = new UserEntity(user);
-      if (!createUser.password) {
-        createUser.password = this.generatePassword()
-        await this.sendPasswordEmail(createUser.password, createUser.email);
-      }
-      let userRole: any = {}
-      //TODO: make this tie to the actual Role
-      userRole.role = 'User';
-      createUser.userRoles = [userRole];
-      createUser.passwordResetNeeded = true
-      const createdUser = <UserEntity>await this.prisma.userEntity.create({
-        data: createUser
-      })
+    const userRoleWillBeInsert: RoleDto[] = [];
+    const userRoleWillBeDelete: string[] = [];
 
-      await this.prisma.userEventsEntity.create({
-        data: { //TODO Would be nice to have a type working for this CreateEventsEntity
-          target_user_id: userCheck.id,
-          acting_user_id: actingUser.id,
-          event: 'User Created'
+    for (const role of roles) {
+      if (role.value) {
+        if (!oldRoleIds.includes(role.value)) {
+          userRoleWillBeInsert.push(role);
         }
-      })
-      //TODO: Set password reset token / methods
-      //TODO: Set email verified when they log in and change their password
-
-      this.eventEmitter.emit(
-        'user.created.thin',
-        <UserEntity>{
-          id: createUser.id,
-        },
-      );
-
-      this.eventEmitter.emit(
-        'user.created.fat',
-        <UserEntity>createUser,
-      );
-
-      return createdUser;
-    } else if (!userCheck.emailVerified) {
-      throw new HttpException('Please check your email to verify your email address', HttpStatus.FORBIDDEN);
-    } else {
-      throw new HttpException('Username already exists', HttpStatus.FORBIDDEN)
+      } else {
+        userRoleWillBeInsert.push(role);
+      }
     }
+
+    for (const { id, role_id } of userRoles) {
+      // cannot find the role id in edit payload
+      // means the user does not belongs to this role any more
+      if (!roles.find(r => r.value === role_id)) {
+        userRoleWillBeDelete.push(id);
+      }
+    }
+
+    const now = new Date();
+    return await this.prisma.userEntity.update({
+      select: { username: true },
+      data: {
+        username: user.username,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        updatedDate: now,
+        userRoles: {
+          // todo: N + 1 issue here, separate this into dependent expression may be better
+          create: userRoleWillBeInsert.map(r => ({
+            rolesEntity: {
+              connectOrCreate: {
+                where: {role: r.name},
+                create: {role: r.name, createdDate: now},
+              }
+            },
+            createdDate: now,
+          })),
+          deleteMany: { id: { in: userRoleWillBeDelete } }
+        },
+        userHistory: {
+          create: {
+            acting_user_id: operator.id,
+            event: 'User Updated',
+          }
+        }
+      },
+      where: { id: user.id },
+    });
   }
 
   async findOneUnsafe(username: string): Promise<UserEntity> {
@@ -426,22 +473,6 @@ export class UsersService {
     })
   }
 
-  async sendPasswordEmail(password: string, email: string): Promise<void> {
-    //TODO: Move this to a template that is generated and saved in database and used from that
-    await this.emailService.sendEmail({
-      to: email,
-      from: 'zack.chapple@valor-software.com',
-      subject: 'Your Initial Password',
-      text: 'Reset your password here',
-      html: '<strong>Your Initial Password</strong><br><br>' +
-        `${password}
-          <br>
-          <br>
-          Or, copy and paste the following URL into your browser:
-          <span>http://localhost:4200/login}</span>`,
-    })
-  }
-
   async findOne(username: string): Promise<User | undefined> {
     const fetchedUser = await this.prisma.userEntity.findUnique({
       where: {
@@ -474,5 +505,9 @@ export class UsersService {
         event: 'Password changed'
       }
     });
+  }
+
+  private emitResetPasswordEmail(email: string, password: string) {
+    this.eventEmitter.emit(RESET_PASSWORD, new ResetPasswordPayload(email, password));
   }
 }

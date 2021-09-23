@@ -267,6 +267,8 @@ model UserRolesEntity {
   rolesEntity RolesEntity @relation("userRoles", fields: [role_id], references: [id])
   user_id     String      @db.VarChar(36)
   userEntity  UserEntity  @relation("userEntity", fields: [user_id], references: [id])
+
+  @@unique([user_id, role_id])
 }
 
 model UserTagsEntity {
@@ -278,6 +280,8 @@ model UserTagsEntity {
   userEntity  UserEntity @relation("userTags", fields: [user_id], references: [id])
   tag_id      String     @db.VarChar(36)
   tagsEntity  TagsEntity @relation("tags", fields: [tag_id], references: [id])
+
+  @@unique([user_id, tag_id])
 }
 
 model TagsEntity {

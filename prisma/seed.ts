@@ -17,6 +17,8 @@ import { UserFollowerSeed } from './user-follower.seed';
 import { StorySeed } from './story.seed';
 import { USER_1, USER_2, USER_3 } from './seed-data/users';
 import { ActivitySeed } from './activity.seed';
+import { TagSeed } from './tag.seed';
+import { UserTagSeed } from './user-tag.seed';
 
 const prisma = new PrismaClient()
 
@@ -35,6 +37,8 @@ async function main() {
   const userFollowerSeed = new UserFollowerSeed(prisma);
   const storySeed = new StorySeed(prisma);
   const activitySeed = new ActivitySeed(prisma);
+  const tagSeed = new TagSeed(prisma);
+  const userTagSeed = new UserTagSeed(prisma);
 
 
   /*
@@ -164,6 +168,16 @@ async function main() {
   Create activity
    */
   await activitySeed.seed();
+
+  /*
+  Create tags
+   */
+  await tagSeed.createAllTags();
+
+  /*
+  Create user tags
+   */
+  await userTagSeed.seed();
 
   /*
   Create projects

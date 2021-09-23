@@ -43,6 +43,6 @@ export class AuthService {
   }
 
   async register(payload: RegisterDTO) {
-    return this.usersService.createByRegister(payload);
+    return this.usersService.createUser(payload);
   }
 }

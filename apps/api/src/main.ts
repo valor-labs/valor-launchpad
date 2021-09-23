@@ -44,7 +44,7 @@ async function bootstrap() {
 
   app.use(compression());
   app.use(cookieParser());
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({transform: true}));
   app.use(expressSession({
     store: new RedisStore({client: redisClient}),
     secret: '12345',
