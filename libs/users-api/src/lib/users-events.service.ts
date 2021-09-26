@@ -20,6 +20,7 @@ export class UsersEventsService {
   }
 
   async sendResetPasswordEmail(email: string, password: string) {
+    // todo: put template in database
     await this.emailService.sendEmail({
       to: email,
       from: 'zack.chapple@valor-software.com',

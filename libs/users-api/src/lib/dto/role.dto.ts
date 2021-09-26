@@ -5,5 +5,6 @@ export class RoleDto {
   @IsNotEmpty()
   name: string;
 
+  // uuid in RoleEntity
   value?: string;
 }
