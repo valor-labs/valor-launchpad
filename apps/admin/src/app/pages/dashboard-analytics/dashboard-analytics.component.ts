@@ -3,6 +3,8 @@ import {DashboardAnalyticsService} from './dashboard-analytics.service';
 import { ToastrService } from 'ngx-toastr';
 import "jsvectormap/dist/js/jsvectormap.js"
 import 'jsvectormap/dist/maps/world.js';
+import { AuthService } from '../../core/auth/auth.service';
+import { map } from 'rxjs/operators';
 
 declare const jsVectorMap: any;
 
@@ -92,7 +94,7 @@ const worldMarkers = [
   styleUrls: ['./dashboard-analytics.component.scss']
 })
 export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
-
+  userFirstName$ = this.authService.user.pipe(map(res => res.firstName));
   mobileDesktopConfig = {
     view: [700, 400],
 
@@ -220,6 +222,7 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dashboardAnalyticsService: DashboardAnalyticsService,
+    private authService: AuthService,
     private toastr: ToastrService
   ) {
   }
