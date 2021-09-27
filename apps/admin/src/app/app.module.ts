@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -25,8 +25,6 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {NgxMaskModule} from 'ngx-mask';
 import { ThemeBuilderComponent } from './core/theme-builder/theme-builder.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ValorThemeService } from './core/theme/valor-theme.service';
-import { themeInitializer } from './core/theme/theme-initializer';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent, ThemeBuilderComponent],
@@ -47,12 +45,12 @@ import { themeInitializer } from './core/theme/theme-initializer';
       useClass: TokenInterceptor,
       multi: true
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: themeInitializer,
-      deps: [ValorThemeService],
-      multi: true,
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: themeInitializer,
+    //   deps: [ValorThemeService],
+    //   multi: true,
+    // },
   ],
   bootstrap: [AppComponent]
 })
