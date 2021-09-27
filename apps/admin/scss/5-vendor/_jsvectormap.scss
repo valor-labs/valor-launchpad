@@ -6,4 +6,10 @@
   &.jvm-zoomout {
     line-height: 6px;
   }
+  &.jvm-zoomin{
+    top: 0;
+  }
+  &.jvm-zoomout{
+    top: 20px;
+  }
 }

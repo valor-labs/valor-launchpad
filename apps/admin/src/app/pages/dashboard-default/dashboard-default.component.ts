@@ -32,7 +32,7 @@ export class DashboardDefaultComponent implements OnInit {
     xAxisLabel: 'Month',
     showYAxisLabel: false,
     yAxisLabel: 'Sales',
-    animations: false,
+    animations: true,
 
     colorScheme: {
       domain: ['#3F80EA', '#84aef2']

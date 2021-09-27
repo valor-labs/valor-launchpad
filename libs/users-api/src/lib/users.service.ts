@@ -10,6 +10,9 @@ import {EmailService} from '@valor-launchpad/email';
 import * as generatePassword from 'generate-password';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {PrismaService} from '@valor-launchpad/prisma';
+import {ExistedUserException} from './exceptions/existed-user';
+import {NeedVerifyEmailException} from './exceptions/need-verify-email';
+import * as uuid from 'uuid';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -68,7 +71,7 @@ export class UsersService {
     }) as UserEntity[]
   }
 
-  async findByUsername(username: string): Promise<UserEntity> {
+  async findByUsername(username: string) {
     return await this.prisma.userEntity.findUnique({
       where: {
         username
@@ -76,7 +79,7 @@ export class UsersService {
       include: {
         userHistory: true
       },
-    }) as UserEntity
+    });
   }
 
   async resendEmail(userId, actingUser): Promise<void> {
@@ -126,7 +129,7 @@ export class UsersService {
   }
 
   async resetPassword(username, actingUser) {
-    const userCheck: UserEntity = await this.findByUsername(username);
+    const userCheck = await this.findByUsername(username);
     if (userCheck) {
       await this.prisma.userEventsEntity.create({
         data: {
@@ -164,7 +167,7 @@ export class UsersService {
 
   async deleteUser(username, actingUser): Promise<void> {
     //TODO: Make this ID based
-    const userCheck: UserEntity = await this.findByUsername(username);
+    const userCheck = await this.findByUsername(username);
     if (userCheck) {
       await this.prisma.userEntity.delete({
         where: {username}
@@ -196,7 +199,7 @@ export class UsersService {
 
   async restoreUser(username, actingUser): Promise<void> {
     //TODO: Make this ID based
-    const userCheck: UserEntity = await this.findByUsername(username);
+    const userCheck = await this.findByUsername(username);
     if (userCheck.deletedDate) {
       await this.prisma.userEntity.update({
         where: {
@@ -272,6 +275,62 @@ export class UsersService {
     } else {
       throw new HttpException('Token does not exist', HttpStatus.NOT_FOUND)
     }
+  }
+
+  async verifyUsername(username: string) {
+    const userCheck = await this.prisma.userEntity.findFirst({where: {username}});
+    return !!userCheck;
+  }
+
+  async createByRegister({username, email, firstName, lastName, phone, password}) {
+    // check if username duplicate
+    const userCheck = await this.prisma.userEntity.findFirst({where: {username}});
+    if (userCheck) {
+      if (userCheck.emailVerified) {
+        throw new ExistedUserException();
+      } else {
+        throw new NeedVerifyEmailException();
+      }
+    }
+
+    // create user
+    const passwordCrypt = await this.crypto.hashPassword(password);
+    const emailVerifyToken = uuid.v4();
+    const phoneVerifyToken = Math.random().toString().substr(2, 6);
+    const createdUser = await this.prisma.userEntity.create({
+      data: {
+        username,
+        email,
+        firstName,
+        lastName,
+        phone,
+        phoneVerifyToken,
+        emailVerifyToken,
+        password: passwordCrypt,
+        userRoles: {
+          create: [{
+            rolesEntity: {
+              connect: {
+                // todo: replace hardcode `User`
+                // user registered is `User` role
+                role: 'User',
+              }
+            }
+          }]
+        }
+      }
+    });
+
+    // add events
+    await this.prisma.userEventsEntity.create({
+      data: {
+        target_user_id: createdUser.id,
+        acting_user_id: createdUser.id,
+        event: 'User Created'
+      }
+    });
+
+    return createdUser;
   }
 
   async createUser(user: CreateUser, actingUser: UserEntity): Promise<UserEntity> {

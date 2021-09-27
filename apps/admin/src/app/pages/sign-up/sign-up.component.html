@@ -2,60 +2,84 @@
 <div class="main d-flex justify-content-center w-100">
   <main class="content d-flex p-0">
     <div class="container d-flex flex-column">
-      <div class="row h-100">
-        <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+      <div valorLaunchpadRow class="h-100">
+        <div valorLaunchpadCol [sm]="10" [md]="8" [lg]="6" class="mx-auto d-table h-100">
           <div class="d-table-cell align-middle">
-
-            <div class="text-center mt-4">
-              <h1 class="h2">Get started</h1>
-              <p class="lead">
-                Start creating the best possible user experience for you customers.
-              </p>
-            </div>
-
-            <div class="card">
-              <div class="card-body">
-                <div class="m-sm-4">
-                  <form [formGroup]="signUpFormGroup">
-                    <div class="mb-3">
-                      <label class="form-label">Username</label>
-                      <input class="form-control form-control-lg" formControlName="username"
-                             type="text" name="username" placeholder="Enter your username" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">First Name</label>
-                      <input class="form-control form-control-lg" formControlName="firstName"
-                             type="text" name="firstName" placeholder="First Name" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">Last Name</label>
-                      <input class="form-control form-control-lg" formControlName="lastName"
-                             type="text" name="lastName" placeholder="Last Name" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">Email</label>
-                      <input class="form-control form-control-lg" formControlName="email"
-                             type="email" name="email" placeholder="Enter your email" />
-                    </div>
-                    <div class="mb-3">
-<!--                      TODO: make this a nice phone input-->
-                      <label class="form-label">Phone Number</label>
-                      <input class="form-control form-control-lg" formControlName="phone"
-                             type="text" name="phone" placeholder="Enter your Phone Number" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">Password</label>
-                      <input class="form-control form-control-lg" formControlName="password"
-                             type="password" name="password" placeholder="Enter password" />
-                    </div>
-                    <div class="text-center mt-3">
-                       <button type="submit" (click)="createUser(signUpFormGroup)" class="btn btn-lg btn-primary">Sign up</button>
-                    </div>
-                  </form>
-                </div>
+            <ng-container *ngIf="!registerSucceed; else navTmpl">
+              <div class="text-center mt-4">
+                <h1 class="h2">Get started</h1>
+                <p class="lead">
+                  Start creating the best possible user experience for you customers.
+                </p>
               </div>
-            </div>
-
+              <valor-launchpad-card>
+                <valor-launchpad-card-content>
+                  <div class="m-sm-4">
+                    <form [formGroup]="signUpFormGroup">
+                      <valor-launchpad-form-item [errTip]="usernameErr">
+                        <valor-launchpad-form-label [required]="true">Username</valor-launchpad-form-label>
+                        <input valorLaunchpadInput vlSize="large" formControlName="username"
+                               type="text" name="username" placeholder="Enter your username" />
+                        <ng-template #usernameErr let-control>
+                          <ng-container *ngIf="control.hasError('duplicateUsername');">
+                            The username already exists
+                          </ng-container>
+                          <ng-container *ngIf="control.hasError('required');">
+                            The field is required
+                          </ng-container>
+                        </ng-template>
+                      </valor-launchpad-form-item>
+                      <valor-launchpad-form-item errTip="The field is required">
+                        <valor-launchpad-form-label [required]="true">First Name</valor-launchpad-form-label>
+                        <input valorLaunchpadInput vlSize="large" formControlName="firstName"
+                               type="text" name="firstName" placeholder="First Name" />
+                      </valor-launchpad-form-item>
+                      <valor-launchpad-form-item errTip="The field is required">
+                        <valor-launchpad-form-label [required]="true">Last Name</valor-launchpad-form-label>
+                        <input valorLaunchpadInput vlSize="large" formControlName="lastName"
+                               type="text" name="lastName" placeholder="Last Name" />
+                      </valor-launchpad-form-item>
+                      <valor-launchpad-form-item [errTip]="emailErr">
+                        <valor-launchpad-form-label [required]="true">Email</valor-launchpad-form-label>
+                        <input valorLaunchpadInput vlSize="large" formControlName="email"
+                               type="email" name="email" placeholder="Enter your email" />
+                        <ng-template #emailErr let-control>
+                          <ng-container *ngIf="control.hasError('email');">
+                            The email is not correct
+                          </ng-container>
+                          <ng-container *ngIf="control.hasError('required');">
+                            The field is required
+                          </ng-container>
+                        </ng-template>
+                      </valor-launchpad-form-item>
+                      <valor-launchpad-form-item>
+                        <!--                      TODO: make this a nice phone input-->
+                        <valor-launchpad-form-label class="form-label">Phone Number</valor-launchpad-form-label>
+                        <input valorLaunchpadInput vlSize="large" formControlName="phone"
+                               type="text" name="phone" placeholder="Enter your Phone Number" />
+                      </valor-launchpad-form-item>
+                      <valor-launchpad-form-item errTip="The field is required">
+                        <valor-launchpad-form-label [required]="true">Password</valor-launchpad-form-label>
+                        <input valorLaunchpadInput vlSize="large" formControlName="password"
+                               type="password" name="password" placeholder="Enter password" />
+                      </valor-launchpad-form-item>
+                      <div class="text-center mt-3">
+                        <button type="submit" (click)="createUser()" class="btn btn-lg btn-primary">Sign up</button>
+                      </div>
+                    </form>
+                  </div>
+                </valor-launchpad-card-content>
+              </valor-launchpad-card>
+            </ng-container>
+            <ng-template #navTmpl>
+              <div class="text-center mt-4">
+                <h1 class="h2">Go verify</h1>
+                <p class="lead">
+                  You have signed up successfully. Please check your email to verify your account.
+                </p>
+                <a routerLink="/sign-in">Sign in</a>
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>

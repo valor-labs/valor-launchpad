@@ -11,4 +11,31 @@
     border-color: $input-focus-border-color;
     box-shadow: 0 0 0 0.2rem rgb(63 128 234 / 25%);
   }
+
+  & &-container {
+    background-color: $white;
+    color: $black;
+    caret-color: $black;
+  }
+  &.ng-select-opened {
+    .ng-select-container {
+      background-color: $white;
+    }
+  }
+}
+
+.ng-dropdown-panel{
+  background-color: $white;
+  .ng-dropdown-panel-items {
+    .ng-optgroup {
+      color: $gray-600;
+    }
+    .ng-option{
+      background-color: $white;
+      color: $black;
+      &.ng-option-disabled {
+        color: $gray-200;
+      }
+    }
+  }
 }

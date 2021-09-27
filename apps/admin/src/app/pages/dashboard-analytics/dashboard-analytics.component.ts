@@ -3,6 +3,8 @@ import {DashboardAnalyticsService} from './dashboard-analytics.service';
 import { ToastrService } from 'ngx-toastr';
 import "jsvectormap/dist/js/jsvectormap.js"
 import 'jsvectormap/dist/maps/world.js';
+import { AuthService } from '../../core/auth/auth.service';
+import { map } from 'rxjs/operators';
 
 declare const jsVectorMap: any;
 
@@ -92,7 +94,7 @@ const worldMarkers = [
   styleUrls: ['./dashboard-analytics.component.scss']
 })
 export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
-
+  userFirstName$ = this.authService.user.pipe(map(res => res.firstName));
   mobileDesktopConfig = {
     view: [700, 400],
 
@@ -105,7 +107,7 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
     xAxisLabel: 'Month',
     showYAxisLabel: false,
     yAxisLabel: 'Sales',
-    animations: false,
+    animations: true,
 
     colorScheme: {
       domain: ['#3F80EA', '#84aef2']
@@ -191,6 +193,7 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
     yAxis: true,
     showYAxisLabel: true,
     showXAxisLabel: true,
+    legendPosition: 'below',
     colorScheme: {
       domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
     }
@@ -204,7 +207,7 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
     legendPosition: 'below',
 
     colorScheme: {
-      domain: ['#3F80EA', '#E5A54B', '#d9534f', '#293042']
+      domain: ['#3F80EA', '#E5A54B', '#d9534f', '#E8EAED']
     }
   };
 
@@ -219,6 +222,7 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dashboardAnalyticsService: DashboardAnalyticsService,
+    private authService: AuthService,
     private toastr: ToastrService
   ) {
   }

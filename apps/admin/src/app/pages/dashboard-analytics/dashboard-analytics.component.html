@@ -39,7 +39,7 @@
               <div class="row g-0 w-100">
                 <div class="col-6">
                   <div class="illustration-text p-3 m-1">
-                    <h4 class="illustration-text">Welcome Back, Chris!</h4>
+                    <h4 class="illustration-text">Welcome Back, {{userFirstName$ | async}}!</h4>
                     <p class="mb-0">Admin Dashboard</p>
                   </div>
                 </div>
@@ -251,6 +251,7 @@
           <ngx-charts-polar-chart
             [scheme]="interestsConfig.colorScheme"
             [legend]="interestsConfig.legend"
+            [legendPosition]="sourceMediumConfig.legendPosition"
             [showXAxisLabel]="interestsConfig.showXAxisLabel"
             [showYAxisLabel]="interestsConfig.showYAxisLabel"
             [xAxis]="interestsConfig.xAxis"

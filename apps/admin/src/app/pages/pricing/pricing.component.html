@@ -8,14 +8,14 @@
     <div valorLaunchpadRow class="justify-content-center mt-3 mb-2">
       <div class="col-auto">
         <nav class="nav btn-group">
-          <a (click)="handleMonthly()" class="btn btn-outline-primary" [ngClass]="{'active':monthlyActive}">Monthly billing</a>
-          <a (click)="handleAnnual()" class="btn btn-outline-primary" [ngClass]="{'active':annualActive}">Annual billing</a>
+          <a (click)="handleMonthly()" class="btn btn-outline-primary" [ngClass]="{'active':billyBtnActive}">Monthly billing</a>
+          <a (click)="handleAnnual()" class="btn btn-outline-primary" [ngClass]="{'active':!billyBtnActive}">Annual billing</a>
         </nav>
       </div>
     </div>
 
     <div class="tab-content">
-      <div [ngClass]="{'tab-pane':true,'fade':true,'show':monthlyActive,'active':monthlyActive}" id="monthly">
+      <div [ngClass]="{'tab-pane':true,'fade':true,'show':billShow,'active':billActive}" id="monthly">
         <div valorLaunchpadRow class="py-4">
           <div valorLaunchpadCol sm='4' class="mb-3 mb-md-0">
             <valor-launchpad-card class="text-center h-100">
@@ -115,7 +115,7 @@
         </div>
       </div>
 
-      <div [ngClass]="{'tab-pane':true,'fade':true,'show':annualActive,'active':annualActive}" id="annual">
+      <div [ngClass]="{'tab-pane':true,'fade':true,'show':!billShow,'active':!billActive}" id="annual">
         <div valorLaunchpadRow class="py-4">
           <div valorLaunchpadCol sm='4' class="mb-3 mb-md-0">
             <valor-launchpad-card class="text-center h-100">

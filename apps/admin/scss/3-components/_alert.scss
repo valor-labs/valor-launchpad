@@ -90,7 +90,7 @@ alert {
 
 .alert-outline-coloured {
   @each $color, $value in $theme-colors {
-    &.alert-#{$color} .alert-message {
+    .alert-#{$color} .alert-message {
       border-color: $value;
     }
   }
