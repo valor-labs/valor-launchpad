@@ -34,10 +34,10 @@ export class ThemeBuilderComponent implements OnInit, AfterViewInit {
   _buildFg(): void {
     this.themeBuilderFg = this.fb.group(
       {
-        theme: this.fb.control(this.themeService.getStoredConfig('theme', this.isFirstRender)),
-        sidebarPosition: this.fb.control(this.themeService.getStoredConfig('sidebarPosition', this.isFirstRender)),
-        sidebarBehavior: this.fb.control(this.themeService.getStoredConfig('sidebarBehavior', this.isFirstRender)),
-        layout: this.fb.control(this.themeService.getStoredConfig('layout', this.isFirstRender))
+        theme: this.fb.control(this.themeService.getStoredConfig('theme', false)),
+        sidebarPosition: this.fb.control(this.themeService.getStoredConfig('sidebarPosition', false)),
+        sidebarBehavior: this.fb.control(this.themeService.getStoredConfig('sidebarBehavior', false)),
+        layout: this.fb.control(this.themeService.getStoredConfig('layout', false))
       }
     );
   }
