@@ -407,3 +407,43 @@ model SocialActivity {
   targetUser UserEntity?  @relation("socialActivityTargetUser", fields: [targetUserId], references: [id])
   story      SocialStory? @relation("socialActivityStory", fields: [storyId], references: [id])
 }
+
+model CryptoMainInfo {
+  id        Int       @id @default(autoincrement())
+  title     String    @db.VarChar(36)
+  price     Decimal   @db.Decimal(65, 30)
+  priceByUS Decimal   @db.Decimal(65, 30)
+  volume    Decimal   @db.Decimal(65, 30)
+  change    Decimal   @db.Decimal(5, 3)
+}
+
+model CryptoMarkets {
+  id      Int       @id @default(autoincrement())
+  coin    String    @db.VarChar(36)
+  price   Decimal   @db.Decimal(65, 30)
+  volume  Decimal   @db.Decimal(65, 30)
+  change  Decimal   @db.Decimal(5, 3)
+}
+
+enum CryptoOrderType {
+  BUY
+  SELL
+}
+
+model CryptoOrders {
+  id      Int       @id @default(autoincrement())
+  type    CryptoOrderType
+  price   Decimal   @db.Decimal(65, 30)
+  eth     Decimal   @db.Decimal(65, 30)
+  btc     Decimal   @db.Decimal(65, 30)
+  sum     Decimal   @db.Decimal(65, 30)
+}
+
+model CryptoValueHistory {
+  id      Int       @id @default(autoincrement())
+  date    DateTime  @db.DateTime(6)
+  open    Decimal   @db.Decimal(65, 30)
+  close   Decimal   @db.Decimal(65, 30)
+  high    Decimal   @db.Decimal(65, 30)
+  low     Decimal   @db.Decimal(65, 30)
+}
