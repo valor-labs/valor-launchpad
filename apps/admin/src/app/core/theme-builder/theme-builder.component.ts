@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { defaultProps, themeConfig, themeConfigKeys, themeType, ValorThemeService } from '../theme/valor-theme.service';
+import { themeConfig, themeConfigKeys, themeType, ValorThemeService } from '../theme/valor-theme.service';
 
 @Component({
   selector: 'valor-launchpad-theme-builder',
