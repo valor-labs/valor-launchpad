@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { defaultProps, themeConfig, themeConfigKeys, themeType, ValorThemeService } from '../theme/valor-theme.service';
+import { themeConfig, themeConfigKeys, ValorThemeService } from '../theme/valor-theme.service';
 
 @Component({
   selector: 'valor-launchpad-theme-builder',
@@ -13,8 +13,6 @@ export class ThemeBuilderComponent implements OnInit, AfterViewInit {
   themeBuilderClass: { [key: string]: any };
 
   themeBuilderFg: FormGroup;
-
-  isFirstRender = true;
 
   constructor(
     private fb: FormBuilder,
@@ -34,10 +32,10 @@ export class ThemeBuilderComponent implements OnInit, AfterViewInit {
   _buildFg(): void {
     this.themeBuilderFg = this.fb.group(
       {
-        theme: this.fb.control(this.themeService.getStoredConfig('theme', this.isFirstRender)),
-        sidebarPosition: this.fb.control(this.themeService.getStoredConfig('sidebarPosition', this.isFirstRender)),
-        sidebarBehavior: this.fb.control(this.themeService.getStoredConfig('sidebarBehavior', this.isFirstRender)),
-        layout: this.fb.control(this.themeService.getStoredConfig('layout', this.isFirstRender))
+        theme: this.fb.control(this.themeService.getStoredConfig('theme', false)),
+        sidebarPosition: this.fb.control(this.themeService.getStoredConfig('sidebarPosition', false)),
+        sidebarBehavior: this.fb.control(this.themeService.getStoredConfig('sidebarBehavior', false)),
+        layout: this.fb.control(this.themeService.getStoredConfig('layout', false))
       }
     );
   }
