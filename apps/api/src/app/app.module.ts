@@ -13,6 +13,7 @@ import { ProjectsListener } from './listeners/projects.listener';
 import { UsersApiModule } from '@valor-launchpad/users-api';
 import { PrismaModule } from '@valor-launchpad/prisma';
 import { DashboardSocialModule } from '../dashboard/dashboard-social/dashboard-social.module';
+import { DashboardCryptoModule } from '../dashboard/dashboard-crypto';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DashboardSocialModule } from '../dashboard/dashboard-social/dashboard-s
       { path: '/dashboard', module: DashboardModule },
       { path: '/dashboard-analytics', module: DashboardAnalyticsModule },
       { path: '/dashboard-social', module: DashboardSocialModule },
+      { path: '/dashboard-crypto', module: DashboardCryptoModule},
       { path: '/profile', module: ProfileModule },
       { path: '/projects', module: ProjectsModule },
       { path: '/auth', module: AuthApiModule },
@@ -37,6 +39,7 @@ import { DashboardSocialModule } from '../dashboard/dashboard-social/dashboard-s
     DashboardAnalyticsModule,
     StripeApiModule,
     DashboardSocialModule,
+    DashboardCryptoModule
   ],
   controllers: [AppController],
   providers: [AppService, ProjectsListener],
