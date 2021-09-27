@@ -2,6 +2,7 @@ import {Body, Controller, Get, NotFoundException, Param, Post, UseGuards} from '
 import {ProjectsService} from "./projects.service";
 import {JwtAuthGuard} from '@valor-launchpad/auth-api';
 import {Prisma} from '@prisma/client';
+import { Project } from '@api/projects';
 
 @UseGuards(JwtAuthGuard)
 @Controller('v1')
@@ -9,8 +10,18 @@ export class ProjectsController {
   constructor(private projectsService: ProjectsService) {
   }
 
+  @Get('isProjectExist/:title')
+  async isProjectExist(@Param() params) {
+    const project = await this.projectsService.getProjectByTitle(params.title);
+    if (project !== null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @Post('create')
-  async createProject(@Body() createProjectDto: Prisma.ProjectsEntityCreateInput) {
+  async createProject(@Body() createProjectDto: Project) {
     return await this.projectsService.createProject(createProjectDto);
   }
 
