@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { defaultProps, themeConfig, themeConfigKeys, themeType, ValorThemeService } from '../theme/valor-theme.service';
+import { themeConfig, themeConfigKeys, ValorThemeService } from '../theme/valor-theme.service';
 
 @Component({
   selector: 'valor-launchpad-theme-builder',
@@ -13,8 +13,6 @@ export class ThemeBuilderComponent implements OnInit, AfterViewInit {
   themeBuilderClass: { [key: string]: any };
 
   themeBuilderFg: FormGroup;
-
-  isFirstRender = true;
 
   constructor(
     private fb: FormBuilder,
