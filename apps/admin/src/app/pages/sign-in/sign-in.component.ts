@@ -10,17 +10,15 @@ import {CookieService} from "ngx-cookie-service";
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-
   public userName: string;
-
   public title: string;
+  public errorMessage: string;
+  public isAlertOpen: boolean;
 
   constructor(private signInService: SignInService, private authService: AuthService, private router: Router, private cookieService: CookieService) {
     this.userName = '';
-  }
-
-  signIn(form) {
-    this.signInService.login(form.value)
+    this.errorMessage = '';
+    this.isAlertOpen = false;
   }
 
   ngOnInit(): void {
@@ -30,4 +28,23 @@ export class SignInComponent implements OnInit {
       this.router.navigate(['/dashboard-default']);
     }
   }
+
+  async signIn(form) {
+    (await this.signInService.login(form.value)).subscribe(
+      (res) => {
+        if(res.message === 'Unauthorized') {
+          this.errorMessage = 'Incorrect username or password';
+          this.isAlertOpen = true;
+        }
+      },
+      err => {
+        this.errorMessage = err;
+      }
+    )
+  }
+
+  onClose(event) {
+    this.isAlertOpen = event;
+  }
+
 }

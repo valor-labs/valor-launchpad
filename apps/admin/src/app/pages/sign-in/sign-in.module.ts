@@ -5,7 +5,7 @@ import { SignInRoutingModule } from './sign-in-routing.module';
 import { SignInComponent } from './sign-in.component';
 import {SignInService} from "./sign-in.service";
 import {FormsModule} from "@angular/forms";
-
+import {UiModule} from '@valor-launchpad/ui';
 
 @NgModule({
   declarations: [
@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
   imports: [
     CommonModule,
     FormsModule,
+    UiModule,
     SignInRoutingModule
   ],
   providers: [SignInService]

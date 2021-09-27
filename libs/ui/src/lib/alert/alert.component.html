@@ -1,5 +1,5 @@
-<alert [type]="type" [dismissible]="dismissible"
-       [ngClass]="{'alert-outline':outline, 'alert-outline-coloured': colored}">
+<alert [type]="type" [dismissible]="dismissible" [isOpen]="isOpen"
+       [ngClass]="{'alert-outline':outline, 'alert-outline-coloured': colored}" (onClosed)="onClosed()">
   <ng-template [ngIf]="icon">
     <div class="alert-icon">
       <i [ngClass]="icon"></i>
