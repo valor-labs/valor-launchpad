@@ -1,3 +1,7 @@
+
+button {
+  position: relative;
+}
 .btn-link:not(:hover) {
   text-decoration: none;
 }
@@ -61,4 +65,24 @@
 .btn-outline-white {
   @include button-color-hover($gray-800);
   @include button-color-active($gray-800);
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner .8s linear infinite;
 }

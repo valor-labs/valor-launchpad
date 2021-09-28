@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
     );
 
   public content: string;
- 
+
   profileActions: Action[] = [
     {
       label: 'Profile',
@@ -94,7 +94,7 @@ export class HeaderComponent implements OnInit {
 
   signOut() {
     this.showModal();
-    
+
   }
 
   showModal() {

@@ -15,4 +15,12 @@ export class ProjectsListService {
   getProjects(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(this.config.environment.apiBase + 'api/projects/v1/all')
   }
+
+  isNameExists(name: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(this.config.environment.apiBase + 'api/projects/v1/isProjectExist/' + name)
+  }
+
+  createProject(project: Partial<Project>): Observable<Project> {
+    return this.httpClient.post<Project>(this.config.environment.apiBase + 'api/projects/v1/create', project);
+  }
 }
