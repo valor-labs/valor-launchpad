@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Action, MegaMenuColumn, Menu } from '@valor-launchpad/api-interfaces';
 import { Message, Notification } from '@valor-launchpad/api-interfaces';
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ProjectsListService } from '../../pages/projects-list/projects-list.service';
 import { Project } from '@api/projects';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'valor-launchpad-header',
@@ -18,6 +19,7 @@ import { Project } from '@api/projects';
 })
 export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
+  @ViewChild('defaultWarningModal', { static: false }) defaultWarningModal?: ModalDirective;
   user: UserEntity;
   messages: Message[] = [];
   notifications: Notification[] = [];
@@ -33,6 +35,8 @@ export class HeaderComponent implements OnInit {
         }))
       )
     );
+
+  public content: string;
 
   profileActions: Action[] = [
     {
@@ -81,6 +85,7 @@ export class HeaderComponent implements OnInit {
     });
 
     this._initProjectSearch();
+    this.content = 'Your account will logged out.'
   }
 
   toggleMenu() {
@@ -88,7 +93,18 @@ export class HeaderComponent implements OnInit {
   }
 
   signOut() {
-    this.authService.signOut();
+    this.showModal();
+
+  }
+
+  showModal() {
+    this.defaultWarningModal?.show();
+  }
+
+  confirmSignOut() {
+    // TODO add loading spinner here ?
+    this.content = '....Logging out';
+    this.authService.signOut().subscribe(() => {});
   }
 
   setLanguage(language: string) {

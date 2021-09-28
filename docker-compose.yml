@@ -10,7 +10,9 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         ports:
             - "3306:3306"
-
+        #command:
+            #--default-authentication-plugin=mysql_native_password 
+            #only for local test change mysql default auth for client connection
     redis:
         image: redis:6.2.4-alpine
         ports:

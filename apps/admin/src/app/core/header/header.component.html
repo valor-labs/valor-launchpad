@@ -155,4 +155,16 @@
       </li>
     </ul>
   </div>
+
+  <valor-launchpad-modal
+    bsModal
+    #defaultWarningModal="bs-modal"
+    heading='Sign Out Confirm'
+    [content]='content'
+    [footer]='defaultWarningModalFooter'>
+    <ng-template #defaultWarningModalFooter>
+      <button valor-launchpad-button theme='secondary' (click)='defaultWarningModal.hide()'>Cancel</button>
+      <button valor-launchpad-button theme='warning' (click)='confirmSignOut()'>Confirm</button>
+    </ng-template>
+  </valor-launchpad-modal>
 </nav>

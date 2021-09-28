@@ -26,10 +26,12 @@ export class AuthService {
   }
 
   signOut() {
-    this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).subscribe(() => {
-      this.access_token = undefined;
-      this.router.navigate(['/sign-in'])
-    })
+    return this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).pipe(
+      map(() => {
+        this.access_token = undefined;
+        this.router.navigate(['/sign-in'])
+      })
+    )
   }
 
   getToken() {

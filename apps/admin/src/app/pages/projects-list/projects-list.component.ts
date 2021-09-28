@@ -21,6 +21,8 @@ import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
   styleUrls: ['./projects-list.component.scss']
 })
 export class ProjectsListComponent implements OnInit {
+  newProjectFg: FormGroup;
+  validPicSuffixs = ['jpg', 'jpeg', 'png'];
   projects: Array<Project> = [];
 
   constructor(
@@ -41,10 +43,6 @@ export class ProjectsListComponent implements OnInit {
     this.isCreateProjectShow = true;
   }
 
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  newProjectFg: FormGroup;
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  validPicSuffixs = ['jpg', 'jpeg', 'png'];
 
   ngOnInit(): void {
     this.newProjectFg = this.fb.group(
