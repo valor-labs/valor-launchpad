@@ -11,7 +11,9 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class SignInComponent implements OnInit {
   public userName: string;
+  public avatar: string;
   public title: string;
+  public isFirstLogin: boolean;
   public errorMessage: string;
   public isAlertOpen: boolean;
 
@@ -23,6 +25,8 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.userName = this.cookieService.get('userName');
+    this.avatar = this.cookieService.get('avatar')
+    this.isFirstLogin = this.userName !== '' ? false : true;
     this.title = this.userName !== '' ? `Welcome back, ${this.userName}` : 'Welcome';
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/dashboard-default']);

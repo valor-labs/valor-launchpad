@@ -21,6 +21,7 @@ export class SignInService {
       map((data: any) => {
         this.authService.user.next(data.user);
         this.cookieService.set('userName',`${data.user.firstName} ${data.user.lastName}`);
+        this.cookieService.set('avatar', data.user.avatar.src);
         this.router.navigate(['/dashboard-default']);
       }),
       catchError(err => of(
