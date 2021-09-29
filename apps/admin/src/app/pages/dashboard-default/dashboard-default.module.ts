@@ -9,6 +9,7 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {AuthModule} from '../../core/auth/auth.module';
 import {UiModule} from "@valor-launchpad/ui";
+import { DashboardSocialModule } from "../dashboard-social/dashboard-social.module";
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {UiModule} from "@valor-launchpad/ui";
     CommonModule,
     DashboardDefaultRoutingModule,
     NgxChartsModule,
+    DashboardSocialModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     NgxDatatableModule,
