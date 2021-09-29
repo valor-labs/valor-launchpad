@@ -9,15 +9,9 @@ import { ButtonSize, ButtonTheme } from './button.model';
 })
 export class ButtonComponent {
 
-  // use @Attribute instead of @Input to remove no-necessary bind event
-  // https://netbasal.com/getting-to-know-the-attribute-decorator-in-angular-4f7c9fb61243
-  constructor(
-    @Attribute('theme') public theme: ButtonTheme = 'primary',
-    @Attribute('theme') public size: ButtonSize = 'md'
-  ) {
-  }
-
+  @Input() theme: ButtonTheme = 'primary';
   @Input() outlined = false;
+  @Input() size: ButtonSize = 'md';
 
   @HostBinding('class.btn') private btn = true;
 

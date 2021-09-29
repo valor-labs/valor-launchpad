@@ -69,8 +69,8 @@ export class UsersController {
   }
 
   @Post('resetPassword')
-  async resetPassword(@Body() user, @User() actingUser: UserEntity) {
-    return await this.usersService.resetPassword(user.username, actingUser);
+  async resetPassword(@Body() user) {
+    return await this.usersService.resetPassword(user.username);
   }
 
   @Post('resendEmail')
