@@ -34,7 +34,7 @@ export class WizardComponent implements OnInit {
   @Input() steps: VLWizardStep[];
 
   @Input() colorTheme: VLWizardTheme = 'primary';
-  @Input() styleTheme: 'default' | 'arrows' = 'default';
+  @Input() styleTheme: 'default' | 'arrows' | 'dots' = 'default';
 
   /**
    * Must be arrow function

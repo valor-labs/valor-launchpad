@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'valor-launchpad-settings-account',
   templateUrl: './settings-account.component.html',
-  styleUrls: ['./settings-account.component.scss'],
+  styleUrls: ['./settings-account.component.scss']
 })
 export class SettingsAccountComponent implements OnInit {
   LANGUAGE = {
@@ -24,7 +25,7 @@ export class SettingsAccountComponent implements OnInit {
     'zh-tw': '繁體中文',
     ko: '한국어',
     ar: 'العربية',
-    sv: 'Svenska',
+    sv: 'Svenska'
   };
 
   LOCALE = {
@@ -463,170 +464,170 @@ export class SettingsAccountComponent implements OnInit {
     yo_NG: 'Yoruba (Nigeria)',
     yo: 'Yoruba',
     zu_ZA: 'Zulu (South Africa)',
-    zu: 'Zulu',
+    zu: 'Zulu'
   };
 
   TIME_ZONE = {
     GMT: {
       label: 'Greenwich Mean Time',
       name: 'GMT',
-      diff: 0,
+      diff: 0
     },
     UTC: {
       label: 'Universal Coordinated Time',
       name: 'GMT',
-      diff: 0,
+      diff: 0
     },
     ETC: {
       label: 'European Central Time',
       name: 'GMT+1:00',
-      diff: 1,
+      diff: 1
     },
     EET: {
       label: 'Eastern European Time',
       name: 'GMT+2:00',
-      diff: 2,
+      diff: 2
     },
     ART: {
       label: '(Arabic) Egypt Standard Time',
       name: 'GMT+2:00',
-      diff: 2,
+      diff: 2
     },
     EAT: {
       label: 'Eastern African Time',
       name: 'GMT+3:00',
-      diff: 3,
+      diff: 3
     },
     MET: {
       label: 'Middle East Time',
       name: 'GMT+3:00',
-      diff: 3,
+      diff: 3
     },
     NET: {
       label: 'Near East Time',
       name: 'GMT+4:00',
-      diff: 4,
+      diff: 4
     },
     PLT: {
       label: 'Pakistan Lahore Time',
       name: 'GMT+5:00',
-      diff: 5,
+      diff: 5
     },
     IST: {
       label: 'India Standard Time',
       name: 'GMT+5:30',
-      diff: 5.5,
+      diff: 5.5
     },
     BST: {
       label: 'Bangladesh Standard Time',
       name: 'GMT+6:00',
-      diff: 6,
+      diff: 6
     },
     VST: {
       label: 'Vietnam Standard Time',
       name: 'GMT+7:00',
-      diff: 7,
+      diff: 7
     },
     CTT: {
       label: 'China Taiwan Time',
       name: 'GMT+8:00',
-      diff: 8,
+      diff: 8
     },
     JST: {
       label: 'Japan Standard Time',
       name: 'GMT+9:00',
-      diff: 9,
+      diff: 9
     },
     ACT: {
       label: 'Australia Central Time',
       name: 'GMT+9:30',
-      diff: 9.5,
+      diff: 9.5
     },
     AET: {
       label: 'Australia Eastern Time',
       name: 'GMT+10:00',
-      diff: 10,
+      diff: 10
     },
     SST: {
       label: 'Solomon StandardTime',
       name: 'GMT+11:00',
-      diff: 11,
+      diff: 11
     },
     NST: {
       label: 'New Zealand Standard Time',
       name: 'GMT+12:00',
-      diff: 12,
+      diff: 12
     },
     MIT: {
       label: 'Midway Islands Time',
       name: 'GMT-11:00',
-      diff: -11,
+      diff: -11
     },
     HST: {
       label: 'Hawaii Standard Time',
       name: 'GMT-10:00',
-      diff: -10,
+      diff: -10
     },
     AST: {
       label: 'Alaska Standard Time',
       name: 'GMT-9:00',
-      diff: -9,
+      diff: -9
     },
     PST: {
       label: 'Pacific Standard Time',
       name: 'GMT-8:00',
-      diff: -8,
+      diff: -8
     },
     PNT: {
       label: 'Phoenix Standard Time',
       name: 'GMT-7:00',
-      diff: -7,
+      diff: -7
     },
     MST: {
       label: 'Mountain Standard Time',
       name: 'GMT-7:00',
-      diff: -7,
+      diff: -7
     },
     CST: {
       label: 'Central Standard Time',
       name: 'GMT-6:00',
-      diff: -6,
+      diff: -6
     },
     EST: {
       label: 'Eastern Standard Time',
       name: 'GMT-5:00',
-      diff: -5,
+      diff: -5
     },
     IET: {
       label: 'Indiana Eastern Standard Time',
       name: 'GMT-5:00',
-      diff: -5,
+      diff: -5
     },
     PRT: {
       label: 'Puerto Rico and US Virgin Islands Time',
       name: 'GMT-4:00',
-      diff: -4,
+      diff: -4
     },
     CNT: {
       label: 'Canada Newfoundland Time',
       name: 'GMT-3:30',
-      diff: -3.5,
+      diff: -3.5
     },
     AGT: {
       label: 'Argentina Standard Time',
       name: 'GMT-3:00',
-      diff: -3,
+      diff: -3
     },
     BET: {
       label: 'Brazil Eastern Time',
       name: 'GMT-3:00',
-      diff: -3,
+      diff: -3
     },
     CAT: {
       label: 'Central African Time',
       name: 'GMT-1:00',
-      diff: -1,
-    },
+      diff: -1
+    }
   };
 
   languageKeys = [];
@@ -636,7 +637,8 @@ export class SettingsAccountComponent implements OnInit {
   publicInfoFormGroup: FormGroup;
   privateInfoFormGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private toastr: ToastrService) {
     this.languageKeys = Object.keys(this.LANGUAGE);
     this.localeKeys = Object.keys(this.LOCALE);
     this.timeZoneKeys = Object.keys(this.TIME_ZONE);
@@ -646,7 +648,7 @@ export class SettingsAccountComponent implements OnInit {
     this.publicInfoFormGroup = this.fb.group({
       username: [],
       bio: [],
-      avatar: [],
+      avatar: []
     });
     this.privateInfoFormGroup = this.fb.group({
       firstName: [],
@@ -659,7 +661,7 @@ export class SettingsAccountComponent implements OnInit {
       zip: [],
       language: [],
       locale: [],
-      timezone: [],
+      timezone: []
     });
   }
 
@@ -669,5 +671,17 @@ export class SettingsAccountComponent implements OnInit {
 
   savePrivateInfo() {
     console.log(this.privateInfoFormGroup.value);
+  }
+
+  onClickAction(): void {
+    this.toastr.success('Action!', 'You Click the Action!');
+  }
+
+  onClickAnotherAction(): void {
+    alert('You Click the Another Action!');
+  }
+
+  onClickSomethingElse(): void {
+    console.log('You click the something else');
   }
 }

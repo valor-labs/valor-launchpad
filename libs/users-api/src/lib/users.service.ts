@@ -1,26 +1,40 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
-import {
-  CryptService,
-  UserEntity,
-  CreateUser,
-  RolesEntity
-} from '@valor-launchpad/common-api';
+import {CryptService, UserEntity, RolesEntity} from '@valor-launchpad/common-api';
 import {classToPlain} from 'class-transformer';
 import {EmailService} from '@valor-launchpad/email';
 import * as generatePassword from 'generate-password';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {PrismaService} from '@valor-launchpad/prisma';
+import {Prisma} from '@prisma/client';
+import {ExistedUserException} from './exceptions/existed-user';
+import {NeedVerifyEmailException} from './exceptions/need-verify-email';
+import {v4} from 'uuid';
+import {CreateUserDto} from './dto/create-user.dto';
+import {RegisterDTO} from '../../../auth-api/src/lib/auth.dto';
+import {
+  RESET_PASSWORD,
+  ResetPasswordPayload,
+  USER_CREATED_FAT,
+  USER_CREATED_THIN,
+  UserCreatedFatPayload,
+  UserCreatedThinPayload
+} from './users-events.constant';
+import {UsersEventsService} from './users-events.service';
+import { EditUserDto } from './dto/edit-user.dto';
+import { RoleDto } from './dto/role.dto';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
 
 @Injectable()
 export class UsersService {
-  constructor(private crypto: CryptService,
-              private emailService: EmailService,
-              private eventEmitter: EventEmitter2,
-              private prisma: PrismaService) {
-  }
+  constructor(
+    private crypto: CryptService,
+    private emailService: EmailService,
+    private eventEmitter: EventEmitter2,
+    private prisma: PrismaService,
+    private usersEventsService: UsersEventsService,
+  ) {}
 
   //TODO: Add profile image function
 
@@ -37,23 +51,39 @@ export class UsersService {
     return await this.prisma.rolesEntity.findMany() as RolesEntity[];
   }
 
-  async findAll(): Promise<UserEntity[]> {
-    //Todo: this eventually needs to filter password field
+  async findAll() {
     return await this.prisma.userEntity.findMany({
-      include: {
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        username: true,
+        email: true,
+        emailVerified: true,
+        lastLogin: true,
+        deletedDate: true,
+        lastPasswordUpdateDate: true,
+        passwordResetNeeded: true,
         userRoles: {
           include: {
             rolesEntity: true
           }
         },
-        userTags: true,
+        userTags: {
+          include: {
+            tagsEntity: true
+          }
+        },
         userHistory: {
           include: {
             actingUser: true
+          },
+          orderBy: {
+            createdDate: 'desc'
           }
         }
       }
-    }) as UserEntity[]
+    });
   }
 
   //TODO verify this filters soft deletes after prisma conversion
@@ -68,7 +98,7 @@ export class UsersService {
     }) as UserEntity[]
   }
 
-  async findByUsername(username: string): Promise<UserEntity> {
+  async findByUsername(username: string) {
     return await this.prisma.userEntity.findUnique({
       where: {
         username
@@ -76,19 +106,18 @@ export class UsersService {
       include: {
         userHistory: true
       },
-    }) as UserEntity
+    });
   }
 
   async resendEmail(userId, actingUser): Promise<void> {
-    //TODO: figure out how to make these work without an `any`
-    const userCheck: UserEntity = await this.prisma.userEntity.findUnique({
+    const userCheck = await this.prisma.userEntity.findUnique({
       where: {
         id: userId
       },
       include: {
         userHistory: true
       },
-    }) as UserEntity;
+    });
     if (userCheck) {
       await this.prisma.userEventsEntity.create({
         data: {
@@ -98,7 +127,7 @@ export class UsersService {
         }
       })
       const newPassword = this.generatePassword();
-      await this.sendPasswordEmail(newPassword, userCheck.email);
+      await this.usersEventsService.sendResetPasswordEmail(userCheck.email, newPassword);
 
       await this.prisma.userEntity.update({
         where: {
@@ -125,18 +154,18 @@ export class UsersService {
     }
   }
 
-  async resetPassword(username, actingUser) {
-    const userCheck: UserEntity = await this.findByUsername(username);
+  async resetPassword(username: string) {
+    const userCheck = await this.findByUsername(username);
     if (userCheck) {
       await this.prisma.userEventsEntity.create({
         data: {
           target_user_id: userCheck.id,
-          acting_user_id: actingUser.id,
+          // acting_user_id: actingUser.id,  // actingUser is nil when in /reset-password page
           event: 'Password Reset'
         }
       })
       const newPassword = this.generatePassword();
-      await this.sendPasswordEmail(newPassword, userCheck.email);
+      this.emitResetPasswordEmail(userCheck.email, newPassword);
 
       await this.prisma.userEntity.update({
         where: {
@@ -164,7 +193,7 @@ export class UsersService {
 
   async deleteUser(username, actingUser): Promise<void> {
     //TODO: Make this ID based
-    const userCheck: UserEntity = await this.findByUsername(username);
+    const userCheck = await this.findByUsername(username);
     if (userCheck) {
       await this.prisma.userEntity.delete({
         where: {username}
@@ -196,7 +225,7 @@ export class UsersService {
 
   async restoreUser(username, actingUser): Promise<void> {
     //TODO: Make this ID based
-    const userCheck: UserEntity = await this.findByUsername(username);
+    const userCheck = await this.findByUsername(username);
     if (userCheck.deletedDate) {
       await this.prisma.userEntity.update({
         where: {
@@ -274,52 +303,143 @@ export class UsersService {
     }
   }
 
-  async createUser(user: CreateUser, actingUser: UserEntity): Promise<UserEntity> {
-    const userCheck = await this.findByUsername(user.username);
-    if (!userCheck) {
+  async verifyUsername(username: string) {
+    const userCheck = await this.prisma.userEntity.findFirst({where: {username}});
+    return !!userCheck;
+  }
 
-      const createUser = new UserEntity(user);
-      if (!createUser.password) {
-        createUser.password = this.generatePassword()
-        await this.sendPasswordEmail(createUser.password, createUser.email);
+  async createUser(payload: CreateUserDto | RegisterDTO, operator?: UserEntity) {
+    const {username, email, firstName, lastName} = payload;
+    // check if username duplicate
+    const userCheck = await this.prisma.userEntity.findFirst({where: {username}});
+    if (userCheck) {
+      if (userCheck.emailVerified) {
+        throw new ExistedUserException();
+      } else {
+        throw new NeedVerifyEmailException();
       }
-      let userRole: any = {}
-      //TODO: make this tie to the actual Role
-      userRole.role = 'User';
-      createUser.userRoles = [userRole];
-      createUser.passwordResetNeeded = true
-      const createdUser = <UserEntity>await this.prisma.userEntity.create({
-        data: createUser
-      })
-
-      await this.prisma.userEventsEntity.create({
-        data: { //TODO Would be nice to have a type working for this CreateEventsEntity
-          target_user_id: userCheck.id,
-          acting_user_id: actingUser.id,
-          event: 'User Created'
-        }
-      })
-      //TODO: Set password reset token / methods
-      //TODO: Set email verified when they log in and change their password
-
-      this.eventEmitter.emit(
-        'user.created.thin',
-        <UserEntity>{
-          id: createUser.id,
-        },
-      );
-
-      this.eventEmitter.emit(
-        'user.created.fat',
-        <UserEntity>createUser,
-      );
-
-      return createdUser;
-    } else if (!userCheck.emailVerified) {
-      throw new HttpException('Please check your email to verify your email address', HttpStatus.FORBIDDEN);
-    } else {
-      throw new HttpException('Username already exists', HttpStatus.FORBIDDEN)
     }
+
+    // create user
+    let userRolesCreate: Prisma.UserRolesEntityCreateWithoutUserEntityInput[];
+    let password: string;
+    let phone: string;
+    let passwordResetNeeded: boolean;
+    if (payload instanceof CreateUserDto) {
+      // created by users-list page
+      userRolesCreate = payload.roles.map(r => ({
+        rolesEntity: {
+          connectOrCreate: {
+            where: {role: r.name},
+            create: {role: r.name},
+          }
+        }
+      }));
+      password = this.generatePassword();
+      passwordResetNeeded = true;
+    } else {
+      // created by register
+      userRolesCreate = [{ rolesEntity: { connect: { role: 'User' } } }];
+      password = payload.password;
+      phone = payload.phone;
+      passwordResetNeeded = false;
+    }
+
+    const passwordCrypt = await this.crypto.hashPassword(password);
+    const emailVerifyToken = v4();
+    const phoneVerifyToken = Math.random().toString().substr(2, 6);
+    const createdUserId = v4();
+    const user = await this.prisma.userEntity.create({
+      data: {
+        id: createdUserId,
+        username,
+        email,
+        firstName,
+        lastName,
+        phone,
+        phoneVerifyToken,
+        emailVerifyToken,
+        passwordResetNeeded,
+        password: passwordCrypt,
+        userRoles: { create: userRolesCreate },
+        userHistory: {
+          create: {
+            // when operator is nil, means it's register flow
+            acting_user_id: operator?.id || createdUserId,
+            event: 'User Created'
+          }
+        }
+      }
+    });
+    this.eventEmitter.emit(USER_CREATED_FAT, new UserCreatedFatPayload(
+      user,
+      payload instanceof CreateUserDto,
+      password
+    ))
+    this.eventEmitter.emit(USER_CREATED_THIN, new UserCreatedThinPayload(user.id))
+    return user;
+  }
+
+  async editUser(user: EditUserDto, operator: UserEntity) {
+    const userRoles = await this.prisma.userRolesEntity.findMany({
+      where: { user_id: user.id, deletedDate: null },
+      select: { id: true, role_id: true }
+    });
+    const oldRoleIds = userRoles.map(i => i.role_id);
+    const { roles } = user;
+
+    const userRoleWillBeInsert: RoleDto[] = [];
+    const userRoleWillBeDelete: string[] = [];
+
+    for (const role of roles) {
+      if (role.value) {
+        if (!oldRoleIds.includes(role.value)) {
+          userRoleWillBeInsert.push(role);
+        }
+      } else {
+        userRoleWillBeInsert.push(role);
+      }
+    }
+
+    for (const { id, role_id } of userRoles) {
+      // cannot find the role id in edit payload
+      // means the user does not belongs to this role any more
+      if (!roles.find(r => r.value === role_id)) {
+        userRoleWillBeDelete.push(id);
+      }
+    }
+
+    const now = new Date();
+    return await this.prisma.userEntity.update({
+      select: { username: true },
+      data: {
+        username: user.username,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        updatedDate: now,
+        userRoles: {
+          // todo: N + 1 issue here, separate this into dependent expression may be better
+          create: userRoleWillBeInsert.map(r => ({
+            rolesEntity: {
+              connectOrCreate: {
+                where: {role: r.name},
+                create: {role: r.name, createdDate: now},
+              }
+            },
+            createdDate: now,
+          })),
+          deleteMany: { id: { in: userRoleWillBeDelete } }
+        },
+        userHistory: {
+          create: {
+            acting_user_id: operator.id,
+            event: 'User Updated',
+          }
+        }
+      },
+      where: { id: user.id },
+    });
   }
 
   async findOneUnsafe(username: string): Promise<UserEntity> {
@@ -367,22 +487,6 @@ export class UsersService {
     })
   }
 
-  async sendPasswordEmail(password: string, email: string): Promise<void> {
-    //TODO: Move this to a template that is generated and saved in database and used from that
-    await this.emailService.sendEmail({
-      to: email,
-      from: 'zack.chapple@valor-software.com',
-      subject: 'Your Initial Password',
-      text: 'Reset your password here',
-      html: '<strong>Your Initial Password</strong><br><br>' +
-        `${password}
-          <br>
-          <br>
-          Or, copy and paste the following URL into your browser:
-          <span>http://localhost:4200/login}</span>`,
-    })
-  }
-
   async findOne(username: string): Promise<User | undefined> {
     const fetchedUser = await this.prisma.userEntity.findUnique({
       where: {
@@ -400,5 +504,24 @@ export class UsersService {
     })
     const user = new UserEntity(fetchedUser)
     return classToPlain(user);
+  }
+
+  async updatePassword(username: string, newPasswordCrypt: string) {
+    const now = new Date();
+    const user = await this.prisma.userEntity.update({
+      where: {username},
+      data: {password: newPasswordCrypt, lastPasswordUpdateDate: now},
+    });
+    await this.prisma.userEventsEntity.create({
+      data: {
+        target_user_id: user.id,
+        acting_user_id: user.id,
+        event: 'Password changed'
+      }
+    });
+  }
+
+  private emitResetPasswordEmail(email: string, password: string) {
+    this.eventEmitter.emit(RESET_PASSWORD, new ResetPasswordPayload(email, password));
   }
 }

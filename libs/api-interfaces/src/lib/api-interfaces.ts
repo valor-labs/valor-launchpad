@@ -36,3 +36,41 @@ export interface Menu {
   isMega: boolean;
   children: Menu[];
 }
+
+export interface UserFollower {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: {src: string; alt: string};
+  followed: boolean;
+}
+
+
+export interface UserListLine {
+  id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  emailVerified: boolean;
+  lastLogin: Date;
+  deletedDate: Date;
+  lastPasswordUpdateDate: Date;
+  passwordResetNeeded: boolean;
+  userRoles: {
+    id: string;
+    role_id: string;
+    rolesEntity: {
+      role: string;
+    };
+  }[];
+  userTags: {
+    id: string;
+    tagsEntity: {
+      name: string;
+    };
+  }[];
+  userHistory: {
+    id: string;
+  }[];
+}

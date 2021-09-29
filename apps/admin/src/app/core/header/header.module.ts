@@ -2,13 +2,16 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {HeaderRoutingModule} from './header-routing.module';
-import {HeaderComponent} from './header.component';
 import {UiModule} from '@valor-launchpad/ui';
-import {NavigationService} from '../navigation/navigation.service';
+import {HeaderComponent} from './header.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { AutocompleteModule } from '@valor-launchpad/ui';
+import { ModalModule } from "ngx-bootstrap/modal";
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
   ],
   exports: [
     HeaderComponent
@@ -16,7 +19,11 @@ import {NavigationService} from '../navigation/navigation.service';
   imports: [
     CommonModule,
     HeaderRoutingModule,
-    UiModule
+    UiModule,
+    ModalModule,
+    AutocompleteModule,
+    ReactiveFormsModule,
+    ScrollingModule
   ]
 })
 export class HeaderModule {

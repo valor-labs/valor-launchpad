@@ -1,26 +1,25 @@
 <h1 class="h3 mb-3">Plans & Pricing</h1>
 
-<div class="row">
-  <div class="col-md-10 col-xl-8 mx-auto">
+<div valorLaunchpadRow>
+  <div valorLaunchpadCol md='10' xl='8' class="mx-auto">
     <h1 class="text-center">We have a plan for everyone</h1>
     <p class="lead text-center mb-4">Whether you're a business or an individual, 14-day trial no credit card
       required.</p>
-
-    <div class="row justify-content-center mt-3 mb-2">
+    <div valorLaunchpadRow class="justify-content-center mt-3 mb-2">
       <div class="col-auto">
         <nav class="nav btn-group">
-          <a (click)="handleMonthly()" class="btn btn-outline-primary" [ngClass]="{'active':monthlyActive}">Monthly billing</a>
-          <a (click)="handleAnnual()" class="btn btn-outline-primary" [ngClass]="{'active':annualActive}">Annual billing</a>
+          <a (click)="handleMonthly()" class="btn btn-outline-primary" [ngClass]="{'active':billyBtnActive}">Monthly billing</a>
+          <a (click)="handleAnnual()" class="btn btn-outline-primary" [ngClass]="{'active':!billyBtnActive}">Annual billing</a>
         </nav>
       </div>
     </div>
 
     <div class="tab-content">
-      <div [ngClass]="{'tab-pane':true,'fade':true,'show':monthlyActive,'active':monthlyActive}" id="monthly">
-        <div class="row py-4">
-          <div class="col-sm-4 mb-3 mb-md-0">
-            <div class="card text-center h-100">
-              <div class="card-body d-flex flex-column">
+      <div [ngClass]="{'tab-pane':true,'fade':true,'show':billShow,'active':billActive}" id="monthly">
+        <div valorLaunchpadRow class="py-4">
+          <div valorLaunchpadCol sm='4' class="mb-3 mb-md-0">
+            <valor-launchpad-card class="text-center h-100">
+              <valor-launchpad-card-content class="d-flex flex-column">
                 <div class="mb-4">
                   <h5>Free</h5>
                   <span class="display-4">$0</span>
@@ -40,12 +39,12 @@
                 <div class="mt-auto">
                   <a href="#" class="btn btn-lg btn-outline-primary">Sign up</a>
                 </div>
-              </div>
-            </div>
+              </valor-launchpad-card-content>
+            </valor-launchpad-card>
           </div>
-          <div class="col-sm-4 mb-3 mb-md-0">
-            <div class="card text-center h-100">
-              <div class="card-body d-flex flex-column">
+          <div valorLaunchpadCol sm='4' class="mb-3 mb-md-0">
+            <valor-launchpad-card class="text-center h-100">
+              <valor-launchpad-card-content class="d-flex flex-column">
                 <div class="mb-4">
                   <h5>Standard</h5>
                   <span class="display-4">$19</span>
@@ -72,12 +71,12 @@
                 <div class="mt-auto">
                   <a href="#" class="btn btn-lg btn-primary">Try it for free</a>
                 </div>
-              </div>
-            </div>
+              </valor-launchpad-card-content>
+            </valor-launchpad-card>
           </div>
-          <div class="col-sm-4 mb-3 mb-md-0">
-            <div class="card text-center h-100">
-              <div class="card-body d-flex flex-column">
+          <div valorLaunchpadCol sm='4' class="mb-3 mb-md-0">
+            <valor-launchpad-card class="text-center h-100">
+              <valor-launchpad-card-content class="d-flex flex-column">
                 <div class="mb-4">
                   <h5>Plus</h5>
                   <span class="display-4">$39</span>
@@ -110,16 +109,17 @@
                 <div class="mt-auto">
                   <a href="#" class="btn btn-lg btn-outline-primary">Try it for free</a>
                 </div>
-              </div>
-            </div>
+              </valor-launchpad-card-content>
+            </valor-launchpad-card>
           </div>
         </div>
       </div>
-      <div  [ngClass]="{'tab-pane':true,'fade':true,'show':annualActive,'active':annualActive}" id="annual">
-        <div class="row py-4">
-          <div class="col-sm-4 mb-3 mb-md-0">
-            <div class="card text-center h-100">
-              <div class="card-body d-flex flex-column">
+
+      <div [ngClass]="{'tab-pane':true,'fade':true,'show':!billShow,'active':!billActive}" id="annual">
+        <div valorLaunchpadRow class="py-4">
+          <div valorLaunchpadCol sm='4' class="mb-3 mb-md-0">
+            <valor-launchpad-card class="text-center h-100">
+              <valor-launchpad-card-content class="d-flex flex-column">
                 <div class="mb-4">
                   <h5>Free</h5>
                   <span class="display-4">$0</span>
@@ -139,12 +139,12 @@
                 <div class="mt-auto">
                   <a href="#" class="btn btn-lg btn-outline-primary">Sign up</a>
                 </div>
-              </div>
-            </div>
+              </valor-launchpad-card-content>
+            </valor-launchpad-card>
           </div>
-          <div class="col-sm-4 mb-3 mb-md-0">
-            <div class="card text-center h-100">
-              <div class="card-body d-flex flex-column">
+          <div valorLaunchpadCol sm='4' class="mb-3 mb-md-0">
+            <valor-launchpad-card class="text-center h-100">
+              <valor-launchpad-card-content class="d-flex flex-column">
                 <div class="mb-4">
                   <h5>Standard</h5>
                   <span class="display-4">$199</span>
@@ -171,12 +171,12 @@
                 <div class="mt-auto">
                   <a href="#" class="btn btn-lg btn-primary">Try it for free</a>
                 </div>
-              </div>
-            </div>
+              </valor-launchpad-card-content>
+            </valor-launchpad-card>
           </div>
-          <div class="col-sm-4 mb-3 mb-md-0">
-            <div class="card text-center h-100">
-              <div class="card-body d-flex flex-column">
+          <div valorLaunchpadCol sm='4' class="mb-3 mb-md-0">
+            <valor-launchpad-card class="text-center h-100">
+              <valor-launchpad-card-content class="d-flex flex-column">
                 <div class="mb-4">
                   <h5>Plus</h5>
                   <span class="display-4">$399</span>
@@ -209,8 +209,8 @@
                 <div class="mt-auto">
                   <a href="#" class="btn btn-lg btn-outline-primary">Try it for free</a>
                 </div>
-              </div>
-            </div>
+              </valor-launchpad-card-content>
+            </valor-launchpad-card>
           </div>
         </div>
       </div>
@@ -221,13 +221,13 @@
     <div class="text-center my-4">
       <h2>Frequently asked questions</h2>
     </div>
-    <div class="row">
-      <div class="col-md-5 col-sm-6 ms-auto" *ngFor="let faq of faqs">
+    <div valorLaunchpadRow>
+      <div valorLaunchpadCol md='5' SM='6' class="ms-auto" *ngFor="let faq of faqs">
         <valor-launchpad-card>
-          <div card-body>
+          <valor-launchpad-card-content>
             <h5 class="h6 card-title">{{faq.answer}}</h5>
             <p class="mb-0">{{faq.question}}</p>
-          </div>
+          </valor-launchpad-card-content>
         </valor-launchpad-card>
       </div>
     </div>

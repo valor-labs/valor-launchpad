@@ -37,6 +37,8 @@ model CommentEntity {
   reactions      Json?           @db.Json
   project_id     String?         @db.VarChar(36)
   parentId       String?         @db.VarChar(36)
+  storyId        String?         @db.VarChar(36)
+  story          SocialStory?    @relation("storyComments", fields: [storyId], references: [id])
   CommentEntity  CommentEntity?  @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
   ProjectsEntity ProjectsEntity? @relation("projectComments", fields: [project_id], references: [id])
   children       CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
@@ -209,32 +211,39 @@ model RolesEntity {
 }
 
 model UserEntity {
-  id                     String                   @id @default(uuid()) @db.VarChar(36)
-  username               String                   @unique @db.VarChar(255)
-  email                  String                   @db.VarChar(255)
-  password               String                   @db.VarChar(255)
-  firstName              String                   @db.VarChar(255)
-  lastName               String                   @db.VarChar(255)
-  passwordResetNeeded    Boolean?                 @db.TinyInt
-  lastPasswordUpdateDate DateTime?                @db.DateTime(0)
-  emailVerified          Boolean                  @default(false) @db.TinyInt
-  emailVerifyToken       String?                  @unique @db.VarChar(255)
-  phone                  String?                  @db.VarChar(255)
-  phoneVerifyToken       String?                  @db.VarChar(255)
-  suspended              Boolean                  @default(false) @db.TinyInt
-  lastLogin              DateTime?                @db.DateTime(0)
-  deletedDate            DateTime?                @db.DateTime(6)
-  createdDate            DateTime                 @default(now()) @db.DateTime(6)
-  updatedDate            DateTime                 @updatedAt
-  userHistory            UserEventsEntity[]       @relation("targetUser")
-  userActivity           UserEventsEntity[]       @relation("actingUser")
-  userRoles              UserRolesEntity[]        @relation("userEntity")
-  userTags               UserTagsEntity[]         @relation("userTags")
-  projects               ProjectsAssigneeEntity[] @relation("assigneeUser")
-  reportedProjects       ProjectSummaryEntity[]   @relation("reportingUser")
-  comments               CommentEntity[]          @relation("commentAuthor")
-  avatar                 MediaAsset?              @relation("userProfileImage")
-  profile                ProfileEntity?           @relation("userProfile")
+  id                     String    @id @default(uuid()) @db.VarChar(36)
+  username               String    @unique @db.VarChar(255)
+  email                  String    @db.VarChar(255)
+  password               String    @db.VarChar(255)
+  firstName              String    @db.VarChar(255)
+  lastName               String    @db.VarChar(255)
+  passwordResetNeeded    Boolean?  @db.TinyInt
+  lastPasswordUpdateDate DateTime? @db.DateTime(0)
+  emailVerified          Boolean   @default(false) @db.TinyInt
+  emailVerifyToken       String?   @unique @db.VarChar(255)
+  phone                  String?   @db.VarChar(255)
+  phoneVerifyToken       String?   @db.VarChar(255)
+  suspended              Boolean   @default(false) @db.TinyInt
+  lastLogin              DateTime? @db.DateTime(0)
+  deletedDate            DateTime? @db.DateTime(6)
+  createdDate            DateTime  @default(now()) @db.DateTime(6)
+  updatedDate            DateTime  @updatedAt
+
+  userHistory              UserEventsEntity[]       @relation("targetUser")
+  userActivity             UserEventsEntity[]       @relation("actingUser")
+  userRoles                UserRolesEntity[]        @relation("userEntity")
+  userTags                 UserTagsEntity[]         @relation("userTags")
+  projects                 ProjectsAssigneeEntity[] @relation("assigneeUser")
+  reportedProjects         ProjectSummaryEntity[]   @relation("reportingUser")
+  comments                 CommentEntity[]          @relation("commentAuthor")
+  avatar                   MediaAsset?              @relation("userProfileImage")
+  profile                  ProfileEntity?           @relation("userProfile")
+  socialUserFollower       SocialUserFollower[]     @relation("follower")
+  socialUserFollowing      SocialUserFollower[]     @relation("following")
+  socialStory              SocialStory[]
+  socialStoryUserLike      SocialStoryUserLike[]    @relation("storyUserLikeUser")
+  socialActivities         SocialActivity[]         @relation("socialActivityOperator")
+  socialActivitiesAsTarget SocialActivity[]         @relation("socialActivityTargetUser")
 }
 
 model UserEventsEntity {
@@ -258,6 +267,8 @@ model UserRolesEntity {
   rolesEntity RolesEntity @relation("userRoles", fields: [role_id], references: [id])
   user_id     String      @db.VarChar(36)
   userEntity  UserEntity  @relation("userEntity", fields: [user_id], references: [id])
+
+  @@unique([user_id, role_id])
 }
 
 model UserTagsEntity {
@@ -269,6 +280,8 @@ model UserTagsEntity {
   userEntity  UserEntity @relation("userTags", fields: [user_id], references: [id])
   tag_id      String     @db.VarChar(36)
   tagsEntity  TagsEntity @relation("tags", fields: [tag_id], references: [id])
+
+  @@unique([user_id, tag_id])
 }
 
 model TagsEntity {
@@ -291,13 +304,16 @@ model MediaAsset {
   profile_id  String?         @db.VarChar(36)
   project_id  String?         @db.VarChar(36)
   user_id     String?         @db.VarChar(36)
+  story_id    String?         @db.VarChar(36)
   profile     ProfileEntity?  @relation("profileImage", fields: [profile_id], references: [id])
   project     ProjectsEntity? @relation("projectHeroMedia", fields: [project_id], references: [id])
   user        UserEntity?     @relation("userProfileImage", fields: [user_id], references: [id])
+  story       SocialStory?    @relation("storyImage", fields: [story_id], references: [id])
 
   @@unique([src, alt], name: "src_alt_unique_constraint")
   @@unique([profile_id, alt], name: "profile_alt_unique_constraint")
   @@unique([project_id, alt], name: "project_alt_unique_constraint")
+  @@unique([story_id, alt], name: "story_alt_unique_constraint")
 }
 
 model MenusEntity {
@@ -324,4 +340,110 @@ model RoleMenusEntity {
   menusEntity MenusEntity @relation("roleMenuMenus", fields: [menuId], references: [id])
 
   @@unique([roleId, menuId])
+}
+
+model SocialUserFollower {
+  id          String    @id @default(uuid()) @db.VarChar(36)
+  userId      String    @db.VarChar(36)
+  followerId  String    @db.VarChar(36)
+  createdDate DateTime  @default(now()) @db.DateTime(6)
+  deletedDate DateTime? @db.DateTime(6)
+
+  user     UserEntity @relation("following", fields: [userId], references: [id])
+  follower UserEntity @relation("follower", fields: [followerId], references: [id])
+
+  @@unique([userId, followerId])
+}
+
+model SocialStory {
+  id          String     @id @default(uuid()) @db.VarChar(36)
+  userId      String     @db.VarChar(36)
+  user        UserEntity @relation(fields: [userId], references: [id])
+  content     String     @db.Text
+  createdDate DateTime   @default(now()) @db.DateTime(6)
+  deletedDate DateTime?  @db.DateTime(6)
+
+  mediaAsset          MediaAsset[]          @relation("storyImage")
+  socialStoryUserLike SocialStoryUserLike[] @relation("storyUserLikeStory")
+  comments            CommentEntity[]       @relation("storyComments")
+  activities          SocialActivity[]      @relation("socialActivityStory")
+}
+
+model SocialStoryUserLike {
+  id          String    @id @default(uuid()) @db.VarChar(36)
+  storyId     String    @db.VarChar(36)
+  userId      String    @db.VarChar(36)
+  createdDate DateTime  @default(now()) @db.DateTime(6)
+  deletedDate DateTime? @db.DateTime(6)
+
+  story SocialStory @relation("storyUserLikeStory", fields: [storyId], references: [id])
+  user  UserEntity  @relation("storyUserLikeUser", fields: [userId], references: [id])
+
+  @@unique([storyId, userId])
+}
+
+enum SocialActivityAction {
+  FOLLOWED
+  UNFOLLOWED
+  POST_STORY
+  LIKED_STORY
+  UNLIKED_STORY
+}
+
+model SocialActivity {
+  id                  Int                  @id @default(autoincrement())
+  operatorId          String               @db.VarChar(36)
+  operatorFullName    String               @db.VarChar(255)
+  operatorAvatarSrc   String               @db.VarChar(255)
+  action              SocialActivityAction
+  targetUserId        String?              @db.VarChar(36)
+  targetUserFullName  String?              @db.VarChar(255)
+  targetUserAvatarSrc String?              @db.VarChar(255)
+  storyId             String?              @db.VarChar(36)
+  createdDate         DateTime             @default(now()) @db.DateTime(6)
+  deletedDate         DateTime?            @db.DateTime(6)
+
+  operator   UserEntity   @relation("socialActivityOperator", fields: [operatorId], references: [id])
+  targetUser UserEntity?  @relation("socialActivityTargetUser", fields: [targetUserId], references: [id])
+  story      SocialStory? @relation("socialActivityStory", fields: [storyId], references: [id])
+}
+
+model CryptoMainInfo {
+  id        Int       @id @default(autoincrement())
+  title     String    @db.VarChar(36)
+  price     Decimal   @db.Decimal(65, 30)
+  priceByUS Decimal   @db.Decimal(65, 30)
+  volume    Decimal   @db.Decimal(65, 30)
+  change    Decimal   @db.Decimal(5, 3)
+}
+
+model CryptoMarkets {
+  id      Int       @id @default(autoincrement())
+  coin    String    @db.VarChar(36)
+  price   Decimal   @db.Decimal(65, 30)
+  volume  Decimal   @db.Decimal(65, 30)
+  change  Decimal   @db.Decimal(5, 3)
+}
+
+enum CryptoOrderType {
+  BUY
+  SELL
+}
+
+model CryptoOrders {
+  id      Int       @id @default(autoincrement())
+  type    CryptoOrderType
+  price   Decimal   @db.Decimal(65, 30)
+  eth     Decimal   @db.Decimal(65, 30)
+  btc     Decimal   @db.Decimal(65, 30)
+  sum     Decimal   @db.Decimal(65, 30)
+}
+
+model CryptoValueHistory {
+  id      Int       @id @default(autoincrement())
+  date    DateTime  @db.DateTime(6)
+  open    Decimal   @db.Decimal(65, 30)
+  close   Decimal   @db.Decimal(65, 30)
+  high    Decimal   @db.Decimal(65, 30)
+  low     Decimal   @db.Decimal(65, 30)
 }

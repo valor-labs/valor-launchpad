@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnDestroy} from '@angular/core';
 import { FAQ } from '@valor-launchpad/api-interfaces';
 import {HttpClient} from '@angular/common/http';
 import {ENV_CONFIG, EnvironmentConfig} from '../../core/http/environment-config.interface';
@@ -7,9 +7,11 @@ import {ENV_CONFIG, EnvironmentConfig} from '../../core/http/environment-config.
   templateUrl: './pricing.component.html',
   styleUrls: ['./pricing.component.scss'],
 })
-export class PricingComponent  {
-  monthlyActive = true;
-  annualActive = false;
+export class PricingComponent implements OnDestroy {
+  billyBtnActive = true;
+  billActive = true
+  billShow = true
+  private raf: number | null = null
 
   faqs: FAQ[] =[];
 
@@ -22,12 +24,23 @@ export class PricingComponent  {
   }
 
   handleMonthly() {
-    this.monthlyActive = true;
-    this.annualActive = false;
+    this.billyBtnActive = true
+    this.billActive = true
+    this.raf = window.requestAnimationFrame(() => {
+      this.billShow = true
+    })
   }
 
   handleAnnual() {
-    this.monthlyActive = false;
-    this.annualActive = true;
+    this.billyBtnActive = false;
+    this.billActive = false
+    this.raf = window.requestAnimationFrame(() => {
+      this.billShow = false
+    })
   }
+
+  ngOnDestroy(): void {
+    this.raf = null
+  }
+
 }

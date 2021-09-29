@@ -1,0 +1,17 @@
+export const marketData = [
+  { coin: 'ETH', price: '0.03863405', volume: '1379.634', change: 1.52 },
+  { coin: 'XRP', price: '0.00009313', volume: '270.805', change: -3.3 },
+  { coin: 'XMR', price: '0.02088992', volume: '84.034', change: 6.1 },
+  { coin: 'DASH', price: '0.00009313', volume: '270.805', change: -3.17 },
+  { coin: 'LTC', price: '0.00821501', volume: '80.566', change: 3.0 },
+  { coin: 'STR', price: '0.00002948', volume: '58.981', change: 2.58 },
+  { coin: 'DOGE', price: '0.00000061', volume: '46.849', change: -1.61 },
+  { coin: 'REP', price: '0.0022351', volume: '37.038', change: 0.54 },
+  { coin: 'EOS', price: '0.00069', volume: '35.04', change: -5.84 },
+  { coin: 'DGB', price: '0.00000277', volume: '34.84', change: 0.36 },
+  { coin: 'ZEC', price: '0.01505', volume: '32.326', change: -4.24 },
+  { coin: 'BURST', price: '0.00000098', volume: '25.59', change: -15.52 },
+  { coin: 'MAID', price: '0.00003724', volume: '20.556', change: -2.33 },
+  { coin: 'ETC', price: '0.00132249', volume: '19.633', change: 4.19 },
+  { coin: 'STRAT', price: '0.00028587', volume: '17.557', change: 4.4 },
+];

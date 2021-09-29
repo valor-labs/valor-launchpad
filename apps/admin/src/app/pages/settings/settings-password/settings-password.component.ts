@@ -3,8 +3,11 @@ import {
   FormBuilder,
   FormGroup,
   ValidatorFn,
-  Validators,
+  Validators
 } from '@angular/forms';
+import { SettingsPasswordService } from './settings-password.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const pwdValidator: ValidatorFn = (fg: FormGroup) => {
   const newPassword = fg.get('newPassword');
@@ -17,23 +20,31 @@ const pwdValidator: ValidatorFn = (fg: FormGroup) => {
 @Component({
   selector: 'valor-launchpad-settings-password',
   templateUrl: './settings-password.component.html',
-  styleUrls: ['./settings-password.component.scss'],
+  styleUrls: ['./settings-password.component.scss']
 })
 export class SettingsPasswordComponent implements OnInit {
   formGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private passwordService: SettingsPasswordService,
+    private toastrService: ToastrService
+  ) {
+  }
 
   ngOnInit(): void {
     this.formGroup = this.fb.group(
       {
         currentPassword: [null, [Validators.required]],
         newPassword: [null, [Validators.required]],
-        confirmPassword: [null],
+        confirmPassword: [null]
       },
       { validators: pwdValidator }
     );
   }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  isLoading = false;
 
   saveChanges() {
     for (const ctrl of Object.values(this.formGroup.controls)) {
@@ -42,6 +53,18 @@ export class SettingsPasswordComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-    console.log(this.formGroup.value);
+    const { currentPassword, newPassword } = this.formGroup.value;
+    this.isLoading = true;
+    this.passwordService.updatePassword(currentPassword, newPassword).subscribe(
+      () => {
+        this.toastrService.success('Password updated successfully');
+        this.formGroup.reset();
+        this.isLoading = false;
+      },
+      (err: HttpErrorResponse) => {
+        this.toastrService.error(err.error.message);
+        this.isLoading = false;
+      }
+    );
   }
 }

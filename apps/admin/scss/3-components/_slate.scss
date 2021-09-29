@@ -1,0 +1,54 @@
+@import "node_modules/slate-angular/styles/index";
+
+valor-launchpad-editor-slate {
+  display: block;
+  background: $white;
+  border: 1px solid $border-color;
+  & .editor-state-toolbar {
+    padding: 10px 12px;
+    border-bottom: 1px solid $border-color;
+  }
+}
+.slate-editable-container {
+  padding: 20px;
+
+  .code {
+    background-color: rgba($color: $black, $alpha: 0.06);
+    border-radius: 2px;
+    border: 1px solid rgba($color: $black, $alpha: 0.08);
+    padding: 0 2px;
+    margin: 0 1px;
+  }
+
+  blockquote {
+    margin: 0;
+    color: #888;
+    padding-left: 10px !important;
+    border-left: 4px solid $gray-300;
+  }
+
+  h1,h2,h3 {
+    margin: 0;
+  }
+
+  &>[data-slate-node="element"],&>slate-block-card {
+    margin-bottom: 12px;
+  }
+}
+
+$toolbar-btn-size: 30px;
+valor-launchpad-editor-slate-button {
+  cursor: pointer;
+  width: $toolbar-btn-size;
+  height: $toolbar-btn-size;
+  line-height: $toolbar-btn-size;
+  display: inline-block;
+  text-align: center;
+  color: $gray-400;
+  &.active {
+    color: $black;
+  }
+  &:hover {
+    background: $gray-200;
+  }
+}

@@ -2,11 +2,11 @@
   <img *ngIf="config.hero" class="card-img-top" [src]="config.hero?.src" [alt]="config.hero?.alt">
   <div class="card-header px-4 pt-4">
     <div class="card-actions float-end">
-      <div class="dropdown show">
-        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+      <div class="dropdown" dropdown container="body">
+        <a dropdownToggle>
           <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
         </a>
-        <div class="dropdown-menu dropdown-menu-end">
+        <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
           <a class="dropdown-item" *ngFor="let action of config.actions"
              (click)="fireAction(action.type)">{{action.title}}</a>
         </div>

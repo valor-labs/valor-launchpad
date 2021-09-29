@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, HostListener } from '@angular/core';
 
-import jsVectorMap from 'jsvectormap'
-import 'jsvectormap/dist/maps/world.js'
-import 'jsvectormap/dist/maps/us-aea-en.js'
+import "jsvectormap/dist/js/jsvectormap.js"
+import 'jsvectormap/dist/maps/us-aea-en.js';
+import 'jsvectormap/dist/maps/world.js';
+
+declare const jsVectorMap: any;
 
 const world_markes = [{
   coords: [31.230391, 121.473701],
@@ -121,7 +123,7 @@ export class MapsVectorComponent implements AfterViewInit {
     this.usaMap?.updateSize();
   }
 
-  constructor() { 
+  constructor() {
     //
   }
   ngAfterViewInit(): void {
@@ -132,7 +134,7 @@ export class MapsVectorComponent implements AfterViewInit {
       zoomOnScroll: false,
       markers: world_markes,
       markerStyle:{
-        initial: { 
+        initial: {
           r: 9,
           stroke: '#fff',
           strokeWidth: 7,

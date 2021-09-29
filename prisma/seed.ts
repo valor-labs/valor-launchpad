@@ -1,18 +1,28 @@
-import {PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import * as Faker from 'faker'
-import {ProjectsEntity} from '../apps/api/src/projects/projects.entity';
-import {RoleSeed} from './role.seed';
-import {UserSeed} from './user.seed';
-import {ProfileSeed} from './profile.seed';
-import {DashboardSeed} from './dashboard.seed';
-import {DashboardAnalyticsSeed} from './dashboard-analytics.seed';
-import {ProjectsSeed} from './projects.seed';
-import {ProjectSummarySeed} from './project-summary.seed';
-import {MediaSeed} from './media.seed';
-import {UserEventsSeed} from './user-events.seed';
-import {UserEntity} from '../libs/common-api/src';
+import { ProjectsEntity } from '../apps/api/src/projects/projects.entity';
+import { RoleSeed } from './role.seed';
+import { UserSeed } from './user.seed';
+import { ProfileSeed } from './profile.seed';
+import { DashboardSeed } from './dashboard.seed';
+import { DashboardAnalyticsSeed } from './dashboard-analytics.seed';
+import { ProjectsSeed } from './projects.seed';
+import { ProjectSummarySeed } from './project-summary.seed';
+import { MediaSeed } from './media.seed';
+import { UserEventsSeed } from './user-events.seed';
+import { UserEntity } from '../libs/common-api/src';
 import { MenuSeed } from './menu.seed';
 import { RoleMenuSeed } from './role-menu.seed';
+import { UserFollowerSeed } from './user-follower.seed';
+import { StorySeed } from './story.seed';
+import { USER_1, USER_2, USER_3 } from './seed-data/users';
+import { ActivitySeed } from './activity.seed';
+import { TagSeed } from './tag.seed';
+import { UserTagSeed } from './user-tag.seed';
+import { CryptoMainInfoSeed } from './crypto-main-info.seed';
+import { CryptoMarketSeed } from './crypto-market.seed';
+import { CryptoOrdersSeed } from './crypto-orders.seed';
+import { CryptoValueHistorySeed } from './crypto-value-history.seed';
 
 const prisma = new PrismaClient()
 
@@ -28,7 +38,15 @@ async function main() {
   const profileSeed = new ProfileSeed(prisma);
   const menuSeed = new MenuSeed(prisma);
   const roleMenuSeed = new RoleMenuSeed(prisma);
-
+  const userFollowerSeed = new UserFollowerSeed(prisma);
+  const storySeed = new StorySeed(prisma);
+  const activitySeed = new ActivitySeed(prisma);
+  const tagSeed = new TagSeed(prisma);
+  const userTagSeed = new UserTagSeed(prisma);
+  const cryptoMainInfoSeed = new CryptoMainInfoSeed(prisma);
+  const marketSeed = new CryptoMarketSeed(prisma);
+  const ordersSeed = new CryptoOrdersSeed(prisma);
+  const valueHistorySeed = new CryptoValueHistorySeed(prisma);
 
   /*
   Create dashboards
@@ -40,8 +58,8 @@ async function main() {
   /*
   Create user roles
    */
-  const userRole = await roleSeed.createRole({role: 'User'});
-  const adminRole = await roleSeed.createRole({role: 'Admin'});
+  const userRole = await roleSeed.createRole({ role: 'User' });
+  const adminRole = await roleSeed.createRole({ role: 'Admin' });
 
   /*
   Create menus
@@ -56,66 +74,11 @@ async function main() {
   /*
   Create users
    */
-  const user1 = <UserEntity>await userSeed.createUser({
-    username: 'user1',
-    email: 'user1@abc.com',
-    avatar: {
-      connectOrCreate: {
-        where: {
-          src_alt_unique_constraint: {
-            src: 'assets/img/avatars/avatar.jpg',
-            alt: 'user1 avatar picture'
-          }
-        },
-        create: {
-          type: 'image/jpg',
-          src: 'assets/img/avatars/avatar.jpg',
-          alt: 'user1 avatar picture'
-        }
-      }
-    }
-  }, [adminRole, userRole])
+  const user1 = <UserEntity>await userSeed.createUser(USER_1, [adminRole, userRole])
 
-  const user2 = <UserEntity>await userSeed.createUser({
-    username: 'user2',
-    email: 'user2@abc.com',
-    avatar: {
-      connectOrCreate: {
-        where: {
-          src_alt_unique_constraint: {
-            src: 'assets/img/avatars/avatar-2.jpg',
-            alt: 'user2 avatar picture'
-          }
-        },
-        create: {
-          type: 'image/jpg',
-          src: 'assets/img/avatars/avatar-2.jpg',
-          alt: 'user2 avatar picture'
-        }
-      }
-    }
-  }, [userRole])
+  const user2 = <UserEntity>await userSeed.createUser(USER_2, [userRole])
 
-  const user3 = <UserEntity>await userSeed.createUser({
-    username: 'user3',
-    emailVerified: false,
-    email: 'user3@abc.com',
-    avatar: {
-      connectOrCreate: {
-        where: {
-          src_alt_unique_constraint: {
-            src: 'assets/img/avatars/avatar-3.jpg',
-            alt: 'user3 avatar picture'
-          }
-        },
-        create: {
-          type: 'image/jpg',
-          src: 'assets/img/avatars/avatar-3.jpg',
-          alt: 'user3 avatar picture'
-        }
-      }
-    }
-  }, [userRole])
+  const user3 = <UserEntity>await userSeed.createUser(USER_3, [userRole])
 
 
   /*
@@ -199,6 +162,39 @@ async function main() {
   })
 
   /*
+  Create user followers
+   */
+  await userFollowerSeed.seed();
+
+  /*
+  Create stories
+   */
+  await storySeed.seed();
+
+  /*
+  Create activity
+   */
+  await activitySeed.seed();
+
+  /*
+  Create tags
+   */
+  await tagSeed.createAllTags();
+
+  /*
+  Create user tags
+   */
+  await userTagSeed.seed();
+
+  /*
+  Crypto seed
+   */
+  await cryptoMainInfoSeed.seed();
+  await marketSeed.seed();
+  await ordersSeed.seed();
+  await valueHistorySeed.seed();
+
+  /*
   Create projects
    */
   //TODO: Fix the activity and children, need five activity records with one or two with two children
@@ -231,14 +227,14 @@ async function main() {
   const createdComments = await prisma.commentEntity.findMany({
     where: {
       NOT: [
-        {project_id: null}
+        { project_id: null }
       ]
     }
   });
 
   await Promise.all(createdComments.map(async comment => {
     const childrenCount = Faker.datatype.number(3)
-    const children = Array.from({length: childrenCount}, () => {
+    const children = Array.from({ length: childrenCount }, () => {
       return {
         body: Faker.lorem.text(1),
         author_id: Faker.random.arrayElement([user1, user2, user3]).id,

@@ -15,7 +15,9 @@
 @import "2-mixins/wizard";
 
 // Theme components
+@import "3-components/autocomplete";
 @import "3-components/accordion";
+@import "3-components/alert";
 @import "3-components/avatar";
 @import "3-components/badge";
 @import "3-components/buttons";
@@ -31,6 +33,7 @@
 @import "3-components/main";
 @import "3-components/modal";
 @import "3-components/navbar";
+@import "3-components/offcanvas";
 @import "3-components/progress";
 @import "3-components/reboot";
 @import "3-components/root";
@@ -44,6 +47,7 @@
 @import "3-components/type";
 @import "3-components/wizard";
 @import "3-components/wrapper";
+@import "3-components/slate";
 
 // Theme utilities
 @import "4-utilities/background";
@@ -92,3 +96,7 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "5-vendor/ng-select";
 @import "5-vendor/simplebar";
 @import "5-vendor/smartwizard";
+
+@import "5-vendor/footer";
+@import "5-vendor/ngx_charts";
+@import "5-vendor/datepicker";

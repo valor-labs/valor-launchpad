@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+    database:
+        image: mysql:8.0.26
+        restart: always
+        environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_USER: "user"
+            MYSQL_PASSWORD: "user1234"
+        ports:
+            - "3306:3306"
+        security_opt:
+            - seccomp:unconfined
+        command:
+            --default-authentication-plugin=mysql_native_password 
+            #only for local test change mysql default auth for client connection
+        volumes:
+            - local-sql:/var/lib/mysql
+            - ./docker/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+            - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    redis:
+        image: redis:6.2.4-alpine
+        ports:
+            - "6379:6379"
+
+volumes:
+    local-sql:
+        external: true

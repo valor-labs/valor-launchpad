@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.component';
 import { SettingsAccountComponent } from './settings-account/settings-account.component';
 import { SettingsPasswordComponent } from './settings-password/settings-password.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,6 @@ import { SettingsPasswordComponent } from './settings-password/settings-password
     SettingsAccountComponent,
     SettingsPasswordComponent,
   ],
-  imports: [CommonModule, SettingsRoutingModule, ReactiveFormsModule, UiModule],
+  imports: [CommonModule, SettingsRoutingModule, ReactiveFormsModule, UiModule, BsDropdownModule.forRoot(),],
 })
 export class SettingsModule {}

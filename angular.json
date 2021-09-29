@@ -69,9 +69,7 @@
             ],
             "scripts": [
               "node_modules/qrcodejs/qrcode.js",
-              "node_modules/apexcharts/dist/apexcharts.min.js",
-              "node_modules/jsvectormap/dist/js/jsvectormap.js",
-              "node_modules/jsvectormap/dist/maps/world.js"
+              "node_modules/apexcharts/dist/apexcharts.min.js"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

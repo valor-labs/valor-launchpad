@@ -5,17 +5,16 @@
 
   <div class="col-auto ms-auto text-end mt-n1">
 
-    <div class="dropdown me-2 d-inline-block">
-      <a class="btn btn-light bg-white shadow-sm dropdown-toggle" href="#" data-bs-toggle="dropdown"
-         data-bs-display="static">
+    <div class="dropdown me-2 d-inline-block" dropdown container='body'>
+      <a class="btn btn-light bg-white shadow-sm dropdown-toggle" dropdownToggle>
         <i class="align-middle mt-n1  far fa-fw fa-calendar"></i> Today
       </a>
 
-      <div class="dropdown-menu dropdown-menu-end">
+      <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
         <h6 class="dropdown-header">Settings</h6>
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
+        <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+        <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+        <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Separated link</a>
       </div>
@@ -40,7 +39,7 @@
               <div class="row g-0 w-100">
                 <div class="col-6">
                   <div class="illustration-text p-3 m-1">
-                    <h4 class="illustration-text">Welcome Back, Chris!</h4>
+                    <h4 class="illustration-text">Welcome Back, {{userFirstName$ | async}}!</h4>
                     <p class="mb-0">Admin Dashboard</p>
                   </div>
                 </div>
@@ -67,7 +66,7 @@
               </div>
               <span class="h1 d-inline-block mt-1 mb-4">2.3647</span>
               <div class="mb-0">
-                <span class="badge badge-soft-success me-2"> <i class="mdi mdi-arrow-bottom-right"></i> +3.65% </span>
+                <span class="badge badge-soft-success me-2"> <i class="mdi mdi-arrow-bottom-right"></i>{{3.65 | crease:'+'}}</span>
                 <span class="text-muted">Since last week</span>
               </div>
             </div>
@@ -91,7 +90,7 @@
               </div>
               <span class="h1 d-inline-block mt-1 mb-4">1.856</span>
               <div class="mb-0">
-                <span class="badge badge-soft-success me-2"> <i class="mdi mdi-arrow-bottom-right"></i> +2.25% </span>
+                <span class="badge badge-soft-success me-2"> <i class="mdi mdi-arrow-bottom-right"></i>{{2.25 | crease:'+'}}</span>
                 <span class="text-muted">Since last week</span>
               </div>
             </div>
@@ -113,7 +112,7 @@
               </div>
               <span class="h1 d-inline-block mt-1 mb-4">17.212</span>
               <div class="mb-0">
-                <span class="badge badge-soft-danger me-2"> <i class="mdi mdi-arrow-bottom-right"></i> -1.25% </span>
+                <span class="badge badge-soft-danger me-2"> <i class="mdi mdi-arrow-bottom-right"></i>{{1.25 | crease:'-'}}</span>
                 <span class="text-muted">Since last week</span>
               </div>
             </div>
@@ -128,24 +127,22 @@
     <div class="card flex-fill w-100">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown show" dropdown container='body'>
+            <a dropdownToggle>
               <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
         <h5 class="card-title mb-0">Real-Time</h5>
       </div>
       <div class="card-body p-2">
-        <div id="world_map" style="height:279px;">
-          <!--          @todo need refactor the UI here -->
-        </div>
+        <div id="real-time-world" style="height:279px;"></div>
       </div>
     </div>
   </div>
@@ -156,15 +153,15 @@
     <div class="card flex-fill w-100">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown show" dropdown>
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -198,15 +195,15 @@
     <div class="card flex-fill w-100">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown show" dropdown>
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -235,15 +232,15 @@
     <div class="card flex-fill">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown show" dropdown container="body">
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -254,6 +251,7 @@
           <ngx-charts-polar-chart
             [scheme]="interestsConfig.colorScheme"
             [legend]="interestsConfig.legend"
+            [legendPosition]="sourceMediumConfig.legendPosition"
             [showXAxisLabel]="interestsConfig.showXAxisLabel"
             [showYAxisLabel]="interestsConfig.showYAxisLabel"
             [xAxis]="interestsConfig.xAxis"
@@ -272,15 +270,15 @@
     <div class="card flex-fill w-100">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown" dropdown>
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>
@@ -313,7 +311,7 @@
             <tbody>
             <tr *ngFor="let item of sourceMediumTableData">
               <td><i class="{{item.type}}"></i> {{item.source}}</td>
-              <td class="text-end">$ {{item.revenue}}</td>
+              <td class="text-end">{{item.revenue}}</td>
               <td class="text-end text-success">{{item.value}}</td>
             </tr>
             </tbody>
@@ -326,15 +324,15 @@
     <div class="card flex-fill">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show">
-            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <div class="dropdown" dropdown container="body">
+            <a dropdownToggle>
               <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
             </div>
           </div>
         </div>

@@ -6,11 +6,14 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import 'jsvectormap';
-import 'jsvectormap/dist/maps/us-aea-en.js';
 import type { TableColumn } from '@swimlane/ngx-datatable';
 import { Action } from '@valor-launchpad/api-interfaces';
 import { DashboardSaasService } from './dashboard-saas.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { map } from 'rxjs/operators';
+
+import "jsvectormap/dist/js/jsvectormap.js"
+import 'jsvectormap/dist/maps/us-aea-en.js';
 
 declare const jsVectorMap: any;
 
@@ -47,13 +50,14 @@ export class DashboardSaasComponent implements OnInit, AfterViewInit {
   salesRevenue$ = this.saasService.getSalesRevenue();
   orderActivities$ = this.saasService.getOrderActivities();
   topSellingProducts$ = this.saasService.getTopSellingProducts();
+  userFirstName$ = this.authService.user.pipe(map(res => res.firstName));
 
   private usMap; // jsVectorMap instance
 
   @ViewChild('techCell', { static: true })
   private techCell: TemplateRef<unknown>;
 
-  constructor(private saasService: DashboardSaasService) {}
+  constructor(private saasService: DashboardSaasService, private authService: AuthService) {}
 
   @HostListener('window:resize')
   onWindowResize() {
@@ -71,7 +75,7 @@ export class DashboardSaasComponent implements OnInit, AfterViewInit {
   private initUsMap() {
     this.usMap = new jsVectorMap({
       map: 'us_aea_en',
-      selector: '#usa_map',
+      selector: '#sales-by-state',
       zoomButtons: true,
       markerStyle: {
         initial: {

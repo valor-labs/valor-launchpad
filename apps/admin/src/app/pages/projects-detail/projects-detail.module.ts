@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProjectsDetailRoutingModule } from './projects-detail-routing.module';
 import { ProjectsDetailComponent } from './projects-detail.component';
 import {UiModule} from "@valor-launchpad/ui";
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {UiModule} from "@valor-launchpad/ui";
   imports: [
     CommonModule,
     ProjectsDetailRoutingModule,
-    UiModule
+    UiModule,
+    BsDropdownModule.forRoot(),
   ]
 })
 export class ProjectsDetailModule { }

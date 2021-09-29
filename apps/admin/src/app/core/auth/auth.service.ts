@@ -1,11 +1,10 @@
 import {Inject, Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {Observable, ReplaySubject, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import {HttpClient} from "@angular/common/http";
+import {ReplaySubject} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {UserEntity} from '@valor-launchpad/common-api';
-import {Message} from '@valor-launchpad/api-interfaces';
 import {ENV_CONFIG, EnvironmentConfig} from '../http/environment-config.interface';
 
 @Injectable({
@@ -18,17 +17,21 @@ export class AuthService {
   constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private cookieService: CookieService, private router: Router, private httpClient: HttpClient) {
   }
 
+  checkIfUsernameExists(username: string) {
+    return this.httpClient.get<{existedUsername: boolean}>(this.config.environment.apiBase + 'api/auth/v1/verify-username', {params: {username}});
+  }
+
   signUp(user) {
-    this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/register', user).subscribe((data) => {
-      console.log(data)
-    })
+    return this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/register', user);
   }
 
   signOut() {
-    this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).subscribe(() => {
-      this.access_token = undefined;
-      this.router.navigate(['/sign-in'])
-    })
+    return this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).pipe(
+      map(() => {
+        this.access_token = undefined;
+        this.router.navigate(['/sign-in'])
+      })
+    )
   }
 
   getToken() {

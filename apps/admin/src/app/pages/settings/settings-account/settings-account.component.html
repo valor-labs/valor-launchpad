@@ -2,15 +2,15 @@
   <div class="card">
     <div class="card-header">
       <div class="card-actions float-end">
-        <div class="dropdown show">
-          <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+        <div class="dropdown" dropdown container="body">
+          <a dropdownToggle>
             <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
           </a>
 
-          <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+            <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+            <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+            <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
           </div>
         </div>
       </div>
@@ -42,15 +42,15 @@
   <div class="card">
     <div class="card-header">
       <div class="card-actions float-end">
-        <div class="dropdown show">
-          <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+        <div class="dropdown" dropdown container="body">
+          <a dropdownToggle>
             <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
           </a>
 
-          <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+            <a class='dropdown-item' (click)='onClickAction()'>Action</a>
+            <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
+            <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
           </div>
         </div>
       </div>

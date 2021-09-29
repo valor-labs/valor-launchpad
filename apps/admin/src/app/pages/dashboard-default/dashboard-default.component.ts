@@ -4,6 +4,11 @@ import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
 import {AuthService} from '../../core/auth/auth.service';
 import {UserEntity} from '@valor-launchpad/common-api';
+import { Action } from '@valor-launchpad/api-interfaces';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ISocialActivity } from '../dashboard-social/dashboard-social.model';
+import { DashboardSocialService } from '../dashboard-social/dashboard-social.service';
+import { mergeMap, scan } from 'rxjs/operators';
 
 class DateOnlyPipe extends DatePipe {
   public transform(value): any {
@@ -32,7 +37,7 @@ export class DashboardDefaultComponent implements OnInit {
     xAxisLabel: 'Month',
     showYAxisLabel: false,
     yAxisLabel: 'Sales',
-    animations: false,
+    animations: true,
 
     colorScheme: {
       domain: ['#3F80EA', '#84aef2']
@@ -58,10 +63,24 @@ export class DashboardDefaultComponent implements OnInit {
   @ViewChild('statusRef', {static: true}) statusTmpl: TemplateRef<any>;
   latestProjectsTableColumn;
 
+  activities$: Observable<ISocialActivity>;
+  actions: Action[] = [
+    { label: 'Action', link: '#' },
+    { label: 'Another action', link: '#' },
+    { label: 'Something else here', link: '#', divider: true },
+    { label: 'Separated link', link: '#' },
+  ];
+  private activityPageLimit = 3;
+  private activitiesPaginator$ = new BehaviorSubject({
+    lastReadAt: undefined,
+    limit: this.activityPageLimit,
+  });
+
   constructor(
     private dashboardDefaultService: DashboardDefaultService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private socialService: DashboardSocialService
   ) {
   }
 
@@ -84,6 +103,16 @@ export class DashboardDefaultComponent implements OnInit {
       {name: 'Status', prop: 'status', cellTemplate: this.statusTmpl},
       {name: 'Assignee', prop: 'assignee'}
     ];
+
+    this.activities$ = this.activitiesPaginator$.pipe(
+      mergeMap(({ lastReadAt, limit }) =>
+        this.socialService.fetchActivities(lastReadAt, limit)
+      ),
+      scan((acc, crt) => ({
+        ...crt,
+        results: [...acc.results, ...crt.results],
+      }))
+    );
   }
 
   onClickAction(): void {
@@ -98,5 +127,10 @@ export class DashboardDefaultComponent implements OnInit {
     console.log('You click the something else');
   }
 
-
+  loadMoreActivities(lastReadAt: number) {
+    this.activitiesPaginator$.next({
+      lastReadAt,
+      limit: this.activityPageLimit,
+    });
+  }
 }

@@ -9,6 +9,9 @@ import { MessagesService } from './messages/messages.service';
 import { NotificationsService } from './notifications/notifications.service';
 import { MenuService } from './menus/menu.service';
 import { Menu } from '@valor-launchpad/api-interfaces';
+import { UserListLine } from '@valor-launchpad/api-interfaces';
+import { CreateUserDto } from './dto/create-user.dto';
+import { EditUserDto } from './dto/edit-user.dto';
 
 @Controller('v1')
 export class UsersController {
@@ -27,7 +30,7 @@ export class UsersController {
 
   @Get('all')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  async getAllUsers() {
+  async getAllUsers(): Promise<UserListLine[]> {
     return await this.usersService.findAll();
   }
 
@@ -40,8 +43,15 @@ export class UsersController {
   @Post('add')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
-  async addUser(@Body() user: CreateUser, @User() actingUser: UserEntity) {
+  async addUser(@Body() user: CreateUserDto, @User() actingUser: UserEntity) {
     return await this.usersService.createUser(user, actingUser)
+  }
+
+  @Post('edit')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  async editUser(@Body() user: EditUserDto, @User() actingUser: UserEntity) {
+    return await this.usersService.editUser(user, actingUser);
   }
 
   @Post('delete')
@@ -59,11 +69,12 @@ export class UsersController {
   }
 
   @Post('resetPassword')
-  async resetPassword(@Body() user, @User() actingUser: UserEntity) {
-    return await this.usersService.resetPassword(user.username, actingUser);
+  async resetPassword(@Body() user) {
+    return await this.usersService.resetPassword(user.username);
   }
 
   @Post('resendEmail')
+  @UseGuards(AuthGuard('jwt'))
   async resendEmail(@Body() user, @User() actingUser: UserEntity) {
     return await this.usersService.resendEmail(user.id, actingUser);
   }

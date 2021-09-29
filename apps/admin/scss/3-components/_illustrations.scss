@@ -1,6 +1,7 @@
 .illustration {
   background: $illustration-bg;
   color: $illustration-color;
+  height: calc(100% - #{$grid-gutter-width});
 }
 
 .illustration-text {
