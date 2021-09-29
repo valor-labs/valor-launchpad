@@ -11,7 +11,14 @@ import {NeedVerifyEmailException} from './exceptions/need-verify-email';
 import {v4} from 'uuid';
 import {CreateUserDto} from './dto/create-user.dto';
 import {RegisterDTO} from '../../../auth-api/src/lib/auth.dto';
-import {RESET_PASSWORD, ResetPasswordPayload} from './users-events.constant';
+import {
+  RESET_PASSWORD,
+  ResetPasswordPayload,
+  USER_CREATED_FAT,
+  USER_CREATED_THIN,
+  UserCreatedFatPayload,
+  UserCreatedThinPayload
+} from './users-events.constant';
 import {UsersEventsService} from './users-events.service';
 import { EditUserDto } from './dto/edit-user.dto';
 import { RoleDto } from './dto/role.dto';
@@ -319,6 +326,7 @@ export class UsersService {
     let phone: string;
     let passwordResetNeeded: boolean;
     if (payload instanceof CreateUserDto) {
+      // created by users-list page
       userRolesCreate = payload.roles.map(r => ({
         rolesEntity: {
           connectOrCreate: {
@@ -329,8 +337,8 @@ export class UsersService {
       }));
       password = this.generatePassword();
       passwordResetNeeded = true;
-      this.emitResetPasswordEmail(email, password);
     } else {
+      // created by register
       userRolesCreate = [{ rolesEntity: { connect: { role: 'User' } } }];
       password = payload.password;
       phone = payload.phone;
@@ -341,7 +349,7 @@ export class UsersService {
     const emailVerifyToken = v4();
     const phoneVerifyToken = Math.random().toString().substr(2, 6);
     const createdUserId = v4();
-    return await this.prisma.userEntity.create({
+    const user = await this.prisma.userEntity.create({
       data: {
         id: createdUserId,
         username,
@@ -363,6 +371,13 @@ export class UsersService {
         }
       }
     });
+    this.eventEmitter.emit(USER_CREATED_FAT, new UserCreatedFatPayload(
+      user,
+      payload instanceof CreateUserDto,
+      password
+    ))
+    this.eventEmitter.emit(USER_CREATED_THIN, new UserCreatedThinPayload(user.id))
+    return user;
   }
 
   async editUser(user: EditUserDto, operator: UserEntity) {
