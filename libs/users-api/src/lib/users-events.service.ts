@@ -13,9 +13,9 @@ export class UsersEventsService {
   async resetPassword({ email, password }: ResetPasswordPayload) {
     try {
       await this.sendResetPasswordEmail(email, password);
-      this.logger.log('Password reset email sent succeeded');
+      this.logger.log(`Password reset email sent to ${email} succeeded`);
     } catch (e) {
-      this.logger.error('Password reset email sent failed:\n', e);
+      this.logger.error(`Password reset email sent to ${email} failed:\n`, e);
     }
   }
 
