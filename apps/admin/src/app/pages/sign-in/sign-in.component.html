@@ -33,6 +33,7 @@
                         <a routerLink="/sign-up">Not having an account?</a>
                       </div>
                     </div>
+
                     <div>
                       <div class="form-check align-items-center">
                         <input id="customControlInline" type="checkbox" class="form-check-input" value="remember-me" name="remember-me" checked>
@@ -51,6 +52,9 @@
           </div>
         </div>
       </div>
+      <valor-launchpad-alert [isOpen]="isAlertOpen" type="danger" [outline]="true" [dismissible]="true" (close)="onClose($event)">
+        <strong>{{errorMessage}}</strong> 
+      </valor-launchpad-alert>
     </div>
   </main>
 </div>
