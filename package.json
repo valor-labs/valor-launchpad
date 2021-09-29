@@ -32,7 +32,8 @@
     "seed:run": "npx prisma db seed --preview-feature",
     "schema:drop": "npx prisma migrate reset --force",
     "schema:sync": "npx prisma migrate dev",
-    "stripe:listen": "stripe listen --forward-to localhost:3333/api/stripe/v1/hooks"
+    "stripe:listen": "stripe listen --forward-to localhost:3333/api/stripe/v1/hooks",
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up"
   },
   "private": true,
   "dependencies": {
