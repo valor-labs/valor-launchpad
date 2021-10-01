@@ -11,6 +11,7 @@ import {RegisterDTO, ResetPasswordDTO} from './auth.dto';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload} from './auth-events.constant';
 
+
 @Controller('v1')
 export class AuthController {
   private cookieDomain: string;
@@ -40,6 +41,7 @@ export class AuthController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('current-user')
   async getCurrentUser(@Req() req: RequestWithSession, @User() currentUser: UserEntity, @Res() response: Response) {
     console.log(currentUser);
