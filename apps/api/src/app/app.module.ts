@@ -14,7 +14,8 @@ import { UsersApiModule } from '@valor-launchpad/users-api';
 import { PrismaModule } from '@valor-launchpad/prisma';
 import { DashboardSocialModule } from '../dashboard/dashboard-social/dashboard-social.module';
 import { DashboardCryptoModule } from '../dashboard/dashboard-crypto';
-
+import { MulterModule } from '@nestjs/platform-express'
+import { join } from 'path';
 @Module({
   imports: [
     EventEmitterModule.forRoot({ wildcard: true }),
@@ -39,9 +40,16 @@ import { DashboardCryptoModule } from '../dashboard/dashboard-crypto';
     DashboardAnalyticsModule,
     StripeApiModule,
     DashboardSocialModule,
-    DashboardCryptoModule
+    DashboardCryptoModule,
+    MulterModule.register({
+      dest: join(__dirname, '/src/assets'),
+    })
   ],
   controllers: [AppController],
   providers: [AppService, ProjectsListener],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    console.log('__dirname', __dirname);
+  }
+}
