@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsCustomDates } from 'ngx-bootstrap/datepicker/themes/bs/bs-custom-dates-view.component';
+import { BsDaterangepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'valor-launchpad-forms-advanced-inputs',
@@ -64,7 +65,10 @@ export class FormsAdvancedInputsComponent implements OnInit {
     { name: 'Second', value: 'one', disabled: true },
     { name: 'Third', value: 'one' },
   ];
-
+  withTimepickerConfig: Partial<BsDaterangepickerConfig> = {
+    withTimepicker: true,
+    rangeInputFormat : 'MM/DD/YYYY, h:mm a',
+  };
   ranges: BsCustomDates[] = [
     {
       value: [new Date(), new Date()],
