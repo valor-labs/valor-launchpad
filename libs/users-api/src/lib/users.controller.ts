@@ -12,6 +12,7 @@ import { Menu } from '@valor-launchpad/api-interfaces';
 import { UserListLine } from '@valor-launchpad/api-interfaces';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
+import { TagsService } from './tags/tags.service';
 
 @Controller('v1')
 export class UsersController {
@@ -20,12 +21,19 @@ export class UsersController {
     private messageService:MessagesService,
     private notificationSerivce:NotificationsService,
     private menuService: MenuService,
+    private tagsService: TagsService
   ) {}
 
   @Get('getRoles')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   async getAvailableRoles() {
     return await this.usersService.getRoles();
+  }
+
+  @Get('tags')
+  @UseGuards(AuthGuard('jwt'))
+  getAvailableTags() {
+    return this.tagsService.findAll();
   }
 
   @Get('all')

@@ -58,14 +58,13 @@ export interface UserListLine {
   lastPasswordUpdateDate: Date;
   passwordResetNeeded: boolean;
   userRoles: {
-    id: string;
     role_id: string;
     rolesEntity: {
       role: string;
     };
   }[];
   userTags: {
-    id: string;
+    tag_id: string;
     tagsEntity: {
       name: string;
     };

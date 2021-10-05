@@ -21,6 +21,12 @@ export class UsersListingService {
     return this.httpClient.get(this.baseURL + 'getRoles');
   }
 
+  getTags() {
+    return this.httpClient.get<{ name: string; id: string }[]>(
+      this.baseURL + 'tags'
+    );
+  }
+
   addUser(addUserForm: any) {
     return this.httpClient.post(this.baseURL + 'add', addUserForm);
   }

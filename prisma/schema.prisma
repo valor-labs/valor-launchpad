@@ -291,7 +291,7 @@ model TagsEntity {
   createdDate DateTime         @default(now()) @db.DateTime(6)
   updatedDate DateTime         @updatedAt
   deletedDate DateTime?        @db.DateTime(6)
-  name        String           @db.VarChar(255)
+  name        String           @unique @db.VarChar(255)
   userTags    UserTagsEntity[] @relation("tags")
 }
 
