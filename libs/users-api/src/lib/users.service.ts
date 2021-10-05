@@ -525,6 +525,24 @@ export class UsersService {
     });
   }
 
+  async resetNewPassword(username: string, newPasswordCrypt: string) {
+    const now = new Date();
+    const user = await this.prisma.userEntity.update({
+      where: { username },
+      data: { password: newPasswordCrypt, lastPasswordUpdateDate: now, passwordResetNeeded: false },
+    });
+
+    await this.prisma.userEventsEntity.create({
+      data: {
+        target_user_id: user.id,
+        acting_user_id: user.id,
+        event: 'Password reset'
+      }
+    });
+
+    return user;
+  }
+
   private emitResetPasswordEmail(email: string, password: string) {
     this.eventEmitter.emit(RESET_PASSWORD, new ResetPasswordPayload(email, password));
   }
