@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { DashboardSocialService } from './dashboard-social.service';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
-import { User } from '@valor-launchpad/users-api';
+import { User, UsersService } from '@valor-launchpad/users-api';
 import { UserEntity } from '@valor-launchpad/common-api';
 import { UserFollower } from '@valor-launchpad/api-interfaces';
 import { FollowUserDTO, LikeStoryDTO } from './dashboard-social.dto';
@@ -18,7 +18,7 @@ import { isNil } from '@nestjs/common/utils/shared.utils';
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
 export class DashboardSocialController {
-  constructor(private dashboardSocialService: DashboardSocialService) {}
+  constructor(private dashboardSocialService: DashboardSocialService, private usersService: UsersService) {}
 
   @Get('followings')
   getSelfFollowings(@User() user: UserEntity): Promise<UserFollower[]> {
@@ -34,13 +34,23 @@ export class DashboardSocialController {
   }
 
   @Post('follow')
-  follow(@User() user: UserEntity, @Body() { userId }: FollowUserDTO) {
-    return this.dashboardSocialService.follow(userId, user.id);
+  async follow(@User() user: UserEntity, @Body() { userId, username }: FollowUserDTO) {
+    let uid = userId;
+    if (username) {
+      const user = await this.usersService.findByUsername(username);
+      uid = user.id;
+    }
+    return this.dashboardSocialService.follow(uid, user.id);
   }
 
   @Post('unfollow')
-  unfollow(@User() user: UserEntity, @Body() { userId }: FollowUserDTO) {
-    return this.dashboardSocialService.unfollow(userId, user.id);
+  async unfollow(@User() user: UserEntity, @Body() { userId, username }: FollowUserDTO) {
+    let uid = userId;
+    if (username) {
+      const user = await this.usersService.findByUsername(username);
+      uid = user.id;
+    }
+    return this.dashboardSocialService.unfollow(uid, user.id);
   }
 
   @Post('like')

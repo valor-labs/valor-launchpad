@@ -156,6 +156,8 @@ export class DashboardSocialService {
   async getActivities(lastReadAt: number | null, limit: number) {
     const results = await this.prisma.socialActivity.findMany({
       include: {
+        operator: { select: { username: true } },
+        targetUser: { select: { username: true } },
         story: {
           select: {
             content: true,

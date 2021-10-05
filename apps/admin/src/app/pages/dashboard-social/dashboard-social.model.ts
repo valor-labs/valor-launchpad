@@ -61,6 +61,8 @@ export interface ISocialActivityItem {
   createdDate: string;
   deletedDate: string;
   operatorFullName: string;
+  operator: {username: string};
+  targetUser: {username: string};
   action:
     | 'FOLLOWED'
     | 'UNFOLLOWED'

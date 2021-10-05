@@ -1,40 +1,44 @@
-import * as Faker from 'faker'
-import {HELPERS} from '../libs/common-api/src/lib/entity/seed_helpers/data';
-import {PrismaClient} from '@prisma/client';
-import {ProfileEntity} from '../apps/api/src/profile/profile.entity';
+import * as Faker from 'faker';
+import { PrismaClient, Prisma } from '@prisma/client';
+import { SOCIAL_MEDIAS } from './seed-data/social-media.data';
+import { SKILLS } from './seed-data/skill.data';
 
 export class ProfileSeed {
-  constructor(private prisma: PrismaClient) {
-  }
+  constructor(private prisma: PrismaClient) {}
 
-  defaultEntity() {
-    const username = Faker.internet.userName();
-    const firstName = Faker.name.firstName();
-    const lastName = Faker.name.lastName();
-
-    return {
-      username: username,
-      name: firstName + " " + lastName,
+  async createProfile(user) {
+    const createEntity: Prisma.ProfileEntityUncheckedCreateInput = {
+      username: user.username,
+      name: user.firstName + ' ' + user.lastName,
       avatar: {
         create: {
           type: 'image/jpg',
-          src: Faker.random.arrayElement(HELPERS.profileImages),
-          alt: `${username} profile picture`
-        }
+          src: user.avatar.src,
+          alt: `${user.username} profile picture`,
+        },
       },
       from: Faker.address.city(),
       title: Faker.random.word(),
-      following: Faker.datatype.boolean(),
-      location: Faker.address.city()
-    }
-  }
-
-  async createProfile(seedObj) {
-    const createEntity = Object.assign(this.defaultEntity(), seedObj);
+      location: Faker.address.city(),
+      socialMedia: {
+        createMany: {
+          data: SOCIAL_MEDIAS.map((i) => ({
+            socialMediaId: i.id,
+            socialMediaUrl: i.baseUrl,
+          })),
+          skipDuplicates: true,
+        },
+      },
+      skills: {
+        create: SKILLS.map((skill) => ({
+          skill: { connect: { name: skill.name } },
+        })),
+      },
+    };
     return await this.prisma.profileEntity.upsert({
-      where: {username: seedObj.username},
+      where: { username: user.username },
       update: {},
-      create: createEntity as ProfileEntity
-    })
+      create: createEntity,
+    });
   }
 }

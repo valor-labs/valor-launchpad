@@ -63,9 +63,21 @@ export class DashboardSocialService {
     });
   }
 
+  followUserByUsername(username: string) {
+    return this.http.post(this.apiBase + 'api/dashboard-social/v1/follow', {
+      username,
+    });
+  }
+
   unfollowUser(userId: string) {
     return this.http.post(this.apiBase + 'api/dashboard-social/v1/unfollow', {
       userId,
+    });
+  }
+
+  unfollowUserByUsername(username: string) {
+    return this.http.post(this.apiBase + 'api/dashboard-social/v1/unfollow', {
+      username,
     });
   }
 }
