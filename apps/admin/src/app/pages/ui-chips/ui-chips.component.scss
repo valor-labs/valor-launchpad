@@ -1,1 +1,7 @@
-
+:host {
+  ::ng-deep {
+    .ng-trigger {
+        height: auto;
+    }
+  }
+}

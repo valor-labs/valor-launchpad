@@ -9,6 +9,8 @@ export class UiChipsComponent {
   tags = ['Unremovable', 'Tag 2', 'Tag 3'];
   inputVisible = false;
   inputValue = '';
+  items = ['Javascript', 'Typescript'];
+  itemsAsObjects = [{id: 0, name: 'Angular', readonly: true}, {id: 1, name: 'React'}];
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
 
   handleClose(removedTag: {}): void {
@@ -33,6 +35,10 @@ export class UiChipsComponent {
     }
     this.inputValue = '';
     this.inputVisible = false;
+  }
+
+  public onSelect(item) {
+    console.log('tag selected: value is ' + item);
   }
 
 }
