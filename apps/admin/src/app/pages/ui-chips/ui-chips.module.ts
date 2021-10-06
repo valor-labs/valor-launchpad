@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {UiChipsRoutingModule} from './ui-chips-routing.module';
 import {UiChipsComponent} from './ui-chips.component';
 import {FormsModule} from '@angular/forms';
-import {NzTagModule} from 'ng-zorro-antd/tag';
+import { TagInputModule } from 'ngx-chips';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import {NzTagModule} from 'ng-zorro-antd/tag';
     CommonModule,
     FormsModule,
     UiChipsRoutingModule,
-    NzTagModule
+    TagInputModule
   ]
 })
 export class UiChipsModule {
