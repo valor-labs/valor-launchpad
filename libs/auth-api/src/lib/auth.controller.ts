@@ -1,15 +1,15 @@
-import {Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards} from "@nestjs/common";
-import {LocalAuthGuard} from "./guards/local-auth-guard";
-import {RequestWithSession, UserEntity} from "@valor-launchpad/common-api";
-import {AuthService} from "./auth.service";
-import {Response} from 'express';
-import {User} from '@valor-launchpad/users-api';
-import {ResponseError, ResponseSuccess} from '@valor-launchpad/common-api';
-import {UsersService} from '@valor-launchpad/users-api';
-import {JwtAuthGuard} from './guards/jwt-auth.guard';
-import {RegisterDTO, ResetPasswordDTO} from './auth.dto';
-import {EventEmitter2} from '@nestjs/event-emitter';
-import {SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload} from './auth-events.constant';
+import { Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards } from "@nestjs/common";
+import { LocalAuthGuard } from "./guards/local-auth-guard";
+import { RequestWithSession, UserEntity } from "@valor-launchpad/common-api";
+import { AuthService } from "./auth.service";
+import { Response } from 'express';
+import { User } from '@valor-launchpad/users-api';
+import { ResponseError, ResponseSuccess } from '@valor-launchpad/common-api';
+import { UsersService } from '@valor-launchpad/users-api';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { RegisterDTO, ResetPasswordDTO, ResetNewPasswordDTO } from './auth.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload } from './auth-events.constant';
 
 
 @Controller('v1')
@@ -21,8 +21,8 @@ export class AuthController {
   }
 
   constructor(private authService: AuthService,
-              private usersService: UsersService,
-              private eventEmitter: EventEmitter2) {
+    private usersService: UsersService,
+    private eventEmitter: EventEmitter2) {
   }
 
   @UseGuards(LocalAuthGuard)
@@ -32,7 +32,7 @@ export class AuthController {
       const loginResponse = await this.authService.login(body);
       req.session.token = loginResponse.access_token;
       req.session.user = loginResponse.user;
-      response.cookie('access_token', loginResponse.access_token, {domain: this.cookieDomain})
+      response.cookie('access_token', loginResponse.access_token, { domain: this.cookieDomain })
       const loginResult = await this.authService.login(body);
       response.send(loginResult);
     } catch (error) {
@@ -57,7 +57,7 @@ export class AuthController {
     console.log(currentUser);
     req.session.destroy();
     response.clearCookie('access_token');
-    response.status(HttpStatus.OK).send({status: 'logout successful'});
+    response.status(HttpStatus.OK).send({ status: 'logout successful' });
   }
 
   @Get('verify-user/:token')
@@ -94,6 +94,26 @@ export class AuthController {
   async updatePassword(@User() user: UserEntity, @Body() body: ResetPasswordDTO) {
     await this.authService.updatePassword(user.username, body.oldPassword, body.newPassword);
     return {};
+  }
+
+  @Post('reset-password')
+  @UseGuards(JwtAuthGuard)
+  async resetPassword(@Req() req: RequestWithSession, @User() user: UserEntity, @Body() body: ResetNewPasswordDTO) {
+    const { username, password } = body;
+
+    if (user.username !== username) {
+      return new ResponseError('Incorrect User Name');
+    }
+
+    try {
+      const user = await this.authService.resetPassword(username, password);
+      
+      Object.assign(req.session.user, user);
+
+      return new ResponseSuccess('Reset Password Success');
+    } catch (error) {
+      return new ResponseError('Reset Password Failed', error)
+    }
   }
 
   //TODO: add forgot password
