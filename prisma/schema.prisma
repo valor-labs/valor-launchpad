@@ -300,6 +300,7 @@ model MediaAsset {
   deletedDate DateTime?       @db.DateTime(6)
   type        String          @db.VarChar(255)
   src         String          @db.VarChar(255)
+  src_webp    String?          @db.VarChar(255)
   alt         String          @db.VarChar(255)
   profile_id  String?         @db.VarChar(36)
   project_id  String?         @db.VarChar(36)

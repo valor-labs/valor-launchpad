@@ -22,7 +22,8 @@ export class ProfileService {
           include: {
             children: true
           }
-        }
+        },
+        avatar: true
       }
     });
   }

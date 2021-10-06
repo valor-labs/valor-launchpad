@@ -16,6 +16,7 @@ import { DashboardSocialModule } from '../dashboard/dashboard-social/dashboard-s
 import { DashboardCryptoModule } from '../dashboard/dashboard-crypto';
 import { MulterModule } from '@nestjs/platform-express'
 import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 @Module({
   imports: [
     EventEmitterModule.forRoot({ wildcard: true }),
@@ -42,14 +43,16 @@ import { join } from 'path';
     DashboardSocialModule,
     DashboardCryptoModule,
     MulterModule.register({
-      dest: join(__dirname, '/src/assets'),
-    })
+      dest: join(__dirname, '/assets'),
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '/assets'),
+      serveStaticOptions: {
+        index: false
+      }
+    }),
   ],
   controllers: [AppController],
   providers: [AppService, ProjectsListener],
 })
-export class AppModule {
-  constructor() {
-    console.log('__dirname', __dirname);
-  }
-}
+export class AppModule {}
