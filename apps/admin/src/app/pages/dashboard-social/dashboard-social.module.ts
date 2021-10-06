@@ -16,7 +16,7 @@ import { SocialActivityComponent } from './social-activity/social-activity.compo
     TimeAgoPipe,
     SocialActivityComponent,
   ],
-  exports: [SocialActivityComponent],
+  exports: [SocialActivityComponent, TimeAgoPipe],
   imports: [
     CommonModule,
     UiModule,

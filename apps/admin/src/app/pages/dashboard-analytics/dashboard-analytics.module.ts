@@ -2,15 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardAnalyticsRoutingModule } from './dashboard-analytics-routing.module';
-import { DashboardAnalyticsService } from './dashboard-analytics.service';
-
+import { DashboardAnalyticsComponent } from './dashboard-analytics.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UiModule } from '@valor-launchpad/ui';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
-  declarations: [],
+  declarations: [DashboardAnalyticsComponent],
   imports: [
     CommonModule,
-    DashboardAnalyticsRoutingModule
+    DashboardAnalyticsRoutingModule,
+    UiModule,
+    NgxDatatableModule,
+    NgApexchartsModule,
+    NgxChartsModule,
   ],
-  providers: [DashboardAnalyticsService]
 })
-export class DashboardAnalyticsModule { }
+export class DashboardAnalyticsModule {}

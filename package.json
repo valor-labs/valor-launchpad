@@ -74,6 +74,7 @@
     "compression": "^1.7.4",
     "connect-redis": "^5.2.0",
     "cookie-parser": "^1.4.5",
+    "dayjs": "^1.10.7",
     "express-session": "^1.17.2",
     "faker": "^5.5.3",
     "generate-password": "^1.6.0",

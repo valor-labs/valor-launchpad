@@ -44,32 +44,6 @@ model CommentEntity {
   children       CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
 }
 
-model DashboardAnalyticsEntity {
-  id                     String    @id @default(uuid()) @db.VarChar(36)
-  createdDate            DateTime  @default(now()) @db.DateTime(6)
-  updatedDate            DateTime  @updatedAt
-  deletedDate            DateTime? @db.DateTime(6)
-  analyticsInfo          Json      @db.Json
-  languagesData          Json      @db.Json
-  mobileDesktopChartData Json      @db.Json
-  sourceMediumChartData  Json      @db.Json
-  sourceMediumTableData  Json      @db.Json
-  trafficTableData       Json      @db.Json
-}
-
-model DashboardEntity {
-  id                      String    @id @default(uuid()) @db.VarChar(36)
-  createdDate             DateTime  @default(now()) @db.DateTime(6)
-  updatedDate             DateTime  @updatedAt
-  deletedDate             DateTime? @db.DateTime(6)
-  dashboardData           Json      @db.Json
-  salesRevenueChartData   Json      @db.Json
-  weeklySalesChartData    Json      @db.Json
-  weeklySalesTableData    Json      @db.Json
-  appointmentsData        Json      @db.Json
-  latestProjectsTableData Json      @db.Json
-}
-
 model ProfileEntity {
   id             String                      @id @default(uuid()) @db.VarChar(36)
   createdDate    DateTime                    @default(now()) @db.DateTime(6)
@@ -101,7 +75,7 @@ model ProfileSkillsEntity {
 
 model SkillsEntity {
   id          String                @id @default(uuid()) @db.VarChar(36)
-  name        String                @unique() @db.VarChar(255)
+  name        String                @unique @db.VarChar(255)
   createdDate DateTime              @default(now()) @db.DateTime(6)
   updatedDate DateTime              @updatedAt
   deletedDate DateTime?             @db.DateTime(6)
@@ -246,6 +220,7 @@ model UserEntity {
   socialStoryUserLike      SocialStoryUserLike[]    @relation("storyUserLikeUser")
   socialActivities         SocialActivity[]         @relation("socialActivityOperator")
   socialActivitiesAsTarget SocialActivity[]         @relation("socialActivityTargetUser")
+  appointments             Appointment[]            @relation("AppointmentUser")
 }
 
 model UserEventsEntity {
@@ -449,4 +424,111 @@ model CryptoValueHistory {
   close Decimal  @db.Decimal(65, 30)
   high  Decimal  @db.Decimal(65, 30)
   low   Decimal  @db.Decimal(65, 30)
+}
+
+model City {
+  id        String @id @default(uuid()) @db.VarChar(36)
+  cityName  String @db.VarChar(255)
+  longitude Float  @db.Float
+  latitude  Float  @db.Float
+
+  analytics AnalyticByCity[] @relation("analyticCity")
+}
+
+model Language {
+  id       String @id @default(uuid()) @db.VarChar(36)
+  language String @unique @db.VarChar(255)
+
+  analytics AnalyticByLanguage[] @relation("analyticLanguage")
+}
+
+model AnalyticOverview {
+  id            String   @id @default(uuid()) @db.VarChar(36)
+  date          DateTime @db.Date
+  bounce        Decimal
+  bounceRatio   Decimal
+  realTime      Decimal
+  realTimeRatio Decimal
+  visitors      Decimal
+  visitorsRatio Decimal
+}
+
+model AnalyticByCity {
+  id     String   @id @default(uuid()) @db.VarChar(36)
+  date   DateTime @db.Date
+  cityId String   @db.VarChar(36)
+  value  Int      @db.Int
+
+  city City @relation("analyticCity", fields: [cityId], references: [id])
+}
+
+model AnalyticByLanguage {
+  id         String   @id @default(uuid()) @db.VarChar(36)
+  date       DateTime @db.Date
+  languageId String   @db.VarChar(36)
+  value      Int      @db.Int
+
+  language Language @relation("analyticLanguage", fields: [languageId], references: [id])
+}
+
+model AnalyticByPlatformMonthly {
+  id      String   @id @default(uuid()) @db.VarChar(36)
+  month   DateTime @db.Date
+  mobile  Int      @db.Int
+  desktop Int      @db.Int
+}
+
+model AnalyticByInterest {
+  id         String   @id @default(uuid()) @db.VarChar(36)
+  date       DateTime @db.Date
+  interest   String   @db.VarChar(255)
+  percentage Int      @db.Int
+}
+
+model AnalyticRevenueBySource {
+  id      String   @id @default(uuid()) @db.VarChar(36)
+  date    DateTime @db.Date
+  source  String   @db.VarChar(255)
+  revenue Int      @db.Int
+}
+
+model AnalyticByTraffic {
+  id              String   @id @default(uuid()) @db.VarChar(36)
+  date            DateTime @db.Date
+  source          String   @db.VarChar(255)
+  userCount       Int      @db.Int
+  sessionCount    Int      @db.Int
+  bounceRate      Decimal  @db.Decimal(65, 30)
+  sessionDuration Int      @db.Int /// unit: seconds
+}
+
+model DashboardDefaultOverview {
+  id            String   @id @default(uuid()) @db.VarChar(36)
+  date          DateTime @db.Date
+  totalEarnings Decimal  @db.Decimal(65, 30)
+  pendingOrders Int      @db.Int
+  totalRevenue  Decimal  @db.Decimal(65, 30)
+}
+
+model DashboardDefaultMonthlyRevenue {
+  id      String   @id @default(uuid()) @db.VarChar(36)
+  month   DateTime @db.Date
+  revenue Decimal  @db.Decimal(65, 30)
+}
+
+model DashboardDefaultDailyRevenue {
+  id      String   @id @default(uuid()) @db.VarChar(36)
+  date    DateTime @db.Date
+  source  String   @db.VarChar(255)
+  revenue Decimal  @db.Decimal(65, 30)
+}
+
+model Appointment {
+  id          String   @id @default(uuid()) @db.VarChar(36)
+  userId      String   @db.VarChar(36)
+  title       String   @db.VarChar(255)
+  content     String   @db.VarChar(255)
+  createdDate DateTime @default(now()) @db.DateTime(6)
+
+  user UserEntity @relation("AppointmentUser", fields: [userId], references: [id])
 }

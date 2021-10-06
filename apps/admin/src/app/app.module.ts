@@ -8,7 +8,6 @@ import {FooterModule} from './core/footer/footer.module';
 import {NavigationModule} from './core/navigation/navigation.module';
 import {HeaderModule} from './core/header/header.module';
 import {MainLayoutComponent} from './main-layout/main-layout.component';
-import {DashboardAnalyticsComponent} from './pages/dashboard-analytics/dashboard-analytics.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UiModule} from '@valor-launchpad/ui';
@@ -29,7 +28,7 @@ import { themeInitializer } from './core/theme/theme-initializer';
 import { ValorThemeService } from './core/theme/valor-theme.service';
 
 @NgModule({
-  declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent, ThemeBuilderComponent],
+  declarations: [AppComponent, MainLayoutComponent, ThemeBuilderComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule,
     RouterModule, FooterModule, NavigationModule, HeaderModule,
     CollapseModule.forRoot(),

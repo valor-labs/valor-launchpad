@@ -4,13 +4,10 @@ import { ProjectsEntity } from '../apps/api/src/projects/projects.entity';
 import { RoleSeed } from './role.seed';
 import { UserSeed } from './user.seed';
 import { ProfileSeed } from './profile.seed';
-import { DashboardSeed } from './dashboard.seed';
-import { DashboardAnalyticsSeed } from './dashboard-analytics.seed';
 import { ProjectsSeed } from './projects.seed';
 import { ProjectSummarySeed } from './project-summary.seed';
 import { MediaSeed } from './media.seed';
 import { UserEventsSeed } from './user-events.seed';
-import { UserEntity } from '../libs/common-api/src';
 import { MenuSeed } from './menu.seed';
 import { RoleMenuSeed } from './role-menu.seed';
 import { UserFollowerSeed } from './user-follower.seed';
@@ -25,12 +22,23 @@ import { CryptoOrdersSeed } from './crypto-orders.seed';
 import { CryptoValueHistorySeed } from './crypto-value-history.seed';
 import { SocialMediaSeed } from './social-media.seed';
 import { SkillSeed } from './skill.seed';
+import { AnalyticOverviewSeed } from './analytic-overview.seed';
+import { CitySeed } from './city.seed';
+import { LanguageSeed } from './language.seed';
+import { AnalyticByLanguageSeed } from './analytic-by-language.seed';
+import { AnalyticByPlatformSeed } from './analytic-by-platform.seed';
+import { AnalyticByInterestSeed } from './analytic-by-interest.seed';
+import { AnalyticBySourceSeed } from './analytic-by-source.seed';
+import { AnalyticByTrafficSeed } from './analytic-by-traffic.seed';
+import { AnalyticByCitySeed } from './analytic-by-city.seed';
+import { DashboardDefaultOverviewSeed } from './dashboard-default-overview.seed';
+import { DashboardDefaultMonthlyRevenueSeed } from './dashboard-default-monthly-revenue.seed';
+import { DashboardDefaultDailyRevenueSeed } from './dashboard-default-daily-revenue.seed';
+import { AppointmentSeed } from './appointment.seed';
 
 const prisma = new PrismaClient()
 
 async function main() {
-  const dashboardSeed = new DashboardSeed(prisma);
-  const dashboardAnalyticsSeed = new DashboardAnalyticsSeed(prisma);
   const projectsSeed = new ProjectsSeed(prisma);
   const projectSummarySeed = new ProjectSummarySeed(prisma);
   const mediaSeed = new MediaSeed(prisma);
@@ -51,13 +59,19 @@ async function main() {
   const valueHistorySeed = new CryptoValueHistorySeed(prisma);
   const socialMediaSeed = new SocialMediaSeed(prisma);
   const skillSeed = new SkillSeed(prisma);
-
-  /*
-  Create dashboards
-   */
-  await dashboardSeed.createDashboard();
-  await dashboardAnalyticsSeed.createDashboardAnalytics();
-
+  const citySeed = new CitySeed(prisma);
+  const languageSeed = new LanguageSeed(prisma);
+  const analyticOverviewSeed = new AnalyticOverviewSeed(prisma);
+  const analyticByCitySeed = new AnalyticByCitySeed(prisma);
+  const analyticByLanguageSeed = new AnalyticByLanguageSeed(prisma);
+  const analyticByPlatformSeed = new AnalyticByPlatformSeed(prisma);
+  const analyticByInterestSeed = new AnalyticByInterestSeed(prisma);
+  const analyticBySourceSeed = new AnalyticBySourceSeed(prisma);
+  const analyticByTrafficSeed = new AnalyticByTrafficSeed(prisma);
+  const dashboardDefaultOverviewSeed = new DashboardDefaultOverviewSeed(prisma);
+  const dashboardDefaultDailyRevenueSeed = new DashboardDefaultDailyRevenueSeed(prisma);
+  const dashboardDefaultMonthlyRevenueSeed = new DashboardDefaultMonthlyRevenueSeed(prisma);
+  const appointmentSeed = new AppointmentSeed(prisma);
 
   /*
   Create user roles
@@ -197,6 +211,35 @@ async function main() {
   await marketSeed.seed();
   await ordersSeed.seed();
   await valueHistorySeed.seed();
+
+  /*
+  Create cities
+   */
+  await citySeed.seed();
+
+  /*
+  Create languages
+   */
+  await languageSeed.seed();
+
+  /*
+  Create dashboard default
+   */
+  await dashboardDefaultOverviewSeed.seed();
+  await dashboardDefaultDailyRevenueSeed.seed();
+  await dashboardDefaultMonthlyRevenueSeed.seed();
+  await appointmentSeed.seed();
+
+  /*
+  Create analytics overview
+   */
+  await analyticOverviewSeed.seed();
+  await analyticByCitySeed.seed();
+  await analyticByLanguageSeed.seed();
+  await analyticByPlatformSeed.seed();
+  await analyticByInterestSeed.seed();
+  await analyticBySourceSeed.seed();
+  await analyticByTrafficSeed.seed();
 
   /*
   Create projects

@@ -70,6 +70,7 @@ import { FormLabelComponent } from './forms/form-label.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { TypographyDirective } from './typography/typography.directive';
 import { CreasePipe } from './pipe/crease.pipe';
+import { PercentBadgeComponent } from './badge/percent-badge/percent-badge.component';
 import { ValorImagePipe } from './pipe/valor-image.pipe';
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
@@ -142,6 +143,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     TypographyDirective,
     CreasePipe,
     ValorImagePipe,
+    PercentBadgeComponent,
   ],
   exports: [
     TabsModule,
@@ -183,7 +185,8 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     SpinnerComponent,
     TypographyDirective,
     CreasePipe,
-    ValorImagePipe
+    ValorImagePipe,
+    PercentBadgeComponent
   ],
   providers: [
     { provide: NOTYFToken, useFactory: notyfFactory }
