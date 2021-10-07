@@ -1,18 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Action,
   Timeline,
   TableColumns,
 } from '@valor-launchpad/api-interfaces';
 
-
 @Component({
   selector: 'valor-launchpad-clients',
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
 })
-export class ClientsComponent {
+export class ClientsComponent implements OnInit{
  
+  itemsPerPage: number;
+  paginationTableData = [];
+  currentPage: number;
+  clientName: string;
+
+  searchTableData = [];
+  isShow: boolean;
+
+  entries = [1,2,3,4,5,6,7,8,9,10];
+
   timeline: Timeline = [
     {
       title: 'Signed out',
@@ -154,4 +163,48 @@ export class ClientsComponent {
     { label: 'Another action', link: '#' },
     { label: 'Something else here', link: '#' },
   ];
+
+  ngOnInit(): void {
+    this.initTable();
+  }
+
+  initTable () {
+    this.searchTableData = this.tableData;
+    this.itemsPerPage = 5;
+    this.currentPage = 1;
+    this.paginationTableData = this.searchTableData.slice(0,this.itemsPerPage);
+    this.isShow = true;
+  }
+
+  onPageChanged(event) {
+    this.currentPage = event.page;
+    this.paginationTableData = this.getPaginationTableData(this.searchTableData, event.page, event.itemsPerPage);
+  }
+
+  onSelectChange(event) {
+    this.itemsPerPage = event;
+    if (this.currentPage > Math.ceil(this.searchTableData.length / this.itemsPerPage)) {
+      this.currentPage = Math.ceil(this.searchTableData.length / this.itemsPerPage);
+    }
+    this.paginationTableData = this.getPaginationTableData(this.searchTableData, this.currentPage, this.itemsPerPage);
+  }
+
+  searchClient(event) {
+    if (this.clientName === '') {
+      this.searchTableData = this.tableData;
+    } else {
+      this.searchTableData = this.tableData.filter(item => {
+        // search all content
+        // return item.name.includes(event) || item.company.includes(event) || item.email.includes(event) || item.status.includes(event);
+        // search just name
+        return item.name.includes(event);
+      });
+    }
+
+    this.paginationTableData = this.getPaginationTableData(this.searchTableData, this.currentPage, this.itemsPerPage);
+  }
+
+  getPaginationTableData(data, currentPage , perPage) {
+    return data.slice((currentPage - 1) * perPage , currentPage * perPage)
+  }
 }
