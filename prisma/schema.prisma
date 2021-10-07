@@ -80,7 +80,6 @@ model ProfileEntity {
   username       String                      @unique @db.VarChar(255)
   user           UserEntity                  @relation("userProfile", fields: [username], references: [username])
   title          String?                     @db.VarChar(255)
-  following      Boolean?                    @db.TinyInt
   location       String?                     @db.VarChar(255)
   from           String?                     @db.VarChar(255)
   employers      ProfileEmployerEntity[]
@@ -102,6 +101,7 @@ model ProfileSkillsEntity {
 
 model SkillsEntity {
   id          String                @id @default(uuid()) @db.VarChar(36)
+  name        String                @unique() @db.VarChar(255)
   createdDate DateTime              @default(now()) @db.DateTime(6)
   updatedDate DateTime              @updatedAt
   deletedDate DateTime?             @db.DateTime(6)
@@ -120,16 +120,18 @@ model SocialMediaEntity {
 }
 
 model SocialMediaMatchingEntity {
-  id            String            @id @default(uuid()) @db.VarChar(36)
-  createdDate   DateTime          @default(now()) @db.DateTime(6)
-  updatedDate   DateTime          @updatedAt
-  deletedDate   DateTime?         @db.DateTime(6)
-  profileId     String?           @db.VarChar(36)
-  profile       ProfileEntity?    @relation(fields: [profileId], references: [id])
-  socialMediaId String            @db.VarChar(36)
-  socialMedia   SocialMediaEntity @relation(fields: [socialMediaId], references: [id])
-  employerId    String?           @db.VarChar(36)
-  employer      EmployerEntity?   @relation(fields: [employerId], references: [id])
+  id             String    @id @default(uuid()) @db.VarChar(36)
+  createdDate    DateTime  @default(now()) @db.DateTime(6)
+  updatedDate    DateTime  @updatedAt
+  deletedDate    DateTime? @db.DateTime(6)
+  profileId      String?   @db.VarChar(36)
+  socialMediaId  String    @db.VarChar(36)
+  socialMediaUrl String    @db.VarChar(255)
+  employerId     String?   @db.VarChar(36)
+
+  profile     ProfileEntity?    @relation(fields: [profileId], references: [id])
+  socialMedia SocialMediaEntity @relation(fields: [socialMediaId], references: [id])
+  employer    EmployerEntity?   @relation(fields: [employerId], references: [id])
 }
 
 model EmployerEntity {
@@ -410,20 +412,20 @@ model SocialActivity {
 }
 
 model CryptoMainInfo {
-  id        Int       @id @default(autoincrement())
-  title     String    @db.VarChar(36)
-  price     Decimal   @db.Decimal(65, 30)
-  priceByUS Decimal   @db.Decimal(65, 30)
-  volume    Decimal   @db.Decimal(65, 30)
-  change    Decimal   @db.Decimal(5, 3)
+  id        Int     @id @default(autoincrement())
+  title     String  @db.VarChar(36)
+  price     Decimal @db.Decimal(65, 30)
+  priceByUS Decimal @db.Decimal(65, 30)
+  volume    Decimal @db.Decimal(65, 30)
+  change    Decimal @db.Decimal(5, 3)
 }
 
 model CryptoMarkets {
-  id      Int       @id @default(autoincrement())
-  coin    String    @db.VarChar(36)
-  price   Decimal   @db.Decimal(65, 30)
-  volume  Decimal   @db.Decimal(65, 30)
-  change  Decimal   @db.Decimal(5, 3)
+  id     Int     @id @default(autoincrement())
+  coin   String  @db.VarChar(36)
+  price  Decimal @db.Decimal(65, 30)
+  volume Decimal @db.Decimal(65, 30)
+  change Decimal @db.Decimal(5, 3)
 }
 
 enum CryptoOrderType {
@@ -432,19 +434,19 @@ enum CryptoOrderType {
 }
 
 model CryptoOrders {
-  id      Int       @id @default(autoincrement())
-  type    CryptoOrderType
-  price   Decimal   @db.Decimal(65, 30)
-  eth     Decimal   @db.Decimal(65, 30)
-  btc     Decimal   @db.Decimal(65, 30)
-  sum     Decimal   @db.Decimal(65, 30)
+  id    Int             @id @default(autoincrement())
+  type  CryptoOrderType
+  price Decimal         @db.Decimal(65, 30)
+  eth   Decimal         @db.Decimal(65, 30)
+  btc   Decimal         @db.Decimal(65, 30)
+  sum   Decimal         @db.Decimal(65, 30)
 }
 
 model CryptoValueHistory {
-  id      Int       @id @default(autoincrement())
-  date    DateTime  @db.DateTime(6)
-  open    Decimal   @db.Decimal(65, 30)
-  close   Decimal   @db.Decimal(65, 30)
-  high    Decimal   @db.Decimal(65, 30)
-  low     Decimal   @db.Decimal(65, 30)
+  id    Int      @id @default(autoincrement())
+  date  DateTime @db.DateTime(6)
+  open  Decimal  @db.Decimal(65, 30)
+  close Decimal  @db.Decimal(65, 30)
+  high  Decimal  @db.Decimal(65, 30)
+  low   Decimal  @db.Decimal(65, 30)
 }

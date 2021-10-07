@@ -39,6 +39,7 @@ export class UserSeed {
     }
 
     return await this.prisma.userEntity.upsert({
+      include: { avatar: { select: { src: true, alt: true } } },
       where: {username: createEntity.username},
       update: {},
       create: createEntity as UserEntity

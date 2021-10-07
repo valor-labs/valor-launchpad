@@ -9,16 +9,16 @@
       <valor-launchpad-card-content>
         <div class="m-3 text-center">
           <valor-launchpad-avatar
-            [src]="profile.avatar || 'assets/img/avatars/avatar.jpg'"
+            [src]="profile.avatar?.src || 'assets/img/avatars/avatar.jpg'"
             size="xxl"
             classes="mb-2 img-fluid"
-            [alt]="profile.name">
+            [alt]="profile.avatar?.alt">
           </valor-launchpad-avatar>
           <h5 class="card-title mb-0">{{profile.name}}</h5>
           <div class="text-muted mb-2">{{profile.title}}</div>
           <div>
-            <button valor-launchpad-button size="sm" *ngIf="!profile.following">Follow</button>
-            <button valor-launchpad-button size="sm" *ngIf="profile.following">Unfollow</button>
+            <button valor-launchpad-button size="sm" *ngIf="!profile.following" (click)="follow(profile.username)">Follow</button>
+            <button valor-launchpad-button size="sm" [outlined]="true" *ngIf="profile.following" (click)="unfollow(profile.username)">Unfollow</button>
             <button valor-launchpad-button size="sm">
               <i class="align-middle me-2 fas fa-fw fa-comment-alt"></i>Message
             </button>
@@ -27,7 +27,7 @@
         <hr class="my-0"/>
         <div class="m-3">
           <h5 class="h6 card-title">Skills</h5>
-          <a href="#" class="badge bg-primary me-1 my-1" *ngFor="let skill of profile.skills">{{skill.name}}</a>
+          <span valor-launchpad-badge class="me-1 my-1" *ngFor="let skill of profile.skills">{{skill.skill.name}}</span>
         </div>
         <hr class="my-0"/>
         <div class="m-3">
@@ -50,9 +50,9 @@
         <div class="m-3">
           <h5 class="h6 card-title">Elsewhere</h5>
           <ul class="list-unstyled mb-0">
-            <li class="mb-1" *ngFor="let social of profile.social_media">
-              <span class="me-1" [ngClass]="social.icon"></span>
-              <a [href]="social.url">{{social.type}}</a>
+            <li class="mb-1" *ngFor="let social of profile.socialMedia">
+              <span class="me-1" [ngClass]="social.socialMedia.icon"></span>
+              <a [href]="social.socialMediaUrl" target="_blank">{{social.socialMedia.name}}</a>
             </li>
           </ul>
         </div>

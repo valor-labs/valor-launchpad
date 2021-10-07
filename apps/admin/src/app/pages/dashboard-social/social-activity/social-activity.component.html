@@ -1,27 +1,27 @@
-<img [src]="activity.operatorAvatarSrc" width="36" height="36" class="rounded-circle me-2" [alt]="activity.operatorFullName">
+<img (click)="navProfile(activity.operator.username)" [src]="activity.operatorAvatarSrc" width="36" height="36" class="rounded-circle me-2 cursor-pointer" [alt]="activity.operatorFullName">
 <div class="flex-grow-1" [ngSwitch]='activity.action'>
   <ng-template ngSwitchCase='FOLLOWED'>
     <small class="float-end">{{activity.createdDate | timeAgo}}</small>
-    <strong>{{activity.operatorFullName}}</strong> started following <strong>{{activity.targetUserFullName}}</strong><br/>
+    <ng-container [ngTemplateOutlet]="operateUser"></ng-container> started following <ng-container [ngTemplateOutlet]="targetUser"></ng-container><br/>
     <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
   </ng-template>
   <ng-template ngSwitchCase='UNFOLLOWED'>
     <small class="float-end">{{activity.createdDate | timeAgo}}</small>
-    <strong>{{activity.operatorFullName}}</strong> stopped following <strong>{{activity.targetUserFullName}}</strong><br/>
+    <ng-container [ngTemplateOutlet]="operateUser"></ng-container> stopped following <ng-container [ngTemplateOutlet]="targetUser"></ng-container><br/>
     <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
   </ng-template>
   <ng-template ngSwitchCase="LIKED_STORY">
     <small class="float-end">{{activity.createdDate | timeAgo}}</small>
-    <strong>{{activity.operatorFullName}}</strong> liked <strong>{{activity.targetUserFullName}}</strong>'s <span [attr.data-story]="activity.storyId">post</span><br/>
+    <ng-container [ngTemplateOutlet]="operateUser"></ng-container> liked <ng-container [ngTemplateOutlet]="targetUser"></ng-container>'s <span [attr.data-story]="activity.storyId">post</span><br/>
     <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
   </ng-template>
   <ng-template ngSwitchCase="UNLIKED_STORY">
     <small class="float-end">{{activity.createdDate | timeAgo}}</small>
-    <strong>{{activity.operatorFullName}}</strong> stopped liking <strong>{{activity.targetUserFullName}}</strong>'s <span [attr.data-story]="activity.storyId">post</span><br/>
+    <ng-container [ngTemplateOutlet]="operateUser"></ng-container> stopped liking <ng-container [ngTemplateOutlet]="targetUser"></ng-container>'s <span [attr.data-story]="activity.storyId">post</span><br/>
     <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
   </ng-template>
   <ng-template ngSwitchCase='POST_STORY'>
-    <strong>{{activity.operatorFullName}}</strong> posted a new blog<br/>
+    <ng-container [ngTemplateOutlet]="operateUser"></ng-container> posted a new blog<br/>
     <div class="border text-sm text-muted p-2 mt-1" *ngIf='activity.story.content'>
       {{activity.story.content}}
     </div>
@@ -33,3 +33,11 @@
     <small class="text-muted">{{activity.createdDate | date: 'MMM d h:mm a'}}</small><br/>
   </ng-template>
 </div>
+
+<ng-template #targetUser>
+  <strong class="cursor-pointer" (click)="navProfile(activity.targetUser.username)">{{activity.targetUserFullName}}</strong>
+</ng-template>
+
+<ng-template #operateUser>
+  <strong class="cursor-pointer" (click)="navProfile(activity.operator.username)">{{activity.operatorFullName}}</strong>
+</ng-template>

@@ -1,5 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { ISocialActivityItem } from '../dashboard-social.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'valor-launchpad-social-activity',
@@ -12,7 +13,11 @@ export class SocialActivityComponent implements OnInit {
   private basicClass = true;
 
   @Input() activity: ISocialActivityItem;
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
+
+  navProfile(username: string) {
+    this.router.navigate(['profile'], { queryParams: { username } });
+  }
 }

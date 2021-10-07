@@ -13,12 +13,24 @@
         <h5 class="card-title mb-0">Clients</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
+        <div class="d-flex flex-row align-items-center justify-content-between">
+          <span class="d-flex flex-row align-items-center">
+            Show <select class="form-select form-select-sm ms-1 me-1" (change)="onSelectChange($event.target.value)">
+              <option>Choose...</option>
+              <option *ngFor="let item of entries" [value]="item">{{item}}</option>
+            </select> entries
+          </span>
+          <div class="d-flex flex-row align-items-center">
+            Search:<input valorLaunchpadInput type="text" name="client" [(ngModel)]="clientName" id="inputUsername" class="ms-1" placeholder="Search Client" (keyup)="searchClient($event.target.value)">
+          </div>
+        </div>
         <valor-launchpad-tables
-          [data]="tableData"
+          [data]="paginationTableData"
           [columns]="tableColumns"
           [class]="'table-striped'"
           [style]="'width:100%'"
         ></valor-launchpad-tables>
+        <valor-launchpad-pagination [totalItems]="searchTableData.length" [isEntriesShow]="isShow" [itemPage]="itemsPerPage" (pageChanged)="onPageChanged($event)"></valor-launchpad-pagination>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>

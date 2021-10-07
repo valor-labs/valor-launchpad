@@ -14,3 +14,4 @@ export * from './lib/entity/user-tags.entity'
 export * from './lib/entity/user-roles.entity'
 export * from './lib/entity/dashboard.entity'
 export * from './lib/entity/dashboard-analytics.entity'
+export * from './lib/validators';
