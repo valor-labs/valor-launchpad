@@ -23,6 +23,8 @@ import { CryptoMainInfoSeed } from './crypto-main-info.seed';
 import { CryptoMarketSeed } from './crypto-market.seed';
 import { CryptoOrdersSeed } from './crypto-orders.seed';
 import { CryptoValueHistorySeed } from './crypto-value-history.seed';
+import { SocialMediaSeed } from './social-media.seed';
+import { SkillSeed } from './skill.seed';
 
 const prisma = new PrismaClient()
 
@@ -47,6 +49,8 @@ async function main() {
   const marketSeed = new CryptoMarketSeed(prisma);
   const ordersSeed = new CryptoOrdersSeed(prisma);
   const valueHistorySeed = new CryptoValueHistorySeed(prisma);
+  const socialMediaSeed = new SocialMediaSeed(prisma);
+  const skillSeed = new SkillSeed(prisma);
 
   /*
   Create dashboards
@@ -74,32 +78,32 @@ async function main() {
   /*
   Create users
    */
-  const user1 = <UserEntity>await userSeed.createUser(USER_1, [adminRole, userRole])
+  const user1 = await userSeed.createUser(USER_1, [adminRole, userRole])
 
-  const user2 = <UserEntity>await userSeed.createUser(USER_2, [userRole])
+  const user2 = await userSeed.createUser(USER_2, [userRole])
 
-  const user3 = <UserEntity>await userSeed.createUser(USER_3, [userRole])
+  const user3 = await userSeed.createUser(USER_3, [userRole])
 
+  /*
+  Create social medias
+   */
+  await socialMediaSeed.seed();
+
+  /*
+  Create skills
+   */
+  await skillSeed.seed();
 
   /*
   Create user profiles
    */
   //TODO this needs to be fixed to tie to the user itself
   //TODO employer, social media, skills all need to be extracted to their own entities and updated in profile
-  const user1Profile = await profileSeed.createProfile({
-    username: user1.username,
-    name: user1.firstName + " " + user1.lastName
-  })
+  const user1Profile = await profileSeed.createProfile(user1);
 
-  const user2Profile = await profileSeed.createProfile({
-    username: user2.username,
-    name: user2.firstName + " " + user2.lastName
-  })
+  const user2Profile = await profileSeed.createProfile(user2);
 
-  const user3Profile = await profileSeed.createProfile({
-    username: user3.username,
-    name: user3.firstName + " " + user3.lastName
-  })
+  const user3Profile = await profileSeed.createProfile(user3);
 
 
   /*

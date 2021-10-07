@@ -1,5 +1,4 @@
-import {PrismaClient} from '@prisma/client';
-import {UserEntity} from '../libs/common-api/src';
+import {PrismaClient, UserEntity} from '@prisma/client';
 
 export class UserEventsSeed {
   constructor(private prisma: PrismaClient) {
