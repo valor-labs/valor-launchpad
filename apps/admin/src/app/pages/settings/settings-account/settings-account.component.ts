@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ProfileService } from '../../profile/profile.service';
+import { ProfileEntity } from '../../../../../../api/src/profile/profile.entity';
+import { Profile } from '@api/projects';
+import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'valor-launchpad-settings-account',
@@ -637,36 +642,63 @@ export class SettingsAccountComponent implements OnInit {
   publicInfoFormGroup: FormGroup;
   privateInfoFormGroup: FormGroup;
 
+  profile: Profile;
+
   constructor(private fb: FormBuilder,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private profileService: ProfileService,
+              @Inject(NOTYFToken) private notyf: Notyf,
+              private authService: AuthService,
+              ) {
     this.languageKeys = Object.keys(this.LANGUAGE);
     this.localeKeys = Object.keys(this.LOCALE);
     this.timeZoneKeys = Object.keys(this.TIME_ZONE);
   }
 
   ngOnInit(): void {
-    this.publicInfoFormGroup = this.fb.group({
-      username: [],
-      bio: [],
-      avatar: []
-    });
-    this.privateInfoFormGroup = this.fb.group({
-      firstName: [],
-      lastName: [],
-      email: [],
-      address: [],
-      address2: [],
-      city: [],
-      state: [],
-      zip: [],
-      language: [],
-      locale: [],
-      timezone: []
-    });
+    this.profileService.getProfile().subscribe(data => {
+      this.profile = data;
+      this.publicInfoFormGroup = this.fb.group({
+        username: data.username,
+        bio: [],
+        avatar: data.avatar
+      });
+      this.privateInfoFormGroup = this.fb.group({
+        firstName: [],
+        lastName: [],
+        email: [],
+        address: [],
+        address2: [],
+        city: [],
+        state: [],
+        zip: [],
+        language: [],
+        locale: [],
+        timezone: []
+      });
+    })
   }
 
   savePublicInfo() {
-    console.log(this.publicInfoFormGroup.value);
+    const updatedPublicProfile = this.publicInfoFormGroup.value;
+    const avatarFile =  updatedPublicProfile.avatar;
+    const profileId = this.profile.id;
+    const newUserName = updatedPublicProfile.username;
+    const alt = this.profile.avatar.alt;
+    this.profileService
+      .updateProfilePublicInfo(avatarFile, profileId, newUserName, alt)
+      .subscribe(res => {
+        if (typeof res === 'object') {
+          this.notyf.success('Update public info success, you will be soon to redirect to sign in page');
+          this.ngOnInit();
+          setTimeout(() => {
+            this.authService.signOut().subscribe(() => {});
+          }, 2000);
+        } else {
+          this.notyf.error('Update public info failure');
+          console.warn(res);
+        }
+      });
   }
 
   savePrivateInfo() {

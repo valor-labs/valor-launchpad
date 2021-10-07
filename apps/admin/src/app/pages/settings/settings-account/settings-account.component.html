@@ -17,7 +17,7 @@
       <h5 class="card-title mb-0">Public info</h5>
     </div>
     <div class="card-body">
-      <form [formGroup]='publicInfoFormGroup'>
+      <form *ngIf='publicInfoFormGroup' [formGroup]='publicInfoFormGroup'>
         <div class="row">
           <div class="col-md-8">
             <valor-launchpad-form-item>
@@ -30,7 +30,7 @@
             </valor-launchpad-form-item>
           </div>
           <div class="col-md-4">
-            <valor-launchpad-avatar-selector (selectImage)='publicInfoFormGroup.patchValue({avatar: $event})'></valor-launchpad-avatar-selector>
+            <valor-launchpad-avatar-selector [previewSrc]='profile.avatar' (selectImage)='publicInfoFormGroup.patchValue({avatar: $event})'></valor-launchpad-avatar-selector>
           </div>
         </div>
         <button class="btn btn-primary" (click)='savePublicInfo()'>Save changes</button>
@@ -57,7 +57,7 @@
       <h5 class="card-title mb-0">Private info</h5>
     </div>
     <div class="card-body">
-      <form [formGroup]='privateInfoFormGroup'>
+      <form *ngIf='privateInfoFormGroup' [formGroup]='privateInfoFormGroup'>
         <div valorLaunchpadRow>
           <valor-launchpad-form-item valorLaunchpadCol [md]='6'>
             <label for="inputFirstName" class="form-label">First name</label>

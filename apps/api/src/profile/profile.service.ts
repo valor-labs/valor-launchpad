@@ -27,4 +27,17 @@ export class ProfileService {
       }
     });
   }
+
+  async updateProfileName(profileId, newName: string) {
+    return await this.prisma.profileEntity.update({
+      where: {id: profileId},
+      data: {
+        user: {
+          update: {
+            username: newName
+          }
+        }
+      }
+    })
+  }
 }

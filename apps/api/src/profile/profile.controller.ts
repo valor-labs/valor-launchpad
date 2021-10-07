@@ -37,23 +37,19 @@ export class ProfileController {
       storage: ImageUploaderUtility.getStorageOptions()
     })
   )
-  async updateProfile(@UploadedFile() file, @Body() profileBody: { alt: string, profileId: string }) {
+  async updatePublicInfoProfile(@UploadedFile() file, @Body() profileBody: { profileId: string, username: string, alt: string }) {
     const originImgPath = file.path;
     const imgType = file.mimetype;
     const webpSrc = await ImageUploaderUtility.imageToWebp(file);
-    console.log('🍎');
-    console.log('originImgPath', originImgPath);
-    console.log('webpSrc', webpSrc);
-    console.log('alt',  profileBody.alt);
-    console.log('imgType', imgType);
-    console.log('profileId',   profileBody.profileId);
-    console.log('🍎');
+    const targetId = profileBody.profileId;
+    const newName = profileBody.username;
+    await this.profileService.updateProfileName(targetId, newName);
     return await this.mediaService.updateProfileImg(
       originImgPath.split('/').pop(),
       webpSrc.split('/').pop(),
       profileBody.alt,
       imgType,
-      profileBody.profileId
+      targetId
     );
   }
 
