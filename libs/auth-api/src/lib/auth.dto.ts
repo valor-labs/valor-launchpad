@@ -10,6 +10,16 @@ export class ResetPasswordDTO {
   newPassword: string;
 }
 
+export class ResetNewPasswordDTO {
+  @IsNotEmpty()
+  @IsString()
+  username: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password: string
+}
+
 export class RegisterDTO {
   @IsNotEmpty()
   @IsString()

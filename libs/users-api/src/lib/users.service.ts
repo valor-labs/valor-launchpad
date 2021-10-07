@@ -1,16 +1,16 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
-import {CryptService, UserEntity, RolesEntity} from '@valor-launchpad/common-api';
-import {classToPlain} from 'class-transformer';
-import {EmailService} from '@valor-launchpad/email';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { CryptService, UserEntity, RolesEntity } from '@valor-launchpad/common-api';
+import { classToPlain } from 'class-transformer';
+import { EmailService } from '@valor-launchpad/email';
 import * as generatePassword from 'generate-password';
-import {EventEmitter2} from '@nestjs/event-emitter';
-import {PrismaService} from '@valor-launchpad/prisma';
-import {Prisma} from '@prisma/client';
-import {ExistedUserException} from './exceptions/existed-user';
-import {NeedVerifyEmailException} from './exceptions/need-verify-email';
-import {v4} from 'uuid';
-import {CreateUserDto} from './dto/create-user.dto';
-import {RegisterDTO} from '../../../auth-api/src/lib/auth.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { PrismaService } from '@valor-launchpad/prisma';
+import { Prisma } from '@prisma/client';
+import { ExistedUserException } from './exceptions/existed-user';
+import { NeedVerifyEmailException } from './exceptions/need-verify-email';
+import { v4 } from 'uuid';
+import { CreateUserDto } from './dto/create-user.dto';
+import { RegisterDTO } from '../../../auth-api/src/lib/auth.dto';
 import {
   RESET_PASSWORD,
   ResetPasswordPayload,
@@ -19,7 +19,7 @@ import {
   UserCreatedFatPayload,
   UserCreatedThinPayload
 } from './users-events.constant';
-import {UsersEventsService} from './users-events.service';
+import { UsersEventsService } from './users-events.service';
 import { EditUserDto } from './dto/edit-user.dto';
 import { RoleDto } from './dto/role.dto';
 
@@ -34,7 +34,7 @@ export class UsersService {
     private eventEmitter: EventEmitter2,
     private prisma: PrismaService,
     private usersEventsService: UsersEventsService,
-  ) {}
+  ) { }
 
   //TODO: Add profile image function
 
@@ -196,7 +196,7 @@ export class UsersService {
     const userCheck = await this.findByUsername(username);
     if (userCheck) {
       await this.prisma.userEntity.delete({
-        where: {username}
+        where: { username }
       })
 
       await this.prisma.userEventsEntity.create({
@@ -264,6 +264,10 @@ export class UsersService {
     //TODO: Add verify event
     const user: UserEntity = await this.findByToken(token);
     if (user) {
+      if (user.emailVerified) {
+        throw new HttpException('Already have the user authenticated', HttpStatus.METHOD_NOT_ALLOWED);
+      }
+
       await this.prisma.userEntity.update({
         where: {
           username: user.username
@@ -304,14 +308,14 @@ export class UsersService {
   }
 
   async verifyUsername(username: string) {
-    const userCheck = await this.prisma.userEntity.findFirst({where: {username}});
+    const userCheck = await this.prisma.userEntity.findFirst({ where: { username } });
     return !!userCheck;
   }
 
   async createUser(payload: CreateUserDto | RegisterDTO, operator?: UserEntity) {
-    const {username, email, firstName, lastName} = payload;
+    const { username, email, firstName, lastName } = payload;
     // check if username duplicate
-    const userCheck = await this.prisma.userEntity.findFirst({where: {username}});
+    const userCheck = await this.prisma.userEntity.findFirst({ where: { username } });
     if (userCheck) {
       if (userCheck.emailVerified) {
         throw new ExistedUserException();
@@ -330,8 +334,8 @@ export class UsersService {
       userRolesCreate = payload.roles.map(r => ({
         rolesEntity: {
           connectOrCreate: {
-            where: {role: r.name},
-            create: {role: r.name},
+            where: { role: r.name },
+            create: { role: r.name },
           }
         }
       }));
@@ -423,8 +427,8 @@ export class UsersService {
           create: userRoleWillBeInsert.map(r => ({
             rolesEntity: {
               connectOrCreate: {
-                where: {role: r.name},
-                create: {role: r.name, createdDate: now},
+                where: { role: r.name },
+                create: { role: r.name, createdDate: now },
               }
             },
             createdDate: now,
@@ -459,14 +463,14 @@ export class UsersService {
 
   async logIn(username): Promise<UserEntity> {
     await this.prisma.userEntity.update({
-      where: {username},
+      where: { username },
       data: {
         lastLogin: new Date()
       }
     })
 
     return await this.prisma.userEntity.findUnique({
-      where: {username},
+      where: { username },
       include: {
         profile: true,
         avatar: true,
@@ -509,8 +513,8 @@ export class UsersService {
   async updatePassword(username: string, newPasswordCrypt: string) {
     const now = new Date();
     const user = await this.prisma.userEntity.update({
-      where: {username},
-      data: {password: newPasswordCrypt, lastPasswordUpdateDate: now},
+      where: { username },
+      data: { password: newPasswordCrypt, lastPasswordUpdateDate: now },
     });
     await this.prisma.userEventsEntity.create({
       data: {
@@ -519,6 +523,24 @@ export class UsersService {
         event: 'Password changed'
       }
     });
+  }
+
+  async resetNewPassword(username: string, newPasswordCrypt: string) {
+    const now = new Date();
+    const user = await this.prisma.userEntity.update({
+      where: { username },
+      data: { password: newPasswordCrypt, lastPasswordUpdateDate: now, passwordResetNeeded: false },
+    });
+
+    await this.prisma.userEventsEntity.create({
+      data: {
+        target_user_id: user.id,
+        acting_user_id: user.id,
+        event: 'Password reset'
+      }
+    });
+
+    return user;
   }
 
   private emitResetPasswordEmail(email: string, password: string) {

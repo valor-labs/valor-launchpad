@@ -45,4 +45,10 @@ export class AuthService {
   async register(payload: RegisterDTO) {
     return this.usersService.createUser(payload);
   }
+
+  async resetPassword(username: string, password: string) {
+    const newPasswordCrypt = await this.crypt.hashPassword(password);
+
+    return await this.usersService.resetNewPassword(username, newPasswordCrypt);
+  }
 }

@@ -44,6 +44,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'reset-new-password',
+    loadChildren: () =>
+      import('./pages/reset-new-password/reset-new-password.module').then(
+        (m) => m.ResetNewPasswordModule
+      ),
+  },
+  {
     path: '',
     component: MainLayoutComponent,
     canActivate: [AuthGuard],

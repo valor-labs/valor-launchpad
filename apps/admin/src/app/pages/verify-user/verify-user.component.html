@@ -1,12 +1,33 @@
-<div class="container-fluid">
-  <div class="row justify-content-center mt-5">
-    <div class="col-3">
-      <valor-launchpad-card>
-        <div card-body>
-          <h1>{{message}}</h1>
-          <button class="btn btn-primary" [routerLink]="['../../dashboard-default']">Go to my dashboard</button>
+<div class="main d-flex justify-content-center w-100">
+  <main class="content d-flex p-0">
+    <div class="container d-flex flex-column">
+      <div valorLaunchpadRow class="h-100">
+        <div
+          valorLaunchpadCol
+          [sm]="10"
+          [md]="8"
+          [lg]="6"
+          class="mx-auto d-table h-100"
+        >
+          <div class="d-table-cell align-middle">
+            <valor-launchpad-card>
+              <valor-launchpad-card-content>
+                <div class="m-sm-4 text-center">
+                  <h1>{{ message }}</h1>
+                  <button
+                    valor-launchpad-button
+                    size="lg"
+                    theme="primary"
+                    [routerLink]="['/sign-in']"
+                  >
+                    Back to Sign In
+                  </button>
+                </div>
+              </valor-launchpad-card-content>
+            </valor-launchpad-card>
+          </div>
         </div>
-      </valor-launchpad-card>
+      </div>
     </div>
-  </div>
+  </main>
 </div>

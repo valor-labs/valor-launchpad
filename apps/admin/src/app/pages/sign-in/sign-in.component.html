@@ -24,11 +24,11 @@
                   <form #signInForm="ngForm" (ngSubmit)="signIn(signInForm)">
                     <div class="mb-3">
                       <label class="form-label">UserName</label>
-                      <input ngModel class="form-control form-control-lg" type="text" name="username" placeholder="Try user1" />
+                      <input ngModel class="form-control form-control-lg" type="text" name="username" placeholder="Try user1" (keyup.enter)="signIn(signInForm)"/>
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Password</label>
-                      <input ngModel class="form-control form-control-lg" type="password" name="password" placeholder="Try 123" />
+                      <input ngModel class="form-control form-control-lg" type="password" name="password" placeholder="Try 123"  (keyup.enter)="signIn(signInForm)"/>
                       <div>
                         <a routerLink="/reset-password">Forgot password?</a>
                       </div>

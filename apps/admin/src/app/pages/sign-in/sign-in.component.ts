@@ -36,7 +36,7 @@ export class SignInComponent implements OnInit {
   async signIn(form) {
     (await this.signInService.login(form.value)).subscribe(
       (res) => {
-        if(res.message === 'Unauthorized') {
+        if(res?.message === 'Unauthorized') {
           this.errorMessage = 'Incorrect username or password';
           this.isAlertOpen = true;
         }
