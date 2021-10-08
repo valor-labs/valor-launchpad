@@ -656,6 +656,10 @@ export class SettingsAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initData();
+  }
+
+  initData(): void {
     this.profileService.getProfile().subscribe(data => {
       this.profile = data;
       this.publicInfoFormGroup = this.fb.group({
@@ -690,7 +694,7 @@ export class SettingsAccountComponent implements OnInit {
       .subscribe(res => {
         if (typeof res === 'object') {
           this.notyf.success('Update public info success, you will be soon to redirect to sign in page');
-          this.ngOnInit();
+          this.initData();
           setTimeout(() => {
             this.authService.signOut().subscribe(() => {});
           }, 2000);

@@ -3,7 +3,7 @@ import { Media } from '@api/projects';
 import {
   ENV_CONFIG,
   EnvironmentConfig
-} from '../../../../../apps/admin/src/app/core/http/environment-config.interface';
+} from '@ui/http-config';
 
 const defaultSrc = 'assets/img/avatars/avatar.jpg';
 

@@ -27,7 +27,8 @@
       "@valor-launchpad/stripe-ui": ["libs/stripe-ui/src/index.ts"],
       "@valor-launchpad/ui": ["libs/ui/src/index.ts"],
       "@valor-launchpad/users-api": ["libs/users-api/src/index.ts"],
-      "@valor-launchpad/users-ui": ["libs/users-ui/src/index.ts"]
+      "@valor-launchpad/users-ui": ["libs/users-ui/src/index.ts"],
+      "@ui/http-config": ["apps/admin/src/app/core/http/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

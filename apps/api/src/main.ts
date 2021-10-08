@@ -11,9 +11,6 @@ import * as cookieParser from 'cookie-parser';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { parseDomain, ParseResultType } from 'parse-domain';
 import { AuthController } from '@valor-launchpad/auth-api';
-import { json, urlencoded } from 'express';
-import * as express from 'express';
-import { extname, join } from 'path';
 
 dotenv.config({ path: process.cwd() + '/apps/api/.env' });
 

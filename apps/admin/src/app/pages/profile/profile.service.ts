@@ -4,6 +4,7 @@ import {
   ENV_CONFIG,
   EnvironmentConfig,
 } from '../../core/http/environment-config.interface';
+import { Profile } from '@api/projects';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class ProfileService {
     if (username) {
       params.username = username;
     }
-    return this.httpClient.get(
+    return this.httpClient.get<Profile>(
       this.config.environment.apiBase + `api/profile/v1`,
       { params }
     );
