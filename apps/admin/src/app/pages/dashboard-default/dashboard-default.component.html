@@ -151,7 +151,7 @@
       </div>
     </div>
   </div>
-  <div class='col-12 col-lg-4 d-flex'>  
+  <div class='col-12 col-lg-4 d-flex'>
     <div valorLaunchpadCol class='card flex-fill w-100'>
       <valor-launchpad-card>
         <valor-launchpad-card-header>
@@ -173,6 +173,7 @@
               *ngIf="activities.hasNext; else arrivedBottom"
               valor-launchpad-button
               class='w-100 btn btn-primary'
+              [loading]="loadingActivity"
               (click)="loadMoreActivities(activities.stopAt)">
               Load More
             </button>

@@ -90,6 +90,7 @@
             *ngIf="activities.hasNext; else arrivedBottom"
             valor-launchpad-button
             class='w-100'
+            [loading]="loadingMore"
             (click)="loadMoreActivities(activities.stopAt)">
             Load More
           </button>

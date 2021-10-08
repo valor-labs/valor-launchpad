@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ISocialActivity,
-  ISocialUserInfo,
-  IStory,
-} from './dashboard-social.model';
+import { ISocialActivity, IStory } from './dashboard-social.model';
 import { DashboardSocialService } from './dashboard-social.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { UserFollower } from '@valor-launchpad/api-interfaces';
-import { mergeMap, scan } from 'rxjs/operators';
+import { finalize, mergeMap, scan } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
@@ -20,6 +16,7 @@ export class DashboardSocialComponent implements OnInit {
   stories$: Observable<IStory[]>;
   followings$: Observable<UserFollower[]>;
   activities$: Observable<ISocialActivity>;
+  loadingMore = true;
   private activityPageLimit = 6;
   private activitiesPaginator$ = new BehaviorSubject({
     lastReadAt: undefined,
@@ -36,9 +33,12 @@ export class DashboardSocialComponent implements OnInit {
     this.stories$ = this.dashboardSocialService.fetchTimeline();
     this.followings$ = this.dashboardSocialService.fetchFollowings();
     this.activities$ = this.activitiesPaginator$.pipe(
-      mergeMap(({ lastReadAt, limit }) =>
-        this.dashboardSocialService.fetchActivities(lastReadAt, limit)
-      ),
+      mergeMap(({ lastReadAt, limit }) => {
+        this.loadingMore = true;
+        return this.dashboardSocialService
+          .fetchActivities(lastReadAt, limit)
+          .pipe(finalize(() => (this.loadingMore = false)));
+      }),
       scan((acc, crt) => ({
         ...crt,
         results: [...acc.results, ...crt.results],
