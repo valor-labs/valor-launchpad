@@ -4,7 +4,7 @@ import { DashboardSocialService } from '../dashboard-social/dashboard-social.ser
 import { Action } from '@valor-launchpad/api-interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ISocialActivity } from '../dashboard-social/dashboard-social.model';
-import { mergeMap, scan, switchMap } from 'rxjs/operators';
+import { finalize, mergeMap, scan, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ProfileComponent implements OnInit {
   profile;
   activities$: Observable<ISocialActivity>;
+  loadingMore = true;
   actions: Action[] = [
     { label: 'Action', link: '#' },
     { label: 'Another action', link: '#' },
@@ -42,9 +43,12 @@ export class ProfileComponent implements OnInit {
         window.scrollTo({ top: 0 });
       });
     this.activities$ = this.activitiesPaginator$.pipe(
-      mergeMap(({ lastReadAt, limit }) =>
-        this.socialService.fetchActivities(lastReadAt, limit)
-      ),
+      mergeMap(({ lastReadAt, limit }) => {
+        this.loadingMore = true;
+        return this.socialService
+          .fetchActivities(lastReadAt, limit)
+          .pipe(finalize(() => (this.loadingMore = false)));
+      }),
       scan((acc, crt) => ({
         ...crt,
         results: [...acc.results, ...crt.results],

@@ -4,8 +4,7 @@ import { USER_1_FOLLOW_USER_2, USER_1_FOLLOW_USER_3 } from './seed-data/user-fol
 import { STORY_1, STORY_2, STORY_3, STORY_4 } from './seed-data/story.data';
 
 export class ActivitySeed {
-  constructor(private prisma: PrismaClient) {
-  }
+  constructor(private prisma: PrismaClient) {}
 
   async seed() {
     const users = await this.prisma.userEntity.findMany();
@@ -80,6 +79,17 @@ export class ActivitySeed {
         action: 'POST_STORY',
         storyId: STORY_1.id,
         createdDate: STORY_1.createdDate,
+      },
+      {
+        id: 7,
+        operatorId: user2.id,
+        operatorFullName: `${user2.firstName} ${user2.lastName}`,
+        operatorAvatarSrc: USER_2.avatar.connectOrCreate.create.src,
+        action: 'LIKED_STORY',
+        targetUserId: user3.id,
+        targetUserFullName: `${user3.firstName} ${user3.lastName}`,
+        targetUserAvatarSrc: USER_3.avatar.connectOrCreate.create.src,
+        createdDate: STORY_2.createdDate,
       },
     ];
 

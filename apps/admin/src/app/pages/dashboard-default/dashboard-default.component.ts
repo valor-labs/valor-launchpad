@@ -1,14 +1,14 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {DashboardDefaultService} from './dashboard-default.service';
-import {ToastrService} from 'ngx-toastr';
-import {DatePipe} from '@angular/common';
-import {AuthService} from '../../core/auth/auth.service';
-import {UserEntity} from '@valor-launchpad/common-api';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { DashboardDefaultService } from './dashboard-default.service';
+import { ToastrService } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
+import { AuthService } from '../../core/auth/auth.service';
+import { UserEntity } from '@valor-launchpad/common-api';
 import { Action } from '@valor-launchpad/api-interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ISocialActivity } from '../dashboard-social/dashboard-social.model';
 import { DashboardSocialService } from '../dashboard-social/dashboard-social.service';
-import { mergeMap, scan } from 'rxjs/operators';
+import { delay, finalize, mergeMap, scan } from 'rxjs/operators';
 
 class DateOnlyPipe extends DatePipe {
   public transform(value): any {
@@ -64,6 +64,7 @@ export class DashboardDefaultComponent implements OnInit {
   latestProjectsTableColumn;
 
   activities$: Observable<ISocialActivity>;
+  loadingActivity = true;
   actions: Action[] = [
     { label: 'Action', link: '#' },
     { label: 'Another action', link: '#' },
@@ -81,13 +82,12 @@ export class DashboardDefaultComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     private socialService: DashboardSocialService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.authService.user.subscribe(user => {
+    this.authService.user.subscribe((user) => {
       this.user = user;
-    })
+    });
     this.dashboardDefaultService.getData().subscribe((data: any) => {
       this.dashboardData = data.dashboardData;
       this.salesRevenueChartData = data.salesRevenueChartData;
@@ -105,9 +105,12 @@ export class DashboardDefaultComponent implements OnInit {
     ];
 
     this.activities$ = this.activitiesPaginator$.pipe(
-      mergeMap(({ lastReadAt, limit }) =>
-        this.socialService.fetchActivities(lastReadAt, limit)
-      ),
+      mergeMap(({ lastReadAt, limit }) => {
+        this.loadingActivity = true;
+        return this.socialService
+          .fetchActivities(lastReadAt, limit)
+          .pipe(finalize(() => (this.loadingActivity = false)));
+      }),
       scan((acc, crt) => ({
         ...crt,
         results: [...acc.results, ...crt.results],
