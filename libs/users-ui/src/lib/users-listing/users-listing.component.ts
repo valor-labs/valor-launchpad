@@ -27,6 +27,7 @@ export class UsersListingComponent implements OnInit {
   addEditVisible = false;
   mode: 'add' | 'edit' | undefined;
   allRoleOptions: { name: string; value: string }[] = [];
+  allTagOptions: { name: string; id: string }[] = [];
 
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
   @ViewChild('emailCell', { static: true })
@@ -60,12 +61,14 @@ export class UsersListingComponent implements OnInit {
   openAdd() {
     this.mode = 'add';
     this.fetchRoles();
+    this.fetchTags();
     this.userForm = this.fb.group({
       username: [null, [Validators.required]],
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       roles: [[], [Validators.required]],
+      tags: [[]],
     });
     this.addEditVisible = true;
   }
@@ -73,6 +76,7 @@ export class UsersListingComponent implements OnInit {
   openEdit(user: UserListLine) {
     this.mode = 'edit';
     this.fetchRoles();
+    this.fetchTags();
     this.userForm = this.fb.group({
       id: [user.id],
       username: [user.username, [Validators.required]],
@@ -80,6 +84,7 @@ export class UsersListingComponent implements OnInit {
       lastName: [user.lastName, [Validators.required]],
       email: [user.email, [Validators.required, Validators.email]],
       roles: [user.userRoles.map(r => ({ name: r.rolesEntity.role, value: r.role_id })), [Validators.required]],
+      tags: [user.userTags.map(r => ({ name: r.tagsEntity.name, id: r.tag_id }))],
     });
     this.addEditVisible = true;
   }
@@ -147,6 +152,15 @@ export class UsersListingComponent implements OnInit {
       this.allRoleOptions = data.map((i: any) => ({
         name: i.role,
         value: i.id,
+      }));
+    });
+  }
+
+  fetchTags() {
+    this.usersListingService.getTags().subscribe((data) => {
+      this.allTagOptions = data.map(i => ({
+        name: i.name,
+        id: i.id,
       }));
     });
   }

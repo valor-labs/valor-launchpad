@@ -105,6 +105,18 @@
           {{control.hasError('email') ? 'Please input correct email' : 'The field is required'}}
         </ng-template>
       </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label>Tag</valor-launchpad-form-label>
+        <ng-select
+          formControlName="tags"
+          bindLabel="name"
+          [items]="allTagOptions"
+          [closeOnSelect]="false"
+          [multiple]="true"
+          [addTag]="true"
+          placeholder="Select tag">
+        </ng-select>
+      </valor-launchpad-form-item>
       <valor-launchpad-form-item errTip="The field is required">
         <valor-launchpad-form-label [required]="true">Role</valor-launchpad-form-label>
         <ng-select

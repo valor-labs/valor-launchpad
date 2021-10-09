@@ -22,6 +22,7 @@ import {
 import { UsersEventsService } from './users-events.service';
 import { EditUserDto } from './dto/edit-user.dto';
 import { RoleDto } from './dto/role.dto';
+import { TagDto } from './dto/tag.dto';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -326,6 +327,7 @@ export class UsersService {
 
     // create user
     let userRolesCreate: Prisma.UserRolesEntityCreateWithoutUserEntityInput[];
+    let userTagsCreate: Prisma.UserTagsEntityCreateWithoutUserEntityInput[];
     let password: string;
     let phone: string;
     let passwordResetNeeded: boolean;
@@ -339,6 +341,14 @@ export class UsersService {
           }
         }
       }));
+      userTagsCreate = (payload.tags ?? []).map(t => ({
+        tagsEntity: {
+          connectOrCreate: {
+            where: { name: t.name },
+            create: { name: t.name },
+          }
+        }
+      }))
       password = this.generatePassword();
       passwordResetNeeded = true;
     } else {
@@ -366,6 +376,7 @@ export class UsersService {
         passwordResetNeeded,
         password: passwordCrypt,
         userRoles: { create: userRolesCreate },
+        userTags: { create: userTagsCreate },
         userHistory: {
           create: {
             // when operator is nil, means it's register flow
@@ -389,11 +400,19 @@ export class UsersService {
       where: { user_id: user.id, deletedDate: null },
       select: { id: true, role_id: true }
     });
+    const userTags = await this.prisma.userTagsEntity.findMany({
+      where: { user_id: user.id, deletedDate: null },
+      select: { id: true, tag_id: true },
+    })
     const oldRoleIds = userRoles.map(i => i.role_id);
+    const oldTagIds = userTags.map(i => i.tag_id);
     const { roles } = user;
+    const tags = user.tags ?? [];
 
     const userRoleWillBeInsert: RoleDto[] = [];
     const userRoleWillBeDelete: string[] = [];
+    const userTagWillBeInsert: TagDto[] = [];
+    const userTagWillBeDelete: string[] = [];
 
     for (const role of roles) {
       if (role.value) {
@@ -405,11 +424,29 @@ export class UsersService {
       }
     }
 
+    for (const tag of tags) {
+      if (tag.id) {
+        if (!oldTagIds.includes(tag.id)) {
+          userTagWillBeInsert.push(tag);
+        }
+      } else {
+        userTagWillBeInsert.push(tag);
+      }
+    }
+
     for (const { id, role_id } of userRoles) {
       // cannot find the role id in edit payload
       // means the user does not belongs to this role any more
       if (!roles.find(r => r.value === role_id)) {
         userRoleWillBeDelete.push(id);
+      }
+    }
+
+    for (const { id, tag_id } of userTags) {
+      // cannot find the tag id in edit payload
+      // means the user does not belongs to this tag any more
+      if (!tags.find(r => r.id === tag_id)) {
+        userTagWillBeDelete.push(id);
       }
     }
 
@@ -434,6 +471,18 @@ export class UsersService {
             createdDate: now,
           })),
           deleteMany: { id: { in: userRoleWillBeDelete } }
+        },
+        userTags: {
+          create: userTagWillBeInsert.map(t => ({
+            tagsEntity: {
+              connectOrCreate: {
+                where: { name: t.name },
+                create: { name: t.name, createdDate: now },
+              }
+            },
+            createdDate: now,
+          })),
+          deleteMany: { id: { in: userTagWillBeDelete } }
         },
         userHistory: {
           create: {

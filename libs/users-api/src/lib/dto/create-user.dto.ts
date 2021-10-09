@@ -1,5 +1,6 @@
 import { IsArray, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { RoleDto } from './role.dto';
+import { TagDto } from './tag.dto';
 
 export class CreateUserDto {
   @IsString()
@@ -20,6 +21,8 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsArray()
   roles: Array<RoleDto>;
+
+  tags?: Array<TagDto>;
 }
 
 
