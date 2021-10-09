@@ -21,9 +21,9 @@ export class ValorImagePipe implements PipeTransform {
     if (typeof value === 'string') {
       return value;
     } else {
-      if (value.src_webp !== '') {
+      if (Object.prototype.hasOwnProperty.call(value, 'src_webp') && value.src_webp !== '') {
         return this._getImagePath() + value.src_webp;
-      } else if (value.src !== '') {
+      } else if (Object.prototype.hasOwnProperty.call(value, 'src') && value.src !== '') {
         return this._getImagePath() + value.src;
       } else {
         return defaultSrc;

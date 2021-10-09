@@ -23,7 +23,7 @@ export class ImageUploaderUtility {
     );
   }
 
-  static imageToWebp(file): Promise<any> {
+  static imageToWebp(file): Promise<string> {
     return new Promise((resolve, reject) => {
       const name = file.originalname.split('.')[0];
       const originImagePath = file.path;

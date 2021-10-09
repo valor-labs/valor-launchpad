@@ -8,6 +8,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageUploaderUtility } from '../media/imageUploader.utility';
 import { MediaService } from '../media/media.service';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
+import { PrismaService } from '@valor-launchpad/prisma';
+import { updatePublicInfoProfileDto } from './dto/update-public-info-profile.dto';
 
 
 @Controller('v1')
@@ -16,7 +18,8 @@ export class ProfileController {
   constructor(
     private profileService: ProfileService,
     private userService: UsersService,
-    private mediaService: MediaService
+    private mediaService: MediaService,
+    private prisma: PrismaService
   ) {
   }
 
@@ -44,20 +47,22 @@ export class ProfileController {
       storage: ImageUploaderUtility.getStorageOptions()
     })
   )
-  async updatePublicInfoProfile(@UploadedFile() file, @Body() profileBody: { profileId: string, username: string, alt: string }) {
+  async updatePublicInfoProfile(@UploadedFile() file, @Body() profileBody: updatePublicInfoProfileDto) {
     const originImgPath = file.path;
     const imgType = file.mimetype;
     const webpSrc = await ImageUploaderUtility.imageToWebp(file);
     const targetId = profileBody.profileId;
     const newName = profileBody.username;
-    await this.profileService.updateProfileName(targetId, newName);
-    return await this.mediaService.updateProfileImg(
-      originImgPath.split('/').pop(),
-      webpSrc.split('/').pop(),
-      profileBody.alt,
-      imgType,
-      targetId
-    );
+    return await this.prisma.$transaction([
+      this.profileService.updateProfileName(targetId, newName),
+      this.mediaService.updateProfileImg(
+        originImgPath.split('/').pop(),
+        webpSrc.split('/').pop(),
+        profileBody.alt,
+        imgType,
+        targetId
+      )
+    ]);
   }
 
 

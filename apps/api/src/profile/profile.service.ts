@@ -17,7 +17,7 @@ export class ProfileService {
       where: { username },
       include: {
         avatar: {
-          select: { src: true, alt: true },
+          select: { src: true, alt: true, src_webp: true },
         },
         employers: {
           include: {
@@ -47,8 +47,8 @@ export class ProfileService {
     };
   }
 
-  async updateProfileName(profileId, newName: string) {
-    return await this.prisma.profileEntity.update({
+  updateProfileName(profileId, newName: string) {
+    return this.prisma.profileEntity.update({
       where: {id: profileId},
       data: {
         user: {
@@ -57,6 +57,6 @@ export class ProfileService {
           }
         }
       }
-    })
+    });
   }
 }
