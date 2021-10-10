@@ -19,14 +19,17 @@ export class DatatablesFixedHeaderComponent implements OnInit, AfterViewInit {
 
   tableResponsiveData;
   pageNumLimit = 25;
-  transformPoint: number;
+  transformPoint = 385;
   tableResponsiveColumns: Array<TableColumn> = [
     { name: 'Name', prop: 'name', cellClass: 'd-flex align-items-center' },
     { name: 'Position', prop: 'position', cellClass: 'd-flex align-items-center' },
     { name: 'Office', prop: 'office', cellClass: 'd-flex align-items-center' },
     { name: 'Age', prop: 'age', cellClass: 'd-flex align-items-center' },
     {
-      name: 'Start date', prop: 'startDate', pipe: new CustomDatePipe(this.locale), cellClass: 'd-flex align-items-center'
+      name: 'Start date',
+      prop: 'startDate',
+      pipe: new CustomDatePipe(this.locale),
+      cellClass: 'd-flex align-items-center'
     },
     { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale), cellClass: 'd-flex align-items-center' }
   ];
@@ -44,15 +47,12 @@ export class DatatablesFixedHeaderComponent implements OnInit, AfterViewInit {
     this.tableResponsiveData = tableData;
   }
 
-  ngAfterViewInit(): void {
-    const headerDom: HTMLElement = document.querySelector('.datatable-header');
-    this.transformPoint = headerDom
-      .getBoundingClientRect()
-      .top - headerDom.offsetHeight;
+  ngAfterViewInit() {
+    this.onScrollEvent();
   }
 
   @HostListener('window:scroll', ['$event'])
-  onScrollEvent($event) {
+  onScrollEvent() {
     if (window.scrollY >= this.transformPoint) {
       this.tableClass['fix-header'] = true;
     } else {
