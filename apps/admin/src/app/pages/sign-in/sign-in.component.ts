@@ -28,6 +28,7 @@ export class SignInComponent implements OnInit {
     this.avatar = this.cookieService.get('avatar')
     this.isFirstLogin = this.userName !== '' ? false : true;
     this.title = this.userName !== '' ? `Welcome back, ${this.userName}` : 'Welcome';
+
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/dashboard-default']);
     }

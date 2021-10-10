@@ -1,4 +1,4 @@
-import { Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards } from "@nestjs/common";
+import { Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards, ValidationPipe} from "@nestjs/common";
 import { LocalAuthGuard } from "./guards/local-auth-guard";
 import { RequestWithSession, UserEntity } from "@valor-launchpad/common-api";
 import { AuthService } from "./auth.service";
@@ -39,6 +39,22 @@ export class AuthController {
       console.error(error)
       return new ResponseError('Login Failed', error)
     }
+  }
+
+  @Post('refresh')
+  async refreshToken(@Body(ValidationPipe) body, @Req() req: RequestWithSession, @Res() response: Response) {
+      response.clearCookie('access_token');
+      try {
+        const refreshResult = await this.authService.refreshToken(body.access_token,  body.refresh_token);
+        req.session.token = refreshResult.accessToken;
+        req.session.user = refreshResult.user;
+        console.log(req.session);
+        response.cookie('access_token', refreshResult.accessToken, { domain: this.cookieDomain })
+        response.send(refreshResult);
+      } catch (error) {
+        console.error(error)
+        return new ResponseError('Refresh Token Failed', error)
+      }
   }
 
   @UseGuards(JwtAuthGuard)

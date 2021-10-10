@@ -12,9 +12,11 @@ import { ENV_CONFIG, EnvironmentConfig } from '../http/environment-config.interf
 })
 export class AuthService {
   access_token;
+  token$ : BehaviorSubject<string | undefined>;
   user = new BehaviorSubject<UserEntity>(null);
 
   constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private cookieService: CookieService, private router: Router, private httpClient: HttpClient) {
+    this.token$ = new BehaviorSubject(this.access_token);
   }
 
   checkIfUsernameExists(username: string) {
@@ -29,6 +31,7 @@ export class AuthService {
     return this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).pipe(
       map(() => {
         this.access_token = undefined;
+        this.token$.next(this.access_token);
         this.router.navigate(['/sign-in'])
       })
     )
@@ -58,6 +61,7 @@ export class AuthService {
   isLoggedIn() {
     const allCookies = this.cookieService.getAll();
     this.access_token = allCookies.access_token;
+    this.token$.next(this.access_token);
     return this.httpClient.get(this.config.environment.apiBase + 'api/auth/v1/current-user')
       .pipe(
         map((data: any) => {
@@ -73,5 +77,20 @@ export class AuthService {
         })
       )
     // TODO: this needs to be more sophisticated
+  }
+
+  generateNewAccessToken() {
+    const access_token = this.cookieService.get('access_token');
+    const refresh_token = localStorage.getItem('refresh_token');
+    return this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/refresh', {access_token, refresh_token})
+      .pipe(
+        map((data: any) => {
+          this.user.next(data.user);
+          this.cookieService.set('access_token', data.accessToken);
+          this.access_token = data.accessToken;
+          this.token$.next(this.access_token);
+          localStorage.setItem('refresh_token', data.refreshToken);
+        })
+      );
   }
 }

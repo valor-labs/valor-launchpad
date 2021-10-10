@@ -19,6 +19,7 @@ export class SignInService {
   async login(signInForm) {
     return this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/login', signInForm).pipe(
       map((data: any) => {
+        localStorage.setItem('refresh_token',data.refresh_token);
         this.authService.user.next(data.user);
         this.cookieService.set('userName',`${data.user.firstName} ${data.user.lastName}`);
         this.cookieService.set('avatar', data.user.avatar?.src);
