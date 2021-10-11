@@ -30,7 +30,7 @@ import { ValorThemeService } from './core/theme/valor-theme.service';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, DashboardAnalyticsComponent, ThemeBuilderComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, AppRoutingModule,
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule,
     RouterModule, FooterModule, NavigationModule, HeaderModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),

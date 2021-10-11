@@ -8,7 +8,7 @@
 <a
   class="sidebar-link"
   *ngIf="!isGroup"
-  [routerLink]="menu.route"
+  (click)='onNavigateToItem(menu.route)'
   [routerLinkActive]="'active'"
   #routerLinkActive="routerLinkActive">
   <ng-container *ngTemplateOutlet="linkContent"></ng-container>
