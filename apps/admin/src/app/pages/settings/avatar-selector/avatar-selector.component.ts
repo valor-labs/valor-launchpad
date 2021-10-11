@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Media } from '@api/projects';
 
 const defaultSrc = 'assets/img/avatars/avatar.jpg';
 
@@ -8,9 +9,9 @@ const defaultSrc = 'assets/img/avatars/avatar.jpg';
   styleUrls: ['./avatar-selector.component.scss'],
 })
 export class AvatarSelectorComponent {
-  @Output() selectImage = new EventEmitter<string>();
+  @Output() selectImage = new EventEmitter<File>();
 
-  previewSrc = defaultSrc;
+  @Input() previewSrc: string | Media;
 
   triggerFilePicker(input: HTMLInputElement) {
     input.click();
@@ -22,7 +23,7 @@ export class AvatarSelectorComponent {
     reader.onload = (result) => {
       const src = result.target.result as string;
       this.previewSrc = src;
-      this.selectImage.emit(src);
+      this.selectImage.emit(file);
     };
     reader.readAsDataURL(file);
   }

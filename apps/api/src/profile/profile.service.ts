@@ -17,7 +17,7 @@ export class ProfileService {
       where: { username },
       include: {
         avatar: {
-          select: { src: true, alt: true },
+          select: { src: true, alt: true, src_webp: true },
         },
         employers: {
           include: {
@@ -45,5 +45,18 @@ export class ProfileService {
       ...profile,
       following: !!userFollower,
     };
+  }
+
+  updateProfileName(profileId, newName: string) {
+    return this.prisma.profileEntity.update({
+      where: {id: profileId},
+      data: {
+        user: {
+          update: {
+            username: newName
+          }
+        }
+      }
+    });
   }
 }
