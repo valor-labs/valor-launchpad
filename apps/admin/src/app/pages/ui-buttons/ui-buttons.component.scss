@@ -1,0 +1,20 @@
+:host {
+    valor-launchpad-dropdown {
+        button {
+            width: 100%;
+        }
+
+        ::ng-deep {
+            .dropdown-menu {
+                width: 100%;
+                min-width: unset;
+
+                a {
+                    white-space: unset;
+                    padding: 0.35rem 0;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
