@@ -40,6 +40,7 @@ export class TokenInterceptor implements HttpInterceptor {
           err instanceof HttpErrorResponse &&
           !authedReq.url.includes('/api/auth/v1/login') &&
           !authedReq.url.includes('/api/auth/v1/refresh') &&
+          this.router.url !== '/sign-in' &&
           err.status === 401
         ) {
           return this.handle401Error(authedReq, next);
