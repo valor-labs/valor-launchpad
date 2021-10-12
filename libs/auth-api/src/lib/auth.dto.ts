@@ -42,3 +42,9 @@ export class RegisterDTO {
 
   phone: string;
 }
+
+export class RefreshTokenDTO {
+  @IsNotEmpty()
+  @IsString()
+  refresh_token: string;
+}

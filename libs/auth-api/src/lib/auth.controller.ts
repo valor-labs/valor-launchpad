@@ -7,9 +7,10 @@ import { User } from '@valor-launchpad/users-api';
 import { ResponseError, ResponseSuccess } from '@valor-launchpad/common-api';
 import { UsersService } from '@valor-launchpad/users-api';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { RegisterDTO, ResetPasswordDTO, ResetNewPasswordDTO } from './auth.dto';
+import { RegisterDTO, ResetPasswordDTO, ResetNewPasswordDTO, RefreshTokenDTO } from './auth.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload } from './auth-events.constant';
+import { RefreshAuthGuard } from './guards/refresh-auth.guard';
 
 
 @Controller('v1')
@@ -33,28 +34,21 @@ export class AuthController {
       req.session.token = loginResponse.access_token;
       req.session.user = loginResponse.user;
       response.cookie('access_token', loginResponse.access_token, { domain: this.cookieDomain })
-      const loginResult = await this.authService.login(body);
-      response.send(loginResult);
+      response.send(loginResponse);
     } catch (error) {
       console.error(error)
       return new ResponseError('Login Failed', error)
     }
   }
 
+  @UseGuards(RefreshAuthGuard)
   @Post('refresh')
-  async refreshToken(@Body(ValidationPipe) body, @Req() req: RequestWithSession, @Res() response: Response) {
-      response.clearCookie('access_token');
-      try {
-        const refreshResult = await this.authService.refreshToken(body.access_token,  body.refresh_token);
-        req.session.token = refreshResult.accessToken;
-        req.session.user = refreshResult.user;
-        console.log(req.session);
-        response.cookie('access_token', refreshResult.accessToken, { domain: this.cookieDomain })
-        response.send(refreshResult);
-      } catch (error) {
-        console.error(error)
-        return new ResponseError('Refresh Token Failed', error)
-      }
+  async refreshToken(@Body() body: RefreshTokenDTO, @User() user: UserEntity, @Req() req: RequestWithSession, @Res() response: Response) {
+    const refreshResult = await this.authService.refreshToken(user.id, body.refresh_token);
+    req.session.token = refreshResult.access_token;
+    req.session.user = refreshResult.user;
+    response.cookie('access_token', refreshResult.access_token, { domain: this.cookieDomain })
+    response.send(refreshResult);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -123,7 +117,7 @@ export class AuthController {
 
     try {
       const user = await this.authService.resetPassword(username, password);
-      
+
       Object.assign(req.session.user, user);
 
       return new ResponseSuccess('Reset Password Success');

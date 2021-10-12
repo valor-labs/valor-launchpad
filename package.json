@@ -81,6 +81,7 @@
     "jsvectormap": "^1.3.2",
     "mysql": "^2.18.1",
     "nest-router": "^1.0.9",
+    "nestjs-redis": "^1.3.3",
     "nestjs-stripe": "^0.4.1",
     "ng-apexcharts": "^1.5.12",
     "ngx-bootstrap": "7.1.2",

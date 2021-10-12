@@ -4,7 +4,6 @@ import {PassportModule} from '@nestjs/passport';
 import {UsersApiModule} from '@valor-launchpad/users-api';
 import {AuthService} from './auth.service';
 import {jwtConstants} from './constants';
-import {RedisSessionStore} from './sessionStore';
 import {JwtStrategy} from './strategies/jwt.strategy';
 import {LocalStrategy} from './strategies/local.strategy';
 import {CryptModule} from '@valor-launchpad/common-api';
@@ -12,6 +11,9 @@ import {AuthController} from './auth.controller';
 import {EmailModule} from '@valor-launchpad/email';
 import {SmsModule} from '@valor-launchpad/sms';
 import {AuthEventsService} from './auth-events.service';
+import { RefreshTokenStoreService } from './refresh-token-store.service';
+import { PrismaModule } from '@valor-launchpad/prisma';
+import { RefreshStrategy } from './strategies/refresh.strategy';
 
 @Module({
   imports: [
@@ -19,14 +21,15 @@ import {AuthEventsService} from './auth-events.service';
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: {expiresIn: '10s'},
+      signOptions: {expiresIn: '60m'},
     }),
+    PrismaModule,
     CryptModule,
     EmailModule,
     SmsModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, AuthEventsService, RedisSessionStore],
+  providers: [AuthService, LocalStrategy, JwtStrategy, RefreshStrategy, AuthEventsService, RefreshTokenStoreService],
   exports: [AuthService],
 })
 export class AuthApiModule {

@@ -40,7 +40,6 @@ export class TokenInterceptor implements HttpInterceptor {
           err instanceof HttpErrorResponse &&
           !authedReq.url.includes('/api/auth/v1/login') &&
           !authedReq.url.includes('/api/auth/v1/refresh') &&
-          this.router.url !== '/sign-in' &&
           err.status === 401
         ) {
           return this.handle401Error(authedReq, next);
@@ -60,17 +59,20 @@ export class TokenInterceptor implements HttpInterceptor {
         return this.auth.generateNewAccessToken().pipe(
           switchMap((token) => {
             this.isRefreshing = false;
-            this.auth.access_token = token.accessToken;
-            this.refreshTokenSubject.next(token.accessToken);
-            return next.handle(this.addTokenHeader(request, token.accessToken));
+            this.auth.access_token = token.access_token;
+            this.refreshTokenSubject.next(token.access_token);
+            return next.handle(this.addTokenHeader(request, token.access_token));
           }),
           catchError((err) => {
             this.isRefreshing = false;
             localStorage.removeItem('refresh_token');
+            // refresh failed, nav to sign in page to login manually
+            this.router.navigate(['/sign-in']);
             return throwError(err);
-          })
+          }),
         );
       } else {
+        this.isRefreshing = false;
         this.router.navigate(['/sign-in']);
       }
     }
