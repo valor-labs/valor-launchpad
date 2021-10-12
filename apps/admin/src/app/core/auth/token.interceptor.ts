@@ -3,82 +3,82 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpErrorResponse, HttpHeaders
+  HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, concatMap, map, mergeMap, retryWhen, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, switchMap, take, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
 
+const TOKEN_HEADER_KEY = 'Authorization';
+
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(public auth: AuthService, private router: Router,
-              @Inject(NOTYFToken) private notyf: Notyf,
-              ) {
+  private isRefreshing = false;
+  private refreshTokenSubject = new BehaviorSubject<string>(null);
+  constructor(
+    public auth: AuthService,
+    private router: Router,
+    @Inject(NOTYFToken) private notyf: Notyf
+  ) {}
+
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    let authedReq = request;
+    const token = this.auth.getToken();
+    if (token != null) {
+      authedReq = this.addTokenHeader(request, token);
+    }
+
+    return next.handle(authedReq).pipe(
+      catchError((err) => {
+        if (
+          err instanceof HttpErrorResponse &&
+          !authedReq.url.includes('/api/auth/v1/login') &&
+          !authedReq.url.includes('/api/auth/v1/refresh') &&
+          err.status === 401
+        ) {
+          return this.handle401Error(authedReq, next);
+        }
+        return this._handleError(err);
+      })
+    );
   }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // request = request.clone({
-    //   setHeaders: {
-    //     Authorization: `Bearer ${this.auth.access_token}`
-    //   }
-    // });
-    return this.auth.token$.pipe(
-      map(token => request.clone({ setHeaders: { Authorization: `Bearer ${token}` } })),
-      concatMap(authReq => next.handle(authReq)),
-      retryWhen((errors: Observable<any>) => errors.pipe(
-        mergeMap((error, index) => {
-          if (error.status === 401 || error.status === 403) {
-            if (this.router.url !== '/sign-in' && this.router.url !== '/') {
-              // TODO remember getRemember() ?
-              if (localStorage.getItem('refresh_token') && index === 0) {
-                this.auth.generateNewAccessToken().subscribe();
-              } else {
-                this.notyf.error('Login expired, please log in again.');
-                this.auth.access_token = undefined;
-                this.router.navigate(['/sign-in']);
-              }
-            } else if (this.router.url === '/') {
-              this.router.navigate(['/sign-in']);
-            } else {
-              this._handleError(error);
-            }
-          } else {
-            this._handleError(error);
-          }
-          return throwError(error);
-        }),
-        take(2)
-      )),
-      catchError((err) => this._handleError(err))
+  private handle401Error(request: HttpRequest<unknown>, next: HttpHandler) {
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+      this.refreshTokenSubject.next(null);
+
+      const refreshToken = localStorage.getItem('refresh_token');
+      if (refreshToken) {
+        return this.auth.generateNewAccessToken().pipe(
+          switchMap((token) => {
+            this.isRefreshing = false;
+            this.auth.access_token = token.accessToken;
+            this.refreshTokenSubject.next(token.accessToken);
+            return next.handle(this.addTokenHeader(request, token.accessToken));
+          }),
+          catchError((err) => {
+            this.isRefreshing = false;
+            localStorage.removeItem('refresh_token');
+            return throwError(err);
+          })
+        );
+      } else {
+        this.router.navigate(['/sign-in']);
+      }
+    }
+
+    return this.refreshTokenSubject.pipe(
+      filter((token) => token !== null),
+      take(1),
+      switchMap((token) => next.handle(this.addTokenHeader(request, token)))
     );
-    // return next.handle(request)
-    //   .pipe(
-    //     retryWhen(errors => errors.pipe(
-    //       tap(error => {
-    //         if (error.status === 401 || error.status === 403) {
-    //           if (this.router.url !== '/sign-in' && this.router.url !== '/') {
-    //             // TODO remember getRemember() ?
-    //             if (localStorage.getItem('refresh_token')) {
-    //               this.auth.generateNewAccessToken();
-    //             } else {
-    //               this.notyf.error('Login expired, please log in again.');
-    //               this.auth.access_token = undefined;
-    //               this.router.navigate(['/sign-in']);
-    //             }
-    //           } else if (this.router.url === '/') { // first time enter website  why first time enter this function? 
-    //             this.router.navigate(['/sign-in']);
-    //           } else {
-    //             throw error;
-    //           }
-    //         } else {
-    //           throw error;
-    //         }
-    //       })  
-    //     )),
-    //     catchError(err => this._handleError(err))
-    //   );
   }
 
   private _handleError(err: HttpErrorResponse): Observable<any> {
@@ -86,5 +86,11 @@ export class TokenInterceptor implements HttpInterceptor {
       this.notyf.error('Something wrong, please try again later.');
     }
     return throwError(err);
+  }
+
+  private addTokenHeader(request: HttpRequest<any>, token: string) {
+    return request.clone({
+      headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token),
+    });
   }
 }

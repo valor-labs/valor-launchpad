@@ -3,7 +3,7 @@ import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { UserEntity } from '@valor-launchpad/common-api';
 import { ENV_CONFIG, EnvironmentConfig } from '../http/environment-config.interface';
 
@@ -31,6 +31,7 @@ export class AuthService {
     return this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).pipe(
       map(() => {
         this.access_token = undefined;
+        localStorage.removeItem('refresh_token');
         this.token$.next(this.access_token);
         this.router.navigate(['/sign-in'])
       })
@@ -84,9 +85,8 @@ export class AuthService {
     const refresh_token = localStorage.getItem('refresh_token');
     return this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/refresh', {access_token, refresh_token})
       .pipe(
-        map((data: any) => {
+        tap((data: any) => {
           this.user.next(data.user);
-          this.cookieService.set('access_token', data.accessToken);
           this.access_token = data.accessToken;
           this.token$.next(this.access_token);
           localStorage.setItem('refresh_token', data.refreshToken);
