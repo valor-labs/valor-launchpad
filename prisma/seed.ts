@@ -52,10 +52,6 @@ async function main() {
   const socialMediaSeed = new SocialMediaSeed(prisma);
   const skillSeed = new SkillSeed(prisma);
 
-  // as staging is having max_questions = 3600 limit
-  // flush it when seed starts
-  await prisma.$executeRaw("FLUSH USER_RESOURCES;");
-
   /*
   Create dashboards
    */
@@ -266,6 +262,5 @@ main()
     process.exit(1)
   })
   .finally(async () => {
-    await prisma.$executeRaw("FLUSH USER_RESOURCES;");
     await prisma.$disconnect()
   })
