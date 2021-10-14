@@ -1,18 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-plugins',
   templateUrl: './plugins.component.html',
-  styleUrls: ['./plugins.component.css']
+  styleUrls: ['./plugins.component.scss']
 })
-export class PluginsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  resouces=[{
+export class PluginsComponent {
+  resources=[{
     name:'Bootstrap',
     url:'https://getbootstrap.com/'
   },{
@@ -79,5 +73,7 @@ export class PluginsComponent implements OnInit {
     name:'Icons8 Clip Illustrations',
     url:'https://icons8.com/illustrations/style--clip'
   }]
+
+  constructor() { }
 
 }
