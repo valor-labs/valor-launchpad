@@ -18,7 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { HttpModule } from './core/http/http.module';
+import { HttpModule } from '@valor-launchpad/http';
 import { environment } from '../environments/environment';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxMaskModule } from 'ngx-mask';

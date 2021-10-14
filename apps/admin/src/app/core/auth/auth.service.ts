@@ -5,10 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { UserEntity } from '@valor-launchpad/common-api';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from '../http/environment-config.interface';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 
 @Injectable({
   providedIn: 'root',

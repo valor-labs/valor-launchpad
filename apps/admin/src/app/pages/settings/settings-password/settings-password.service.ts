@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   ENV_CONFIG,
   EnvironmentConfig,
-} from '../../../core/http/environment-config.interface';
+} from '@valor-launchpad/http';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsPasswordService {

@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   ENV_CONFIG,
   EnvironmentConfig,
-} from '../../core/http/environment-config.interface';
+} from '@valor-launchpad/http';
 import { UserFollower } from '@valor-launchpad/api-interfaces';
 
 @Injectable({

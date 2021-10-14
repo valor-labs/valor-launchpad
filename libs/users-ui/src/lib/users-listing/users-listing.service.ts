@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   ENV_CONFIG,
   EnvironmentConfig,
-} from '../../../../../apps/admin/src/app/core/http/environment-config.interface';
+} from '@valor-launchpad/http';
 import { UserListLine } from '@valor-launchpad/api-interfaces';
 
 @Injectable({

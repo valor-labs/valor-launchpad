@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   ENV_CONFIG,
   EnvironmentConfig,
-} from '../../core/http/environment-config.interface';
+} from '@valor-launchpad/http';
 import { map } from 'rxjs/operators';
 
 export enum OrderType {

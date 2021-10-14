@@ -3,10 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { CookieService } from 'ngx-cookie-service';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from '../../core/http/environment-config.interface';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 
