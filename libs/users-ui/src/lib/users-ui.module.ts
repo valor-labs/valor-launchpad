@@ -4,7 +4,6 @@ import {RouterModule, Route} from '@angular/router';
 import {UsersListingComponent} from './users-listing/users-listing.component';
 import {UiModule} from '@valor-launchpad/ui';
 import {ReactiveFormsModule} from '@angular/forms';
-import {NzTagModule} from 'ng-zorro-antd/tag';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {NgSelectModule} from '@ng-select/ng-select';
@@ -19,7 +18,6 @@ export const usersUiRoutes: Route[] = [
     CommonModule,
     RouterModule.forChild(usersUiRoutes),
     UiModule,
-    NzTagModule,
     TypeaheadModule,
     NgxDatatableModule,
     ReactiveFormsModule,
