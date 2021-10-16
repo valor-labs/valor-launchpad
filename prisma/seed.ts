@@ -45,111 +45,112 @@ import { ProjectsCommentSeed } from './seed/projects-comment.seed';
 import { StoryMediaAssetSeed } from './seed/story-media-asset.seed';
 import { StoryCommentSeed } from './seed/story-comment.seed';
 
-const prismaClient = new PrismaClient();
+const prisma = new PrismaClient();
 // open it when want to debug seed
-// const prismaClient = new PrismaClient({log: ['query', 'info', 'warn', 'error']});
+// const prisma = new PrismaClient({log: ['query', 'info', 'warn', 'error']});
 
 async function main() {
-  return await prismaClient.$transaction<void>(async (prisma: any) => {
-    const projectsSeed = new ProjectsSeed(prisma);
-    const projectSummarySeed = new ProjectSummarySeed(prisma);
-    const userEventSeed = new UserEventsSeed(prisma);
-    const roleSeed = new RoleSeed(prisma);
-    const userSeed = new UserSeed(prisma);
-    const userAvatarSeed = new UserAvatarSeed(prisma);
-    const userRoleSeed = new UserRoleSeed(prisma);
-    const profileSeed = new ProfileSeed(prisma);
-    const profileAvatarSeed = new ProfileAvatarSeed(prisma);
-    const profileSkillSeed = new ProfileSkillSeed(prisma);
-    const profileSocialMediaSeed = new ProfileSocialMediaSeed(prisma);
-    const employerSeed = new EmployerSeed(prisma);
-    const profileEmployerSeed = new ProfileEmployerSeed(prisma);
-    const menuSeed = new MenuSeed(prisma);
-    const roleMenuSeed = new RoleMenuSeed(prisma);
-    const userFollowerSeed = new UserFollowerSeed(prisma);
-    const storySeed = new StorySeed(prisma);
-    const storyMediaAssetSeed = new StoryMediaAssetSeed(prisma);
-    const storyCommentSeed = new StoryCommentSeed(prisma);
-    const activitySeed = new ActivitySeed(prisma);
-    const tagSeed = new TagSeed(prisma);
-    const userTagSeed = new UserTagSeed(prisma);
-    const cryptoMainInfoSeed = new CryptoMainInfoSeed(prisma);
-    const marketSeed = new CryptoMarketSeed(prisma);
-    const ordersSeed = new CryptoOrdersSeed(prisma);
-    const valueHistorySeed = new CryptoValueHistorySeed(prisma);
-    const socialMediaSeed = new SocialMediaSeed(prisma);
-    const skillSeed = new SkillSeed(prisma);
-    const citySeed = new CitySeed(prisma);
-    const languageSeed = new LanguageSeed(prisma);
-    const analyticOverviewSeed = new AnalyticOverviewSeed(prisma);
-    const analyticByCitySeed = new AnalyticByCitySeed(prisma);
-    const analyticByLanguageSeed = new AnalyticByLanguageSeed(prisma);
-    const analyticByPlatformSeed = new AnalyticByPlatformSeed(prisma);
-    const analyticByInterestSeed = new AnalyticByInterestSeed(prisma);
-    const analyticBySourceSeed = new AnalyticBySourceSeed(prisma);
-    const analyticByTrafficSeed = new AnalyticByTrafficSeed(prisma);
-    const dashboardDefaultOverviewSeed = new DashboardDefaultOverviewSeed(prisma);
-    const dashboardDefaultDailyRevenueSeed = new DashboardDefaultDailyRevenueSeed(prisma);
-    const dashboardDefaultMonthlyRevenueSeed = new DashboardDefaultMonthlyRevenueSeed(prisma);
-    const appointmentSeed = new AppointmentSeed(prisma);
-    const projectsMediaAssetSeed = new ProjectsMediaAssetSeed(prisma);
-    const projectsAssigneeSeed = new ProjectsAssigneeSeed(prisma);
-    const projectsCommentSeed = new ProjectsCommentSeed(prisma);
+  const projectsSeed = new ProjectsSeed(prisma);
+  const projectSummarySeed = new ProjectSummarySeed(prisma);
+  const userEventSeed = new UserEventsSeed(prisma);
+  const roleSeed = new RoleSeed(prisma);
+  const userSeed = new UserSeed(prisma);
+  const userAvatarSeed = new UserAvatarSeed(prisma);
+  const userRoleSeed = new UserRoleSeed(prisma);
+  const profileSeed = new ProfileSeed(prisma);
+  const profileAvatarSeed = new ProfileAvatarSeed(prisma);
+  const profileSkillSeed = new ProfileSkillSeed(prisma);
+  const profileSocialMediaSeed = new ProfileSocialMediaSeed(prisma);
+  const employerSeed = new EmployerSeed(prisma);
+  const profileEmployerSeed = new ProfileEmployerSeed(prisma);
+  const menuSeed = new MenuSeed(prisma);
+  const roleMenuSeed = new RoleMenuSeed(prisma);
+  const userFollowerSeed = new UserFollowerSeed(prisma);
+  const storySeed = new StorySeed(prisma);
+  const storyMediaAssetSeed = new StoryMediaAssetSeed(prisma);
+  const storyCommentSeed = new StoryCommentSeed(prisma);
+  const activitySeed = new ActivitySeed(prisma);
+  const tagSeed = new TagSeed(prisma);
+  const userTagSeed = new UserTagSeed(prisma);
+  const cryptoMainInfoSeed = new CryptoMainInfoSeed(prisma);
+  const marketSeed = new CryptoMarketSeed(prisma);
+  const ordersSeed = new CryptoOrdersSeed(prisma);
+  const valueHistorySeed = new CryptoValueHistorySeed(prisma);
+  const socialMediaSeed = new SocialMediaSeed(prisma);
+  const skillSeed = new SkillSeed(prisma);
+  const citySeed = new CitySeed(prisma);
+  const languageSeed = new LanguageSeed(prisma);
+  const analyticOverviewSeed = new AnalyticOverviewSeed(prisma);
+  const analyticByCitySeed = new AnalyticByCitySeed(prisma);
+  const analyticByLanguageSeed = new AnalyticByLanguageSeed(prisma);
+  const analyticByPlatformSeed = new AnalyticByPlatformSeed(prisma);
+  const analyticByInterestSeed = new AnalyticByInterestSeed(prisma);
+  const analyticBySourceSeed = new AnalyticBySourceSeed(prisma);
+  const analyticByTrafficSeed = new AnalyticByTrafficSeed(prisma);
+  const dashboardDefaultOverviewSeed = new DashboardDefaultOverviewSeed(prisma);
+  const dashboardDefaultDailyRevenueSeed = new DashboardDefaultDailyRevenueSeed(
+    prisma
+  );
+  const dashboardDefaultMonthlyRevenueSeed =
+    new DashboardDefaultMonthlyRevenueSeed(prisma);
+  const appointmentSeed = new AppointmentSeed(prisma);
+  const projectsMediaAssetSeed = new ProjectsMediaAssetSeed(prisma);
+  const projectsAssigneeSeed = new ProjectsAssigneeSeed(prisma);
+  const projectsCommentSeed = new ProjectsCommentSeed(prisma);
 
-    const seeders: Seeder[] = [
-      roleSeed,
-      menuSeed,
-      roleMenuSeed,
-      userSeed,
-      userAvatarSeed,
-      userRoleSeed,
-      userEventSeed,
-      socialMediaSeed,
-      skillSeed,
-      profileSeed,
-      profileAvatarSeed,
-      profileSkillSeed,
-      profileSocialMediaSeed,
-      employerSeed,
-      profileEmployerSeed,
-      userFollowerSeed,
-      storySeed,
-      storyMediaAssetSeed,
-      storyCommentSeed,
-      activitySeed,
-      tagSeed,
-      userTagSeed,
-      cryptoMainInfoSeed,
-      marketSeed,
-      ordersSeed,
-      valueHistorySeed,
-      citySeed,
-      languageSeed,
-      dashboardDefaultOverviewSeed,
-      dashboardDefaultDailyRevenueSeed,
-      dashboardDefaultMonthlyRevenueSeed,
-      appointmentSeed,
-      analyticOverviewSeed,
-      analyticByCitySeed,
-      analyticByLanguageSeed,
-      analyticByPlatformSeed,
-      analyticByInterestSeed,
-      analyticBySourceSeed,
-      analyticByTrafficSeed,
-      projectsSeed, //TODO: Fix the activity and children, need five activity records with one or two with two children
-      projectsMediaAssetSeed,
-      projectsAssigneeSeed,
-      projectsCommentSeed,
-      projectSummarySeed,
-    ];
+  const seeders: Seeder[] = [
+    roleSeed,
+    menuSeed,
+    roleMenuSeed,
+    userSeed,
+    userAvatarSeed,
+    userRoleSeed,
+    userEventSeed,
+    socialMediaSeed,
+    skillSeed,
+    profileSeed,
+    profileAvatarSeed,
+    profileSkillSeed,
+    profileSocialMediaSeed,
+    employerSeed,
+    profileEmployerSeed,
+    userFollowerSeed,
+    storySeed,
+    storyMediaAssetSeed,
+    storyCommentSeed,
+    activitySeed,
+    tagSeed,
+    userTagSeed,
+    cryptoMainInfoSeed,
+    marketSeed,
+    ordersSeed,
+    valueHistorySeed,
+    citySeed,
+    languageSeed,
+    dashboardDefaultOverviewSeed,
+    dashboardDefaultDailyRevenueSeed,
+    dashboardDefaultMonthlyRevenueSeed,
+    appointmentSeed,
+    analyticOverviewSeed,
+    analyticByCitySeed,
+    analyticByLanguageSeed,
+    analyticByPlatformSeed,
+    analyticByInterestSeed,
+    analyticBySourceSeed,
+    analyticByTrafficSeed,
+    projectsSeed, //TODO: Fix the activity and children, need five activity records with one or two with two children
+    projectsMediaAssetSeed,
+    projectsAssigneeSeed,
+    projectsCommentSeed,
+    projectSummarySeed,
+  ];
 
-    for (const seeder of seeders.slice().reverse()) {
-      await seeder.delete();
-    }
-    for (const seeder of seeders) {
-      await seeder.seed();
-    }
-  });
+  for (const seeder of seeders.slice().reverse()) {
+    await seeder.delete();
+  }
+  for (const seeder of seeders) {
+    await seeder.seed();
+  }
 }
 
 main()
@@ -158,5 +159,5 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prismaClient.$disconnect();
+    await prisma.$disconnect();
   });
