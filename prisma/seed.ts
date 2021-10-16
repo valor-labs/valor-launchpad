@@ -149,7 +149,7 @@ async function main() {
     for (const seeder of seeders) {
       await seeder.seed();
     }
-  });
+  }, { timeout: 15000 });
 }
 
 main()
