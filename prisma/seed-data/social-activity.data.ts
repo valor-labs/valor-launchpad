@@ -1,0 +1,86 @@
+import { Prisma } from '@prisma/client';
+import {
+  USER1_AVATAR,
+  USER2_AVATAR,
+  USER3_AVATAR,
+  USER_1,
+  USER_2,
+  USER_3,
+} from './users';
+import {
+  USER_1_FOLLOW_USER_2,
+  USER_1_FOLLOW_USER_3,
+} from './user-follower.data';
+import { STORY_1, STORY_2, STORY_3, STORY_4 } from './story.data';
+
+export const SOCIAL_ACTIVITIES: Prisma.SocialActivityCreateManyInput[] = [
+  {
+    id: 1,
+    operatorId: USER_1.id,
+    operatorFullName: `${USER_1.firstName} ${USER_1.lastName}`,
+    operatorAvatarSrc: USER1_AVATAR.src,
+    action: 'FOLLOWED',
+    targetUserId: USER_2.id,
+    targetUserFullName: `${USER_2.firstName} ${USER_2.lastName}`,
+    targetUserAvatarSrc: USER2_AVATAR.src,
+    createdDate: USER_1_FOLLOW_USER_2.createdDate,
+  },
+  {
+    id: 2,
+    operatorId: USER_1.id,
+    operatorFullName: `${USER_1.firstName} ${USER_1.lastName}`,
+    operatorAvatarSrc: USER1_AVATAR.src,
+    action: 'FOLLOWED',
+    targetUserId: USER_3.id,
+    targetUserFullName: `${USER_3.firstName} ${USER_3.lastName}`,
+    targetUserAvatarSrc: USER3_AVATAR.src,
+    createdDate: USER_1_FOLLOW_USER_3.createdDate,
+  },
+  {
+    id: 3,
+    operatorId: USER_1.id,
+    operatorFullName: `${USER_1.firstName} ${USER_1.lastName}`,
+    operatorAvatarSrc: USER1_AVATAR.src,
+    action: 'POST_STORY',
+    storyId: STORY_4.id,
+    createdDate: STORY_4.createdDate,
+  },
+  {
+    id: 4,
+    operatorId: USER_2.id,
+    operatorFullName: `${USER_2.firstName} ${USER_2.lastName}`,
+    operatorAvatarSrc: USER2_AVATAR.src,
+    action: 'POST_STORY',
+    storyId: STORY_3.id,
+    createdDate: STORY_3.createdDate,
+  },
+  {
+    id: 5,
+    operatorId: USER_3.id,
+    operatorFullName: `${USER_3.firstName} ${USER_3.lastName}`,
+    operatorAvatarSrc: USER3_AVATAR.src,
+    action: 'POST_STORY',
+    storyId: STORY_2.id,
+    createdDate: STORY_2.createdDate,
+  },
+  {
+    id: 6,
+    operatorId: USER_1.id,
+    operatorFullName: `${USER_1.firstName} ${USER_1.lastName}`,
+    operatorAvatarSrc: USER1_AVATAR.src,
+    action: 'POST_STORY',
+    storyId: STORY_1.id,
+    createdDate: STORY_1.createdDate,
+  },
+  {
+    id: 7,
+    operatorId: USER_2.id,
+    operatorFullName: `${USER_2.firstName} ${USER_2.lastName}`,
+    operatorAvatarSrc: USER2_AVATAR.src,
+    action: 'LIKED_STORY',
+    targetUserId: USER_3.id,
+    targetUserFullName: `${USER_3.firstName} ${USER_3.lastName}`,
+    targetUserAvatarSrc: USER3_AVATAR.src,
+    createdDate: STORY_2.createdDate,
+  },
+];
