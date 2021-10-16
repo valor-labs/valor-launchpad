@@ -12,7 +12,7 @@ import { EmailService } from '@valor-launchpad/email';
 export class UsersEventsService {
   private readonly logger = new Logger(UsersEventsService.name);
 
-  constructor(private emailService: EmailService) {}
+  constructor(private emailService: EmailService) { }
 
   @OnEvent(USER_CREATED_FAT, { async: true })
   async onUserCreated(payload: UserCreatedFatPayload) {
@@ -23,29 +23,36 @@ export class UsersEventsService {
   }
 
   @OnEvent(RESET_PASSWORD, { async: true })
-  async resetPassword({ email, password }: ResetPasswordPayload) {
+  async resetPassword({ email, username, passwordResetToken }: ResetPasswordPayload) {
     try {
-      await this.sendResetPasswordEmail(email, password);
+      await this.sendResetPasswordEmail(email, username, passwordResetToken);
       this.logger.log(`Password reset email sent to ${email} succeeded`);
     } catch (e) {
       this.logger.error(`Password reset email sent to ${email} failed:\n`, e);
     }
   }
 
-  async sendResetPasswordEmail(email: string, password: string, subject = 'Your password has been reset') {
+  async sendResetPasswordEmail(email: string, username, passwordResetToken, subject = 'Your password has been reset') {
     // todo: put template in database
     await this.emailService.sendEmail({
       to: email,
       from: 'zack.chapple@valor-software.com',
       subject,
-      text: 'Reset your password here',
+      text: 'We received a request to update your password',
       html:
-        '<strong>Your Initial Password</strong><br><br>' +
-        `<span style="padding: 5px 10px; background-color: #f0f0f0; font-size: 14px; display: inline-block">${password}</span>
+        ` <p>Hi ${username},</p>
+          <br>
+          <p>Please click below button to reset your password.</p>
+          <br>
+          <a target="_blank" href="${process.env.HOST}/reset-new-password?token=${passwordResetToken}">Reset my password</a>
+          <br>
+          <a target="_blank" href="${process.env.HOST}/reset-new-password?token=${passwordResetToken}&cancel=true">I did not request a password reset</a>
+          <br>
+          <p>If you didn't make this request, you don't need to do anything.</p>
           <br>
           <br>
-          Or, copy and paste the following URL into your browser:
-          <span>${process.env.HOST}/sign-in</span>`,
+          <p>Thanks</p>
+          `,
     });
   }
 }

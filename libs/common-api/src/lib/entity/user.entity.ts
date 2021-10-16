@@ -34,6 +34,7 @@ export class UserEntity extends BaseEntity {
   firstName: string;
   lastName: string;
   passwordResetNeeded?: boolean;
+  passwordResetToken?: string;
   lastPasswordUpdateDate?: Date
   emailVerified: boolean;
   emailVerifyToken?: string;

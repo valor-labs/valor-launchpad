@@ -82,6 +82,34 @@ export class AuthController {
     }
   }
 
+  @Get('verify-password-reset/:token')
+  @Bind(Param('token'))
+  async verifyPasswordReset(token, @Req() req: RequestWithSession, @Res() response: Response) {
+    try {
+      const user = await this.authService.verifyPasswordResetToken(token);
+
+      response.send(new ResponseSuccess('Verification Successful', {
+        username: user.username
+      }));
+    } catch (error) {
+      console.error(error);
+      response.send(new ResponseError('Verification Failed', error));
+    }
+  }
+
+  @Get('cancel-password-reset/:token')
+  @Bind(Param('token'))
+  async cancelPasswordResetToken(token) {
+    try {
+      await this.usersService.cancelPasswordReset(token);
+
+      return new ResponseSuccess('Cancel Password Reset Successful');
+    } catch (error) {
+      console.error(error);
+      return new ResponseError('Cancel Password Reset Failed', error)
+    }
+  }
+
   @Post('register')
   async register(@Body() createUser: RegisterDTO) {
     const createdUser = await this.authService.register(createUser);
@@ -119,6 +147,26 @@ export class AuthController {
       const user = await this.authService.resetPassword(username, password);
 
       Object.assign(req.session.user, user);
+
+      return new ResponseSuccess('Reset Password Success');
+    } catch (error) {
+      return new ResponseError('Reset Password Failed', error)
+    }
+  }
+
+  @Post('reset-password-token')
+  async resetPasswordToken(@Req() req: RequestWithSession, @User() user: UserEntity, @Body() body: ResetNewPasswordDTO) {
+    const { username, password, token } = body;
+
+    try {
+      const user = this.usersService.findByPasswordResetToken(token);
+
+      if(!user) {
+        return new ResponseError('Password Reset Token Invalid');
+      }
+
+      await this.authService.resetPassword(username, password);
+
 
       return new ResponseSuccess('Reset Password Success');
     } catch (error) {

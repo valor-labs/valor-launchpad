@@ -202,6 +202,7 @@ model UserEntity {
   firstName              String    @db.VarChar(255)
   lastName               String    @db.VarChar(255)
   passwordResetNeeded    Boolean?  @db.TinyInt
+  passwordResetToken     String?   @unique @db.VarChar(255)
   lastPasswordUpdateDate DateTime? @db.DateTime(0)
   emailVerified          Boolean   @default(false) @db.TinyInt
   emailVerifyToken       String?   @unique @db.VarChar(255)

@@ -13,6 +13,8 @@ import { UserListLine } from '@valor-launchpad/api-interfaces';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { TagsService } from './tags/tags.service';
+import { ThrottlerGuard } from '@nestjs/throttler';
+
 
 @Controller('v1')
 export class UsersController {
@@ -77,6 +79,7 @@ export class UsersController {
   }
 
   @Post('resetPassword')
+  @UseGuards(ThrottlerGuard)
   async resetPassword(@Body() user) {
     return await this.usersService.resetPassword(user.username);
   }
