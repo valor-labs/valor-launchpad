@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { Action, MegaMenuColumn, Menu } from '@valor-launchpad/api-interfaces';
+import { Action, MegaMenuColumn, Menu, ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 import { Message, Notification } from '@valor-launchpad/api-interfaces';
 import { NavigationService } from '../navigation/navigation.service';
 import { UserEntity } from '@valor-launchpad/common-api';
@@ -9,7 +9,6 @@ import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ProjectsListService } from '../../pages/projects-list/projects-list.service';
-import { Project } from '@api/projects';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -115,9 +114,9 @@ export class HeaderComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/member-ordering
   projectSearchFc: FormControl;
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  projectOptions: Project[];
+  projectOptions: ProjectListItemVo[];
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  filteredProjectOptions: Project[];
+  filteredProjectOptions: ProjectListItemVo[];
 
   private _initProjectSearch(): void {
     this.projectSearchFc = new FormControl();

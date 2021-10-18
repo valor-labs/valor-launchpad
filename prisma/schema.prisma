@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["interactiveTransactions"]
 }
 
@@ -133,6 +133,12 @@ model ProfileEmployerEntity {
   profile     ProfileEntity  @relation(fields: [profileId], references: [id])
 }
 
+enum ProjectStatus {
+  IN_PROGRESS
+  FINISHED
+  ON_HOLD
+}
+
 model ProjectsEntity {
   id          String                   @id @default(uuid()) @db.VarChar(36)
   createdDate DateTime                 @default(now()) @db.DateTime(6)
@@ -140,8 +146,9 @@ model ProjectsEntity {
   deletedDate DateTime?                @db.DateTime(6)
   title       String                   @db.VarChar(255)
   body        String                   @db.LongText
-  badge       Json?                    @db.Json
-  actions     Json?                    @db.Json
+  status      ProjectStatus?
+  deletable   Boolean                  @db.TinyInt @default(true)
+  cloneable   Boolean                  @db.TinyInt @default(true)
   progress    Int?
   rollupData  Json?                    @db.Json
   assignee    ProjectsAssigneeEntity[] @relation("projectsAssignee")

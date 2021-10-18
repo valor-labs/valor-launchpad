@@ -366,7 +366,7 @@
       </ngx-datatable-footer>
     </ngx-datatable>
     <ng-template #statusRef let-row='row'>
-      <span class="badge" [ngClass]='row.badge.status'>{{row.badge.title}}</span>
+      <span class="badge" [ngClass]="STATUS_MAPPING[row.status].theme">{{STATUS_MAPPING[row.status].label}}</span>
     </ng-template>
   </div>
 </valor-launchpad-card>

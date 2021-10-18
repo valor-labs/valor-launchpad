@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ProjectsDetailService} from "./projects-detail.service";
-import {ProjectDetail} from "@api/projects";
+import { ProjectDetailVo, STATUS_MAPPING } from '@valor-launchpad/api-interfaces';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -10,8 +10,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./projects-detail.component.scss']
 })
 export class ProjectsDetailComponent implements OnInit {
+  STATUS_MAPPING = STATUS_MAPPING;
   id: string;
-  project: ProjectDetail;
+  project: ProjectDetailVo;
 
   constructor(private route: ActivatedRoute,
               private projectDetailService: ProjectsDetailService,
@@ -29,7 +30,7 @@ export class ProjectsDetailComponent implements OnInit {
 
   getProjectDetails(id: string) {
     this.projectDetailService.getProjectById(id).subscribe((data) => {
-      this.project = <ProjectDetail>data;
+      this.project = data;
     });
   }
 

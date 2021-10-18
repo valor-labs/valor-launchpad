@@ -3,14 +3,13 @@ import { DashboardService } from './dashboard.service';
 import {
   DashboardDefaultOverviewVo,
   DashboardDefaultRevenueMonthlyVo,
-  formatStartEnd,
   DashboardDefaultRevenueVo,
-  UserEntity,
   DashboardDefaultAppointmentVo,
   DashboardDefaultProjectVo,
-} from '@valor-launchpad/common-api';
+} from '@valor-launchpad/api-interfaces';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@valor-launchpad/users-api';
+import { formatStartEnd, UserEntity } from '@valor-launchpad/common-api';
 
 @Controller('v1')
 @UseGuards(AuthGuard('jwt'))

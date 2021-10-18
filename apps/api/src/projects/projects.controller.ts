@@ -1,8 +1,18 @@
-import {Body, Controller, Get, NotFoundException, Param, Post, UseGuards} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post, UploadedFile,
+  UseGuards, UseInterceptors
+} from '@nestjs/common';
 import {ProjectsService} from "./projects.service";
 import {JwtAuthGuard} from '@valor-launchpad/auth-api';
-import {Prisma} from '@prisma/client';
-import { Project } from '@api/projects';
+import { ProjectCreateDto } from './dto/project-create-dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ImageUploaderUtility } from '../media/imageUploader.utility';
+import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 
 @UseGuards(JwtAuthGuard)
 @Controller('v1')
@@ -21,13 +31,18 @@ export class ProjectsController {
   }
 
   @Post('create')
-  async createProject(@Body() createProjectDto: Project) {
-    return await this.projectsService.createProject(createProjectDto);
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: ImageUploaderUtility.getStorageOptions()
+    })
+  )
+  async create(@Body() project: ProjectCreateDto, @UploadedFile() file) {
+    return await this.projectsService.createProject(project, file);
   }
 
   @Get('all')
   //TODO: Understand why this is entity and not the class from api
-  async getAll() {
+  async getAll(): Promise<ProjectListItemVo[]> {
     return await this.projectsService.getAll();
   }
 

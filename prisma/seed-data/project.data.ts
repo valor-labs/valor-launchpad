@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma, ProjectStatus } from '@prisma/client';
 import { v4 } from 'uuid';
 import { datatype, random, lorem } from 'faker';
 
@@ -51,18 +51,7 @@ export const PROJECTS: Prisma.ProjectsEntityCreateManyInput[] = new Array(20)
     title: lorem.words(1),
     body: lorem.text(4),
     progress: datatype.number(10),
-    badge: {
-      title: random.arrayElement(['Finished', 'In Progress', 'Finished']),
-      status: random.arrayElement(['bg-success', 'bg-danger', 'bg-warning']),
-    },
-    actions: [
-      {
-        title: 'Delete',
-        type: 'fas fa-trash',
-      },
-      {
-        title: 'Clone',
-        type: 'far fa-copy',
-      },
-    ],
+    status: random.arrayElement(Object.values(ProjectStatus)),
+    deletable: true,
+    cloneable: true,
   }));

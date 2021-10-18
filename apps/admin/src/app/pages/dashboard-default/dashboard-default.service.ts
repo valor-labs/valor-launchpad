@@ -4,13 +4,13 @@ import {
   ENV_CONFIG,
   EnvironmentConfig,
 } from '../../core/http/environment-config.interface';
-import type {
+import {
   DashboardDefaultOverviewVo,
   DashboardDefaultRevenueMonthlyVo,
   DashboardDefaultRevenueVo,
   DashboardDefaultProjectVo,
   DashboardDefaultAppointmentVo,
-} from '@valor-launchpad/common-api';
+} from '@valor-launchpad/api-interfaces';
 
 @Injectable({
   providedIn: 'root',
