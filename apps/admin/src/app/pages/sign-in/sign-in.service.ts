@@ -23,7 +23,11 @@ export class SignInService {
         this.authService.user.next(data.user);
         this.cookieService.set('userName',`${data.user.firstName} ${data.user.lastName}`);
         this.cookieService.set('avatar', data.user.avatar?.src);
-        this.router.navigate(['/dashboard-default']);
+        if (localStorage.getItem('preUrl') && localStorage.getItem('preUrl') !== '/sign-in') {
+          this.router.navigate([localStorage.getItem('preUrl')]);
+        } else {
+          this.router.navigate(['/dashboard-default']);
+        }
       }),
       catchError(err => of(
         err.error

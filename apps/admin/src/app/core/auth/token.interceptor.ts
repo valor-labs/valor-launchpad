@@ -11,6 +11,8 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, switchMap, take, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { ComfirmModalComponent } from './modal/comfirm-modal.component';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
@@ -18,9 +20,11 @@ const TOKEN_HEADER_KEY = 'Authorization';
 export class TokenInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject = new BehaviorSubject<string>(null);
+  bsModalRef?: BsModalRef;
   constructor(
     public auth: AuthService,
     private router: Router,
+    private modalService: BsModalService,
     @Inject(NOTYFToken) private notyf: Notyf
   ) {}
 
@@ -67,7 +71,8 @@ export class TokenInterceptor implements HttpInterceptor {
             this.isRefreshing = false;
             localStorage.removeItem('refresh_token');
             // refresh failed, nav to sign in page to login manually
-            this.router.navigate(['/sign-in']);
+            this.showModel();
+            // this.router.navigate(['/sign-in']);
             return throwError(err);
           }),
         );
@@ -82,6 +87,18 @@ export class TokenInterceptor implements HttpInterceptor {
       take(1),
       switchMap((token) => next.handle(this.addTokenHeader(request, token)))
     );
+  }
+
+  showModel() {
+    const initialState: ModalOptions = {
+      initialState: {
+        content: 'Session expired , you need to login in',
+        title: 'Go back to sign in',
+        url: this.router.url
+      }
+    };
+    this.bsModalRef = this.modalService.show(ComfirmModalComponent, initialState);
+    this.bsModalRef.content.closeBtnName = 'Close';
   }
 
   private _handleError(err: HttpErrorResponse): Observable<any> {
