@@ -1,5 +1,3 @@
-import type { UserEntity } from '@valor-launchpad/common-api';
-
 export interface ProjectListItemVo {
   id: string;
   title: string;
@@ -14,7 +12,7 @@ export interface ProjectListItemVo {
     type: string;
   };
   assignee: Array<{
-    user: UserEntity;
+    user: any;
   }>;
   progress: number;
   createdDate: string | Date;
@@ -24,7 +22,7 @@ export interface ProjectDetailVo extends ProjectListItemVo {
   comments?: [
     {
       timestamp: number;
-      author: UserEntity;
+      author: any;
       body: string;
       reactions: [
         {
@@ -34,7 +32,7 @@ export interface ProjectDetailVo extends ProjectListItemVo {
       children?: [
         {
           timestamp: number;
-          author: UserEntity;
+          author: any;
           body: string;
           reactions: [
             {
@@ -46,7 +44,7 @@ export interface ProjectDetailVo extends ProjectListItemVo {
     }
   ];
   summary: {
-    reporter: UserEntity;
+    reporter: any;
     createdDate: number;
     startDate: number;
     endDate: number;
