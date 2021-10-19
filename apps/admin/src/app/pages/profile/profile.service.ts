@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -24,18 +24,27 @@ export class ProfileService {
 
   updateProfilePublicInfo(
     file: File,
+    bio: string,
     profileId: string,
     username: string,
     alt: string
   ) {
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('file', file);
     formData.append('profileId', profileId);
     formData.append('username', username);
     formData.append('alt', alt);
+    formData.append('bio', bio);
     return this.httpClient.post(
       this.config.environment.apiBase + 'api/profile/v1/updateProfile',
       formData
+    );
+  }
+
+  updateProfilePrivateInfo(updatedPrivateProfile) {
+    return this.httpClient.post(
+      this.config.environment.apiBase + 'api/profile/v1/updatePrivateProfile',
+      updatedPrivateProfile
     );
   }
 }

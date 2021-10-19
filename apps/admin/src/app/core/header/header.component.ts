@@ -15,6 +15,8 @@ import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ProjectsListService } from '../../pages/projects-list/projects-list.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ProfileService } from '../../pages/profile/profile.service';
+import { ProfileEntity } from '@valor-launchpad/common-api';
 
 @Component({
   selector: 'valor-launchpad-header',
@@ -26,6 +28,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('defaultWarningModal', { static: false })
   defaultWarningModal?: ModalDirective;
   user: UserEntity;
+  profile: ProfileEntity;
   messages: Message[] = [];
   notifications: Notification[] = [];
   megaMenus$: Observable<MegaMenuColumn[]> =
@@ -73,7 +76,8 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private headerService: HeaderService,
     private navigationService: NavigationService,
-    private projectsListService: ProjectsListService
+    private projectsListService: ProjectsListService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit() {
@@ -83,6 +87,10 @@ export class HeaderComponent implements OnInit {
 
     this.headerService.getMessages().subscribe((messages) => {
       this.messages = messages;
+    });
+
+    this.profileService.getProfile().subscribe((profile) => {
+      this.profile = profile;
     });
 
     this.headerService.getNotifications().subscribe((notifications) => {

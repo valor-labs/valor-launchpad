@@ -1,6 +1,6 @@
 import { extname, join } from 'path';
 import { diskStorage } from 'multer';
-import * as sharp from 'sharp';
+import sharp from 'sharp';
 
 const ASSET_PATH = join(__dirname, '/assets');
 
