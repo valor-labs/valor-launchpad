@@ -10,14 +10,14 @@ import { DashboardDefaultService } from './dashboard-default.service';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../../core/auth/auth.service';
-import type {
+import {
   DashboardDefaultOverviewVo,
   DashboardDefaultAppointmentVo,
   DashboardDefaultProjectVo,
   DashboardDefaultRevenueVo,
-  UserEntity,
-} from '@valor-launchpad/common-api';
-import { Action } from '@valor-launchpad/api-interfaces';
+} from '@valor-launchpad/api-interfaces';
+import { UserEntity } from '@valor-launchpad/common-api';
+import { Action, STATUS_MAPPING } from '@valor-launchpad/api-interfaces';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { ISocialActivity } from '../dashboard-social/dashboard-social.model';
 import { DashboardSocialService } from '../dashboard-social/dashboard-social.service';
@@ -48,6 +48,7 @@ class DateOnlyPipe extends DatePipe {
   styleUrls: ['./dashboard-default.component.scss'],
 })
 export class DashboardDefaultComponent implements OnInit {
+  STATUS_MAPPING = STATUS_MAPPING;
   dateRange$ = new BehaviorSubject<TimeRange>(TimeRange.TODAY);
   refreshController$ = new Subject();
   timeRangeActions: Action[] = [
@@ -180,18 +181,30 @@ export class DashboardDefaultComponent implements OnInit {
       switchMap(() => this.dashboardDefaultService.getLatestProjects())
     );
     this.latestProjectsTableColumn = [
-      { name: 'Name', prop: 'title' },
+      { name: 'Name', prop: 'title', cellClass: 'd-flex align-items-center' },
       {
         name: 'Start Date',
         prop: 'startDate',
         pipe: new DateOnlyPipe('en-US'),
+        cellClass: 'd-flex align-items-center',
       },
-      { name: 'End Date', prop: 'endDate', pipe: new DateOnlyPipe('en-US') },
-      { name: 'Status', prop: 'badge', cellTemplate: this.statusTmpl },
+      {
+        name: 'End Date',
+        prop: 'endDate',
+        pipe: new DateOnlyPipe('en-US'),
+        cellClass: 'd-flex align-items-center',
+      },
+      {
+        name: 'Status',
+        prop: 'status',
+        cellTemplate: this.statusTmpl,
+        cellClass: 'd-flex align-items-center',
+      },
       {
         name: 'Assignee',
         prop: 'assignee',
         pipe: { transform: (val: string[]) => val.join(', ') },
+        cellClass: 'd-flex align-items-center',
       },
     ];
 

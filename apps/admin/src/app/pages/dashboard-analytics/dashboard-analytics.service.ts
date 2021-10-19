@@ -12,7 +12,7 @@ import {
   DashboardAnalyticByInterestVo,
   DashboardAnalyticBySourceVo,
   DashboardAnalyticByCityVo,
-} from '@valor-launchpad/common-api';
+} from '@valor-launchpad/api-interfaces';
 
 @Injectable({
   providedIn: 'root',

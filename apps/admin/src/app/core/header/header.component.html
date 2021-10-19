@@ -21,7 +21,7 @@
         <ng-template valorLaunchpadAutocompleteContent>
             <valor-launchpad-autocomplete-option *ngFor='let option of filteredProjectOptions' [value]='option.title'>
               <div class='d-flex align-items-start' routerLink="/projects-detail/{{option.id}}">
-                <img [src]='option?.hero?.src' width='36' height='36' class='rounded-circle me-2'
+                <img [src]='option?.hero | valorImage' width='36' height='36' class='rounded-circle me-2'
                      [alt]='option?.hero?.alt'>
                 <div class='flex-grow-1'>
                   <strong>{{ option.title }}</strong>
@@ -130,7 +130,7 @@
         </div>
       </valor-launchpad-dropdown>
 
-     
+
       <li class='nav-item dropdown'>
         <a class='nav-icon dropdown-toggle d-inline-block d-sm-none' href='#'>
           <i class='align-middle fas fa-fw fa-cogs'></i>

@@ -24,7 +24,7 @@ import {
   DashboardAnalyticBySourceVo,
   DashboardAnalyticOverviewVo,
   DashboardAnalyticTrafficVo,
-} from '@valor-launchpad/common-api';
+} from '@valor-launchpad/api-interfaces';
 import { AuthService } from '../../core/auth/auth.service';
 
 declare const jsVectorMap: any;

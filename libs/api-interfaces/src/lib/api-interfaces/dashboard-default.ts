@@ -1,4 +1,4 @@
-export class DashboardDefaultOverviewVo {
+export interface DashboardDefaultOverviewVo {
   totalEarnings: {
     value: number;
     percentage: number;
@@ -15,28 +15,28 @@ export class DashboardDefaultOverviewVo {
   };
 }
 
-export class DashboardDefaultRevenueMonthlyVo {
+export interface DashboardDefaultRevenueMonthlyVo {
   month: string | Date;
   thisYearRevenue: number;
   lastYearRevenue: number;
 }
 
-export class DashboardDefaultRevenueVo {
+export interface DashboardDefaultRevenueVo {
   name: string;
   value: number;
   percentage: number;
 }
 
-export class DashboardDefaultAppointmentVo {
+export interface DashboardDefaultAppointmentVo {
   title: string;
   content: string;
   createdDate: string | Date;
 }
 
-export class DashboardDefaultProjectVo {
+export interface DashboardDefaultProjectVo {
   title: string;
   startDate: Date | string;
   endDate: Date | string;
-  badge: { title: 'Finished'; status: 'bg-warning' };
+  status: string;
   assignee: string[];
 }

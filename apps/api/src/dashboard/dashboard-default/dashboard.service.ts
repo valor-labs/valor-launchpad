@@ -7,8 +7,8 @@ import {
   DashboardDefaultProjectVo,
   DashboardDefaultRevenueMonthlyVo,
   DashboardDefaultRevenueVo,
-  getPrevPeriod,
-} from '@valor-launchpad/common-api';
+} from '@valor-launchpad/api-interfaces';
+import { getPrevPeriod } from '@valor-launchpad/common-api';
 
 @Injectable()
 export class DashboardService {
@@ -144,7 +144,7 @@ export class DashboardService {
     const query = await this.prisma.projectsEntity.findMany({
       select: {
         title: true,
-        badge: true,
+        status: true,
         summary: {
           select: {
             startDate: true,
@@ -163,12 +163,12 @@ export class DashboardService {
     });
     return query.map((item) => ({
       title: item.title,
-      assignee: item.assignee.map(
+      assignee: item.assignee?.map(
         (ae) => `${ae.user.firstName} ${ae.user.lastName}`
       ),
-      startDate: item.summary.startDate,
-      endDate: item.summary.endDate,
-      badge: item.badge as any,
+      startDate: item.summary?.startDate,
+      endDate: item.summary?.endDate,
+      status: item.status,
     }));
   }
 

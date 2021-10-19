@@ -9,52 +9,40 @@
 <valor-launchpad-offcanvas [show]='isCreateProjectShow' [title]="'New Project'" position='end'
                            (onClose)='onCloseProjectShow()'>
   <div offcanvas-body>
-    <div class='col-6' [formGroup]='newProjectFg'>
-      <div class='mb-3'>
-        <label class='form-label'>Title</label>
-        <input valorLaunchpadInput vlSize='large' formControlName='projectTitle' />
-        <ng-container *ngIf='newProjectFg.get("projectTitle").touched'>
-          <label class='error small form-text invalid-feedback'
-                 *ngIf='newProjectFg.get("projectTitle").hasError("required")'>
-            This is a required input.
-          </label>
-          <label class='error small form-text invalid-feedback'
-                 *ngIf='newProjectFg.get("projectTitle").hasError("isExists")'>
-            The project is exist.
-          </label>
-        </ng-container>
-      </div>
-      <div class='mb-3'>
-        <label class='form-label'>Content</label>
-        <input valorLaunchpadInput vlSize='large' formControlName='projectContent' />
-      </div>
-      <div class='mb-3'>
-        <label class='form-label'>Progress</label>
-        <select class='form-select' formControlName='projectProgress'>
+    <form [formGroup]='newProjectFg'>
+      <valor-launchpad-form-item [errTip]="titleErr">
+        <valor-launchpad-form-label [required]="true">Title</valor-launchpad-form-label>
+        <input valorLaunchpadInput formControlName='title' />
+        <ng-template #titleErr let-control>
+          <ng-container *ngIf='control.hasError("required")'>This field is required.</ng-container>
+          <ng-container *ngIf='control.hasError("isExists")'>The project is exist.</ng-container>
+        </ng-template>
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label>Content</valor-launchpad-form-label>
+        <textarea valorLaunchpadInput formControlName='body'></textarea>
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label>Progress</valor-launchpad-form-label>
+        <select class='form-select' formControlName='progress'>
           <option *ngFor='let item of projectProgressItem' [value]=item>{{item}}</option>
         </select>
-      </div>
-      <div class='mb-3'>
-        <label class='form-label'>Status</label>
-        <select class='form-select' formControlName='projectStatus'>
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label>Status</valor-launchpad-form-label>
+        <select class='form-select' formControlName='status'>
           <option *ngFor='let item of projectStatusItem' value='{{item.value}}'>{{item.key}}</option>
         </select>
-      </div>
-      <div class='mb-3'>
-        <label class='form-label'>Action</label>
-        <valor-launchpad-checkbox-group
-          [options]='projectActionOptions'
-          formControlName='projectActions'
-        ></valor-launchpad-checkbox-group>
-        <label class='error small form-text invalid-feedback'
-               *ngIf='newProjectFg.get("projectActions").touched && newProjectFg.get("projectActions").hasError("required")'>
-          This is a required input.
-        </label>
-      </div>
-      <div class='mb-3'>
-        <label class='form-label'>Project picture</label>
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label>Action</valor-launchpad-form-label>
+        <label valor-launchpad-checkbox formControlName="deletable">Delete</label>
+        <label valor-launchpad-checkbox formControlName="cloneable">Clone</label>
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label>Project picture</valor-launchpad-form-label>
         <input type='file' #projectPicture valorLaunchpadInput formControlName='projectFile'>
-        <ng-container *ngIf='newProjectFg.get("projectTitle").touched'>
+        <ng-container *ngIf='newProjectFg.get("title").touched'>
           <label class='error small form-text invalid-feedback'
                  *ngIf='newProjectFg.get("projectFile").hasError("required")'>
             This is a required input.
@@ -64,8 +52,8 @@
             Only accept file suffix with {{ validPicSuffixs.join() }}.
           </label>
         </ng-container>
-      </div>
-    </div>
+      </valor-launchpad-form-item>
+    </form>
     <button type='submit' class='mt-3 btn btn-lg btn-primary' (click)='onCreateProject()'>Create Project</button>
   </div>
 </valor-launchpad-offcanvas>

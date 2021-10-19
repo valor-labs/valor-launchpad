@@ -1,7 +1,5 @@
 import { Component, ElementRef, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ProjectsListService } from './projects-list.service';
-// TODO: find a better place for these and refactor them to be cleaner
-import { Project } from '@api/projects';
 import {
   AbstractControl,
   FormBuilder,
@@ -14,6 +12,7 @@ import {
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
+import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-projects-list',
@@ -21,9 +20,10 @@ import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
   styleUrls: ['./projects-list.component.scss']
 })
 export class ProjectsListComponent implements OnInit {
+
   newProjectFg: FormGroup;
   validPicSuffixs = ['jpg', 'jpeg', 'png'];
-  projects: Array<Project> = [];
+  projects: Array<ProjectListItemVo> = [];
 
   constructor(
     private projectsListService: ProjectsListService,
@@ -34,7 +34,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   private _initProjectData(): void {
-    this.projectsListService.getProjects().subscribe((data: Array<Project>) => {
+    this.projectsListService.getProjects().subscribe((data) => {
       this.projects = data;
     });
   }
@@ -47,11 +47,12 @@ export class ProjectsListComponent implements OnInit {
   ngOnInit(): void {
     this.newProjectFg = this.fb.group(
       {
-        projectTitle: new FormControl(null, Validators.required, this.validateNameViaServer.bind(this)),
-        projectContent: '',
-        projectProgress: 20,
-        projectStatus: 'inProgress',
-        projectActions: new FormControl(['delete', 'clone'], Validators.required),
+        title: new FormControl(null, Validators.required, this.validateNameViaServer.bind(this)),
+        body: '',
+        progress: 20,
+        status: 'IN_PROGRESS',
+        deletable: true,
+        cloneable: true,
         projectFile: new FormControl(null, [Validators.required, this.fileExtensionValidator(this.validPicSuffixs)])
       }
     );
@@ -97,15 +98,15 @@ export class ProjectsListComponent implements OnInit {
   projectStatusItem = [
     {
       key: 'Finished',
-      value: 'finish'
+      value: 'FINISHED',
     },
     {
       key: 'On hold',
-      value: 'onHold'
+      value: 'ON_HOLD'
     },
     {
       key: 'In Progress',
-      value: 'inProgress'
+      value: 'IN_PROGRESS'
     }
   ];
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -124,14 +125,9 @@ export class ProjectsListComponent implements OnInit {
   async onCreateProject(): Promise<void> {
     this.newProjectFg.updateValueAndValidity();
     this.newProjectFg.markAllAsTouched();
-    const base64Pic = await this._getPicBase64();
-    if (base64Pic === null) {
-      this.notyf.error('picture upload failure, please re-upload.');
-      return;
-    }
-
+    const file = this.projectPicture.nativeElement.files[0];
     if (this.newProjectFg.valid) {
-      this.projectsListService.createProject(this._convertKeys(this.newProjectFg.value, base64Pic))
+      this.projectsListService.createProject(this.newProjectFg.value, file)
         .subscribe(res => {
           if (typeof res === 'object') {
             this.notyf.success('Create project success');
@@ -149,46 +145,4 @@ export class ProjectsListComponent implements OnInit {
     this.newProjectFg.reset();
     this._initProjectData();
   }
-
-  private async _getPicBase64(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const file = this.projectPicture.nativeElement.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        resolve(reader.result);
-      };
-      reader.onerror = function(error) {
-        resolve(null);
-      };
-    });
-  }
-
-
-  private _convertKeys(newProjectObj: { [key: string]: any }, pic): Partial<Project> {
-    const statusMap = {
-      inProgress: { title: 'In Progress', status: 'bg-warning' },
-      finish: { title: 'Finished', status: 'bg-success' },
-      onHold: { title: 'On hold', status: 'bg-danger' }
-    };
-
-    const actionMap = {
-      delete: { type: 'fas fa-trash', title: 'Delete' },
-      clone: { type: 'fas fa-copy', title: 'Clone' }
-    };
-
-    return {
-      title: newProjectObj.projectTitle,
-      body: newProjectObj.projectContent,
-      progress: +newProjectObj.projectProgress,
-      badge: statusMap[newProjectObj.projectStatus],
-      actions: newProjectObj.projectActions.map(item => actionMap[item]),
-      hero: {
-        src: pic,
-        alt: ''
-      }
-    };
-  }
-
-
 }

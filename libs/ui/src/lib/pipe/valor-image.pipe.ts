@@ -1,11 +1,15 @@
 import { Inject, Pipe, PipeTransform } from '@angular/core';
-import { Media } from '@api/projects';
 import {
   ENV_CONFIG,
   EnvironmentConfig
 } from '@ui/http-config';
 
 const defaultSrc = 'assets/img/avatars/avatar.jpg';
+
+interface MediaAsset {
+  src_webp: string;
+  src: string;
+}
 
 @Pipe({
   name: 'valorImage'
@@ -17,13 +21,19 @@ export class ValorImagePipe implements PipeTransform {
   }
 
 
-  transform(value: string | Media): unknown {
+  transform(value: string | MediaAsset): unknown {
     if (typeof value === 'string') {
       return value;
     } else {
-      if (Object.prototype.hasOwnProperty.call(value, 'src_webp') && value.src_webp !== '') {
+      if (Object.prototype.hasOwnProperty.call(value, 'src_webp') && !!value.src_webp) {
+        if (value.src_webp.startsWith('http')) {
+          return value.src_webp;
+        }
         return this._getImagePath() + value.src_webp;
-      } else if (Object.prototype.hasOwnProperty.call(value, 'src') && value.src !== '') {
+      } else if (Object.prototype.hasOwnProperty.call(value, 'src') && !!value.src) {
+        if (value.src.startsWith('http')) {
+          return value.src;
+        }
         return this._getImagePath() + value.src;
       } else {
         return defaultSrc;

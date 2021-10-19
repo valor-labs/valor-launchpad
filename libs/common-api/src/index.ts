@@ -13,5 +13,4 @@ export * from './lib/entity/user.events.entity'
 export * from './lib/entity/user-tags.entity'
 export * from './lib/entity/user-roles.entity'
 export * from './lib/validators';
-export * from './lib/vo';
 export * from './lib/utils';

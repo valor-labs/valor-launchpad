@@ -9,8 +9,8 @@ import {
   DashboardAnalyticBySourceVo,
   DashboardAnalyticOverviewVo,
   DashboardAnalyticTrafficVo,
-  formatStartEnd
-} from '@valor-launchpad/common-api';
+} from '@valor-launchpad/api-interfaces';
+import { formatStartEnd } from '@valor-launchpad/common-api';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
