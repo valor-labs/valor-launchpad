@@ -21,6 +21,8 @@ export class ModalComponent implements OnInit {
   @HostBinding('class.modal')
   @HostBinding('class.fade')
   private base = true;
+  @HostBinding('tabindex')
+  private val = '-1'
 
   @Input() heading: string | TemplateRef<void>;
   @Input() content: string | TemplateRef<void>;
