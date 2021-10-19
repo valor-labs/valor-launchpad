@@ -3,7 +3,7 @@ import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { UserEntity } from '@valor-launchpad/common-api';
 import { ENV_CONFIG, EnvironmentConfig } from '../http/environment-config.interface';
 
@@ -14,8 +14,12 @@ export class AuthService {
   access_token;
   user = new BehaviorSubject<UserEntity>(null);
 
-  constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private cookieService: CookieService, private router: Router, private httpClient: HttpClient) {
-  }
+  constructor(
+    @Inject(ENV_CONFIG) private config: EnvironmentConfig,
+    private cookieService: CookieService,
+    private router: Router,
+    private httpClient: HttpClient
+  ) {}
 
   checkIfUsernameExists(username: string) {
     return this.httpClient.get<{ existedUsername: boolean }>(this.config.environment.apiBase + 'api/auth/v1/verify-username', { params: { username } });
@@ -26,12 +30,15 @@ export class AuthService {
   }
 
   signOut() {
-    return this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).pipe(
-      map(() => {
-        this.access_token = undefined;
-        this.router.navigate(['/sign-in'])
-      })
-    )
+    return this.httpClient
+      .get(this.config.environment.apiBase + `api/auth/v1/sign-out`)
+      .pipe(
+        map(() => {
+          this.access_token = undefined;
+          localStorage.removeItem('refresh_token');
+          this.router.navigate(['/sign-in']);
+        })
+      );
   }
 
   getCurrentUser(refresh = false): Observable<UserEntity> {
@@ -54,7 +61,6 @@ export class AuthService {
     return this.access_token;
   }
 
-
   isLoggedIn() {
     const allCookies = this.cookieService.getAll();
     this.access_token = allCookies.access_token;
@@ -71,7 +77,24 @@ export class AuthService {
             return true;
           }
         })
-      )
+      );
     // TODO: this needs to be more sophisticated
+  }
+
+  generateNewAccessToken() {
+    const access_token = this.cookieService.get('access_token');
+    const refresh_token = localStorage.getItem('refresh_token');
+    return this.httpClient
+      .post<{ access_token: string; refresh_token: string; user }>(
+        this.config.environment.apiBase + 'api/auth/v1/refresh',
+        { access_token, refresh_token }
+      )
+      .pipe(
+        tap((data) => {
+          this.user.next(data.user);
+          this.access_token = data.access_token;
+          localStorage.setItem('refresh_token', data.refresh_token);
+        })
+      );
   }
 }

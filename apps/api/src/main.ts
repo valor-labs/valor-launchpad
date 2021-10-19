@@ -15,7 +15,7 @@ import { AuthController } from '@valor-launchpad/auth-api';
 dotenv.config({ path: process.cwd() + '/apps/api/.env' });
 
 const RedisStore = connectRedis(expressSession);
-const redisClient = redis.createClient({
+export const redisClient = redis.createClient({
   url: process.env.REDIS_URL
 });
 

@@ -17,10 +17,15 @@ import { DashboardCryptoModule } from '../dashboard/dashboard-crypto';
 import { MulterModule } from '@nestjs/platform-express'
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { RedisModule } from 'nestjs-redis';
+
 @Module({
   imports: [
     EventEmitterModule.forRoot({ wildcard: true }),
     PrismaModule,
+    RedisModule.register({
+      url: process.env.REDIS_URL,
+    }),
     RouterModule.forRoutes([
       { path: '/dashboard', module: DashboardModule },
       { path: '/dashboard-analytics', module: DashboardAnalyticsModule },
