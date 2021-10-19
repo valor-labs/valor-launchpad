@@ -2,7 +2,7 @@ import { UserEntity } from '@prisma/client';
 
 export const RESET_PASSWORD = 'users.reset.password';
 export class ResetPasswordPayload {
-  constructor(public email, public password) {}
+  constructor(public email, public username, public passwordResetToken) {}
 }
 
 export const USER_CREATED_FAT = 'users.created.fat';

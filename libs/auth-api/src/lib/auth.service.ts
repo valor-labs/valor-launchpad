@@ -77,4 +77,10 @@ export class AuthService {
 
     return await this.usersService.resetNewPassword(username, newPasswordCrypt);
   }
+
+  async verifyPasswordResetToken(token: string) {
+    const cleanUser = await this.usersService.verifyPasswordResetToken(token);
+
+    return cleanUser
+  }
 }

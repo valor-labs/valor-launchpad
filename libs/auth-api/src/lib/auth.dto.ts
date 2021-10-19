@@ -17,7 +17,9 @@ export class ResetNewPasswordDTO {
 
   @IsNotEmpty()
   @IsString()
-  password: string
+  password: string;
+
+  token?: string;
 }
 
 export class RegisterDTO {

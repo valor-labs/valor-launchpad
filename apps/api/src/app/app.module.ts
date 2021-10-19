@@ -18,7 +18,7 @@ import { MulterModule } from '@nestjs/platform-express'
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { RedisModule } from 'nestjs-redis';
-
+import { ThrottlerModule } from '@nestjs/throttler';
 @Module({
   imports: [
     EventEmitterModule.forRoot({ wildcard: true }),
@@ -30,7 +30,7 @@ import { RedisModule } from 'nestjs-redis';
       { path: '/dashboard', module: DashboardModule },
       { path: '/dashboard-analytics', module: DashboardAnalyticsModule },
       { path: '/dashboard-social', module: DashboardSocialModule },
-      { path: '/dashboard-crypto', module: DashboardCryptoModule},
+      { path: '/dashboard-crypto', module: DashboardCryptoModule },
       { path: '/profile', module: ProfileModule },
       { path: '/projects', module: ProjectsModule },
       { path: '/auth', module: AuthApiModule },
@@ -56,8 +56,12 @@ import { RedisModule } from 'nestjs-redis';
         index: false
       }
     }),
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 3
+    })
   ],
   controllers: [AppController],
   providers: [AppService, ProjectsListener],
 })
-export class AppModule {}
+export class AppModule { }

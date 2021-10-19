@@ -48,6 +48,23 @@ export class UsersService {
     }) as UserEntity
   }
 
+  async findByPasswordResetToken(passwordResetToken: string): Promise<UserEntity> {
+    return await this.prisma.userEntity.findUnique({
+      where: {
+        passwordResetToken: passwordResetToken
+      },
+      include: {
+        profile: true,
+        avatar: true,
+        userRoles: {
+          include: {
+            rolesEntity: true
+          }
+        }
+      }
+    }) as UserEntity
+  }
+
   async getRoles(): Promise<RolesEntity[]> {
     return await this.prisma.rolesEntity.findMany() as RolesEntity[];
   }
@@ -127,15 +144,15 @@ export class UsersService {
           event: 'Resend Password Reset Email'
         }
       })
-      const newPassword = this.generatePassword();
-      await this.usersEventsService.sendResetPasswordEmail(userCheck.email, newPassword);
+      const passwordResetToken = v4();
+      await this.usersEventsService.sendResetPasswordEmail(userCheck.email, userCheck.username, passwordResetToken);
 
       await this.prisma.userEntity.update({
         where: {
           username: userCheck.username
         },
         data: {
-          password: newPassword,
+          passwordResetToken: passwordResetToken,
           passwordResetNeeded: true
         }
       })
@@ -162,33 +179,21 @@ export class UsersService {
         data: {
           target_user_id: userCheck.id,
           // acting_user_id: actingUser.id,  // actingUser is nil when in /reset-password page
-          event: 'Password Reset'
+          event: 'Pending Password Reset'
         }
       })
-      const newPassword = this.generatePassword();
-      this.emitResetPasswordEmail(userCheck.email, newPassword);
+      const resetPasswordToken = v4();
+      this.emitResetPasswordEmail(userCheck.email, username, resetPasswordToken);
 
       await this.prisma.userEntity.update({
         where: {
           username: username
         },
         data: {
-          password: newPassword,
-          passwordResetNeeded: true
+          passwordResetNeeded: true,
+          passwordResetToken: resetPasswordToken
         }
       })
-      this.eventEmitter.emit(
-        'user.passwordReset.thin',
-        <UserEntity>{
-          id: userCheck.id,
-        },
-      );
-
-      this.eventEmitter.emit(
-        'user.passwordReset.fat',
-        <UserEntity>userCheck,
-      );
-      return;
     }
   }
 
@@ -306,6 +311,36 @@ export class UsersService {
     } else {
       throw new HttpException('Token does not exist', HttpStatus.NOT_FOUND)
     }
+  }
+
+  async verifyPasswordResetToken(token): Promise<UserEntity> {
+    const user: UserEntity = await this.findByPasswordResetToken(token);
+
+    if (!user) {
+      throw new HttpException('Token does not exist', HttpStatus.NOT_FOUND);
+    }
+
+    await this.prisma.userEventsEntity.create({
+      data: {
+        target_user_id: user.id,
+        event: 'Password Reset Token Verified'
+      }
+    })
+
+    return user;
+  }
+
+  async cancelPasswordReset(token: string): Promise<void> {
+    await this.prisma.userEntity.updateMany({
+      data: {
+        passwordResetToken: null
+      },
+      where: {
+        passwordResetToken: token
+      }
+    })
+
+    return;
   }
 
   async verifyUsername(username: string) {
@@ -578,7 +613,7 @@ export class UsersService {
     const now = new Date();
     const user = await this.prisma.userEntity.update({
       where: { username },
-      data: { password: newPasswordCrypt, lastPasswordUpdateDate: now, passwordResetNeeded: false },
+      data: { password: newPasswordCrypt, lastPasswordUpdateDate: now, passwordResetNeeded: false, passwordResetToken: null },
     });
 
     await this.prisma.userEventsEntity.create({
@@ -592,7 +627,7 @@ export class UsersService {
     return user;
   }
 
-  private emitResetPasswordEmail(email: string, password: string) {
-    this.eventEmitter.emit(RESET_PASSWORD, new ResetPasswordPayload(email, password));
+  private emitResetPasswordEmail(email: string, username: string, passwordResetToken: string) {
+    this.eventEmitter.emit(RESET_PASSWORD, new ResetPasswordPayload(email, username, passwordResetToken));
   }
 }

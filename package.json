@@ -59,6 +59,7 @@
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/serve-static": "^2.2.2",
+    "@nestjs/throttler": "^2.0.0",
     "@ng-select/ng-select": "^7.2.0",
     "@nrwl/angular": "12.5.8",
     "@prisma/client": "^2.29.0",
