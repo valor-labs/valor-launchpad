@@ -23,6 +23,7 @@ import { UsersEventsService } from './users-events.service';
 import { EditUserDto } from './dto/edit-user.dto';
 import { RoleDto } from './dto/role.dto';
 import { TagDto } from './dto/tag.dto';
+import { QueryUserListDto } from './dto/query-user-list.dto';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -69,7 +70,39 @@ export class UsersService {
     return await this.prisma.rolesEntity.findMany() as RolesEntity[];
   }
 
-  async findAll() {
+  async findAll({roles, tags}: QueryUserListDto) {
+    let tagFilter: Prisma.UserEntityWhereInput;
+    if (Array.isArray(tags) && tags.length > 0) {
+      tagFilter = {
+        userTags: {
+          some: {
+            tag_id: { in: tags }
+          }
+        }
+      };
+    } else {
+      // when no tag filter is applied
+      // should return those records which do not have any tag
+      tagFilter = {
+        OR: [
+          {
+            userTags: {
+              some: {
+                tag_id: { in: tags }
+              }
+            }
+          },
+          {
+            userTags: {
+              none: {
+                tag_id: { in: tags }
+              }
+            }
+          }
+        ]
+      }
+    }
+
     return await this.prisma.userEntity.findMany({
       select: {
         id: true,
@@ -100,6 +133,14 @@ export class UsersService {
             createdDate: 'desc'
           }
         }
+      },
+      where: {
+        userRoles: {
+          some: {
+            role_id: { in: roles }
+          }
+        },
+        ...tagFilter,
       }
     });
   }

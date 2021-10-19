@@ -13,6 +13,8 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 import { UserListLine } from '@valor-launchpad/api-interfaces';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'valor-launchpad-users-listing',
@@ -23,7 +25,18 @@ export class UsersListingComponent implements OnInit {
   userForm!: FormGroup;
 
   columns: TableColumn[] = [];
-  users: UserListLine[] = [];
+  roleFilter = new Set<string>(); // role id array
+  tagFilter = new Set<string>(); // tag id array
+  usersRefreshController$ = new BehaviorSubject(true);
+  users$ = this.usersRefreshController$.asObservable().pipe(
+    switchMap(() => {
+      return this.usersListingService.getUsers(
+        Array.from(this.roleFilter),
+        Array.from(this.tagFilter)
+      );
+    })
+  );
+
   addEditVisible = false;
   mode: 'add' | 'edit' | undefined;
   allRoleOptions: { name: string; value: string }[] = [];
@@ -40,6 +53,11 @@ export class UsersListingComponent implements OnInit {
   private historyCell?: TemplateRef<UserListLine>;
   @ViewChild('actionsCell', { static: true })
   private actionsCell?: TemplateRef<UserListLine>;
+
+  @ViewChild('rolesHeader', { static: true })
+  private rolesHeader?: TemplateRef<void>;
+  @ViewChild('tagsHeader', { static: true })
+  private tagsHeader?: TemplateRef<void>;
 
   //TODO verify this after https://github.com/valor-software/valor-launchpad/issues/175 lands
   // @HostListener('document:keydown.escape', ['$event'])
@@ -83,16 +101,27 @@ export class UsersListingComponent implements OnInit {
       firstName: [user.firstName, [Validators.required]],
       lastName: [user.lastName, [Validators.required]],
       email: [user.email, [Validators.required, Validators.email]],
-      roles: [user.userRoles.map(r => ({ name: r.rolesEntity.role, value: r.role_id })), [Validators.required]],
-      tags: [user.userTags.map(r => ({ name: r.tagsEntity.name, id: r.tag_id }))],
+      roles: [
+        user.userRoles.map((r) => ({
+          name: r.rolesEntity.role,
+          value: r.role_id,
+        })),
+        [Validators.required],
+      ],
+      tags: [
+        user.userTags.map((r) => ({ name: r.tagsEntity.name, id: r.tag_id })),
+      ],
     });
     this.addEditVisible = true;
   }
 
   ngOnInit(): void {
+    this.fetchRoles();
+    this.fetchTags();
     const commonDef: Partial<TableColumn> = {
       cellClass: 'd-flex align-items-center p-2',
       headerClass: 'p-2',
+      resizeable: false,
     };
     this.columns = [
       { name: 'First', prop: 'firstName', flexGrow: 1, ...commonDef },
@@ -109,7 +138,9 @@ export class UsersListingComponent implements OnInit {
         cellTemplate: this.rolesCell,
         flexGrow: 1,
         sortable: false,
+        minWidth: 100,
         ...commonDef,
+        headerTemplate: this.rolesHeader,
       },
       {
         name: 'Tags',
@@ -117,6 +148,8 @@ export class UsersListingComponent implements OnInit {
         flexGrow: 1,
         sortable: false,
         ...commonDef,
+        minWidth: 100,
+        headerTemplate: this.tagsHeader,
       },
       {
         name: 'Last Log In',
@@ -158,17 +191,21 @@ export class UsersListingComponent implements OnInit {
 
   fetchTags() {
     this.usersListingService.getTags().subscribe((data) => {
-      this.allTagOptions = data.map(i => ({
+      this.allTagOptions = data.map((i) => ({
         name: i.name,
         id: i.id,
       }));
     });
   }
 
-  fetchUsers() {
-    this.usersListingService.getUsers().subscribe((data) => {
-      this.users = data;
-    });
+  resetAllFilters() {
+    this.roleFilter = new Set();
+    this.tagFilter = new Set();
+    this.fetchUsers();
+  }
+
+  private fetchUsers() {
+    this.usersRefreshController$.next(true);
   }
 
   addUser() {
@@ -229,5 +266,23 @@ export class UsersListingComponent implements OnInit {
     this.usersListingService.resendEmail(id).subscribe((data) => {
       this.fetchUsers();
     });
+  }
+
+  onFilterRole(roleId: string) {
+    if (this.roleFilter.has(roleId)) {
+      this.roleFilter.delete(roleId);
+    } else {
+      this.roleFilter.add(roleId);
+    }
+    this.fetchUsers();
+  }
+
+  onFilterTag(tagId: string) {
+    if (this.tagFilter.has(tagId)) {
+      this.tagFilter.delete(tagId);
+    } else {
+      this.tagFilter.add(tagId);
+    }
+    this.fetchUsers();
   }
 }

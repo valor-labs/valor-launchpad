@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import {UsersService} from './users.service';
 import {RolesGuard} from './roles.guard';
 import {Roles} from './roles.decorator';
@@ -14,7 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { TagsService } from './tags/tags.service';
 import { ThrottlerGuard } from '@nestjs/throttler';
-
+import { QueryUserListDto } from './dto/query-user-list.dto';
 
 @Controller('v1')
 export class UsersController {
@@ -40,8 +40,8 @@ export class UsersController {
 
   @Get('all')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  async getAllUsers(): Promise<UserListLine[]> {
-    return await this.usersService.findAll();
+  async getAllUsers(@Query() query: QueryUserListDto): Promise<UserListLine[]> {
+    return await this.usersService.findAll(query);
   }
 
   @Get('current')

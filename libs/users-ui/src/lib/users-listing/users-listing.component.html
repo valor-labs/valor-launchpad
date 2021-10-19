@@ -4,16 +4,50 @@
     <h2 class="me-auto">All Users</h2>
     <div class="actions">
       <button type="button" class="btn btn-light" (click)="openAdd()">Add User<i class="fas fa-plus ms-2"></i></button>
-      <button type="button" class="btn btn-light" (click)="fetchUsers()"><i class="fas fa-sync"></i></button>
+      <button type="button" class="btn btn-light" (click)="resetAllFilters()"><i class="fas fa-sync"></i></button>
     </div>
   </valor-launchpad-card-header>
   <valor-launchpad-card-content>
     <ngx-datatable
       [columns]="columns"
-      [rows]="users"
+      [rows]="users$ | async"
       [rowHeight]="'auto'"
       columnMode="flex">
     </ngx-datatable>
+
+    <ng-template #rolesHeader>
+      <div class="d-flex justify-content-between">
+        Roles
+        <div class="btn-group" dropdown placement="bottom right" container="body" [insideClick]="true">
+          <div class="cursor-pointer"><span dropdownToggle class="fas fa-filter"></span></div>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+            <li role="menuitem" *ngFor="let role of allRoleOptions" (click)="onFilterRole(role.value)">
+              <a class="dropdown-item d-flex justify-content-between align-items-center">
+                {{role.name}}
+                <i class="fas" [class.fa-check]="roleFilter?.has(role.value)"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #tagsHeader>
+      <div class="d-flex justify-content-between">
+        Tags
+        <div class="btn-group" dropdown placement="bottom right" container="body" [insideClick]="true">
+          <div class="cursor-pointer"><span dropdownToggle class="fas fa-filter"></span></div>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+            <li role="menuitem" *ngFor="let tag of allTagOptions" (click)="onFilterTag(tag.id)">
+              <a class="dropdown-item d-flex justify-content-between align-items-center">
+                {{tag.name}}
+                <i class="fas" [class.fa-check]="tagFilter?.has(tag.id)"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-template>
 
     <ng-template #emailCell let-user="row">
       {{user.email}}

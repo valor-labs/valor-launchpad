@@ -7,6 +7,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
 export const usersUiRoutes: Route[] = [
   {path: 'listing', component: UsersListingComponent},
@@ -21,7 +22,8 @@ export const usersUiRoutes: Route[] = [
     TypeaheadModule,
     NgxDatatableModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    BsDropdownModule,
   ],
   declarations: [
     UsersListingComponent
