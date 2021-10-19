@@ -45,8 +45,8 @@ export class HeaderComponent implements OnInit {
     },
     {
       label: 'Analytics',
-      icon: 'area-chart',
-      link: '#',
+      icon: 'chart-pie',
+      link: '/dashboard-analytics',
       divider: true
     },
     {
