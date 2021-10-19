@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../../profile/profile.service';
 import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
 import { AuthService } from '../../../core/auth/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'valor-launchpad-settings-account',
@@ -663,34 +665,35 @@ export class SettingsAccountComponent implements OnInit {
       this.profile = data;
       this.publicInfoFormGroup = this.fb.group({
         username: data.username,
-        bio: [],
-        avatar: data.avatar,
+        bio: data.bio,
+        avatar: data.avatar
       });
       this.privateInfoFormGroup = this.fb.group({
-        firstName: [],
-        lastName: [],
-        email: [],
-        address: [],
-        address2: [],
-        city: [],
+        firstName: data.user.firstName || '',
+        lastName: data.user.lastName || '',
+        email: data.user.email || '',
+        address: data.location || '',
+        address2: data.address || '',
+        city: data.city || '',
         state: [],
-        zip: [],
-        language: [],
-        locale: [],
-        timezone: [],
+        zip: data.zip,
+        language: data.language || '',
+        locale: data.locale || '',
+        timezone: data.timeZone || ''
       });
     });
   }
 
   savePublicInfo() {
     const updatedPublicProfile = this.publicInfoFormGroup.value;
-    const avatarFile = updatedPublicProfile.avatar;
+    const bio = updatedPublicProfile.bio
+    const avatarFile =  updatedPublicProfile.avatar;
     const profileId = this.profile.id;
     const newUserName = updatedPublicProfile.username;
     const alt = this.profile.avatar.alt;
     this.profileService
-      .updateProfilePublicInfo(avatarFile, profileId, newUserName, alt)
-      .subscribe((res) => {
+      .updateProfilePublicInfo(avatarFile, bio, profileId, newUserName, alt)
+      .subscribe(res => {
         if (typeof res === 'object') {
           this.notyf.success(
             'Update public info success, you will be soon to redirect to sign in page'
@@ -707,7 +710,30 @@ export class SettingsAccountComponent implements OnInit {
   }
 
   savePrivateInfo() {
-    console.log(this.privateInfoFormGroup.value);
+    const updatedPrivateProfile = this.privateInfoFormGroup.value;
+    updatedPrivateProfile['profileId'] = this.profile.id;
+    this.profileService
+    .updateProfilePrivateInfo(updatedPrivateProfile)
+    .pipe(
+      catchError(this.handleError.bind(this))
+    )
+    .subscribe(res => {
+      console.log(res);
+      if (typeof res === 'object') {
+        this.notyf.success('Update private info success');
+        this.initData();
+        // setTimeout(() => {
+        //   this.authService.signOut().subscribe(() => {});
+        // }, 2000);
+      } else {
+        this.notyf.error('Update private info failure');
+        console.warn(res);
+      }
+    });
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    this.notyf.error(error?.error?.message[0]);
   }
 
   onClickAction(): void {

@@ -11,6 +11,7 @@ import cookieParser from 'cookie-parser';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { parseDomain, ParseResultType } from 'parse-domain';
 import { AuthController } from '@valor-launchpad/auth-api';
+// import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 dotenv.config({ path: process.cwd() + '/apps/api/.env' });
 
@@ -81,6 +82,15 @@ async function bootstrap() {
   Logger.log(`Will set cookie to domain: ${cookieDomain}`);
   const authController = app.get(AuthController);
   authController.setCookieDomain(cookieDomain);
+
+  // const config = new DocumentBuilder()
+  //   .setTitle('Cats example')
+  //   .setDescription('The cats API description')
+  //   .setVersion('1.0')
+  //   .addTag('cats')
+  //   .build();
+  // const document = SwaggerModule.createDocument(app, config);
+  // SwaggerModule.setup('api', app, document);
 
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {
