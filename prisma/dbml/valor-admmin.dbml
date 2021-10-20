@@ -1,0 +1,622 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table ActivityEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  timestamp DateTime [not null]
+  type String [not null]
+  name String [not null]
+  avatar String [not null]
+  url String
+  body String
+  reactions Json
+  profile_id String
+  parentId String
+  parent ActivityEntity
+  profile ProfileEntity
+  children ActivityEntity [not null]
+}
+
+Table CommentEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  author_id String [not null]
+  author UserEntity [not null]
+  body String [not null]
+  reactions Json
+  project_id String
+  parentId String
+  storyId String
+  story SocialStory
+  CommentEntity CommentEntity
+  ProjectsEntity ProjectsEntity
+  children CommentEntity [not null]
+}
+
+Table ProfileEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  name String [not null]
+  avatar MediaAsset
+  username String [unique, not null]
+  user UserEntity [not null]
+  title String
+  location String
+  from String
+  employers ProfileEmployerEntity [not null]
+  socialMedia SocialMediaMatchingEntity [not null]
+  skills ProfileSkillsEntity [not null]
+  activityEntity ActivityEntity [not null]
+}
+
+Table ProfileSkillsEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  profileId String [not null]
+  profile ProfileEntity [not null]
+  skillsId String [not null]
+  skill SkillsEntity [not null]
+}
+
+Table SkillsEntity {
+  id String [pk]
+  name String [unique, not null]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  profiles ProfileSkillsEntity [not null]
+}
+
+Table SocialMediaEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  icon String [not null]
+  baseUrl String [not null]
+  name String [not null]
+  platformUsers SocialMediaMatchingEntity [not null]
+}
+
+Table SocialMediaMatchingEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  profileId String
+  socialMediaId String [not null]
+  socialMediaUrl String [not null]
+  employerId String
+  profile ProfileEntity
+  socialMedia SocialMediaEntity [not null]
+  employer EmployerEntity
+}
+
+Table EmployerEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  name String
+  url String
+  avatar String
+  profiles ProfileEmployerEntity [not null]
+  socialMedia SocialMediaMatchingEntity [not null]
+}
+
+Table ProfileEmployerEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  current Boolean
+  employerId String [not null]
+  employer EmployerEntity [not null]
+  profileId String [not null]
+  profile ProfileEntity [not null]
+}
+
+Table ProjectsEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  title String [not null]
+  body String [not null]
+  status ProjectStatus
+  deletable Boolean [not null, default: true]
+  cloneable Boolean [not null, default: true]
+  progress Int
+  rollupData Json
+  assignee ProjectsAssigneeEntity [not null]
+  comments CommentEntity [not null]
+  hero MediaAsset
+  summary ProjectSummaryEntity
+}
+
+Table ProjectSummaryEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  endDate DateTime
+  startDate DateTime
+  project_id String [unique, not null]
+  project ProjectsEntity [not null]
+  reporting_user_id String [not null]
+  reporter UserEntity [not null]
+  budget Int
+  logged String
+  estimated String
+}
+
+Table ProjectsAssigneeEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  projectsId String [not null]
+  project ProjectsEntity [not null]
+  userId String [not null]
+  user UserEntity [not null]
+}
+
+Table RolesEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  role String [unique, not null]
+  userRoles UserRolesEntity [not null]
+  RoleMenusEntity RoleMenusEntity [not null]
+}
+
+Table UserEntity {
+  id String [pk]
+  username String [unique, not null]
+  email String [not null]
+  password String [not null]
+  firstName String [not null]
+  lastName String [not null]
+  passwordResetNeeded Boolean
+  passwordResetToken String [unique]
+  lastPasswordUpdateDate DateTime
+  emailVerified Boolean [not null, default: false]
+  emailVerifyToken String [unique]
+  phone String
+  phoneVerifyToken String
+  suspended Boolean [not null, default: false]
+  lastLogin DateTime
+  deletedDate DateTime
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  userHistory UserEventsEntity [not null]
+  userActivity UserEventsEntity [not null]
+  userRoles UserRolesEntity [not null]
+  userTags UserTagsEntity [not null]
+  projects ProjectsAssigneeEntity [not null]
+  reportedProjects ProjectSummaryEntity [not null]
+  comments CommentEntity [not null]
+  avatar MediaAsset
+  profile ProfileEntity
+  socialUserFollower SocialUserFollower [not null]
+  socialUserFollowing SocialUserFollower [not null]
+  socialStory SocialStory [not null]
+  socialStoryUserLike SocialStoryUserLike [not null]
+  socialActivities SocialActivity [not null]
+  socialActivitiesAsTarget SocialActivity [not null]
+  appointments Appointment [not null]
+}
+
+Table UserEventsEntity {
+  id String [pk]
+  event String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  target_user_id String
+  acting_user_id String
+  targetUser UserEntity
+  actingUser UserEntity
+}
+
+Table UserRolesEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  role_id String [not null]
+  rolesEntity RolesEntity [not null]
+  user_id String [not null]
+  userEntity UserEntity [not null]
+
+  indexes {
+    (user_id, role_id) [unique]
+  }
+}
+
+Table UserTagsEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  user_id String [not null]
+  userEntity UserEntity [not null]
+  tag_id String [not null]
+  tagsEntity TagsEntity [not null]
+
+  indexes {
+    (user_id, tag_id) [unique]
+  }
+}
+
+Table TagsEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  name String [unique, not null]
+  userTags UserTagsEntity [not null]
+}
+
+Table MediaAsset {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  type String [not null]
+  src String [not null]
+  src_webp String
+  alt String [not null]
+  profile_id String [unique]
+  project_id String [unique]
+  user_id String [unique]
+  story_id String
+  profile ProfileEntity
+  project ProjectsEntity
+  user UserEntity
+  story SocialStory
+
+  indexes {
+    (src, alt) [unique]
+    (profile_id, alt) [unique]
+    (project_id, alt) [unique]
+    (story_id, alt) [unique]
+  }
+}
+
+Table MenusEntity {
+  id String [pk]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime [not null]
+  deletedDate DateTime
+  key String [unique, not null]
+  name String [not null]
+  isMega Boolean [not null]
+  route String
+  icon String
+  parentId String
+  parentMenu MenusEntity
+  Menu MenusEntity [not null]
+  RoleMenusEntity RoleMenusEntity [not null]
+}
+
+Table RoleMenusEntity {
+  id String [pk]
+  roleId String [not null]
+  menuId String [not null]
+  rolesEntity RolesEntity [not null]
+  menusEntity MenusEntity [not null]
+
+  indexes {
+    (roleId, menuId) [unique]
+  }
+}
+
+Table SocialUserFollower {
+  id String [pk]
+  userId String [not null]
+  followerId String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  user UserEntity [not null]
+  follower UserEntity [not null]
+
+  indexes {
+    (userId, followerId) [unique]
+  }
+}
+
+Table SocialStory {
+  id String [pk]
+  userId String [not null]
+  user UserEntity [not null]
+  content String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  mediaAsset MediaAsset [not null]
+  socialStoryUserLike SocialStoryUserLike [not null]
+  comments CommentEntity [not null]
+  activities SocialActivity [not null]
+}
+
+Table SocialStoryUserLike {
+  id String [pk]
+  storyId String [not null]
+  userId String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  story SocialStory [not null]
+  user UserEntity [not null]
+
+  indexes {
+    (storyId, userId) [unique]
+  }
+}
+
+Table SocialActivity {
+  id Int [pk, increment]
+  operatorId String [not null]
+  operatorFullName String [not null]
+  operatorAvatarSrc String [not null]
+  action SocialActivityAction [not null]
+  targetUserId String
+  targetUserFullName String
+  targetUserAvatarSrc String
+  storyId String
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  operator UserEntity [not null]
+  targetUser UserEntity
+  story SocialStory
+}
+
+Table CryptoMainInfo {
+  id Int [pk, increment]
+  title String [not null]
+  price Decimal [not null]
+  priceByUS Decimal [not null]
+  volume Decimal [not null]
+  change Decimal [not null]
+}
+
+Table CryptoMarkets {
+  id Int [pk, increment]
+  coin String [not null]
+  price Decimal [not null]
+  volume Decimal [not null]
+  change Decimal [not null]
+}
+
+Table CryptoOrders {
+  id Int [pk, increment]
+  type CryptoOrderType [not null]
+  price Decimal [not null]
+  eth Decimal [not null]
+  btc Decimal [not null]
+  sum Decimal [not null]
+}
+
+Table CryptoValueHistory {
+  id Int [pk, increment]
+  date DateTime [not null]
+  open Decimal [not null]
+  close Decimal [not null]
+  high Decimal [not null]
+  low Decimal [not null]
+}
+
+Table City {
+  id String [pk]
+  cityName String [not null]
+  longitude Float [not null]
+  latitude Float [not null]
+  analytics AnalyticByCity [not null]
+}
+
+Table Language {
+  id String [pk]
+  language String [unique, not null]
+  analytics AnalyticByLanguage [not null]
+}
+
+Table AnalyticOverview {
+  id String [pk]
+  date DateTime [not null]
+  bounce Decimal [not null]
+  bounceRatio Decimal [not null]
+  realTime Decimal [not null]
+  realTimeRatio Decimal [not null]
+  visitors Decimal [not null]
+  visitorsRatio Decimal [not null]
+}
+
+Table AnalyticByCity {
+  id String [pk]
+  date DateTime [not null]
+  cityId String [not null]
+  value Int [not null]
+  city City [not null]
+}
+
+Table AnalyticByLanguage {
+  id String [pk]
+  date DateTime [not null]
+  languageId String [not null]
+  value Int [not null]
+  language Language [not null]
+}
+
+Table AnalyticByPlatformMonthly {
+  id String [pk]
+  month DateTime [not null]
+  mobile Int [not null]
+  desktop Int [not null]
+}
+
+Table AnalyticByInterest {
+  id String [pk]
+  date DateTime [not null]
+  interest String [not null]
+  percentage Int [not null]
+}
+
+Table AnalyticRevenueBySource {
+  id String [pk]
+  date DateTime [not null]
+  source String [not null]
+  revenue Int [not null]
+}
+
+Table AnalyticByTraffic {
+  id String [pk]
+  date DateTime [not null]
+  source String [not null]
+  userCount Int [not null]
+  sessionCount Int [not null]
+  bounceRate Decimal [not null]
+  sessionDuration Int [not null, note: 'unit: seconds']
+}
+
+Table DashboardDefaultOverview {
+  id String [pk]
+  date DateTime [not null]
+  totalEarnings Decimal [not null]
+  pendingOrders Int [not null]
+  totalRevenue Decimal [not null]
+}
+
+Table DashboardDefaultMonthlyRevenue {
+  id String [pk]
+  month DateTime [not null]
+  revenue Decimal [not null]
+}
+
+Table DashboardDefaultDailyRevenue {
+  id String [pk]
+  date DateTime [not null]
+  source String [not null]
+  revenue Decimal [not null]
+}
+
+Table Appointment {
+  id String [pk]
+  userId String [not null]
+  title String [not null]
+  content String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  user UserEntity [not null]
+}
+
+Enum ProjectStatus {
+  IN_PROGRESS
+  FINISHED
+  ON_HOLD
+}
+
+Enum SocialActivityAction {
+  FOLLOWED
+  UNFOLLOWED
+  POST_STORY
+  LIKED_STORY
+  UNLIKED_STORY
+}
+
+Enum CryptoOrderType {
+  BUY
+  SELL
+}
+
+Ref: ActivityEntity.parentId - ActivityEntity.id
+
+Ref: ActivityEntity.profile_id > ProfileEntity.id
+
+Ref: CommentEntity.author_id > UserEntity.id
+
+Ref: CommentEntity.storyId > SocialStory.id
+
+Ref: CommentEntity.parentId - CommentEntity.id
+
+Ref: CommentEntity.project_id > ProjectsEntity.id
+
+Ref: ProfileEntity.username - UserEntity.username
+
+Ref: ProfileSkillsEntity.profileId > ProfileEntity.id
+
+Ref: ProfileSkillsEntity.skillsId > SkillsEntity.id
+
+Ref: SocialMediaMatchingEntity.profileId > ProfileEntity.id
+
+Ref: SocialMediaMatchingEntity.socialMediaId > SocialMediaEntity.id
+
+Ref: SocialMediaMatchingEntity.employerId > EmployerEntity.id
+
+Ref: ProfileEmployerEntity.employerId > EmployerEntity.id
+
+Ref: ProfileEmployerEntity.profileId > ProfileEntity.id
+
+Ref: ProjectSummaryEntity.project_id - ProjectsEntity.id
+
+Ref: ProjectSummaryEntity.reporting_user_id > UserEntity.id
+
+Ref: ProjectsAssigneeEntity.projectsId > ProjectsEntity.id
+
+Ref: ProjectsAssigneeEntity.userId > UserEntity.id
+
+Ref: UserEventsEntity.target_user_id > UserEntity.id
+
+Ref: UserEventsEntity.acting_user_id > UserEntity.id
+
+Ref: UserRolesEntity.role_id > RolesEntity.id
+
+Ref: UserRolesEntity.user_id > UserEntity.id
+
+Ref: UserTagsEntity.user_id > UserEntity.id
+
+Ref: UserTagsEntity.tag_id > TagsEntity.id
+
+Ref: MediaAsset.profile_id - ProfileEntity.id
+
+Ref: MediaAsset.project_id - ProjectsEntity.id
+
+Ref: MediaAsset.user_id - UserEntity.id
+
+Ref: MediaAsset.story_id > SocialStory.id
+
+Ref: MenusEntity.parentId - MenusEntity.id
+
+Ref: RoleMenusEntity.roleId > RolesEntity.id
+
+Ref: RoleMenusEntity.menuId > MenusEntity.id
+
+Ref: SocialUserFollower.userId > UserEntity.id
+
+Ref: SocialUserFollower.followerId > UserEntity.id
+
+Ref: SocialStory.userId > UserEntity.id
+
+Ref: SocialStoryUserLike.storyId > SocialStory.id
+
+Ref: SocialStoryUserLike.userId > UserEntity.id
+
+Ref: SocialActivity.operatorId > UserEntity.id
+
+Ref: SocialActivity.targetUserId > UserEntity.id
+
+Ref: SocialActivity.storyId > SocialStory.id
+
+Ref: AnalyticByCity.cityId > City.id
+
+Ref: AnalyticByLanguage.languageId > Language.id
+
+Ref: Appointment.userId > UserEntity.id
