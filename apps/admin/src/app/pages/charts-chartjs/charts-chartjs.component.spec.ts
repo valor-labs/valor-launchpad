@@ -8,9 +8,8 @@ describe('ChartsChartjsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChartsChartjsComponent ]
-    })
-    .compileComponents();
+      declarations: [ChartsChartjsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

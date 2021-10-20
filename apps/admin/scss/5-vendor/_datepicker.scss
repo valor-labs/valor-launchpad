@@ -1,7 +1,6 @@
 @import '~ngx-bootstrap/datepicker/utils/scss/variables';
 @import '~ngx-bootstrap/datepicker/utils/scss/mixins';
 
-
 bs-datepicker-inline-container {
   width: 100%;
 }
@@ -17,14 +16,14 @@ bs-datepicker-inline-container {
       height: 50px;
       padding: 10px;
       text-align: justify;
-  
+
       &:after {
-        content: "";
+        content: '';
         display: inline-block;
         vertical-align: top;
         width: 100%;
       }
-  
+
       /* .bs-datepicker-head button */
       button {
         color: $gray-600;
@@ -38,7 +37,7 @@ bs-datepicker-inline-container {
         text-align: center;
         cursor: pointer;
         transition: 0.3s;
-  
+
         &[disabled],
         &[disabled]:hover,
         &[disabled]:active {
@@ -46,12 +45,12 @@ bs-datepicker-inline-container {
           color: $disabled-color;
           cursor: not-allowed;
         }
-  
+
         &.next,
         &.previous {
           width: 30px;
           height: 30px;
-  
+
           span {
             font-size: 28px;
             line-height: 1;
@@ -61,26 +60,26 @@ bs-datepicker-inline-container {
             width: 100%;
           }
         }
-  
+
         &.current {
           max-width: 155px;
           padding: 0 13px;
         }
       }
     }
-  
+
     &-head {
       button {
         &:hover {
           background-color: rgba(0, 0, 0, 0.1);
         }
-  
+
         &:active {
           background-color: rgba(0, 0, 0, 0.2);
         }
       }
     }
-  
+
     .bs-datepicker-body {
       border-color: $gray-100;
       table {
@@ -88,20 +87,20 @@ bs-datepicker-inline-container {
         border-collapse: separate;
         border-spacing: 0;
         color: $gray-600;
-  
+
         th {
           font-size: 13px;
           color: $font-color-02;
           font-weight: 400;
           text-align: center;
         }
-  
+
         td {
           color: $gray-600;
           text-align: center;
           position: relative;
           padding: 0;
-  
+
           span {
             display: block;
             margin: 0 auto;
@@ -111,58 +110,58 @@ bs-datepicker-inline-container {
             -webkit-user-select: none;
             -ms-user-select: none;
           }
-  
+
           // todo: check first :not(.disabled) usage
           &:not(.disabled):not(.week) span:not(.disabled):not(.is-other-month) {
             cursor: pointer;
           }
-  
+
           &.is-highlighted:not(.disabled):not(.selected) span,
           span.is-highlighted:not(.disabled):not(.selected) {
             background-color: $highlighted;
             transition: 0s;
           }
-  
+
           &.is-active-other-month:not(.disabled):not(.selected) span,
           span.is-active-other-month:not(.disabled):not(.selected) {
             background-color: $highlighted;
             transition: 0s;
             cursor: pointer;
           }
-  
+
           span.disabled,
           &.disabled span {
             color: $font-color-02;
           }
-  
+
           span.selected,
           &.selected span {
             color: $font-color-01;
-            background-color: #3F80EA !important;
+            background-color: #3f80ea !important;
           }
-  
+
           span.is-other-month,
           &.is-other-month span {
             color: $gray-200;
           }
-  
+
           &.active {
             position: relative;
-  
+
             &.select-start:before {
               left: 35%;
             }
-  
+
             &.select-end:before {
               left: -85%;
             }
           }
-  
+
           span.active.select-start:after,
           span.active.select-end:after,
           &.active.select-start span:after,
           &.active.select-end span:after {
-            content: "";
+            content: '';
             display: block;
             position: absolute;
             z-index: -1;
@@ -171,10 +170,10 @@ bs-datepicker-inline-container {
             transition: 0.3s;
             top: 0;
           }
-  
+
           &:before,
           span:before {
-            content: "";
+            content: '';
             display: block;
             position: absolute;
             z-index: -1;
@@ -185,22 +184,22 @@ bs-datepicker-inline-container {
             box-sizing: content-box;
             background: transparent;
           }
-  
+
           &.active.select-start + td.active:before {
             left: -20%;
           }
-  
+
           &:last-child.active:before {
             width: 125%;
             left: -25%;
           }
-  
-          span[class*="select-"],
-          &[class*="select-"] span {
+
+          span[class*='select-'],
+          &[class*='select-'] span {
             color: $font-color-01;
           }
         }
-  
+
         /* .bs-datepicker-body table.days */
         &.days {
           td,
@@ -210,27 +209,27 @@ bs-datepicker-inline-container {
               background: $highlighted;
             }
           }
-  
+
           span {
             width: 32px;
             height: 32px;
             line-height: 32px;
-  
+
             &.select-start {
               z-index: 2;
             }
-  
+
             &.is-highlighted.in-range:before {
               right: 3px;
               left: 0;
             }
-  
+
             &.in-range.select-end:before {
               right: 4px;
               left: 0;
             }
           }
-  
+
           td {
             &.select-start + td.select-end:before,
             &.select-start + td.is-highlighted:before,
@@ -243,7 +242,7 @@ bs-datepicker-inline-container {
             }
           }
         }
-  
+
         /* .bs-datepicker-body table.weeks */
         &.weeks {
           tr {
@@ -255,7 +254,7 @@ bs-datepicker-inline-container {
             }
           }
         }
-  
+
         &:not(.weeks) {
           tr {
             td {
@@ -264,7 +263,7 @@ bs-datepicker-inline-container {
             }
           }
         }
-  
+
         &.years {
           td {
             span {
@@ -274,7 +273,7 @@ bs-datepicker-inline-container {
               margin: 0 auto;
             }
           }
-  
+
           tr:not(:last-child) {
             td {
               span {
@@ -283,11 +282,11 @@ bs-datepicker-inline-container {
             }
           }
         }
-  
+
         &.months {
           td {
             height: 52px;
-  
+
             span {
               padding: 6px;
             }
@@ -295,8 +294,8 @@ bs-datepicker-inline-container {
         }
       }
     }
-  
-    &-container{
+
+    &-container {
       width: 100%;
       bs-days-calendar-view,
       bs-month-calendar-view,

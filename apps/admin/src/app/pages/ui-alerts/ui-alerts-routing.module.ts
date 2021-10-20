@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {UiAlertsComponent} from "./ui-alerts.component";
+import { UiAlertsComponent } from './ui-alerts.component';
 
 const routes: Routes = [
   {
-    path:'', component: UiAlertsComponent
-  }
+    path: '',
+    component: UiAlertsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UiAlertsRoutingModule { }
+export class UiAlertsRoutingModule {}

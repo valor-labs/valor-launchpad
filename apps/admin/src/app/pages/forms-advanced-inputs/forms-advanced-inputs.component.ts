@@ -67,7 +67,7 @@ export class FormsAdvancedInputsComponent implements OnInit {
   ];
   withTimepickerConfig: Partial<BsDaterangepickerConfig> = {
     withTimepicker: true,
-    rangeInputFormat : 'MM/DD/YYYY, h:mm a',
+    rangeInputFormat: 'MM/DD/YYYY, h:mm a',
   };
   ranges: BsCustomDates[] = [
     {

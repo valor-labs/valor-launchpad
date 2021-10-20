@@ -49,14 +49,14 @@ export class ProfileService {
 
   updateProfileName(profileId, newName: string) {
     return this.prisma.profileEntity.update({
-      where: {id: profileId},
+      where: { id: profileId },
       data: {
         user: {
           update: {
-            username: newName
-          }
-        }
-      }
+            username: newName,
+          },
+        },
+      },
     });
   }
 }

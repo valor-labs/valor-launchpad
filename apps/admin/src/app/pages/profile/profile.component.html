@@ -12,47 +12,75 @@
             [src]="profile.avatar?.src || 'assets/img/avatars/avatar.jpg'"
             size="xxl"
             classes="mb-2 img-fluid"
-            [alt]="profile.avatar?.alt">
+            [alt]="profile.avatar?.alt"
+          >
           </valor-launchpad-avatar>
-          <h5 class="card-title mb-0">{{profile.name}}</h5>
-          <div class="text-muted mb-2">{{profile.title}}</div>
+          <h5 class="card-title mb-0">{{ profile.name }}</h5>
+          <div class="text-muted mb-2">{{ profile.title }}</div>
           <div>
-            <button valor-launchpad-button size="sm" *ngIf="!profile.following" (click)="follow(profile.username)">Follow</button>
-            <button valor-launchpad-button size="sm" [outlined]="true" *ngIf="profile.following" (click)="unfollow(profile.username)">Unfollow</button>
+            <button
+              valor-launchpad-button
+              size="sm"
+              *ngIf="!profile.following"
+              (click)="follow(profile.username)"
+            >
+              Follow
+            </button>
+            <button
+              valor-launchpad-button
+              size="sm"
+              [outlined]="true"
+              *ngIf="profile.following"
+              (click)="unfollow(profile.username)"
+            >
+              Unfollow
+            </button>
             <button valor-launchpad-button size="sm">
               <i class="align-middle me-2 fas fa-fw fa-comment-alt"></i>Message
             </button>
           </div>
         </div>
-        <hr class="my-0"/>
+        <hr class="my-0" />
         <div class="m-3">
           <h5 class="h6 card-title">Skills</h5>
-          <span valor-launchpad-badge class="me-1 my-1" *ngFor="let skill of profile.skills">{{skill.skill.name}}</span>
+          <span
+            valor-launchpad-badge
+            class="me-1 my-1"
+            *ngFor="let skill of profile.skills"
+            >{{ skill.skill.name }}</span
+          >
         </div>
-        <hr class="my-0"/>
+        <hr class="my-0" />
         <div class="m-3">
           <h5 class="h6 card-title">About</h5>
           <ul class="list-unstyled mb-0">
             <li class="mb-1">
-              <i class="fas fa-fw fa-home me-1"></i> Lives in<a href="#"> {{profile.location}}</a>
+              <i class="fas fa-fw fa-home me-1"></i> Lives in<a href="#">
+                {{ profile.location }}</a
+              >
             </li>
 
             <li class="mb-1">
               <i class="feather-sm me-1 fas fa-fw fa-briefcase"></i> Works at
-              <a [href]="profile.employers[0]?.employer.url" target="_blank"> {{profile.employers[0]?.employer.name}}</a>
+              <a [href]="profile.employers[0]?.employer.url" target="_blank">
+                {{ profile.employers[0]?.employer.name }}</a
+              >
             </li>
             <li class="mb-1">
-              <i class="feather-sm me-1 fas fa-fw fa-map-pin"></i> From <a href="#">{{profile.from}}</a>
+              <i class="feather-sm me-1 fas fa-fw fa-map-pin"></i> From
+              <a href="#">{{ profile.from }}</a>
             </li>
           </ul>
         </div>
-        <hr class="my-0"/>
+        <hr class="my-0" />
         <div class="m-3">
           <h5 class="h6 card-title">Elsewhere</h5>
           <ul class="list-unstyled mb-0">
             <li class="mb-1" *ngFor="let social of profile.socialMedia">
               <span class="me-1" [ngClass]="social.socialMedia.icon"></span>
-              <a [href]="social.socialMediaUrl" target="_blank">{{social.socialMedia.name}}</a>
+              <a [href]="social.socialMediaUrl" target="_blank">{{
+                social.socialMedia.name
+              }}</a>
             </li>
           </ul>
         </div>
@@ -66,23 +94,28 @@
         <div class="card-actions float-end">
           <valor-launchpad-dropdown>
             <span dropdown-nav><i class="fas fa-fw fa-ellipsis-h"></i></span>
-            <valor-launchpad-dropdown-actions-menu [actions]="actions"></valor-launchpad-dropdown-actions-menu>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="actions"
+            ></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">Activities</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content class="h-100">
         <ng-container *ngIf="activities$ | async; let activities">
-          <ng-container *ngFor='let activity of activities.results'>
-            <valor-launchpad-social-activity  [activity]='activity'></valor-launchpad-social-activity>
+          <ng-container *ngFor="let activity of activities.results">
+            <valor-launchpad-social-activity
+              [activity]="activity"
+            ></valor-launchpad-social-activity>
             <hr />
           </ng-container>
           <button
             *ngIf="activities.hasNext; else arrivedBottom"
             valor-launchpad-button
             [loading]="loadingMore"
-            class='w-100'
-            (click)="loadMoreActivities(activities.stopAt)">
+            class="w-100"
+            (click)="loadMoreActivities(activities.stopAt)"
+          >
             Load More
           </button>
           <ng-template #arrivedBottom>

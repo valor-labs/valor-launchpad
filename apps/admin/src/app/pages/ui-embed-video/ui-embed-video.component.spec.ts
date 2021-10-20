@@ -8,9 +8,8 @@ describe('UiEmbedVideoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiEmbedVideoComponent ]
-    })
-    .compileComponents();
+      declarations: [UiEmbedVideoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -3,9 +3,8 @@ import { DashboardCryptoController } from './dashboard-crypto.controller';
 import { DashboardCryptoService } from './dashboard-crypto.service';
 import { PrismaService } from '@valor-launchpad/prisma';
 
-
 @Module({
   controllers: [DashboardCryptoController],
-  providers: [PrismaService, DashboardCryptoService]
+  providers: [PrismaService, DashboardCryptoService],
 })
 export class DashboardCryptoModule {}

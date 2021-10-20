@@ -11,9 +11,8 @@ describe('CustomizationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomizationComponent ]
-    })
-    .compileComponents();
+      declarations: [CustomizationComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

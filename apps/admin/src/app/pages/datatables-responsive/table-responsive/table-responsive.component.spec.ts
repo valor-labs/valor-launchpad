@@ -8,9 +8,8 @@ describe('TableResponsiveComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TableResponsiveComponent ]
-    })
-    .compileComponents();
+      declarations: [TableResponsiveComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

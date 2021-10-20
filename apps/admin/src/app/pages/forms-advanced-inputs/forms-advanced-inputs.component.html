@@ -16,7 +16,8 @@
             bindValue="value"
             groupBy="timezone"
             [items]="countries"
-            placeholder="Select country">
+            placeholder="Select country"
+          >
             <ng-template ng-optgroup-tmp let-item="item">
               {{ item.timezone }}
             </ng-template>
@@ -30,7 +31,8 @@
             groupBy="timezone"
             [items]="countries"
             [multiple]="true"
-            placeholder="Select countries">
+            placeholder="Select countries"
+          >
             <ng-template ng-optgroup-tmp let-item="item">
               {{ item.timezone }}
             </ng-template>
@@ -43,7 +45,8 @@
             bindValue="value"
             [items]="optionsWithDisabled"
             [multiple]="true"
-            placeholder="Select value">
+            placeholder="Select value"
+          >
           </ng-select>
         </div>
       </valor-launchpad-card-content>
@@ -67,7 +70,8 @@
                 type="text"
                 placeholder="DateRangepicker"
                 valorLaunchpadInput
-                bsDaterangepicker />
+                bsDaterangepicker
+              />
             </valor-launchpad-form-item>
           </div>
 
@@ -80,7 +84,8 @@
                 valorLaunchpadInput
                 bsDaterangepicker
                 placement="bottom right"
-                [bsConfig]="withTimepickerConfig"/>
+                [bsConfig]="withTimepickerConfig"
+              />
             </valor-launchpad-form-item>
           </div>
 
@@ -91,7 +96,8 @@
                 type="text"
                 placeholder="Datepicker"
                 valorLaunchpadInput
-                bsDatepicker />
+                bsDatepicker
+              />
             </valor-launchpad-form-item>
           </div>
 
@@ -104,7 +110,8 @@
                 valorLaunchpadInput
                 bsDaterangepicker
                 placement="bottom right"
-                [bsConfig]="{ranges: ranges}" />
+                [bsConfig]="{ ranges: ranges }"
+              />
             </valor-launchpad-form-item>
           </div>
         </div>
@@ -132,7 +139,8 @@
                 type="text"
                 [mask]="'00/00/0000'"
                 autocomplete="off"
-                maxlength="10" />
+                maxlength="10"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "HH:MM:SS"'>
               <label>Hour</label>
@@ -141,7 +149,8 @@
                 type="text"
                 mask="00:00:00"
                 autocomplete="off"
-                maxlength="8" />
+                maxlength="8"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "DD/MM/YYYY HH:MM:SS"'>
               <label>Date & Hour</label>
@@ -150,7 +159,8 @@
                 type="text"
                 mask="00/00/0000 00:00:00"
                 autocomplete="off"
-                maxlength="19" />
+                maxlength="19"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "xxxxx-xxx"'>
               <label>ZIP Code</label>
@@ -159,7 +169,8 @@
                 type="text"
                 mask="00000-000"
                 autocomplete="off"
-                maxlength="9" />
+                maxlength="9"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "x-xx-xx-xx"'>
               <label>Crazy Zip Code</label>
@@ -168,7 +179,8 @@
                 type="text"
                 mask="0-00-00-00"
                 autocomplete="off"
-                maxlength="10" />
+                maxlength="10"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "Your money"'>
               <label>Money</label>
@@ -178,7 +190,8 @@
                 mask="separator.2"
                 thousandSeparator=","
                 autocomplete="off"
-                maxlength="22" />
+                maxlength="22"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "#.##0,00"'>
               <label>Money 2</label>
@@ -186,7 +199,8 @@
                 valorLaunchpadInput
                 type="text"
                 mask="0.000,00"
-                autocomplete="off" />
+                autocomplete="off"
+              />
             </valor-launchpad-form-item>
           </div>
           <div valorLaunchpadCol [span]="12" [lg]="6">
@@ -197,7 +211,8 @@
                 type="text"
                 mask="0000-0000"
                 autocomplete="off"
-                maxlength="9" />
+                maxlength="9"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "(xx) xxxx-xxxx"'>
               <label>Telephone with Code Area</label>
@@ -206,7 +221,8 @@
                 type="text"
                 mask="(00) 0000-0000"
                 autocomplete="off"
-                maxlength="14" />
+                maxlength="14"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "(xxx) xxx-xxxx"'>
               <label>US Telephone</label>
@@ -215,7 +231,8 @@
                 type="text"
                 mask="(000) 000-0000"
                 autocomplete="off"
-                maxlength="14" />
+                maxlength="14"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "(xx) xxxxx-xxxx"'>
               <label>São Paulo Celphones</label>
@@ -224,7 +241,8 @@
                 type="text"
                 mask="(00) 00000-0000"
                 autocomplete="off"
-                maxlength="15" />
+                maxlength="15"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "xxx.xxx.xxxx-xx"'>
               <label>CPF</label>
@@ -234,7 +252,8 @@
                 mask="000.000.000-00"
                 data-reverse="true"
                 autocomplete="off"
-                maxlength="14" />
+                maxlength="14"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "xx.xxx.xxx/xxxx-xx"'>
               <label>CNPJ</label>
@@ -244,7 +263,8 @@
                 mask="00.000.000/0000-00"
                 data-reverse="true"
                 autocomplete="off"
-                maxlength="18" />
+                maxlength="18"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item helpTip='e.g "xxx.xxx.xxx.xxx"'>
               <label>IP Address</label>
@@ -254,7 +274,8 @@
                 mask="099.099.099.099"
                 data-reverse="true"
                 autocomplete="off"
-                maxlength="15" />
+                maxlength="15"
+              />
             </valor-launchpad-form-item>
           </div>
         </div>

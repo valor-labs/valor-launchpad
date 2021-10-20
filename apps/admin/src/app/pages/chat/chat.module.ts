@@ -6,16 +6,12 @@ import { ChatComponent } from './chat.component';
 import { ValorLaunchpadMessengerComponent } from './valor-launchpad-messenger/valor-launchpad-messenger.component';
 import { ValorLaunchpadMessageComponent } from './valor-launchpad-message/valor-launchpad-message.component';
 
-
 @NgModule({
   declarations: [
     ChatComponent,
     ValorLaunchpadMessengerComponent,
-    ValorLaunchpadMessageComponent
+    ValorLaunchpadMessageComponent,
   ],
-  imports: [
-    CommonModule,
-    ChatRoutingModule
-  ]
+  imports: [CommonModule, ChatRoutingModule],
 })
-export class ChatModule { }
+export class ChatModule {}

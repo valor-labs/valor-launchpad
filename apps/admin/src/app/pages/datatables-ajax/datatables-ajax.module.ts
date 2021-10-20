@@ -6,15 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UiModule } from '@valor-launchpad/ui';
 @NgModule({
-  declarations: [
-    DatatablesAjaxComponent
-  ],
+  declarations: [DatatablesAjaxComponent],
   imports: [
     CommonModule,
     DatatablesAjaxRoutingModule,
     NgxDatatableModule,
     FormsModule,
-    UiModule
-  ]
+    UiModule,
+  ],
 })
-export class DatatablesAjaxModule { }
+export class DatatablesAjaxModule {}

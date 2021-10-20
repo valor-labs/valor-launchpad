@@ -1,6 +1,6 @@
-@import "app";
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
+@import 'app';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
 
 @each $color, $value in $theme-colors {
   .color-#{$color} {

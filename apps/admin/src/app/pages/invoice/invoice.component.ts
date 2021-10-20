@@ -19,7 +19,7 @@ export class InvoiceComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private _doc: Document,
     private renderer: Renderer2,
-    private invoiceService: InvoiceService,
+    private invoiceService: InvoiceService
   ) {}
 
   ngOnInit(): void {}

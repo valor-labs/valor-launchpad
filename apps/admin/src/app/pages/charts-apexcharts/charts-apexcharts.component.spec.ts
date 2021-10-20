@@ -8,9 +8,8 @@ describe('ChartsApexchartsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChartsApexchartsComponent ]
-    })
-    .compileComponents();
+      declarations: [ChartsApexchartsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

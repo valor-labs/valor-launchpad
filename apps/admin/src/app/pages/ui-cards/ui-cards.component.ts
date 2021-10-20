@@ -3,13 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'valor-launchpad-ui-cards',
   templateUrl: './ui-cards.component.html',
-  styleUrls: ['./ui-cards.component.scss']
+  styleUrls: ['./ui-cards.component.scss'],
 })
 export class UiCardsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

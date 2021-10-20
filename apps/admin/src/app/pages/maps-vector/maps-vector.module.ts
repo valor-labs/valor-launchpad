@@ -6,15 +6,8 @@ import { MapsVectorRoutingModule } from './maps-vector-routing.module';
 
 import { MapsVectorComponent } from './maps-vector.component';
 
-
 @NgModule({
-  declarations: [
-    MapsVectorComponent
-  ],
-  imports: [
-    CommonModule,
-    MapsVectorRoutingModule,
-    UiModule
-  ]
+  declarations: [MapsVectorComponent],
+  imports: [CommonModule, MapsVectorRoutingModule, UiModule],
 })
-export class MapsVectorModule { }
+export class MapsVectorModule {}

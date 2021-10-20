@@ -11,9 +11,8 @@ describe('DatatablesColumnSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatatablesColumnSearchComponent ]
-    })
-    .compileComponents();
+      declarations: [DatatablesColumnSearchComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

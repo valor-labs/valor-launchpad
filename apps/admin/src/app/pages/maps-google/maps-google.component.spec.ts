@@ -8,9 +8,8 @@ describe('MapsGoogleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MapsGoogleComponent ]
-    })
-    .compileComponents();
+      declarations: [MapsGoogleComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

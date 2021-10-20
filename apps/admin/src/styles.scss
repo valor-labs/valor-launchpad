@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 // regular style toast
 @import '~ngx-toastr/toastr';
 
@@ -9,10 +8,8 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 
-
 @import '~@swimlane/ngx-datatable/index.css';
 @import '~@swimlane/ngx-datatable/assets/icons.css';
 
-
-@import "~ngx-bootstrap/datepicker/bs-datepicker";
-@import "~@angular/cdk/overlay-prebuilt.css";
+@import '~ngx-bootstrap/datepicker/bs-datepicker';
+@import '~@angular/cdk/overlay-prebuilt.css';

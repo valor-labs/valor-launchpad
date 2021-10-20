@@ -8,9 +8,8 @@ describe('UiChipsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiChipsComponent ]
-    })
-    .compileComponents();
+      declarations: [UiChipsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

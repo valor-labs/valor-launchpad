@@ -1,9 +1,7 @@
-import {ProjectsEntity} from '../projects.entity';
+import { ProjectsEntity } from '../projects.entity';
 
 export class ProjectCreatedThinEvent {
   id: string;
 }
 
-export class ProjectCreatedFatEvent extends ProjectsEntity {
-
-}
+export class ProjectCreatedFatEvent extends ProjectsEntity {}

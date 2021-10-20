@@ -16,7 +16,7 @@ dotenv.config({ path: process.cwd() + '/apps/api/.env' });
 
 const RedisStore = connectRedis(expressSession);
 export const redisClient = redis.createClient({
-  url: process.env.REDIS_URL
+  url: process.env.REDIS_URL,
 });
 
 async function bootstrap() {
@@ -36,21 +36,29 @@ async function bootstrap() {
 
   app.enableCors({
     credentials: true,
-    origin: [process.env.HOST]
+    origin: [process.env.HOST],
   });
 
-  app.use(bodyParser.urlencoded({ verify: rawBodyBuffer, extended: true, limit: '50mb' }));
+  app.use(
+    bodyParser.urlencoded({
+      verify: rawBodyBuffer,
+      extended: true,
+      limit: '50mb',
+    })
+  );
   app.use(bodyParser.json({ verify: rawBodyBuffer, limit: '50mb' }));
   app.use(compression());
   app.use(cookieParser());
-  app.useGlobalPipes(new ValidationPipe({transform: true}));
-  app.use(expressSession({
-    store: new RedisStore({ client: redisClient }),
-    secret: '12345',
-    cookie: { maxAge: 2 * 60 * 60 * 1000 },
-    resave: false,
-    saveUninitialized: false
-  }));
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.use(
+    expressSession({
+      store: new RedisStore({ client: redisClient }),
+      secret: '12345',
+      cookie: { maxAge: 2 * 60 * 60 * 1000 },
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
   // app.use('/public', express.static(join(__dirname, '/assets')))
 
   const prismaService: PrismaService = app.get(PrismaService);
@@ -62,7 +70,9 @@ async function bootstrap() {
   let cookieDomain: string;
   switch (domainParsedResult.type) {
     case ParseResultType.Listed:
-      cookieDomain = `${domainParsedResult.domain}.${domainParsedResult.topLevelDomains.join('.')}`;
+      cookieDomain = `${
+        domainParsedResult.domain
+      }.${domainParsedResult.topLevelDomains.join('.')}`;
       break;
     default:
       cookieDomain = hostname;

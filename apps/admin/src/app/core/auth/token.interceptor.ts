@@ -65,7 +65,9 @@ export class TokenInterceptor implements HttpInterceptor {
             this.isRefreshing = false;
             this.auth.access_token = token.access_token;
             this.refreshTokenSubject.next(token.access_token);
-            return next.handle(this.addTokenHeader(request, token.access_token));
+            return next.handle(
+              this.addTokenHeader(request, token.access_token)
+            );
           }),
           catchError((err) => {
             this.isRefreshing = false;
@@ -74,7 +76,7 @@ export class TokenInterceptor implements HttpInterceptor {
             this.showModel();
             // this.router.navigate(['/sign-in']);
             return throwError(err);
-          }),
+          })
         );
       } else {
         this.isRefreshing = false;
@@ -94,10 +96,13 @@ export class TokenInterceptor implements HttpInterceptor {
       initialState: {
         content: 'Session expired , you need to login in',
         title: 'Go back to sign in',
-        url: this.router.url
-      }
+        url: this.router.url,
+      },
     };
-    this.bsModalRef = this.modalService.show(ComfirmModalComponent, initialState);
+    this.bsModalRef = this.modalService.show(
+      ComfirmModalComponent,
+      initialState
+    );
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 

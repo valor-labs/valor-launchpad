@@ -1,7 +1,6 @@
-import {Controller, Get} from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { FAQ } from '@valor-launchpad/api-interfaces';
-import {AppService} from "./app.service";
-
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
@@ -13,7 +12,7 @@ export class AppController {
   }
 
   @Get('faq')
-  getFAQ():FAQ[]{
+  getFAQ(): FAQ[] {
     return this.appService.getFAQ();
   }
 }

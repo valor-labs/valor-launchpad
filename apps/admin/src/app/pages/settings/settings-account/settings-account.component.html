@@ -4,38 +4,58 @@
       <div class="card-actions float-end">
         <div class="dropdown" dropdown container="body">
           <a dropdownToggle>
-            <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+            <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
           </a>
 
           <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-            <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-            <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-            <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+            <a class="dropdown-item" (click)="onClickAction()">Action</a>
+            <a class="dropdown-item" (click)="onClickAnotherAction()"
+              >Another action</a
+            >
+            <a class="dropdown-item" (click)="onClickSomethingElse()"
+              >Something else here</a
+            >
           </div>
         </div>
       </div>
       <h5 class="card-title mb-0">Public info</h5>
     </div>
     <div class="card-body">
-      <form *ngIf='publicInfoFormGroup' [formGroup]='publicInfoFormGroup'>
+      <form *ngIf="publicInfoFormGroup" [formGroup]="publicInfoFormGroup">
         <div class="row">
           <div class="col-md-8">
             <valor-launchpad-form-item>
               <label for="inputUsername" class="form-label">Username</label>
-              <input valorLaunchpadInput type="text" id="inputUsername" placeholder="Username" formControlName='username'>
+              <input
+                valorLaunchpadInput
+                type="text"
+                id="inputUsername"
+                placeholder="Username"
+                formControlName="username"
+              />
             </valor-launchpad-form-item>
             <valor-launchpad-form-item>
               <label for="inputUsername" class="form-label">Biography</label>
-              <textarea valorLaunchpadInput rows="2" id="inputBio" placeholder="Tell something about yourself" formControlName='bio'></textarea>
+              <textarea
+                valorLaunchpadInput
+                rows="2"
+                id="inputBio"
+                placeholder="Tell something about yourself"
+                formControlName="bio"
+              ></textarea>
             </valor-launchpad-form-item>
           </div>
           <div class="col-md-4">
-            <valor-launchpad-avatar-selector [previewSrc]='profile.avatar' (selectImage)='publicInfoFormGroup.patchValue({avatar: $event})'></valor-launchpad-avatar-selector>
+            <valor-launchpad-avatar-selector
+              [previewSrc]="profile.avatar"
+              (selectImage)="publicInfoFormGroup.patchValue({ avatar: $event })"
+            ></valor-launchpad-avatar-selector>
           </div>
         </div>
-        <button class="btn btn-primary" (click)='savePublicInfo()'>Save changes</button>
+        <button class="btn btn-primary" (click)="savePublicInfo()">
+          Save changes
+        </button>
       </form>
-
     </div>
   </div>
 
@@ -44,87 +64,136 @@
       <div class="card-actions float-end">
         <div class="dropdown" dropdown container="body">
           <a dropdownToggle>
-            <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+            <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
           </a>
 
           <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-            <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-            <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-            <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+            <a class="dropdown-item" (click)="onClickAction()">Action</a>
+            <a class="dropdown-item" (click)="onClickAnotherAction()"
+              >Another action</a
+            >
+            <a class="dropdown-item" (click)="onClickSomethingElse()"
+              >Something else here</a
+            >
           </div>
         </div>
       </div>
       <h5 class="card-title mb-0">Private info</h5>
     </div>
     <div class="card-body">
-      <form *ngIf='privateInfoFormGroup' [formGroup]='privateInfoFormGroup'>
+      <form *ngIf="privateInfoFormGroup" [formGroup]="privateInfoFormGroup">
         <div valorLaunchpadRow>
-          <valor-launchpad-form-item valorLaunchpadCol [md]='6'>
+          <valor-launchpad-form-item valorLaunchpadCol [md]="6">
             <label for="inputFirstName" class="form-label">First name</label>
-            <input valorLaunchpadInput id="inputFirstName" placeholder="First name" formControlName='firstName'>
+            <input
+              valorLaunchpadInput
+              id="inputFirstName"
+              placeholder="First name"
+              formControlName="firstName"
+            />
           </valor-launchpad-form-item>
-          <valor-launchpad-form-item valorLaunchpadCol [md]='6'>
+          <valor-launchpad-form-item valorLaunchpadCol [md]="6">
             <label for="inputLastName" class="form-label">Last name</label>
-            <input type="text" class="form-control" id="inputLastName" placeholder="Last name" formControlName='lastName'>
+            <input
+              type="text"
+              class="form-control"
+              id="inputLastName"
+              placeholder="Last name"
+              formControlName="lastName"
+            />
           </valor-launchpad-form-item>
         </div>
         <valor-launchpad-form-item>
           <label for="inputEmail4" class="form-label">Email</label>
-          <input type="email" class="form-control" id="inputEmail4" placeholder="Email" formControlName='email'>
+          <input
+            type="email"
+            class="form-control"
+            id="inputEmail4"
+            placeholder="Email"
+            formControlName="email"
+          />
         </valor-launchpad-form-item>
         <valor-launchpad-form-item>
           <label for="inputAddress" class="form-label">Address</label>
-          <input valorLaunchpadInput id="inputAddress" placeholder="1234 Main St" formControlName='address'>
+          <input
+            valorLaunchpadInput
+            id="inputAddress"
+            placeholder="1234 Main St"
+            formControlName="address"
+          />
         </valor-launchpad-form-item>
         <valor-launchpad-form-item>
           <label for="inputAddress2" class="form-label">Address 2</label>
-          <input valorLaunchpadInput id="inputAddress2" placeholder="Apartment, studio, or floor" formControlName='address2'>
+          <input
+            valorLaunchpadInput
+            id="inputAddress2"
+            placeholder="Apartment, studio, or floor"
+            formControlName="address2"
+          />
         </valor-launchpad-form-item>
         <div valorLaunchpadRow>
-          <valor-launchpad-form-item valorLaunchpadCol [md]='6'>
+          <valor-launchpad-form-item valorLaunchpadCol [md]="6">
             <label for="inputCity" class="form-label">City</label>
-            <input valorLaunchpadInput id="inputCity" formControlName='city'>
+            <input valorLaunchpadInput id="inputCity" formControlName="city" />
           </valor-launchpad-form-item>
-          <valor-launchpad-form-item valorLaunchpadCol [md]='4'>
+          <valor-launchpad-form-item valorLaunchpadCol [md]="4">
             <label for="inputState" class="form-label">State</label>
             <select id="inputState" class="form-control">
               <option selected>Choose...</option>
               <option>...</option>
             </select>
           </valor-launchpad-form-item>
-          <valor-launchpad-form-item valorLaunchpadCol [md]='2'>
+          <valor-launchpad-form-item valorLaunchpadCol [md]="2">
             <label for="inputZip" class="form-label">Zip</label>
-            <input valorLaunchpadInput id="inputZip" formControlName='zip'>
+            <input valorLaunchpadInput id="inputZip" formControlName="zip" />
           </valor-launchpad-form-item>
         </div>
 
         <div valorLaunchpadRow>
-          <valor-launchpad-form-item valorLaunchpadCol [md]='4'>
+          <valor-launchpad-form-item valorLaunchpadCol [md]="4">
             <label for="inputLanguage" class="form-label">Language</label>
-            <select id="inputLanguage" class="form-control" formControlName='language'>
+            <select
+              id="inputLanguage"
+              class="form-control"
+              formControlName="language"
+            >
               <option selected>Choose...</option>
-              <option *ngFor="let key of languageKeys" value="{{key}}">{{LANGUAGE[key]}}</option>
+              <option *ngFor="let key of languageKeys" value="{{ key }}">
+                {{ LANGUAGE[key] }}
+              </option>
             </select>
           </valor-launchpad-form-item>
-          <valor-launchpad-form-item valorLaunchpadCol [md]='4'>
+          <valor-launchpad-form-item valorLaunchpadCol [md]="4">
             <label for="inputLocale" class="form-label">Locale</label>
-            <select id="inputLocale" class="form-control" formControlName='locale'>
+            <select
+              id="inputLocale"
+              class="form-control"
+              formControlName="locale"
+            >
               <option selected>Choose...</option>
-              <option *ngFor="let key of localeKeys" value="{{key}}">{{LOCALE[key]}}</option>
+              <option *ngFor="let key of localeKeys" value="{{ key }}">
+                {{ LOCALE[key] }}
+              </option>
             </select>
           </valor-launchpad-form-item>
-          <valor-launchpad-form-item valorLaunchpadCol [md]='4'>
+          <valor-launchpad-form-item valorLaunchpadCol [md]="4">
             <label for="inputTimeZone" class="form-label">Time Zone</label>
-            <select id="inputTimeZone" class="form-control" formControlName='timezone'>
+            <select
+              id="inputTimeZone"
+              class="form-control"
+              formControlName="timezone"
+            >
               <option selected>Choose...</option>
-              <option *ngFor="let key of timeZoneKeys" value="{{key}}">{{TIME_ZONE[key].label}} {{TIME_ZONE[key].name}}</option>
+              <option *ngFor="let key of timeZoneKeys" value="{{ key }}">
+                {{ TIME_ZONE[key].label }} {{ TIME_ZONE[key].name }}
+              </option>
             </select>
           </valor-launchpad-form-item>
         </div>
-        <button class="btn btn-primary" (click)='savePrivateInfo()'>Save changes</button>
+        <button class="btn btn-primary" (click)="savePrivateInfo()">
+          Save changes
+        </button>
       </form>
-
     </div>
   </div>
-
 </div>

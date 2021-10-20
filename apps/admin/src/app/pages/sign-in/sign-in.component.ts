@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {SignInService} from "./sign-in.service";
-import {AuthService} from "../../core/auth/auth.service";
-import {Router} from "@angular/router";
-import {CookieService} from "ngx-cookie-service";
+import { Component, OnInit } from '@angular/core';
+import { SignInService } from './sign-in.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'valor-launchpad-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
   public userName: string;
@@ -17,7 +17,12 @@ export class SignInComponent implements OnInit {
   public errorMessage: string;
   public isAlertOpen: boolean;
 
-  constructor(private signInService: SignInService, private authService: AuthService, private router: Router, private cookieService: CookieService) {
+  constructor(
+    private signInService: SignInService,
+    private authService: AuthService,
+    private router: Router,
+    private cookieService: CookieService
+  ) {
     this.userName = '';
     this.errorMessage = '';
     this.isAlertOpen = false;
@@ -25,9 +30,10 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.userName = this.cookieService.get('userName');
-    this.avatar = this.cookieService.get('avatar')
+    this.avatar = this.cookieService.get('avatar');
     this.isFirstLogin = this.userName !== '' ? false : true;
-    this.title = this.userName !== '' ? `Welcome back, ${this.userName}` : 'Welcome';
+    this.title =
+      this.userName !== '' ? `Welcome back, ${this.userName}` : 'Welcome';
 
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/dashboard-default']);
@@ -37,19 +43,18 @@ export class SignInComponent implements OnInit {
   async signIn(form) {
     (await this.signInService.login(form.value)).subscribe(
       (res) => {
-        if(res?.message === 'Unauthorized') {
+        if (res?.message === 'Unauthorized') {
           this.errorMessage = 'Incorrect username or password';
           this.isAlertOpen = true;
         }
       },
-      err => {
+      (err) => {
         this.errorMessage = err;
       }
-    )
+    );
   }
 
   onClose(event) {
     this.isAlertOpen = event;
   }
-
 }

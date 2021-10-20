@@ -1,11 +1,21 @@
 <div class="d-flex align-items-start">
   <div class="d-flex" *ngFor="let color of themeColors">
     <div class="flex-column">
-      <div class="color-{{color.toLowerCase()}} p-4 m-1 rounded-3">{{color}}</div>
+      <div class="color-{{ color.toLowerCase() }} p-4 m-1 rounded-3">
+        {{ color }}
+      </div>
     </div>
     <div class="flex-column">
-      <div class="flex-row color-{{color.toLowerCase()}}-dark p-2 m-1 rounded-3">{{color}} Dark</div>
-      <div class="flex-row color-{{color.toLowerCase()}}-light p-2 m-1 rounded-3">{{color}} Light</div>
+      <div
+        class="flex-row color-{{ color.toLowerCase() }}-dark p-2 m-1 rounded-3"
+      >
+        {{ color }} Dark
+      </div>
+      <div
+        class="flex-row color-{{ color.toLowerCase() }}-light p-2 m-1 rounded-3"
+      >
+        {{ color }} Light
+      </div>
     </div>
   </div>
 </div>
@@ -13,11 +23,21 @@
 <div class="d-flex align-items-start">
   <div class="d-flex" *ngFor="let color of socialColors">
     <div class="flex-column">
-      <div class="color-{{color.toLowerCase()}} p-4 m-1 rounded-3">{{color}}</div>
+      <div class="color-{{ color.toLowerCase() }} p-4 m-1 rounded-3">
+        {{ color }}
+      </div>
     </div>
     <div class="flex-column">
-      <div class="flex-row color-{{color.toLowerCase()}}-dark p-2 m-1 rounded-3">{{color}} Dark</div>
-      <div class="flex-row color-{{color.toLowerCase()}}-light p-2 m-1 rounded-3">{{color}} Light</div>
+      <div
+        class="flex-row color-{{ color.toLowerCase() }}-dark p-2 m-1 rounded-3"
+      >
+        {{ color }} Dark
+      </div>
+      <div
+        class="flex-row color-{{ color.toLowerCase() }}-light p-2 m-1 rounded-3"
+      >
+        {{ color }} Light
+      </div>
     </div>
   </div>
 </div>

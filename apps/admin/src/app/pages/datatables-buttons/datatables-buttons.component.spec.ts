@@ -11,9 +11,8 @@ describe('DatatablesButtonsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatatablesButtonsComponent ]
-    })
-    .compileComponents();
+      declarations: [DatatablesButtonsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

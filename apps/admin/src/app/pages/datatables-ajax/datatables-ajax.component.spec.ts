@@ -11,9 +11,8 @@ describe('DatatablesAjaxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatatablesAjaxComponent ]
-    })
-    .compileComponents();
+      declarations: [DatatablesAjaxComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

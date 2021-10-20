@@ -3,7 +3,7 @@ import {
   FormBuilder,
   FormGroup,
   ValidatorFn,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { SettingsPasswordService } from './settings-password.service';
 import { ToastrService } from 'ngx-toastr';
@@ -20,7 +20,7 @@ const pwdValidator: ValidatorFn = (fg: FormGroup) => {
 @Component({
   selector: 'valor-launchpad-settings-password',
   templateUrl: './settings-password.component.html',
-  styleUrls: ['./settings-password.component.scss']
+  styleUrls: ['./settings-password.component.scss'],
 })
 export class SettingsPasswordComponent implements OnInit {
   formGroup: FormGroup;
@@ -29,15 +29,14 @@ export class SettingsPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private passwordService: SettingsPasswordService,
     private toastrService: ToastrService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.formGroup = this.fb.group(
       {
         currentPassword: [null, [Validators.required]],
         newPassword: [null, [Validators.required]],
-        confirmPassword: [null]
+        confirmPassword: [null],
       },
       { validators: pwdValidator }
     );

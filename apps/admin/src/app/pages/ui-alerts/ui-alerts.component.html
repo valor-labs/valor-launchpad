@@ -1,11 +1,13 @@
 <h1 class="h3 mb-3">Alerts</h1>
 
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 class="card-title">Default alerts</h5>
-        <h6 class="card-subtitle text-muted">Alerts with contextual background color.</h6>
+        <h6 class="card-subtitle text-muted">
+          Alerts with contextual background color.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <valor-launchpad-alert type="primary" [dismissible]="true">
@@ -35,116 +37,205 @@
     </valor-launchpad-card>
   </div>
 
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 class="card-title">Icon alerts</h5>
-        <h6 class="card-subtitle text-muted">Alerts with icon and background color.</h6>
+        <h6 class="card-subtitle text-muted">
+          Alerts with icon and background color.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <valor-launchpad-alert type="primary" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="primary"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple primary alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="secondary" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="secondary"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple secondary alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="success" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="success"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple success alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="danger" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="danger"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple danger alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="warning" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="warning"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple warning alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="info" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="info"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 class="card-title">Outline alerts</h5>
-        <h6 class="card-subtitle text-muted">Alerts with contextual icon background.</h6>
+        <h6 class="card-subtitle text-muted">
+          Alerts with contextual icon background.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <valor-launchpad-alert type="primary" [outline]="true" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="primary"
+          [outline]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="secondary" [outline]="true" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="secondary"
+          [outline]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="success" [outline]="true" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="success"
+          [outline]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="danger" [outline]="true" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="danger"
+          [outline]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="warning" [outline]="true" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="warning"
+          [outline]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="info" [outline]="true" [dismissible]="true" icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="info"
+          [outline]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
-
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 class="card-title">Colored outline alerts</h5>
-        <h6 class="card-subtitle text-muted">Alerts with contextual outline color.</h6>
+        <h6 class="card-subtitle text-muted">
+          Alerts with contextual outline color.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <valor-launchpad-alert type="primary" [outline]="true" [colored]="true" [dismissible]="true"
-                               icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="primary"
+          [outline]="true"
+          [colored]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="secondary" [outline]="true" [colored]="true" [dismissible]="true"
-                               icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="secondary"
+          [outline]="true"
+          [colored]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="success" [outline]="true" [colored]="true" [dismissible]="true"
-                               icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="success"
+          [outline]="true"
+          [colored]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="danger" [outline]="true" [colored]="true" [dismissible]="true"
-                               icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="danger"
+          [outline]="true"
+          [colored]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="warning" [outline]="true" [colored]="true" [dismissible]="true"
-                               icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="warning"
+          [outline]="true"
+          [colored]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="info" [outline]="true" [colored]="true" [dismissible]="true"
-                               icon="far fa-fw fa-bell">
+        <valor-launchpad-alert
+          type="info"
+          [outline]="true"
+          [colored]="true"
+          [dismissible]="true"
+          icon="far fa-fw fa-bell"
+        >
           <strong>Hello there!</strong> A simple info alert—check it out!
         </valor-launchpad-alert>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 class="card-title">Alerts with additional content</h5>
@@ -153,26 +244,40 @@
       <valor-launchpad-card-content>
         <valor-launchpad-alert type="primary" [dismissible]="true">
           <h4 class="alert-heading">Well done!</h4>
-          <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit
-            longer so that you can see how spacing within an
-            alert works with this kind of content.</p>
-          <hr>
-          <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+          <p>
+            Aww yeah, you successfully read this important alert message. This
+            example text is going to run a bit longer so that you can see how
+            spacing within an alert works with this kind of content.
+          </p>
+          <hr />
+          <p class="mb-0">
+            Whenever you need to, be sure to use margin utilities to keep things
+            nice and tidy.
+          </p>
         </valor-launchpad-alert>
 
-        <valor-launchpad-alert type="primary" [outline]="true" [dismissible]="true">
+        <valor-launchpad-alert
+          type="primary"
+          [outline]="true"
+          [dismissible]="true"
+        >
           <h4 class="alert-heading">Well done!</h4>
-          <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit
-            longer so that you can see how spacing within an
-            alert works with this kind of content.</p>
-          <hr>
-          <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+          <p>
+            Aww yeah, you successfully read this important alert message. This
+            example text is going to run a bit longer so that you can see how
+            spacing within an alert works with this kind of content.
+          </p>
+          <hr />
+          <p class="mb-0">
+            Whenever you need to, be sure to use margin utilities to keep things
+            nice and tidy.
+          </p>
         </valor-launchpad-alert>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 class="card-title">Alerts with buttons</h5>
@@ -181,27 +286,35 @@
       <valor-launchpad-card-content>
         <valor-launchpad-alert type="primary" [dismissible]="true">
           <h4 class="alert-heading">Well done!</h4>
-          <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit
-            longer so that you can see how spacing within an
-            alert works with this kind of content.</p>
-          <hr>
+          <p>
+            Aww yeah, you successfully read this important alert message. This
+            example text is going to run a bit longer so that you can see how
+            spacing within an alert works with this kind of content.
+          </p>
+          <hr />
           <div class="btn-list">
-            <button valor-launchpad-button theme='light'>Okay</button>
-            <button valor-launchpad-button theme='secondary'>No, thanks</button>
+            <button valor-launchpad-button theme="light">Okay</button>
+            <button valor-launchpad-button theme="secondary">No, thanks</button>
           </div>
         </valor-launchpad-alert>
 
-          <valor-launchpad-alert type="primary" [outline]="true" [dismissible]="true">
-            <h4 class="alert-heading">Well done!</h4>
-            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit
-              longer so that you can see how spacing within an
-              alert works with this kind of content.</p>
-            <hr>
-            <div class="btn-list">
-              <button valor-launchpad-button theme='success'>Okay</button>
-              <button valor-launchpad-button theme='danger'>No, thanks</button>
-            </div>
-          </valor-launchpad-alert>
+        <valor-launchpad-alert
+          type="primary"
+          [outline]="true"
+          [dismissible]="true"
+        >
+          <h4 class="alert-heading">Well done!</h4>
+          <p>
+            Aww yeah, you successfully read this important alert message. This
+            example text is going to run a bit longer so that you can see how
+            spacing within an alert works with this kind of content.
+          </p>
+          <hr />
+          <div class="btn-list">
+            <button valor-launchpad-button theme="success">Okay</button>
+            <button valor-launchpad-button theme="danger">No, thanks</button>
+          </div>
+        </valor-launchpad-alert>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>

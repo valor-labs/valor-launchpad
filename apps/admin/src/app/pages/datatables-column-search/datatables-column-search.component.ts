@@ -9,14 +9,12 @@ class CustomDatePipe extends DatePipe {
   }
 }
 
-
 @Component({
   selector: 'valor-launchpad-datatables-column-search',
   templateUrl: './datatables-column-search.component.html',
-  styleUrls: ['./datatables-column-search.component.css']
+  styleUrls: ['./datatables-column-search.component.css'],
 })
 export class DatatablesColumnSearchComponent implements OnInit {
-
   @ViewChild('myTable') table: any;
   tableResponsiveData = tableData;
   pageNumLimit = 10;
@@ -26,27 +24,24 @@ export class DatatablesColumnSearchComponent implements OnInit {
     { name: 'Office', prop: 'office' },
     { name: 'Age', prop: 'age' },
     {
-      name: 'Start date', prop: 'startDate', pipe: new CustomDatePipe(this.locale)
+      name: 'Start date',
+      prop: 'startDate',
+      pipe: new CustomDatePipe(this.locale),
     },
-    { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale) }
+    { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale) },
   ];
 
-  constructor(
-    @Inject(LOCALE_ID) private locale: string
-  ) {
-  }
+  constructor(@Inject(LOCALE_ID) private locale: string) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   onChangeSearch(inputVal: string): void {
     if (inputVal === '') {
       this.tableResponsiveData = tableData;
     } else {
-      this.tableResponsiveData = tableData.filter(rowData => Object.values(rowData).includes(inputVal));
+      this.tableResponsiveData = tableData.filter((rowData) =>
+        Object.values(rowData).includes(inputVal)
+      );
     }
   }
-
-
 }

@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {UiTabsComponent} from "./ui-tabs.component";
+import { UiTabsComponent } from './ui-tabs.component';
 
 const routes: Routes = [
   {
-    path: '', component: UiTabsComponent
-  }
+    path: '',
+    component: UiTabsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UiTabsRoutingModule { }
+export class UiTabsRoutingModule {}

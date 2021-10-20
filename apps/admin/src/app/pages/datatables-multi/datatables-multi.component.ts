@@ -9,36 +9,43 @@ class CustomDatePipe extends DatePipe {
   }
 }
 
-
 @Component({
   selector: 'valor-launchpad-datatables-multi',
   templateUrl: './datatables-multi.component.html',
-  styleUrls: ['./datatables-multi.component.scss']
+  styleUrls: ['./datatables-multi.component.scss'],
 })
 export class DatatablesMultiComponent implements OnInit {
-
   selected = [];
   SelectionType = SelectionType;
 
-  constructor(
-    @Inject(LOCALE_ID) private locale: string
-  ) {
-  }
+  constructor(@Inject(LOCALE_ID) private locale: string) {}
 
   tableResponsiveData;
   pageNumLimit = 10;
   tableResponsiveColumns: Array<TableColumn> = [
     { name: 'Name', prop: 'name', cellClass: 'd-flex align-items-center' },
-    { name: 'Position', prop: 'position', cellClass: 'd-flex align-items-center' },
+    {
+      name: 'Position',
+      prop: 'position',
+      cellClass: 'd-flex align-items-center',
+    },
     { name: 'Office', prop: 'office', cellClass: 'd-flex align-items-center' },
     { name: 'Age', prop: 'age', cellClass: 'd-flex align-items-center' },
     {
-      name: 'Start date', prop: 'startDate', pipe: new CustomDatePipe(this.locale), cellClass: 'd-flex align-items-center'
+      name: 'Start date',
+      prop: 'startDate',
+      pipe: new CustomDatePipe(this.locale),
+      cellClass: 'd-flex align-items-center',
     },
-    { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale), cellClass: 'd-flex align-items-center' }
+    {
+      name: 'Salary',
+      prop: 'salary',
+      pipe: new CurrencyPipe(this.locale),
+      cellClass: 'd-flex align-items-center',
+    },
   ];
   rowClassFunc = (row) => ({
-    'selected': row.selected === true
+    selected: row.selected === true,
   });
 
   ngOnInit(): void {
@@ -49,7 +56,9 @@ export class DatatablesMultiComponent implements OnInit {
     if (inputVal === '') {
       this.tableResponsiveData = tableData;
     } else {
-      this.tableResponsiveData = tableData.filter(rowData => Object.values(rowData).includes(inputVal));
+      this.tableResponsiveData = tableData.filter((rowData) =>
+        Object.values(rowData).includes(inputVal)
+      );
     }
   }
 
@@ -57,6 +66,4 @@ export class DatatablesMultiComponent implements OnInit {
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
-
-
 }

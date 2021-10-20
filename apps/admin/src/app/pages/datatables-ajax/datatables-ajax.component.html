@@ -1,156 +1,199 @@
 <div class="container-fluid p-0">
-
   <h1 class="h3 mb-3">Ajax Sourced Data</h1>
 
   <valor-launchpad-alert type="warning" [dismissible]="true">
     <p class="mb-0">
-      <strong>DataTables Ajax Sourced Data</strong> DataTables has the ability to read data from virtually any JSON data source that can be obtained by Ajax. See official documentation <a href="#">here</a>.
+      <strong>DataTables Ajax Sourced Data</strong> DataTables has the ability
+      to read data from virtually any JSON data source that can be obtained by
+      Ajax. See official documentation <a href="#">here</a>.
     </p>
   </valor-launchpad-alert>
   <div class="row">
     <div class="col-12">
       <valor-launchpad-card>
         <valor-launchpad-card-header>
-          <h5 class='card-title'>DataTables Ajax Sourced Data</h5>
-          <h6 class='card-subtitle text-muted'>DataTables has the ability to read data from virtually any JSON data source that can be obtained by Ajax. See official documentation<a
-              href='#' target='_blank'
-              rel='noopener noreferrer nofollow'>here</a>.</h6>
+          <h5 class="card-title">DataTables Ajax Sourced Data</h5>
+          <h6 class="card-subtitle text-muted">
+            DataTables has the ability to read data from virtually any JSON data
+            source that can be obtained by Ajax. See official documentation<a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              >here</a
+            >.
+          </h6>
         </valor-launchpad-card-header>
         <valor-launchpad-card-content>
-          <div class='dataTables_wrapper'>
-            <div class='row'>
-              <div class='col-sm-12 col-md-6'>
-                <div class='dataTables_length'>
+          <div class="dataTables_wrapper">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length">
                   <label>
                     Show
                     <select
-                      class='custom-select custom-select-sm form-control form-control-sm'
-                      [(ngModel)]='pageNumLimit'
+                      class="
+                        custom-select custom-select-sm
+                        form-control form-control-sm
+                      "
+                      [(ngModel)]="pageNumLimit"
                     >
-                      <option value='10'>10</option>
-                      <option value='25'>25</option>
-                      <option value='50'>50</option>
-                      <option value='100'>100</option>
-                    </select> entries
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                    entries
                   </label>
                 </div>
               </div>
-              <div class='col-sm-12 col-md-6'>
-                <div class='dataTables_filter'>
-                  <label>Search:<input type='search' class='form-control form-control-sm'
-                                       (input)='onChangeSearch($event.target.value)'></label>
+              <div class="col-sm-12 col-md-6">
+                <div class="dataTables_filter">
+                  <label
+                    >Search:<input
+                      type="search"
+                      class="form-control form-control-sm"
+                      (input)="onChangeSearch($event.target.value)"
+                  /></label>
                 </div>
               </div>
             </div>
-  
-            <ngx-datatable class='table table-striped my-0'
-                           #myTable
-                           [rows]='tableResponsiveData'
-                           [columns]='tableResponsiveColumns'
-                           [headerHeight]='50'
-                           [footerHeight]='50'
-                           rowHeight='auto'
-                           [columnMode]="'force'"
-                           [rowHeight]='46'
-                           [limit]='pageNumLimit'
+
+            <ngx-datatable
+              class="table table-striped my-0"
+              #myTable
+              [rows]="tableResponsiveData"
+              [columns]="tableResponsiveColumns"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              rowHeight="auto"
+              [columnMode]="'force'"
+              [rowHeight]="46"
+              [limit]="pageNumLimit"
             >
               <!-- Row Detail Template -->
-              <ngx-datatable-row-detail [rowHeight]='50'>
-                <ng-template let-row='row' ngx-datatable-row-detail-template>
-                  <div style='padding-left:60px; font-size:14px'>
+              <ngx-datatable-row-detail [rowHeight]="50">
+                <ng-template let-row="row" ngx-datatable-row-detail-template>
+                  <div style="padding-left: 60px; font-size: 14px">
                     <div>
-                      {{ row.position }},
-                      {{ row.office }},
-                      {{ row.age }},
-                      {{ row.startDate | date:'y/MM/dd' }},
-                      {{ row.salary | currency:'USD':true:'1.0-0' }}
+                      {{ row.position }}, {{ row.office }}, {{ row.age }},
+                      {{ row.startDate | date: 'y/MM/dd' }},
+                      {{ row.salary | currency: 'USD':true:'1.0-0' }}
                     </div>
                   </div>
                 </ng-template>
               </ngx-datatable-row-detail>
-  
+
               <!-- Column Templates -->
               <ngx-datatable-column
-                [width]='50'
-                [resizeable]='false'
-                [sortable]='false'
-                [draggable]='false'
-                [canAutoResize]='false'
-                cellClass='d-flex align-items-center'
+                [width]="50"
+                [resizeable]="false"
+                [sortable]="false"
+                [draggable]="false"
+                [canAutoResize]="false"
+                cellClass="d-flex align-items-center"
               >
-               
               </ngx-datatable-column>
-  
-              <ngx-datatable-column name='Name' props='name' cellClass='d-flex align-items-center'>
+
+              <ngx-datatable-column
+                name="Name"
+                props="name"
+                cellClass="d-flex align-items-center"
+              >
               </ngx-datatable-column>
-              <ngx-datatable-column name='Position' props='position' cellClass='d-flex align-items-center'>
-                <ng-template let-column='column' ngx-datatable-header-template>
-                  <span class='mobile-hidden'>{{ column.name }}</span>
+              <ngx-datatable-column
+                name="Position"
+                props="position"
+                cellClass="d-flex align-items-center"
+              >
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  <span class="mobile-hidden">{{ column.name }}</span>
                 </ng-template>
-                <ng-template let-value='value' ngx-datatable-cell-template>
-                  <span class='mobile-hidden'>{{ value }}</span>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name='Office' props='office' cellClass='d-flex align-items-center'>
-                <ng-template let-column='column' ngx-datatable-header-template>
-                  <span class='mobile-hidden'>{{ column.name }}</span>
-                </ng-template>
-                <ng-template let-value='value' ngx-datatable-cell-template>
-                  <span class='mobile-hidden'>{{ value }}</span>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name='Age' props='age' cellClass='d-flex align-items-center'>
-                <ng-template let-column='column' ngx-datatable-header-template>
-                  <span class='mobile-hidden'>{{ column.name }}</span>
-                </ng-template>
-                <ng-template let-value='value' ngx-datatable-cell-template>
-                  <span class='mobile-hidden'>{{ value }}</span>
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span class="mobile-hidden">{{ value }}</span>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name='Start date' props='startDate' cellClass='d-flex align-items-center'>
-                <ng-template let-column='column' ngx-datatable-header-template>
-                  <span class='mobile-hidden'>{{ column.name }}</span>
+              <ngx-datatable-column
+                name="Office"
+                props="office"
+                cellClass="d-flex align-items-center"
+              >
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  <span class="mobile-hidden">{{ column.name }}</span>
                 </ng-template>
-                <ng-template let-value='value' ngx-datatable-cell-template>
-                  <span class='mobile-hidden'> {{value | date:'y/MM/dd'}}</span>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name='Salary' props='salary' cellClass='d-flex align-items-center'>
-                <ng-template let-column='column' ngx-datatable-header-template>
-                  <span class='mobile-hidden'>{{ column.name }}</span>
-                </ng-template>
-                <ng-template let-value='value' ngx-datatable-cell-template>
-                  <span class='mobile-hidden'>  {{value | currency:'USD':true:'1.0-0'}} </span>
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span class="mobile-hidden">{{ value }}</span>
                 </ng-template>
               </ngx-datatable-column>
-  
+              <ngx-datatable-column
+                name="Age"
+                props="age"
+                cellClass="d-flex align-items-center"
+              >
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  <span class="mobile-hidden">{{ column.name }}</span>
+                </ng-template>
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span class="mobile-hidden">{{ value }}</span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Start date"
+                props="startDate"
+                cellClass="d-flex align-items-center"
+              >
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  <span class="mobile-hidden">{{ column.name }}</span>
+                </ng-template>
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span class="mobile-hidden">
+                    {{ value | date: 'y/MM/dd' }}</span
+                  >
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Salary"
+                props="salary"
+                cellClass="d-flex align-items-center"
+              >
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  <span class="mobile-hidden">{{ column.name }}</span>
+                </ng-template>
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span class="mobile-hidden">
+                    {{ value | currency: 'USD':true:'1.0-0' }}
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+
               <ngx-datatable-footer>
                 <ng-template
                   ngx-datatable-footer-template
-                  let-rowCount='rowCount'
-                  let-pageSize='pageSize'
-                  let-curPage='curPage'
-                  let-offset='offset'
+                  let-rowCount="rowCount"
+                  let-pageSize="pageSize"
+                  let-curPage="curPage"
+                  let-offset="offset"
                 >
-                  <div class='page-count'>
+                  <div class="page-count">
                     Showing
-                    {{curPage === 1 ? 1 : (curPage - 1) * pageSize + 1}}
+                    {{ curPage === 1 ? 1 : (curPage - 1) * pageSize + 1 }}
                     to
                     {{
-                      pageSize * curPage > rowCount ? rowCount : pageSize * curPage
+                      pageSize * curPage > rowCount
+                        ? rowCount
+                        : pageSize * curPage
                     }}
                     of
-                    {{rowCount}}
+                    {{ rowCount }}
                     entries
                   </div>
                   <datatable-pager
                     [pagerLeftArrowIcon]="'datatable-valor-left'"
                     [pagerRightArrowIcon]="'datatable-valor-right'"
-                    [page]='curPage'
-                    [size]='pageSize'
-                    [count]='rowCount'
-                    [hidden]='!((rowCount / pageSize) > 1)'
-                    (change)='myTable.onFooterPage($event)'
+                    [page]="curPage"
+                    [size]="pageSize"
+                    [count]="rowCount"
+                    [hidden]="!(rowCount / pageSize > 1)"
+                    (change)="myTable.onFooterPage($event)"
                   ></datatable-pager>
                 </ng-template>
               </ngx-datatable-footer>
@@ -160,5 +203,4 @@
       </valor-launchpad-card>
     </div>
   </div>
-
 </div>

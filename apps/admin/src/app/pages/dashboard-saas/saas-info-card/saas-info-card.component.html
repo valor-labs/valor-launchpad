@@ -1,24 +1,25 @@
 <valor-launchpad-card>
   <valor-launchpad-card-content>
     <div valorLaunchpadRow>
-      <div valorLaunchpadCol [expand]='true'>
-        <h5 class="card-title">{{mainTitle}}</h5>
+      <div valorLaunchpadCol [expand]="true">
+        <h5 class="card-title">{{ mainTitle }}</h5>
       </div>
 
-      <div valorLaunchpadCol [span]='"auto"'>
+      <div valorLaunchpadCol [span]="'auto'">
         <div class="stat stat-sm">
-          <i class="align-middle" [ngClass]='icon'></i>
+          <i class="align-middle" [ngClass]="icon"></i>
         </div>
       </div>
     </div>
-    <span class="h1 d-inline-block mt-1 mb-3">{{value}}</span>
+    <span class="h1 d-inline-block mt-1 mb-3">{{ value }}</span>
     <div class="mb-0">
       <span
         class="badge me-2"
-        [class.badge-soft-success]='change >= 0'
-        [class.badge-soft-danger]='change < 0'>
+        [class.badge-soft-success]="change >= 0"
+        [class.badge-soft-danger]="change < 0"
+      >
         <i class="mdi mdi-arrow-bottom-right"></i>
-        {{change}}%
+        {{ change }}%
       </span>
       <span class="text-muted">Since last week</span>
     </div>

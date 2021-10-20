@@ -1,5 +1,5 @@
-import {ProfileEntity} from "./profile.entity";
-import {BaseEntity} from '@valor-launchpad/common-api';
+import { ProfileEntity } from './profile.entity';
+import { BaseEntity } from '@valor-launchpad/common-api';
 
 export class ActivityEntity extends BaseEntity {
   //TODO: Need to find a way to track updates and "version" this entity
@@ -7,7 +7,7 @@ export class ActivityEntity extends BaseEntity {
   parent: ActivityEntity;
   children: ActivityEntity[];
   createdDate: Date;
-  updatedDate: Date
+  updatedDate: Date;
   timestamp: Date;
   type: string;
   name: string;

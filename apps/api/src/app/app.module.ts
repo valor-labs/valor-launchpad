@@ -14,7 +14,7 @@ import { UsersApiModule } from '@valor-launchpad/users-api';
 import { PrismaModule } from '@valor-launchpad/prisma';
 import { DashboardSocialModule } from '../dashboard/dashboard-social/dashboard-social.module';
 import { DashboardCryptoModule } from '../dashboard/dashboard-crypto';
-import { MulterModule } from '@nestjs/platform-express'
+import { MulterModule } from '@nestjs/platform-express';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { RedisModule } from 'nestjs-redis';
@@ -53,15 +53,15 @@ import { ThrottlerModule } from '@nestjs/throttler';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '/assets'),
       serveStaticOptions: {
-        index: false
-      }
+        index: false,
+      },
     }),
     ThrottlerModule.forRoot({
       ttl: 60,
-      limit: 3
-    })
+      limit: 3,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService, ProjectsListener],
 })
-export class AppModule { }
+export class AppModule {}

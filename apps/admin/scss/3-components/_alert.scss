@@ -14,10 +14,11 @@ alert {
 
     .alert-icon {
       padding: $alert-padding-y $alert-padding-x;
-      background: rgba(255, 255, 255, .1);
+      background: rgba(255, 255, 255, 0.1);
     }
 
-    b, strong {
+    b,
+    strong {
       color: $black;
     }
 
@@ -27,7 +28,7 @@ alert {
       opacity: 1;
     }
 
-    button[aria-label="Close"] {
+    button[aria-label='Close'] {
       position: absolute;
       top: 0;
       right: 0;
@@ -47,7 +48,6 @@ alert {
       }
     }
   }
-
 }
 
 .alert-outline,

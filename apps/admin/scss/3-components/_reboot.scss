@@ -1,4 +1,6 @@
-body, html, #root {
+body,
+html,
+#root {
   height: 100%;
 }
 
@@ -11,7 +13,7 @@ body {
   opacity: 1 !important;
 }
 
-body[data-sidebar-position=right] {
+body[data-sidebar-position='right'] {
   direction: rtl;
 }
 

@@ -8,15 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UiModule } from '@valor-launchpad/ui';
 @NgModule({
-  declarations: [
-    DatatablesColumnSearchComponent
-  ],
+  declarations: [DatatablesColumnSearchComponent],
   imports: [
     CommonModule,
     DatatablesColumnSearchRoutingModule,
     FormsModule,
     NgxDatatableModule,
-    UiModule
-  ]
+    UiModule,
+  ],
 })
-export class DatatablesColumnSearchModule { }
+export class DatatablesColumnSearchModule {}
