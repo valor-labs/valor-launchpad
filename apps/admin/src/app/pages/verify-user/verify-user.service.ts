@@ -6,7 +6,6 @@ import {ENV_CONFIG, EnvironmentConfig} from '../../core/http/environment-config.
   providedIn: 'root'
 })
 export class VerifyUserService {
-
   constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private httpClient: HttpClient) {
   }
 
