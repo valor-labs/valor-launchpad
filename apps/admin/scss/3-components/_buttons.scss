@@ -1,4 +1,3 @@
-
 button {
   position: relative;
 }
@@ -24,13 +23,14 @@ button {
   height: 15px;
 }
 
-.btn:not(:last-child){
-  margin-right:4px;
+.btn:not(:last-child) {
+  margin-right: 4px;
 }
 
-.btn-group, .input-group{
-  .btn{
-    margin-right:0;
+.btn-group,
+.input-group {
+  .btn {
+    margin-right: 0;
   }
 }
 
@@ -68,7 +68,9 @@ button {
 }
 
 @keyframes spinner {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .spinner:before {
@@ -84,5 +86,5 @@ button {
   border-radius: 50%;
   border: 2px solid #ffffff;
   border-top-color: #000000;
-  animation: spinner .8s linear infinite;
+  animation: spinner 0.8s linear infinite;
 }

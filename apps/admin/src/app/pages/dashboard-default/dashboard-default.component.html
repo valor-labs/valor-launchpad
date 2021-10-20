@@ -1,112 +1,143 @@
-<div valorLaunchpadRow class='mb-2 mb-xl-3'>
-  <div valorLaunchpadCol span="auto" class='d-none d-sm-block'>
+<div valorLaunchpadRow class="mb-2 mb-xl-3">
+  <div valorLaunchpadCol span="auto" class="d-none d-sm-block">
     <h3>Dashboard</h3>
   </div>
 
-  <div valorLaunchpadCol span="auto" class='ms-auto text-end mt-n1'>
-    <div class='dropdown me-2 d-inline-block' dropdown container='body'>
+  <div valorLaunchpadCol span="auto" class="ms-auto text-end mt-n1">
+    <div class="dropdown me-2 d-inline-block" dropdown container="body">
       <valor-launchpad-dropdown>
-        <button valor-launchpad-button dropdown-nav theme='light' class='bg-white shadow-sm dropdown-toggle'>
-          <i class="align-middle mt-n1 far fa-fw fa-calendar"></i> {{dateRange$ | async}}
+        <button
+          valor-launchpad-button
+          dropdown-nav
+          theme="light"
+          class="bg-white shadow-sm dropdown-toggle"
+        >
+          <i class="align-middle mt-n1 far fa-fw fa-calendar"></i>
+          {{ dateRange$ | async }}
         </button>
-        <valor-launchpad-dropdown-actions-menu [actions]="timeRangeActions"></valor-launchpad-dropdown-actions-menu>
+        <valor-launchpad-dropdown-actions-menu
+          [actions]="timeRangeActions"
+        ></valor-launchpad-dropdown-actions-menu>
       </valor-launchpad-dropdown>
     </div>
 
-    <button valor-launchpad-button class='shadow-sm'>
-      <i class='align-middle  fas fa-fw fa-filter'>&nbsp;</i>
+    <button valor-launchpad-button class="shadow-sm">
+      <i class="align-middle fas fa-fw fa-filter">&nbsp;</i>
     </button>
-    <button valor-launchpad-button class='shadow-sm' (click)="refreshController$.next()">
-      <i class='align-middle fas fa-fw fa-sync'>&nbsp;</i>
+    <button
+      valor-launchpad-button
+      class="shadow-sm"
+      (click)="refreshController$.next()"
+    >
+      <i class="align-middle fas fa-fw fa-sync">&nbsp;</i>
     </button>
   </div>
 </div>
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol [span]="12" [sm]="6" [xxl]="3" class='d-flex'>
-    <div class='card illustration flex-fill'>
-      <div class='card-body p-0 d-flex flex-fill'>
-        <div class='row g-0 w-100'>
-          <div class='col-6'>
-            <div class='illustration-text p-3 m-1'>
-              <h4 class='illustration-text'>Welcome Back, {{user?.firstName}}!</h4>
-              <p class='mb-0'>Launchpad Dashboard</p>
+  <div valorLaunchpadCol [span]="12" [sm]="6" [xxl]="3" class="d-flex">
+    <div class="card illustration flex-fill">
+      <div class="card-body p-0 d-flex flex-fill">
+        <div class="row g-0 w-100">
+          <div class="col-6">
+            <div class="illustration-text p-3 m-1">
+              <h4 class="illustration-text">
+                Welcome Back, {{ user?.firstName }}!
+              </h4>
+              <p class="mb-0">Launchpad Dashboard</p>
             </div>
           </div>
-          <div class='col-6 align-self-end text-end'>
-            <img src='assets/img/illustrations/customer-support.png' alt='Customer Support'
-                 class='img-fluid illustration-img'>
+          <div class="col-6 align-self-end text-end">
+            <img
+              src="assets/img/illustrations/customer-support.png"
+              alt="Customer Support"
+              class="img-fluid illustration-img"
+            />
           </div>
         </div>
       </div>
     </div>
   </div>
   <ng-container *ngIf="overview$ | async as overviewData">
-    <div valorLaunchpadCol [span]="12" [sm]="6" [xxl]="3" class='d-flex'>
-      <valor-launchpad-card class='flex-fill'>
+    <div valorLaunchpadCol [span]="12" [sm]="6" [xxl]="3" class="d-flex">
+      <valor-launchpad-card class="flex-fill">
         <valor-launchpad-card-content>
-          <div class='d-flex align-items-start'>
-            <div class='flex-grow-1'>
-              <h3 class='mb-2'>{{overviewData.totalEarnings?.value | currency: 'USD'}}</h3>
-              <p class='mb-2'>Total Earnings</p>
-              <div class='mb-0'>
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <h3 class="mb-2">
+                {{ overviewData.totalEarnings?.value | currency: 'USD' }}
+              </h3>
+              <p class="mb-2">Total Earnings</p>
+              <div class="mb-0">
                 <valor-launchpad-percent-badge
                   [val]="overviewData.totalEarnings?.percentage"
                   [precision]="2"
                 ></valor-launchpad-percent-badge>
-                <span class='mx-2 text-muted'>Since last week</span>
+                <span class="mx-2 text-muted">Since last week</span>
               </div>
             </div>
-            <div class='d-inline-block ms-3'>
-              <div class='stat'>
-                <i class='align-middle me-2 text-success fas fa-fw fa-dollar-sign'></i>
+            <div class="d-inline-block ms-3">
+              <div class="stat">
+                <i
+                  class="
+                    align-middle
+                    me-2
+                    text-success
+                    fas
+                    fa-fw fa-dollar-sign
+                  "
+                ></i>
               </div>
             </div>
           </div>
         </valor-launchpad-card-content>
       </valor-launchpad-card>
     </div>
-    <div valorLaunchpadCol [span]="12" [sm]="6" [xxl]="3" class='d-flex'>
-      <valor-launchpad-card class='flex-fill'>
+    <div valorLaunchpadCol [span]="12" [sm]="6" [xxl]="3" class="d-flex">
+      <valor-launchpad-card class="flex-fill">
         <valor-launchpad-card-content>
-          <div class='d-flex align-items-start'>
-            <div class='flex-grow-1'>
-              <h3 class='mb-2'>{{overviewData?.pendingOrders?.value}}</h3>
-              <p class='mb-2'>Pending Orders</p>
-              <div class='mb-0'>
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <h3 class="mb-2">{{ overviewData?.pendingOrders?.value }}</h3>
+              <p class="mb-2">Pending Orders</p>
+              <div class="mb-0">
                 <valor-launchpad-percent-badge
                   [val]="overviewData?.pendingOrders?.percentage"
                   [precision]="2"
                 ></valor-launchpad-percent-badge>
-                <span class='mx-2 text-muted'>Since last week</span>
+                <span class="mx-2 text-muted">Since last week</span>
               </div>
             </div>
-            <div class='d-inline-block ms-3'>
-              <div class='stat'>
-                <i class='align-middle text-danger fas fa-fw fa-shopping-bag'></i>
+            <div class="d-inline-block ms-3">
+              <div class="stat">
+                <i
+                  class="align-middle text-danger fas fa-fw fa-shopping-bag"
+                ></i>
               </div>
             </div>
           </div>
         </valor-launchpad-card-content>
       </valor-launchpad-card>
     </div>
-    <div valorLaunchpadCol [span]="12" [sm]="6" [xxl]="3" class='d-flex'>
-      <valor-launchpad-card class='flex-fill'>
+    <div valorLaunchpadCol [span]="12" [sm]="6" [xxl]="3" class="d-flex">
+      <valor-launchpad-card class="flex-fill">
         <valor-launchpad-card-content>
-          <div class='d-flex align-items-start'>
-            <div class='flex-grow-1'>
-              <h3 class='mb-2'>{{overviewData?.totalRevenue?.value | currency: 'USD'}}</h3>
-              <p class='mb-2'>Total Revenue</p>
-              <div class='mb-0'>
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <h3 class="mb-2">
+                {{ overviewData?.totalRevenue?.value | currency: 'USD' }}
+              </h3>
+              <p class="mb-2">Total Revenue</p>
+              <div class="mb-0">
                 <valor-launchpad-percent-badge
                   [val]="overviewData?.totalRevenue?.percentage"
                   [precision]="2"
                 ></valor-launchpad-percent-badge>
-                <span class='mx-2 text-muted'>Since last week</span>
+                <span class="mx-2 text-muted">Since last week</span>
               </div>
             </div>
-            <div class='d-inline-block ms-3'>
-              <div class='stat'>
-                <i class='align-middle me-2 fas fa-fw fa-dollar-sign'></i>
+            <div class="d-inline-block ms-3">
+              <div class="stat">
+                <i class="align-middle me-2 fas fa-fw fa-dollar-sign"></i>
               </div>
             </div>
           </div>
@@ -117,39 +148,48 @@
 </div>
 
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol [span]="12" [lg]="8" class=''>
-    <valor-launchpad-card class=''>
+  <div valorLaunchpadCol [span]="12" [lg]="8" class="">
+    <valor-launchpad-card class="">
       <valor-launchpad-card-header>
-        <div class='card-actions float-end'>
-          <div class='dropdown show' dropdown>
-            <a data-bs-toggle='dropdown' data-bs-display='static' dropdownToggle>
-              <i class='align-middle    fas fa-fw fa-ellipsis-h'></i>
+        <div class="card-actions float-end">
+          <div class="dropdown show" dropdown>
+            <a
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              dropdownToggle
+            >
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
-        <h5 valor-launchpad-card-title class='mb-0'>Sales / Revenue</h5>
+        <h5 valor-launchpad-card-title class="mb-0">Sales / Revenue</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <div class='align-self-center chart chart-lg'>
+        <div class="align-self-center chart chart-lg">
           <ngx-charts-bar-vertical-stacked
             [barPadding]="30"
-            [scheme]='salesRevenueConfig.colorScheme'
-            [results]='monthlyRevenue$ | async'
-            [gradient]='salesRevenueConfig.gradient'
-            [xAxis]='salesRevenueConfig.showXAxis'
-            [yAxis]='salesRevenueConfig.showYAxis'
-            [legend]='salesRevenueConfig.showLegend'
-            [showXAxisLabel]='salesRevenueConfig.showXAxisLabel'
-            [showYAxisLabel]='salesRevenueConfig.showYAxisLabel'
-            [xAxisLabel]='salesRevenueConfig.xAxisLabel'
-            [yAxisLabel]='salesRevenueConfig.yAxisLabel'
-            [animations]='salesRevenueConfig.animations'></ngx-charts-bar-vertical-stacked>
+            [scheme]="salesRevenueConfig.colorScheme"
+            [results]="monthlyRevenue$ | async"
+            [gradient]="salesRevenueConfig.gradient"
+            [xAxis]="salesRevenueConfig.showXAxis"
+            [yAxis]="salesRevenueConfig.showYAxis"
+            [legend]="salesRevenueConfig.showLegend"
+            [showXAxisLabel]="salesRevenueConfig.showXAxisLabel"
+            [showYAxisLabel]="salesRevenueConfig.showYAxisLabel"
+            [xAxisLabel]="salesRevenueConfig.xAxisLabel"
+            [yAxisLabel]="salesRevenueConfig.yAxisLabel"
+            [animations]="salesRevenueConfig.animations"
+          ></ngx-charts-bar-vertical-stacked>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
@@ -160,23 +200,28 @@
         <div class="card-actions float-end">
           <valor-launchpad-dropdown>
             <span dropdown-nav><i class="fas fa-fw fa-ellipsis-h"></i></span>
-            <valor-launchpad-dropdown-actions-menu [actions]="actions"></valor-launchpad-dropdown-actions-menu>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="actions"
+            ></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">Activities</h5>
       </valor-launchpad-card-header>
-      <valor-launchpad-card-content class="overflow-auto" style="height: 390px;">
+      <valor-launchpad-card-content class="overflow-auto" style="height: 390px">
         <ng-container *ngIf="activities$ | async as activities">
-          <ng-container *ngFor='let activity of activities.results'>
-            <valor-launchpad-social-activity  [activity]='activity'></valor-launchpad-social-activity>
+          <ng-container *ngFor="let activity of activities.results">
+            <valor-launchpad-social-activity
+              [activity]="activity"
+            ></valor-launchpad-social-activity>
             <hr />
           </ng-container>
           <button
             *ngIf="activities.hasNext; else arrivedBottom"
             valor-launchpad-button
-            class='w-100 btn btn-primary'
+            class="w-100 btn btn-primary"
             [loading]="loadingActivity"
-            (click)="loadMoreActivities(activities.stopAt)">
+            (click)="loadMoreActivities(activities.stopAt)"
+          >
             Load More
           </button>
           <ng-template #arrivedBottom>
@@ -189,116 +234,152 @@
 </div>
 
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol [span]="12" [lg]="6" [xl]="4" class='d-flex'>
-    <valor-launchpad-card class='flex-fill'>
+  <div valorLaunchpadCol [span]="12" [lg]="6" [xl]="4" class="d-flex">
+    <valor-launchpad-card class="flex-fill">
       <valor-launchpad-card-header>
-        <div class='card-actions float-end'>
-          <div class='dropdown show' dropdown>
-            <a data-bs-toggle='dropdown' data-bs-display='static' dropdownToggle>
-              <i class='align-middle    fas fa-fw fa-ellipsis-h'></i>
+        <div class="card-actions float-end">
+          <div class="dropdown show" dropdown>
+            <a
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              dropdownToggle
+            >
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
-        <h5 valor-launchpad-card-title class='mb-0'>Calendar</h5>
+        <h5 valor-launchpad-card-title class="mb-0">Calendar</h5>
       </valor-launchpad-card-header>
-      <valor-launchpad-card-content class='d-flex'>
-        <div class='w-100'>
-          <div class='chart'>
-            <div id='datetimepicker-dashboard'>
-              <bs-datepicker-inline [bsValue]='bsInlineValue'
-                                    [bsConfig]="{containerClass: 'bootstrap-datetimepicker-widget chart'}"></bs-datepicker-inline>
+      <valor-launchpad-card-content class="d-flex">
+        <div class="w-100">
+          <div class="chart">
+            <div id="datetimepicker-dashboard">
+              <bs-datepicker-inline
+                [bsValue]="bsInlineValue"
+                [bsConfig]="{
+                  containerClass: 'bootstrap-datetimepicker-widget chart'
+                }"
+              ></bs-datepicker-inline>
             </div>
           </div>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
-  <div valorLaunchpadCol [span]="12" [xl]="4" class='d-none d-xl-flex'>
-    <valor-launchpad-card class='flex-fill w-100'>
+  <div valorLaunchpadCol [span]="12" [xl]="4" class="d-none d-xl-flex">
+    <valor-launchpad-card class="flex-fill w-100">
       <valor-launchpad-card-header>
-        <div class='card-actions float-end'>
-          <div class='dropdown show' dropdown>
-            <a data-bs-toggle='dropdown' data-bs-display='static' dropdownToggle>
-              <i class='align-middle    fas fa-fw fa-ellipsis-h'></i>
+        <div class="card-actions float-end">
+          <div class="dropdown show" dropdown>
+            <a
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              dropdownToggle
+            >
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
-        <h5 valor-launchpad-card-title class='mb-0'>Weekly sales</h5>
+        <h5 valor-launchpad-card-title class="mb-0">Weekly sales</h5>
       </valor-launchpad-card-header>
-      <valor-launchpad-card-content class='d-flex'>
-        <div class='align-self-center w-100'>
-          <div class='py-3'>
-            <div class='chart chart-xs'>
+      <valor-launchpad-card-content class="d-flex">
+        <div class="align-self-center w-100">
+          <div class="py-3">
+            <div class="chart chart-xs">
               <ngx-charts-pie-chart
-                [scheme]='weeklySalesConfig.colorScheme'
-                [results]='salesRevenue$ | async'
-                [gradient]='weeklySalesConfig.gradient'
-                [legend]='weeklySalesConfig.showLegend'
-                [legendPosition]='weeklySalesConfig.legendPosition'
-                [labels]='weeklySalesConfig.showLabels'
-                [doughnut]='weeklySalesConfig.isDoughnut'>
+                [scheme]="weeklySalesConfig.colorScheme"
+                [results]="salesRevenue$ | async"
+                [gradient]="weeklySalesConfig.gradient"
+                [legend]="weeklySalesConfig.showLegend"
+                [legendPosition]="weeklySalesConfig.legendPosition"
+                [labels]="weeklySalesConfig.showLabels"
+                [doughnut]="weeklySalesConfig.isDoughnut"
+              >
               </ngx-charts-pie-chart>
             </div>
           </div>
 
-          <table class='table mb-0'>
+          <table class="table mb-0">
             <thead>
-            <tr>
-              <th>Source</th>
-              <th class='text-end'>Revenue</th>
-              <th class='text-end'>Value</th>
-            </tr>
+              <tr>
+                <th>Source</th>
+                <th class="text-end">Revenue</th>
+                <th class="text-end">Value</th>
+              </tr>
             </thead>
             <tbody>
-            <tr *ngFor='let item of salesRevenue$ | async; index as i'>
-              <td><i class="fas fa-square-full" [style.color]="weeklySalesConfig.colorScheme.domain[i]"></i> {{item.name}}</td>
-              <td class='text-end'>{{item.value | currency: 'USD'}}</td>
-              <td class='text-end'>
-                <valor-launchpad-percent-badge [val]="item.percentage" [precision]="0"></valor-launchpad-percent-badge>
-              </td>
-            </tr>
+              <tr *ngFor="let item of salesRevenue$ | async; index as i">
+                <td>
+                  <i
+                    class="fas fa-square-full"
+                    [style.color]="weeklySalesConfig.colorScheme.domain[i]"
+                  ></i>
+                  {{ item.name }}
+                </td>
+                <td class="text-end">{{ item.value | currency: 'USD' }}</td>
+                <td class="text-end">
+                  <valor-launchpad-percent-badge
+                    [val]="item.percentage"
+                    [precision]="0"
+                  ></valor-launchpad-percent-badge>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
-  <div valorLaunchpadCol [span]="12" [lg]="6" [xl]="4" class='d-flex'>
-    <valor-launchpad-card class='flex-fill w-100'>
+  <div valorLaunchpadCol [span]="12" [lg]="6" [xl]="4" class="d-flex">
+    <valor-launchpad-card class="flex-fill w-100">
       <valor-launchpad-card-header>
-        <div class='card-actions float-end'>
-          <div class='dropdown show' dropdown container='body'>
+        <div class="card-actions float-end">
+          <div class="dropdown show" dropdown container="body">
             <a dropdownToggle>
-              <i class='align-middle    fas fa-fw fa-ellipsis-h'></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
-        <h5 valor-launchpad-card-title class='mb-0'>Appointments</h5>
+        <h5 valor-launchpad-card-title class="mb-0">Appointments</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <ul class='timeline'>
-          <li *ngFor='let item of appointments$ | async' class='timeline-item'>
-            <strong>{{item.title}}</strong>
-            <span class='float-end text-muted text-sm'>{{item.createdDate | timeAgo}}</span>
-            <p>{{item.content}}</p>
+        <ul class="timeline">
+          <li *ngFor="let item of appointments$ | async" class="timeline-item">
+            <strong>{{ item.title }}</strong>
+            <span class="float-end text-muted text-sm">{{
+              item.createdDate | timeAgo
+            }}</span>
+            <p>{{ item.content }}</p>
           </li>
         </ul>
       </valor-launchpad-card-content>
@@ -306,67 +387,68 @@
   </div>
 </div>
 
-<valor-launchpad-card class='flex-fill'>
+<valor-launchpad-card class="flex-fill">
   <valor-launchpad-card-header>
-    <div class='card-actions float-end'>
-      <div class='dropdown show' dropdown container='body'>
+    <div class="card-actions float-end">
+      <div class="dropdown show" dropdown container="body">
         <a dropdownToggle>
-          <i class='align-middle fas fa-fw fa-ellipsis-h'></i>
+          <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
         </a>
 
-        <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-          <a class='dropdown-item' href='#'>Action</a>
-          <a class='dropdown-item' href='#'>Another action</a>
-          <a class='dropdown-item' href='#'>Something else here</a>
+        <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </div>
     </div>
-    <h5 valor-launchpad-card-title class='mb-0'>Latest Projects</h5>
+    <h5 valor-launchpad-card-title class="mb-0">Latest Projects</h5>
   </valor-launchpad-card-header>
   <div>
-    <ngx-datatable class='table table-striped my-0'
-                   #myTable
-                   [rows]='latestProjects$ | async'
-                   [columns]='latestProjectsTableColumn'
-                   [headerHeight]='50'
-                   [footerHeight]='50'
-                   rowHeight='auto'
-                   [columnMode]="'force'"
-                   [rowHeight]='46'
-                   [limit]='5'
+    <ngx-datatable
+      class="table table-striped my-0"
+      #myTable
+      [rows]="latestProjects$ | async"
+      [columns]="latestProjectsTableColumn"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      rowHeight="auto"
+      [columnMode]="'force'"
+      [rowHeight]="46"
+      [limit]="5"
     >
       <ngx-datatable-footer>
         <ng-template
           ngx-datatable-footer-template
-          let-rowCount='rowCount'
-          let-pageSize='pageSize'
-          let-curPage='curPage'
-          let-offset='offset'
+          let-rowCount="rowCount"
+          let-pageSize="pageSize"
+          let-curPage="curPage"
+          let-offset="offset"
         >
-          <div class='page-count'>
+          <div class="page-count">
             Showing
-            {{curPage === 1 ? 1 : (curPage - 1) * pageSize + 1}}
+            {{ curPage === 1 ? 1 : (curPage - 1) * pageSize + 1 }}
             to
-            {{
-            pageSize * curPage > rowCount ? rowCount : pageSize * curPage
-            }}
+            {{ pageSize * curPage > rowCount ? rowCount : pageSize * curPage }}
             of
-            {{rowCount}}
+            {{ rowCount }}
           </div>
           <datatable-pager
             [pagerLeftArrowIcon]="'datatable-valor-left'"
             [pagerRightArrowIcon]="'datatable-valor-right'"
-            [page]='curPage'
-            [size]='pageSize'
-            [count]='rowCount'
-            [hidden]='!((rowCount / pageSize) > 1)'
-            (change)='myTable.onFooterPage($event)'
+            [page]="curPage"
+            [size]="pageSize"
+            [count]="rowCount"
+            [hidden]="!(rowCount / pageSize > 1)"
+            (change)="myTable.onFooterPage($event)"
           ></datatable-pager>
         </ng-template>
       </ngx-datatable-footer>
     </ngx-datatable>
-    <ng-template #statusRef let-row='row'>
-      <span class="badge" [ngClass]="STATUS_MAPPING[row.status].theme">{{STATUS_MAPPING[row.status].label}}</span>
+    <ng-template #statusRef let-row="row">
+      <span class="badge" [ngClass]="STATUS_MAPPING[row.status].theme">{{
+        STATUS_MAPPING[row.status].label
+      }}</span>
     </ng-template>
   </div>
 </valor-launchpad-card>

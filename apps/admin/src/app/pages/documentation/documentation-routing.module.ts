@@ -8,34 +8,40 @@ import { IntroductionComponent } from './introduction/introduction.component';
 import { PluginsComponent } from './plugins/plugins.component';
 
 const routes: Routes = [
-{
-  path:'',
-  component:DocumentationComponent,
-  children:[{
-    path:'introduction',
-    component:IntroductionComponent
-  },{
-    path:'installation',
-    component:InstallationComponent
-  },{
-    path:'customization',
-    component:CustomizationComponent
-  },{
-    path:'plugins',
-    component:PluginsComponent
-  },{
-    path:'changelog',
-    component:ChangelogComponent
-  },{
-    path:'',
-    redirectTo:'introduction'
-  }]
-}
-
+  {
+    path: '',
+    component: DocumentationComponent,
+    children: [
+      {
+        path: 'introduction',
+        component: IntroductionComponent,
+      },
+      {
+        path: 'installation',
+        component: InstallationComponent,
+      },
+      {
+        path: 'customization',
+        component: CustomizationComponent,
+      },
+      {
+        path: 'plugins',
+        component: PluginsComponent,
+      },
+      {
+        path: 'changelog',
+        component: ChangelogComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'introduction',
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DocumentationRoutingModule { }
+export class DocumentationRoutingModule {}

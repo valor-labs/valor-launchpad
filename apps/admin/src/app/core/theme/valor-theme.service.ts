@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export type themeType = "default" | "colored" | "dark" | "light"
+export type themeType = 'default' | 'colored' | 'dark' | 'light';
 
-export type themeConfigKeys = 'theme' | 'layout' | 'sidebarPosition' | 'sidebarBehavior';
+export type themeConfigKeys =
+  | 'theme'
+  | 'layout'
+  | 'sidebarPosition'
+  | 'sidebarBehavior';
 export type themeConfig = Record<themeConfigKeys, string>;
 
 export const defaultProps: themeConfig = {
-  theme: "default",
-  layout: "fluid",
-  sidebarPosition: "left",
-  sidebarBehavior: "sticky"
-}
+  theme: 'default',
+  layout: 'fluid',
+  sidebarPosition: 'left',
+  sidebarBehavior: 'sticky',
+};
 
-const stylesheetClassName = ".js-stylesheet";
-const settingsPrefix = "valor-launchpad-config-";
+const stylesheetClassName = '.js-stylesheet';
+const settingsPrefix = 'valor-launchpad-config-';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ValorThemeService {
   sidebarBehavior$: Observable<string>;
   private sidebarBehavior = new BehaviorSubject(null);
@@ -27,10 +31,10 @@ export class ValorThemeService {
 
   changeTheme(name: themeConfigKeys, value: string): void {
     // Toggle stylesheet (light/dark)
-    if(name === "theme"){
-      const theme = value === "dark" ? "dark" : "light";
+    if (name === 'theme') {
+      const theme = value === 'dark' ? 'dark' : 'light';
       const stylesheet = document.querySelector(stylesheetClassName);
-      stylesheet.setAttribute("href", `${theme}.css`);
+      stylesheet.setAttribute('href', `${theme}.css`);
     }
     if (name === 'sidebarBehavior') {
       this.sidebarBehavior.next(value);
@@ -51,5 +55,4 @@ export class ValorThemeService {
   setStoredConfig(name: themeConfigKeys, value: string): void {
     localStorage.setItem(`${settingsPrefix}${name}`, value);
   }
-
 }

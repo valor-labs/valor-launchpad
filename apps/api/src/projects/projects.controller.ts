@@ -4,11 +4,13 @@ import {
   Get,
   NotFoundException,
   Param,
-  Post, UploadedFile,
-  UseGuards, UseInterceptors
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import {ProjectsService} from "./projects.service";
-import {JwtAuthGuard} from '@valor-launchpad/auth-api';
+import { ProjectsService } from './projects.service';
+import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 import { ProjectCreateDto } from './dto/project-create-dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageUploaderUtility } from '../media/imageUploader.utility';
@@ -17,8 +19,7 @@ import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 @UseGuards(JwtAuthGuard)
 @Controller('v1')
 export class ProjectsController {
-  constructor(private projectsService: ProjectsService) {
-  }
+  constructor(private projectsService: ProjectsService) {}
 
   @Get('isProjectExist/:title')
   async isProjectExist(@Param() params) {
@@ -33,7 +34,7 @@ export class ProjectsController {
   @Post('create')
   @UseInterceptors(
     FileInterceptor('image', {
-      storage: ImageUploaderUtility.getStorageOptions()
+      storage: ImageUploaderUtility.getStorageOptions(),
     })
   )
   async create(@Body() project: ProjectCreateDto, @UploadedFile() file) {
@@ -52,7 +53,7 @@ export class ProjectsController {
     const project = await this.projectsService.getSingle(params.id);
     /*TODO: improve this check */
     if (typeof project !== 'undefined') {
-      return project
+      return project;
     } else {
       throw new NotFoundException();
     }

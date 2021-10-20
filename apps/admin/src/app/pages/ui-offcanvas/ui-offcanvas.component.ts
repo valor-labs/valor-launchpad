@@ -4,16 +4,14 @@ import { Action } from '@valor-launchpad/api-interfaces';
 @Component({
   selector: 'valor-launchpad-ui-offcanvas',
   templateUrl: './ui-offcanvas.component.html',
-  styleUrls: ['./ui-offcanvas.component.scss']
+  styleUrls: ['./ui-offcanvas.component.scss'],
 })
 export class UiOffCanvasComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  dropdownActions:Action[] = [
+  dropdownActions: Action[] = [
     {
       label: 'Action',
       link: '#',
@@ -22,60 +20,58 @@ export class UiOffCanvasComponent implements OnInit {
     { label: 'Something else here', link: '#' },
   ];
 
-  showExample:boolean=false;
-  showLeft:boolean=false;
-  showRight:boolean=false;
-  showBottom:boolean=false;
-  showScrolling:boolean=false;
-  showBackdrop:boolean=false;
-  showScrollingBackdrop:boolean=false;
+  showExample: boolean = false;
+  showLeft: boolean = false;
+  showRight: boolean = false;
+  showBottom: boolean = false;
+  showScrolling: boolean = false;
+  showBackdrop: boolean = false;
+  showScrollingBackdrop: boolean = false;
 
-  toggleShowExample(){
-    this.showExample=!this.showExample
+  toggleShowExample() {
+    this.showExample = !this.showExample;
   }
-  toggleShowLeft(){
-    this.showLeft=!this.showLeft;
+  toggleShowLeft() {
+    this.showLeft = !this.showLeft;
   }
-  toggleShowRight(){
-    this.showRight=!this.showRight;
+  toggleShowRight() {
+    this.showRight = !this.showRight;
   }
-  toggleShowBottom(){
-    this.showBottom=!this.showBottom;
+  toggleShowBottom() {
+    this.showBottom = !this.showBottom;
   }
-  toggleShowScrolling(){
-    this.showScrolling=!this.showScrolling;
+  toggleShowScrolling() {
+    this.showScrolling = !this.showScrolling;
   }
-  toggleShowBackdrop(){
-    this.showBackdrop=!this.showBackdrop;
+  toggleShowBackdrop() {
+    this.showBackdrop = !this.showBackdrop;
   }
-  toggleShowScrollingBackdrop(){
-    this.showScrollingBackdrop=!this.showScrollingBackdrop;
-  }
-
-  handleCloseExample(){
-    this.showExample=false;
+  toggleShowScrollingBackdrop() {
+    this.showScrollingBackdrop = !this.showScrollingBackdrop;
   }
 
-  handleCloseLeft(){
-    this.showLeft=false;
+  handleCloseExample() {
+    this.showExample = false;
   }
 
-  handleCloseRight(){
-    this.showRight=false;
-  }
-  handleCloseBottom(){
-    this.showBottom=false;
+  handleCloseLeft() {
+    this.showLeft = false;
   }
 
-  handleCloseScrolling(){
-    this.showScrolling=false;
+  handleCloseRight() {
+    this.showRight = false;
   }
-  handleCloseBackdrop(){
-    this.showBackdrop=false;
-  }
-  handleCloseScrollingBackdrop(){
-    this.showScrollingBackdrop=false;
+  handleCloseBottom() {
+    this.showBottom = false;
   }
 
-
+  handleCloseScrolling() {
+    this.showScrolling = false;
+  }
+  handleCloseBackdrop() {
+    this.showBackdrop = false;
+  }
+  handleCloseScrollingBackdrop() {
+    this.showScrollingBackdrop = false;
+  }
 }

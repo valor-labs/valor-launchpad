@@ -1,6 +1,9 @@
 <h1>Payment Integrations</h1>
-<p>There are two payment providers currently supported as part of this template. PayPal and Stripe</p>
-<div valorLaunchpadRow class='justify-content-center'>
+<p>
+  There are two payment providers currently supported as part of this template.
+  PayPal and Stripe
+</p>
+<div valorLaunchpadRow class="justify-content-center">
   <!--        TODO: We need to implement this button https://developer.paypal.com/docs/platforms/checkout/reference/style-guide/-->
   <!-- <valor-launchpad-card valorLaunchpadCol [span]='5'>
     <valor-launchpad-card-header>
@@ -24,21 +27,30 @@
 
   <div valorLaunchpadCol [span]='1'></div> -->
 
-  <valor-launchpad-card valorLaunchpadCol [span]='5'>
+  <valor-launchpad-card valorLaunchpadCol [span]="5">
     <valor-launchpad-card-header>
-      <a class='card-title mb-0' routerLink='paypal'>
-        <div class='row justify-content-center'>
-          <img class='hero-logo' src='assets/img/brands/stripe-blurple.svg' alt='PayPal Logo'>
+      <a class="card-title mb-0" routerLink="paypal">
+        <div class="row justify-content-center">
+          <img
+            class="hero-logo"
+            src="assets/img/brands/stripe-blurple.svg"
+            alt="PayPal Logo"
+          />
         </div>
       </a>
     </valor-launchpad-card-header>
     <valor-launchpad-card-content>
       <h2>Payments infrastructure for the internet</h2>
-      <p class='payment-description'>Millions of companies of all sizes—from startups to Fortune 500s—use Stripe’s
-        software and APIs to accept payments, send payouts, and manage their businesses online.</p>
-      <a valor-launchpad-button routerLink='./stripe' class='w-100'>Explore Stripe</a>
+      <p class="payment-description">
+        Millions of companies of all sizes—from startups to Fortune 500s—use
+        Stripe’s software and APIs to accept payments, send payouts, and manage
+        their businesses online.
+      </p>
+      <a valor-launchpad-button routerLink="./stripe" class="w-100"
+        >Explore Stripe</a
+      >
       <!--        TODO: We need to implement these badges as well https://stripe.com/newsroom/brand-assets -->
     </valor-launchpad-card-content>
   </valor-launchpad-card>
-  <div valorLaunchpadCol [span]='7'></div>
+  <div valorLaunchpadCol [span]="7"></div>
 </div>

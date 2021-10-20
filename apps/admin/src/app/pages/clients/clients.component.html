@@ -6,8 +6,10 @@
       <valor-launchpad-card-header>
         <div class="card-actions float-end">
           <valor-launchpad-dropdown [direction]="'end'">
-             <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
-             <valor-launchpad-dropdown-actions-menu [actions]="actions1"></valor-launchpad-dropdown-actions-menu>
+            <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="actions1"
+            ></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">Clients</h5>
@@ -15,13 +17,29 @@
       <valor-launchpad-card-content>
         <div class="d-flex flex-row align-items-center justify-content-between">
           <span class="d-flex flex-row align-items-center">
-            Show <select class="form-select form-select-sm ms-1 me-1" (change)="onSelectChange($event.target.value)">
+            Show
+            <select
+              class="form-select form-select-sm ms-1 me-1"
+              (change)="onSelectChange($event.target.value)"
+            >
               <option>Choose...</option>
-              <option *ngFor="let item of entries" [value]="item">{{item}}</option>
-            </select> entries
+              <option *ngFor="let item of entries" [value]="item">
+                {{ item }}
+              </option>
+            </select>
+            entries
           </span>
           <div class="d-flex flex-row align-items-center">
-            Search:<input valorLaunchpadInput type="text" name="client" [(ngModel)]="clientName" id="inputUsername" class="ms-1" placeholder="Search Client" (keyup)="searchClient($event.target.value)">
+            Search:<input
+              valorLaunchpadInput
+              type="text"
+              name="client"
+              [(ngModel)]="clientName"
+              id="inputUsername"
+              class="ms-1"
+              placeholder="Search Client"
+              (keyup)="searchClient($event.target.value)"
+            />
           </div>
         </div>
         <valor-launchpad-tables
@@ -30,7 +48,12 @@
           [class]="'table-striped'"
           [style]="'width:100%'"
         ></valor-launchpad-tables>
-        <valor-launchpad-pagination [totalItems]="searchTableData.length" [isEntriesShow]="isShow" [itemPage]="itemsPerPage" (pageChanged)="onPageChanged($event)"></valor-launchpad-pagination>
+        <valor-launchpad-pagination
+          [totalItems]="searchTableData.length"
+          [isEntriesShow]="isShow"
+          [itemPage]="itemsPerPage"
+          (pageChanged)="onPageChanged($event)"
+        ></valor-launchpad-pagination>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
@@ -41,14 +64,22 @@
         <div class="card-actions float-end">
           <valor-launchpad-dropdown [direction]="'end'">
             <i dropdown-nav class="align-middle fas fa-fw fa-ellipsis-h"></i>
-            <valor-launchpad-dropdown-actions-menu [actions]="actions2"></valor-launchpad-dropdown-actions-menu>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="actions2"
+            ></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
-        <h5 class="card-title mb-0">{{profile.detail.name}}</h5>
+        <h5 class="card-title mb-0">{{ profile.detail.name }}</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <div valorLaunchpadRow class="g-0">
-          <div valorLaunchpadCol [sm]="3" [xl]="12" [xxl]="3" class="text-center">
+          <div
+            valorLaunchpadCol
+            [sm]="3"
+            [xl]="12"
+            [xxl]="3"
+            class="text-center"
+          >
             <valor-launchpad-avatar
               [src]="profile.avatar"
               [size]="'xl'"
@@ -76,7 +107,8 @@
         <strong>Activity</strong>
 
         <valor-launchpad-timeline
-          [timeline]="timeline" [classes]="'mt-2 mb-0'"
+          [timeline]="timeline"
+          [classes]="'mt-2 mb-0'"
         ></valor-launchpad-timeline>
       </valor-launchpad-card-content>
     </valor-launchpad-card>

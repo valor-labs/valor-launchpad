@@ -1,12 +1,25 @@
-
-
-<a *ngIf='messenger' class='list-group-item list-group-item-action border-0'>
-  <div *ngIf='messenger?.unreadNumber !== 0' class='badge float-end' [ngClass]='unreadStatusClass'>{{messenger.unreadNumber}}</div>
-  <div class='d-flex align-items-start'>
-    <img src='{{messenger.avatarUrl}}' class='rounded-circle me-1' alt='{{messenger.name}}' width='40' height='40'>
-    <div class='flex-grow-1 ms-3'>
-      {{messenger.name}}
-      <div class='small'><span class='fas fa-circle' [ngClass]='messengerStatusClass'></span> {{messenger.status}}</div>
+<a *ngIf="messenger" class="list-group-item list-group-item-action border-0">
+  <div
+    *ngIf="messenger?.unreadNumber !== 0"
+    class="badge float-end"
+    [ngClass]="unreadStatusClass"
+  >
+    {{ messenger.unreadNumber }}
+  </div>
+  <div class="d-flex align-items-start">
+    <img
+      src="{{ messenger.avatarUrl }}"
+      class="rounded-circle me-1"
+      alt="{{ messenger.name }}"
+      width="40"
+      height="40"
+    />
+    <div class="flex-grow-1 ms-3">
+      {{ messenger.name }}
+      <div class="small">
+        <span class="fas fa-circle" [ngClass]="messengerStatusClass"></span>
+        {{ messenger.status }}
+      </div>
     </div>
   </div>
 </a>

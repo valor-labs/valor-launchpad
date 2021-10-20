@@ -9,7 +9,9 @@ describe('DashboardCryptoController', () => {
       controllers: [DashboardCryptoController],
     }).compile();
 
-    controller = module.get<DashboardCryptoController>(DashboardCryptoController);
+    controller = module.get<DashboardCryptoController>(
+      DashboardCryptoController
+    );
   });
 
   it('should be defined', () => {

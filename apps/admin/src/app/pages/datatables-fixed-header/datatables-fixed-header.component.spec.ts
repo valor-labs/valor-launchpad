@@ -8,9 +8,8 @@ describe('DatatablesFixedHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DatatablesFixedHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [DatatablesFixedHeaderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,9 +8,8 @@ describe('VerifyUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VerifyUserComponent ]
-    })
-    .compileComponents();
+      declarations: [VerifyUserComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,5 +1,8 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { ProjectListItemVo, STATUS_MAPPING } from '@valor-launchpad/api-interfaces';
+import {
+  ProjectListItemVo,
+  STATUS_MAPPING,
+} from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-project-list-item',

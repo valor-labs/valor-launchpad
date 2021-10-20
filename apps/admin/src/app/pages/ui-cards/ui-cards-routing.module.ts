@@ -1,16 +1,16 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {UiCardsComponent} from "./ui-cards.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { UiCardsComponent } from './ui-cards.component';
 
 const routes: Routes = [
   {
-    path: '', component: UiCardsComponent
-  }
+    path: '',
+    component: UiCardsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UiCardsRoutingModule {
-}
+export class UiCardsRoutingModule {}

@@ -8,9 +8,8 @@ describe('ValorLaunchpadMessageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ValorLaunchpadMessageComponent ]
-    })
-    .compileComponents();
+      declarations: [ValorLaunchpadMessageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

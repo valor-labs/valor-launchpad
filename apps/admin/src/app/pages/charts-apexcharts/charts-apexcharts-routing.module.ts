@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChartsApexchartsComponent }  from './charts-apexcharts.component'
+import { ChartsApexchartsComponent } from './charts-apexcharts.component';
 
 const routes: Routes = [
   {
-    path:'', component: ChartsApexchartsComponent
-  }
+    path: '',
+    component: ChartsApexchartsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ChartsApexchartsRoutingModule { }
+export class ChartsApexchartsRoutingModule {}

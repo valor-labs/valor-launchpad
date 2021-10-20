@@ -8,9 +8,8 @@ describe('IconsFontAwesomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IconsFontAwesomeComponent ]
-    })
-    .compileComponents();
+      declarations: [IconsFontAwesomeComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

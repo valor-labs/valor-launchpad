@@ -7,18 +7,15 @@ import { ResetNewPasswordService } from './reset-new-password.service';
 
 import { ResetNewPasswordRoutingModule } from './reset-new-password-routing.module';
 
-
 @NgModule({
   declarations: [ResetNewPasswordComponent],
-  providers: [
-    ResetNewPasswordService
-  ],
+  providers: [ResetNewPasswordService],
   imports: [
     UiModule,
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-    ResetNewPasswordRoutingModule
-  ]
+    ResetNewPasswordRoutingModule,
+  ],
 })
-export class ResetNewPasswordModule { }
+export class ResetNewPasswordModule {}

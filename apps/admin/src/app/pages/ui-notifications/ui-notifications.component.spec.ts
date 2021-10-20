@@ -8,9 +8,8 @@ describe('UiNotificationsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiNotificationsComponent ]
-    })
-    .compileComponents();
+      declarations: [UiNotificationsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

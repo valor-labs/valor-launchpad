@@ -3,10 +3,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'valor-launchpad-ui-carousel',
   templateUrl: './ui-carousel.component.html',
-  styleUrls: ['./ui-carousel.component.scss']
+  styleUrls: ['./ui-carousel.component.scss'],
 })
 export class UiCarouselComponent {
-
   normalList = [
     {
       imgUrl: 'assets/img/photos/unsplash-1.jpg',
@@ -16,8 +15,8 @@ export class UiCarouselComponent {
     },
     {
       imgUrl: 'assets/img/photos/unsplash-3.jpg',
-    }
-  ]
+    },
+  ];
 
   captionList = [
     {
@@ -32,8 +31,9 @@ export class UiCarouselComponent {
     },
     {
       title: 'First slide label',
-      content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+      content:
+        'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
       imgUrl: 'assets/img/photos/unsplash-3.jpg',
-    }
-  ]
+    },
+  ];
 }

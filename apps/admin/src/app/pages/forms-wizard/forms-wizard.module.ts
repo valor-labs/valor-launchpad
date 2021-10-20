@@ -2,18 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsWizardComponent } from './forms-wizard.component';
 import { FormsWizardRoutingModule } from './forms-wizard-routing.module';
-import { UiModule } from "@valor-launchpad/ui";
+import { UiModule } from '@valor-launchpad/ui';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    FormsWizardComponent
-  ],
+  declarations: [FormsWizardComponent],
   imports: [
     CommonModule,
     FormsWizardRoutingModule,
     UiModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class FormsWizardModule { }
+export class FormsWizardModule {}

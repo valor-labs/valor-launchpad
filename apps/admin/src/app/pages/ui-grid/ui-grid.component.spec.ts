@@ -8,9 +8,8 @@ describe('UiGridComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiGridComponent ]
-    })
-    .compileComponents();
+      declarations: [UiGridComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

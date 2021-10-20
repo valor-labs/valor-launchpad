@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class InvoiceService {
   getInvoice() {
     return of({
@@ -24,6 +24,6 @@ export class InvoiceService {
       shipping: 8,
       discount: 0.05,
       total: 268.85,
-    })
+    });
   }
 }

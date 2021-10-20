@@ -5,13 +5,8 @@ import { UiOffcanvasRoutingModule } from './ui-offcanvas-routing.module';
 import { UiOffCanvasComponent } from './ui-offcanvas.component';
 import { UiModule } from '@valor-launchpad/ui';
 
-
 @NgModule({
   declarations: [UiOffCanvasComponent],
-  imports: [
-    UiModule,
-    CommonModule,
-    UiOffcanvasRoutingModule
-  ]
+  imports: [UiModule, CommonModule, UiOffcanvasRoutingModule],
 })
-export class UiOffcanvasModule { }
+export class UiOffcanvasModule {}

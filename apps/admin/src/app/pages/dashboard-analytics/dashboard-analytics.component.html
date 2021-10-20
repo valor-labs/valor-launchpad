@@ -4,20 +4,31 @@
   </div>
 
   <div valorLaunchpadCol span="auto" class="ms-auto text-end mt-n1">
-
     <div class="me-2 d-inline-block">
       <valor-launchpad-dropdown>
-        <button valor-launchpad-button dropdown-nav theme='light' class='bg-white shadow-sm dropdown-toggle'>
-          <i class="align-middle mt-n1 far fa-fw fa-calendar"></i> {{dateRange$ | async}}
+        <button
+          valor-launchpad-button
+          dropdown-nav
+          theme="light"
+          class="bg-white shadow-sm dropdown-toggle"
+        >
+          <i class="align-middle mt-n1 far fa-fw fa-calendar"></i>
+          {{ dateRange$ | async }}
         </button>
-        <valor-launchpad-dropdown-actions-menu [actions]="timeRangeActions"></valor-launchpad-dropdown-actions-menu>
+        <valor-launchpad-dropdown-actions-menu
+          [actions]="timeRangeActions"
+        ></valor-launchpad-dropdown-actions-menu>
       </valor-launchpad-dropdown>
     </div>
 
     <button valor-launchpad-button class="shadow-sm">
-      <i class="align-middle  fas fa-fw fa-filter">&nbsp;</i>
+      <i class="align-middle fas fa-fw fa-filter">&nbsp;</i>
     </button>
-    <button valor-launchpad-button class="shadow-sm" (click)="refreshController$.next()">
+    <button
+      valor-launchpad-button
+      class="shadow-sm"
+      (click)="refreshController$.next()"
+    >
       <i class="align-middle fas fa-fw fa-sync">&nbsp;</i>
     </button>
   </div>
@@ -25,7 +36,6 @@
 <div valorLaunchpadRow>
   <div valorLaunchpadCol [lg]="6" [xl]="5" class="d-flex">
     <div class="w-100">
-
       <div valorLaunchpadRow>
         <div valorLaunchpadCol [sm]="6" [lg]="12" [xxl]="6">
           <valor-launchpad-card class="illustration">
@@ -33,12 +43,22 @@
               <div valorLaunchpadRow class="g-0 w-100">
                 <div valorLaunchpadCol [span]="6">
                   <div class="illustration-text p-3 m-1">
-                    <h4 class="illustration-text">Welcome Back, {{userFirstName$ | async}}!</h4>
+                    <h4 class="illustration-text">
+                      Welcome Back, {{ userFirstName$ | async }}!
+                    </h4>
                     <p class="mb-0">Admin Dashboard</p>
                   </div>
                 </div>
-                <div valorLaunchpadCol [span]="6" class="align-self-end text-end">
-                  <img src="assets/img/illustrations/searching.png" alt="Searching" class="img-fluid illustration-img">
+                <div
+                  valorLaunchpadCol
+                  [span]="6"
+                  class="align-self-end text-end"
+                >
+                  <img
+                    src="assets/img/illustrations/searching.png"
+                    alt="Searching"
+                    class="img-fluid illustration-img"
+                  />
                 </div>
               </div>
             </valor-launchpad-card-content>
@@ -54,11 +74,16 @@
 
                 <div valorLaunchpadCol span="auto">
                   <div class="stat stat-sm">
-                    <i class="align-middle fas fa-arrow-up" data-feather="arrow-up-right"></i>
+                    <i
+                      class="align-middle fas fa-arrow-up"
+                      data-feather="arrow-up-right"
+                    ></i>
                   </div>
                 </div>
               </div>
-              <span class="h1 d-inline-block mt-1 mb-4">{{(mainInfo$ | async)?.bounce.value}}</span>
+              <span class="h1 d-inline-block mt-1 mb-4">{{
+                (mainInfo$ | async)?.bounce.value
+              }}</span>
               <div class="mb-0">
                 <valor-launchpad-percent-badge
                   class="me-2"
@@ -86,7 +111,9 @@
                   </div>
                 </div>
               </div>
-              <span class="h1 d-inline-block mt-1 mb-4">{{(mainInfo$ | async)?.realTime?.value}}</span>
+              <span class="h1 d-inline-block mt-1 mb-4">{{
+                (mainInfo$ | async)?.realTime?.value
+              }}</span>
               <div class="mb-0">
                 <valor-launchpad-percent-badge
                   class="me-2"
@@ -112,7 +139,9 @@
                   </div>
                 </div>
               </div>
-              <span class="h1 d-inline-block mt-1 mb-4">{{(mainInfo$ | async)?.visitors?.value}}</span>
+              <span class="h1 d-inline-block mt-1 mb-4">{{
+                (mainInfo$ | async)?.visitors?.value
+              }}</span>
               <div class="mb-0">
                 <valor-launchpad-percent-badge
                   class="me-2"
@@ -125,7 +154,6 @@
           </valor-launchpad-card>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -133,22 +161,26 @@
     <div class="card flex-fill w-100">
       <div class="card-header">
         <div class="card-actions float-end">
-          <div class="dropdown show" dropdown container='body'>
+          <div class="dropdown show" dropdown container="body">
             <a dropdownToggle>
               <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
         <h5 class="card-title mb-0">Real-Time</h5>
       </div>
       <div class="card-body p-2">
-        <div id="real-time-world" style="height:279px;"></div>
+        <div id="real-time-world" style="height: 279px"></div>
       </div>
     </div>
   </div>
@@ -161,13 +193,17 @@
         <div class="card-actions float-end">
           <div class="dropdown show" dropdown>
             <a dropdownToggle>
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
             <div class="dropdown-menu" *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
@@ -175,20 +211,22 @@
       </valor-launchpad-card-header>
       <table class="table table-striped my-0">
         <thead>
-        <tr>
-          <th>Language</th>
-          <th class="text-end">Users</th>
-          <th class="d-none d-xl-table-cell w-75">% Users</th>
-        </tr>
+          <tr>
+            <th>Language</th>
+            <th class="text-end">Users</th>
+            <th class="d-none d-xl-table-cell w-75">% Users</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of byLanguage$ | async">
-          <td>{{item.language}}</td>
-          <td class="text-end">{{item.value}}</td>
-          <td class="d-none d-xl-table-cell">
-            <valor-launchpad-progress [value]="item.percent * 100"></valor-launchpad-progress>
-          </td>
-        </tr>
+          <tr *ngFor="let item of byLanguage$ | async">
+            <td>{{ item.language }}</td>
+            <td class="text-end">{{ item.value }}</td>
+            <td class="d-none d-xl-table-cell">
+              <valor-launchpad-progress
+                [value]="item.percent * 100"
+              ></valor-launchpad-progress>
+            </td>
+          </tr>
         </tbody>
       </table>
     </valor-launchpad-card>
@@ -200,13 +238,17 @@
         <div class="card-actions float-end">
           <div class="dropdown show" dropdown>
             <a dropdownToggle>
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
             <div class="dropdown-menu" *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
@@ -234,13 +276,17 @@
         <div class="card-actions float-end">
           <div class="dropdown show" dropdown container="body">
             <a dropdownToggle>
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
@@ -249,7 +295,7 @@
       <valor-launchpad-card-content>
         <div class="chart">
           <apx-chart
-            *ngIf="(byInterest$ | async) as byInterest"
+            *ngIf="byInterest$ | async as byInterest"
             [series]="byInterest?.series"
             [chart]="byInterest?.chart"
             [xaxis]="byInterest?.xaxis"
@@ -267,13 +313,17 @@
         <div class="card-actions float-end">
           <div class="dropdown" dropdown>
             <a dropdownToggle>
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
             <div class="dropdown-menu" *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
@@ -290,27 +340,37 @@
                 [legend]="sourceMediumConfig.showLegend"
                 [legendPosition]="sourceMediumConfig.legendPosition"
                 [labels]="sourceMediumConfig.showLabels"
-                [doughnut]="sourceMediumConfig.isDoughnut">
+                [doughnut]="sourceMediumConfig.isDoughnut"
+              >
               </ngx-charts-pie-chart>
             </div>
           </div>
 
           <table class="table mb-0">
             <thead>
-            <tr>
-              <th>Source</th>
-              <th class="text-end">Revenue</th>
-              <th class="text-end">Value</th>
-            </tr>
+              <tr>
+                <th>Source</th>
+                <th class="text-end">Revenue</th>
+                <th class="text-end">Value</th>
+              </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of bySource$ | async; index as i">
-              <td><i class="fas fa-square-full" [style.color]="sourceMediumConfig.colorScheme.domain[i]"></i> {{item.name}}</td>
-              <td class="text-end">{{item.value | currency: 'USD'}}</td>
-              <td class="text-end">
-                <valor-launchpad-percent-badge [val]="item.rate" [precision]="0"></valor-launchpad-percent-badge>
-              </td>
-            </tr>
+              <tr *ngFor="let item of bySource$ | async; index as i">
+                <td>
+                  <i
+                    class="fas fa-square-full"
+                    [style.color]="sourceMediumConfig.colorScheme.domain[i]"
+                  ></i>
+                  {{ item.name }}
+                </td>
+                <td class="text-end">{{ item.value | currency: 'USD' }}</td>
+                <td class="text-end">
+                  <valor-launchpad-percent-badge
+                    [val]="item.rate"
+                    [precision]="0"
+                  ></valor-launchpad-percent-badge>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -323,13 +383,17 @@
         <div class="card-actions float-end">
           <div class="dropdown" dropdown container="body">
             <a dropdownToggle>
-              <i class="align-middle    fas fa-fw fa-ellipsis-h"></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>

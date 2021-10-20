@@ -5,17 +5,15 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'valor-launchpad-ui-notifications',
   templateUrl: './ui-notifications.component.html',
-  styleUrls: ['./ui-notifications.component.scss']
+  styleUrls: ['./ui-notifications.component.scss'],
 })
 export class UiNotificationsComponent implements OnInit {
-
   notifSettingForm: FormGroup;
 
   constructor(
     @Inject(NOTYFToken) private notyf: Notyf,
     private fb: FormBuilder
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.notifSettingForm = this.fb.group({
@@ -25,21 +23,19 @@ export class UiNotificationsComponent implements OnInit {
       withRipple: new FormControl(true),
       dismissible: new FormControl(false),
       horizontalPosition: new FormControl('right'),
-      verticalPosition: new FormControl('top')
+      verticalPosition: new FormControl('top'),
     });
   }
 
   alert() {
     const form = this.notifSettingForm.value;
-    this.notyf.open(
-      {
-        message: form.message,
-        type: form.type,
-        duration: form.duration,
-        ripple: form.withRipple,
-        dismissible: form.dismissible,
-        position: { x: form.horizontalPosition, y: form.verticalPosition }
-      });
+    this.notyf.open({
+      message: form.message,
+      type: form.type,
+      duration: form.duration,
+      ripple: form.withRipple,
+      dismissible: form.dismissible,
+      position: { x: form.horizontalPosition, y: form.verticalPosition },
+    });
   }
-
 }

@@ -1,15 +1,19 @@
-import {Injectable} from '@nestjs/common';
-import {EventEmitter2} from '@nestjs/event-emitter'
-import {ProjectCreatedFatEvent, ProjectCreatedThinEvent} from './events/project-created.event';
-import {PrismaService} from '@valor-launchpad/prisma';
+import { Injectable } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import {
+  ProjectCreatedFatEvent,
+  ProjectCreatedThinEvent,
+} from './events/project-created.event';
+import { PrismaService } from '@valor-launchpad/prisma';
 import { ProjectCreateDto } from './dto/project-create-dto';
 import { ImageUploaderUtility } from '../media/imageUploader.utility';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 @Injectable()
 export class ProjectsService {
-  constructor(private prisma: PrismaService,
-              private eventEmitter: EventEmitter2) {
-  }
+  constructor(
+    private prisma: PrismaService,
+    private eventEmitter: EventEmitter2
+  ) {}
 
   async createProject(project: ProjectCreateDto, file) {
     const src = file.path;
@@ -30,20 +34,17 @@ export class ProjectsService {
             src: src.split('/').pop(),
             src_webp: webpSrc.split('/').pop(),
             alt: '',
-          }
-        }
-      }
+          },
+        },
+      },
     });
 
-    this.eventEmitter.emit(
-      'project.created.thin',
-      <ProjectCreatedThinEvent>{
-        id: persistedProject.id,
-      },
-    );
+    this.eventEmitter.emit('project.created.thin', <ProjectCreatedThinEvent>{
+      id: persistedProject.id,
+    });
     this.eventEmitter.emit(
       'project.created.fat',
-      <ProjectCreatedFatEvent>persistedProject,
+      <ProjectCreatedFatEvent>persistedProject
     );
     return persistedProject;
   }
@@ -55,29 +56,29 @@ export class ProjectsService {
         assignee: {
           select: {
             user: {
-              include: {avatar: true}
-            }
-          }
+              include: { avatar: true },
+            },
+          },
         },
       },
       orderBy: {
         createdDate: 'desc',
-      }
+      },
     });
   }
 
   async getProjectByTitle(title: string) {
     return await this.prisma.projectsEntity.findFirst({
       where: {
-        title
-      }
-    })
+        title,
+      },
+    });
   }
 
   async getSingle(id: string) {
     return await this.prisma.projectsEntity.findUnique({
       where: {
-        id
+        id,
       },
       include: {
         assignee: {
@@ -86,9 +87,9 @@ export class ProjectsService {
               include: {
                 profile: true,
                 avatar: { select: { src: true, alt: true } },
-              }
-            }
-          }
+              },
+            },
+          },
         },
         hero: true,
         summary: {
@@ -97,9 +98,9 @@ export class ProjectsService {
               include: {
                 profile: true,
                 avatar: { select: { src: true, alt: true } },
-              }
-            }
-          }
+              },
+            },
+          },
         },
         comments: {
           include: {
@@ -107,7 +108,7 @@ export class ProjectsService {
               include: {
                 profile: true,
                 avatar: { select: { src: true, alt: true } },
-              }
+              },
             },
             children: {
               include: {
@@ -115,13 +116,13 @@ export class ProjectsService {
                   include: {
                     profile: true,
                     avatar: { select: { src: true, alt: true } },
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
   }
 }

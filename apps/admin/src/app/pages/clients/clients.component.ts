@@ -10,8 +10,7 @@ import {
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
 })
-export class ClientsComponent implements OnInit{
- 
+export class ClientsComponent implements OnInit {
   itemsPerPage: number;
   paginationTableData = [];
   currentPage: number;
@@ -20,7 +19,7 @@ export class ClientsComponent implements OnInit{
   searchTableData = [];
   isShow: boolean;
 
-  entries = [1,2,3,4,5,6,7,8,9,10];
+  entries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   timeline: Timeline = [
     {
@@ -132,19 +131,19 @@ export class ClientsComponent implements OnInit{
   ];
 
   profile = {
-   avatar:'assets/img/avatars/avatar-3.jpg',
-   detail:{
-    name: 'Yuri Berry',
-    company: 'The Wiz',
-    email: 'yuri@berry.com',
-    phone:'+1234123123123',
-    status: `<span class="badge bg-success">Active</span>`,
-   },
-   description:`Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-   dolore magna aliqua.`
+    avatar: 'assets/img/avatars/avatar-3.jpg',
+    detail: {
+      name: 'Yuri Berry',
+      company: 'The Wiz',
+      email: 'yuri@berry.com',
+      phone: '+1234123123123',
+      status: `<span class="badge bg-success">Active</span>`,
+    },
+    description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+   dolore magna aliqua.`,
   };
 
-  profileKeys=Object.keys(this.profile.detail);
+  profileKeys = Object.keys(this.profile.detail);
 
   actions1: Action[] = [
     {
@@ -168,32 +167,45 @@ export class ClientsComponent implements OnInit{
     this.initTable();
   }
 
-  initTable () {
+  initTable() {
     this.searchTableData = this.tableData;
     this.itemsPerPage = 5;
     this.currentPage = 1;
-    this.paginationTableData = this.searchTableData.slice(0,this.itemsPerPage);
+    this.paginationTableData = this.searchTableData.slice(0, this.itemsPerPage);
     this.isShow = true;
   }
 
   onPageChanged(event) {
     this.currentPage = event.page;
-    this.paginationTableData = this.getPaginationTableData(this.searchTableData, event.page, event.itemsPerPage);
+    this.paginationTableData = this.getPaginationTableData(
+      this.searchTableData,
+      event.page,
+      event.itemsPerPage
+    );
   }
 
   onSelectChange(event) {
     this.itemsPerPage = event;
-    if (this.currentPage > Math.ceil(this.searchTableData.length / this.itemsPerPage)) {
-      this.currentPage = Math.ceil(this.searchTableData.length / this.itemsPerPage);
+    if (
+      this.currentPage >
+      Math.ceil(this.searchTableData.length / this.itemsPerPage)
+    ) {
+      this.currentPage = Math.ceil(
+        this.searchTableData.length / this.itemsPerPage
+      );
     }
-    this.paginationTableData = this.getPaginationTableData(this.searchTableData, this.currentPage, this.itemsPerPage);
+    this.paginationTableData = this.getPaginationTableData(
+      this.searchTableData,
+      this.currentPage,
+      this.itemsPerPage
+    );
   }
 
   searchClient(event) {
     if (this.clientName === '') {
       this.searchTableData = this.tableData;
     } else {
-      this.searchTableData = this.tableData.filter(item => {
+      this.searchTableData = this.tableData.filter((item) => {
         // search all content
         // return item.name.includes(event) || item.company.includes(event) || item.email.includes(event) || item.status.includes(event);
         // search just name
@@ -201,10 +213,14 @@ export class ClientsComponent implements OnInit{
       });
     }
 
-    this.paginationTableData = this.getPaginationTableData(this.searchTableData, this.currentPage, this.itemsPerPage);
+    this.paginationTableData = this.getPaginationTableData(
+      this.searchTableData,
+      this.currentPage,
+      this.itemsPerPage
+    );
   }
 
-  getPaginationTableData(data, currentPage , perPage) {
-    return data.slice((currentPage - 1) * perPage , currentPage * perPage)
+  getPaginationTableData(data, currentPage, perPage) {
+    return data.slice((currentPage - 1) * perPage, currentPage * perPage);
   }
 }

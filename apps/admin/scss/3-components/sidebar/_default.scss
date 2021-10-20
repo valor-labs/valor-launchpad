@@ -3,15 +3,15 @@
   max-width: $sidebar-width;
   transition: $sidebar-transition;
   direction: ltr;
-  @include theme("background", $sidebar-bg);
+  @include theme('background', $sidebar-bg);
 }
 
 .sidebar-content {
   transition: $sidebar-transition;
-  @include theme("background", $sidebar-bg);
+  @include theme('background', $sidebar-bg);
 }
 
-body[data-sidebar-behavior=sticky] {
+body[data-sidebar-behavior='sticky'] {
   .sidebar-content[data-simplebar] {
     height: 100vh;
     position: sticky;
@@ -36,12 +36,12 @@ a.sidebar-link {
   text-decoration: none;
   cursor: pointer;
 
-  @include theme("color", $sidebar-link-color);
+  @include theme('color', $sidebar-link-color);
 
   i,
   svg {
-    margin-right: .75rem;
-    @include theme("color", $sidebar-link-icon-color);
+    margin-right: 0.75rem;
+    @include theme('color', $sidebar-link-icon-color);
   }
 }
 
@@ -65,21 +65,21 @@ a.sidebar-link {
 }
 
 .sidebar-link:hover {
-  @include theme("color", $sidebar-link-hover-color);
+  @include theme('color', $sidebar-link-hover-color);
 
   i,
   svg {
-    @include theme("color", $sidebar-link-icon-hover-color);
+    @include theme('color', $sidebar-link-icon-hover-color);
   }
 }
 
 .sidebar-item > .sidebar-link.active,
 .sidebar-item .sidebar-link.active:hover {
-  @include theme("color", $sidebar-link-active-color);
+  @include theme('color', $sidebar-link-active-color);
 
   i,
   svg {
-    @include theme("color", $sidebar-link-icon-active-color);
+    @include theme('color', $sidebar-link-icon-active-color);
   }
 }
 
@@ -87,52 +87,52 @@ a.sidebar-link {
 .sidebar-dropdown .sidebar-link {
   padding: $sidebar-link-child-padding;
   font-weight: $sidebar-link-child-font-weight;
-  @include theme("color", $sidebar-link-child-color);
+  @include theme('color', $sidebar-link-child-color);
 }
 
 .sidebar-dropdown .sidebar-item .sidebar-link:hover {
   font-weight: $sidebar-link-hover-font-weight;
-  @include theme("color", $sidebar-link-child-hover-color);
+  @include theme('color', $sidebar-link-child-hover-color);
 }
 
 .sidebar-dropdown .sidebar-item .sidebar-link.active {
   font-weight: $sidebar-link-active-font-weight;
-  @include theme("color", $sidebar-link-child-active-color);
+  @include theme('color', $sidebar-link-child-active-color);
   &.is-group {
-    @include theme("color", $sidebar-link-active-color);
+    @include theme('color', $sidebar-link-active-color);
   }
 }
 
 // Chevron
-.sidebar [data-bs-toggle="collapse"] {
+.sidebar [data-bs-toggle='collapse'] {
   position: relative;
 }
 
-.sidebar [data-bs-toggle="collapse"]:before {
-  content: " ";
+.sidebar [data-bs-toggle='collapse']:before {
+  content: ' ';
   border: solid;
-  border-width: 0 .1rem .1rem 0;
+  border-width: 0 0.1rem 0.1rem 0;
   display: inline-block;
   padding: 2px;
   transform: rotate(45deg);
   position: absolute;
   top: 1rem;
   right: 1.7rem;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
-.sidebar [aria-expanded="true"]:before,
-.sidebar [data-bs-toggle="collapse"]:not(.collapsed):before {
+.sidebar [aria-expanded='true']:before,
+.sidebar [data-bs-toggle='collapse']:not(.collapsed):before {
   transform: rotate(-135deg);
   top: 1.2rem;
 }
 
-.sidebar .sidebar-dropdown [data-toggle="collapse"]:before {
+.sidebar .sidebar-dropdown [data-toggle='collapse']:before {
   top: 1rem;
 }
 
-.sidebar .sidebar-dropdown [aria-expanded="true"]:before,
-.sidebar .sidebar-dropdown [data-toggle="collapse"]:not(.collapsed):before {
+.sidebar .sidebar-dropdown [aria-expanded='true']:before,
+.sidebar .sidebar-dropdown [data-toggle='collapse']:not(.collapsed):before {
   top: 1.2rem;
 }
 
@@ -143,11 +143,11 @@ a.sidebar-link {
   padding: $sidebar-brand-padding-y $sidebar-brand-padding-x;
   display: block;
   text-align: center;
-  @include theme("color", $sidebar-brand-color);
+  @include theme('color', $sidebar-brand-color);
 
   &:hover {
     text-decoration: none;
-    @include theme("color", $sidebar-brand-color);
+    @include theme('color', $sidebar-brand-color);
   }
 
   &:focus {
@@ -155,13 +155,13 @@ a.sidebar-link {
   }
 
   svg {
-    @include theme("fill", $sidebar-brand-icon-color);
+    @include theme('fill', $sidebar-brand-icon-color);
     height: 24px;
     width: 24px;
     margin-right: 0.15rem;
 
     path:first-child {
-      @include theme("fill", $sidebar-brand-icon-top-color);
+      @include theme('fill', $sidebar-brand-icon-top-color);
     }
   }
 }
@@ -174,11 +174,11 @@ a.sidebar-link {
   display: flex;
 }
 
-body:not([data-sidebar-position=right]) .sidebar-toggle {
+body:not([data-sidebar-position='right']) .sidebar-toggle {
   margin-right: $spacer;
 }
 
-body[data-sidebar-position=right] .sidebar-toggle {
+body[data-sidebar-position='right'] .sidebar-toggle {
   margin-left: $spacer;
 }
 
@@ -187,7 +187,7 @@ body[data-sidebar-position=right] .sidebar-toggle {
   background: transparent;
   padding: $sidebar-header-padding;
   font-size: $sidebar-header-font-size;
-  @include theme("color", $sidebar-header-color);
+  @include theme('color', $sidebar-header-color);
 }
 
 // Badge
@@ -206,17 +206,17 @@ body[data-sidebar-position=right] .sidebar-toggle {
 }
 
 .badge-sidebar-primary {
-  @include theme("background", $sidebar-badge-primary-bg);
-  @include theme("color", $sidebar-badge-primary-color);
+  @include theme('background', $sidebar-badge-primary-bg);
+  @include theme('color', $sidebar-badge-primary-color);
 }
 
 .badge-sidebar-secondary {
-  @include theme("background", $sidebar-badge-secondary-bg);
-  @include theme("color", $sidebar-badge-secondary-color);
+  @include theme('background', $sidebar-badge-secondary-bg);
+  @include theme('color', $sidebar-badge-secondary-color);
 }
 
 // Collapse behavior if sidebar is on left side
-body:not([data-sidebar-position=right]) {
+body:not([data-sidebar-position='right']) {
   .sidebar {
     &.collapsed {
       margin-left: -$sidebar-width;
@@ -225,7 +225,6 @@ body:not([data-sidebar-position=right]) {
     // Workaround for IE bug, more info:
     // https://stackoverflow.com/a/25850649
     @media (min-width: 1px) and (max-width: #{map-get($grid-breakpoints, 'lg') - .02px}) {
-
       // Sidebar default state (on mobile)
       margin-left: -$sidebar-width;
 
@@ -242,7 +241,7 @@ body:not([data-sidebar-position=right]) {
 }
 
 // Collapse behavior if sidebar is on right side
-body[data-sidebar-position=right] {
+body[data-sidebar-position='right'] {
   .sidebar {
     &.collapsed {
       margin-right: -$sidebar-width;
@@ -251,7 +250,6 @@ body[data-sidebar-position=right] {
     // Workaround for IE bug, more info:
     // https://stackoverflow.com/a/25850649
     @media (min-width: 1px) and (max-width: #{map-get($grid-breakpoints, 'lg') - .02px}) {
-
       // Sidebar default state (on mobile)
       margin-right: -$sidebar-width;
 
@@ -277,10 +275,10 @@ body[data-sidebar-position=right] {
   padding: $sidebar-cta-padding;
   margin: $sidebar-cta-margin;
   border-radius: $sidebar-cta-border-radius;
-  @include theme("background", $sidebar-cta-bg);
+  @include theme('background', $sidebar-cta-bg);
 
   &,
   strong {
-    @include theme("color", $sidebar-cta-color);
+    @include theme('color', $sidebar-cta-color);
   }
 }

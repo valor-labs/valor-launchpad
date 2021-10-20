@@ -8,9 +8,8 @@ describe('FormsFloatingLabelsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormsFloatingLabelsComponent ]
-    })
-    .compileComponents();
+      declarations: [FormsFloatingLabelsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

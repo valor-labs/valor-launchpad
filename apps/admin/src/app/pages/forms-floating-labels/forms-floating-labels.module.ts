@@ -5,13 +5,7 @@ import { FormsFloatingLabelsRoutingModule } from './forms-floating-labels-routin
 import { UiModule } from '@valor-launchpad/ui';
 
 @NgModule({
-  declarations: [
-    FormsFloatingLabelsComponent
-  ],
-  imports: [
-    CommonModule,
-    UiModule,
-    FormsFloatingLabelsRoutingModule,
-  ]
+  declarations: [FormsFloatingLabelsComponent],
+  imports: [CommonModule, UiModule, FormsFloatingLabelsRoutingModule],
 })
-export class FormsFloatingLabelsModule { }
+export class FormsFloatingLabelsModule {}

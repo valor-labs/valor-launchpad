@@ -8,9 +8,8 @@ describe('UiOffCanvasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiOffCanvasComponent ]
-    })
-    .compileComponents();
+      declarations: [UiOffCanvasComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

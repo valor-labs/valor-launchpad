@@ -1,26 +1,45 @@
-<h1 class='h3 mb-3'>Project Details</h1>
+<h1 class="h3 mb-3">Project Details</h1>
 
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol [lg]="6" [xl]="3" class='d-flex' *ngFor='let rollupItem of project?.rollupData | keyvalue'>
-    <valor-launchpad-card class='flex-fill'>
+  <div
+    valorLaunchpadCol
+    [lg]="6"
+    [xl]="3"
+    class="d-flex"
+    *ngFor="let rollupItem of project?.rollupData | keyvalue"
+  >
+    <valor-launchpad-card class="flex-fill">
       <valor-launchpad-card-header>
-        <h5 valor-launchpad-card-title class='mb-0 mt-2'>{{rollupItem.key}}</h5>
+        <h5 valor-launchpad-card-title class="mb-0 mt-2">
+          {{ rollupItem.key }}
+        </h5>
       </valor-launchpad-card-header>
-      <valor-launchpad-card-content class='my-0 pt-0'>
-        <div valorLaunchpadRow class='d-flex align-items-center mb-3'>
+      <valor-launchpad-card-content class="my-0 pt-0">
+        <div valorLaunchpadRow class="d-flex align-items-center mb-3">
           <div valorLaunchpadCol [span]="8">
-            <h3 class='d-flex align-items-center mb-0 fw-light'>
-              {{rollupItem.value.current|number}}
+            <h3 class="d-flex align-items-center mb-0 fw-light">
+              {{ rollupItem.value.current | number }}
             </h3>
           </div>
-          <div valorLaunchpadCol [span]="4" class='text-end'>
-            <span class='text-muted'>{{(rollupItem.value.current / rollupItem.value.goal) * 100|number:'1.0-0'}}%</span>
+          <div valorLaunchpadCol [span]="4" class="text-end">
+            <span class="text-muted"
+              >{{
+                (rollupItem.value.current / rollupItem.value.goal) * 100
+                  | number: '1.0-0'
+              }}%</span
+            >
           </div>
         </div>
 
-        <div class='progress progress-sm shadow-sm mb-1'>
-          <div class='progress-bar' [ngClass]='rollupItem.value.status' role='progressbar'
-               [style.width]='(rollupItem.value.current / rollupItem.value.goal) * 100 + "%"'></div>
+        <div class="progress progress-sm shadow-sm mb-1">
+          <div
+            class="progress-bar"
+            [ngClass]="rollupItem.value.status"
+            role="progressbar"
+            [style.width]="
+              (rollupItem.value.current / rollupItem.value.goal) * 100 + '%'
+            "
+          ></div>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
@@ -31,77 +50,114 @@
   <div valorLaunchpadCol [lg]="6" [xxl]="8">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
-        <div class='card-actions float-end'>
-          <div class='dropdown' dropdown>
+        <div class="card-actions float-end">
+          <div class="dropdown" dropdown>
             <a dropdownToggle>
-              <i class='align-middle fas fa-fw fa-ellipsis-h'></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class='dropdown-menu' *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+            <div class="dropdown-menu" *dropdownMenu>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
-        <h5 valor-launchpad-card-title class='mb-0'>Upgrade CRM software</h5>
-        <div class='badge my-2' [ngClass]='STATUS_MAPPING[project.status].theme'>{{STATUS_MAPPING[project.status].label}}</div>
+        <h5 valor-launchpad-card-title class="mb-0">Upgrade CRM software</h5>
+        <div
+          class="badge my-2"
+          [ngClass]="STATUS_MAPPING[project.status].theme"
+        >
+          {{ STATUS_MAPPING[project.status].label }}
+        </div>
       </valor-launchpad-card-header>
-      <div class='card-body pt-0'>
+      <div class="card-body pt-0">
         <h5>Description</h5>
 
-        <p class='text-muted' [innerHTML]='project?.body'>
-        </p>
+        <p class="text-muted" [innerHTML]="project?.body"></p>
 
         <div>
           <h5>Assignee</h5>
-          <valor-launchpad-avatar *ngFor='let assignee of project?.assignee' [src]='assignee.user?.avatar?.src'
-                                  classes='me-1'
-                                  [alt]='assignee.user?.avatar?.alt'
-                                  size='md'></valor-launchpad-avatar>
+          <valor-launchpad-avatar
+            *ngFor="let assignee of project?.assignee"
+            [src]="assignee.user?.avatar?.src"
+            classes="me-1"
+            [alt]="assignee.user?.avatar?.alt"
+            size="md"
+          ></valor-launchpad-avatar>
         </div>
       </div>
     </valor-launchpad-card>
 
     <valor-launchpad-card>
       <valor-launchpad-card-header>
-        <div class='card-actions float-end'>
-          <div class='dropdown' dropdown>
+        <div class="card-actions float-end">
+          <div class="dropdown" dropdown>
             <a dropdownToggle>
-              <i class='align-middle  fas fa-fw fa-ellipsis-h'></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class='dropdown-menu' *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+            <div class="dropdown-menu" *dropdownMenu>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
         <!--          TODO: Do comments include child comments?-->
         <!--          TODO: pluralize the comments string-->
         <!--        TODO: Have something for no comments-->
-        <h5 valor-launchpad-card-title class='mb-0'>Comments ({{project?.comments?.length}})</h5>
+        <h5 valor-launchpad-card-title class="mb-0">
+          Comments ({{ project?.comments?.length }})
+        </h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <!--TODO add HR after each of these but last one-->
-        <div class='d-flex align-items-start' *ngFor='let comment of project?.comments'>
-          <valor-launchpad-avatar size='xl' [src]='comment?.author?.avatar?.src' classes='me-3'
-                                  [alt]='comment?.author?.avatar?.alt'></valor-launchpad-avatar>
-          <div class='flex-grow-1'>
-            <small class='float-end'>45m ago</small>
-            <p class='mb-2'><strong>{{comment?.author?.firstName}}</strong></p>
-            <p [innerHTML]='comment.body'></p>
+        <div
+          class="d-flex align-items-start"
+          *ngFor="let comment of project?.comments"
+        >
+          <valor-launchpad-avatar
+            size="xl"
+            [src]="comment?.author?.avatar?.src"
+            classes="me-3"
+            [alt]="comment?.author?.avatar?.alt"
+          ></valor-launchpad-avatar>
+          <div class="flex-grow-1">
+            <small class="float-end">45m ago</small>
+            <p class="mb-2">
+              <strong>{{ comment?.author?.firstName }}</strong>
+            </p>
+            <p [innerHTML]="comment.body"></p>
             <!--              TODO: Make this say 'today' or 'yesterday' when appropriate-->
-            <small class='text-muted'>{{comment?.timestamp|date:'short'}}</small><br />
-            <div class='d-flex align-items-start mt-3' *ngFor='let child of comment?.children'>
-              <a class='pe-2' href='#'>
-                <valor-launchpad-avatar size='md' [src]='child?.author?.avatar?.src' classes='me-2'
-                                        [alt]='child?.author?.avatar?.alt'></valor-launchpad-avatar>
+            <small class="text-muted">{{
+              comment?.timestamp | date: 'short'
+            }}</small
+            ><br />
+            <div
+              class="d-flex align-items-start mt-3"
+              *ngFor="let child of comment?.children"
+            >
+              <a class="pe-2" href="#">
+                <valor-launchpad-avatar
+                  size="md"
+                  [src]="child?.author?.avatar?.src"
+                  classes="me-2"
+                  [alt]="child?.author?.avatar?.alt"
+                ></valor-launchpad-avatar>
               </a>
-              <div class='flex-grow-1'>
-                <p class='text-muted'>
-                  <strong>{{child?.author?.firstName}}</strong>: {{child.body}}
+              <div class="flex-grow-1">
+                <p class="text-muted">
+                  <strong>{{ child?.author?.firstName }}</strong
+                  >: {{ child.body }}
                   <!--                    TODO: we need to add some time around these as well-->
                 </p>
               </div>
@@ -114,39 +170,46 @@
   <div valorLaunchpadCol [lg]="6" [xxl]="4">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
-        <div class='card-actions float-end'>
-          <div class='dropdown' dropdown container='body'>
+        <div class="card-actions float-end">
+          <div class="dropdown" dropdown container="body">
             <a dropdownToggle>
-              <i class='align-middle fas fa-fw fa-ellipsis-h'></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
-        <h5 valor-launchpad-card-title class='mb-0'>Information</h5>
+        <h5 valor-launchpad-card-title class="mb-0">Information</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-
         <dl valorLaunchpadRow>
           <dt valorLaunchpadCol [span]="4" [xxl]="3">Assignee</dt>
           <dd valorLaunchpadCol [span]="8" [xxl]="9">
-            <valor-launchpad-avatar *ngFor='let assignee of project?.assignee' [src]='assignee?.user?.avatar?.src'
-                                    classes='me-1 mt-n1'
-                                    [alt]='assignee?.user?.avatar?.alt' size='sm'></valor-launchpad-avatar>
+            <valor-launchpad-avatar
+              *ngFor="let assignee of project?.assignee"
+              [src]="assignee?.user?.avatar?.src"
+              classes="me-1 mt-n1"
+              [alt]="assignee?.user?.avatar?.alt"
+              size="sm"
+            ></valor-launchpad-avatar>
           </dd>
 
-          <dt valorLaunchpadCol [span]="4" [xxl]="3" class='mb-0'>Reporter</dt>
-          <dd valorLaunchpadCol [span]="8" [xxl]="9" class='mb-0'>
+          <dt valorLaunchpadCol [span]="4" [xxl]="3" class="mb-0">Reporter</dt>
+          <dd valorLaunchpadCol [span]="8" [xxl]="9" class="mb-0">
             <valor-launchpad-avatar
               *ngIf="project?.summary?.reporter?.avatar?.src"
-              [src]='project?.summary?.reporter?.avatar?.src'
-              classes='me-1 mt-n1'
-              alt='Avatar'
-              size='sm'
+              [src]="project?.summary?.reporter?.avatar?.src"
+              classes="me-1 mt-n1"
+              alt="Avatar"
+              size="sm"
             ></valor-launchpad-avatar>
           </dd>
         </dl>
@@ -156,43 +219,49 @@
         <dl valorLaunchpadRow>
           <dt valorLaunchpadCol [span]="4" [xxl]="3">Created</dt>
           <dd valorLaunchpadCol [span]="8" [xxl]="9">
-            <p class='mb-1'>{{project?.createdDate |date: 'medium'}}</p>
+            <p class="mb-1">{{ project?.createdDate | date: 'medium' }}</p>
           </dd>
 
           <dt valorLaunchpadCol [span]="4" [xxl]="3">Start</dt>
           <dd valorLaunchpadCol [span]="8" [xxl]="9">
-            <p class='mb-1'>{{project?.summary?.startDate |date: 'medium'}}</p>
+            <p class="mb-1">
+              {{ project?.summary?.startDate | date: 'medium' }}
+            </p>
           </dd>
 
-          <dt valorLaunchpadCol [span]="4" [xxl]="3" class='mb-0'>End</dt>
-          <dd valorLaunchpadCol [span]="8" [xxl]="9" class='mb-0'>
-            <p class='mb-0'>{{project?.summary?.endDate |date: 'medium'}}</p>
+          <dt valorLaunchpadCol [span]="4" [xxl]="3" class="mb-0">End</dt>
+          <dd valorLaunchpadCol [span]="8" [xxl]="9" class="mb-0">
+            <p class="mb-0">{{ project?.summary?.endDate | date: 'medium' }}</p>
           </dd>
         </dl>
 
         <hr />
 
         <dl valorLaunchpadRow>
-          <dt valorLaunchpadCol [span]="4" [xxl]="3" class='mb-0'>Budget</dt>
-          <dd valorLaunchpadCol [span]="8" [xxl]="9" class='mb-0'>
-            <p class='mb-0'>{{project?.summary?.budget | currency: 'USD'}}</p>
+          <dt valorLaunchpadCol [span]="4" [xxl]="3" class="mb-0">Budget</dt>
+          <dd valorLaunchpadCol [span]="8" [xxl]="9" class="mb-0">
+            <p class="mb-0">{{ project?.summary?.budget | currency: 'USD' }}</p>
           </dd>
         </dl>
 
         <hr />
 
-        <dl valorLaunchpadRow class='mb-1'>
+        <dl valorLaunchpadRow class="mb-1">
           <dt valorLaunchpadCol [span]="4" [xxl]="3">Status</dt>
           <dd valorLaunchpadCol [span]="8" [xxl]="9">
-            <span class='badge mb-1' [ngClass]='STATUS_MAPPING[project.status].theme'>{{STATUS_MAPPING[project.status].label}}</span>
+            <span
+              class="badge mb-1"
+              [ngClass]="STATUS_MAPPING[project.status].theme"
+              >{{ STATUS_MAPPING[project.status].label }}</span
+            >
           </dd>
           <dt valorLaunchpadCol [span]="4" [xxl]="3">Logged</dt>
           <dd valorLaunchpadCol [span]="8" [xxl]="9">
-            <p class='mb-1'>{{project?.summary?.logged}}</p>
+            <p class="mb-1">{{ project?.summary?.logged }}</p>
           </dd>
-          <dt valorLaunchpadCol [span]="4" [xxl]="3" class='mb-0'>Estimated</dt>
-          <dd valorLaunchpadCol [span]="8" [xxl]="9" class='mb-0'>
-            <p class='mb-0'>{{project?.summary?.estimated}}</p>
+          <dt valorLaunchpadCol [span]="4" [xxl]="3" class="mb-0">Estimated</dt>
+          <dd valorLaunchpadCol [span]="8" [xxl]="9" class="mb-0">
+            <p class="mb-0">{{ project?.summary?.estimated }}</p>
           </dd>
         </dl>
       </valor-launchpad-card-content>
@@ -200,26 +269,30 @@
 
     <valor-launchpad-card>
       <valor-launchpad-card-header>
-        <div class='card-actions float-end'>
-          <div class='dropdown' dropdown container='body'>
+        <div class="card-actions float-end">
+          <div class="dropdown" dropdown container="body">
             <a dropdownToggle>
-              <i class='align-middle fas fa-fw fa-ellipsis-h'></i>
+              <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
             </a>
 
-            <div class='dropdown-menu dropdown-menu-end' *dropdownMenu>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
               <!--              TODO: All card actions need to be bound and created from API-->
-              <a class='dropdown-item' (click)='onClickAction()'>Action</a>
-              <a class='dropdown-item' (click)='onClickAnotherAction()'>Another action</a>
-              <a class='dropdown-item' (click)='onClickSomethingElse()'>Something else here</a>
+              <a class="dropdown-item" (click)="onClickAction()">Action</a>
+              <a class="dropdown-item" (click)="onClickAnotherAction()"
+                >Another action</a
+              >
+              <a class="dropdown-item" (click)="onClickSomethingElse()"
+                >Something else here</a
+              >
             </div>
           </div>
         </div>
-        <h5 valor-launchpad-card-title class='mb-0'>Earnings</h5>
+        <h5 valor-launchpad-card-title class="mb-0">Earnings</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <div class='chart'>
+        <div class="chart">
           <!--            TODO: Fix this chart-->
-          <canvas id='chartjs-projects-bar'></canvas>
+          <canvas id="chartjs-projects-bar"></canvas>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>

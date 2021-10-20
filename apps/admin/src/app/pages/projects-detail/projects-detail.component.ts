@@ -1,30 +1,33 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {ProjectsDetailService} from "./projects-detail.service";
-import { ProjectDetailVo, STATUS_MAPPING } from '@valor-launchpad/api-interfaces';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectsDetailService } from './projects-detail.service';
+import {
+  ProjectDetailVo,
+  STATUS_MAPPING,
+} from '@valor-launchpad/api-interfaces';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'valor-launchpad-projects-detail',
   templateUrl: './projects-detail.component.html',
-  styleUrls: ['./projects-detail.component.scss']
+  styleUrls: ['./projects-detail.component.scss'],
 })
 export class ProjectsDetailComponent implements OnInit {
   STATUS_MAPPING = STATUS_MAPPING;
   id: string;
   project: ProjectDetailVo;
 
-  constructor(private route: ActivatedRoute,
-              private projectDetailService: ProjectsDetailService,
-              private toastr: ToastrService
-              ) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private projectDetailService: ProjectsDetailService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     // TODO: eventually move this into a resolver or guard
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.id = params['id'];
-      this.getProjectDetails(this.id)
+      this.getProjectDetails(this.id);
     });
   }
 
@@ -33,7 +36,6 @@ export class ProjectsDetailComponent implements OnInit {
       this.project = data;
     });
   }
-
 
   onClickAction(): void {
     this.toastr.success('Action!', 'You Click the Action!');

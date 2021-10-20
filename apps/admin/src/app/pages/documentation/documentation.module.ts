@@ -9,7 +9,6 @@ import { CustomizationComponent } from './customization/customization.component'
 import { PluginsComponent } from './plugins/plugins.component';
 import { ChangelogComponent } from './changelog/changelog.component';
 
-
 @NgModule({
   declarations: [
     IntroductionComponent,
@@ -17,11 +16,8 @@ import { ChangelogComponent } from './changelog/changelog.component';
     InstallationComponent,
     CustomizationComponent,
     PluginsComponent,
-    ChangelogComponent
+    ChangelogComponent,
   ],
-  imports: [
-    CommonModule,
-    DocumentationRoutingModule
-  ]
+  imports: [CommonModule, DocumentationRoutingModule],
 })
-export class DocumentationModule { }
+export class DocumentationModule {}

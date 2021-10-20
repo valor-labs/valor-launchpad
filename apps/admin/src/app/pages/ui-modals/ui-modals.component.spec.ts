@@ -8,9 +8,8 @@ describe('UiModalsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiModalsComponent ]
-    })
-    .compileComponents();
+      declarations: [UiModalsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

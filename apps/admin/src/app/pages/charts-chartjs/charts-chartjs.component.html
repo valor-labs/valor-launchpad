@@ -1,7 +1,3 @@
-
-
-
-
 <h1 class="h3 mb-3">Chart.js</h1>
 
 <div class="row">
@@ -9,15 +5,16 @@
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 valor-launchpad-card-title>Line Chart</h5>
-        <h6 valor-launchpad-card-subtitle class="text-muted">A line chart is a way of plotting data points on a
-          line.</h6>
+        <h6 valor-launchpad-card-subtitle class="text-muted">
+          A line chart is a way of plotting data points on a line.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <div class="chart">
           <ngx-charts-line-chart
             [results]="linechartData"
             [scheme]="linechartColorScheme"
-            [curve] = d3curve
+            [curve]="d3curve"
             [xAxis]="true"
             [yAxis]="true"
             [roundDomains]="true"
@@ -31,7 +28,10 @@
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 valor-launchpad-card-title>Bar Chart</h5>
-        <h6 valor-launchpad-card-subtitle class="text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+        <h6 valor-launchpad-card-subtitle class="text-muted">
+          A bar chart provides a way of showing data values represented as
+          vertical bars.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <div class="chart">
@@ -52,7 +52,10 @@
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 valor-launchpad-card-title>Doughnut Chart</h5>
-        <h6 valor-launchpad-card-subtitle class="text-muted">Doughnut charts are excellent at showing the relational proportions between data.</h6>
+        <h6 valor-launchpad-card-subtitle class="text-muted">
+          Doughnut charts are excellent at showing the relational proportions
+          between data.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <div class="chart">
@@ -70,7 +73,10 @@
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 valor-launchpad-card-title>Pie Chart</h5>
-        <h6 valor-launchpad-card-subtitle class="text-muted">Pie charts are excellent at showing the relational proportions between data.</h6>
+        <h6 valor-launchpad-card-subtitle class="text-muted">
+          Pie charts are excellent at showing the relational proportions between
+          data.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <div class="chart">
@@ -89,7 +95,10 @@
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 valor-launchpad-card-title>Radar Chart</h5>
-        <h6 valor-launchpad-card-subtitle class="text-muted">A radar chart is a way of showing multiple data points and the variation between them.</h6>
+        <h6 valor-launchpad-card-subtitle class="text-muted">
+          A radar chart is a way of showing multiple data points and the
+          variation between them.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <div class="chart">
@@ -99,7 +108,8 @@
             [xAxis]="true"
             [yAxis]="true"
             [curve]="d3Line"
-            [results]="radarChartResult">
+            [results]="radarChartResult"
+          >
           </ngx-charts-polar-chart>
         </div>
       </valor-launchpad-card-content>
@@ -109,7 +119,10 @@
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 valor-launchpad-card-title>Polar Area Chart</h5>
-        <h6 valor-launchpad-card-subtitle class="text-muted">Polar area charts are similar to pie charts, but each segment has the same angle.</h6>
+        <h6 valor-launchpad-card-subtitle class="text-muted">
+          Polar area charts are similar to pie charts, but each segment has the
+          same angle.
+        </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <div class="chart">
@@ -119,7 +132,8 @@
             [xAxis]="true"
             [yAxis]="true"
             [curve]="d3Line"
-            [results]="polarAreaChartColorResult">
+            [results]="polarAreaChartColorResult"
+          >
           </ngx-charts-polar-chart>
         </div>
       </valor-launchpad-card-content>

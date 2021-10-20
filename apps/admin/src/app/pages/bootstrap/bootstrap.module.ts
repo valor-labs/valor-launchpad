@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { BootstrapRoutingModule } from './bootstrap-routing.module';
 
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    BootstrapRoutingModule
-  ]
+  imports: [CommonModule, BootstrapRoutingModule],
 })
-export class BootstrapModule { }
+export class BootstrapModule {}

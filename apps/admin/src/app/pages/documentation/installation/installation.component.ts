@@ -3,15 +3,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'valor-launchpad-installation',
   templateUrl: './installation.component.html',
-  styleUrls: ['./installation.component.css']
+  styleUrls: ['./installation.component.css'],
 })
 export class InstallationComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-  basicTamplete=`<!DOCTYPE html>
+  ngOnInit() {}
+  basicTamplete = `<!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -29,17 +27,17 @@ export class InstallationComponent implements OnInit {
   
     <script src="{PATH}/dist/js/app.js"></script>
   </body>
-  </html>`
+  </html>`;
 
-  dropJquery=`new Webpack.ProvidePlugin({
+  dropJquery = `new Webpack.ProvidePlugin({
     $: "jquery",
     jQuery: "jquery",
     jquery: "jquery",
     "window.$": "jquery",
     "window.jQuery": "jquery"
-  })`
+  })`;
 
-  dropJquery2=`{
+  dropJquery2 = `{
     test: require.resolve("jquery"),
     use: [
       {
@@ -51,9 +49,5 @@ export class InstallationComponent implements OnInit {
         options: "$"
       }
     ]
-  }`
-
-  
-
-
+  }`;
 }

@@ -1,16 +1,11 @@
-import {
-  Controller,
-  Get,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 import { DashboardCryptoService } from './dashboard-crypto.service';
-
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
 export class DashboardCryptoController {
-  constructor(private dashboardCryptoService: DashboardCryptoService) { }
+  constructor(private dashboardCryptoService: DashboardCryptoService) {}
 
   @Get('crypto-main-info')
   getCryptoMainInfo() {

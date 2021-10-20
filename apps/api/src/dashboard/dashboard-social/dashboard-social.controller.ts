@@ -18,7 +18,10 @@ import { isNil } from '@nestjs/common/utils/shared.utils';
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
 export class DashboardSocialController {
-  constructor(private dashboardSocialService: DashboardSocialService, private usersService: UsersService) {}
+  constructor(
+    private dashboardSocialService: DashboardSocialService,
+    private usersService: UsersService
+  ) {}
 
   @Get('followings')
   getSelfFollowings(@User() user: UserEntity): Promise<UserFollower[]> {
@@ -34,7 +37,10 @@ export class DashboardSocialController {
   }
 
   @Post('follow')
-  async follow(@User() user: UserEntity, @Body() { userId, username }: FollowUserDTO) {
+  async follow(
+    @User() user: UserEntity,
+    @Body() { userId, username }: FollowUserDTO
+  ) {
     let uid = userId;
     if (username) {
       const user = await this.usersService.findByUsername(username);
@@ -44,7 +50,10 @@ export class DashboardSocialController {
   }
 
   @Post('unfollow')
-  async unfollow(@User() user: UserEntity, @Body() { userId, username }: FollowUserDTO) {
+  async unfollow(
+    @User() user: UserEntity,
+    @Body() { userId, username }: FollowUserDTO
+  ) {
     let uid = userId;
     if (username) {
       const user = await this.usersService.findByUsername(username);

@@ -8,9 +8,8 @@ describe('UiTypographyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiTypographyComponent ]
-    })
-    .compileComponents();
+      declarations: [UiTypographyComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

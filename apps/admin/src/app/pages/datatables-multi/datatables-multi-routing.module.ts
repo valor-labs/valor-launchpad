@@ -5,13 +5,12 @@ import { DatatablesMultiComponent } from './datatables-multi.component';
 const routes: Routes = [
   {
     path: '',
-    component: DatatablesMultiComponent
-  }
+    component: DatatablesMultiComponent,
+  },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DatatablesMultiRoutingModule { }
+export class DatatablesMultiRoutingModule {}

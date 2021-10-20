@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@api/projects": ["apps/api/src/index.ts"],
+      "@ui/http-config": ["apps/admin/src/app/core/http/index.ts"],
       "@valor-launchpad/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@valor-launchpad/auth-api": ["libs/auth-api/src/index.ts"],
       "@valor-launchpad/common-api": ["libs/common-api/src/index.ts"],
@@ -27,8 +28,7 @@
       "@valor-launchpad/stripe-ui": ["libs/stripe-ui/src/index.ts"],
       "@valor-launchpad/ui": ["libs/ui/src/index.ts"],
       "@valor-launchpad/users-api": ["libs/users-api/src/index.ts"],
-      "@valor-launchpad/users-ui": ["libs/users-ui/src/index.ts"],
-      "@ui/http-config": ["apps/admin/src/app/core/http/index.ts"]
+      "@valor-launchpad/users-ui": ["libs/users-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

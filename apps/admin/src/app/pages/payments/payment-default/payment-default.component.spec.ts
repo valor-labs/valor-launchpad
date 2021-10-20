@@ -8,9 +8,8 @@ describe('PaymentDefaultComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaymentDefaultComponent ]
-    })
-    .compileComponents();
+      declarations: [PaymentDefaultComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
