@@ -35,13 +35,16 @@ export class UsersListingService {
     return this.httpClient.post(this.baseURL + 'edit', editUserForm);
   }
 
-  getUsers(roles: string[], tags: string[]) {
+  getUsers(roles: string[], tags: string[], keyword?: string) {
     let httpParams = new HttpParams();
     if (Array.isArray(roles) && roles.length > 0) {
       httpParams = httpParams.append('roles', roles.join(','));
     }
     if (Array.isArray(tags) && tags.length > 0) {
       httpParams = httpParams.append('tags', tags.join(','));
+    }
+    if (typeof keyword === 'string' && keyword.trim().length > 0) {
+      httpParams = httpParams.append('keyword', keyword);
     }
     return this.httpClient.get<UserListLine[]>(this.baseURL + 'all', {
       params: httpParams,

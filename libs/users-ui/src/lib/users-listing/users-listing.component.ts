@@ -8,13 +8,23 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UsersListingService } from './users-listing.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { UserListLine } from '@valor-launchpad/api-interfaces';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'valor-launchpad-users-listing',
@@ -24,16 +34,18 @@ import { switchMap, tap } from 'rxjs/operators';
 export class UsersListingComponent implements OnInit {
   userForm!: FormGroup;
 
+  keywordControl = new FormControl('');
   columns: TableColumn[] = [];
   roleFilter = new Set<string>(); // role id array
   tagFilter = new Set<string>(); // tag id array
   usersRefreshController$ = new BehaviorSubject(true);
   users$ = this.usersRefreshController$.asObservable().pipe(
-    tap(() => this.selectedRows = []),
+    tap(() => (this.selectedRows = [])),
     switchMap(() => {
       return this.usersListingService.getUsers(
         Array.from(this.roleFilter),
-        Array.from(this.tagFilter)
+        Array.from(this.tagFilter),
+        this.keywordControl.value
       );
     })
   );
@@ -66,16 +78,8 @@ export class UsersListingComponent implements OnInit {
   //   this.addEditVisible = false;
   // }
   rowClass = (row: UserListLine) => ({
-    active: this.selectedRows.find(sr => sr.id === row.id)
+    active: this.selectedRows.find((sr) => sr.id === row.id),
   });
-
-  get allDeleted() {
-    return this.selectedRows.every(i => i.deletedDate !== null);
-  }
-
-  get hasOneDeleted() {
-    return !!this.selectedRows.find(i => i.deletedDate !== null);
-  }
 
   constructor(
     private usersListingService: UsersListingService,
@@ -195,6 +199,11 @@ export class UsersListingComponent implements OnInit {
       },
     ];
     this.fetchUsers();
+    this.keywordControl.valueChanges
+      .pipe(debounceTime(200), distinctUntilChanged())
+      .subscribe(() => {
+        this.fetchUsers();
+      });
   }
 
   fetchRoles() {
@@ -218,6 +227,7 @@ export class UsersListingComponent implements OnInit {
   resetAllFilters() {
     this.roleFilter = new Set();
     this.tagFilter = new Set();
+    this.keywordControl.setValue('', { emitEvent: false });
     this.fetchUsers();
   }
 
@@ -269,11 +279,11 @@ export class UsersListingComponent implements OnInit {
   }
 
   batchDelete() {
-    const userIds = this.selectedRows.map(i => i.id);
+    const userIds = this.selectedRows.map((i) => i.id);
     if (userIds.length > 0) {
       this.usersListingService.batchDeleteUser(userIds).subscribe(() => {
         this.fetchUsers();
-      })
+      });
     }
   }
 
@@ -285,11 +295,11 @@ export class UsersListingComponent implements OnInit {
   }
 
   batchRestore() {
-    const userIds = this.selectedRows.map(i => i.id);
+    const userIds = this.selectedRows.map((i) => i.id);
     if (userIds.length > 0) {
       this.usersListingService.batchRestoreUser(userIds).subscribe(() => {
         this.fetchUsers();
-      })
+      });
     }
   }
 

@@ -70,7 +70,7 @@ export class UsersService {
     return await this.prisma.rolesEntity.findMany() as RolesEntity[];
   }
 
-  async findAll({roles, tags}: QueryUserListDto) {
+  async findAll({roles, tags, keyword}: QueryUserListDto) {
     let tagFilter: Prisma.UserEntityWhereInput;
     if (Array.isArray(tags) && tags.length > 0) {
       tagFilter = {
@@ -101,6 +101,22 @@ export class UsersService {
           }
         ]
       }
+    }
+
+    // keyword search
+    let keywordFilter: Prisma.UserEntityWhereInput;
+    if (keyword && keyword.length > 0) {
+      keywordFilter = {
+        OR: [
+          { firstName: { contains: keyword } },
+          { lastName: { contains: keyword } },
+          { username: { contains: keyword } },
+          { email: { contains: keyword } },
+          { phone: { contains: keyword } },
+          { userRoles: { some: { rolesEntity: { role: { contains: keyword } } } } },
+          { userTags: { some: { tagsEntity: { name: { contains: keyword } } } } },
+        ]
+      };
     }
 
     return await this.prisma.userEntity.findMany({
@@ -141,6 +157,7 @@ export class UsersService {
           }
         },
         ...tagFilter,
+        ...keywordFilter,
       }
     });
   }

@@ -13,4 +13,7 @@ export class QueryUserListDto {
   @IsOptional()
   @Transform(strToArr)
   tags?: string[];
+
+  @IsOptional()
+  keyword?: string;
 }
