@@ -14,7 +14,7 @@ import { UserListLine } from '@valor-launchpad/api-interfaces';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'valor-launchpad-users-listing',
@@ -29,6 +29,7 @@ export class UsersListingComponent implements OnInit {
   tagFilter = new Set<string>(); // tag id array
   usersRefreshController$ = new BehaviorSubject(true);
   users$ = this.usersRefreshController$.asObservable().pipe(
+    tap(() => this.selectedRows = []),
     switchMap(() => {
       return this.usersListingService.getUsers(
         Array.from(this.roleFilter),
@@ -36,7 +37,7 @@ export class UsersListingComponent implements OnInit {
       );
     })
   );
-
+  selectedRows: UserListLine[] = [];
   addEditVisible = false;
   mode: 'add' | 'edit' | undefined;
   allRoleOptions: { name: string; value: string }[] = [];
@@ -64,6 +65,17 @@ export class UsersListingComponent implements OnInit {
   // handleKeydown() {
   //   this.addEditVisible = false;
   // }
+  rowClass = (row: UserListLine) => ({
+    active: this.selectedRows.find(sr => sr.id === row.id)
+  });
+
+  get allDeleted() {
+    return this.selectedRows.every(i => i.deletedDate !== null);
+  }
+
+  get hasOneDeleted() {
+    return !!this.selectedRows.find(i => i.deletedDate !== null);
+  }
 
   constructor(
     private usersListingService: UsersListingService,
@@ -91,7 +103,8 @@ export class UsersListingComponent implements OnInit {
     this.addEditVisible = true;
   }
 
-  openEdit(user: UserListLine) {
+  openEdit(event: MouseEvent, user: UserListLine) {
+    event.stopPropagation();
     this.mode = 'edit';
     this.fetchRoles();
     this.fetchTags();
@@ -113,6 +126,10 @@ export class UsersListingComponent implements OnInit {
       ],
     });
     this.addEditVisible = true;
+  }
+
+  onSelect(row: { selected: UserListLine[] }) {
+    this.selectedRows = row.selected;
   }
 
   ngOnInit(): void {
@@ -244,25 +261,47 @@ export class UsersListingComponent implements OnInit {
     );
   }
 
-  delete(username: string) {
+  delete(event: MouseEvent, username: string) {
+    event.stopPropagation();
     this.usersListingService.deleteUser(username).subscribe((data) => {
       this.fetchUsers();
     });
   }
 
-  restore(username: string) {
+  batchDelete() {
+    const userIds = this.selectedRows.map(i => i.id);
+    if (userIds.length > 0) {
+      this.usersListingService.batchDeleteUser(userIds).subscribe(() => {
+        this.fetchUsers();
+      })
+    }
+  }
+
+  restore(event: MouseEvent, username: string) {
+    event.stopPropagation();
     this.usersListingService.restoreUser(username).subscribe((data) => {
       this.fetchUsers();
     });
   }
 
-  resetPassword(username: string) {
+  batchRestore() {
+    const userIds = this.selectedRows.map(i => i.id);
+    if (userIds.length > 0) {
+      this.usersListingService.batchRestoreUser(userIds).subscribe(() => {
+        this.fetchUsers();
+      })
+    }
+  }
+
+  resetPassword(event: MouseEvent, username: string) {
+    event.stopPropagation();
     this.usersListingService.resetPassword(username).subscribe((data) => {
       this.fetchUsers();
     });
   }
 
-  resendEmail(id: string) {
+  resendEmail(event: MouseEvent, id: string) {
+    event.stopPropagation();
     this.usersListingService.resendEmail(id).subscribe((data) => {
       this.fetchUsers();
     });

@@ -15,6 +15,8 @@ import { EditUserDto } from './dto/edit-user.dto';
 import { TagsService } from './tags/tags.service';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { QueryUserListDto } from './dto/query-user-list.dto';
+import { DeleteUsersDto } from './dto/delete-users.dto';
+import { RestoreUsersDto } from './dto/restore-users.dto';
 
 @Controller('v1')
 export class UsersController {
@@ -64,11 +66,25 @@ export class UsersController {
     return await this.usersService.editUser(user, actingUser);
   }
 
+  @Post('batchDelete')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  async deleteUsers(@Body() body: DeleteUsersDto, @User() actingUser: UserEntity) {
+    return await this.usersService.deleteUsers(body.userIds, actingUser);
+  }
+
   @Post('delete')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
   async deleteUser(@Body() form, @User() actingUser: UserEntity) {
     return await this.usersService.deleteUser(form.username, actingUser)
+  }
+
+  @Post('batchRestore')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  async restoreUsers(@Body() body: RestoreUsersDto, @User() actingUser: UserEntity) {
+    return await this.usersService.restoreUsers(body.userIds, actingUser);
   }
 
   @Post('restore')

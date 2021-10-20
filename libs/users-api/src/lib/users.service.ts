@@ -238,6 +238,21 @@ export class UsersService {
     }
   }
 
+  async deleteUsers(uid: string[], actingUser) {
+    await this.prisma.$transaction([
+      this.prisma.userEntity.deleteMany({
+        where: { id: { in: uid } }
+      }),
+      ...uid.map(target_user_id => this.prisma.userEventsEntity.create({
+        data: {
+          target_user_id,
+          acting_user_id: actingUser.id,
+          event: 'User Deleted'
+        }
+      }))
+    ]);
+  }
+
   async deleteUser(username, actingUser): Promise<void> {
     //TODO: Make this ID based
     const userCheck = await this.findByUsername(username);
@@ -268,6 +283,24 @@ export class UsersService {
       return;
     }
     return;
+  }
+
+  async restoreUsers(userIds: string[], actingUser) {
+    await this.prisma.$transaction([
+      this.prisma.userEntity.updateMany({
+        where: { id: { in: userIds } },
+        data: {
+          deletedDate: null
+        }
+      }),
+      ...userIds.map(target_user_id => this.prisma.userEventsEntity.create({
+        data: {
+          target_user_id,
+          acting_user_id: actingUser.id,
+          event: 'User Restored'
+        }
+      }))
+    ]);
   }
 
   async restoreUser(username, actingUser): Promise<void> {

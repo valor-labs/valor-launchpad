@@ -52,8 +52,16 @@ export class UsersListingService {
     return this.httpClient.post(this.baseURL + 'delete', { username });
   }
 
+  batchDeleteUser(userIds: string[]) {
+    return this.httpClient.post(this.baseURL + 'batchDelete', { userIds });
+  }
+
   restoreUser(username: string) {
     return this.httpClient.post(this.baseURL + 'restore', { username });
+  }
+
+  batchRestoreUser(userIds: string[]) {
+    return this.httpClient.post(this.baseURL + 'batchRestore', { userIds });
   }
 
   resetPassword(username: string) {

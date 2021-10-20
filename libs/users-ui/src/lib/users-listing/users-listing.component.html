@@ -3,6 +3,8 @@
   <valor-launchpad-card-header class="d-flex">
     <h2 class="me-auto">All Users</h2>
     <div class="actions">
+      <button valor-launchpad-button theme="danger" *ngIf="selectedRows.length > 0" (click)="batchDelete()">Delete</button>
+      <button valor-launchpad-button theme="primary" *ngIf="selectedRows.length > 0" (click)="batchRestore()">Restore</button>
       <button type="button" class="btn btn-light" (click)="openAdd()">Add User<i class="fas fa-plus ms-2"></i></button>
       <button type="button" class="btn btn-light" (click)="resetAllFilters()"><i class="fas fa-sync"></i></button>
     </div>
@@ -12,6 +14,9 @@
       [columns]="columns"
       [rows]="users$ | async"
       [rowHeight]="'auto'"
+      [selectionType]="'multiClick'"
+      (select)="onSelect($event)"
+      [rowClass]="rowClass"
       columnMode="flex">
     </ngx-datatable>
 
@@ -19,7 +24,9 @@
       <div class="d-flex justify-content-between">
         Roles
         <div class="btn-group" dropdown placement="bottom right" container="body" [insideClick]="true">
-          <div class="cursor-pointer"><span dropdownToggle class="fas fa-filter"></span></div>
+          <div class="cursor-pointer" [class.text-primary]="roleFilter.size > 0">
+            <span dropdownToggle class="fas fa-filter fs-6"></span>
+          </div>
           <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
             <li role="menuitem" *ngFor="let role of allRoleOptions" (click)="onFilterRole(role.value)">
               <a class="dropdown-item d-flex justify-content-between align-items-center">
@@ -36,7 +43,9 @@
       <div class="d-flex justify-content-between">
         Tags
         <div class="btn-group" dropdown placement="bottom right" container="body" [insideClick]="true">
-          <div class="cursor-pointer"><span dropdownToggle class="fas fa-filter"></span></div>
+          <div class="cursor-pointer" [class.text-primary]="tagFilter.size > 0">
+            <span dropdownToggle class="fas fa-filter fs-6"></span>
+          </div>
           <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
             <li role="menuitem" *ngFor="let tag of allTagOptions" (click)="onFilterTag(tag.id)">
               <a class="dropdown-item d-flex justify-content-between align-items-center">
@@ -82,15 +91,15 @@
 
     <ng-template #actionsCell let-user="row">
       <div *ngIf="!user.deletedDate">
-        <button valor-launchpad-button (click)="openEdit(user)" [outlined]="true">
+        <button valor-launchpad-button (click)="openEdit($event, user)" [outlined]="true">
           <i class="fas fa-edit"></i>
         </button>
-        <button valor-launchpad-button (click)="delete(user.username)" theme="danger" [outlined]="true">
+        <button valor-launchpad-button (click)="delete($event, user.username)" theme="danger" [outlined]="true">
           <i class="fas fa-trash"></i>
         </button>
       </div>
       <div *ngIf="user.deletedDate">
-        <i class="fas fa-trash-restore" (click)="restore(user.username)"></i>
+        <i class="fas fa-trash-restore" (click)="restore($event, user.username)"></i>
       </div>
       <div *ngIf="user.lastPasswordUpdateDate">
         Last Password Update: {{user.lastPasswordUpdateDate|date:'short'}}
@@ -100,7 +109,7 @@
           valor-launchpad-button
           theme="warning"
           [outlined]="true"
-          (click)="resendEmail(user.id)">Resend Reset Email
+          (click)="resendEmail($event, user.id)">Resend Reset Email
         </button>
       </div>
       <div *ngIf="!user.passwordResetNeeded" class="mt-2">
@@ -108,7 +117,7 @@
           valor-launchpad-button
           theme="warning"
           [outlined]="true"
-          (click)="resetPassword(user.username)">
+          (click)="resetPassword($event, user.username)">
           Reset Password
         </button>
       </div>
