@@ -3,6 +3,12 @@ generator client {
   previewFeatures = ["interactiveTransactions"]
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+  output = "./dbml"
+  outputName = "valor-admmin.dbml"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
