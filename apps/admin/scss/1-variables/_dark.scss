@@ -1,12 +1,15 @@
 // Dark theme
-$dark-theme-base: #293042 !default;
+$dark-theme-base: #25344A !default;
 
 // Body
-$body-bg: darken($dark-theme-base, 4.5%) !default;
+$body-bg: #162234 !default;
 
 // Theme colors
-$blue: #3f80ea !default;
-$yellow: 		#CC8B37 !default;
+$blue: #5899FF !default;
+$green: #2BE8A4 !default;
+$red: #FF5858 !default;
+$yellow: 		#FFBC58 !default;
+$cyan: #57D7FF !default;
 
 $white:    $dark-theme-base !default;
 $gray-100: mix(#fff, $dark-theme-base, 10%) !default;
@@ -21,7 +24,12 @@ $gray-900: mix(#fff, $dark-theme-base, 90%) !default;
 $black: #fff !default;
 
 $primary:       $blue !default;
-$secondary:     $gray-400 !default;
+$secondary:     #90ADDD !default;
+$success: $green !default;
+$danger: $red !default;
+$warning: $yellow !default;
+$info: $cyan !default;
+
 $dark:          $gray-900 !default;
 $light: mix(#fff, $dark-theme-base, 5%) !default;
 
