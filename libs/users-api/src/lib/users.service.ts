@@ -418,6 +418,12 @@ export class UsersService {
             acting_user_id: operator?.id || createdUserId,
             event: 'User Created'
           }
+        },
+        profile: {
+          create: {
+            updatedDate: new Date(),
+            name: `${firstName} ${lastName}`,
+          }
         }
       }
     });
