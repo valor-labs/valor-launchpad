@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-tables-bootstrap',
   templateUrl: './tables-bootstrap.component.html',
   styleUrls: ['./tables-bootstrap.component.scss'],
 })
-export class TablesBootstrapComponent implements OnInit {
+export class TablesBootstrapComponent {
   basicTableData = [
     {
       name: 'Ashley Briggs',
@@ -194,8 +194,4 @@ export class TablesBootstrapComponent implements OnInit {
       birthDate: '1966-10-12T00:00:00+08:00',
     },
   ];
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

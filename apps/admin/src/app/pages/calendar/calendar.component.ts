@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   CalendarOptions,
   DateSelectArg,
@@ -11,7 +11,7 @@ import {
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent {
   public currentEvents: EventApi[] = [];
   public showDate = [];
   public dateRange = [];
@@ -74,8 +74,6 @@ export class CalendarComponent implements OnInit {
       },
     ],
   };
-
-  ngOnInit(): void {}
 
   public toggleWeekends(): void {
     this.calendarOptions.weekends = !this.calendarOptions.weekends; // toggle the boolean!

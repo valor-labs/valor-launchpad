@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Message, FAQ } from '@valor-launchpad/api-interfaces';
+import { FAQ } from '@valor-launchpad/api-interfaces';
 
 @Injectable()
 export class AppService {

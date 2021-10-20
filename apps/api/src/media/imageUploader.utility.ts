@@ -28,11 +28,11 @@ export class ImageUploaderUtility {
   }
 
   static imageToWebp(file): Promise<string> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const name = file.originalname.split('.')[0];
       const originImagePath = file.path;
       const webpPath = `${ASSET_PATH}/${name}-${ImageUploaderUtility._genRandomName()}.webp`;
-      sharp(originImagePath).toFile(webpPath, function (err, info) {
+      sharp(originImagePath).toFile(webpPath, function (err) {
         if (err !== null) {
           resolve('');
         } else {

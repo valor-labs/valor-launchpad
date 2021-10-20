@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { UserEntity } from '@valor-launchpad/common-api';
 import {

@@ -15,7 +15,7 @@
     "build": "ng build api",
     "build:front": "ng build --prod",
     "test": "ng test",
-    "lint": "nx workspace-lint && ng lint",
+    "lint": "nx workspace-lint && ng lint && ng lint api",
     "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
