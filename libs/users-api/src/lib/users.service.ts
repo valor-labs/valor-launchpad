@@ -213,13 +213,13 @@ export class UsersService {
     }
   }
 
-  async resetPassword(username: string) {
+  async resetPassword(username: string, actingUser) {
     const userCheck = await this.findByUsername(username);
     if (userCheck) {
       await this.prisma.userEventsEntity.create({
         data: {
           target_user_id: userCheck.id,
-          // acting_user_id: actingUser.id,  // actingUser is nil when in /reset-password page
+          acting_user_id: actingUser.id,
           event: 'Pending Password Reset'
         }
       })
