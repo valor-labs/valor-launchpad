@@ -2,6 +2,9 @@
   "name": "valor-launchpad",
   "version": "0.0.0",
   "license": "MIT",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
@@ -29,7 +32,7 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "seed:run": "npx prisma db seed --preview-feature",
+    "seed:run": "npx prisma db seed",
     "schema:drop": "npx prisma migrate reset --force",
     "schema:sync": "npx prisma migrate dev",
     "stripe:listen": "stripe listen --forward-to localhost:3333/api/stripe/v1/hooks",
@@ -62,7 +65,7 @@
     "@nestjs/throttler": "^2.0.0",
     "@ng-select/ng-select": "^7.2.0",
     "@nrwl/angular": "12.5.8",
-    "@prisma/client": "^2.29.0",
+    "@prisma/client": "^3.3.0",
     "@sendgrid/mail": "^7.4.5",
     "@stripe/stripe-js": "^1.16.0",
     "@swimlane/ngx-charts": "^17.0.1",
@@ -144,7 +147,7 @@
     "jest": "27.0.3",
     "jest-preset-angular": "9.0.3",
     "prettier": "2.3.2",
-    "prisma": "^2.29.0",
+    "prisma": "^3.3.0",
     "prisma-dbml-generator": "^0.8.1",
     "ts-jest": "27.0.3",
     "ts-node": "~9.1.1",

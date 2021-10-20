@@ -278,9 +278,9 @@ Table MediaAsset {
   src String [not null]
   src_webp String
   alt String [not null]
-  profile_id String
-  project_id String
-  user_id String
+  profile_id String [unique]
+  project_id String [unique]
+  user_id String [unique]
   story_id String
   profile ProfileEntity
   project ProjectsEntity
@@ -537,86 +537,86 @@ Enum CryptoOrderType {
   SELL
 }
 
-Ref: ActivityEntity.parentId - ActivityEntity.id [delete: SetNull]
+Ref: ActivityEntity.parentId - ActivityEntity.id
 
-Ref: ActivityEntity.profile_id > ProfileEntity.id [delete: SetNull]
+Ref: ActivityEntity.profile_id > ProfileEntity.id
 
-Ref: CommentEntity.author_id > UserEntity.id [delete: Cascade]
+Ref: CommentEntity.author_id > UserEntity.id
 
-Ref: CommentEntity.storyId > SocialStory.id [delete: SetNull]
+Ref: CommentEntity.storyId > SocialStory.id
 
-Ref: CommentEntity.parentId - CommentEntity.id [delete: SetNull]
+Ref: CommentEntity.parentId - CommentEntity.id
 
-Ref: CommentEntity.project_id > ProjectsEntity.id [delete: SetNull]
+Ref: CommentEntity.project_id > ProjectsEntity.id
 
-Ref: ProfileEntity.username - UserEntity.username [delete: Cascade]
+Ref: ProfileEntity.username - UserEntity.username
 
-Ref: ProfileSkillsEntity.profileId > ProfileEntity.id [delete: Cascade]
+Ref: ProfileSkillsEntity.profileId > ProfileEntity.id
 
-Ref: ProfileSkillsEntity.skillsId > SkillsEntity.id [delete: Cascade]
+Ref: ProfileSkillsEntity.skillsId > SkillsEntity.id
 
-Ref: SocialMediaMatchingEntity.profileId > ProfileEntity.id [delete: SetNull]
+Ref: SocialMediaMatchingEntity.profileId > ProfileEntity.id
 
-Ref: SocialMediaMatchingEntity.socialMediaId > SocialMediaEntity.id [delete: Cascade]
+Ref: SocialMediaMatchingEntity.socialMediaId > SocialMediaEntity.id
 
-Ref: SocialMediaMatchingEntity.employerId > EmployerEntity.id [delete: SetNull]
+Ref: SocialMediaMatchingEntity.employerId > EmployerEntity.id
 
-Ref: ProfileEmployerEntity.employerId > EmployerEntity.id [delete: Cascade]
+Ref: ProfileEmployerEntity.employerId > EmployerEntity.id
 
-Ref: ProfileEmployerEntity.profileId > ProfileEntity.id [delete: Cascade]
+Ref: ProfileEmployerEntity.profileId > ProfileEntity.id
 
-Ref: ProjectSummaryEntity.project_id - ProjectsEntity.id [delete: Cascade]
+Ref: ProjectSummaryEntity.project_id - ProjectsEntity.id
 
-Ref: ProjectSummaryEntity.reporting_user_id > UserEntity.id [delete: Cascade]
+Ref: ProjectSummaryEntity.reporting_user_id > UserEntity.id
 
-Ref: ProjectsAssigneeEntity.projectsId > ProjectsEntity.id [delete: Cascade]
+Ref: ProjectsAssigneeEntity.projectsId > ProjectsEntity.id
 
-Ref: ProjectsAssigneeEntity.userId > UserEntity.id [delete: Cascade]
+Ref: ProjectsAssigneeEntity.userId > UserEntity.id
 
-Ref: UserEventsEntity.target_user_id > UserEntity.id [delete: SetNull]
+Ref: UserEventsEntity.target_user_id > UserEntity.id
 
-Ref: UserEventsEntity.acting_user_id > UserEntity.id [delete: SetNull]
+Ref: UserEventsEntity.acting_user_id > UserEntity.id
 
-Ref: UserRolesEntity.role_id > RolesEntity.id [delete: Cascade]
+Ref: UserRolesEntity.role_id > RolesEntity.id
 
-Ref: UserRolesEntity.user_id > UserEntity.id [delete: Cascade]
+Ref: UserRolesEntity.user_id > UserEntity.id
 
-Ref: UserTagsEntity.user_id > UserEntity.id [delete: Cascade]
+Ref: UserTagsEntity.user_id > UserEntity.id
 
-Ref: UserTagsEntity.tag_id > TagsEntity.id [delete: Cascade]
+Ref: UserTagsEntity.tag_id > TagsEntity.id
 
-Ref: MediaAsset.profile_id - ProfileEntity.id [delete: SetNull]
+Ref: MediaAsset.profile_id - ProfileEntity.id
 
-Ref: MediaAsset.project_id - ProjectsEntity.id [delete: SetNull]
+Ref: MediaAsset.project_id - ProjectsEntity.id
 
-Ref: MediaAsset.user_id - UserEntity.id [delete: SetNull]
+Ref: MediaAsset.user_id - UserEntity.id
 
-Ref: MediaAsset.story_id > SocialStory.id [delete: SetNull]
+Ref: MediaAsset.story_id > SocialStory.id
 
-Ref: MenusEntity.parentId - MenusEntity.id [delete: SetNull]
+Ref: MenusEntity.parentId - MenusEntity.id
 
-Ref: RoleMenusEntity.roleId > RolesEntity.id [delete: Cascade]
+Ref: RoleMenusEntity.roleId > RolesEntity.id
 
-Ref: RoleMenusEntity.menuId > MenusEntity.id [delete: Cascade]
+Ref: RoleMenusEntity.menuId > MenusEntity.id
 
-Ref: SocialUserFollower.userId > UserEntity.id [delete: Cascade]
+Ref: SocialUserFollower.userId > UserEntity.id
 
-Ref: SocialUserFollower.followerId > UserEntity.id [delete: Cascade]
+Ref: SocialUserFollower.followerId > UserEntity.id
 
-Ref: SocialStory.userId > UserEntity.id [delete: Cascade]
+Ref: SocialStory.userId > UserEntity.id
 
-Ref: SocialStoryUserLike.storyId > SocialStory.id [delete: Cascade]
+Ref: SocialStoryUserLike.storyId > SocialStory.id
 
-Ref: SocialStoryUserLike.userId > UserEntity.id [delete: Cascade]
+Ref: SocialStoryUserLike.userId > UserEntity.id
 
-Ref: SocialActivity.operatorId > UserEntity.id [delete: Cascade]
+Ref: SocialActivity.operatorId > UserEntity.id
 
-Ref: SocialActivity.targetUserId > UserEntity.id [delete: Cascade]
+Ref: SocialActivity.targetUserId > UserEntity.id
 
-Ref: SocialActivity.storyId > SocialStory.id [delete: SetNull]
+Ref: SocialActivity.storyId > SocialStory.id
 
-Ref: AnalyticByCity.cityId > City.id [delete: Cascade]
+Ref: AnalyticByCity.cityId > City.id
 
-Ref: AnalyticByLanguage.languageId > Language.id [delete: Cascade]
+Ref: AnalyticByLanguage.languageId > Language.id
 
-Ref: Appointment.userId > UserEntity.id [delete: Cascade]
+Ref: Appointment.userId > UserEntity.id
