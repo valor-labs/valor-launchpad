@@ -19,27 +19,27 @@ const storyImage3 = {
   alt: 'unsplash3 picture',
 };
 
-export const STORY_1: Prisma.SocialStoryCreateManyInput = {
+export const STORY_1 = {
   id: '64906c60-dbce-4906-aa99-382f7e8ef7d1',
   content:
     'Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.',
   createdDate: new Date('2021-09-15T13:34:56'),
   userId: USER_1.id,
 };
-export const STORY_2: Prisma.SocialStoryCreateManyInput = {
+export const STORY_2 = {
   id: '0340f2a2-9ee4-4104-a67e-7651374cbfa5',
   content:
     'Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.',
   createdDate: new Date('2021-08-15T13:34:56'),
   userId: USER_3.id,
 };
-export const STORY_3: Prisma.SocialStoryCreateManyInput = {
+export const STORY_3 = {
   id: '81839501-1deb-439b-91ad-1d6cf5e3ac9d',
   content: '',
   createdDate: new Date('2021-08-01T12:34:56'),
   userId: USER_2.id,
 };
-export const STORY_4: Prisma.SocialStoryCreateManyInput = {
+export const STORY_4 = {
   id: '405d1354-8d3c-4c83-88cb-e88156efb098',
   content:
     'Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.',
@@ -47,7 +47,7 @@ export const STORY_4: Prisma.SocialStoryCreateManyInput = {
   createdDate: new Date('2021-07-27T12:34:56'),
 };
 
-export const STORIES: Prisma.SocialStoryCreateManyInput[] = [
+export const STORIES = [
   STORY_1,
   STORY_2,
   STORY_3,

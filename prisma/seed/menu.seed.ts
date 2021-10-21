@@ -2,7 +2,7 @@ import { PrismaClient, Prisma } from '@prisma/client';
 import { megaMenus, Menu, menus } from '../seed-data/menu.data';
 import { Seeder } from './seeder';
 import { v4 } from 'uuid';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 
 export class MenuSeed implements Seeder {
