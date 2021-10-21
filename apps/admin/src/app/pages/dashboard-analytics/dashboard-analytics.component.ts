@@ -12,7 +12,7 @@ import { map, mergeMap, shareReplay, startWith } from 'rxjs/operators';
 import { ApexChart } from 'ng-apexcharts';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import 'jsvectormap/dist/js/jsvectormap.js';
 import 'jsvectormap/dist/maps/world.js';
 
