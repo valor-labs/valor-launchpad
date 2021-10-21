@@ -1,13 +1,13 @@
-import * as compression from 'compression';
+import compression from 'compression';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as bodyParser from 'body-parser';
 import { AppModule } from './app/app.module';
 import * as dotenv from 'dotenv';
-import * as connectRedis from 'connect-redis';
-import * as expressSession from 'express-session';
+import connectRedis from 'connect-redis';
+import expressSession from 'express-session';
 import * as redis from 'redis';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { parseDomain, ParseResultType } from 'parse-domain';
 import { AuthController } from '@valor-launchpad/auth-api';
