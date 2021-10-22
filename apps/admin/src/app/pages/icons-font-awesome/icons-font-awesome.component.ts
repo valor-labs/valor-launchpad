@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './icons-font-awesome.component.html',
   styleUrls: ['./icons-font-awesome.component.scss'],
 })
-export class IconsFontAwesomeComponent {
-}
+export class IconsFontAwesomeComponent {}

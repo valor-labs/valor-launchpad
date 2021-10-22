@@ -1,10 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from '@valor-launchpad/http';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { map } from 'rxjs/operators';
 
 export enum OrderType {

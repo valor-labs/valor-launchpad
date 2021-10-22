@@ -1,9 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from '@valor-launchpad/http';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 
 @Injectable({
   providedIn: 'root',
