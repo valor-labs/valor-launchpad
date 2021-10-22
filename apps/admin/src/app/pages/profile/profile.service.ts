@@ -1,10 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from '../../core/http/environment-config.interface';
-import { Profile } from '@api/projects';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +16,7 @@ export class ProfileService {
     if (username) {
       params.username = username;
     }
-    return this.httpClient.get<Profile>(
+    return this.httpClient.get<any>(
       this.config.environment.apiBase + `api/profile/v1`,
       { params }
     );

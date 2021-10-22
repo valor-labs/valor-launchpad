@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 export interface ValorLaunchpadMessage {
   name: string | 'You';
@@ -15,8 +15,6 @@ export interface ValorLaunchpadMessage {
 export class ValorLaunchpadMessageComponent implements OnInit {
   chatMessageClass: { [key: string]: boolean };
   chatMarginClass: { [key: string]: boolean };
-
-  constructor() {}
 
   @Input() message: ValorLaunchpadMessage;
 

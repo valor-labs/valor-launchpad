@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { Component, Input, QueryList, ViewChildren } from '@angular/core';
 import { NavigationService } from './navigation.service';
 import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
 
@@ -13,7 +7,7 @@ import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
   subMenuCollapseState = {
     projects: true,
   };
@@ -30,8 +24,6 @@ export class NavigationComponent implements OnInit {
       this.collapsed = newCollapseState;
     });
   }
-
-  ngOnInit() {}
 
   onOpen(self: SidebarItemComponent) {
     // close siblings when open one

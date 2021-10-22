@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { AuthModule } from './core/auth/auth.module';
 import { AuthGuard } from './core/auth/auth.guard';
-import { MapsGoogleModule } from './pages/maps-google/maps-google.module';
+// import { MapsGoogleModule } from './pages/maps-google/maps-google.module';
 
 const routes: Routes = [
   {

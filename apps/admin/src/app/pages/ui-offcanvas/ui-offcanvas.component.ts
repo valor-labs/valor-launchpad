@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Action } from '@valor-launchpad/api-interfaces';
 
 @Component({
@@ -6,11 +6,7 @@ import { Action } from '@valor-launchpad/api-interfaces';
   templateUrl: './ui-offcanvas.component.html',
   styleUrls: ['./ui-offcanvas.component.scss'],
 })
-export class UiOffCanvasComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-
+export class UiOffCanvasComponent {
   dropdownActions: Action[] = [
     {
       label: 'Action',
@@ -20,13 +16,13 @@ export class UiOffCanvasComponent implements OnInit {
     { label: 'Something else here', link: '#' },
   ];
 
-  showExample: boolean = false;
-  showLeft: boolean = false;
-  showRight: boolean = false;
-  showBottom: boolean = false;
-  showScrolling: boolean = false;
-  showBackdrop: boolean = false;
-  showScrollingBackdrop: boolean = false;
+  showExample = false;
+  showLeft = false;
+  showRight = false;
+  showBottom = false;
+  showScrolling = false;
+  showBackdrop = false;
+  showScrollingBackdrop = false;
 
   toggleShowExample() {
     this.showExample = !this.showExample;

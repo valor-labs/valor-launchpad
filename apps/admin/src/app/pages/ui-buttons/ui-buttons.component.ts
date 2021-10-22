@@ -14,6 +14,4 @@ export class UiButtonsComponent {
     { label: 'divider', divider: true },
     { label: 'Seperated link', link: '#' },
   ];
-
-  constructor() {}
 }

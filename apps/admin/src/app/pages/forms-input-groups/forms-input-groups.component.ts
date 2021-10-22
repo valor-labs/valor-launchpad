@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Action } from '@valor-launchpad/api-interfaces';
 
 @Component({
@@ -6,13 +6,11 @@ import { Action } from '@valor-launchpad/api-interfaces';
   templateUrl: './forms-input-groups.component.html',
   styleUrls: ['./forms-input-groups.component.scss'],
 })
-export class FormsInputGroupsComponent implements OnInit {
-  constructor() {}
+export class FormsInputGroupsComponent {
   actions: Action[] = [
     { label: 'Action', link: '#' },
     { label: 'Another action', link: '#' },
     { label: 'Something else here', link: '#', divider: true },
     { label: 'Separated link', link: '#' },
   ];
-  ngOnInit(): void {}
 }

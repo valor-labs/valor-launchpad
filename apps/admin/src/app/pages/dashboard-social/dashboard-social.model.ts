@@ -1,9 +1,3 @@
-interface IComment {
-  username: string;
-  avatarUrl: string;
-  content: string;
-}
-
 export interface IStory {
   createdDate: Date;
   mediaAsset: Array<{

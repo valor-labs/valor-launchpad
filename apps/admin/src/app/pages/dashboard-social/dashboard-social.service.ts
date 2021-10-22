@@ -1,15 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import {
-  ISocialActivity,
-  ISocialUserInfo,
-  IStory,
-} from './dashboard-social.model';
+import { ISocialActivity, IStory } from './dashboard-social.model';
 import { HttpClient } from '@angular/common/http';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from '../../core/http/environment-config.interface';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { UserFollower } from '@valor-launchpad/api-interfaces';
 
 @Injectable({

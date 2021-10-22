@@ -19,6 +19,4 @@ export class ChangelogComponent {
       changes: ['Initial Release'],
     },
   ];
-
-  constructor() {}
 }

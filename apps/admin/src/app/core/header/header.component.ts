@@ -108,7 +108,9 @@ export class HeaderComponent implements OnInit {
   confirmSignOut() {
     // TODO add loading spinner here ?
     this.content = '....Logging out';
-    this.authService.signOut().subscribe(() => {});
+    this.authService.signOut().subscribe(() => {
+      // todo: add logic here
+    });
   }
 
   setLanguage(language: string) {

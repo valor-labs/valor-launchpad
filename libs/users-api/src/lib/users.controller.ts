@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import {UsersService} from './users.service';
 import {RolesGuard} from './roles.guard';
 import {Roles} from './roles.decorator';
@@ -14,7 +14,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { TagsService } from './tags/tags.service';
 import { ThrottlerGuard } from '@nestjs/throttler';
-
+import { QueryUserListDto } from './dto/query-user-list.dto';
+import { DeleteUsersDto } from './dto/delete-users.dto';
+import { RestoreUsersDto } from './dto/restore-users.dto';
+import { BatchAddTagsDto } from './dto/batch-add-tags.dto';
 
 @Controller('v1')
 export class UsersController {
@@ -40,8 +43,8 @@ export class UsersController {
 
   @Get('all')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  async getAllUsers(): Promise<UserListLine[]> {
-    return await this.usersService.findAll();
+  async getAllUsers(@Query() query: QueryUserListDto): Promise<UserListLine[]> {
+    return await this.usersService.findAll(query);
   }
 
   @Get('current')
@@ -64,11 +67,25 @@ export class UsersController {
     return await this.usersService.editUser(user, actingUser);
   }
 
+  @Post('batchDelete')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  async deleteUsers(@Body() body: DeleteUsersDto, @User() actingUser: UserEntity) {
+    return await this.usersService.deleteUsers(body.userIds, actingUser);
+  }
+
   @Post('delete')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
   async deleteUser(@Body() form, @User() actingUser: UserEntity) {
     return await this.usersService.deleteUser(form.username, actingUser)
+  }
+
+  @Post('batchRestore')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  async restoreUsers(@Body() body: RestoreUsersDto, @User() actingUser: UserEntity) {
+    return await this.usersService.restoreUsers(body.userIds, actingUser);
   }
 
   @Post('restore')
@@ -79,9 +96,9 @@ export class UsersController {
   }
 
   @Post('resetPassword')
-  @UseGuards(ThrottlerGuard)
-  async resetPassword(@Body() user) {
-    return await this.usersService.resetPassword(user.username);
+  @UseGuards(AuthGuard('jwt'), ThrottlerGuard)
+  async resetPassword(@Body() user, @User() actingUser: UserEntity) {
+    return await this.usersService.resetPassword(user.username, actingUser);
   }
 
   @Post('resendEmail')
@@ -104,5 +121,11 @@ export class UsersController {
   async getMenus(@Req() req: RequestWithSession, @User() actingUser: UserEntity): Promise<Menu[]> {
     const currentUserRoles = req.session.user.userRoles.map(i => i.role_id);
     return await this.menuService.getMenus(currentUserRoles);
+  }
+
+  @Post('batchAddTags')
+  @UseGuards(AuthGuard('jwt'))
+  async batchAddTags(@Body() batchAddTagsDto: BatchAddTagsDto) {
+    return await this.usersService.batchAddTags(batchAddTagsDto);
   }
 }

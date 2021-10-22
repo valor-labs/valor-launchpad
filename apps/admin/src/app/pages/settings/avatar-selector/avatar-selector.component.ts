@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Media } from '@api/projects';
 
-const defaultSrc = 'assets/img/avatars/avatar.jpg';
+// const defaultSrc = 'assets/img/avatars/avatar.jpg';
 
 @Component({
   selector: 'valor-launchpad-avatar-selector',
@@ -11,7 +10,7 @@ const defaultSrc = 'assets/img/avatars/avatar.jpg';
 export class AvatarSelectorComponent {
   @Output() selectImage = new EventEmitter<File>();
 
-  @Input() previewSrc: string | Media;
+  @Input() previewSrc: any;
 
   triggerFilePicker(input: HTMLInputElement) {
     input.click();

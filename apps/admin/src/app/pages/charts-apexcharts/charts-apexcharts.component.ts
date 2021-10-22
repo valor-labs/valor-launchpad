@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ChartComponent } from 'ng-apexcharts';
+import { Component, AfterViewInit } from '@angular/core';
 import ApexCharts from 'apexcharts';
 
 @Component({
@@ -7,13 +6,9 @@ import ApexCharts from 'apexcharts';
   templateUrl: './charts-apexcharts.component.html',
   styleUrls: ['./charts-apexcharts.component.scss'],
 })
-export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-
+export class ChartsApexchartsComponent implements AfterViewInit {
   ngAfterViewInit(): void {
-    let chartOptionsLine = {
+    const chartOptionsLine = {
       chart: {
         height: 350,
         type: 'line',
@@ -93,7 +88,7 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
       },
     };
 
-    let chartOptionsArea = {
+    const chartOptionsArea = {
       chart: {
         height: 350,
         type: 'area',
@@ -133,7 +128,7 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
       },
     };
 
-    let chartOptionsBar = {
+    const chartOptionsBar = {
       chart: {
         height: 350,
         type: 'bar',
@@ -200,7 +195,7 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
       },
     };
 
-    let chartOptionsColumn = {
+    const chartOptionsColumn = {
       chart: {
         height: 350,
         type: 'bar',
@@ -264,7 +259,7 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
       },
     };
 
-    let chartOptionsPie = {
+    const chartOptionsPie = {
       chart: {
         height: 350,
         type: 'donut',
@@ -276,11 +271,11 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
     };
 
     function generateData(count, yrange) {
-      var i = 0;
-      var series = [];
+      let i = 0;
+      const series = [];
       while (i < count) {
-        var x = (i + 1).toString();
-        var y =
+        const x = (i + 1).toString();
+        const y =
           Math.floor(Math.random() * (yrange.max - yrange.min + 1)) +
           yrange.min;
         series.push({
@@ -292,7 +287,7 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
       return series;
     }
 
-    let chartOptionsHeatMap = {
+    const chartOptionsHeatMap = {
       chart: {
         height: 350,
         type: 'heatmap',
@@ -371,7 +366,7 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
       },
     };
 
-    let chartOptionsMixed = {
+    const chartOptionsMixed = {
       chart: {
         height: 350,
         type: 'line',
@@ -453,7 +448,7 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
       },
     };
 
-    let seriesData = [
+    const seriesData = [
       {
         x: new Date(2016, 1, 1),
         y: [51.98, 56.29, 51.59, 53.85],
@@ -547,7 +542,7 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
         y: [61.71, 64.15, 61.29, 63.04],
       },
     ];
-    let chartOptionscandlestick = {
+    const chartOptionscandlestick = {
       chart: {
         height: 350,
         type: 'candlestick',
@@ -564,49 +559,49 @@ export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
         type: 'datetime',
       },
     };
-    var chartLine = new ApexCharts(
+    const chartLine = new ApexCharts(
       document.querySelector('#apexcharts-line'),
       chartOptionsLine
     );
     chartLine.render();
 
-    var chartArea = new ApexCharts(
+    const chartArea = new ApexCharts(
       document.querySelector('#apexcharts-area'),
       chartOptionsArea
     );
     chartArea.render();
 
-    var chartBar = new ApexCharts(
+    const chartBar = new ApexCharts(
       document.querySelector('#apexcharts-bar'),
       chartOptionsBar
     );
     chartBar.render();
 
-    var chartColumn = new ApexCharts(
+    const chartColumn = new ApexCharts(
       document.querySelector('#apexcharts-column'),
       chartOptionsColumn
     );
     chartColumn.render();
 
-    var chartPie = new ApexCharts(
+    const chartPie = new ApexCharts(
       document.querySelector('#apexcharts-pie'),
       chartOptionsPie
     );
     chartPie.render();
 
-    var chartHeatmap = new ApexCharts(
+    const chartHeatmap = new ApexCharts(
       document.querySelector('#apexcharts-heatmap'),
       chartOptionsHeatMap
     );
     chartHeatmap.render();
 
-    var chartMixed = new ApexCharts(
+    const chartMixed = new ApexCharts(
       document.querySelector('#apexcharts-mixed'),
       chartOptionsMixed
     );
     chartMixed.render();
 
-    var chartCandlestick = new ApexCharts(
+    const chartCandlestick = new ApexCharts(
       document.querySelector('#apexcharts-candlestick'),
       chartOptionscandlestick
     );
