@@ -8,11 +8,24 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UsersListingService } from './users-listing.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { UserListLine } from '@valor-launchpad/api-interfaces';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'valor-launchpad-users-listing',
@@ -21,9 +34,23 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UsersListingComponent implements OnInit {
   userForm!: FormGroup;
-
+  addTagFC = new FormControl([]);
+  keywordControl = new FormControl('');
   columns: TableColumn[] = [];
-  users: UserListLine[] = [];
+  roleFilter = new Set<string>(); // role id array
+  tagFilter = new Set<string>(); // tag id array
+  usersRefreshController$ = new BehaviorSubject(true);
+  users$ = this.usersRefreshController$.asObservable().pipe(
+    tap(() => (this.selectedRows = [])),
+    switchMap(() => {
+      return this.usersListingService.getUsers(
+        Array.from(this.roleFilter),
+        Array.from(this.tagFilter),
+        this.keywordControl.value
+      );
+    })
+  );
+  selectedRows: UserListLine[] = [];
   addEditVisible = false;
   mode: 'add' | 'edit' | undefined;
   allRoleOptions: { name: string; value: string }[] = [];
@@ -41,16 +68,33 @@ export class UsersListingComponent implements OnInit {
   @ViewChild('actionsCell', { static: true })
   private actionsCell?: TemplateRef<UserListLine>;
 
+  @ViewChild('rolesHeader', { static: true })
+  private rolesHeader?: TemplateRef<void>;
+  @ViewChild('tagsHeader', { static: true })
+  private tagsHeader?: TemplateRef<void>;
+
   //TODO verify this after https://github.com/valor-software/valor-launchpad/issues/175 lands
   // @HostListener('document:keydown.escape', ['$event'])
   // handleKeydown() {
   //   this.addEditVisible = false;
   // }
+  rowClass = (row: UserListLine) => ({
+    active: this.selectedRows.find((sr) => sr.id === row.id),
+  });
+
+  get allSelectedDeleted() {
+    return this.selectedRows.every((i) => i.deletedDate !== null);
+  }
+
+  get allSelectedActive() {
+    return this.selectedRows.every((i) => i.deletedDate === null);
+  }
 
   constructor(
     private usersListingService: UsersListingService,
     private fb: FormBuilder,
     private toastrService: ToastrService,
+    private bsModalService: BsModalService,
     @Inject(LOCALE_ID) private localeId: string
   ) {}
 
@@ -73,7 +117,8 @@ export class UsersListingComponent implements OnInit {
     this.addEditVisible = true;
   }
 
-  openEdit(user: UserListLine) {
+  openEdit(event: MouseEvent, user: UserListLine) {
+    event.stopPropagation();
     this.mode = 'edit';
     this.fetchRoles();
     this.fetchTags();
@@ -83,16 +128,55 @@ export class UsersListingComponent implements OnInit {
       firstName: [user.firstName, [Validators.required]],
       lastName: [user.lastName, [Validators.required]],
       email: [user.email, [Validators.required, Validators.email]],
-      roles: [user.userRoles.map(r => ({ name: r.rolesEntity.role, value: r.role_id })), [Validators.required]],
-      tags: [user.userTags.map(r => ({ name: r.tagsEntity.name, id: r.tag_id }))],
+      roles: [
+        user.userRoles.map((r) => ({
+          name: r.rolesEntity.role,
+          value: r.role_id,
+        })),
+        [Validators.required],
+      ],
+      tags: [
+        user.userTags.map((r) => ({ name: r.tagsEntity.name, id: r.tag_id })),
+      ],
     });
     this.addEditVisible = true;
   }
 
+  addTags(modal: ModalDirective) {
+    this.usersListingService
+      .batchAddTags(
+        this.selectedRows.map((i) => i.id),
+        this.addTagFC.value
+      )
+      .subscribe(() => {
+        this.selectedRows = [];
+        this.addTagFC.reset();
+        modal.hide();
+        this.fetchUsers();
+      });
+  }
+
+  openAddTagModal(modal: ModalDirective) {
+    this.addTagFC.reset();
+    modal.show();
+  }
+
+  cancelAddTags(modal: ModalDirective) {
+    this.addTagFC.reset();
+    modal.hide();
+  }
+
+  onSelect(row: { selected: UserListLine[] }) {
+    this.selectedRows = row.selected;
+  }
+
   ngOnInit(): void {
+    this.fetchRoles();
+    this.fetchTags();
     const commonDef: Partial<TableColumn> = {
       cellClass: 'd-flex align-items-center p-2',
       headerClass: 'p-2',
+      resizeable: false,
     };
     this.columns = [
       { name: 'First', prop: 'firstName', flexGrow: 1, ...commonDef },
@@ -109,7 +193,9 @@ export class UsersListingComponent implements OnInit {
         cellTemplate: this.rolesCell,
         flexGrow: 1,
         sortable: false,
+        minWidth: 100,
         ...commonDef,
+        headerTemplate: this.rolesHeader,
       },
       {
         name: 'Tags',
@@ -117,6 +203,8 @@ export class UsersListingComponent implements OnInit {
         flexGrow: 1,
         sortable: false,
         ...commonDef,
+        minWidth: 100,
+        headerTemplate: this.tagsHeader,
       },
       {
         name: 'Last Log In',
@@ -145,6 +233,11 @@ export class UsersListingComponent implements OnInit {
       },
     ];
     this.fetchUsers();
+    this.keywordControl.valueChanges
+      .pipe(debounceTime(200), distinctUntilChanged())
+      .subscribe(() => {
+        this.fetchUsers();
+      });
   }
 
   fetchRoles() {
@@ -158,17 +251,22 @@ export class UsersListingComponent implements OnInit {
 
   fetchTags() {
     this.usersListingService.getTags().subscribe((data) => {
-      this.allTagOptions = data.map(i => ({
+      this.allTagOptions = data.map((i) => ({
         name: i.name,
         id: i.id,
       }));
     });
   }
 
-  fetchUsers() {
-    this.usersListingService.getUsers().subscribe((data) => {
-      this.users = data;
-    });
+  resetAllFilters() {
+    this.roleFilter = new Set();
+    this.tagFilter = new Set();
+    this.keywordControl.setValue('', { emitEvent: false });
+    this.fetchUsers();
+  }
+
+  private fetchUsers() {
+    this.usersRefreshController$.next(true);
   }
 
   addUser() {
@@ -207,27 +305,67 @@ export class UsersListingComponent implements OnInit {
     );
   }
 
-  delete(username: string) {
+  delete(event: MouseEvent, username: string) {
+    event.stopPropagation();
     this.usersListingService.deleteUser(username).subscribe((data) => {
       this.fetchUsers();
     });
   }
 
-  restore(username: string) {
+  batchDelete() {
+    const userIds = this.selectedRows.map((i) => i.id);
+    if (userIds.length > 0) {
+      this.usersListingService.batchDeleteUser(userIds).subscribe(() => {
+        this.fetchUsers();
+      });
+    }
+  }
+
+  restore(event: MouseEvent, username: string) {
+    event.stopPropagation();
     this.usersListingService.restoreUser(username).subscribe((data) => {
       this.fetchUsers();
     });
   }
 
-  resetPassword(username: string) {
+  batchRestore() {
+    const userIds = this.selectedRows.map((i) => i.id);
+    if (userIds.length > 0) {
+      this.usersListingService.batchRestoreUser(userIds).subscribe(() => {
+        this.fetchUsers();
+      });
+    }
+  }
+
+  resetPassword(event: MouseEvent, username: string) {
+    event.stopPropagation();
     this.usersListingService.resetPassword(username).subscribe((data) => {
       this.fetchUsers();
     });
   }
 
-  resendEmail(id: string) {
+  resendEmail(event: MouseEvent, id: string) {
+    event.stopPropagation();
     this.usersListingService.resendEmail(id).subscribe((data) => {
       this.fetchUsers();
     });
+  }
+
+  onFilterRole(roleId: string) {
+    if (this.roleFilter.has(roleId)) {
+      this.roleFilter.delete(roleId);
+    } else {
+      this.roleFilter.add(roleId);
+    }
+    this.fetchUsers();
+  }
+
+  onFilterTag(tagId: string) {
+    if (this.tagFilter.has(tagId)) {
+      this.tagFilter.delete(tagId);
+    } else {
+      this.tagFilter.add(tagId);
+    }
+    this.fetchUsers();
   }
 }
