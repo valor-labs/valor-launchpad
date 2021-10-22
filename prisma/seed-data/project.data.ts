@@ -1,8 +1,8 @@
-import { Prisma, ProjectStatus } from '@prisma/client';
+import { ProjectStatus } from '@prisma/client';
 import { v4 } from 'uuid';
 import { datatype, random, lorem } from 'faker';
 
-export const PROJECTS: Prisma.ProjectsEntityCreateManyInput[] = new Array(20)
+export const PROJECTS = new Array(20)
   .fill(null)
   .map(() => ({
     id: v4(),

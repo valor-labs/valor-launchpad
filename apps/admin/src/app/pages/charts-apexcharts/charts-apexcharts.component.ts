@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
-import * as ApexCharts from 'apexcharts';
+import ApexCharts from 'apexcharts';
 
 @Component({
   selector: 'valor-launchpad-charts-apexcharts',

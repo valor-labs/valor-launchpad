@@ -10,6 +10,7 @@
   class="sidebar-link"
   *ngIf="!isGroup"
   (click)="onNavigateToItem(menu.route)"
+  [routerLink]="menu.route"
   [routerLinkActive]="'active'"
   #routerLinkActive="routerLinkActive"
 >

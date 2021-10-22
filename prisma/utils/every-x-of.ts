@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 export function everydayOfYear(day?: Date) {
   const thisYear = (day ?? new Date()).getFullYear();

@@ -21,49 +21,36 @@
       }
     }
   },
-  "projects": {
-    "admin": {
-      "tags": []
+  "cli": {
+    "analytics": "4e621293-583d-4ad5-8ff9-0b09b4c57d1a",
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "admin",
+  "generators": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
     },
-    "admin-e2e": {
-      "tags": [],
-      "implicitDependencies": ["admin"]
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     },
-    "api": {
-      "tags": []
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
     },
-    "api-interfaces": {
-      "tags": []
-    },
-    "auth-api": {
-      "tags": []
-    },
-    "common-api": {
-      "tags": []
-    },
-    "email": {
-      "tags": []
-    },
-    "prisma": {
-      "tags": []
-    },
-    "sms": {
-      "tags": []
-    },
-    "stripe-api": {
-      "tags": []
-    },
-    "stripe-ui": {
-      "tags": []
-    },
-    "ui": {
-      "tags": []
-    },
-    "users-api": {
-      "tags": []
-    },
-    "users-ui": {
-      "tags": []
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
   }
 }
