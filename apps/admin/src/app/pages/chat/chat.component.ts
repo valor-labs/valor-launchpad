@@ -18,7 +18,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
   messages: ValorLaunchpadMessage[] = [];
   @ViewChild('chatMsg') chatMsgRef: ElementRef<HTMLElement>;
 
-  constructor() {}
   ngAfterViewInit(): void {
     this.chatMsgRef.nativeElement.scrollTop =
       this.chatMsgRef.nativeElement.scrollHeight;

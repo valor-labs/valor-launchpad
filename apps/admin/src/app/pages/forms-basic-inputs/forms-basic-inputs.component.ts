@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { VLCheckBoxOption } from '@valor-launchpad/ui';
 
@@ -7,7 +7,7 @@ import { VLCheckBoxOption } from '@valor-launchpad/ui';
   templateUrl: './forms-basic-inputs.component.html',
   styleUrls: ['./forms-basic-inputs.component.scss'],
 })
-export class FormsBasicInputsComponent implements OnInit {
+export class FormsBasicInputsComponent {
   verticalCheckboxOptions: VLCheckBoxOption[] = [
     {
       label: `Option one is this and that—be sure to include why it's great`,
@@ -68,6 +68,4 @@ export class FormsBasicInputsComponent implements OnInit {
 
   // Read only
   readonlyInput = new FormControl();
-
-  ngOnInit(): void {}
 }

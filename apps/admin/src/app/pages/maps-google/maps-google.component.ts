@@ -8,8 +8,6 @@ declare let google;
   styleUrls: ['./maps-google.component.scss'],
 })
 export class MapsGoogleComponent implements OnInit {
-  constructor() {}
-
   ngOnInit(): void {
     try {
       this.initDefaultMap();
@@ -442,7 +440,7 @@ export class MapsGoogleComponent implements OnInit {
       document.getElementById('markers_map'),
       markersMapConfig
     );
-    const marker = new google.maps.Marker({
+    new google.maps.Marker({
       position: {
         lat: 40.712784,
         lng: -74.005941,

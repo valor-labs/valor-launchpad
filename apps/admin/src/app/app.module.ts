@@ -9,7 +9,6 @@ import { NavigationModule } from './core/navigation/navigation.module';
 import { HeaderModule } from './core/header/header.module';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UiModule } from '@valor-launchpad/ui';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CookieService } from 'ngx-cookie-service';

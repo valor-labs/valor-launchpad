@@ -1,10 +1,4 @@
-import {
-  Component,
-  HostListener,
-  Inject,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
+import { Component, HostListener, Inject, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { InvoiceService } from './invoice.service';
 
@@ -13,7 +7,7 @@ import { InvoiceService } from './invoice.service';
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss'],
 })
-export class InvoiceComponent implements OnInit {
+export class InvoiceComponent {
   invoiceDetail$ = this.invoiceService.getInvoice();
 
   constructor(
@@ -21,8 +15,6 @@ export class InvoiceComponent implements OnInit {
     private renderer: Renderer2,
     private invoiceService: InvoiceService
   ) {}
-
-  ngOnInit(): void {}
 
   onPrint() {
     window.print();

@@ -4,7 +4,6 @@ import {
   ENV_CONFIG,
   EnvironmentConfig,
 } from '@valor-launchpad/http';
-import { Profile } from '@api/projects';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +19,7 @@ export class ProfileService {
     if (username) {
       params.username = username;
     }
-    return this.httpClient.get<Profile>(
+    return this.httpClient.get<any>(
       this.config.environment.apiBase + `api/profile/v1`,
       { params }
     );

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 export interface ValorLaunchpadMessenger {
   name: string;
@@ -22,8 +22,6 @@ export class ValorLaunchpadMessengerComponent implements OnInit {
     status: 'Online',
     unreadNumber: 0,
   };
-
-  constructor() {}
 
   ngOnInit(): void {
     this.unreadStatusClass = {

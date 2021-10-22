@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-forms-input-groups',
   templateUrl: './forms-input-groups.component.html',
   styleUrls: ['./forms-input-groups.component.scss'],
 })
-export class FormsInputGroupsComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class FormsInputGroupsComponent {}

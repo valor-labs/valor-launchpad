@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChangelogComponent } from './changelog/changelog.component';
 import { CustomizationComponent } from './customization/customization.component';

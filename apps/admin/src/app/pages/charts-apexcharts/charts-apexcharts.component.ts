@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ChartComponent } from 'ng-apexcharts';
+import { Component, AfterViewInit } from '@angular/core';
 import ApexCharts from 'apexcharts';
 
 @Component({
@@ -7,11 +6,7 @@ import ApexCharts from 'apexcharts';
   templateUrl: './charts-apexcharts.component.html',
   styleUrls: ['./charts-apexcharts.component.scss'],
 })
-export class ChartsApexchartsComponent implements OnInit, AfterViewInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-
+export class ChartsApexchartsComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const chartOptionsLine = {
       chart: {

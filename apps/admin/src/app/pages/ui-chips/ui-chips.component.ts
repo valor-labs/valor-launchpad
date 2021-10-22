@@ -16,7 +16,7 @@ export class UiChipsComponent {
   ];
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
 
-  handleClose(removedTag: {}): void {
+  handleClose(removedTag: any): void {
     this.tags = this.tags.filter((tag) => tag !== removedTag);
   }
 

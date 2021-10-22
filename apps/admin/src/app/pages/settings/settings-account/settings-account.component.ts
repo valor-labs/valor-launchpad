@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../../profile/profile.service';
-import { Profile } from '@api/projects';
 import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
 import { AuthService } from '../../../core/auth/auth.service';
 
@@ -641,7 +640,7 @@ export class SettingsAccountComponent implements OnInit {
   publicInfoFormGroup: FormGroup;
   privateInfoFormGroup: FormGroup;
 
-  profile: Profile;
+  profile: any;
 
   constructor(
     private fb: FormBuilder,

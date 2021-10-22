@@ -96,6 +96,4 @@ export class PluginsComponent {
       url: 'https://icons8.com/illustrations/style--clip',
     },
   ];
-
-  constructor() {}
 }
