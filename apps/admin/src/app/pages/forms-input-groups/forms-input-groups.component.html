@@ -220,30 +220,20 @@
           <div class="col-md">
             <valor-launchpad-input-group>
               <input type="text" valorLaunchpadInput />
-              <ng-container dropdown>
+              <valor-launchpad-dropdown>
                 <button
-                  dropdownToggle
+                  dropdown-nav
                   type="button"
-                  class="btn btn-secondary dropdown-toggle"
+                  valor-launchpad-button
+                  theme="secondary"
+                  class="dropdown-toggle"
                 >
                   Action
                 </button>
-                <ul *dropdownMenu class="dropdown-menu" role="menu">
-                  <li role="menuitem">
-                    <a class="dropdown-item" href="#">Action</a>
-                  </li>
-                  <li role="menuitem">
-                    <a class="dropdown-item" href="#">Another action</a>
-                  </li>
-                  <li role="menuitem">
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </li>
-                  <li class="divider dropdown-divider"></li>
-                  <li role="menuitem">
-                    <a class="dropdown-item" href="#">Separated link</a>
-                  </li>
-                </ul>
-              </ng-container>
+                <valor-launchpad-dropdown-actions-menu
+                  [actions]="actions"
+                ></valor-launchpad-dropdown-actions-menu>
+              </valor-launchpad-dropdown>
             </valor-launchpad-input-group>
           </div>
         </div>
@@ -299,29 +289,17 @@
               <input type="text" valorLaunchpadInput />
               <ng-container dropdown>
                 <button type="button" class="btn btn-secondary">Action</button>
-                <button
-                  type="button"
-                  class="
-                    btn btn-secondary
-                    dropdown-toggle dropdown-toggle-split
-                  "
-                  dropdownToggle
-                ></button>
-                <ul *dropdownMenu class="dropdown-menu" role="menu">
-                  <li role="menuitem">
-                    <a class="dropdown-item" href="#">Action</a>
-                  </li>
-                  <li role="menuitem">
-                    <a class="dropdown-item" href="#">Another action</a>
-                  </li>
-                  <li role="menuitem">
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </li>
-                  <li class="divider dropdown-divider"></li>
-                  <li role="menuitem">
-                    <a class="dropdown-item" href="#">Separated link</a>
-                  </li>
-                </ul>
+                <valor-launchpad-dropdown>
+                  <button
+                    dropdown-nav
+                    valor-launchpad-button
+                    theme="secondary"
+                    class="dropdown-toggle dropdown-toggle-split"
+                  ></button>
+                  <valor-launchpad-dropdown-actions-menu
+                    [actions]="actions"
+                  ></valor-launchpad-dropdown-actions-menu>
+                </valor-launchpad-dropdown>
               </ng-container>
             </div>
           </div>
