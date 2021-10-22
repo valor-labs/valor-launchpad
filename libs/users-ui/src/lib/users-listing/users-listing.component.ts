@@ -25,6 +25,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
+import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'valor-launchpad-users-listing',
@@ -33,7 +34,7 @@ import {
 })
 export class UsersListingComponent implements OnInit {
   userForm!: FormGroup;
-
+  addTagFC = new FormControl([]);
   keywordControl = new FormControl('');
   columns: TableColumn[] = [];
   roleFilter = new Set<string>(); // role id array
@@ -81,10 +82,19 @@ export class UsersListingComponent implements OnInit {
     active: this.selectedRows.find((sr) => sr.id === row.id),
   });
 
+  get allSelectedDeleted() {
+    return this.selectedRows.every((i) => i.deletedDate !== null);
+  }
+
+  get allSelectedActive() {
+    return this.selectedRows.every((i) => i.deletedDate === null);
+  }
+
   constructor(
     private usersListingService: UsersListingService,
     private fb: FormBuilder,
     private toastrService: ToastrService,
+    private bsModalService: BsModalService,
     @Inject(LOCALE_ID) private localeId: string
   ) {}
 
@@ -130,6 +140,30 @@ export class UsersListingComponent implements OnInit {
       ],
     });
     this.addEditVisible = true;
+  }
+
+  addTags(modal: ModalDirective) {
+    this.usersListingService
+      .batchAddTags(
+        this.selectedRows.map((i) => i.id),
+        this.addTagFC.value
+      )
+      .subscribe(() => {
+        this.selectedRows = [];
+        this.addTagFC.reset();
+        modal.hide();
+        this.fetchUsers();
+      });
+  }
+
+  openAddTagModal(modal: ModalDirective) {
+    this.addTagFC.reset();
+    modal.show();
+  }
+
+  cancelAddTags(modal: ModalDirective) {
+    this.addTagFC.reset();
+    modal.hide();
   }
 
   onSelect(row: { selected: UserListLine[] }) {

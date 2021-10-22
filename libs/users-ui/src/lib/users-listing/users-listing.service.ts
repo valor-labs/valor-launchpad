@@ -74,4 +74,11 @@ export class UsersListingService {
   resendEmail(id: string) {
     return this.httpClient.post(this.baseURL + 'resendEmail', { id });
   }
+
+  batchAddTags(userIds: string[], tags: { id?: string; name: string }[]) {
+    return this.httpClient.post(this.baseURL + 'batchAddTags', {
+      userIds,
+      tags,
+    });
+  }
 }

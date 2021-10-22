@@ -3,10 +3,11 @@
   <valor-launchpad-card-header class="d-flex">
     <h2 class="me-auto">All Users</h2>
     <div class="actions">
-      <button valor-launchpad-button theme="danger" *ngIf="selectedRows.length > 0" (click)="batchDelete()">Delete</button>
-      <button valor-launchpad-button theme="primary" *ngIf="selectedRows.length > 0" (click)="batchRestore()">Restore</button>
-      <button type="button" class="btn btn-light" (click)="openAdd()">Add User<i class="fas fa-plus ms-2"></i></button>
-      <button type="button" class="btn btn-light" (click)="resetAllFilters()"><i class="fas fa-sync"></i></button>
+      <button valor-launchpad-button theme="danger" *ngIf="selectedRows.length > 0 && !allSelectedDeleted" (click)="batchDelete()">Delete</button>
+      <button valor-launchpad-button theme="primary" *ngIf="selectedRows.length > 0 && !allSelectedActive" (click)="batchRestore()">Restore</button>
+      <button valor-launchpad-button theme="light" *ngIf="selectedRows.length > 0" (click)="openAddTagModal(addTagModal)">Add Tag<i class="fas fa-tag ms-2"></i></button>
+      <button valor-launchpad-button theme="light" (click)="openAdd()">Add User<i class="fas fa-plus ms-2"></i></button>
+      <button valor-launchpad-button theme="light" (click)="resetAllFilters()"><i class="fas fa-sync"></i></button>
     </div>
   </valor-launchpad-card-header>
   <valor-launchpad-card-content>
@@ -25,6 +26,7 @@
       [rows]="users$ | async"
       [rowHeight]="'auto'"
       [selectionType]="'multiClick'"
+      [selected]="selectedRows"
       (select)="onSelect($event)"
       [rowClass]="rowClass"
       columnMode="flex">
@@ -188,3 +190,32 @@
     </form>
   </div>
 </valor-launchpad-offcanvas>
+
+<valor-launchpad-modal
+  bsModal
+  #addTagModal="bs-modal"
+  [content]="contentTmpl"
+  heading="Add tag"
+  [footer]="footerTmpl">
+  <ng-template #footerTmpl>
+    <button
+      valor-launchpad-button
+      theme="secondary"
+      (click)="cancelAddTags(addTagModal)"
+    >
+      Cancel
+    </button>
+    <button valor-launchpad-button theme="primary" (click)="addTags(addTagModal)">Save</button>
+  </ng-template>
+  <ng-template #contentTmpl>
+    <tag-input [formControl]="addTagFC" [identifyBy]="'id'" [displayBy]="'name'">
+      <tag-input-dropdown
+        [autocompleteItems]="allTagOptions"
+        [identifyBy]="'id'"
+        [displayBy]="'name'"
+        [appendToBody]="true"
+        [zIndex]="10000"
+      ></tag-input-dropdown>
+    </tag-input>
+  </ng-template>
+</valor-launchpad-modal>

@@ -24,6 +24,7 @@ import { EditUserDto } from './dto/edit-user.dto';
 import { RoleDto } from './dto/role.dto';
 import { TagDto } from './dto/tag.dto';
 import { QueryUserListDto } from './dto/query-user-list.dto';
+import { BatchAddTagsDto } from './dto/batch-add-tags.dto';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -722,6 +723,38 @@ export class UsersService {
     });
 
     return user;
+  }
+
+  async batchAddTags({ userIds, tags }: BatchAddTagsDto) {
+    const now = new Date();
+
+    // create new tags
+    const createdTags = [];
+    for (const tag of tags) {
+      const ct = await this.prisma.tagsEntity.upsert({
+        where: { name: tag.name },
+        update: { deletedDate: null },
+        create: { name: tag.name, createdDate: now },
+      });
+      createdTags.push(ct);
+    }
+
+    // create tag user relations
+    for (const uid of userIds) {
+      for (const tag of createdTags) {
+        await this.prisma.userTagsEntity.upsert({
+          where: { user_id_tag_id: { user_id: uid, tag_id: tag.id } },
+          update: { deletedDate: null },
+          create: {
+            user_id: uid,
+            tag_id: tag.id,
+            createdDate: now,
+          },
+        });
+      }
+    }
+
+    return true;
   }
 
   private emitResetPasswordEmail(email: string, username: string, passwordResetToken: string) {

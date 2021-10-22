@@ -17,6 +17,7 @@ import { ThrottlerGuard } from '@nestjs/throttler';
 import { QueryUserListDto } from './dto/query-user-list.dto';
 import { DeleteUsersDto } from './dto/delete-users.dto';
 import { RestoreUsersDto } from './dto/restore-users.dto';
+import { BatchAddTagsDto } from './dto/batch-add-tags.dto';
 
 @Controller('v1')
 export class UsersController {
@@ -120,5 +121,11 @@ export class UsersController {
   async getMenus(@Req() req: RequestWithSession, @User() actingUser: UserEntity): Promise<Menu[]> {
     const currentUserRoles = req.session.user.userRoles.map(i => i.role_id);
     return await this.menuService.getMenus(currentUserRoles);
+  }
+
+  @Post('batchAddTags')
+  @UseGuards(AuthGuard('jwt'))
+  async batchAddTags(@Body() batchAddTagsDto: BatchAddTagsDto) {
+    return await this.usersService.batchAddTags(batchAddTagsDto);
   }
 }
