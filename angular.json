@@ -32,10 +32,7 @@
                 "inject": false
               }
             ],
-            "scripts": [
-              "node_modules/qrcodejs/qrcode.js",
-              "node_modules/apexcharts/dist/apexcharts.min.js"
-            ],
+            "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": ["apps/admin/scss/1-variables"]
             }
