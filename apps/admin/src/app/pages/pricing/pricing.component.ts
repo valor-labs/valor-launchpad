@@ -1,10 +1,7 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { FAQ } from '@valor-launchpad/api-interfaces';
 import { HttpClient } from '@angular/common/http';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from '../../core/http/environment-config.interface';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 @Component({
   selector: 'valor-launchpad-pricing',
   templateUrl: './pricing.component.html',

@@ -1,6 +1,5 @@
 import { ActivityEntity } from './activity.entity';
 import { BaseEntity, MediaEntity } from '@valor-launchpad/common-api';
-import { EmployerEntity } from './employer.entity';
 import { ProfileEmployerEntity } from './profileEmployer.entity';
 import { SocialMediaMatchingEntity } from './socialMediaMatching.entity';
 import { ProfileSkillsEntity } from './profileSkills.entity';

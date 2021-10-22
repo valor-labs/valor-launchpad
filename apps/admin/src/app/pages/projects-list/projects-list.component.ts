@@ -3,7 +3,6 @@ import {
   ElementRef,
   Inject,
   OnInit,
-  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { ProjectsListService } from './projects-list.service';

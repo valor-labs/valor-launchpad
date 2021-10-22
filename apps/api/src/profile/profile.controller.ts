@@ -5,7 +5,6 @@ import {
   Controller,
   Get,
   Post,
-  Req,
   UploadedFile,
   UseGuards,
   UseInterceptors,

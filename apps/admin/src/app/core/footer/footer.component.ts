@@ -8,5 +8,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class FooterComponent {
   currentYear = new Date().getFullYear();
-  constructor() {}
 }

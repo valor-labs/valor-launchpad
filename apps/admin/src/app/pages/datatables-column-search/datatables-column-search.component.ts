@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, LOCALE_ID, ViewChild } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable/lib/types/table-column.type';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { tableData } from './fakeData';
@@ -14,7 +14,7 @@ class CustomDatePipe extends DatePipe {
   templateUrl: './datatables-column-search.component.html',
   styleUrls: ['./datatables-column-search.component.css'],
 })
-export class DatatablesColumnSearchComponent implements OnInit {
+export class DatatablesColumnSearchComponent {
   @ViewChild('myTable') table: any;
   tableResponsiveData = tableData;
   pageNumLimit = 10;
@@ -32,8 +32,6 @@ export class DatatablesColumnSearchComponent implements OnInit {
   ];
 
   constructor(@Inject(LOCALE_ID) private locale: string) {}
-
-  ngOnInit(): void {}
 
   onChangeSearch(inputVal: string): void {
     if (inputVal === '') {

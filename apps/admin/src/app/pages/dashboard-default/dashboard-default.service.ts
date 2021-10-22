@@ -1,10 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from '../../core/http/environment-config.interface';
-import {
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
+import type {
   DashboardDefaultOverviewVo,
   DashboardDefaultRevenueMonthlyVo,
   DashboardDefaultRevenueVo,

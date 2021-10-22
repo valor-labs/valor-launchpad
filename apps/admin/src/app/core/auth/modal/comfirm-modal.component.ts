@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -8,7 +7,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './comfirm-modal.component.html',
   styleUrls: ['./comfirm-modal.component.scss'],
 })
-export class ComfirmModalComponent implements OnInit {
+export class ComfirmModalComponent {
+  //TODO: There is an error here saying its not included in a module
   constructor(
     public bsModalRef: BsModalRef,
     private authService: AuthService
@@ -18,11 +18,10 @@ export class ComfirmModalComponent implements OnInit {
   title: string;
   content: string;
   url: string;
-  ngOnInit(): void {}
 
   handleClose() {
     localStorage.setItem('preUrl', this.url);
     this.bsModalRef.hide();
-    this.authService.signOut().subscribe(() => {});
+    this.authService.signOut().subscribe();
   }
 }

@@ -4,7 +4,7 @@ import {
   AllProductsResponse,
   MethodsByCountryResponse,
 } from '@valor-launchpad/stripe-api';
-import {ENV_CONFIG, EnvironmentConfig} from '../../../../../apps/admin/src/app/core/http/environment-config.interface';
+import {ENV_CONFIG, EnvironmentConfig} from '@valor-launchpad/http';
 
 @Injectable({providedIn: 'root'})
 export class EmbeddedPayService {

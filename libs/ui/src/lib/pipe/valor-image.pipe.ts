@@ -2,7 +2,7 @@ import { Inject, Pipe, PipeTransform } from '@angular/core';
 import {
   ENV_CONFIG,
   EnvironmentConfig
-} from '@ui/http-config';
+} from '@valor-launchpad/http';
 
 const defaultSrc = 'assets/img/avatars/avatar.jpg';
 

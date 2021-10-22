@@ -31,5 +31,4 @@ export class ColorPaletteComponent {
     'WeChat',
     'Alibaba',
   ];
-  constructor() {}
 }

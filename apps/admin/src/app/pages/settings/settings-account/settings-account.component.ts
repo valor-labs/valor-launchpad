@@ -2,8 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../../profile/profile.service';
-import { ProfileEntity } from '../../../../../../api/src/profile/profile.entity';
-import { Profile } from '@api/projects';
 import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
 import { AuthService } from '../../../core/auth/auth.service';
 
@@ -642,7 +640,7 @@ export class SettingsAccountComponent implements OnInit {
   publicInfoFormGroup: FormGroup;
   privateInfoFormGroup: FormGroup;
 
-  profile: Profile;
+  profile: any;
 
   constructor(
     private fb: FormBuilder,
@@ -699,7 +697,7 @@ export class SettingsAccountComponent implements OnInit {
           );
           this.initData();
           setTimeout(() => {
-            this.authService.signOut().subscribe(() => {});
+            this.authService.signOut().subscribe();
           }, 2000);
         } else {
           this.notyf.error('Update public info failure');

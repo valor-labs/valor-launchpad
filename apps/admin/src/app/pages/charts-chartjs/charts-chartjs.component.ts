@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import Basic from './d3.curve.js';
 import Linear from './d3.curve-line';
 @Component({
@@ -6,7 +6,7 @@ import Linear from './d3.curve-line';
   templateUrl: './charts-chartjs.component.html',
   styleUrls: ['./charts-chartjs.component.scss'],
 })
-export class ChartsChartjsComponent implements OnInit {
+export class ChartsChartjsComponent {
   linechartData = [
     {
       name: 'Sales ($)',
@@ -366,8 +366,4 @@ export class ChartsChartjsComponent implements OnInit {
   ];
 
   d3Line = Linear;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

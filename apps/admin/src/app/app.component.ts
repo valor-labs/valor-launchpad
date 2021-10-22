@@ -1,10 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Message } from '@valor-launchpad/api-interfaces';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from './core/http/environment-config.interface';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 
 @Component({
   selector: 'valor-launchpad-root',
