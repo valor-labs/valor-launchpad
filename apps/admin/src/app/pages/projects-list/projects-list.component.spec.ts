@@ -1,6 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProjectsListComponent } from './projects-list.component';
+import { HttpModule } from '@valor-launchpad/http';
+import { environment } from '../../../environments/environment';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UiModule } from '@valor-launchpad/ui';
+import { ProjectListItemComponent } from './project-list-item/project-list-item.component';
 
 describe('ProjectsListComponent', () => {
   let component: ProjectsListComponent;
@@ -8,7 +14,13 @@ describe('ProjectsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectsListComponent],
+      imports: [
+        HttpModule.forRoot({ environment }),
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        UiModule,
+      ],
+      declarations: [ProjectsListComponent, ProjectListItemComponent],
     }).compileComponents();
   });
 

@@ -77,7 +77,7 @@
                     <div>
                       {{ row.position }}, {{ row.office }}, {{ row.age }},
                       {{ row.startDate | date: 'y/MM/dd' }},
-                      {{ row.salary | currency: 'USD':true:'1.0-0' }}
+                      {{ row.salary | currency: 'USD':'symbol':'1.0-0' }}
                     </div>
                   </div>
                 </ng-template>
@@ -160,7 +160,7 @@
                 </ng-template>
                 <ng-template let-value="value" ngx-datatable-cell-template>
                   <span class="mobile-hidden">
-                    {{ value | currency: 'USD':true:'1.0-0' }}
+                    {{ value | currency: 'USD':'symbol':'1.0-0' }}
                   </span>
                 </ng-template>
               </ngx-datatable-column>

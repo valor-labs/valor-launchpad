@@ -2,19 +2,35 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import {
-  DashboardAnalyticTrafficVo,
-  DashboardAnalyticOverviewVo,
+  DashboardAnalyticByCityVo,
+  DashboardAnalyticByInterestVo,
   DashboardAnalyticByLanguageVo,
   DashboardAnalyticByPlatformVo,
-  DashboardAnalyticByInterestVo,
   DashboardAnalyticBySourceVo,
-  DashboardAnalyticByCityVo,
+  DashboardAnalyticOverviewVo,
+  DashboardAnalyticTrafficVo,
 } from '@valor-launchpad/api-interfaces';
+
+export interface IDashboardAnalyticsService {
+  getOverview(startAt: Date, endAt: Date): any;
+
+  getByCity(startAt: Date, endAt: Date): any;
+
+  getByLanguage(startAt: Date, endAt: Date): any;
+
+  getByPlatform(): any;
+
+  getByInterest(startAt: Date, endAt: Date): any;
+
+  getBySource(startAt: Date, endAt: Date): any;
+
+  getByTraffic(startAt: Date, endAt: Date): any;
+}
 
 @Injectable({
   providedIn: 'root',
 })
-export class DashboardAnalyticsService {
+export class DashboardAnalyticsService implements IDashboardAnalyticsService {
   private apiBase = this.config.environment.apiBase;
   constructor(
     @Inject(ENV_CONFIG) private config: EnvironmentConfig,

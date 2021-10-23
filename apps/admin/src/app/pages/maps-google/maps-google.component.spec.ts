@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapsGoogleComponent } from './maps-google.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('MapsGoogleComponent', () => {
   let component: MapsGoogleComponent;
@@ -8,6 +9,7 @@ describe('MapsGoogleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [UiModule],
       declarations: [MapsGoogleComponent],
     }).compileComponents();
   });

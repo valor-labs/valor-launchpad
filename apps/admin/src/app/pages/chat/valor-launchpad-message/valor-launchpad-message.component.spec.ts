@@ -15,6 +15,11 @@ describe('ValorLaunchpadMessageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ValorLaunchpadMessageComponent);
     component = fixture.componentInstance;
+    component.message = {
+      name: 'You',
+      content: 'string',
+      time: new Date().toDateString(),
+    };
     fixture.detectChanges();
   });
 

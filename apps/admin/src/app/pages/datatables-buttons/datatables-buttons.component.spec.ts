@@ -1,16 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatatablesButtonsComponent } from './datatables-buttons.component';
+import { UiModule } from '@valor-launchpad/ui';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 describe('DatatablesButtonsComponent', () => {
   let component: DatatablesButtonsComponent;
   let fixture: ComponentFixture<DatatablesButtonsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [UiModule, NgxDatatableModule],
       declarations: [DatatablesButtonsComponent],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatatablesButtonsComponent);

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InvoiceComponent } from './invoice.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('InvoiceComponent', () => {
   let component: InvoiceComponent;
@@ -8,6 +9,7 @@ describe('InvoiceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [UiModule],
       declarations: [InvoiceComponent],
     }).compileComponents();
   });

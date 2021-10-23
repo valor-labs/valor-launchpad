@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiGridComponent } from './ui-grid.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('UiGridComponent', () => {
   let component: UiGridComponent;
@@ -8,6 +9,7 @@ describe('UiGridComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [UiModule],
       declarations: [UiGridComponent],
     }).compileComponents();
   });

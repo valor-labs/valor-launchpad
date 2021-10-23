@@ -1,16 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatatablesAjaxComponent } from './datatables-ajax.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormsModule } from '@angular/forms';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('DatatablesAjaxComponent', () => {
   let component: DatatablesAjaxComponent;
   let fixture: ComponentFixture<DatatablesAjaxComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NgxDatatableModule, FormsModule, UiModule],
       declarations: [DatatablesAjaxComponent],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatatablesAjaxComponent);

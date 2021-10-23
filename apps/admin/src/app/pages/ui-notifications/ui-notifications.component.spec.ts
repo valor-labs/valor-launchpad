@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiNotificationsComponent } from './ui-notifications.component';
+import { UiModule } from '@valor-launchpad/ui';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('UiNotificationsComponent', () => {
   let component: UiNotificationsComponent;
@@ -8,6 +10,7 @@ describe('UiNotificationsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [UiModule, ReactiveFormsModule],
       declarations: [UiNotificationsComponent],
     }).compileComponents();
   });

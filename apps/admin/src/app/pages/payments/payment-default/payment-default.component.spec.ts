@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaymentDefaultComponent } from './payment-default.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('PaymentDefaultComponent', () => {
   let component: PaymentDefaultComponent;
@@ -8,6 +9,7 @@ describe('PaymentDefaultComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [UiModule],
       declarations: [PaymentDefaultComponent],
     }).compileComponents();
   });
