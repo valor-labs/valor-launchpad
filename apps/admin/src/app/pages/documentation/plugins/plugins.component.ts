@@ -12,88 +12,80 @@ export class PluginsComponent {
       url: 'https://getbootstrap.com/',
     },
     {
-      name: 'jQuery',
-      url: 'https://jquery.com/',
+      name: 'Ngx-Bootstrap',
+      url: 'https://valor-software.com/ngx-bootstrap/#/',
     },
     {
-      name: 'Chart.js',
-      url: 'https://www.chartjs.org//',
+      name: 'Fullcalendar',
+      url: 'https://fullcalendar.io/',
     },
     {
-      name: 'DataTables',
-      url: 'https://datatables.net/',
+      name: 'Ng-Select',
+      url: 'https://github.com/ng-select/ng-select',
+    },
+    {
+      name: 'SendGrid',
+      url: 'https://sendgrid.com/',
+    },
+    {
+      name: 'Stripe',
+      url: 'https://stripe.com/docs/js',
+    },
+    {
+      name: 'Ngx-Charts',
+      url: 'https://github.com/swimlane/ngx-charts#readme',
+    },
+    {
+      name: 'Ngx-Datatable',
+      url: 'https://github.com/swimlane/ngx-datatable#readme',
     },
     {
       name: 'ApexCharts',
       url: 'https://apexcharts.com/',
     },
     {
-      name: 'Select2',
-      url: '	https://select2.org/',
-    },
-    {
-      name: 'Quill',
-      url: 'https://quilljs.com/',
-    },
-    {
-      name: 'SimpleBar',
-      url: 'https://github.com/grsmto/simplebar',
-    },
-    {
       name: 'Google Maps',
       url: 'https://developers.google.com/maps/documentation/',
     },
     {
-      name: 'Dragula',
-      url: 'https://bevacqua.github.io/dragula/',
-    },
-    {
-      name: 'Feather Icons',
-      url: 'https://feathericons.com/',
-    },
-    {
-      name: 'Font Awesome',
-      url: 'https://fontawesome.com/',
-    },
-    {
-      name: 'FullCalendar',
-      url: 'https://fullcalendar.io/',
-    },
-    {
-      name: 'Date Range Picker',
-      url: 'https://www.daterangepicker.com/',
-    },
-    {
-      name: 'jQuery Mask Plugin',
-      url: 'https://igorescobar.github.io/jQuery-Mask-Plugin/',
-    },
-    {
-      name: 'jQuery Validation Plugin',
-      url: 'https://jqueryvalidation.org//',
-    },
-    {
-      name: 'jQuery Smart Wizard',
-      url: 'http://techlaboratory.net/smartwizard',
+      name: 'DayJs',
+      url: 'https://day.js.org/',
     },
     {
       name: 'Jsvectormap',
       url: 'https://github.com/themustafaomar/jsvectormap',
     },
     {
-      name: 'Tempus Dominus',
-      url: 'https://tempusdominus.github.io/bootstrap-4/',
+      name: 'Font Awesome',
+      url: 'https://fontawesome.com/',
     },
     {
-      name: 'Feather Icons',
-      url: '	https://feathericons.com/',
+      name: 'Ngx-Chips',
+      url: 'https://github.com/Gbuomprisco/ngx-chips',
+    },
+    {
+      name: 'Ngx-Mask',
+      url: 'https://github.com/JsDaddy/ngx-mask',
+    },
+    {
+      name: 'Ngx-Toastr',
+      url: 'https://ngx-toastr.vercel.app/',
+    },
+    {
+      name: 'Notyf',
+      url: 'https://github.com/caroso1222/notyf#readme',
+    },
+    {
+      name: 'QRCodeJs',
+      url: 'https://github.com/davidshimjs/qrcodejs#readme',
+    },
+    {
+      name: 'Slate-Angular',
+      url: 'http://slate-angular.ngnice.com/',
     },
     {
       name: 'Notyf',
       url: 'https://github.com/caroso1222/notyf',
-    },
-    {
-      name: 'Icons8 Clip Illustrations',
-      url: 'https://icons8.com/illustrations/style--clip',
     },
   ];
 }
