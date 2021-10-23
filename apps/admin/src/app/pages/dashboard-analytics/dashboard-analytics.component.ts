@@ -9,7 +9,7 @@ import {
 import { DatePipe, PercentPipe } from '@angular/common';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { map, mergeMap, shareReplay, startWith } from 'rxjs/operators';
-import { ApexChart } from 'ng-apexcharts';
+import { ApexChart, ApexAxisChartSeries, ApexXAxis } from 'ng-apexcharts';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
 import dayjs from 'dayjs';

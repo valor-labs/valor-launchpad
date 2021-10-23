@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SaasInfoCardComponent } from './saas-info-card.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('SaasInfoCardComponent', () => {
   let component: SaasInfoCardComponent;
@@ -8,6 +9,7 @@ describe('SaasInfoCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [UiModule],
       declarations: [SaasInfoCardComponent],
     }).compileComponents();
   });

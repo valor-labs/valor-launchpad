@@ -7,10 +7,29 @@ import { map, tap } from 'rxjs/operators';
 import { UserEntity } from '@valor-launchpad/common-api';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 
+export interface IAuthService {
+  access_token: any;
+  user: BehaviorSubject<UserEntity>;
+
+  checkIfUsernameExists(username: string): any;
+
+  signUp(user): any;
+
+  signOut(): any;
+
+  getCurrentUser(refresh): Observable<UserEntity>;
+
+  getToken(): any;
+
+  isLoggedIn(): any;
+
+  generateNewAccessToken(): any;
+}
+
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements IAuthService {
   access_token;
   user = new BehaviorSubject<UserEntity>(null);
 

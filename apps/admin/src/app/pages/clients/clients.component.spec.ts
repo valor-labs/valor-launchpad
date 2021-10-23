@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClientsComponent } from './clients.component';
+import { UiModule } from '@valor-launchpad/ui';
+import { FormsModule } from '@angular/forms';
 
 describe('ClientsComponent', () => {
   let component: ClientsComponent;
@@ -8,6 +10,7 @@ describe('ClientsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [UiModule, FormsModule],
       declarations: [ClientsComponent],
     }).compileComponents();
   });

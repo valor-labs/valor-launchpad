@@ -1,6 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsAccountComponent } from './settings-account.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { UiModule } from '@valor-launchpad/ui';
+import { HttpModule } from '@valor-launchpad/http';
+import { environment } from '../../../../environments/environment';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SettingsAccountComponent', () => {
   let component: SettingsAccountComponent;
@@ -8,6 +15,14 @@ describe('SettingsAccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        ReactiveFormsModule,
+        ToastrModule.forRoot(),
+        UiModule,
+        HttpModule.forRoot({ environment }),
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
       declarations: [SettingsAccountComponent],
     }).compileComponents();
   });
