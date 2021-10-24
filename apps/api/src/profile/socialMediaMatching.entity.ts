@@ -1,7 +1,7 @@
-import {BaseEntity} from '@valor-launchpad/common-api';
-import {ProfileEntity} from './profile.entity';
-import {EmployerEntity} from './employer.entity';
-import {SocialMediaEntity} from './socialMedia.entity';
+import { BaseEntity } from '@valor-launchpad/common-api';
+import { ProfileEntity } from './profile.entity';
+import { EmployerEntity } from './employer.entity';
+import { SocialMediaEntity } from './socialMedia.entity';
 
 export class SocialMediaMatchingEntity extends BaseEntity {
   profileId?: string;
@@ -9,5 +9,5 @@ export class SocialMediaMatchingEntity extends BaseEntity {
   employerId?: string;
   employer?: EmployerEntity;
   socialMediaId: string;
-  socialMedia: SocialMediaEntity
+  socialMedia: SocialMediaEntity;
 }

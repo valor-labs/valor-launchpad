@@ -5,12 +5,12 @@ import { MapsGoogleComponent } from './maps-google.component';
 const routes: Routes = [
   {
     path: '',
-    component: MapsGoogleComponent
-  }
+    component: MapsGoogleComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MapsGoogleRoutingModule { }
+export class MapsGoogleRoutingModule {}

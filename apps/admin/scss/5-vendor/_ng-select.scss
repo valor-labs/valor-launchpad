@@ -1,4 +1,4 @@
-@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~@ng-select/ng-select/themes/default.theme.css';
 
 .ng-select {
   &.is-invalid {
@@ -26,13 +26,13 @@
   }
 }
 
-.ng-dropdown-panel{
+.ng-dropdown-panel {
   background-color: $white;
   .ng-dropdown-panel-items {
     .ng-optgroup {
       color: $gray-600;
     }
-    .ng-option{
+    .ng-option {
       background-color: $white;
       color: $black;
       &.ng-option-disabled {

@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavigationComponent } from './navigation.component';
+import { HttpModule } from '@valor-launchpad/http';
+import { environment } from '../../../environments/environment';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -8,9 +12,13 @@ describe('NavigationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavigationComponent ]
-    })
-    .compileComponents();
+      imports: [
+        HttpModule.forRoot({ environment }),
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
+      declarations: [NavigationComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

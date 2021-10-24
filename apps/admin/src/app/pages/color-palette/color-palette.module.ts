@@ -5,12 +5,7 @@ import { ColorPaletteRoutingModule } from './color-palette-routing.module';
 import { ColorPaletteComponent } from './color-palette.component';
 
 @NgModule({
-  declarations: [
-    ColorPaletteComponent
-  ],
-  imports: [
-    CommonModule,
-    ColorPaletteRoutingModule
-  ]
+  declarations: [ColorPaletteComponent],
+  imports: [CommonModule, ColorPaletteRoutingModule],
 })
-export class ColorPaletteModule { }
+export class ColorPaletteModule {}

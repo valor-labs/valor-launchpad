@@ -6,21 +6,21 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'valor-launchpad-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
   formGroup: FormGroup;
-  message = 'Please enter your username to reset your password.'
+  message = 'Please enter your username to reset your password.';
   constructor(
     private fb: FormBuilder,
     private resetPasswordService: ResetPasswordService,
-    private toastrService: ToastrService,
-  ) { }
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
       username: [null, [Validators.required]],
-    })
+    });
   }
 
   resetPassword() {
@@ -31,11 +31,19 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
     this.message = 'Requesting your password reset';
-    this.resetPasswordService.resetPassword(this.formGroup.value.username).subscribe(()=>{
-      this.message = 'Your password has been reset please check your email!'
-      this.toastrService.success('New password will be sent to your email!');
-    }, () => {
-      this.message = 'Something went wrong'
-    })
+    this.resetPasswordService
+      .resetPassword(this.formGroup.value.username)
+      .subscribe(
+        () => {
+          this.message =
+            'Your password has been reset please check your email!';
+          this.toastrService.success(
+            'New password will be sent to your email!'
+          );
+        },
+        () => {
+          this.message = 'Something went wrong';
+        }
+      );
   }
 }

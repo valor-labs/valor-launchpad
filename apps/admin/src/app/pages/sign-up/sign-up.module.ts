@@ -7,14 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UiModule } from '@valor-launchpad/ui';
 
 @NgModule({
-  declarations: [
-    SignUpComponent
-  ],
-  imports: [
-    CommonModule,
-    UiModule,
-    SignUpRoutingModule,
-    ReactiveFormsModule
-  ]
+  declarations: [SignUpComponent],
+  imports: [CommonModule, UiModule, SignUpRoutingModule, ReactiveFormsModule],
 })
-export class SignUpModule { }
+export class SignUpModule {}

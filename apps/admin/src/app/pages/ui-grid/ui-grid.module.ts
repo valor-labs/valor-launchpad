@@ -5,15 +5,8 @@ import { UiGridRoutingModule } from './ui-grid-routing.module';
 import { UiGridComponent } from './ui-grid.component';
 import { UiModule } from '@valor-launchpad/ui';
 
-
 @NgModule({
-  declarations: [
-    UiGridComponent
-  ],
-  imports: [
-    CommonModule,
-    UiGridRoutingModule,
-    UiModule
-  ]
+  declarations: [UiGridComponent],
+  imports: [CommonModule, UiGridRoutingModule, UiModule],
 })
-export class UiGridModule { }
+export class UiGridModule {}

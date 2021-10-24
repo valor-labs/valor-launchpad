@@ -23,6 +23,8 @@ import { UsersEventsService } from './users-events.service';
 import { EditUserDto } from './dto/edit-user.dto';
 import { RoleDto } from './dto/role.dto';
 import { TagDto } from './dto/tag.dto';
+import { QueryUserListDto } from './dto/query-user-list.dto';
+import { BatchAddTagsDto } from './dto/batch-add-tags.dto';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -69,7 +71,55 @@ export class UsersService {
     return await this.prisma.rolesEntity.findMany() as RolesEntity[];
   }
 
-  async findAll() {
+  async findAll({roles, tags, keyword}: QueryUserListDto) {
+    let tagFilter: Prisma.UserEntityWhereInput;
+    if (Array.isArray(tags) && tags.length > 0) {
+      tagFilter = {
+        userTags: {
+          some: {
+            tag_id: { in: tags }
+          }
+        }
+      };
+    } else {
+      // when no tag filter is applied
+      // should return those records which do not have any tag
+      tagFilter = {
+        OR: [
+          {
+            userTags: {
+              some: {
+                tag_id: { in: tags }
+              }
+            }
+          },
+          {
+            userTags: {
+              none: {
+                tag_id: { in: tags }
+              }
+            }
+          }
+        ]
+      }
+    }
+
+    // keyword search
+    let keywordFilter: Prisma.UserEntityWhereInput;
+    if (keyword && keyword.length > 0) {
+      keywordFilter = {
+        OR: [
+          { firstName: { contains: keyword } },
+          { lastName: { contains: keyword } },
+          { username: { contains: keyword } },
+          { email: { contains: keyword } },
+          { phone: { contains: keyword } },
+          { userRoles: { some: { rolesEntity: { role: { contains: keyword } } } } },
+          { userTags: { some: { tagsEntity: { name: { contains: keyword } } } } },
+        ]
+      };
+    }
+
     return await this.prisma.userEntity.findMany({
       select: {
         id: true,
@@ -100,6 +150,15 @@ export class UsersService {
             createdDate: 'desc'
           }
         }
+      },
+      where: {
+        userRoles: {
+          some: {
+            role_id: { in: roles }
+          }
+        },
+        ...tagFilter,
+        ...keywordFilter,
       }
     });
   }
@@ -172,13 +231,13 @@ export class UsersService {
     }
   }
 
-  async resetPassword(username: string) {
+  async resetPassword(username: string, actingUser) {
     const userCheck = await this.findByUsername(username);
     if (userCheck) {
       await this.prisma.userEventsEntity.create({
         data: {
           target_user_id: userCheck.id,
-          // acting_user_id: actingUser.id,  // actingUser is nil when in /reset-password page
+          acting_user_id: actingUser.id,
           event: 'Pending Password Reset'
         }
       })
@@ -195,6 +254,21 @@ export class UsersService {
         }
       })
     }
+  }
+
+  async deleteUsers(uid: string[], actingUser) {
+    await this.prisma.$transaction([
+      this.prisma.userEntity.deleteMany({
+        where: { id: { in: uid } }
+      }),
+      ...uid.map(target_user_id => this.prisma.userEventsEntity.create({
+        data: {
+          target_user_id,
+          acting_user_id: actingUser.id,
+          event: 'User Deleted'
+        }
+      }))
+    ]);
   }
 
   async deleteUser(username, actingUser): Promise<void> {
@@ -227,6 +301,24 @@ export class UsersService {
       return;
     }
     return;
+  }
+
+  async restoreUsers(userIds: string[], actingUser) {
+    await this.prisma.$transaction([
+      this.prisma.userEntity.updateMany({
+        where: { id: { in: userIds } },
+        data: {
+          deletedDate: null
+        }
+      }),
+      ...userIds.map(target_user_id => this.prisma.userEventsEntity.create({
+        data: {
+          target_user_id,
+          acting_user_id: actingUser.id,
+          event: 'User Restored'
+        }
+      }))
+    ]);
   }
 
   async restoreUser(username, actingUser): Promise<void> {
@@ -417,6 +509,12 @@ export class UsersService {
             // when operator is nil, means it's register flow
             acting_user_id: operator?.id || createdUserId,
             event: 'User Created'
+          }
+        },
+        profile: {
+          create: {
+            updatedDate: new Date(),
+            name: `${firstName} ${lastName}`,
           }
         }
       }
@@ -625,6 +723,38 @@ export class UsersService {
     });
 
     return user;
+  }
+
+  async batchAddTags({ userIds, tags }: BatchAddTagsDto) {
+    const now = new Date();
+
+    // create new tags
+    const createdTags = [];
+    for (const tag of tags) {
+      const ct = await this.prisma.tagsEntity.upsert({
+        where: { name: tag.name },
+        update: { deletedDate: null },
+        create: { name: tag.name, createdDate: now },
+      });
+      createdTags.push(ct);
+    }
+
+    // create tag user relations
+    for (const uid of userIds) {
+      for (const tag of createdTags) {
+        await this.prisma.userTagsEntity.upsert({
+          where: { user_id_tag_id: { user_id: uid, tag_id: tag.id } },
+          update: { deletedDate: null },
+          create: {
+            user_id: uid,
+            tag_id: tag.id,
+            createdDate: now,
+          },
+        });
+      }
+    }
+
+    return true;
   }
 
   private emitResetPasswordEmail(email: string, username: string, passwordResetToken: string) {

@@ -1,9 +1,8 @@
-import {ActivityEntity} from "./activity.entity";
+import { ActivityEntity } from './activity.entity';
 import { BaseEntity, MediaEntity } from '@valor-launchpad/common-api';
-import {EmployerEntity} from './employer.entity';
-import {ProfileEmployerEntity} from './profileEmployer.entity';
-import {SocialMediaMatchingEntity} from './socialMediaMatching.entity';
-import {ProfileSkillsEntity} from './profileSkills.entity';
+import { ProfileEmployerEntity } from './profileEmployer.entity';
+import { SocialMediaMatchingEntity } from './socialMediaMatching.entity';
+import { ProfileSkillsEntity } from './profileSkills.entity';
 
 export class ProfileEntity extends BaseEntity {
   //TODO: Add created by and updated by users

@@ -1,16 +1,20 @@
 <div>
   <div>
     <h3>Simple Input with two items</h3>
-    <tag-input [(ngModel)]="items"
-               (onSelect)="onSelect($event)"
-               [modelAsStrings]="true">
+    <tag-input
+      [(ngModel)]="items"
+      (onSelect)="onSelect($event)"
+      [modelAsStrings]="true"
+    >
     </tag-input>
   </div>
 
   <div>
-      <h3>Partially editable input with two items as objects</h3>
-      <tag-input [(ngModel)]="itemsAsObjects"
-                [identifyBy]="'id'"
-                [displayBy]="'name'"></tag-input>
+    <h3>Partially editable input with two items as objects</h3>
+    <tag-input
+      [(ngModel)]="itemsAsObjects"
+      [identifyBy]="'id'"
+      [displayBy]="'name'"
+    ></tag-input>
   </div>
 </div>

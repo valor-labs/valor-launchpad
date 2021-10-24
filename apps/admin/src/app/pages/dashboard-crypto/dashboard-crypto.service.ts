@@ -1,10 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import {
-  ENV_CONFIG,
-  EnvironmentConfig,
-} from '../../core/http/environment-config.interface';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { map } from 'rxjs/operators';
 
 export enum OrderType {
@@ -58,7 +55,7 @@ export interface KLine {
   id?: number;
   date: Date;
   open: number;
-  close:number; 
+  close: number;
   high: number;
   low: number;
 }
@@ -71,41 +68,41 @@ export class DashboardCryptoService {
   constructor(
     @Inject(ENV_CONFIG) private config: EnvironmentConfig,
     private http: HttpClient
-  ) { }
+  ) {}
 
   getMainInfos(): Observable<MainInfo[]> {
     return this.http.get<MainInfo[]>(
       `${this.apiBase}api/dashboard-crypto/v1/crypto-main-info`
-    )
+    );
   }
 
   getMarkets(): Observable<MarketLine[]> {
     return this.http.get<MarketLine[]>(
       `${this.apiBase}api/dashboard-crypto/v1/crypto-markets`
-    )
+    );
   }
 
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(
       `${this.apiBase}api/dashboard-crypto/v1/crypto-orders`
-    )
+    );
   }
 
   getKLine() {
-    return this.http.get<KLine[]>(
-      `${this.apiBase}api/dashboard-crypto/v1/crypto-k-lines`
-    ).pipe(
-      map((markets: KLine[]) => {
-        return markets.map((market) => {
-          const { date, open, close, high, low, ...other } = market;
+    return this.http
+      .get<KLine[]>(`${this.apiBase}api/dashboard-crypto/v1/crypto-k-lines`)
+      .pipe(
+        map((markets: KLine[]) => {
+          return markets.map((market) => {
+            const { date, open, close, high, low, ...other } = market;
 
-          return {
-            ...other,
-            date: new Date(date),
-            value: [open, high, low, close]
-          }
+            return {
+              ...other,
+              date: new Date(date),
+              value: [open, high, low, close],
+            };
+          });
         })
-      })
-    )
+      );
   }
 }

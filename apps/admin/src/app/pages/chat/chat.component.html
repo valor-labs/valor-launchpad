@@ -1,60 +1,77 @@
-<h1 class='h3 mb-3'>Messages</h1>
+<h1 class="h3 mb-3">Messages</h1>
 
-<div class='card'>
-  <div class='row g-0'>
-    <div class='col-12 col-lg-5 col-xl-3 border-end'>
-
-      <div class='px-4 d-none d-md-block'>
-        <div class='d-flex align-items-start align-items-center'>
-          <div class='flex-grow-1'>
-            <input type='text' class='form-control my-3' placeholder='Search...'>
+<div class="card">
+  <div class="row g-0">
+    <div class="col-12 col-lg-5 col-xl-3 border-end">
+      <div class="px-4 d-none d-md-block">
+        <div class="d-flex align-items-start align-items-center">
+          <div class="flex-grow-1">
+            <input
+              type="text"
+              class="form-control my-3"
+              placeholder="Search..."
+            />
           </div>
         </div>
       </div>
 
-      <valor-launchpad-valor-launchpad-messenger *ngFor='let item of messengers'
-                                                 [messenger]='item'></valor-launchpad-valor-launchpad-messenger>
-      <hr class='d-block d-lg-none mt-1 mb-0' />
+      <valor-launchpad-valor-launchpad-messenger
+        *ngFor="let item of messengers"
+        [messenger]="item"
+      ></valor-launchpad-valor-launchpad-messenger>
+      <hr class="d-block d-lg-none mt-1 mb-0" />
     </div>
-    <div class='col-12 col-lg-7 col-xl-9'>
-      <div class='py-2 px-4 border-bottom d-none d-lg-block'>
-        <div class='d-flex align-items-start align-items-center py-1'>
-          <div class='position-relative'>
-            <img src='assets/img/avatars/avatar-3.jpg' class='rounded-circle me-1' alt='Bertha Martin' width='40'
-                 height='40'>
+    <div class="col-12 col-lg-7 col-xl-9">
+      <div class="py-2 px-4 border-bottom d-none d-lg-block">
+        <div class="d-flex align-items-start align-items-center py-1">
+          <div class="position-relative">
+            <img
+              src="assets/img/avatars/avatar-3.jpg"
+              class="rounded-circle me-1"
+              alt="Bertha Martin"
+              width="40"
+              height="40"
+            />
           </div>
-          <div class='flex-grow-1 ps-3'>
+          <div class="flex-grow-1 ps-3">
             <strong>Bertha Martin</strong>
-            <div class='text-muted small'><em>Typing...</em></div>
+            <div class="text-muted small"><em>Typing...</em></div>
           </div>
           <div>
-            <button class='btn btn-primary btn-lg me-1 px-3'>
-              <i class='feather-lg fas fa-fw fa-phone'></i>
+            <button class="btn btn-primary btn-lg me-1 px-3">
+              <i class="feather-lg fas fa-fw fa-phone"></i>
             </button>
-            <button class='btn btn-info btn-lg me-1 px-3 d-none d-md-inline-block'>
-              <i class='feather-lg fas fa-fw fa-video'></i>
+            <button
+              class="btn btn-info btn-lg me-1 px-3 d-none d-md-inline-block"
+            >
+              <i class="feather-lg fas fa-fw fa-video"></i>
             </button>
-            <button class='btn btn-light border btn-lg px-3'><i class='feather-lg fas fa-fw fa-ellipsis-h'></i>
+            <button class="btn btn-light border btn-lg px-3">
+              <i class="feather-lg fas fa-fw fa-ellipsis-h"></i>
             </button>
           </div>
         </div>
       </div>
 
-      <div class='position-relative'>
-        <div class='chat-messages p-4' #chatMsg>
-          <valor-launchpad-valor-launchpad-message *ngFor='let item of messages'
-                                                   [message]='item'
+      <div class="position-relative">
+        <div class="chat-messages p-4" #chatMsg>
+          <valor-launchpad-valor-launchpad-message
+            *ngFor="let item of messages"
+            [message]="item"
           ></valor-launchpad-valor-launchpad-message>
         </div>
       </div>
 
-      <div class='flex-grow-0 py-3 px-4 border-top'>
-        <div class='input-group'>
-          <input type='text' class='form-control' placeholder='Type your message'>
-          <button class='btn btn-primary'>Send</button>
+      <div class="flex-grow-0 py-3 px-4 border-top">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Type your message"
+          />
+          <button class="btn btn-primary">Send</button>
         </div>
       </div>
-
     </div>
   </div>
 </div>

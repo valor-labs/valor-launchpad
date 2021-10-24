@@ -8,15 +8,13 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UiModule } from '@valor-launchpad/ui';
 
 @NgModule({
-  declarations: [
-    DatatablesButtonsComponent
-  ],
+  declarations: [DatatablesButtonsComponent],
   imports: [
     CommonModule,
     DatatablesButtonsRoutingModule,
     FormsModule,
     NgxDatatableModule,
-    UiModule
-  ]
+    UiModule,
+  ],
 })
-export class DatatablesButtonsModule { }
+export class DatatablesButtonsModule {}

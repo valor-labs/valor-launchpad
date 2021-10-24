@@ -1,5 +1,5 @@
 import { PrismaClient, Prisma } from '@prisma/client';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { datatype } from 'faker';
 import { Seeder } from './seeder';
 

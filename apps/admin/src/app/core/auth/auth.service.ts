@@ -1,16 +1,35 @@
 import { Inject, Injectable } from '@angular/core';
-import { CookieService } from "ngx-cookie-service";
-import { Router } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
-import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { UserEntity } from '@valor-launchpad/common-api';
-import { ENV_CONFIG, EnvironmentConfig } from '../http/environment-config.interface';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
+
+export interface IAuthService {
+  access_token: any;
+  user: BehaviorSubject<UserEntity>;
+
+  checkIfUsernameExists(username: string): any;
+
+  signUp(user): any;
+
+  signOut(): any;
+
+  getCurrentUser(refresh): Observable<UserEntity>;
+
+  getToken(): any;
+
+  isLoggedIn(): any;
+
+  generateNewAccessToken(): any;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements IAuthService {
   access_token;
   user = new BehaviorSubject<UserEntity>(null);
 
@@ -22,11 +41,17 @@ export class AuthService {
   ) {}
 
   checkIfUsernameExists(username: string) {
-    return this.httpClient.get<{ existedUsername: boolean }>(this.config.environment.apiBase + 'api/auth/v1/verify-username', { params: { username } });
+    return this.httpClient.get<{ existedUsername: boolean }>(
+      this.config.environment.apiBase + 'api/auth/v1/verify-username',
+      { params: { username } }
+    );
   }
 
   signUp(user) {
-    return this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/register', user);
+    return this.httpClient.post(
+      this.config.environment.apiBase + 'api/auth/v1/register',
+      user
+    );
   }
 
   signOut() {
@@ -45,15 +70,17 @@ export class AuthService {
     if (!refresh && this.user.value) {
       return this.user;
     } else {
-      return this.httpClient.get(this.config.environment.apiBase + 'api/auth/v1/current-user').pipe(
-        map((data: { user: UserEntity }) => {
-          const user = data?.user;
+      return this.httpClient
+        .get(this.config.environment.apiBase + 'api/auth/v1/current-user')
+        .pipe(
+          map((data: { user: UserEntity }) => {
+            const user = data?.user;
 
-          this.user.next(data?.user);
+            this.user.next(data?.user);
 
-          return user;
-        })
-      )
+            return user;
+          })
+        );
     }
   }
 
@@ -64,7 +91,8 @@ export class AuthService {
   isLoggedIn() {
     const allCookies = this.cookieService.getAll();
     this.access_token = allCookies.access_token;
-    return this.httpClient.get(this.config.environment.apiBase + 'api/auth/v1/current-user')
+    return this.httpClient
+      .get(this.config.environment.apiBase + 'api/auth/v1/current-user')
       .pipe(
         map((data: any) => {
           if (!data) {

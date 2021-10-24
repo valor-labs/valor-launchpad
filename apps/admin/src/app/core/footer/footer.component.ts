@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-footer',
@@ -7,7 +7,5 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
-  currentYear = new Date().getFullYear()
-  constructor() { }
-
+  currentYear = new Date().getFullYear();
 }

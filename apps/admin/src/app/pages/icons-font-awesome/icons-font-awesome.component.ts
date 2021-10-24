@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-icons-font-awesome',
   templateUrl: './icons-font-awesome.component.html',
-  styleUrls: ['./icons-font-awesome.component.scss']
+  styleUrls: ['./icons-font-awesome.component.scss'],
 })
-export class IconsFontAwesomeComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class IconsFontAwesomeComponent {}

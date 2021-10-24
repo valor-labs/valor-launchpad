@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { everydayOfYear } from '../utils';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { sources } from './source.data';
 import { datatype } from 'faker';
 

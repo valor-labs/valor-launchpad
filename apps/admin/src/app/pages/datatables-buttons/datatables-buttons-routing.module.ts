@@ -4,13 +4,13 @@ import { DatatablesButtonsComponent } from './datatables-buttons.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:DatatablesButtonsComponent
-  }
+    path: '',
+    component: DatatablesButtonsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DatatablesButtonsRoutingModule { }
+export class DatatablesButtonsRoutingModule {}

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@valor-launchpad/prisma';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import {
   DashboardDefaultAppointmentVo,
   DashboardDefaultOverviewVo,

@@ -7,4 +7,4 @@ export const themeInitializer = (valorThemeService: ValorThemeService) => {
     valorThemeService.getStoredConfig('sidebarBehavior', true);
     valorThemeService.getStoredConfig('layout', true);
   };
-}
+};

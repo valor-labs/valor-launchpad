@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BsCustomDates } from 'ngx-bootstrap/datepicker/themes/bs/bs-custom-dates-view.component';
 import { BsDaterangepickerConfig } from 'ngx-bootstrap/datepicker';
 
@@ -7,7 +7,7 @@ import { BsDaterangepickerConfig } from 'ngx-bootstrap/datepicker';
   templateUrl: './forms-advanced-inputs.component.html',
   styleUrls: ['./forms-advanced-inputs.component.scss'],
 })
-export class FormsAdvancedInputsComponent implements OnInit {
+export class FormsAdvancedInputsComponent {
   countries = [
     { value: 'AK', name: 'Alaska', timezone: 'Alaskan/Hawaiian Time Zone' },
     { value: 'HI', name: 'Hawaii', timezone: 'Alaskan/Hawaiian Time Zone' },
@@ -67,7 +67,7 @@ export class FormsAdvancedInputsComponent implements OnInit {
   ];
   withTimepickerConfig: Partial<BsDaterangepickerConfig> = {
     withTimepicker: true,
-    rangeInputFormat : 'MM/DD/YYYY, h:mm a',
+    rangeInputFormat: 'MM/DD/YYYY, h:mm a',
   };
   ranges: BsCustomDates[] = [
     {
@@ -104,10 +104,6 @@ export class FormsAdvancedInputsComponent implements OnInit {
       label: 'Last month',
     },
   ];
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   private getMonthRange() {
     const today = new Date();

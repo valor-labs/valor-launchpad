@@ -1,4 +1,10 @@
-import { Component, ElementRef, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ProjectsListService } from './projects-list.service';
 import {
   AbstractControl,
@@ -7,7 +13,7 @@ import {
   FormGroup,
   ValidationErrors,
   ValidatorFn,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
@@ -17,10 +23,9 @@ import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 @Component({
   selector: 'valor-launchpad-projects-list',
   templateUrl: './projects-list.component.html',
-  styleUrls: ['./projects-list.component.scss']
+  styleUrls: ['./projects-list.component.scss'],
 })
 export class ProjectsListComponent implements OnInit {
-
   newProjectFg: FormGroup;
   validPicSuffixs = ['jpg', 'jpeg', 'png'];
   projects: Array<ProjectListItemVo> = [];
@@ -43,19 +48,23 @@ export class ProjectsListComponent implements OnInit {
     this.isCreateProjectShow = true;
   }
 
-
   ngOnInit(): void {
-    this.newProjectFg = this.fb.group(
-      {
-        title: new FormControl(null, Validators.required, this.validateNameViaServer.bind(this)),
-        body: '',
-        progress: 20,
-        status: 'IN_PROGRESS',
-        deletable: true,
-        cloneable: true,
-        projectFile: new FormControl(null, [Validators.required, this.fileExtensionValidator(this.validPicSuffixs)])
-      }
-    );
+    this.newProjectFg = this.fb.group({
+      title: new FormControl(
+        null,
+        Validators.required,
+        this.validateNameViaServer.bind(this)
+      ),
+      body: '',
+      progress: 20,
+      status: 'IN_PROGRESS',
+      deletable: true,
+      cloneable: true,
+      projectFile: new FormControl(null, [
+        Validators.required,
+        this.fileExtensionValidator(this.validPicSuffixs),
+      ]),
+    });
   }
 
   fileExtensionValidator(validExt: string[]): ValidatorFn {
@@ -64,30 +73,31 @@ export class ProjectsListComponent implements OnInit {
       if (control.value) {
         forbidden = true;
         const fileExt = control.value.split('.').pop();
-        validExt.some(ext => {
+        validExt.some((ext) => {
           if (ext.trim() == fileExt) {
             forbidden = false;
             return true;
           }
         });
       }
-      return forbidden ? { 'inValidExt': true } : null;
+      return forbidden ? { inValidExt: true } : null;
     };
   }
 
-  validateNameViaServer({ value }: AbstractControl): Observable<ValidationErrors | null> {
-    return this.projectsListService.isNameExists(value)
-      .pipe(
-        debounceTime(500),
-        map((nameExists: boolean) => {
-          if (nameExists) {
-            return {
-              isExists: true
-            };
-          }
-          return null;
-        })
-      );
+  validateNameViaServer({
+    value,
+  }: AbstractControl): Observable<ValidationErrors | null> {
+    return this.projectsListService.isNameExists(value).pipe(
+      debounceTime(500),
+      map((nameExists: boolean) => {
+        if (nameExists) {
+          return {
+            isExists: true,
+          };
+        }
+        return null;
+      })
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -102,17 +112,17 @@ export class ProjectsListComponent implements OnInit {
     },
     {
       key: 'On hold',
-      value: 'ON_HOLD'
+      value: 'ON_HOLD',
     },
     {
       key: 'In Progress',
-      value: 'IN_PROGRESS'
-    }
+      value: 'IN_PROGRESS',
+    },
   ];
   // eslint-disable-next-line @typescript-eslint/member-ordering
   projectActionOptions = [
     { label: 'Delete', value: 'delete' },
-    { label: 'Clone', value: 'clone' }
+    { label: 'Clone', value: 'clone' },
   ];
 
   onCloseProjectShow(): void {
@@ -127,8 +137,9 @@ export class ProjectsListComponent implements OnInit {
     this.newProjectFg.markAllAsTouched();
     const file = this.projectPicture.nativeElement.files[0];
     if (this.newProjectFg.valid) {
-      this.projectsListService.createProject(this.newProjectFg.value, file)
-        .subscribe(res => {
+      this.projectsListService
+        .createProject(this.newProjectFg.value, file)
+        .subscribe((res) => {
           if (typeof res === 'object') {
             this.notyf.success('Create project success');
             this.isCreateProjectShow = false;

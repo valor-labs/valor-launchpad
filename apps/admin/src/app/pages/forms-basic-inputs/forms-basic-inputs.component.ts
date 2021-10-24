@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { VLCheckBoxOption } from '@valor-launchpad/ui';
 
 @Component({
   selector: 'valor-launchpad-forms-basic-inputs',
   templateUrl: './forms-basic-inputs.component.html',
-  styleUrls: ['./forms-basic-inputs.component.scss']
+  styleUrls: ['./forms-basic-inputs.component.scss'],
 })
-export class FormsBasicInputsComponent implements OnInit {
+export class FormsBasicInputsComponent {
   verticalCheckboxOptions: VLCheckBoxOption[] = [
     {
       label: `Option one is this and that—be sure to include why it's great`,
@@ -59,13 +59,13 @@ export class FormsBasicInputsComponent implements OnInit {
   multiSelect = new FormControl();
 
   // Disabled
-  disabledInput = new FormControl({value: null, disabled: true});
-  disabledSelect = new FormControl({value: 'Disabled select', disabled: true});
-  disabledCheckbox = new FormControl({value: null, disabled: true});
+  disabledInput = new FormControl({ value: null, disabled: true });
+  disabledSelect = new FormControl({
+    value: 'Disabled select',
+    disabled: true,
+  });
+  disabledCheckbox = new FormControl({ value: null, disabled: true });
 
   // Read only
   readonlyInput = new FormControl();
-
-  ngOnInit(): void {}
-
 }

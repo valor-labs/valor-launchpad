@@ -1,9 +1,3 @@
-interface IComment {
-  username: string;
-  avatarUrl: string;
-  content: string;
-}
-
 export interface IStory {
   createdDate: Date;
   mediaAsset: Array<{
@@ -61,8 +55,8 @@ export interface ISocialActivityItem {
   createdDate: string;
   deletedDate: string;
   operatorFullName: string;
-  operator: {username: string};
-  targetUser: {username: string};
+  operator: { username: string };
+  targetUser: { username: string };
   action:
     | 'FOLLOWED'
     | 'UNFOLLOWED'

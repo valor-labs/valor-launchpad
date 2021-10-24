@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatatablesMultiComponent } from './datatables-multi.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormsModule } from '@angular/forms';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('DatatablesMultiComponent', () => {
   let component: DatatablesMultiComponent;
@@ -8,9 +11,9 @@ describe('DatatablesMultiComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DatatablesMultiComponent ]
-    })
-    .compileComponents();
+      imports: [NgxDatatableModule, FormsModule, UiModule],
+      declarations: [DatatablesMultiComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

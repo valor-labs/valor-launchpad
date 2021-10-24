@@ -1,15 +1,15 @@
 .jsvmap-zoom-btn {
   background-color: $jsvectormap-zoom-btn;
 }
-.jvm-zoom-btn{
+.jvm-zoom-btn {
   &.jvm-zoomin,
   &.jvm-zoomout {
     line-height: 6px;
   }
-  &.jvm-zoomin{
+  &.jvm-zoomin {
     top: 0;
   }
-  &.jvm-zoomout{
+  &.jvm-zoomout {
     top: 20px;
   }
 }

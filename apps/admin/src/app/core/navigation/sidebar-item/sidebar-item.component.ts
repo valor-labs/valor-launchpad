@@ -9,7 +9,7 @@ import {
   Output,
   QueryList,
   ViewChild,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { Router, RouterLinkActive } from '@angular/router';
 import { NavigationService } from '../navigation.service';
@@ -101,6 +101,8 @@ export class SidebarItemComponent implements OnInit, OnDestroy {
   }
 
   onNavigateToItem(route) {
-    this.zone.run(() => { this.router.navigate([route]); });
+    this.zone.run(() => {
+      this.router.navigate([route]);
+    });
   }
 }

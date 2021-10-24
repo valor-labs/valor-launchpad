@@ -1,15 +1,22 @@
 <div valorLaunchpadRow class="mb-2 mb-xl-3">
-  <div valorLaunchpadCol [span]='"auto"' class="d-none d-sm-block">
+  <div valorLaunchpadCol [span]="'auto'" class="d-none d-sm-block">
     <h3>Crypto</h3>
   </div>
 
-  <div valorLaunchpadCol [span]='"auto"' class="ms-auto text-end mt-n1">
+  <div valorLaunchpadCol [span]="'auto'" class="ms-auto text-end mt-n1">
     <div class="dropdown me-2 d-inline-block">
       <valor-launchpad-dropdown>
-        <button valor-launchpad-button dropdown-nav theme='light' class='bg-white shadow-sm dropdown-toggle'>
+        <button
+          valor-launchpad-button
+          dropdown-nav
+          theme="light"
+          class="bg-white shadow-sm dropdown-toggle"
+        >
           <i class="align-middle mt-n1 far fa-fw fa-calendar"></i> Today
         </button>
-        <valor-launchpad-dropdown-actions-menu [actions]="actions"></valor-launchpad-dropdown-actions-menu>
+        <valor-launchpad-dropdown-actions-menu
+          [actions]="actions"
+        ></valor-launchpad-dropdown-actions-menu>
       </valor-launchpad-dropdown>
     </div>
 
@@ -22,34 +29,39 @@
   </div>
 </div>
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol span='xl' *ngFor='let item of mainInfos$ | async'>
+  <div valorLaunchpadCol span="xl" *ngFor="let item of mainInfos$ | async">
     <valor-launchpad-card>
       <valor-launchpad-card-content>
-        <div class="float-end" [class.text-success]='item.change >= 0' [class.text-danger]='item.change < 0'>
-          {{item.change}}%
+        <div
+          class="float-end"
+          [class.text-success]="item.change >= 0"
+          [class.text-danger]="item.change < 0"
+        >
+          {{ item.change }}%
         </div>
-        <h4 class="mb-2">{{item.title}}</h4>
+        <h4 class="mb-2">{{ item.title }}</h4>
         <div class="mb-1">
           <strong>
-            {{item.price}}
-          </strong> {{item.priceByUS | currency}}
+            {{ item.price }}
+          </strong>
+          {{ item.priceByUS | currency }}
         </div>
-        <div>
-          Volume: {{item.volume | number}} BTC
-        </div>
+        <div>Volume: {{ item.volume | number }} BTC</div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>
 
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol [span]='12' [lg]='5' [xxl]='4'>
+  <div valorLaunchpadCol [span]="12" [lg]="5" [xxl]="4">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <div class="card-actions float-end">
           <valor-launchpad-dropdown>
             <span dropdown-nav><i class="fas fa-fw fa-ellipsis-h"></i></span>
-            <valor-launchpad-dropdown-actions-menu [actions]="actions"></valor-launchpad-dropdown-actions-menu>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="actions"
+            ></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">Markets</h5>
@@ -60,18 +72,21 @@
           [columns]="columns"
           [columnMode]="'force'"
           [headerHeight]="32"
-          [rowHeight]="32">
+          [rowHeight]="32"
+        >
         </ngx-datatable>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
-  <div valorLaunchpadCol [span]='12' [lg]='7' [xxl]='8' style='height: 100%'>
+  <div valorLaunchpadCol [span]="12" [lg]="7" [xxl]="8" style="height: 100%">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <div class="card-actions float-end">
           <valor-launchpad-dropdown>
             <span dropdown-nav><i class="fas fa-fw fa-ellipsis-h"></i></span>
-            <valor-launchpad-dropdown-actions-menu [actions]="actions"></valor-launchpad-dropdown-actions-menu>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="actions"
+            ></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">LTC/BTC</h5>
@@ -79,10 +94,11 @@
       <valor-launchpad-card-content>
         <div class="chart w-100">
           <apx-chart
-            *ngIf='(chartOptions$ | async) as chartOptions'
+            *ngIf="chartOptions$ | async as chartOptions"
             [series]="chartOptions.series"
             [chart]="chartOptions.chart"
-            [xaxis]="chartOptions.xaxis"></apx-chart>
+            [xaxis]="chartOptions.xaxis"
+          ></apx-chart>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
@@ -90,21 +106,23 @@
 </div>
 
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <div class="card-actions float-end">
           <valor-launchpad-dropdown>
             <span dropdown-nav><i class="fas fa-fw fa-ellipsis-h"></i></span>
-            <valor-launchpad-dropdown-actions-menu [actions]="actions"></valor-launchpad-dropdown-actions-menu>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="actions"
+            ></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">Sell Orders</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <ngx-datatable
-          [columns]='sellOrderColumns'
-          [rows]='sellOrders$ | async'
+          [columns]="sellOrderColumns"
+          [rows]="sellOrders$ | async"
           [columnMode]="'force'"
           [headerHeight]="32"
           [rowHeight]="32"
@@ -112,21 +130,23 @@
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <div class="card-actions float-end">
           <valor-launchpad-dropdown>
             <span dropdown-nav><i class="fas fa-fw fa-ellipsis-h"></i></span>
-            <valor-launchpad-dropdown-actions-menu [actions]="actions"></valor-launchpad-dropdown-actions-menu>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="actions"
+            ></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
         <h5 class="card-title mb-0">Buy Orders</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <ngx-datatable
-          [columns]='buyOrderColumns'
-          [rows]='buyOrders$ | async'
+          [columns]="buyOrderColumns"
+          [rows]="buyOrders$ | async"
           [columnMode]="'force'"
           [headerHeight]="32"
           [rowHeight]="32"

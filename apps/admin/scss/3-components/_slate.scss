@@ -1,4 +1,4 @@
-@import "node_modules/slate-angular/styles/index";
+@import 'node_modules/slate-angular/styles/index';
 
 valor-launchpad-editor-slate {
   display: block;
@@ -27,11 +27,14 @@ valor-launchpad-editor-slate {
     border-left: 4px solid $gray-300;
   }
 
-  h1,h2,h3 {
+  h1,
+  h2,
+  h3 {
     margin: 0;
   }
 
-  &>[data-slate-node="element"],&>slate-block-card {
+  & > [data-slate-node='element'],
+  & > slate-block-card {
     margin-bottom: 12px;
   }
 }

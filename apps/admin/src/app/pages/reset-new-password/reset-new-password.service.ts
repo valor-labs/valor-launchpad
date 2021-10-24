@@ -1,17 +1,18 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ENV_CONFIG, EnvironmentConfig } from '../../core/http/environment-config.interface';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { Observable } from 'rxjs';
-import { threadId } from 'worker_threads';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ResetNewPasswordService {
-  baseURL = this.config.environment.apiBase + 'api/auth/v1/'
+  baseURL = this.config.environment.apiBase + 'api/auth/v1/';
 
-  constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private httpClient: HttpClient) {
-  }
+  constructor(
+    @Inject(ENV_CONFIG) private config: EnvironmentConfig,
+    private httpClient: HttpClient
+  ) {}
   resetPassword(username, password, token?) {
     const url = `${this.baseURL}reset-password`;
     const urlByToken = `${this.baseURL}reset-password-token`;
@@ -19,8 +20,8 @@ export class ResetNewPasswordService {
     return this.httpClient.post(token ? urlByToken : url, {
       username,
       password,
-      token
-    })
+      token,
+    });
   }
 
   verifyPasswordResetToken(token): Observable<any> {

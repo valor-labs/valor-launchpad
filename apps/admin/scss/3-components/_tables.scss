@@ -1,5 +1,14 @@
 .table {
-  thead, tbody, tfoot, tr, td, th, data, datatable-header, datatable-body-row, datatable-body-cell {
+  thead,
+  tbody,
+  tfoot,
+  tr,
+  td,
+  th,
+  data,
+  datatable-header,
+  datatable-body-row,
+  datatable-body-cell {
     border-bottom: 1px solid;
     border-color: $table-border-color;
   }
@@ -21,13 +30,13 @@
     td:first-child,
     th:first-child {
       border-left: 0;
-      padding-left: $spacer*1.25;
+      padding-left: $spacer * 1.25;
     }
 
     td:last-child,
     th:last-child {
       border-right: 0;
-      padding-right: $spacer*1.25;
+      padding-right: $spacer * 1.25;
     }
 
     tr:first-child td,
@@ -90,7 +99,6 @@ table.dataTable tbody > tr > .selected {
   background: $primary;
 }
 
-
 datatable-header {
   border-bottom: 1px solid #333 !important;
 }
@@ -124,16 +132,16 @@ datatable-header {
 
   li:not(.disabled) {
     a {
-      &:hover, &:hover i:before {
+      &:hover,
+      &:hover i:before {
         z-index: 2;
-        color: $gray-800 !important;;
+        color: $gray-800 !important;
         text-decoration: none;
         background-color: $gray-200 !important;
         border-color: $gray-300 !important;
       }
     }
   }
-
 
   .pages {
     &.active a {
@@ -151,12 +159,14 @@ datatable-header {
       color: $gray-600;
       background-color: $white;
       border: 1px solid $gray-300;
-      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
   }
 }
 
-.datatable-valor-left:before, .datatable-valor-right:before {
+.datatable-valor-left:before,
+.datatable-valor-right:before {
   display: block;
   color: $gray-600;
   pointer-events: none;
@@ -164,7 +174,8 @@ datatable-header {
   padding: 0.3rem 0.75rem;
   position: relative;
   border: 1px solid $gray-300;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   font-style: normal;
 }
 

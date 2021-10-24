@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 interface ChangeLog {
   version: string;
@@ -9,18 +9,14 @@ interface ChangeLog {
 @Component({
   selector: 'valor-launchpad-changelog',
   templateUrl: './changelog.component.html',
-  styleUrls: ['./changelog.component.scss']
+  styleUrls: ['./changelog.component.scss'],
 })
 export class ChangelogComponent {
-  changelogs: ChangeLog[] = [{
-    version: 'v0.0.1-alpha1',
-    date: 'October 29, 2021',
-    changes: [
-      'Initial Release'
-    ]
-  }]
-
-  constructor() {
-  }
-
+  changelogs: ChangeLog[] = [
+    {
+      version: 'v0.0.1-alpha1',
+      date: 'October 29, 2021',
+      changes: ['Initial Release'],
+    },
+  ];
 }

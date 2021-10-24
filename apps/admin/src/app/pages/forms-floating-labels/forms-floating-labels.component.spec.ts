@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsFloatingLabelsComponent } from './forms-floating-labels.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('FormsFloatingLabelsComponent', () => {
   let component: FormsFloatingLabelsComponent;
@@ -8,9 +9,9 @@ describe('FormsFloatingLabelsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormsFloatingLabelsComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule],
+      declarations: [FormsFloatingLabelsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

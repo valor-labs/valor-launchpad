@@ -7,17 +7,14 @@ import { FormsModule } from '@angular/forms';
 import { UiModule } from '@valor-launchpad/ui';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-
 @NgModule({
-  declarations: [
-    DatatablesFixedHeaderComponent
-  ],
+  declarations: [DatatablesFixedHeaderComponent],
   imports: [
     CommonModule,
     UiModule,
     NgxDatatableModule,
     DatatablesFixedHeaderRoutingModule,
-    FormsModule
-  ]
+    FormsModule,
+  ],
 })
-export class DatatablesFixedHeaderModule { }
+export class DatatablesFixedHeaderModule {}

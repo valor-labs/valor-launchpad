@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { AuthModule } from './core/auth/auth.module';
 import { AuthGuard } from './core/auth/auth.guard';
-import { MapsGoogleModule } from './pages/maps-google/maps-google.module';
+// import { MapsGoogleModule } from './pages/maps-google/maps-google.module';
 
 const routes: Routes = [
   {
@@ -172,10 +172,16 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'apexcharts', loadChildren: () => import('./pages/charts-apexcharts/charts-apexcharts.module').then(m => m.ChartsApexchartsModule)
+        path: 'apexcharts',
+        loadChildren: () =>
+          import('./pages/charts-apexcharts/charts-apexcharts.module').then(
+            (m) => m.ChartsApexchartsModule
+          ),
       },
       {
-        path: 'clients', loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
+        path: 'clients',
+        loadChildren: () =>
+          import('./pages/clients/clients.module').then((m) => m.ClientsModule),
       },
       {
         path: 'forms-layouts',

@@ -1,6 +1,6 @@
 export interface CryptoOrderType {
   BUY: 'BUY';
-  SELL: 'SELL'
+  SELL: 'SELL';
 }
 
 export interface CryptoMainInfoDto {

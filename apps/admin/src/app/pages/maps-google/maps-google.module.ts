@@ -4,16 +4,8 @@ import { MapsGoogleComponent } from './maps-google.component';
 import { MapsGoogleRoutingModule } from './maps-google-routing.module';
 import { UiModule } from '@valor-launchpad/ui';
 
-
-
 @NgModule({
-  declarations: [
-    MapsGoogleComponent
-  ],
-  imports: [
-    CommonModule,
-    MapsGoogleRoutingModule,
-    UiModule
-  ]
+  declarations: [MapsGoogleComponent],
+  imports: [CommonModule, MapsGoogleRoutingModule, UiModule],
 })
-export class MapsGoogleModule { }
+export class MapsGoogleModule {}

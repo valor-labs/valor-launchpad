@@ -3,29 +3,36 @@ function Linear(context) {
 }
 
 Linear.prototype = {
-  areaStart: function() {
+  areaStart: function () {
     this._line = 0;
   },
-  areaEnd: function() {
+  areaEnd: function () {
     this._line = NaN;
   },
-  lineStart: function() {
+  lineStart: function () {
     this._point = 0;
   },
-  lineEnd: function() {
-    if (this._line || (this._line !== 0 && this._point === 1)) this._context.closePath();
+  lineEnd: function () {
+    if (this._line || (this._line !== 0 && this._point === 1))
+      this._context.closePath();
     this._line = 1 - this._line;
   },
-  point: function(x, y) {
-    x = +x, y = +y;
+  point: function (x, y) {
+    (x = +x), (y = +y);
     switch (this._point) {
-      case 0: this._point = 1; this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y); break;
-      case 1: this._point = 2; // falls through
-      default: this._context.lineTo(x, y); break;
+      case 0:
+        this._point = 1;
+        this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y);
+        break;
+      case 1:
+        this._point = 2; // falls through
+      default:
+        this._context.lineTo(x, y);
+        break;
     }
-  }
+  },
 };
 
-export default function(context) {
+export default function (context) {
   return new Linear(context);
 }

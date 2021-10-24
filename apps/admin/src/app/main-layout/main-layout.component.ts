@@ -4,13 +4,12 @@ import { NavigationService } from '../core/navigation/navigation.service';
 @Component({
   selector: 'valor-launchpad-main-layout',
   templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.scss']
+  styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent implements OnInit {
-  constructor(private navigationService: NavigationService) { }
+  constructor(private navigationService: NavigationService) {}
 
   ngOnInit(): void {
-    this.navigationService.getMenus().subscribe()
+    this.navigationService.getMenus().subscribe();
   }
-
 }

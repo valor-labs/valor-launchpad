@@ -2,15 +2,18 @@
   class="sidebar-link is-group"
   *ngIf="isGroup"
   (click)="onToggle()"
-  [class.active]="isActive">
+  [class.active]="isActive"
+>
   <ng-container *ngTemplateOutlet="linkContent"></ng-container>
 </a>
 <a
   class="sidebar-link"
   *ngIf="!isGroup"
-  (click)='onNavigateToItem(menu.route)'
+  (click)="onNavigateToItem(menu.route)"
+  [routerLink]="menu.route"
   [routerLinkActive]="'active'"
-  #routerLinkActive="routerLinkActive">
+  #routerLinkActive="routerLinkActive"
+>
   <ng-container *ngTemplateOutlet="linkContent"></ng-container>
 </a>
 
@@ -18,12 +21,20 @@
   class="sidebar-dropdown list-unstyled"
   [collapse]="collapsed"
   [isAnimated]="isNotCompact$ | async"
-  *ngIf="menu.children && menu.children.length > 0">
-  <li valor-launchpad-sidebar-item *ngFor="let subMenu of menu.children" [menu]="subMenu" [parent]="this"></li>
+  *ngIf="menu.children && menu.children.length > 0"
+>
+  <li
+    valor-launchpad-sidebar-item
+    *ngFor="let subMenu of menu.children"
+    [menu]="subMenu"
+    [parent]="this"
+  ></li>
 </ul>
 
 <ng-template #linkContent>
-  <i *ngIf="menu.icon" class="align-middle {{menu.icon}}"></i>
-  <span *ngIf="!parent; else rawName" class="align-middle">{{menu.name}}</span>
-  <ng-template #rawName>{{menu.name}}</ng-template>
+  <i *ngIf="menu.icon" class="align-middle {{ menu.icon }}"></i>
+  <span *ngIf="!parent; else rawName" class="align-middle">{{
+    menu.name
+  }}</span>
+  <ng-template #rawName>{{ menu.name }}</ng-template>
 </ng-template>

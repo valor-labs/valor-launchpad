@@ -8,7 +8,7 @@ import {
   MainInfo,
   MarketLine,
   SellOrder,
-  OrderType
+  OrderType,
 } from './dashboard-crypto.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -122,7 +122,7 @@ export class DashboardCryptoComponent implements OnInit {
       map((orders) => {
         orders.filter((order) => {
           return order.type === OrderType.SELL;
-        })
+        });
         return orders;
       })
     );
@@ -130,7 +130,7 @@ export class DashboardCryptoComponent implements OnInit {
       map((orders) => {
         orders.filter((order) => {
           return order.type === OrderType.BUY;
-        })
+        });
         return orders;
       })
     );

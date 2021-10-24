@@ -4,15 +4,16 @@
   <div class="col-12 col-lg-6">
     <div class="tab">
       <valor-launchpad-tabs [activeTab]="'Profile'">
-        <valor-launchpad-tab 
+        <valor-launchpad-tab
           *ngFor="let tab of tabItems"
           [disabled]="tab.disabled"
           [title]="tab.title"
-          [id]="tab.id">
+          [id]="tab.id"
+        >
           <ng-template valorLaunchpadTabContent>
-            <h4>{{tab.cTitle}}</h4>
+            <h4>{{ tab.cTitle }}</h4>
             <p *ngFor="let item of tab.content">
-              {{item}}
+              {{ item }}
             </p>
           </ng-template>
         </valor-launchpad-tab>
@@ -23,15 +24,16 @@
   <div class="col-12 col-lg-6">
     <div class="tab tab-primary">
       <valor-launchpad-tabs>
-        <valor-launchpad-tab 
+        <valor-launchpad-tab
           *ngFor="let tab of tabItems"
           [disabled]="tab.disabled"
           [title]="tab.title"
-          [id]="tab.id">
+          [id]="tab.id"
+        >
           <ng-template valorLaunchpadTabContent>
-            <h4>{{tab.cTitle}}</h4>
+            <h4>{{ tab.cTitle }}</h4>
             <p *ngFor="let item of tab.content">
-              {{item}}
+              {{ item }}
             </p>
           </ng-template>
         </valor-launchpad-tab>
@@ -42,17 +44,18 @@
   <div class="col-12 col-lg-6">
     <div class="tab">
       <valor-launchpad-tabs>
-        <valor-launchpad-tab 
+        <valor-launchpad-tab
           *ngFor="let tab of tabItems"
           [disabled]="tab.disabled"
-          [id]="tab.id">
+          [id]="tab.id"
+        >
           <ng-template valorLaunchpadTabTitle>
             <i [ngClass]="tab.icon"></i>
           </ng-template>
           <ng-template valorLaunchpadTabContent>
-            <h4>{{tab.cTitle}}</h4>
+            <h4>{{ tab.cTitle }}</h4>
             <p *ngFor="let item of tab.content">
-              {{item}}
+              {{ item }}
             </p>
           </ng-template>
         </valor-launchpad-tab>
@@ -63,17 +66,18 @@
   <div class="col-12 col-lg-6">
     <div class="tab tab-success">
       <valor-launchpad-tabs>
-        <valor-launchpad-tab 
+        <valor-launchpad-tab
           *ngFor="let tab of tabItems"
           [disabled]="tab.disabled"
-          [id]="tab.id">
+          [id]="tab.id"
+        >
           <ng-template valorLaunchpadTabTitle>
             <i [ngClass]="tab.icon"></i>
           </ng-template>
           <ng-template valorLaunchpadTabContent>
-            <h4>{{tab.cTitle}}</h4>
+            <h4>{{ tab.cTitle }}</h4>
             <p *ngFor="let item of tab.content">
-              {{item}}
+              {{ item }}
             </p>
           </ng-template>
         </valor-launchpad-tab>
@@ -84,17 +88,18 @@
   <div class="col-12 col-lg-6">
     <div class="tab tab-vertical">
       <valor-launchpad-tabs>
-        <valor-launchpad-tab 
+        <valor-launchpad-tab
           *ngFor="let tab of tabItems"
           [disabled]="tab.disabled"
-          [id]="tab.id">
+          [id]="tab.id"
+        >
           <ng-template valorLaunchpadTabTitle>
             <i [ngClass]="tab.icon"></i>
           </ng-template>
           <ng-template valorLaunchpadTabContent>
-            <h4>{{tab.cTitle}}</h4>
+            <h4>{{ tab.cTitle }}</h4>
             <p *ngFor="let item of tab.content">
-              {{item}}
+              {{ item }}
             </p>
           </ng-template>
         </valor-launchpad-tab>
@@ -105,17 +110,18 @@
   <div class="col-12 col-lg-6">
     <div class="tab tab-vertical tab-danger">
       <valor-launchpad-tabs>
-        <valor-launchpad-tab 
+        <valor-launchpad-tab
           *ngFor="let tab of tabItems"
           [disabled]="tab.disabled"
-          [id]="tab.id">
+          [id]="tab.id"
+        >
           <ng-template valorLaunchpadTabTitle>
             <i [ngClass]="tab.icon"></i>
           </ng-template>
           <ng-template valorLaunchpadTabContent>
-            <h4>{{tab.cTitle}}</h4>
+            <h4>{{ tab.cTitle }}</h4>
             <p *ngFor="let item of tab.content">
-              {{item}}
+              {{ item }}
             </p>
           </ng-template>
         </valor-launchpad-tab>

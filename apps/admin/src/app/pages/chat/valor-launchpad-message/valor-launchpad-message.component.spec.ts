@@ -8,14 +8,18 @@ describe('ValorLaunchpadMessageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ValorLaunchpadMessageComponent ]
-    })
-    .compileComponents();
+      declarations: [ValorLaunchpadMessageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ValorLaunchpadMessageComponent);
     component = fixture.componentInstance;
+    component.message = {
+      name: 'You',
+      content: 'string',
+      time: new Date().toDateString(),
+    };
     fixture.detectChanges();
   });
 

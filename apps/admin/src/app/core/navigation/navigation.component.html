@@ -8,15 +8,17 @@
     </a>
 
     <ul class="sidebar-nav">
-      <ng-container *ngFor="let zone of navigationService.sideBarMenus$ | async">
-        <li class="sidebar-header">{{zone.name}}</li>
+      <ng-container
+        *ngFor="let zone of navigationService.sideBarMenus$ | async"
+      >
+        <li class="sidebar-header">{{ zone.name }}</li>
         <li
           valor-launchpad-sidebar-item
           #sidebarItem
           *ngFor="let menu of zone.children"
           [menu]="menu"
-          (opened)="onOpen(sidebarItem)">
-        </li>
+          (opened)="onOpen(sidebarItem)"
+        ></li>
       </ng-container>
     </ul>
 

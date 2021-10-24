@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsBasicInputsComponent } from './forms-basic-inputs.component';
+import { UiModule } from '@valor-launchpad/ui';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('FormsBasicInputsComponent', () => {
   let component: FormsBasicInputsComponent;
@@ -8,9 +10,9 @@ describe('FormsBasicInputsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormsBasicInputsComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule, ReactiveFormsModule],
+      declarations: [FormsBasicInputsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
