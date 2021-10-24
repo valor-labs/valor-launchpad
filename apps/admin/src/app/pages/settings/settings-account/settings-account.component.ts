@@ -666,7 +666,7 @@ export class SettingsAccountComponent implements OnInit {
       this.publicInfoFormGroup = this.fb.group({
         username: data.username,
         bio: data.bio,
-        avatar: data.avatar
+        avatar: data.avatar,
       });
       this.privateInfoFormGroup = this.fb.group({
         firstName: data.user.firstName || '',
@@ -679,21 +679,21 @@ export class SettingsAccountComponent implements OnInit {
         zip: data.zip,
         language: data.language || '',
         locale: data.locale || '',
-        timezone: data.timeZone || ''
+        timezone: data.timeZone || '',
       });
     });
   }
 
   savePublicInfo() {
     const updatedPublicProfile = this.publicInfoFormGroup.value;
-    const bio = updatedPublicProfile.bio
-    const avatarFile =  updatedPublicProfile.avatar;
+    const bio = updatedPublicProfile.bio;
+    const avatarFile = updatedPublicProfile.avatar;
     const profileId = this.profile.id;
     const newUserName = updatedPublicProfile.username;
     const alt = this.profile.avatar.alt;
     this.profileService
       .updateProfilePublicInfo(avatarFile, bio, profileId, newUserName, alt)
-      .subscribe(res => {
+      .subscribe((res) => {
         if (typeof res === 'object') {
           this.notyf.success(
             'Update public info success, you will be soon to redirect to sign in page'
@@ -713,23 +713,20 @@ export class SettingsAccountComponent implements OnInit {
     const updatedPrivateProfile = this.privateInfoFormGroup.value;
     updatedPrivateProfile['profileId'] = this.profile.id;
     this.profileService
-    .updateProfilePrivateInfo(updatedPrivateProfile)
-    .pipe(
-      catchError(this.handleError.bind(this))
-    )
-    .subscribe(res => {
-      console.log(res);
-      if (typeof res === 'object') {
-        this.notyf.success('Update private info success');
-        this.initData();
-        // setTimeout(() => {
-        //   this.authService.signOut().subscribe(() => {});
-        // }, 2000);
-      } else {
-        this.notyf.error('Update private info failure');
-        console.warn(res);
-      }
-    });
+      .updateProfilePrivateInfo(updatedPrivateProfile)
+      .pipe(catchError(this.handleError.bind(this)))
+      .subscribe((res) => {
+        if (typeof res === 'object') {
+          this.notyf.success('Update private info success');
+          this.initData();
+          // setTimeout(() => {
+          //   this.authService.signOut().subscribe(() => {});
+          // }, 2000);
+        } else {
+          this.notyf.error('Update private info failure');
+          console.warn(res);
+        }
+      });
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -20,8 +20,8 @@ export class ProfileService {
           select: {
             firstName: true,
             lastName: true,
-            email: true
-          }
+            email: true,
+          },
         },
         avatar: {
           select: { src: true, alt: true, src_webp: true },
@@ -68,9 +68,21 @@ export class ProfileService {
     });
   }
 
-  updatePrivateProfile(profileId, firstName, lastName, email, newAddress, address2, city, zip, language, locale, timezone) {
+  updatePrivateProfile(
+    profileId,
+    firstName,
+    lastName,
+    email,
+    newAddress,
+    address2,
+    city,
+    zip,
+    language,
+    locale,
+    timezone
+  ) {
     return this.prisma.profileEntity.update({
-      where: {id: profileId},
+      where: { id: profileId },
       data: {
         location: newAddress,
         zip: zip,
@@ -83,10 +95,10 @@ export class ProfileService {
           update: {
             firstName,
             lastName,
-            email
-          }
-        }
-      }
+            email,
+          },
+        },
+      },
     });
   }
 }

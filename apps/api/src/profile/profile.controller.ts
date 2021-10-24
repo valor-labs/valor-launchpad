@@ -1,6 +1,17 @@
-import {User} from '@valor-launchpad/users-api';
-import {UserEntity} from '@valor-launchpad/common-api';
-import { Body, Controller, Get, Post, Req, Res, UploadedFile, UseGuards, UseInterceptors, Query} from '@nestjs/common';
+import { User } from '@valor-launchpad/users-api';
+import { UserEntity } from '@valor-launchpad/common-api';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+  Query,
+} from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { UsersService } from '@valor-launchpad/users-api';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -46,10 +57,13 @@ export class ProfileController {
   @Post('updateProfile')
   @UseInterceptors(
     FileInterceptor('file', {
-      storage: ImageUploaderUtility.getStorageOptions()
+      storage: ImageUploaderUtility.getStorageOptions(),
     })
   )
-  async updatePublicInfoProfile(@UploadedFile() file, @Body() profileBody: updatePublicInfoProfileDto) {
+  async updatePublicInfoProfile(
+    @UploadedFile() file,
+    @Body() profileBody: updatePublicInfoProfileDto
+  ) {
     const originImgPath = file.path;
     const imgType = file.mimetype;
     const webpSrc = await ImageUploaderUtility.imageToWebp(file);
@@ -69,7 +83,9 @@ export class ProfileController {
   }
 
   @Post('updatePrivateProfile')
-  async updatePrivateInfoProfile(@Body() privateProfileBody: updatePrivateInfoProfileDto) {
+  async updatePrivateInfoProfile(
+    @Body() privateProfileBody: updatePrivateInfoProfileDto
+  ) {
     const profileId = privateProfileBody.profileId;
     const firstName = privateProfileBody.firstName;
     const lastName = privateProfileBody.lastName;
@@ -82,6 +98,18 @@ export class ProfileController {
     const locale = privateProfileBody.locale;
     const timezone = privateProfileBody.timezone;
 
-    return await this.profileService.updatePrivateProfile(profileId, firstName, lastName, email, address, address2, city, zip, language, locale, timezone);
+    return await this.profileService.updatePrivateProfile(
+      profileId,
+      firstName,
+      lastName,
+      email,
+      address,
+      address2,
+      city,
+      zip,
+      language,
+      locale,
+      timezone
+    );
   }
 }

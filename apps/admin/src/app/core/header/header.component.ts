@@ -16,8 +16,7 @@ import { FormControl } from '@angular/forms';
 import { ProjectsListService } from '../../pages/projects-list/projects-list.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ProfileService } from '../../pages/profile/profile.service';
-import { ProfileEntity } from 'apps/api/src/profile/profile.entity';
-
+import { ProfileEntity } from '@valor-launchpad/common-api';
 
 @Component({
   selector: 'valor-launchpad-header',
@@ -90,11 +89,11 @@ export class HeaderComponent implements OnInit {
       this.messages = messages;
     });
 
-    this.profileService.getProfile().subscribe(profile => {
+    this.profileService.getProfile().subscribe((profile) => {
       this.profile = profile;
     });
-  
-    this.headerService.getNotifications().subscribe(notifications => {
+
+    this.headerService.getNotifications().subscribe((notifications) => {
       this.notifications = notifications;
     });
 
