@@ -1,6 +1,6 @@
-import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
 import { tableData } from './fakeData';
-import { SelectionType, TableColumn } from '@swimlane/ngx-datatable';
+import { TableColumn } from '@swimlane/ngx-datatable';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 
 class CustomDatePipe extends DatePipe {
@@ -15,15 +15,17 @@ class CustomDatePipe extends DatePipe {
   templateUrl: './datatables-multi.component.html',
   styleUrls: ['./datatables-multi.component.scss']
 })
-export class DatatablesMultiComponent implements OnInit {
+export class DatatablesMultiComponent implements OnInit, AfterViewInit {
 
-  selected = [];
-  SelectionType = SelectionType;
+  @ViewChild('myTable', { static: false }) datatable: any;
+
 
   constructor(
-    @Inject(LOCALE_ID) private locale: string
+    @Inject(LOCALE_ID) private locale: string,
+    private cd: ChangeDetectorRef
   ) {
   }
+
 
   tableResponsiveData;
   pageNumLimit = 10;
@@ -33,16 +35,39 @@ export class DatatablesMultiComponent implements OnInit {
     { name: 'Office', prop: 'office', cellClass: 'd-flex align-items-center' },
     { name: 'Age', prop: 'age', cellClass: 'd-flex align-items-center' },
     {
-      name: 'Start date', prop: 'startDate', pipe: new CustomDatePipe(this.locale), cellClass: 'd-flex align-items-center'
+      name: 'Start date',
+      prop: 'startDate',
+      pipe: new CustomDatePipe(this.locale),
+      cellClass: 'd-flex align-items-center'
     },
     { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale), cellClass: 'd-flex align-items-center' }
   ];
   rowClassFunc = (row) => ({
-    'selected': row.selected === true
+    'active': row.selected === true
   });
 
   ngOnInit(): void {
-    this.tableResponsiveData = tableData;
+    this.tableResponsiveData = tableData.map(item => Object.assign({}, item, {
+      selected: false
+    }));
+  }
+
+  ngAfterViewInit() {
+    this.datatable.bodyComponent.toggleAllRows(true);
+    this.datatable.bodyComponent.rows;
+  }
+
+  onSelectRow(detail) {
+    if (!detail || detail.length === 0) {
+      return;
+    }
+    setTimeout(() => {
+      detail.forEach(item => {
+        item.selected = true;
+        this.tableResponsiveData = [...this.tableResponsiveData];
+        this.cd.detectChanges();
+      });
+    }, 200);
   }
 
   onChangeSearch(inputVal: string): void {
@@ -53,9 +78,11 @@ export class DatatablesMultiComponent implements OnInit {
     }
   }
 
-  onSelect({ selected }) {
-    this.selected.splice(0, this.selected.length);
-    this.selected.push(...selected);
+
+  onClickTable($ev: { type: 'keydown' | 'click' | 'dblclick', row: { [key: string]: any } }) {
+    if ($ev.type === 'click') {
+      $ev.row.selected = !$ev.row.selected;
+    }
   }
 
 

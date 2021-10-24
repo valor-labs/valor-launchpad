@@ -39,59 +39,65 @@
             </div>
           </div>
 
-          <ngx-datatable class='table table-striped my-0'
-                         #myTable
-                         [rows]='tableResponsiveData'
-                         [columns]='tableResponsiveColumns'
-                         [headerHeight]='50'
-                         [footerHeight]='50'
-                         [rowClass]='rowClassFunc'
-                         rowHeight='auto'
-                         [columnMode]="'force'"
-                         [rowHeight]='46'
-                         [limit]='pageNumLimit'
-                         [selected]='selected'
-                         [selectionType]='SelectionType.multi'
-                         (select)='onSelect($event)'
-          >
-            <ngx-datatable-footer>
-              <ng-template
-                ngx-datatable-footer-template
-                let-rowCount='rowCount'
-                let-pageSize='pageSize'
-                let-curPage='curPage'
-                let-offset='offset'
-              >
-                <div class='page-count'>
-                  Showing
-                  {{curPage === 1 ? 1 : (curPage - 1) * pageSize + 1}}
-                  to
-                  {{
-                  pageSize * curPage > rowCount ? rowCount : pageSize * curPage
-                  }}
-                  of
-                  {{rowCount}}
-                  entries
-                  <span class='select-info' [hidden]='selected.length === 0'>
-                    <span class='select-item'>
-                      {{selected.length}}
-                      {{selected.length === 1 ? 'row' : 'rows'}}
-                      selected
-                    </span>
-                  </span>
-                </div>
-                <datatable-pager
-                  [pagerLeftArrowIcon]="'datatable-valor-left'"
-                  [pagerRightArrowIcon]="'datatable-valor-right'"
-                  [page]='curPage'
-                  [size]='pageSize'
-                  [count]='rowCount'
-                  [hidden]='!((rowCount / pageSize) > 1)'
-                  (change)='myTable.onFooterPage($event)'
-                ></datatable-pager>
-              </ng-template>
-            </ngx-datatable-footer>
-          </ngx-datatable>
+          <dts-select-container (select)='onSelectRow($event)'>
+            <ngx-datatable class='table table-striped my-0'
+                           #myTable
+                           [rows]='tableResponsiveData'
+                           [columns]='tableResponsiveColumns'
+                           [headerHeight]='50'
+                           [footerHeight]='50'
+                           [rowClass]='rowClassFunc'
+                           rowHeight='auto'
+                           [columnMode]="'force'"
+                           [rowHeight]='46'
+                           [limit]='pageNumLimit'
+                           (activate)='onClickTable($event)'
+            >
+              <!-- Row Detail Template -->
+              <ngx-datatable-row-detail [rowHeight]='46'>
+                <ng-template let-row='row' ngx-datatable-row-detail-template>
+                  <div [dtsSelectItem]='row' style='height: 46px;'></div>
+                </ng-template>
+              </ngx-datatable-row-detail>
+              <ngx-datatable-footer>
+                <ng-template
+                  ngx-datatable-footer-template
+                  let-rowCount='rowCount'
+                  let-pageSize='pageSize'
+                  let-curPage='curPage'
+                  let-offset='offset'
+                >
+                  <div class='page-count'>
+                    Showing
+                    {{curPage === 1 ? 1 : (curPage - 1) * pageSize + 1}}
+                    to
+                    {{
+                    pageSize * curPage > rowCount ? rowCount : pageSize * curPage
+                    }}
+                    of
+                    {{rowCount}}
+                    entries
+<!--                    <span class='select-info' [hidden]='selected.length === 0'>-->
+<!--                    <span class='select-item'>-->
+<!--                      {{selected.length}}-->
+<!--                      {{selected.length === 1 ? 'row' : 'rows'}}-->
+<!--                      selected-->
+<!--                    </span>-->
+<!--                  </span>-->
+                  </div>
+                  <datatable-pager
+                    [pagerLeftArrowIcon]="'datatable-valor-left'"
+                    [pagerRightArrowIcon]="'datatable-valor-right'"
+                    [page]='curPage'
+                    [size]='pageSize'
+                    [count]='rowCount'
+                    [hidden]='!((rowCount / pageSize) > 1)'
+                    (change)='myTable.onFooterPage($event)'
+                  ></datatable-pager>
+                </ng-template>
+              </ngx-datatable-footer>
+            </ngx-datatable>
+          </dts-select-container>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
