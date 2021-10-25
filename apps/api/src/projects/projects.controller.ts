@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -20,6 +21,11 @@ import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 @Controller('v1')
 export class ProjectsController {
   constructor(private projectsService: ProjectsService) {}
+
+  @Delete(':id')
+  async deleteProject(@Param('id') id: string) {
+    return this.projectsService.deleteProjectById(id);
+  }
 
   @Get('isProjectExist/:title')
   async isProjectExist(@Param() params) {

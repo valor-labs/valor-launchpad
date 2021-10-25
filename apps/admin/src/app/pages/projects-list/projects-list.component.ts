@@ -48,6 +48,24 @@ export class ProjectsListComponent implements OnInit {
     this.isCreateProjectShow = true;
   }
 
+  onDeleteProject(projectId: string) {
+    this.projectsListService.deleteProject(projectId).subscribe(() => {
+      this._initProjectData();
+    });
+  }
+
+  onCloneProject(projectId: string, project: ProjectListItemVo) {
+    this.newProjectFg.patchValue({
+      title: `${project.title}(copy)`,
+      body: project.body,
+      progress: project.progress,
+      status: project.status,
+      deletable: project.deletable,
+      cloneable: project.cloneable,
+    });
+    this.onOpenCreateNewProjectModal();
+  }
+
   ngOnInit(): void {
     this.newProjectFg = this.fb.group({
       title: new FormControl(
@@ -102,8 +120,6 @@ export class ProjectsListComponent implements OnInit {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   isCreateProjectShow = false;
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  projectProgressItem = [0, 20, 40, 60, 80];
   // eslint-disable-next-line @typescript-eslint/member-ordering
   projectStatusItem = [
     {
