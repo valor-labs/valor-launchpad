@@ -1,5 +1,12 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+  output = "./dbml"
+  outputName = "valor-admmin.dbml"
 }
 
 datasource db {
@@ -44,32 +51,6 @@ model CommentEntity {
   children       CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
 }
 
-model DashboardAnalyticsEntity {
-  id                     String    @id @default(uuid()) @db.VarChar(36)
-  createdDate            DateTime  @default(now()) @db.DateTime(6)
-  updatedDate            DateTime  @updatedAt
-  deletedDate            DateTime? @db.DateTime(6)
-  analyticsInfo          Json      @db.Json
-  languagesData          Json      @db.Json
-  mobileDesktopChartData Json      @db.Json
-  sourceMediumChartData  Json      @db.Json
-  sourceMediumTableData  Json      @db.Json
-  trafficTableData       Json      @db.Json
-}
-
-model DashboardEntity {
-  id                      String    @id @default(uuid()) @db.VarChar(36)
-  createdDate             DateTime  @default(now()) @db.DateTime(6)
-  updatedDate             DateTime  @updatedAt
-  deletedDate             DateTime? @db.DateTime(6)
-  dashboardData           Json      @db.Json
-  salesRevenueChartData   Json      @db.Json
-  weeklySalesChartData    Json      @db.Json
-  weeklySalesTableData    Json      @db.Json
-  appointmentsData        Json      @db.Json
-  latestProjectsTableData Json      @db.Json
-}
-
 model ProfileEntity {
   id             String                      @id @default(uuid()) @db.VarChar(36)
   createdDate    DateTime                    @default(now()) @db.DateTime(6)
@@ -80,9 +61,15 @@ model ProfileEntity {
   username       String                      @unique @db.VarChar(255)
   user           UserEntity                  @relation("userProfile", fields: [username], references: [username])
   title          String?                     @db.VarChar(255)
-  following      Boolean?                    @db.TinyInt
   location       String?                     @db.VarChar(255)
   from           String?                     @db.VarChar(255)
+  city           String?                     @db.VarChar(255)
+  zip            String?                     @db.VarChar(255)
+  language       String?                     @db.VarChar(255)
+  locale         String?                     @db.VarChar(255)
+  timeZone       String?                     @db.VarChar(255)
+  bio            String?                     @db.VarChar(255)
+  address        String?                     @db.VarChar(255)
   employers      ProfileEmployerEntity[]
   socialMedia    SocialMediaMatchingEntity[]
   skills         ProfileSkillsEntity[]
@@ -102,6 +89,7 @@ model ProfileSkillsEntity {
 
 model SkillsEntity {
   id          String                @id @default(uuid()) @db.VarChar(36)
+  name        String                @unique @db.VarChar(255)
   createdDate DateTime              @default(now()) @db.DateTime(6)
   updatedDate DateTime              @updatedAt
   deletedDate DateTime?             @db.DateTime(6)
@@ -120,16 +108,18 @@ model SocialMediaEntity {
 }
 
 model SocialMediaMatchingEntity {
-  id            String            @id @default(uuid()) @db.VarChar(36)
-  createdDate   DateTime          @default(now()) @db.DateTime(6)
-  updatedDate   DateTime          @updatedAt
-  deletedDate   DateTime?         @db.DateTime(6)
-  profileId     String?           @db.VarChar(36)
-  profile       ProfileEntity?    @relation(fields: [profileId], references: [id])
-  socialMediaId String            @db.VarChar(36)
-  socialMedia   SocialMediaEntity @relation(fields: [socialMediaId], references: [id])
-  employerId    String?           @db.VarChar(36)
-  employer      EmployerEntity?   @relation(fields: [employerId], references: [id])
+  id             String    @id @default(uuid()) @db.VarChar(36)
+  createdDate    DateTime  @default(now()) @db.DateTime(6)
+  updatedDate    DateTime  @updatedAt
+  deletedDate    DateTime? @db.DateTime(6)
+  profileId      String?   @db.VarChar(36)
+  socialMediaId  String    @db.VarChar(36)
+  socialMediaUrl String    @db.VarChar(255)
+  employerId     String?   @db.VarChar(36)
+
+  profile     ProfileEntity?    @relation(fields: [profileId], references: [id])
+  socialMedia SocialMediaEntity @relation(fields: [socialMediaId], references: [id])
+  employer    EmployerEntity?   @relation(fields: [employerId], references: [id])
 }
 
 model EmployerEntity {
@@ -156,6 +146,12 @@ model ProfileEmployerEntity {
   profile     ProfileEntity  @relation(fields: [profileId], references: [id])
 }
 
+enum ProjectStatus {
+  IN_PROGRESS
+  FINISHED
+  ON_HOLD
+}
+
 model ProjectsEntity {
   id          String                   @id @default(uuid()) @db.VarChar(36)
   createdDate DateTime                 @default(now()) @db.DateTime(6)
@@ -163,8 +159,9 @@ model ProjectsEntity {
   deletedDate DateTime?                @db.DateTime(6)
   title       String                   @db.VarChar(255)
   body        String                   @db.LongText
-  badge       Json?                    @db.Json
-  actions     Json?                    @db.Json
+  status      ProjectStatus?
+  deletable   Boolean                  @db.TinyInt @default(true)
+  cloneable   Boolean                  @db.TinyInt @default(true)
   progress    Int?
   rollupData  Json?                    @db.Json
   assignee    ProjectsAssigneeEntity[] @relation("projectsAssignee")
@@ -218,6 +215,7 @@ model UserEntity {
   firstName              String    @db.VarChar(255)
   lastName               String    @db.VarChar(255)
   passwordResetNeeded    Boolean?  @db.TinyInt
+  passwordResetToken     String?   @unique @db.VarChar(255)
   lastPasswordUpdateDate DateTime? @db.DateTime(0)
   emailVerified          Boolean   @default(false) @db.TinyInt
   emailVerifyToken       String?   @unique @db.VarChar(255)
@@ -244,6 +242,7 @@ model UserEntity {
   socialStoryUserLike      SocialStoryUserLike[]    @relation("storyUserLikeUser")
   socialActivities         SocialActivity[]         @relation("socialActivityOperator")
   socialActivitiesAsTarget SocialActivity[]         @relation("socialActivityTargetUser")
+  appointments             Appointment[]            @relation("AppointmentUser")
 }
 
 model UserEventsEntity {
@@ -267,6 +266,8 @@ model UserRolesEntity {
   rolesEntity RolesEntity @relation("userRoles", fields: [role_id], references: [id])
   user_id     String      @db.VarChar(36)
   userEntity  UserEntity  @relation("userEntity", fields: [user_id], references: [id])
+
+  @@unique([user_id, role_id])
 }
 
 model UserTagsEntity {
@@ -278,6 +279,8 @@ model UserTagsEntity {
   userEntity  UserEntity @relation("userTags", fields: [user_id], references: [id])
   tag_id      String     @db.VarChar(36)
   tagsEntity  TagsEntity @relation("tags", fields: [tag_id], references: [id])
+
+  @@unique([user_id, tag_id])
 }
 
 model TagsEntity {
@@ -285,7 +288,7 @@ model TagsEntity {
   createdDate DateTime         @default(now()) @db.DateTime(6)
   updatedDate DateTime         @updatedAt
   deletedDate DateTime?        @db.DateTime(6)
-  name        String           @db.VarChar(255)
+  name        String           @unique @db.VarChar(255)
   userTags    UserTagsEntity[] @relation("tags")
 }
 
@@ -296,6 +299,7 @@ model MediaAsset {
   deletedDate DateTime?       @db.DateTime(6)
   type        String          @db.VarChar(255)
   src         String          @db.VarChar(255)
+  src_webp    String?          @db.VarChar(255)
   alt         String          @db.VarChar(255)
   profile_id  String?         @db.VarChar(36)
   project_id  String?         @db.VarChar(36)
@@ -402,4 +406,151 @@ model SocialActivity {
   operator   UserEntity   @relation("socialActivityOperator", fields: [operatorId], references: [id])
   targetUser UserEntity?  @relation("socialActivityTargetUser", fields: [targetUserId], references: [id])
   story      SocialStory? @relation("socialActivityStory", fields: [storyId], references: [id])
+}
+
+model CryptoMainInfo {
+  id        Int     @id @default(autoincrement())
+  title     String  @db.VarChar(36)
+  price     Decimal @db.Decimal(65, 30)
+  priceByUS Decimal @db.Decimal(65, 30)
+  volume    Decimal @db.Decimal(65, 30)
+  change    Decimal @db.Decimal(5, 3)
+}
+
+model CryptoMarkets {
+  id     Int     @id @default(autoincrement())
+  coin   String  @db.VarChar(36)
+  price  Decimal @db.Decimal(65, 30)
+  volume Decimal @db.Decimal(65, 30)
+  change Decimal @db.Decimal(5, 3)
+}
+
+enum CryptoOrderType {
+  BUY
+  SELL
+}
+
+model CryptoOrders {
+  id    Int             @id @default(autoincrement())
+  type  CryptoOrderType
+  price Decimal         @db.Decimal(65, 30)
+  eth   Decimal         @db.Decimal(65, 30)
+  btc   Decimal         @db.Decimal(65, 30)
+  sum   Decimal         @db.Decimal(65, 30)
+}
+
+model CryptoValueHistory {
+  id    Int      @id @default(autoincrement())
+  date  DateTime @db.DateTime(6)
+  open  Decimal  @db.Decimal(65, 30)
+  close Decimal  @db.Decimal(65, 30)
+  high  Decimal  @db.Decimal(65, 30)
+  low   Decimal  @db.Decimal(65, 30)
+}
+
+model City {
+  id        String @id @default(uuid()) @db.VarChar(36)
+  cityName  String @db.VarChar(255)
+  longitude Float  @db.Float
+  latitude  Float  @db.Float
+
+  analytics AnalyticByCity[] @relation("analyticCity")
+}
+
+model Language {
+  id       String @id @default(uuid()) @db.VarChar(36)
+  language String @unique @db.VarChar(255)
+
+  analytics AnalyticByLanguage[] @relation("analyticLanguage")
+}
+
+model AnalyticOverview {
+  id            String   @id @default(uuid()) @db.VarChar(36)
+  date          DateTime @db.Date
+  bounce        Decimal
+  bounceRatio   Decimal
+  realTime      Decimal
+  realTimeRatio Decimal
+  visitors      Decimal
+  visitorsRatio Decimal
+}
+
+model AnalyticByCity {
+  id     String   @id @default(uuid()) @db.VarChar(36)
+  date   DateTime @db.Date
+  cityId String   @db.VarChar(36)
+  value  Int      @db.Int
+
+  city City @relation("analyticCity", fields: [cityId], references: [id])
+}
+
+model AnalyticByLanguage {
+  id         String   @id @default(uuid()) @db.VarChar(36)
+  date       DateTime @db.Date
+  languageId String   @db.VarChar(36)
+  value      Int      @db.Int
+
+  language Language @relation("analyticLanguage", fields: [languageId], references: [id])
+}
+
+model AnalyticByPlatformMonthly {
+  id      String   @id @default(uuid()) @db.VarChar(36)
+  month   DateTime @db.Date
+  mobile  Int      @db.Int
+  desktop Int      @db.Int
+}
+
+model AnalyticByInterest {
+  id         String   @id @default(uuid()) @db.VarChar(36)
+  date       DateTime @db.Date
+  interest   String   @db.VarChar(255)
+  percentage Int      @db.Int
+}
+
+model AnalyticRevenueBySource {
+  id      String   @id @default(uuid()) @db.VarChar(36)
+  date    DateTime @db.Date
+  source  String   @db.VarChar(255)
+  revenue Int      @db.Int
+}
+
+model AnalyticByTraffic {
+  id              String   @id @default(uuid()) @db.VarChar(36)
+  date            DateTime @db.Date
+  source          String   @db.VarChar(255)
+  userCount       Int      @db.Int
+  sessionCount    Int      @db.Int
+  bounceRate      Decimal  @db.Decimal(65, 30)
+  sessionDuration Int      @db.Int /// unit: seconds
+}
+
+model DashboardDefaultOverview {
+  id            String   @id @default(uuid()) @db.VarChar(36)
+  date          DateTime @db.Date
+  totalEarnings Decimal  @db.Decimal(65, 30)
+  pendingOrders Int      @db.Int
+  totalRevenue  Decimal  @db.Decimal(65, 30)
+}
+
+model DashboardDefaultMonthlyRevenue {
+  id      String   @id @default(uuid()) @db.VarChar(36)
+  month   DateTime @db.Date
+  revenue Decimal  @db.Decimal(65, 30)
+}
+
+model DashboardDefaultDailyRevenue {
+  id      String   @id @default(uuid()) @db.VarChar(36)
+  date    DateTime @db.Date
+  source  String   @db.VarChar(255)
+  revenue Decimal  @db.Decimal(65, 30)
+}
+
+model Appointment {
+  id          String   @id @default(uuid()) @db.VarChar(36)
+  userId      String   @db.VarChar(36)
+  title       String   @db.VarChar(255)
+  content     String   @db.VarChar(255)
+  createdDate DateTime @default(now()) @db.DateTime(6)
+
+  user UserEntity @relation("AppointmentUser", fields: [userId], references: [id])
 }

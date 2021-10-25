@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ChartsChartjsComponent } from './charts-chartjs.component';
 import { ChartsChartjsRoutingModule } from './charts-chartjs-routing.module';
 import { UiModule } from '@valor-launchpad/ui';
-import { BarChartModule, LineChartModule, PieChartModule, PolarChartModule } from '@swimlane/ngx-charts';
-
-
+import {
+  BarChartModule,
+  LineChartModule,
+  PieChartModule,
+  PolarChartModule,
+} from '@swimlane/ngx-charts';
 
 @NgModule({
-  declarations: [
-    ChartsChartjsComponent
-  ],
+  declarations: [ChartsChartjsComponent],
   imports: [
     CommonModule,
     ChartsChartjsRoutingModule,
@@ -18,7 +19,7 @@ import { BarChartModule, LineChartModule, PieChartModule, PolarChartModule } fro
     LineChartModule,
     BarChartModule,
     PieChartModule,
-    PolarChartModule
-  ]
+    PolarChartModule,
+  ],
 })
-export class ChartsChartjsModule { }
+export class ChartsChartjsModule {}

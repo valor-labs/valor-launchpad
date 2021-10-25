@@ -34,8 +34,8 @@
 }
 
 // Bubble
-.ql-editor ul[data-checked=true] > li::before,
-.ql-editor ul[data-checked=false] > li::before {
+.ql-editor ul[data-checked='true'] > li::before,
+.ql-editor ul[data-checked='false'] > li::before {
   color: $gray-600;
 }
 
@@ -190,7 +190,7 @@
 .ql-bubble .ql-tooltip.ql-flip .ql-tooltip-arrow {
   border-bottom-color: $gray-800;
 }
-.ql-bubble .ql-tooltip-editor input[type=text] {
+.ql-bubble .ql-tooltip-editor input[type='text'] {
   color: $white;
 }
 .ql-bubble .ql-tooltip-editor a:before {
@@ -359,7 +359,7 @@
   border-color: $gray-400;
   color: $gray-800;
 }
-.ql-snow .ql-tooltip input[type=text] {
+.ql-snow .ql-tooltip input[type='text'] {
   border-color: $gray-400;
 }
 .ql-snow .ql-tooltip a.ql-action::after {

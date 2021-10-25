@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiEmbedVideoComponent } from './ui-embed-video.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('UiEmbedVideoComponent', () => {
   let component: UiEmbedVideoComponent;
@@ -8,9 +9,9 @@ describe('UiEmbedVideoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiEmbedVideoComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule],
+      declarations: [UiEmbedVideoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

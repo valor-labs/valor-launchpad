@@ -1,4 +1,3 @@
-
 div.dataTables_wrapper div.dataTables_length select {
   width: auto;
   display: inline-block;
@@ -23,7 +22,7 @@ div.dataTables_wrapper div.dataTables_filter {
 :host {
   ::ng-deep {
     .datatable-row-detail {
-      width: 500px
+      width: 500px;
     }
 
     @media screen and (max-width: 800px) {

@@ -4,7 +4,6 @@ import {UserRolesEntity} from './user-roles.entity';
 import {UserEventsEntity} from './user.events.entity';
 import {BaseEntity} from './base.entity';
 import {MediaEntity} from './media.entity';
-import {ProfileEntity} from '../../../../../apps/api/src/profile/profile.entity';
 
 export interface UpdateUser extends Partial<UserEntity> {
   id: string;
@@ -34,6 +33,7 @@ export class UserEntity extends BaseEntity {
   firstName: string;
   lastName: string;
   passwordResetNeeded?: boolean;
+  passwordResetToken?: string;
   lastPasswordUpdateDate?: Date
   emailVerified: boolean;
   emailVerifyToken?: string;
@@ -44,7 +44,7 @@ export class UserEntity extends BaseEntity {
   lastLogin?: Date;
   createDate: Date;
   avatar?: MediaEntity | any; //TODO: Need a way to use create typings here
-  profile: ProfileEntity | any;
+  profile: any;
   deletedDate?: Date;
   updateDate: Date;
   userTags?: Array<UserTagsEntity>

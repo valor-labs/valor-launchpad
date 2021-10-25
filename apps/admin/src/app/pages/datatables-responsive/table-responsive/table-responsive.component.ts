@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, LOCALE_ID, ViewChild } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable/lib/types/table-column.type';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { tableData } from './fakeData';
@@ -9,14 +9,12 @@ class CustomDatePipe extends DatePipe {
   }
 }
 
-
 @Component({
   selector: 'valor-launchpad-table-responsive',
   templateUrl: './table-responsive.component.html',
-  styleUrls: ['./table-responsive.component.scss']
+  styleUrls: ['./table-responsive.component.scss'],
 })
-export class TableResponsiveComponent implements OnInit {
-
+export class TableResponsiveComponent {
   @ViewChild('myTable') table: any;
   tableResponsiveData = tableData;
   pageNumLimit = 10;
@@ -26,30 +24,26 @@ export class TableResponsiveComponent implements OnInit {
     { name: 'Office', prop: 'office' },
     { name: 'Age', prop: 'age' },
     {
-      name: 'Start date', prop: 'startDate', pipe: new CustomDatePipe(this.locale)
+      name: 'Start date',
+      prop: 'startDate',
+      pipe: new CustomDatePipe(this.locale),
     },
-    { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale) }
+    { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale) },
   ];
 
-  constructor(
-    @Inject(LOCALE_ID) private locale: string
-  ) {
-  }
-
-  ngOnInit(): void {
-
-  }
+  constructor(@Inject(LOCALE_ID) private locale: string) {}
 
   onChangeSearch(inputVal: string): void {
     if (inputVal === '') {
       this.tableResponsiveData = tableData;
     } else {
-      this.tableResponsiveData = tableData.filter(rowData => Object.values(rowData).includes(inputVal));
+      this.tableResponsiveData = tableData.filter((rowData) =>
+        Object.values(rowData).includes(inputVal)
+      );
     }
   }
 
   toggleExpandRow(row): void {
     this.table.rowDetail.toggleExpandRow(row);
   }
-
 }

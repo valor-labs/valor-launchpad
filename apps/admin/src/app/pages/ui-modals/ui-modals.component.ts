@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './ui-modals.component.html',
   styleUrls: ['./ui-modals.component.scss'],
 })
-export class UiModalsComponent {
-}
+export class UiModalsComponent {}

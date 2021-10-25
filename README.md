@@ -9,16 +9,16 @@ a more rapid manner. That is how the name, Valor Launchpad came to be.
 
 The stack used for this project is as follows.
 
-* Angular 11
+* Angular 12
 * NestJS 7
-* Prisma 2.27.0
-* MySQL (MariaDB 10.6)
+* Prisma 2.28.0
+* MySQL
 * Redis 6.2.4
 
 ## Setup
 
 1) Make sure you have Docker installed and running
-1) run the `docker compose up -d` to setup the MySQL (MariaDB) and Redis
+1) run the `docker compose up -d` to setup the MySQL and Redis
 1) run the `npm run seed:run` command to scaffold the seed database with its structure and default data
 1) run the server with `npm run start:server`
 1) run the client with `npm run start`

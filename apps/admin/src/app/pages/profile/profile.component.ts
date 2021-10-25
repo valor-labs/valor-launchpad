@@ -1,19 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {ProfileService} from "./profile.service";
-import {DashboardSocialService} from "../dashboard-social/dashboard-social.service";
-import {Action} from "@valor-launchpad/api-interfaces";
+import { Component, OnInit } from '@angular/core';
+import { ProfileService } from './profile.service';
+import { DashboardSocialService } from '../dashboard-social/dashboard-social.service';
+import { Action } from '@valor-launchpad/api-interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ISocialActivity } from '../dashboard-social/dashboard-social.model';
-import { mergeMap, scan } from 'rxjs/operators';
+import { finalize, mergeMap, scan, switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'valor-launchpad-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
   profile;
   activities$: Observable<ISocialActivity>;
+  loadingMore = true;
   actions: Action[] = [
     { label: 'Action', link: '#' },
     { label: 'Another action', link: '#' },
@@ -27,17 +29,26 @@ export class ProfileComponent implements OnInit {
   });
   constructor(
     private profileService: ProfileService,
-    private socialService: DashboardSocialService
-  ) { }
+    private socialService: DashboardSocialService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.profileService.getProfile().subscribe((data) => {
-      this.profile = data;
-    });
+    this.activatedRoute.queryParams
+      .pipe(
+        switchMap(({ username }) => this.profileService.getProfile(username))
+      )
+      .subscribe((data) => {
+        this.profile = data;
+        window.scrollTo({ top: 0 });
+      });
     this.activities$ = this.activitiesPaginator$.pipe(
-      mergeMap(({ lastReadAt, limit }) =>
-        this.socialService.fetchActivities(lastReadAt, limit)
-      ),
+      mergeMap(({ lastReadAt, limit }) => {
+        this.loadingMore = true;
+        return this.socialService
+          .fetchActivities(lastReadAt, limit)
+          .pipe(finalize(() => (this.loadingMore = false)));
+      }),
       scan((acc, crt) => ({
         ...crt,
         results: [...acc.results, ...crt.results],
@@ -49,6 +60,18 @@ export class ProfileComponent implements OnInit {
     this.activitiesPaginator$.next({
       lastReadAt,
       limit: this.activityPageLimit,
+    });
+  }
+
+  follow(username: string) {
+    this.socialService.followUserByUsername(username).subscribe(() => {
+      this.profile.following = true;
+    });
+  }
+
+  unfollow(username: string) {
+    this.socialService.unfollowUserByUsername(username).subscribe(() => {
+      this.profile.following = false;
     });
   }
 }

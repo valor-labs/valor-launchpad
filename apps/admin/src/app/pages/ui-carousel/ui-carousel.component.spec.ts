@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiCarouselComponent } from './ui-carousel.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('UiCarouselComponent', () => {
   let component: UiCarouselComponent;
@@ -8,9 +9,9 @@ describe('UiCarouselComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiCarouselComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule],
+      declarations: [UiCarouselComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

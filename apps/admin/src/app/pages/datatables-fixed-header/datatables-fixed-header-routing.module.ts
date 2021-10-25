@@ -5,12 +5,12 @@ import { DatatablesFixedHeaderComponent } from './datatables-fixed-header.compon
 const routes: Routes = [
   {
     path: '',
-    component: DatatablesFixedHeaderComponent
-  }
+    component: DatatablesFixedHeaderComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DatatablesFixedHeaderRoutingModule { }
+export class DatatablesFixedHeaderRoutingModule {}

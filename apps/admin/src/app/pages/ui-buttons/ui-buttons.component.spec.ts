@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiButtonsComponent } from './ui-buttons.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('UiButtonsComponent', () => {
   let component: UiButtonsComponent;
@@ -8,9 +9,9 @@ describe('UiButtonsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiButtonsComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule],
+      declarations: [UiButtonsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,28 +1,44 @@
 <h1 class="h3 mb-3">Notifications</h1>
 
-
 <div class="row">
   <div class="col-12 col-md-12 col-lg-12">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 valor-launchpad-card-title>Toast notifications</h5>
-        <h6 valor-launchpad-card-subtitle class="text-muted">Notyf is a minimalistic JavaScript library for toast
-          notifications. See official documentation
-          <a href="https://github.com/caroso1222/notyf" target="_blank" rel="noopener noreferrer nofollow">here</a>.
+        <h6 valor-launchpad-card-subtitle class="text-muted">
+          Notyf is a minimalistic JavaScript library for toast notifications.
+          See official documentation
+          <a
+            href="https://github.com/caroso1222/notyf"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            >here</a
+          >.
         </h6>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <form [formGroup]='notifSettingForm'>
+        <form [formGroup]="notifSettingForm">
           <div class="row">
             <div class="col-xs-12 col-md-8">
               <div class="mb-3">
                 <label class="form-label" for="notyf-message">Message</label>
-                <input id="notyf-message" name="notyf-message" type="text" class="form-control"
-                       placeholder="Enter a message" formControlName="message">
+                <input
+                  id="notyf-message"
+                  name="notyf-message"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter a message"
+                  formControlName="message"
+                />
               </div>
               <div class="mb-3">
                 <label class="form-label" for="notyf-type">Type</label>
-                <select class="form-control" id="notyf-type" name="notyf-type" formControlName="type" >
+                <select
+                  class="form-control"
+                  id="notyf-type"
+                  name="notyf-type"
+                  formControlName="type"
+                >
                   <option [ngValue]="'default'" value="default">Default</option>
                   <option [ngValue]="'success'" value="success">Success</option>
                   <option [ngValue]="'warning'" value="warning">Warning</option>
@@ -31,57 +47,99 @@
               </div>
               <div class="mb-3">
                 <label class="form-label" for="notyf-duration">Duration</label>
-                <select class="form-control" id="notyf-duration" name="notyf-duration" formControlName="duration">
-                  <option value=2500>2.5s</option>
-                  <option value=5000>5s</option>
-                  <option value=7500>7.5s</option>
-                  <option value=10000>10s</option>
+                <select
+                  class="form-control"
+                  id="notyf-duration"
+                  name="notyf-duration"
+                  formControlName="duration"
+                >
+                  <option value="2500">2.5s</option>
+                  <option value="5000">5s</option>
+                  <option value="7500">7.5s</option>
+                  <option value="10000">10s</option>
                 </select>
               </div>
               <label class="form-check">
-                <input class="form-check-input" type="checkbox" id="notyf-ripple" formControlName="withRipple">
-                <span class="form-check-label">
-                With ripple
-              </span>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="notyf-ripple"
+                  formControlName="withRipple"
+                />
+                <span class="form-check-label"> With ripple </span>
               </label>
               <label class="form-check">
-                <input class="form-check-input" type="checkbox" id="notyf-dismissible" formControlName="dismissible">
-                <span class="form-check-label">
-                Dismissible
-              </span>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="notyf-dismissible"
+                  formControlName="dismissible"
+                />
+                <span class="form-check-label"> Dismissible </span>
               </label>
             </div>
             <div class="col-xs-12 col-md-4">
               <div class="mb-3">
                 <label class="form-label mb-2">Position X</label>
                 <label class="form-check">
-                  <input type="radio" class="form-check-input" value="left" formControlName="horizontalPosition">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    value="left"
+                    formControlName="horizontalPosition"
+                  />
                   <span class="form-check-label">Left</span>
                 </label>
                 <label class="form-check">
-                  <input type="radio" class="form-check-input" value="center" formControlName="horizontalPosition">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    value="center"
+                    formControlName="horizontalPosition"
+                  />
                   <span class="form-check-label">Center</span>
                 </label>
                 <label class="form-check">
-                  <input type="radio" class="form-check-input" value="right" formControlName="horizontalPosition">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    value="right"
+                    formControlName="horizontalPosition"
+                  />
                   <span class="form-check-label">Right</span>
                 </label>
               </div>
               <div class="mb-3">
                 <label class="form-label mb-2">Position X</label>
                 <label class="form-check">
-                  <input type="radio" class="form-check-input" value="top" formControlName="verticalPosition">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    value="top"
+                    formControlName="verticalPosition"
+                  />
                   <span class="form-check-label">Top</span>
                 </label>
                 <label class="form-check">
-                  <input type="radio" class="form-check-input" value="bottom" formControlName="verticalPosition">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    value="bottom"
+                    formControlName="verticalPosition"
+                  />
                   <span class="form-check-label">Bottom</span>
                 </label>
               </div>
             </div>
           </div>
-          <hr>
-          <button class="btn btn-primary me-1" id="notyf-show" (click)="alert()">Show notification</button>
+          <hr />
+          <button
+            class="btn btn-primary me-1"
+            id="notyf-show"
+            (click)="alert()"
+          >
+            Show notification
+          </button>
         </form>
       </valor-launchpad-card-content>
     </valor-launchpad-card>

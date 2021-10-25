@@ -18,6 +18,7 @@ import { MainComponent } from './main/main.component';
 import { ModalComponent } from './modal/modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { OffcanvasComponent } from './offcanvas/offcanvas.component';
+import { PaginationComponent } from './pagination/pagination.component';
 import { ProgressComponent } from './progress/progress.component';
 import { RebootComponent } from './reboot/reboot.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -33,6 +34,7 @@ import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.componen
 import { StepsComponent } from './wizard/steps/steps.component';
 import { StepComponent } from './wizard/step/step.component';
 import {AlertModule} from "ngx-bootstrap/alert";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {ProgressbarModule} from "ngx-bootstrap/progressbar";
 import { RadioComponent } from './radio/radio.component';
 import { RadioGroupComponent } from './radio/radio-group.component';
@@ -68,12 +70,14 @@ import { FormLabelComponent } from './forms/form-label.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { TypographyDirective } from './typography/typography.directive';
 import { CreasePipe } from './pipe/crease.pipe';
+import { PercentBadgeComponent } from './badge/percent-badge/percent-badge.component';
+import { ValorImagePipe } from './pipe/valor-image.pipe';
 
 const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
 
 @NgModule({
   imports: [CommonModule, RouterModule,
-    AlertModule, ProgressbarModule, TabsModule,
+    AlertModule, PaginationModule, ProgressbarModule, TabsModule,
     ReactiveFormsModule, FormsModule, SlateModule],
   declarations: [
     AccordionComponent,
@@ -94,6 +98,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     ModalComponent,
     NavbarComponent,
     OffcanvasComponent,
+    PaginationComponent,
     ProgressComponent,
     RebootComponent,
     SettingsComponent,
@@ -137,6 +142,8 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     SpinnerComponent,
     TypographyDirective,
     CreasePipe,
+    ValorImagePipe,
+    PercentBadgeComponent,
   ],
   exports: [
     TabsModule,
@@ -148,6 +155,7 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     CheckboxGroupComponent,
     DropdownComponent,
     OffcanvasComponent,
+    PaginationComponent,
     ProgressComponent,
     TablesComponent,
     TimelineComponent,
@@ -176,7 +184,9 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     DropdownActionComponent,
     SpinnerComponent,
     TypographyDirective,
-    CreasePipe
+    CreasePipe,
+    ValorImagePipe,
+    PercentBadgeComponent
   ],
   providers: [
     { provide: NOTYFToken, useFactory: notyfFactory }

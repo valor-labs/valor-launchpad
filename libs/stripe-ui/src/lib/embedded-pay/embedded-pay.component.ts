@@ -29,8 +29,9 @@ import { fmtCurrency, localUrlFactory } from '../utils';
 import { Router } from '@angular/router';
 import { paymentStatusRoute } from '../constants';
 
+//TODO: This should be coming from environment variable
 const publicKey =
-  'pk_test_51IyGuEAcm152H20WJusvJbWOGaqsdj4TXzS0cQtSEHD3jE9GGQJ0hay5Tn8i5h3IL8TShk4XKd5VghIKlHxo2gvT00IDgRx1Bu';
+  'pk_test_51JkTArA09ZCtEzYFmB3LqAcyl7IIun9HSOpC7seXBJZaMco8jo08HfxNxE5lWMNsazZfC9aR8q37r0thKEo3ds0400EG2FNG64';
 
 @Component({
   selector: 'valor-launchpad-embedded-pay',

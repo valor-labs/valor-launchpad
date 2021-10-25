@@ -3,14 +3,15 @@ import {
   EventEmitter,
   HostBinding,
   Input,
+  NgZone,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
   ViewChild,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
-import { RouterLinkActive } from '@angular/router';
+import { Router, RouterLinkActive } from '@angular/router';
 import { NavigationService } from '../navigation.service';
 import { delay, filter, map, take } from 'rxjs/operators';
 import { ValorThemeService } from '../../theme/valor-theme.service';
@@ -57,7 +58,9 @@ export class SidebarItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private navigationService: NavigationService,
-    public themeService: ValorThemeService
+    public themeService: ValorThemeService,
+    private router: Router,
+    public zone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -95,5 +98,11 @@ export class SidebarItemComponent implements OnInit, OnDestroy {
     if (this.parent) {
       this.parent.openParent();
     }
+  }
+
+  onNavigateToItem(route) {
+    this.zone.run(() => {
+      this.router.navigate([route]);
+    });
   }
 }

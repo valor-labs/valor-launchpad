@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { defaultProps, themeConfig, themeConfigKeys, themeType, ValorThemeService } from '../theme/valor-theme.service';
+import {
+  themeConfig,
+  themeConfigKeys,
+  ValorThemeService,
+} from '../theme/valor-theme.service';
 
 @Component({
   selector: 'valor-launchpad-theme-builder',
@@ -8,20 +12,16 @@ import { defaultProps, themeConfig, themeConfigKeys, themeType, ValorThemeServic
   styleUrls: ['./theme-builder.component.scss'],
 })
 export class ThemeBuilderComponent implements OnInit, AfterViewInit {
-
-
   themeBuilderClass: { [key: string]: any };
 
   themeBuilderFg: FormGroup;
-
-  isFirstRender = true;
 
   constructor(
     private fb: FormBuilder,
     private themeService: ValorThemeService
   ) {
     this.themeBuilderClass = {
-      open: false
+      open: false,
     };
   }
 
@@ -30,16 +30,19 @@ export class ThemeBuilderComponent implements OnInit, AfterViewInit {
     this._bindChangeEvent();
   }
 
-
   _buildFg(): void {
-    this.themeBuilderFg = this.fb.group(
-      {
-        theme: this.fb.control(this.themeService.getStoredConfig('theme', this.isFirstRender)),
-        sidebarPosition: this.fb.control(this.themeService.getStoredConfig('sidebarPosition', this.isFirstRender)),
-        sidebarBehavior: this.fb.control(this.themeService.getStoredConfig('sidebarBehavior', this.isFirstRender)),
-        layout: this.fb.control(this.themeService.getStoredConfig('layout', this.isFirstRender))
-      }
-    );
+    this.themeBuilderFg = this.fb.group({
+      theme: this.fb.control(this.themeService.getStoredConfig('theme', false)),
+      sidebarPosition: this.fb.control(
+        this.themeService.getStoredConfig('sidebarPosition', false)
+      ),
+      sidebarBehavior: this.fb.control(
+        this.themeService.getStoredConfig('sidebarBehavior', false)
+      ),
+      layout: this.fb.control(
+        this.themeService.getStoredConfig('layout', false)
+      ),
+    });
   }
 
   _bindChangeEvent(): void {
@@ -66,11 +69,10 @@ export class ThemeBuilderComponent implements OnInit, AfterViewInit {
   private _bindClickHiddenEvent(): void {
     const settingsClassName = '.js-settings';
     const settingsElement = document.querySelector(settingsClassName);
-    document.body.onclick = e => {
+    document.body.onclick = (e) => {
       if (!settingsElement.contains((e as any).target)) {
         settingsElement.classList.remove('open');
       }
     };
   }
-
 }

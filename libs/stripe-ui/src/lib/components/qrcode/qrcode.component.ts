@@ -7,8 +7,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-
-declare const QRCode: any;
+import QRCode from 'qrcodejs2';
 
 @Component({
   selector: 'valor-launchpad-qrcode',

@@ -6,14 +6,7 @@ import { UiModule } from '@valor-launchpad/ui';
 import { SlateModule } from 'slate-angular';
 
 @NgModule({
-  declarations: [
-    FormsEditorsComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsEditorsRoutingModule,
-    UiModule,
-    SlateModule
-  ]
+  declarations: [FormsEditorsComponent],
+  imports: [CommonModule, FormsEditorsRoutingModule, UiModule, SlateModule],
 })
-export class FormsEditorsModule { }
+export class FormsEditorsModule {}

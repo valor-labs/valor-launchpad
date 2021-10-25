@@ -5,12 +5,12 @@ import { ChartsChartjsComponent } from './charts-chartjs.component';
 const routes: Routes = [
   {
     path: '',
-    component: ChartsChartjsComponent
-  }
+    component: ChartsChartjsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ChartsChartjsRoutingModule { }
+export class ChartsChartjsRoutingModule {}

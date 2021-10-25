@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-alert',
@@ -16,10 +16,18 @@ export class AlertComponent implements OnInit {
 
   @Input() dismissible = false;
 
+  @Input() isOpen = true;
+
+  @Output() 
+  public close =  new EventEmitter()
+
   constructor() {
   }
 
   ngOnInit(): void {
   }
 
+  onClosed() {
+    this.close.emit(false);
+  }
 }

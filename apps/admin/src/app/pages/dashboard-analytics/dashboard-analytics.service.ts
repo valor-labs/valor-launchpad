@@ -1,16 +1,87 @@
-import {Inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ENV_CONFIG, EnvironmentConfig} from '../../core/http/environment-config.interface';
+import { Inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
+import {
+  DashboardAnalyticByCityVo,
+  DashboardAnalyticByInterestVo,
+  DashboardAnalyticByLanguageVo,
+  DashboardAnalyticByPlatformVo,
+  DashboardAnalyticBySourceVo,
+  DashboardAnalyticOverviewVo,
+  DashboardAnalyticTrafficVo,
+} from '@valor-launchpad/api-interfaces';
+
+export interface IDashboardAnalyticsService {
+  getOverview(startAt: Date, endAt: Date): any;
+
+  getByCity(startAt: Date, endAt: Date): any;
+
+  getByLanguage(startAt: Date, endAt: Date): any;
+
+  getByPlatform(): any;
+
+  getByInterest(startAt: Date, endAt: Date): any;
+
+  getBySource(startAt: Date, endAt: Date): any;
+
+  getByTraffic(startAt: Date, endAt: Date): any;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class DashboardAnalyticsService {
+export class DashboardAnalyticsService implements IDashboardAnalyticsService {
+  private apiBase = this.config.environment.apiBase;
+  constructor(
+    @Inject(ENV_CONFIG) private config: EnvironmentConfig,
+    private httpClient: HttpClient
+  ) {}
 
-  constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private httpClient: HttpClient) {
+  getOverview(startAt: Date, endAt: Date) {
+    return this.httpClient.get<DashboardAnalyticOverviewVo>(
+      this.apiBase + 'api/dashboard-analytics/v1/overview',
+      { params: { startAt: startAt.toISOString(), endAt: endAt.toISOString() } }
+    );
   }
 
-  getData() {
-    return this.httpClient.get(this.config.environment.apiBase + `api/dashboard-analytics/v1/all`)
+  getByCity(startAt: Date, endAt: Date) {
+    return this.httpClient.get<DashboardAnalyticByCityVo>(
+      this.apiBase + 'api/dashboard-analytics/v1/by-city',
+      { params: { startAt: startAt.toISOString(), endAt: endAt.toISOString() } }
+    );
+  }
+
+  getByLanguage(startAt: Date, endAt: Date) {
+    return this.httpClient.get<DashboardAnalyticByLanguageVo>(
+      this.apiBase + 'api/dashboard-analytics/v1/by-language',
+      { params: { startAt: startAt.toISOString(), endAt: endAt.toISOString() } }
+    );
+  }
+
+  getByPlatform() {
+    return this.httpClient.get<DashboardAnalyticByPlatformVo>(
+      this.apiBase + 'api/dashboard-analytics/v1/by-platform'
+    );
+  }
+
+  getByInterest(startAt: Date, endAt: Date) {
+    return this.httpClient.get<DashboardAnalyticByInterestVo>(
+      this.apiBase + 'api/dashboard-analytics/v1/by-interest',
+      { params: { startAt: startAt.toISOString(), endAt: endAt.toISOString() } }
+    );
+  }
+
+  getBySource(startAt: Date, endAt: Date) {
+    return this.httpClient.get<DashboardAnalyticBySourceVo>(
+      this.apiBase + 'api/dashboard-analytics/v1/by-source',
+      { params: { startAt: startAt.toISOString(), endAt: endAt.toISOString() } }
+    );
+  }
+
+  getByTraffic(startAt: Date, endAt: Date) {
+    return this.httpClient.get<DashboardAnalyticTrafficVo>(
+      this.apiBase + 'api/dashboard-analytics/v1/by-traffic',
+      { params: { startAt: startAt.toISOString(), endAt: endAt.toISOString() } }
+    );
   }
 }

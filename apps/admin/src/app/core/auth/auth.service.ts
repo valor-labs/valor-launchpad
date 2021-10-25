@@ -1,55 +1,128 @@
-import {Inject, Injectable} from '@angular/core';
-import {CookieService} from "ngx-cookie-service";
-import {Router} from "@angular/router";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {Observable, ReplaySubject, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
-import {UserEntity} from '@valor-launchpad/common-api';
-import {Message} from '@valor-launchpad/api-interfaces';
-import {ENV_CONFIG, EnvironmentConfig} from '../http/environment-config.interface';
+import { Inject, Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { UserEntity } from '@valor-launchpad/common-api';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
+
+export interface IAuthService {
+  access_token: any;
+  user: BehaviorSubject<UserEntity>;
+
+  checkIfUsernameExists(username: string): any;
+
+  signUp(user): any;
+
+  signOut(): any;
+
+  getCurrentUser(refresh): Observable<UserEntity>;
+
+  getToken(): any;
+
+  isLoggedIn(): any;
+
+  generateNewAccessToken(): any;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements IAuthService {
   access_token;
-  user = new ReplaySubject<UserEntity>(1);
+  user = new BehaviorSubject<UserEntity>(null);
 
-  constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private cookieService: CookieService, private router: Router, private httpClient: HttpClient) {
+  constructor(
+    @Inject(ENV_CONFIG) private config: EnvironmentConfig,
+    private cookieService: CookieService,
+    private router: Router,
+    private httpClient: HttpClient
+  ) {}
+
+  checkIfUsernameExists(username: string) {
+    return this.httpClient.get<{ existedUsername: boolean }>(
+      this.config.environment.apiBase + 'api/auth/v1/verify-username',
+      { params: { username } }
+    );
   }
 
   signUp(user) {
-    this.httpClient.post(this.config.environment.apiBase + 'api/auth/v1/register', user).subscribe((data) => {
-      console.log(data)
-    })
+    return this.httpClient.post(
+      this.config.environment.apiBase + 'api/auth/v1/register',
+      user
+    );
   }
 
   signOut() {
-    this.httpClient.get(this.config.environment.apiBase + `api/auth/v1/sign-out`).subscribe(() => {
-      this.access_token = undefined;
-      this.router.navigate(['/sign-in'])
-    })
+    return this.httpClient
+      .get(this.config.environment.apiBase + `api/auth/v1/sign-out`)
+      .pipe(
+        map(() => {
+          this.access_token = undefined;
+          localStorage.removeItem('refresh_token');
+          this.router.navigate(['/sign-in']);
+        })
+      );
+  }
+
+  getCurrentUser(refresh = false): Observable<UserEntity> {
+    if (!refresh && this.user.value) {
+      return this.user;
+    } else {
+      return this.httpClient
+        .get(this.config.environment.apiBase + 'api/auth/v1/current-user')
+        .pipe(
+          map((data: { user: UserEntity }) => {
+            const user = data?.user;
+
+            this.user.next(data?.user);
+
+            return user;
+          })
+        );
+    }
   }
 
   getToken() {
     return this.access_token;
   }
 
-
   isLoggedIn() {
     const allCookies = this.cookieService.getAll();
     this.access_token = allCookies.access_token;
-    return this.httpClient.get(this.config.environment.apiBase + 'api/auth/v1/current-user')
+    return this.httpClient
+      .get(this.config.environment.apiBase + 'api/auth/v1/current-user')
       .pipe(
         map((data: any) => {
-          if (typeof data !== 'undefined' && data !== null) {
+          if (!data) {
+            this.router.navigate(['/sign-in']);
+          } else if (data?.passwordResetNeeded) {
+            this.user.next(data);
+            this.router.navigate(['/reset-new-password']);
+          } else {
             this.user.next(data);
             return true;
-          } else {
-            this.router.navigate(['/sign-in']);
           }
         })
-      )
+      );
     // TODO: this needs to be more sophisticated
+  }
+
+  generateNewAccessToken() {
+    const access_token = this.cookieService.get('access_token');
+    const refresh_token = localStorage.getItem('refresh_token');
+    return this.httpClient
+      .post<{ access_token: string; refresh_token: string; user }>(
+        this.config.environment.apiBase + 'api/auth/v1/refresh',
+        { access_token, refresh_token }
+      )
+      .pipe(
+        tap((data) => {
+          this.user.next(data.user);
+          this.access_token = data.access_token;
+          localStorage.setItem('refresh_token', data.refresh_token);
+        })
+      );
   }
 }

@@ -1,21 +1,30 @@
-import {Module} from '@nestjs/common';
-import {UsersService} from './users.service';
+import { Module } from '@nestjs/common';
+import { UsersService } from './users.service';
 import { MessagesService } from './messages/messages.service';
 import { NotificationsService } from './notifications/notifications.service';
-import {CryptService} from '@valor-launchpad/common-api';
-import {UsersController} from './users.controller';
-import {RolesGuard} from './roles.guard';
-import {EmailModule} from '@valor-launchpad/email';
-import {PrismaService} from '@valor-launchpad/prisma';
+import { CryptService } from '@valor-launchpad/common-api';
+import { UsersController } from './users.controller';
+import { RolesGuard } from './roles.guard';
+import { EmailModule } from '@valor-launchpad/email';
+import { PrismaService } from '@valor-launchpad/prisma';
 import { MenuService } from './menus/menu.service';
+import { UsersEventsService } from './users-events.service';
+import { TagsService } from './tags/tags.service';
 
 @Module({
-  imports: [
-    EmailModule
+  imports: [EmailModule],
+  providers: [
+    UsersService,
+    MessagesService,
+    NotificationsService,
+    CryptService,
+    RolesGuard,
+    PrismaService,
+    MenuService,
+    UsersEventsService,
+    TagsService,
   ],
-  providers: [UsersService,MessagesService, NotificationsService,CryptService, RolesGuard, PrismaService, MenuService],
   controllers: [UsersController],
-  exports: [UsersService]
+  exports: [UsersService],
 })
-export class UsersApiModule {
-}
+export class UsersApiModule {}

@@ -1,14 +1,17 @@
 // Dark theme
-$dark-theme-base: #293042 !default;
+$dark-theme-base: #25344a !default;
 
 // Body
-$body-bg: darken($dark-theme-base, 4.5%) !default;
+$body-bg: #162234 !default;
 
 // Theme colors
-$blue: #3f80ea !default;
-$yellow: 		#CC8B37 !default;
+$blue: #5899ff !default;
+$green: #2be8a4 !default;
+$red: #ff5858 !default;
+$yellow: #ffbc58 !default;
+$cyan: #57d7ff !default;
 
-$white:    $dark-theme-base !default;
+$white: $dark-theme-base !default;
 $gray-100: mix(#fff, $dark-theme-base, 10%) !default;
 $gray-200: mix(#fff, $dark-theme-base, 20%) !default;
 $gray-300: mix(#fff, $dark-theme-base, 30%) !default;
@@ -20,14 +23,19 @@ $gray-800: mix(#fff, $dark-theme-base, 80%) !default;
 $gray-900: mix(#fff, $dark-theme-base, 90%) !default;
 $black: #fff !default;
 
-$primary:       $blue !default;
-$secondary:     $gray-400 !default;
-$dark:          $gray-900 !default;
+$primary: $blue !default;
+$secondary: #90addd !default;
+$success: $green !default;
+$danger: $red !default;
+$warning: $yellow !default;
+$info: $cyan !default;
+
+$dark: $gray-900 !default;
 $light: mix(#fff, $dark-theme-base, 5%) !default;
 
 $custom-colors: (
   primary-dark: lighten($primary, 15%),
-  primary-light: darken($primary, 15%)
+  primary-light: darken($primary, 15%),
 ) !default;
 
 // Typography
@@ -38,13 +46,13 @@ $border-color: $gray-200 !default;
 
 // Navbar
 $navbar-bg: transparent !default;
-$navbar-box-shadow: 0 0 2rem 0 rgba($dark-theme-base, .1) !default;
+$navbar-box-shadow: 0 0 2rem 0 rgba($dark-theme-base, 0.1) !default;
 
 // Navbar input
 $navbar-input-bg: $dark-theme-base !default;
 
 // Cards
-$card-shadow: 0 0 .875rem 0 rgba($dark-theme-base, 0.05) !default;
+$card-shadow: 0 0 0.875rem 0 rgba($dark-theme-base, 0.05) !default;
 $card-title-color: $gray-800 !default;
 
 // Wrapper
@@ -77,4 +85,4 @@ $jsvectormap-zoom-btn: $gray-400 !default;
 $s2bs-input-single-color: #fff;
 
 // progress
-$progress-bar-color: #fff
+$progress-bar-color: #fff;

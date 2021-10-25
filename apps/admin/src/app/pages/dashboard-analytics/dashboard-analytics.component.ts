@@ -1,226 +1,178 @@
-import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
-import {DashboardAnalyticsService} from './dashboard-analytics.service';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  Inject,
+  LOCALE_ID,
+  OnInit,
+} from '@angular/core';
+import { DatePipe, PercentPipe } from '@angular/common';
+import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
+import { map, mergeMap, shareReplay, startWith } from 'rxjs/operators';
+import { ApexChart, ApexAxisChartSeries, ApexXAxis } from 'ng-apexcharts';
+import { TableColumn } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
-import "jsvectormap/dist/js/jsvectormap.js"
+import dayjs from 'dayjs';
+import 'jsvectormap/dist/js/jsvectormap.js';
 import 'jsvectormap/dist/maps/world.js';
+
+import { DashboardAnalyticsService } from './dashboard-analytics.service';
+import { Action } from '@valor-launchpad/api-interfaces';
+import {
+  DashboardAnalyticByCityVo,
+  DashboardAnalyticByLanguageVo,
+  DashboardAnalyticBySourceVo,
+  DashboardAnalyticOverviewVo,
+  DashboardAnalyticTrafficVo,
+} from '@valor-launchpad/api-interfaces';
+import { AuthService } from '../../core/auth/auth.service';
 
 declare const jsVectorMap: any;
 
-const worldMarkers = [
-  {
-    coords: [31.230391, 121.473701],
-    name: "Shanghai"
-  },
-  {
-    coords: [39.904202, 116.407394],
-    name: "Beijing"
-  },
-  {
-    coords: [28.704060, 77.102493],
-    name: "Delhi"
-  },
-  {
-    coords: [6.524379, 3.379206],
-    name: "Lagos"
-  },
-  {
-    coords: [39.343357, 117.361649],
-    name: "Tianjin"
-  },
-  {
-    coords: [24.860735, 67.001137],
-    name: "Karachi"
-  },
-  {
-    coords: [41.008240, 28.978359],
-    name: "Istanbul"
-  },
-  {
-    coords: [35.689487, 139.691711],
-    name: "Tokyo"
-  },
-  {
-    coords: [23.129110, 113.264381],
-    name: "Guangzhou"
-  },
-  {
-    coords: [19.075983, 72.877655],
-    name: "Mumbai"
-  },
-  {
-    coords: [40.7127837, -74.0059413],
-    name: "New York"
-  },
-  {
-    coords: [34.052235, -118.243683],
-    name: "Los Angeles"
-  },
-  {
-    coords: [41.878113, -87.629799],
-    name: "Chicago"
-  },
-  {
-    coords: [29.760427, -95.369804],
-    name: "Houston"
-  },
-  {
-    coords: [33.448376, -112.074036],
-    name: "Phoenix"
-  },
-  {
-    coords: [51.507351, -0.127758],
-    name: "London"
-  },
-  {
-    coords: [48.856613, 2.352222],
-    name: "Paris"
-  },
-  {
-    coords: [55.755825, 37.617298],
-    name: "Moscow"
-  },
-  {
-    coords: [40.416775, -3.703790],
-    name: "Madrid"
-  }
-];
+export enum TimeRange {
+  TODAY = 'Today',
+  THIS_WEEK = 'This week',
+  THIS_MONTH = 'This month',
+}
 
+export const rangeSwitcher = map((rng: TimeRange) => {
+  const now = new Date();
+  switch (rng) {
+    case TimeRange.TODAY:
+      return {
+        startAt: dayjs(now).startOf('d').toDate(),
+        endAt: dayjs(now).endOf('d').toDate(),
+      };
+    case TimeRange.THIS_WEEK:
+      return {
+        startAt: dayjs(now).startOf('w').toDate(),
+        endAt: dayjs(now).endOf('w').toDate(),
+      };
+    case TimeRange.THIS_MONTH:
+      return {
+        startAt: dayjs(now).startOf('M').toDate(),
+        endAt: dayjs(now).endOf('M').toDate(),
+      };
+  }
+});
+
+interface ApexChartOptions {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+}
 
 @Component({
   selector: 'valor-launchpad-dashboard-analytics',
   templateUrl: './dashboard-analytics.component.html',
-  styleUrls: ['./dashboard-analytics.component.scss']
+  styleUrls: ['./dashboard-analytics.component.scss'],
 })
 export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
-
+  timeRangeActions: Action[] = [
+    {
+      label: TimeRange.TODAY,
+      event: () => {
+        this.dateRange$.next(TimeRange.TODAY);
+      },
+    },
+    {
+      label: TimeRange.THIS_WEEK,
+      event: () => {
+        this.dateRange$.next(TimeRange.THIS_WEEK);
+      },
+    },
+    {
+      label: TimeRange.THIS_MONTH,
+      event: () => {
+        this.dateRange$.next(TimeRange.THIS_MONTH);
+      },
+    },
+  ];
+  mainInfo$: Observable<DashboardAnalyticOverviewVo>;
+  byCity$: Observable<DashboardAnalyticByCityVo>;
+  byLanguage$: Observable<DashboardAnalyticByLanguageVo>;
+  byPlatform$: Observable<
+    Array<{
+      name: string;
+      series: { name: string; value: number }[];
+    }>
+  >;
+  byInterest$: Observable<ApexChartOptions>;
+  bySource$: Observable<DashboardAnalyticBySourceVo>;
+  byTraffic$: Observable<DashboardAnalyticTrafficVo>;
+  userFirstName$ = this.authService.user.pipe(map((res) => res.firstName));
   mobileDesktopConfig = {
-    view: [700, 400],
-
     // options
     showXAxis: true,
     showYAxis: true,
     gradient: false,
     showLegend: false,
-    showXAxisLabel: false,
-    xAxisLabel: 'Month',
-    showYAxisLabel: false,
-    yAxisLabel: 'Sales',
-    animations: false,
-
-    colorScheme: {
-      domain: ['#3F80EA', '#84aef2']
-    }
-  };
-  interestsConfig = {
-    multi: [
-      {
-        'name': 'Germany',
-        'series': [
-          {
-            'name': '1990',
-            'value': 62000000
-          },
-          {
-            'name': '2010',
-            'value': 73000000
-          },
-          {
-            'name': '2011',
-            'value': 89400000
-          }
-        ]
-      },
-
-      {
-        'name': 'USA',
-        'series': [
-          {
-            'name': '1990',
-            'value': 250000000
-          },
-          {
-            'name': '2010',
-            'value': 309000000
-          },
-          {
-            'name': '2011',
-            'value': 311000000
-          }
-        ]
-      },
-
-      {
-        'name': 'France',
-        'series': [
-          {
-            'name': '1990',
-            'value': 58000000
-          },
-          {
-            'name': '2010',
-            'value': 50000020
-          },
-          {
-            'name': '2011',
-            'value': 58000000
-          }
-        ]
-      },
-      {
-        'name': 'UK',
-        'series': [
-          {
-            'name': '1990',
-            'value': 57000000
-          },
-          {
-            'name': '2010',
-            'value': 62000000
-          },
-          {
-            'name': '2011',
-            'value': 72000000
-          }
-        ]
-      }],
-    // options
-    legend: true,
-    showLabels: true,
     animations: true,
-    xAxis: true,
-    yAxis: true,
-    showYAxisLabel: true,
-    showXAxisLabel: true,
+
     colorScheme: {
-      domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
-    }
+      domain: ['#3F80EA', '#84aef2'],
+    },
   };
   sourceMediumConfig = {
-    // options
     gradient: false,
     showLegend: false,
     showLabels: false,
     isDoughnut: true,
     legendPosition: 'below',
-
     colorScheme: {
-      domain: ['#3F80EA', '#E5A54B', '#d9534f', '#293042']
-    }
+      domain: ['#3F80EA', '#E5A54B', '#d9534f', '#E8EAED'],
+    },
   };
+  trafficColumns: TableColumn[] = [
+    { name: 'Source', prop: 'source', cellClass: 'd-flex align-items-center' },
+    {
+      name: 'Users',
+      prop: 'userCount',
+      cellClass: 'd-flex align-items-center',
+    },
+    {
+      name: 'Sessions',
+      prop: 'sessionCount',
+      cellClass: 'd-flex align-items-center',
+    },
+    {
+      name: 'Bounce Rate',
+      prop: 'bounceRate',
+      cellClass: ({ row }) => {
+        const basicClass = 'd-flex align-items-center';
+        return row.bounceRate > 0.5
+          ? `${basicClass} text-danger`
+          : `${basicClass} text-success`;
+      },
+      pipe: new PercentPipe(this.localeId),
+    },
+    {
+      name: 'Avg. Session Duration',
+      prop: 'sessionDuration',
+      cellClass: 'd-flex align-items-center justify-content-center',
+      pipe: {
+        transform: (seconds) => {
+          return new Date(seconds * 1000).toISOString().substr(11, 8);
+        },
+      },
+    },
+  ];
 
-  analyticsInfo;
-  languagesData;
-  mobileDesktopChartData;
-  sourceMediumChartData;
-  sourceMediumTableData;
-  trafficTableData;
-
+  dateRange$ = new BehaviorSubject<TimeRange>(TimeRange.TODAY);
+  refreshController$ = new Subject();
+  private dateRangeValue$: Observable<{ startAt: Date; endAt: Date }>;
   private worldMap; // jsVectorMap instance
 
   constructor(
+    @Inject(LOCALE_ID) private localeId: string,
     private dashboardAnalyticsService: DashboardAnalyticsService,
+    private authService: AuthService,
     private toastr: ToastrService
   ) {
+    this.dateRangeValue$ = combineLatest([
+      this.dateRange$.asObservable().pipe(rangeSwitcher),
+      this.refreshController$.asObservable().pipe(startWith(1)),
+    ]).pipe(map(([first]) => first));
   }
   @HostListener('window:resize')
   onWindowResize() {
@@ -228,30 +180,94 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.dashboardAnalyticsService.getData().subscribe((data: any) => {
-      this.analyticsInfo = data.analyticsInfo;
-      this.languagesData = data.languagesData;
-      this.mobileDesktopChartData = data.mobileDesktopChartData;
-      this.sourceMediumChartData = data.sourceMediumChartData;
-      this.sourceMediumTableData = data.sourceMediumTableData;
-      this.trafficTableData = data.trafficTableData;
-    });
+    this.mainInfo$ = this.dateRangeValue$.pipe(
+      mergeMap(({ startAt, endAt }) =>
+        this.dashboardAnalyticsService.getOverview(startAt, endAt)
+      ),
+      shareReplay()
+    );
+
+    this.byCity$ = this.dateRangeValue$.pipe(
+      mergeMap(({ startAt, endAt }) =>
+        this.dashboardAnalyticsService.getByCity(startAt, endAt)
+      ),
+      shareReplay()
+    );
+
+    this.byLanguage$ = this.dateRangeValue$.pipe(
+      mergeMap(({ startAt, endAt }) =>
+        this.dashboardAnalyticsService.getByLanguage(startAt, endAt)
+      ),
+      shareReplay()
+    );
+
+    this.byInterest$ = this.dateRangeValue$.pipe(
+      mergeMap(({ startAt, endAt }) =>
+        this.dashboardAnalyticsService.getByInterest(startAt, endAt)
+      ),
+      map((res) => {
+        return {
+          series: [
+            {
+              name: 'Percentage',
+              data: res.map(({ percentage }) => percentage),
+            },
+          ],
+          chart: {
+            toolbar: { show: false },
+            width: '100%',
+            height: 350,
+            type: 'radar',
+          },
+          xaxis: {
+            categories: res.map(({ interest }) => interest),
+          },
+        } as ApexChartOptions;
+      }),
+      shareReplay()
+    );
+
+    this.bySource$ = this.dateRangeValue$.pipe(
+      mergeMap(({ startAt, endAt }) =>
+        this.dashboardAnalyticsService.getBySource(startAt, endAt)
+      ),
+      shareReplay()
+    );
+
+    this.byTraffic$ = this.dateRangeValue$.pipe(
+      mergeMap(({ startAt, endAt }) =>
+        this.dashboardAnalyticsService.getByTraffic(startAt, endAt)
+      ),
+      shareReplay()
+    );
+
+    // static, not influenced by date range selector
+    this.byPlatform$ = this.dashboardAnalyticsService.getByPlatform().pipe(
+      map((data) =>
+        data.map((i) => ({
+          name: new DatePipe(this.localeId).transform(i.month, 'LLL'),
+          series: [
+            { name: 'Mobile', value: i.mobile },
+            { name: 'Desktop', value: i.desktop },
+          ],
+        }))
+      )
+    );
   }
 
   ngAfterViewInit() {
     this.worldMap = new jsVectorMap({
-      map: "world",
-      selector: "#real-time-world",
+      map: 'world',
+      selector: '#real-time-world',
       zoomButtons: true,
       zoomOnScroll: false,
-      markers: worldMarkers,
-      markerStyle:{
+      markerStyle: {
         initial: {
           r: 9,
           stroke: '#fff',
           strokeWidth: 7,
-          stokeOpacity: .4,
-          fill: '#3B82EC'
+          stokeOpacity: 0.4,
+          fill: '#3B82EC',
         },
         hover: {
           fill: '#3B82EC',
@@ -261,9 +277,24 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
       regionStyle: {
         initial: {
           fill: '#e2e8ee',
-        }
-      }
-    })
+        },
+      },
+    });
+    this.dateRangeValue$
+      .pipe(
+        mergeMap(({ startAt, endAt }) => {
+          this.worldMap.removeMarkers();
+          return this.dashboardAnalyticsService.getByCity(startAt, endAt);
+        })
+      )
+      .subscribe((res) => {
+        this.worldMap.addMarkers(
+          res.map((i) => ({
+            coords: [i.latitude, i.longitude],
+            name: i.cityName,
+          }))
+        );
+      });
   }
   onClickAction(): void {
     this.toastr.success('Action!', 'You Click the Action!');
@@ -276,5 +307,4 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
   onClickSomethingElse(): void {
     console.log('You click the something else');
   }
-
 }

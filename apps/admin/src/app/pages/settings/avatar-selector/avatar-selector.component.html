@@ -1,8 +1,31 @@
 <div class="text-center">
-  <img alt="Chris Wood" [src]="previewSrc" class="rounded-circle img-responsive mt-2" width="128" height="128"/>
+  <img
+    alt="Chris Wood"
+    [src]="previewSrc | valorImage"
+    class="rounded-circle img-responsive mt-2"
+    width="128"
+    height="128"
+  />
   <div class="mt-2">
+<<<<<<< HEAD
     <input #fileInput type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg' style='display: none' (change)='onPick(fileInput)' maxlength='1'>
     <span class="btn btn-primary" (click)='triggerFilePicker(fileInput)'><i class="fas fa-upload"></i> Upload</span>
+=======
+    <input
+      #fileInput
+      type="file"
+      accept="image/jpeg"
+      style="display: none"
+      (change)="onPick(fileInput)"
+      maxlength="1"
+    />
+    <span class="btn btn-primary" (click)="triggerFilePicker(fileInput)"
+      ><i class="fas fa-upload"></i> Upload</span
+    >
+>>>>>>> f16f14f7ab2cce1e1313328a583d5785a6654212
   </div>
-  <small>For best results, use an image at least 128px by 128px in .jpg format</small>
+  <small
+    >For best results, use an image at least 128px by 128px in .jpg
+    format</small
+  >
 </div>

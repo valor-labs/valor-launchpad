@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsLayoutsComponent } from './forms-layouts.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('FormsLayoutsComponent', () => {
   let component: FormsLayoutsComponent;
@@ -8,9 +10,9 @@ describe('FormsLayoutsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormsLayoutsComponent ]
-    })
-    .compileComponents();
+      imports: [ReactiveFormsModule, UiModule],
+      declarations: [FormsLayoutsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

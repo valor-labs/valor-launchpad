@@ -10,6 +10,10 @@ import {CryptModule} from '@valor-launchpad/common-api';
 import {AuthController} from './auth.controller';
 import {EmailModule} from '@valor-launchpad/email';
 import {SmsModule} from '@valor-launchpad/sms';
+import {AuthEventsService} from './auth-events.service';
+import { RefreshTokenStoreService } from './refresh-token-store.service';
+import { PrismaModule } from '@valor-launchpad/prisma';
+import { RefreshStrategy } from './strategies/refresh.strategy';
 
 @Module({
   imports: [
@@ -19,12 +23,13 @@ import {SmsModule} from '@valor-launchpad/sms';
       secret: jwtConstants.secret,
       signOptions: {expiresIn: '60m'},
     }),
+    PrismaModule,
     CryptModule,
     EmailModule,
     SmsModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, RefreshStrategy, AuthEventsService, RefreshTokenStoreService],
   exports: [AuthService],
 })
 export class AuthApiModule {

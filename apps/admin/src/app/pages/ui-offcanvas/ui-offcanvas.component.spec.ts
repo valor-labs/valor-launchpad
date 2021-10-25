@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiOffCanvasComponent } from './ui-offcanvas.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('UiOffCanvasComponent', () => {
   let component: UiOffCanvasComponent;
@@ -8,9 +9,9 @@ describe('UiOffCanvasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiOffCanvasComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule],
+      declarations: [UiOffCanvasComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

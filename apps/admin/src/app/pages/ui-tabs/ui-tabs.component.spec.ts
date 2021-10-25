@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiTabsComponent } from './ui-tabs.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('UiTabsComponent', () => {
   let component: UiTabsComponent;
@@ -8,9 +9,9 @@ describe('UiTabsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiTabsComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule],
+      declarations: [UiTabsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

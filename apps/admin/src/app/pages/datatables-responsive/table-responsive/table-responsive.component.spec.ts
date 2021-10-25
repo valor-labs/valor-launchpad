@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableResponsiveComponent } from './table-responsive.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UiModule } from '@valor-launchpad/ui';
+import { FormsModule } from '@angular/forms';
 
 describe('TableResponsiveComponent', () => {
   let component: TableResponsiveComponent;
@@ -8,9 +11,9 @@ describe('TableResponsiveComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TableResponsiveComponent ]
-    })
-    .compileComponents();
+      imports: [NgxDatatableModule, UiModule, FormsModule],
+      declarations: [TableResponsiveComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsWizardComponent } from './forms-wizard.component';
+import { UiModule } from '@valor-launchpad/ui';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('FormsWizardComponent', () => {
   let component: FormsWizardComponent;
@@ -8,9 +10,9 @@ describe('FormsWizardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormsWizardComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule, ReactiveFormsModule],
+      declarations: [FormsWizardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

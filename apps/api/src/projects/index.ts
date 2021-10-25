@@ -1,2 +1,1 @@
-export * from './Project.class';
-export * from './ProjectDetail.class';
+export * from './projects.module';

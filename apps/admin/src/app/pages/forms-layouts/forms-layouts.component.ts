@@ -4,16 +4,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'valor-launchpad-forms-layouts',
   templateUrl: './forms-layouts.component.html',
-  styleUrls: ['./forms-layouts.component.scss']
+  styleUrls: ['./forms-layouts.component.scss'],
 })
 export class FormsLayoutsComponent implements OnInit {
-
   basicFormGroup: FormGroup;
   horizontalFormGroup: FormGroup;
   rowFormGroup: FormGroup;
   inlineFormGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.basicFormGroup = this.fb.group({

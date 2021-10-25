@@ -1,5 +1,10 @@
 <div class="card">
-  <img *ngIf="config.hero" class="card-img-top" [src]="config.hero?.src" [alt]="config.hero?.alt">
+  <img
+    *ngIf="config.hero"
+    class="card-img-top"
+    [src]="config.hero | valorImage"
+    [alt]="config.hero?.alt"
+  />
   <div class="card-header px-4 pt-4">
     <div class="card-actions float-end">
       <div class="dropdown" dropdown container="body">
@@ -7,26 +12,56 @@
           <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-          <a class="dropdown-item" *ngFor="let action of config.actions"
-             (click)="fireAction(action.type)">{{action.title}}</a>
+          <a
+            class="dropdown-item"
+            (click)="deleteProject()"
+            *ngIf="config.deletable"
+            >Delete</a
+          >
+          <a
+            class="dropdown-item"
+            (click)="cloneProject()"
+            *ngIf="config.cloneable"
+            >Clone</a
+          >
         </div>
       </div>
     </div>
-    <h5><a class="card-title mb-0" routerLink="/projects-detail/{{config.id}}">{{config.title}}</a></h5>
-    <div class="badge my-2" [ngClass]="config.badge?.status">{{config.badge?.title}}</div>
+    <h5>
+      <a
+        class="card-title mb-0"
+        routerLink="/projects-detail/{{ config.id }}"
+        >{{ config.title }}</a
+      >
+    </h5>
+    <div class="badge my-2" [ngClass]="STATUS_MAPPING[config.status].theme">
+      {{ STATUS_MAPPING[config.status].label }}
+    </div>
   </div>
   <div class="card-body px-4 pt-2">
-    <p>{{config.body}}</p>
-    <img *ngFor="let avatar of config.avatars" [src]="avatar.url" class="rounded-circle me-1" alt="Avatar" width="28"
-         height="28">
+    <p>{{ config.body }}</p>
+    <img
+      *ngFor="let assignee of config.assignee"
+      [src]="assignee.user.avatar.src"
+      class="rounded-circle me-1"
+      [alt]="assignee.user.avatar.alt"
+      width="28"
+      height="28"
+    />
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item px-4 pb-4">
-      <p class="mb-2 fw-bold">Progress <span class="float-end">{{config.progress}}%</span></p>
+      <p class="mb-2 fw-bold">
+        Progress <span class="float-end">{{ config.progress }}%</span>
+      </p>
       <div class="progress progress-sm">
-        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
-             style="width: {{config.progress}}%;">
-        </div>
+        <div
+          class="progress-bar"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: {{ config.progress }}%;"
+        ></div>
       </div>
     </li>
   </ul>

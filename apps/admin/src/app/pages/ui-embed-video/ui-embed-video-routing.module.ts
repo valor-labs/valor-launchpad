@@ -4,12 +4,13 @@ import { UiEmbedVideoComponent } from './ui-embed-video.component';
 
 const routes: Routes = [
   {
-    path: '', component: UiEmbedVideoComponent
-  }
+    path: '',
+    component: UiEmbedVideoComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UiEmbedVideoRoutingModule { }
+export class UiEmbedVideoRoutingModule {}

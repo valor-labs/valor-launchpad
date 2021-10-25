@@ -1,18 +1,23 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-ui-chips',
   templateUrl: './ui-chips.component.html',
-  styleUrls: ['./ui-chips.component.scss']
+  styleUrls: ['./ui-chips.component.scss'],
 })
 export class UiChipsComponent {
   tags = ['Unremovable', 'Tag 2', 'Tag 3'];
   inputVisible = false;
   inputValue = '';
+  items = ['Javascript', 'Typescript'];
+  itemsAsObjects = [
+    { id: 0, name: 'Angular', readonly: true },
+    { id: 1, name: 'React' },
+  ];
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
 
-  handleClose(removedTag: {}): void {
-    this.tags = this.tags.filter(tag => tag !== removedTag);
+  handleClose(removedTag: any): void {
+    this.tags = this.tags.filter((tag) => tag !== removedTag);
   }
 
   sliceTagName(tag: string): string {
@@ -35,4 +40,7 @@ export class UiChipsComponent {
     this.inputVisible = false;
   }
 
+  public onSelect(item) {
+    console.log('tag selected: value is ' + item);
+  }
 }

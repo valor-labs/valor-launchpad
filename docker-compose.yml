@@ -10,7 +10,6 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         ports:
             - "3306:3306"
-
     redis:
         image: redis:6.2.4-alpine
         ports:

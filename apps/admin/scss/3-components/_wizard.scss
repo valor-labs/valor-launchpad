@@ -3,7 +3,7 @@
 }
 
 @each $color, $value in $theme-colors {
-  .wizard-#{$color}{
+  .wizard-#{$color} {
     @include wizard-variant($value);
   }
 }

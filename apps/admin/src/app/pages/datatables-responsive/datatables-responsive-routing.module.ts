@@ -5,12 +5,12 @@ import { TableResponsiveComponent } from './table-responsive/table-responsive.co
 const routes: Routes = [
   {
     path: '',
-    component: TableResponsiveComponent
-  }
+    component: TableResponsiveComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DatatablesResponsiveRoutingModule { }
+export class DatatablesResponsiveRoutingModule {}

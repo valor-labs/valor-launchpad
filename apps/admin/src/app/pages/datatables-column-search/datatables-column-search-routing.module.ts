@@ -4,13 +4,13 @@ import { DatatablesColumnSearchComponent } from './datatables-column-search.comp
 
 const routes: Routes = [
   {
-    path:'',
-    component:DatatablesColumnSearchComponent
-  }
+    path: '',
+    component: DatatablesColumnSearchComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DatatablesColumnSearchRoutingModule { }
+export class DatatablesColumnSearchRoutingModule {}

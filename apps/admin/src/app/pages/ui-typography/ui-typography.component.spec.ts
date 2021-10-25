@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiTypographyComponent } from './ui-typography.component';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('UiTypographyComponent', () => {
   let component: UiTypographyComponent;
@@ -8,9 +9,9 @@ describe('UiTypographyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiTypographyComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule],
+      declarations: [UiTypographyComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

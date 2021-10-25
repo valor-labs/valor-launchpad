@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiModalsComponent } from './ui-modals.component';
+import { UiModule } from '@valor-launchpad/ui';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 describe('UiModalsComponent', () => {
   let component: UiModalsComponent;
@@ -8,9 +10,9 @@ describe('UiModalsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiModalsComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule, ModalModule.forRoot()],
+      declarations: [UiModalsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

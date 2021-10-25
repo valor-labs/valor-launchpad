@@ -1,54 +1,91 @@
 <div class="container-fluid p-0">
-
   <div class="row">
     <div class="mx-auto col-lg-10 col-xl-8">
       <h1 class="h3">Getting Started</h1>
-      <hr class="my-4">
+      <hr class="my-4" />
 
       <div class="alert alert-primary mb-5" role="alert">
         <div class="alert-message">
-          <strong>Note:</strong> If you're not looking for any customizations or are not comfortable with Node.js or Webpack, you could use the pre-compiled (ready-to-use)
-          files available in the dist folder. In that case, you can skip the set-up below.
+          <strong>Note:</strong> If you're not looking for any customizations or
+          are not comfortable with Node.js or Webpack, you could use the
+          pre-compiled (ready-to-use) files available in the dist folder. In
+          that case, you can skip the set-up below.
         </div>
       </div>
 
       <div id="installation" class="mb-5">
         <h3>Installation</h3>
-        <p class="text-lg">The theme includes a custom Webpack file, which can be used to quickly recompile and minify theme assets while developing or for deployment. You'll need
-          to install
-          <a href="https://nodejs.org/en/" target="_blank" rel="noopener noreferrer nofollow">Node.js</a> before using Webpack.</p>
+        <p class="text-lg">
+          The theme includes a custom Webpack file, which can be used to quickly
+          recompile and minify theme assets while developing or for deployment.
+          You'll need to install
+          <a
+            href="https://nodejs.org/en/"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            >Node.js</a
+          >
+          before using Webpack.
+        </p>
 
-        <p class="text-lg">Once Node.js is installed, run <code class="text-lg">npm install</code> to install the rest of AppStack's dependencies. All dependencies will be downloaded
-          to the
-          <code class="text-lg">node_modules</code> directory.</p>
-        <pre class="snippet"><code class="language-bash hljs">npm install</code></pre>
+        <p class="text-lg">
+          Once Node.js is installed, run
+          <code class="text-lg">npm install</code> to install the rest of
+          AppStack's dependencies. All dependencies will be downloaded to the
+          <code class="text-lg">node_modules</code> directory.
+        </p>
+        <pre
+          class="snippet"
+        ><code class="language-bash hljs">npm install</code></pre>
 
-        <p class="text-lg">Now you're ready to modify the source files and generate new <code class="text-lg">dist/</code> files. AppStack is using webpack and webpack-serve to automatically
-          detect file changes and start a local webserver at <code class="text-lg">http://localhost:8080</code>.</p>
-        <pre class="snippet"><code class="language-bash hljs">npm start</code></pre>
+        <p class="text-lg">
+          Now you're ready to modify the source files and generate new
+          <code class="text-lg">dist/</code> files. AppStack is using webpack
+          and webpack-serve to automatically detect file changes and start a
+          local webserver at <code class="text-lg">http://localhost:8080</code>.
+        </p>
+        <pre
+          class="snippet"
+        ><code class="language-bash hljs">npm start</code></pre>
       </div>
 
       <div id="build-tools" class="mb-5">
         <h3>Build tools</h3>
-        <p class="text-lg">Start a local webserver at <code class="text-lg">http://localhost:8080</code> and detect file changes:</p>
-        <pre class="snippet"><code class="language-bash hljs">npm start</code></pre>
+        <p class="text-lg">
+          Start a local webserver at
+          <code class="text-lg">http://localhost:8080</code> and detect file
+          changes:
+        </p>
+        <pre
+          class="snippet"
+        ><code class="language-bash hljs">npm start</code></pre>
 
-        <p class="text-lg">Automatically detect file changes without starting a local webserver:</p>
-        <pre class="snippet"><code class="language-bash hljs">npm run watch</code></pre>
+        <p class="text-lg">
+          Automatically detect file changes without starting a local webserver:
+        </p>
+        <pre
+          class="snippet"
+        ><code class="language-bash hljs">npm run watch</code></pre>
 
-        <p class="text-lg">Compile, optimize, minify and uglify all source files to <code class="text-lg">dist/</code>:</p>
-        <pre class="snippet"><code class="language-bash hljs">npm run build</code></pre>
+        <p class="text-lg">
+          Compile, optimize, minify and uglify all source files to
+          <code class="text-lg">dist/</code>:
+        </p>
+        <pre
+          class="snippet"
+        ><code class="language-bash hljs">npm run build</code></pre>
       </div>
 
       <div id="file-structure" class="mb-5">
         <h3>File structure</h3>
-        <p class="text-lg">Inside the zip-file you'll find the following directories and files. Both compiled and minified distrubution files, as well as the source files are included
-          in the package.</p>
+        <p class="text-lg">
+          Inside the zip-file you'll find the following directories and files.
+          Both compiled and minified distrubution files, as well as the source
+          files are included in the package.
+        </p>
 
         <ul>
-          <li>
-            <strong>📁 docs</strong> - HTML demo files
-          </li>
+          <li><strong>📁 docs</strong> - HTML demo files</li>
           <li>
             <strong>📁 dist</strong> - Compiled files
             <ul>
@@ -72,18 +109,12 @@
               <li>
                 <strong>📁 scss</strong>
                 <ul>
-                  <li>
-                    <strong>📁 1-variables</strong> - Sass variables
-                  </li>
-                  <li>
-                    <strong>📁 2-mixins</strong> - Sass mixins
-                  </li>
+                  <li><strong>📁 1-variables</strong> - Sass variables</li>
+                  <li><strong>📁 2-mixins</strong> - Sass mixins</li>
                   <li>
                     <strong>📁 3-components</strong> - AppStack's components
                   </li>
-                  <li>
-                    <strong>📁 4-utilities</strong> - Utilities/helpers
-                  </li>
+                  <li><strong>📁 4-utilities</strong> - Utilities/helpers</li>
                   <li>
                     <strong>📁 5-vendor</strong> - 3rd party plugin styling
                   </li>
@@ -117,48 +148,59 @@
               </li>
             </ul>
           </li>
+          <li><strong>📄 .babelrc</strong> - Babel configuration file</li>
+          <li><strong>📄 .eslintrc</strong> - ESLint configuration file</li>
+          <li><strong>📄 .gitignore</strong> - Specifies files to ignore</li>
           <li>
-            <strong>📄 .babelrc</strong> - Babel configuration file
-          </li>
-          <li>
-            <strong>📄 .eslintrc</strong> - ESLint configuration file
-          </li>
-          <li>
-            <strong>📄 .gitignore</strong> - Specifies files to ignore
-          </li>
-          <li>
-            <strong>📄 package.json</strong> - List of dependencies and available scripts
+            <strong>📄 package.json</strong> - List of dependencies and
+            available scripts
           </li>
           <li>
             <strong>📄 webpack.config.js</strong> - Webpack configuration file
           </li>
-
         </ul>
       </div>
 
       <div id="basic-template" class="mb-5">
         <h3>Basic template</h3>
-        <p class="text-lg">This basic template can be used as a guideline for how to structure new pages while using AppStack. Some meta tags and our CSS & JS files are included inside
-          the template.</p>
+        <p class="text-lg">
+          This basic template can be used as a guideline for how to structure
+          new pages while using AppStack. Some meta tags and our CSS & JS files
+          are included inside the template.
+        </p>
 
-        <pre class="snippet"><code class="html hljs xml">{{basicTamplete}}</code></pre>
+        <pre
+          class="snippet"
+        ><code class="html hljs xml">{{basicTamplete}}</code></pre>
       </div>
 
       <div id="drop-jquery" class="mb-5">
         <h3>Drop jQuery</h3>
-        <p class="text-lg">If you want to remove jQuery and all related plugins from your application, please follow these steps:</p>
+        <p class="text-lg">
+          If you want to remove jQuery and all related plugins from your
+          application, please follow these steps:
+        </p>
 
         <ol>
-          <li>Remove all jQuery modules from the JavaScript entry file: <code class="text-lg">/src/js/app.js</code></li>
-          <li>Remove the snippets below from the <code class="text-lg">/webpack.config.js</code> file</li>
+          <li>
+            Remove all jQuery modules from the JavaScript entry file:
+            <code class="text-lg">/src/js/app.js</code>
+          </li>
+          <li>
+            Remove the snippets below from the
+            <code class="text-lg">/webpack.config.js</code> file
+          </li>
           <li>Run <code class="text-lg">npm run build</code></li>
         </ol>
 
-        <pre class="snippet"><code class="javascript hljs">{{dropJquery}}</code></pre>
+        <pre
+          class="snippet"
+        ><code class="javascript hljs">{{dropJquery}}</code></pre>
 
-        <pre class="snippet"><code class="javascript hljs">{{dropJquery2}}</code></pre>
+        <pre
+          class="snippet"
+        ><code class="javascript hljs">{{dropJquery2}}</code></pre>
       </div>
-
     </div>
   </div>
 </div>

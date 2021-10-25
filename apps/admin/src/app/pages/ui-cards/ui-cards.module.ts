@@ -6,16 +6,8 @@ import { UiCardsComponent } from './ui-cards.component';
 import { UiModule } from '@valor-launchpad/ui';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
-
 @NgModule({
-  declarations: [
-    UiCardsComponent
-  ],
-  imports: [
-    CommonModule,
-    UiCardsRoutingModule,
-    UiModule,
-    TabsModule
-  ]
+  declarations: [UiCardsComponent],
+  imports: [CommonModule, UiCardsRoutingModule, UiModule, TabsModule],
 })
-export class UiCardsModule { }
+export class UiCardsModule {}

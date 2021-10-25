@@ -1,13 +1,17 @@
 <h1 class="h3 mb-3">Basic Inputs</h1>
 
 <div valorLaunchpadRow>
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Input</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <input valorLaunchpadInput [formControl]='inputControl' placeholder="Input">
+        <input
+          valorLaunchpadInput
+          [formControl]="inputControl"
+          placeholder="Input"
+        />
       </valor-launchpad-card-content>
     </valor-launchpad-card>
 
@@ -16,7 +20,12 @@
         <h5 class="card-title mb-0">Textarea</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <textarea valorLaunchpadInput rows="2" placeholder="Textarea" [formControl]='textareaControl'></textarea>
+        <textarea
+          valorLaunchpadInput
+          rows="2"
+          placeholder="Textarea"
+          [formControl]="textareaControl"
+        ></textarea>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
 
@@ -27,15 +36,15 @@
       <valor-launchpad-card-content>
         <div>
           <valor-launchpad-checkbox-group
-            [options]='verticalCheckboxOptions'
-            [formControl]='vCheckboxControl'
+            [options]="verticalCheckboxOptions"
+            [formControl]="vCheckboxControl"
           ></valor-launchpad-checkbox-group>
         </div>
         <div>
           <valor-launchpad-checkbox-group
-            [inline]='true'
-            [options]='horizontalCheckboxOptions'
-            [formControl]='hCheckboxControl'
+            [inline]="true"
+            [options]="horizontalCheckboxOptions"
+            [formControl]="hCheckboxControl"
           ></valor-launchpad-checkbox-group>
         </div>
       </valor-launchpad-card-content>
@@ -46,31 +55,61 @@
         <h5 class="card-title mb-0">Sizes</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <input valorLaunchpadInput vlSize='large' class='mb-3' placeholder="Large input" [formControl]='largeInput'>
-        <input valorLaunchpadInput class='mb-3' placeholder="Medium input" [formControl]='mediumInput'>
-        <input valorLaunchpadInput vlSize='small' placeholder="Small input" [formControl]='smallInput'>
+        <input
+          valorLaunchpadInput
+          vlSize="large"
+          class="mb-3"
+          placeholder="Large input"
+          [formControl]="largeInput"
+        />
+        <input
+          valorLaunchpadInput
+          class="mb-3"
+          placeholder="Medium input"
+          [formControl]="mediumInput"
+        />
+        <input
+          valorLaunchpadInput
+          vlSize="small"
+          placeholder="Small input"
+          [formControl]="smallInput"
+        />
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 
-  <div valorLaunchpadCol [span]='12' [lg]='6'>
+  <div valorLaunchpadCol [span]="12" [lg]="6">
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Radios</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <div>
-          <valor-launchpad-radio-group [formControl]='radioGroup'>
-            <label valor-launchpad-radio [value]='"option1"'>Option one is this and that—be sure to include why it's great</label>
-            <label valor-launchpad-radio [value]='"option2"'>Option two can be something else and selecting it will deselect option one</label>
-            <label valor-launchpad-radio [value]='"option3"' [disabled]='true'>Option three is disabled</label>
+          <valor-launchpad-radio-group [formControl]="radioGroup">
+            <label valor-launchpad-radio [value]="'option1'"
+              >Option one is this and that—be sure to include why it's
+              great</label
+            >
+            <label valor-launchpad-radio [value]="'option2'"
+              >Option two can be something else and selecting it will deselect
+              option one</label
+            >
+            <label valor-launchpad-radio [value]="'option3'" [disabled]="true"
+              >Option three is disabled</label
+            >
           </valor-launchpad-radio-group>
         </div>
         <div>
-          <valor-launchpad-radio-group [formControl]='hRadioGroup'>
-            <label valor-launchpad-radio [inline]='true' [value]='1'>1</label>
-            <label valor-launchpad-radio [inline]='true' [value]='2'>2</label>
-            <label valor-launchpad-radio [inline]='true' [value]='3' [disabled]='true'>3</label>
+          <valor-launchpad-radio-group [formControl]="hRadioGroup">
+            <label valor-launchpad-radio [inline]="true" [value]="1">1</label>
+            <label valor-launchpad-radio [inline]="true" [value]="2">2</label>
+            <label
+              valor-launchpad-radio
+              [inline]="true"
+              [value]="3"
+              [disabled]="true"
+              >3</label
+            >
           </valor-launchpad-radio-group>
         </div>
       </valor-launchpad-card-content>
@@ -81,16 +120,16 @@
         <h5 class="card-title mb-0">Switches</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <valor-launchpad-switch [formControl]='switch1'>
+        <valor-launchpad-switch [formControl]="switch1">
           Default switch checkbox input
         </valor-launchpad-switch>
-        <valor-launchpad-switch [formControl]='switch2'>
+        <valor-launchpad-switch [formControl]="switch2">
           Checked switch checkbox input
         </valor-launchpad-switch>
-        <valor-launchpad-switch [formControl]='switch3' [vlDisabled]='true'>
+        <valor-launchpad-switch [formControl]="switch3" [vlDisabled]="true">
           Disabled switch checkbox input
         </valor-launchpad-switch>
-        <valor-launchpad-switch [formControl]='switch4' [vlDisabled]='true'>
+        <valor-launchpad-switch [formControl]="switch4" [vlDisabled]="true">
           Disabled checked switch checkbox input
         </valor-launchpad-switch>
       </valor-launchpad-card-content>
@@ -101,12 +140,16 @@
         <h5 class="card-title mb-0">Selects</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <select class="form-select mb-3" [formControl]='select'>
-          <option *ngFor='let o of selectOptions' [value]='o.value'>{{o.label}}</option>
+        <select class="form-select mb-3" [formControl]="select">
+          <option *ngFor="let o of selectOptions" [value]="o.value">
+            {{ o.label }}
+          </option>
         </select>
 
-        <select multiple class="form-select" [formControl]='multiSelect'>
-          <option *ngFor='let o of selectOptions' [value]='o.value'>{{o.label}}</option>
+        <select multiple class="form-select" [formControl]="multiSelect">
+          <option *ngFor="let o of selectOptions" [value]="o.value">
+            {{ o.label }}
+          </option>
         </select>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
@@ -118,19 +161,25 @@
       <valor-launchpad-card-content>
         <valor-launchpad-form-item>
           <label class="form-label">Disabled input</label>
-          <input valorLaunchpadInput placeholder="Disabled input" [formControl]='disabledInput'>
+          <input
+            valorLaunchpadInput
+            placeholder="Disabled input"
+            [formControl]="disabledInput"
+          />
         </valor-launchpad-form-item>
         <valor-launchpad-form-item>
           <label class="form-label">Disabled select menu</label>
-          <select class="form-select" [formControl]='disabledSelect'>
-            <option value='Disabled select'>Disabled select</option>
+          <select class="form-select" [formControl]="disabledSelect">
+            <option value="Disabled select">Disabled select</option>
           </select>
         </valor-launchpad-form-item>
         <label class="form-check">
-          <input class="form-check-input" type="checkbox" [formControl]='disabledCheckbox'>
-          <span class="form-check-label">
-          Can't check this
-        </span>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [formControl]="disabledCheckbox"
+          />
+          <span class="form-check-label"> Can't check this </span>
         </label>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
@@ -140,7 +189,13 @@
         <h5 class="card-title mb-0">Read only</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <input valorLaunchpadInput type="text" placeholder="Readonly input" readonly [formControl]='readonlyInput'>
+        <input
+          valorLaunchpadInput
+          type="text"
+          placeholder="Readonly input"
+          readonly
+          [formControl]="readonlyInput"
+        />
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>

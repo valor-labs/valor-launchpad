@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiChipsComponent } from './ui-chips.component';
+import { UiModule } from '@valor-launchpad/ui';
+import { TagInputModule } from 'ngx-chips';
+import { FormsModule } from '@angular/forms';
 
 describe('UiChipsComponent', () => {
   let component: UiChipsComponent;
@@ -8,9 +11,9 @@ describe('UiChipsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiChipsComponent ]
-    })
-    .compileComponents();
+      imports: [UiModule, TagInputModule, FormsModule],
+      declarations: [UiChipsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -3,122 +3,219 @@
   <valor-launchpad-card-header class="d-flex">
     <h2 class="me-auto">All Users</h2>
     <div class="actions">
-      <button type="button" class="btn btn-light" (click)="openAddEdit()">Add User<i class="fas fa-plus ms-2"></i></button>
-      <button type="button" class="btn btn-light" (click)="fetchUsers()"><i class="fas fa-sync"></i></button>
+      <button valor-launchpad-button theme="danger" *ngIf="selectedRows.length > 0 && !allSelectedDeleted" (click)="batchDelete()">Delete</button>
+      <button valor-launchpad-button theme="primary" *ngIf="selectedRows.length > 0 && !allSelectedActive" (click)="batchRestore()">Restore</button>
+      <button valor-launchpad-button theme="light" *ngIf="selectedRows.length > 0" (click)="openAddTagModal(addTagModal)">Add Tag<i class="fas fa-tag ms-2"></i></button>
+      <button valor-launchpad-button theme="light" (click)="openAdd()">Add User<i class="fas fa-plus ms-2"></i></button>
+      <button valor-launchpad-button theme="light" (click)="resetAllFilters()"><i class="fas fa-sync"></i></button>
     </div>
   </valor-launchpad-card-header>
   <valor-launchpad-card-content>
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Username</th>
-        <th scope="col">Email</th>
-        <th scope="col">Roles</th>
-        <th scope="col">Tags</th>
-        <th scope="col">Last Log In</th>
-        <th scope="col">History</th>
-        <th scope="col">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.email}} <i class="fas fa-check-circle validated" *ngIf="user.emailVerified"></i></td>
-        <td>
-          <span class="badge bg-light text-dark" *ngFor="let userRole of user.userRoles">{{userRole.rolesEntity.role}}</span>
-        </td>
-        <td>
-          <span class="badge bg-light text-dark" *ngFor="let userTag of user.userTags">{{userTag.tag}}</span>
-        </td>
-        <td>
-          <span *ngIf="user.lastLogin">{{user.lastLogin|date:'short'}}</span>
-          <span *ngIf="!user.lastLogin"> - </span>
-        </td>
-        <td>
-          <div *ngFor="let userHistory of user.userHistory">
-            <span class="event-title">{{userHistory.event}}</span>
-            <span class="event-byline">by {{userHistory.actingUser?.username || 'Unknown'}}
-              @ {{userHistory.createdDate|date:'short'}}</span>
+    <div class="d-flex justify-content-end">
+      <div>
+        <input
+          type="text"
+          valorLaunchpadInput
+          vlSize="small"
+          placeholder="Search"
+          [formControl]="keywordControl" />
+      </div>
+    </div>
+    <ngx-datatable
+      [columns]="columns"
+      [rows]="users$ | async"
+      [rowHeight]="'auto'"
+      [selectionType]="'multiClick'"
+      [selected]="selectedRows"
+      (select)="onSelect($event)"
+      [rowClass]="rowClass"
+      columnMode="flex">
+    </ngx-datatable>
+
+    <ng-template #rolesHeader>
+      <div class="d-flex justify-content-between">
+        Roles
+        <div class="btn-group" dropdown placement="bottom right" container="body" [insideClick]="true">
+          <div class="cursor-pointer" [class.text-primary]="roleFilter.size > 0">
+            <span dropdownToggle class="fas fa-filter fs-6"></span>
           </div>
-        </td>
-        <td class="actions">
-          <div *ngIf="!user.deletedDate">
-            <i class="fas fa-edit" (click)="edit(user)"></i>
-            <i class="fas fa-trash" (click)="delete(user.username)"></i>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+            <li role="menuitem" *ngFor="let role of allRoleOptions" (click)="onFilterRole(role.value)">
+              <a class="dropdown-item d-flex justify-content-between align-items-center">
+                {{role.name}}
+                <i class="fas" [class.fa-check]="roleFilter?.has(role.value)"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #tagsHeader>
+      <div class="d-flex justify-content-between">
+        Tags
+        <div class="btn-group" dropdown placement="bottom right" container="body" [insideClick]="true">
+          <div class="cursor-pointer" [class.text-primary]="tagFilter.size > 0">
+            <span dropdownToggle class="fas fa-filter fs-6"></span>
           </div>
-          <div *ngIf="user.deletedDate">
-            <i class="fas fa-trash-restore" (click)="restore(user.username)"></i>
-          </div>
-          <div *ngIf="user.lastPasswordUpdateDate">
-            Last Password Update: {{user.lastPasswordUpdateDate|date:'short'}}
-          </div>
-          <div *ngIf="user.passwordResetNeeded" class="mt-2">
-            <button type="button" (click)="resendEmail(user.id)" class="btn btn-outline-warning">Resend Reset Email
-            </button>
-          </div>
-          <div *ngIf="!user.passwordResetNeeded" class="mt-2">
-            <button type="button" (click)="resetPassword(user.username)" class="btn btn-outline-warning">Reset
-              Password
-            </button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+            <li role="menuitem" *ngFor="let tag of allTagOptions" (click)="onFilterTag(tag.id)">
+              <a class="dropdown-item d-flex justify-content-between align-items-center">
+                {{tag.name}}
+                <i class="fas" [class.fa-check]="tagFilter?.has(tag.id)"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #emailCell let-user="row">
+      {{user.email}}
+      <i class="fas fa-check-circle validated" *ngIf="user.emailVerified"></i>
+    </ng-template>
+
+    <ng-template #rolesCell let-user="row">
+      <span
+        class="badge bg-light text-dark"
+        *ngFor="let userRole of user.userRoles">
+        {{userRole.rolesEntity.role}}
+      </span>
+    </ng-template>
+
+    <ng-template #tagsCell let-user="row">
+      <span
+        class="badge bg-light text-dark"
+        *ngFor="let userTag of user.userTags">
+        {{userTag.tagsEntity.name}}
+      </span>
+    </ng-template>
+
+    <ng-template #historyCell let-history="value">
+      <div style="max-height: 100px">
+        <div *ngFor="let line of history">
+          <span class="event-title">{{line.event}}</span>
+          <span class="event-byline">by {{line.actingUser?.username || 'Unknown'}}
+            @ {{line.createdDate|date:'short'}}</span>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #actionsCell let-user="row">
+      <div *ngIf="!user.deletedDate">
+        <button valor-launchpad-button (click)="openEdit($event, user)" [outlined]="true">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button valor-launchpad-button (click)="delete($event, user.username)" theme="danger" [outlined]="true">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+      <div *ngIf="user.deletedDate">
+        <i class="fas fa-trash-restore" (click)="restore($event, user.username)"></i>
+      </div>
+      <div *ngIf="user.lastPasswordUpdateDate">
+        Last Password Update: {{user.lastPasswordUpdateDate|date:'short'}}
+      </div>
+      <div *ngIf="user.passwordResetNeeded" class="mt-2">
+        <button
+          valor-launchpad-button
+          theme="warning"
+          [outlined]="true"
+          (click)="resendEmail($event, user.id)">Resend Reset Email
+        </button>
+      </div>
+      <div *ngIf="!user.passwordResetNeeded" class="mt-2">
+        <button
+          valor-launchpad-button
+          theme="warning"
+          [outlined]="true"
+          (click)="resetPassword($event, user.username)">
+          Reset Password
+        </button>
+      </div>
+    </ng-template>
   </valor-launchpad-card-content>
 </valor-launchpad-card>
 
 <valor-launchpad-offcanvas [show]="addEditVisible" [title]="'Add / Edit'" position="end"
                            (onClose)="addEditCloseEvent()">
   <div offcanvas-body>
-    <form #addUserForm="ngForm" (ngSubmit)="addUser(addUserForm)">
-      <div class="col-6">
-        <div class="mb-3">
-          <label class="form-label">Username</label>
-          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="username"/>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">First Name</label>
-          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="firstName"/>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Last Name</label>
-          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="lastName"/>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">email</label>
-          <input valorLaunchpadInput ngModel class="form-control form-control-lg" type="text" name="email"/>
-        </div>
-        <nz-tag class="btn btn-outline-secondary"
-                *ngFor="let role of roles; let i = index" [nzMode]="'closeable'" (nzOnClose)="handleClose(role)">
-          {{ role.role }}
-        </nz-tag>
-        <nz-tag *ngIf="!rolesInputVisible"
-                style="border-style: dashed;"
-                class="btn btn-outline-secondary m-2" (click)="showRolesInput()">
-          Add Role
-          <i class="fas fa-plus"></i>
-        </nz-tag>
-<!--        TODO Make sure this doesnt allow roles that do not exist-->
-                <input #inputElement
-                       [hidden]="!rolesInputVisible"
-                       [(ngModel)]="rolesInputValue"
-                       typeaheadOptionField="role"
-                       autocomplete="off"
-                       name="rolesInputValue"
-                       type="text"
-                       style="width: 78px; border-style: dashed;"
-                       [typeahead]="availableRoles"
-                       (blur)="handleInputConfirm()"
-                       (keydown.enter)="handleInputConfirm()">
-      </div>
-      <button type="submit" class="mt-3 btn btn-lg btn-primary">Create User</button>
+    <form *ngIf="userForm" [formGroup]="userForm">
+      <valor-launchpad-form-item errTip="The field is required">
+        <valor-launchpad-form-label [required]="true">Username</valor-launchpad-form-label>
+        <input type="text" valorLaunchpadInput formControlName="username">
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item errTip="The field is required">
+        <valor-launchpad-form-label [required]="true">First Name</valor-launchpad-form-label>
+        <input type="text" valorLaunchpadInput formControlName="firstName">
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item errTip="The field is required">
+        <valor-launchpad-form-label [required]="true">Last Name</valor-launchpad-form-label>
+        <input type="text" valorLaunchpadInput formControlName="lastName">
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item [errTip]="emailErr">
+        <valor-launchpad-form-label [required]="true">Email</valor-launchpad-form-label>
+        <input type="text" valorLaunchpadInput formControlName="email">
+        <ng-template #emailErr let-control>
+          {{control.hasError('email') ? 'Please input correct email' : 'The field is required'}}
+        </ng-template>
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label>Tag</valor-launchpad-form-label>
+        <ng-select
+          formControlName="tags"
+          bindLabel="name"
+          [items]="allTagOptions"
+          [closeOnSelect]="false"
+          [multiple]="true"
+          [addTag]="true"
+          placeholder="Select tag">
+        </ng-select>
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item errTip="The field is required">
+        <valor-launchpad-form-label [required]="true">Role</valor-launchpad-form-label>
+        <ng-select
+          [class.is-invalid]="(userForm.get('roles').dirty || userForm.get('roles').touched) && userForm.get('roles').invalid"
+          formControlName="roles"
+          bindLabel="name"
+          [items]="allRoleOptions"
+          [closeOnSelect]="false"
+          [multiple]="true"
+          [addTag]="true"
+          placeholder="Select role">
+        </ng-select>
+      </valor-launchpad-form-item>
+      <button class="w-100 mt-3" valor-launchpad-button *ngIf="mode === 'add'" (click)="addUser()">Create User</button>
+      <button class="w-100 mt-3" valor-launchpad-button *ngIf="mode === 'edit'" (click)="editUser()">Edit User</button>
     </form>
-
-
   </div>
 </valor-launchpad-offcanvas>
+
+<valor-launchpad-modal
+  bsModal
+  #addTagModal="bs-modal"
+  [content]="contentTmpl"
+  heading="Add tag"
+  [footer]="footerTmpl">
+  <ng-template #footerTmpl>
+    <button
+      valor-launchpad-button
+      theme="secondary"
+      (click)="cancelAddTags(addTagModal)"
+    >
+      Cancel
+    </button>
+    <button valor-launchpad-button theme="primary" (click)="addTags(addTagModal)">Save</button>
+  </ng-template>
+  <ng-template #contentTmpl>
+    <tag-input [formControl]="addTagFC" [identifyBy]="'id'" [displayBy]="'name'">
+      <tag-input-dropdown
+        [autocompleteItems]="allTagOptions"
+        [identifyBy]="'id'"
+        [displayBy]="'name'"
+        [appendToBody]="true"
+        [zIndex]="10000"
+      ></tag-input-dropdown>
+    </tag-input>
+  </ng-template>
+</valor-launchpad-modal>

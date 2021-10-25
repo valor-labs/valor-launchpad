@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import {UsersService} from './users.service';
 import {RolesGuard} from './roles.guard';
 import {Roles} from './roles.decorator';
@@ -9,6 +9,15 @@ import { MessagesService } from './messages/messages.service';
 import { NotificationsService } from './notifications/notifications.service';
 import { MenuService } from './menus/menu.service';
 import { Menu } from '@valor-launchpad/api-interfaces';
+import { UserListLine } from '@valor-launchpad/api-interfaces';
+import { CreateUserDto } from './dto/create-user.dto';
+import { EditUserDto } from './dto/edit-user.dto';
+import { TagsService } from './tags/tags.service';
+import { ThrottlerGuard } from '@nestjs/throttler';
+import { QueryUserListDto } from './dto/query-user-list.dto';
+import { DeleteUsersDto } from './dto/delete-users.dto';
+import { RestoreUsersDto } from './dto/restore-users.dto';
+import { BatchAddTagsDto } from './dto/batch-add-tags.dto';
 
 @Controller('v1')
 export class UsersController {
@@ -17,6 +26,7 @@ export class UsersController {
     private messageService:MessagesService,
     private notificationSerivce:NotificationsService,
     private menuService: MenuService,
+    private tagsService: TagsService
   ) {}
 
   @Get('getRoles')
@@ -25,10 +35,16 @@ export class UsersController {
     return await this.usersService.getRoles();
   }
 
+  @Get('tags')
+  @UseGuards(AuthGuard('jwt'))
+  getAvailableTags() {
+    return this.tagsService.findAll();
+  }
+
   @Get('all')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  async getAllUsers() {
-    return await this.usersService.findAll();
+  async getAllUsers(@Query() query: QueryUserListDto): Promise<UserListLine[]> {
+    return await this.usersService.findAll(query);
   }
 
   @Get('current')
@@ -40,8 +56,22 @@ export class UsersController {
   @Post('add')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
-  async addUser(@Body() user: CreateUser, @User() actingUser: UserEntity) {
+  async addUser(@Body() user: CreateUserDto, @User() actingUser: UserEntity) {
     return await this.usersService.createUser(user, actingUser)
+  }
+
+  @Post('edit')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  async editUser(@Body() user: EditUserDto, @User() actingUser: UserEntity) {
+    return await this.usersService.editUser(user, actingUser);
+  }
+
+  @Post('batchDelete')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  async deleteUsers(@Body() body: DeleteUsersDto, @User() actingUser: UserEntity) {
+    return await this.usersService.deleteUsers(body.userIds, actingUser);
   }
 
   @Post('delete')
@@ -49,6 +79,13 @@ export class UsersController {
   @Roles('admin')
   async deleteUser(@Body() form, @User() actingUser: UserEntity) {
     return await this.usersService.deleteUser(form.username, actingUser)
+  }
+
+  @Post('batchRestore')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  async restoreUsers(@Body() body: RestoreUsersDto, @User() actingUser: UserEntity) {
+    return await this.usersService.restoreUsers(body.userIds, actingUser);
   }
 
   @Post('restore')
@@ -59,11 +96,13 @@ export class UsersController {
   }
 
   @Post('resetPassword')
+  @UseGuards(AuthGuard('jwt'), ThrottlerGuard)
   async resetPassword(@Body() user, @User() actingUser: UserEntity) {
     return await this.usersService.resetPassword(user.username, actingUser);
   }
 
   @Post('resendEmail')
+  @UseGuards(AuthGuard('jwt'))
   async resendEmail(@Body() user, @User() actingUser: UserEntity) {
     return await this.usersService.resendEmail(user.id, actingUser);
   }
@@ -82,5 +121,11 @@ export class UsersController {
   async getMenus(@Req() req: RequestWithSession, @User() actingUser: UserEntity): Promise<Menu[]> {
     const currentUserRoles = req.session.user.userRoles.map(i => i.role_id);
     return await this.menuService.getMenus(currentUserRoles);
+  }
+
+  @Post('batchAddTags')
+  @UseGuards(AuthGuard('jwt'))
+  async batchAddTags(@Body() batchAddTagsDto: BatchAddTagsDto) {
+    return await this.usersService.batchAddTags(batchAddTagsDto);
   }
 }

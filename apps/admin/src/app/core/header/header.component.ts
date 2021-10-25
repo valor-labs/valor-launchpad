@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { Action, MegaMenuColumn, Menu } from '@valor-launchpad/api-interfaces';
+import {
+  Action,
+  MegaMenuColumn,
+  Menu,
+  ProjectListItemVo,
+} from '@valor-launchpad/api-interfaces';
 import { Message, Notification } from '@valor-launchpad/api-interfaces';
 import { NavigationService } from '../navigation/navigation.service';
 import { UserEntity } from '@valor-launchpad/common-api';
@@ -9,16 +14,21 @@ import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ProjectsListService } from '../../pages/projects-list/projects-list.service';
-import { Project } from '@api/projects';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ProfileService } from '../../pages/profile/profile.service';
+import { ProfileEntity } from '@valor-launchpad/common-api';
 
 @Component({
   selector: 'valor-launchpad-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
+  @ViewChild('defaultWarningModal', { static: false })
+  defaultWarningModal?: ModalDirective;
   user: UserEntity;
+  profile: ProfileEntity;
   messages: Message[] = [];
   notifications: Notification[] = [];
   megaMenus$: Observable<MegaMenuColumn[]> =
@@ -28,59 +38,67 @@ export class HeaderComponent implements OnInit {
           label: parent.name,
           actions: parent.children.map((sub) => ({
             label: sub.name,
-            routerLink: sub.route
-          }))
+            routerLink: sub.route,
+          })),
         }))
       )
     );
- 
+
+  public content: string;
+
   profileActions: Action[] = [
     {
       label: 'Profile',
       icon: 'user',
-      routerLink: '/profile'
+      routerLink: '/profile',
     },
     {
       label: 'Analytics',
-      icon: 'area-chart',
-      link: '#',
-      divider: true
+      icon: 'chart-pie',
+      link: '/dashboard-analytics',
+      divider: true,
     },
     {
       label: 'Settings & Privacy',
-      routerLink: '/settings'
+      routerLink: '/settings',
     },
     {
       label: 'Help',
-      link: 'pages-settings.html'
+      link: 'pages-settings.html',
     },
     {
       label: 'Sign out',
-      event: this.signOut.bind(this)
-    }
+      event: this.signOut.bind(this),
+    },
   ];
 
-  constructor(private authService: AuthService,
-              private headerService: HeaderService,
-              private navigationService: NavigationService,
-              private projectsListService: ProjectsListService
-  ) {
-  }
+  constructor(
+    private authService: AuthService,
+    private headerService: HeaderService,
+    private navigationService: NavigationService,
+    private projectsListService: ProjectsListService,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit() {
-    this.authService.user.subscribe(user => {
+    this.authService.user.subscribe((user) => {
       this.user = user;
     });
 
-    this.headerService.getMessages().subscribe(messages => {
+    this.headerService.getMessages().subscribe((messages) => {
       this.messages = messages;
     });
 
-    this.headerService.getNotifications().subscribe(notifications => {
+    this.profileService.getProfile().subscribe((profile) => {
+      this.profile = profile;
+    });
+
+    this.headerService.getNotifications().subscribe((notifications) => {
       this.notifications = notifications;
     });
 
     this._initProjectSearch();
+    this.content = 'Your account will logged out.';
   }
 
   toggleMenu() {
@@ -88,7 +106,19 @@ export class HeaderComponent implements OnInit {
   }
 
   signOut() {
-    this.authService.signOut();
+    this.showModal();
+  }
+
+  showModal() {
+    this.defaultWarningModal?.show();
+  }
+
+  confirmSignOut() {
+    // TODO add loading spinner here ?
+    this.content = '....Logging out';
+    this.authService.signOut().subscribe(() => {
+      // todo: add logic here
+    });
   }
 
   setLanguage(language: string) {
@@ -99,19 +129,20 @@ export class HeaderComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/member-ordering
   projectSearchFc: FormControl;
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  projectOptions: Project[];
+  projectOptions: ProjectListItemVo[];
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  filteredProjectOptions: Project[];
+  filteredProjectOptions: ProjectListItemVo[];
 
   private _initProjectSearch(): void {
     this.projectSearchFc = new FormControl();
-    this.projectsListService.getProjects().subscribe(res => {
+    this.projectsListService.getProjects().subscribe((res) => {
       this.projectOptions = res;
       this.projectSearchFc.valueChanges
         .pipe(
           startWith(''),
-          map(value => this._filterProjects(value))
-        ).subscribe();
+          map((value) => this._filterProjects(value))
+        )
+        .subscribe();
     });
   }
 
@@ -120,12 +151,9 @@ export class HeaderComponent implements OnInit {
       this.filteredProjectOptions = this.projectOptions;
     } else {
       this.filteredProjectOptions = this.projectOptions.filter(
-        item =>
-          item.title
-            .toLowerCase()
-            .includes(searchKey.toLowerCase()) === true
+        (item) =>
+          item.title.toLowerCase().includes(searchKey.toLowerCase()) === true
       );
     }
   }
-
 }

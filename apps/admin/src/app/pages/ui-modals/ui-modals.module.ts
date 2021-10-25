@@ -6,16 +6,13 @@ import { UiModalsComponent } from './ui-modals.component';
 import { UiModule } from '@valor-launchpad/ui';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
-
 @NgModule({
-  declarations: [
-    UiModalsComponent
-  ],
+  declarations: [UiModalsComponent],
   imports: [
     CommonModule,
     UiModalsRoutingModule,
     UiModule,
     ModalModule.forChild(),
-  ]
+  ],
 })
-export class UiModalsModule { }
+export class UiModalsModule {}

@@ -1,5 +1,5 @@
 .tab {
-  margin-bottom: $spacer*2;
+  margin-bottom: $spacer * 2;
 
   .nav-tabs {
     border: 0;
@@ -62,7 +62,6 @@
   overflow: auto;
 }
 
-
 .tab-content {
   padding: 1.25rem 0;
 }
@@ -71,7 +70,8 @@
   border-bottom: none;
 }
 
-.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-  background: #fff;
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  background: $white;
   border-bottom: none;
 }

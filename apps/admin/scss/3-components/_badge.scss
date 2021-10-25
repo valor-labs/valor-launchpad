@@ -1,5 +1,8 @@
 .badge {
   color: $static-white;
+  & + & {
+    margin-left: 3px;
+  }
 }
 
 @each $color, $value in $theme-colors {
@@ -10,6 +13,6 @@
 }
 
 .badge.rounded-pill {
-  padding-right: .65em;
-  padding-left: .65em;
+  padding-right: 0.65em;
+  padding-left: 0.65em;
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ThemeBuilderComponent } from './theme-builder.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('ThemeBuilderComponent', () => {
   let component: ThemeBuilderComponent;
@@ -8,9 +9,9 @@ describe('ThemeBuilderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ThemeBuilderComponent ]
-    })
-    .compileComponents();
+      imports: [ReactiveFormsModule],
+      declarations: [ThemeBuilderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

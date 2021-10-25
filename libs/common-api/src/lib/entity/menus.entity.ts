@@ -1,5 +1,3 @@
-import { BaseEntity } from '@valor-launchpad/common-api';
-
 export class MenusEntity {
   id: string;
   createdDate: Date;

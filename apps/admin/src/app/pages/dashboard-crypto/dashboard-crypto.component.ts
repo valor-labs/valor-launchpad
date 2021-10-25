@@ -2,11 +2,13 @@ import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Action } from '@valor-launchpad/api-interfaces';
 import type { TableColumn } from '@swimlane/ngx-datatable';
 import {
+  Order,
   BuyOrder,
   DashboardCryptoService,
   MainInfo,
   MarketLine,
   SellOrder,
+  OrderType,
 } from './dashboard-crypto.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -103,6 +105,7 @@ export class DashboardCryptoComponent implements OnInit {
   ];
   mainInfos$: Observable<MainInfo[]>;
   markets$: Observable<MarketLine[]>;
+  orders$: Observable<Order[]>;
   sellOrders$: Observable<SellOrder[]>;
   buyOrders$: Observable<BuyOrder[]>;
   chartOptions$: Observable<{ chart; series; stroke; xaxis }>;
@@ -114,8 +117,23 @@ export class DashboardCryptoComponent implements OnInit {
   ngOnInit(): void {
     this.mainInfos$ = this.dashboardCryptoService.getMainInfos();
     this.markets$ = this.dashboardCryptoService.getMarkets();
-    this.sellOrders$ = this.dashboardCryptoService.getSellOrders();
-    this.buyOrders$ = this.dashboardCryptoService.getBuyOrders();
+    this.orders$ = this.dashboardCryptoService.getOrders();
+    this.sellOrders$ = this.orders$.pipe(
+      map((orders) => {
+        orders.filter((order) => {
+          return order.type === OrderType.SELL;
+        });
+        return orders;
+      })
+    );
+    this.buyOrders$ = this.orders$.pipe(
+      map((orders) => {
+        orders.filter((order) => {
+          return order.type === OrderType.BUY;
+        });
+        return orders;
+      })
+    );
     this.chartOptions$ = this.dashboardCryptoService.getKLine().pipe(
       map((rows) => ({
         chart: {

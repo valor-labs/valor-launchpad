@@ -17,6 +17,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     SettingsAccountComponent,
     SettingsPasswordComponent,
   ],
-  imports: [CommonModule, SettingsRoutingModule, ReactiveFormsModule, UiModule, BsDropdownModule.forRoot(),],
+  imports: [
+    CommonModule,
+    SettingsRoutingModule,
+    ReactiveFormsModule,
+    UiModule,
+    BsDropdownModule.forRoot(),
+  ],
 })
 export class SettingsModule {}

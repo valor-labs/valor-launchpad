@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MapsVectorComponent } from './maps-vector.component'
+import { MapsVectorComponent } from './maps-vector.component';
 
-const routes: Routes = [
-  { path: '', component: MapsVectorComponent }
-];
+const routes: Routes = [{ path: '', component: MapsVectorComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MapsVectorRoutingModule { }
+export class MapsVectorRoutingModule {}

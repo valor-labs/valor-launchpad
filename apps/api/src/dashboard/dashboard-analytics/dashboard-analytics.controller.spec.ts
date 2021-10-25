@@ -9,7 +9,9 @@ describe('DashboardAnalyticsController', () => {
       controllers: [DashboardAnalyticsController],
     }).compile();
 
-    controller = module.get<DashboardAnalyticsController>(DashboardAnalyticsController);
+    controller = module.get<DashboardAnalyticsController>(
+      DashboardAnalyticsController
+    );
   });
 
   it('should be defined', () => {

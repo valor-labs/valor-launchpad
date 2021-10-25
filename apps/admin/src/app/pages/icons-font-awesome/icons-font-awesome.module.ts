@@ -5,15 +5,8 @@ import { IconsFontAwesomeRoutingModule } from './icons-font-awesome-routing.modu
 import { IconsFontAwesomeComponent } from './icons-font-awesome.component';
 import { UiModule } from '@valor-launchpad/ui';
 
-
 @NgModule({
-  declarations: [
-    IconsFontAwesomeComponent
-  ],
-  imports: [
-    CommonModule,
-    IconsFontAwesomeRoutingModule,
-    UiModule
-  ]
+  declarations: [IconsFontAwesomeComponent],
+  imports: [CommonModule, IconsFontAwesomeRoutingModule, UiModule],
 })
-export class IconsFontAwesomeModule { }
+export class IconsFontAwesomeModule {}

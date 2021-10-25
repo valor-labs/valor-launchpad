@@ -26,10 +26,10 @@ nav.landing-navbar {
   font-size: $sidebar-brand-font-size;
 
   svg {
-    @include theme("fill", $sidebar-brand-icon-color);
+    @include theme('fill', $sidebar-brand-icon-color);
 
     path:first-child {
-      @include theme("fill", $sidebar-brand-icon-top-color);
+      @include theme('fill', $sidebar-brand-icon-top-color);
     }
   }
 }
@@ -41,14 +41,15 @@ nav.landing-navbar {
 
   img {
     transform: rotateY(-30deg) rotateX(10deg);
-    box-shadow: 0 0 1px 0 rgba($static-black, 0.7), 0 11px 20px -8px rgba($static-black, 0.5);
+    box-shadow: 0 0 1px 0 rgba($static-black, 0.7),
+      0 11px 20px -8px rgba($static-black, 0.5);
   }
 }
 
 .landing-img {
   box-shadow: rgba(darken($primary, 25), 0.15) 0px 4px 12px 0px;
-  transition: all .15s ease-in-out;
-  
+  transition: all 0.15s ease-in-out;
+
   &:hover {
     transform: scale(1.035);
   }
@@ -66,7 +67,7 @@ nav.landing-navbar {
     span {
       display: inline;
       background: lighten($primary, 35%);
-      padding: .0625em .125em;
+      padding: 0.0625em 0.125em;
     }
   }
 }
