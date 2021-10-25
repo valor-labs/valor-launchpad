@@ -22,6 +22,7 @@ export class ValorImagePipe implements PipeTransform {
 
 
   transform(value: string | MediaAsset): unknown {
+    if (!value) return;
     if (typeof value === 'string') {
       return value;
     } else {
