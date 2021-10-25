@@ -14,13 +14,3 @@ export * from './lib/entity/user-tags.entity'
 export * from './lib/entity/user-roles.entity'
 export * from './lib/validators';
 export * from './lib/utils';
-export * from './lib/entity/activity.entity';
-export * from './lib/entity/comment.entity';
-export * from './lib/entity/employer.entity';
-export * from './lib/entity/profile.entity';
-export * from './lib/entity/profileEmployer.entity';
-export * from './lib/entity/profileSkills.entity';
-export * from './lib/entity/projects.entity';
-export * from './lib/entity/skills.entity';
-export * from './lib/entity/socialMedia.entity';
-export * from './lib/entity/socialMediaMatching.entity';

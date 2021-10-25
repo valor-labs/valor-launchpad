@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClientsComponent } from './clients.component';
 import { UiModule } from '@valor-launchpad/ui';
 import { FormsModule } from '@angular/forms';
-import { ENV_CONFIG } from '@valor-launchpad/http';
 
 describe('ClientsComponent', () => {
   let component: ClientsComponent;
@@ -13,7 +12,6 @@ describe('ClientsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [UiModule, FormsModule],
       declarations: [ClientsComponent],
-      providers: [{ provide: ENV_CONFIG, useValue: 'ENV_CONFIG' }],
     }).compileComponents();
   });
 

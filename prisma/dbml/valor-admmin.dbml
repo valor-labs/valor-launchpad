@@ -51,13 +51,6 @@ Table ProfileEntity {
   title String
   location String
   from String
-  city String
-  zip String
-  language String
-  locale String
-  timeZone String
-  bio String
-  address String
   employers ProfileEmployerEntity [not null]
   socialMedia SocialMediaMatchingEntity [not null]
   skills ProfileSkillsEntity [not null]

@@ -1,4 +1,4 @@
-import { ProjectsEntity } from '@valor-launchpad/common-api';
+import { ProjectsEntity } from '../projects.entity';
 
 export class ProjectCreatedThinEvent {
   id: string;

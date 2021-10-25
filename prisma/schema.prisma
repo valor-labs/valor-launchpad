@@ -63,13 +63,6 @@ model ProfileEntity {
   title          String?                     @db.VarChar(255)
   location       String?                     @db.VarChar(255)
   from           String?                     @db.VarChar(255)
-  city           String?                     @db.VarChar(255)
-  zip            String?                     @db.VarChar(255)
-  language       String?                     @db.VarChar(255)
-  locale         String?                     @db.VarChar(255)
-  timeZone       String?                     @db.VarChar(255)
-  bio            String?                     @db.VarChar(255)
-  address        String?                     @db.VarChar(255)
   employers      ProfileEmployerEntity[]
   socialMedia    SocialMediaMatchingEntity[]
   skills         ProfileSkillsEntity[]
