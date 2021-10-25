@@ -51,6 +51,7 @@ export class ProjectsListComponent implements OnInit {
   onDeleteProject(projectId: string) {
     this.projectsListService.deleteProject(projectId).subscribe(() => {
       this._initProjectData();
+      this.notyf.success('Delete project success');
     });
   }
 
@@ -143,6 +144,7 @@ export class ProjectsListComponent implements OnInit {
 
   onCloseProjectShow(): void {
     this.isCreateProjectShow = false;
+    this.newProjectFg.reset();
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
