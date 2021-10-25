@@ -1,1 +1,1 @@
-export * from './Profile.class';
+export * from './profile.module';
