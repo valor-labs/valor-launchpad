@@ -22,4 +22,7 @@ export class ProjectCreateDto {
   @IsNotEmpty()
   @IsString()
   cloneable: string;
+
+  @IsOptional()
+  cloneFrom?: string;
 }

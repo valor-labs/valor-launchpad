@@ -39,4 +39,10 @@ export class ProjectsListService {
       formData
     );
   }
+
+  deleteProject(projectId) {
+    return this.httpClient.delete(
+      `${this.config.environment.apiBase}api/projects/v1/${projectId}`
+    );
+  }
 }

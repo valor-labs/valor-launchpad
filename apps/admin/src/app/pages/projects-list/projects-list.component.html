@@ -9,6 +9,8 @@
   <valor-launchpad-project-list-item
     *ngFor="let item of projects"
     [config]="item"
+    (delete)="onDeleteProject($event)"
+    (clone)="onCloneProject($event, item)"
   ></valor-launchpad-project-list-item>
 </div>
 
@@ -40,11 +42,7 @@
       </valor-launchpad-form-item>
       <valor-launchpad-form-item>
         <valor-launchpad-form-label>Progress</valor-launchpad-form-label>
-        <select class="form-select" formControlName="progress">
-          <option *ngFor="let item of projectProgressItem" [value]="item">
-            {{ item }}
-          </option>
-        </select>
+        <input type="number" valorLaunchpadInput formControlName="progress" />
       </valor-launchpad-form-item>
       <valor-launchpad-form-item>
         <valor-launchpad-form-label>Status</valor-launchpad-form-label>

@@ -14,13 +14,13 @@
         <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
           <a
             class="dropdown-item"
-            (click)="deleteProject()"
+            (click)="delete.emit(config.id)"
             *ngIf="config.deletable"
             >Delete</a
           >
           <a
             class="dropdown-item"
-            (click)="cloneProject()"
+            (click)="clone.emit(config.id)"
             *ngIf="config.cloneable"
             >Clone</a
           >

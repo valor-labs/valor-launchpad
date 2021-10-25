@@ -1,4 +1,10 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  Output,
+} from '@angular/core';
 import {
   ProjectListItemVo,
   STATUS_MAPPING,
@@ -17,13 +23,7 @@ export class ProjectListItemComponent {
   @Input()
   config: ProjectListItemVo;
 
-  deleteProject() {
-    //todo: make this meaningful
-    console.log(`action fired for card: delete`);
-  }
+  @Output() delete = new EventEmitter();
 
-  cloneProject() {
-    //todo: make this meaningful
-    console.log(`action fired for card: clone`);
-  }
+  @Output() clone = new EventEmitter();
 }

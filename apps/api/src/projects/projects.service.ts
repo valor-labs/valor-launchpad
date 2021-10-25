@@ -64,6 +64,9 @@ export class ProjectsService {
       orderBy: {
         createdDate: 'desc',
       },
+      where: {
+        deletedDate: null,
+      },
     });
   }
 
@@ -72,6 +75,12 @@ export class ProjectsService {
       where: {
         title,
       },
+    });
+  }
+
+  async deleteProjectById(projectId: string) {
+    return await this.prisma.projectsEntity.delete({
+      where: { id: projectId },
     });
   }
 
