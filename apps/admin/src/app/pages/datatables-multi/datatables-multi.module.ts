@@ -8,18 +8,15 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule } from '@angular/forms';
 import { DragToSelectModule } from 'ngx-drag-to-select';
 
-
 @NgModule({
-  declarations: [
-    DatatablesMultiComponent
-  ],
+  declarations: [DatatablesMultiComponent],
   imports: [
     CommonModule,
     DatatablesMultiRoutingModule,
     UiModule,
     NgxDatatableModule,
     FormsModule,
-    DragToSelectModule.forRoot()
-  ]
+    DragToSelectModule.forRoot(),
+  ],
 })
-export class DatatablesMultiModule { }
+export class DatatablesMultiModule {}
