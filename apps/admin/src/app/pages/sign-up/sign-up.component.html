@@ -119,6 +119,18 @@
                           name="password"
                           placeholder="Enter password"
                         />
+                        <span *ngIf="regularPassword"
+                          ><i
+                            class="
+                              align-middle
+                              me-2
+                              fas
+                              fa-fw fa-check-circle
+                              badge-soft-success
+                            "
+                          ></i>
+                          Nice work. This is an excellent password</span
+                        >
                       </valor-launchpad-form-item>
                       <div class="text-center mt-3">
                         <button

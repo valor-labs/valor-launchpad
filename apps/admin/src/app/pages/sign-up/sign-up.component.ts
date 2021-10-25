@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
 import {
   debounceTime,
   distinctUntilChanged,
   filter,
+  map,
   switchMap,
 } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -26,10 +32,14 @@ export class SignUpComponent implements OnInit {
 
   registerSucceed = false;
 
+  regularPassword: boolean;
+
   constructor(
     private authService: AuthService,
     private toastrService: ToastrService
-  ) {}
+  ) {
+    this.regularPassword = false;
+  }
 
   ngOnInit(): void {
     this.signUpFormGroup
@@ -49,6 +59,21 @@ export class SignUpComponent implements OnInit {
           this.signUpFormGroup.get('username').setErrors(null);
         }
       });
+
+    this.signUpFormGroup
+      .get('password')
+      .valueChanges.pipe(
+        map((value) => {
+          const regularExpression =
+            /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+          if (regularExpression.test(value)) {
+            this.regularPassword = true;
+          } else {
+            this.regularPassword = false;
+          }
+        })
+      )
+      .subscribe();
   }
 
   createUser() {
