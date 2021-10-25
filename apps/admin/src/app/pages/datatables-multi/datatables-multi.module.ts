@@ -6,6 +6,7 @@ import { DatatablesMultiComponent } from './datatables-multi.component';
 import { UiModule } from '@valor-launchpad/ui';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule } from '@angular/forms';
+import { DragToSelectModule } from 'ngx-drag-to-select';
 
 @NgModule({
   declarations: [DatatablesMultiComponent],
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     UiModule,
     NgxDatatableModule,
     FormsModule,
+    DragToSelectModule.forRoot(),
   ],
 })
 export class DatatablesMultiModule {}

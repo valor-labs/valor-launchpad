@@ -25,5 +25,11 @@ div.dataTables_wrapper div.dataTables_filter {
       background-color: #3f80ea;
       color: #fff;
     }
+
+    .datatable-row-detail {
+      position: absolute;
+      width: 100%;
+      visibility: hidden;
+    }
   }
 }
