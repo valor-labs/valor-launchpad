@@ -16,13 +16,7 @@
     <valor-launchpad-card class="mb-3">
       <valor-launchpad-card-content class="text-center">
         <ng-container *ngIf="authService.user | async as userinfo">
-          <img
-            [src]="userinfo.avatar.src"
-            [alt]="userinfo.username"
-            class="img-fluid rounded-circle mb-2"
-            width="128"
-            height="128"
-          />
+          <valor-launchpad-avatar classes='img-fluid mb-2' width="128" height="128"></valor-launchpad-avatar>
           <h4 class="card-title mb-2">
             {{ userinfo.firstName + ' ' + userinfo.lastName }}
           </h4>

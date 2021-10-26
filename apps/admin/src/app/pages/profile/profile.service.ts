@@ -35,6 +35,7 @@ export class ProfileService {
     formData.append('username', username);
     formData.append('alt', alt);
     formData.append('bio', bio);
+    console.log('formData', formData);
     return this.httpClient.post(
       this.config.environment.apiBase + 'api/profile/v1/updateProfile',
       formData

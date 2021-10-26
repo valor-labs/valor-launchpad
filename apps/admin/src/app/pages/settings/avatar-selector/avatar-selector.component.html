@@ -1,26 +1,28 @@
-<div class="text-center">
-  <img
-    alt="Chris Wood"
-    [src]="previewSrc | valorImage"
-    class="rounded-circle img-responsive mt-2"
-    width="128"
-    height="128"
-  />
-  <div class="mt-2">
+<div class='text-center'>
+
+  <valor-launchpad-avatar
+    classes='img-responsive mt-2'
+    width='128'
+    height='128'
+    [src]="previewSrc"
+  >
+  </valor-launchpad-avatar>
+
+  <div class='mt-2'>
     <input
       #fileInput
-      type="file"
-      accept="image/jpeg"
-      style="display: none"
-      (change)="onPick(fileInput)"
-      maxlength="1"
+      type='file'
+      accept='image/jpeg'
+      style='display: none'
+      (change)='onPick(fileInput)'
+      maxlength='1'
     />
-    <span class="btn btn-primary" (click)="triggerFilePicker(fileInput)"
-      ><i class="fas fa-upload"></i> Upload</span
+    <span class='btn btn-primary' (click)='triggerFilePicker(fileInput)'
+    ><i class='fas fa-upload'></i> Upload</span
     >
   </div>
   <small
-    >For best results, use an image at least 128px by 128px in .jpg
+  >For best results, use an image at least 128px by 128px in .jpg
     format</small
   >
 </div>

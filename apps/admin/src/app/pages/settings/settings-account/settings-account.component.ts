@@ -665,7 +665,7 @@ export class SettingsAccountComponent implements OnInit {
       this.profile = data;
       this.publicInfoFormGroup = this.fb.group({
         username: data.username,
-        bio: data.bio,
+        bio: data.bio || '',
         avatar: data.avatar,
       });
       this.privateInfoFormGroup = this.fb.group({
@@ -690,7 +690,7 @@ export class SettingsAccountComponent implements OnInit {
     const avatarFile = updatedPublicProfile.avatar;
     const profileId = this.profile.id;
     const newUserName = updatedPublicProfile.username;
-    const alt = this.profile.avatar.alt;
+    const alt = this.profile.avatar && Object.prototype.hasOwnProperty.call(this.profile.avatar, 'alt') ? this.profile.avatar.alt : newUserName;
     this.profileService
       .updateProfilePublicInfo(avatarFile, bio, profileId, newUserName, alt)
       .subscribe((res) => {

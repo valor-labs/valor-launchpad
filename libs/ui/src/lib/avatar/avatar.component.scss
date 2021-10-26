@@ -1,24 +1,42 @@
 .sm {
-  height:28px;
-  width:28px;
+  height: 28px !important;
+  width: 28px !important;
+  font-size: 14px;
 }
 
 .md {
-  height:34px;
-  width:34px;
+  height: 34px !important;
+  width: 34px !important;
+  font-size: 14px;
 }
 
 .lg {
-  height:40px;
-  width:40px;
+  height: 40px !important;
+  width: 40px !important;
+  font-size: 20px;
 }
 
 .xl {
-  height:56px;
-  width:56px;
+  height: 56px !important;
+  width: 56px !important;
+  font-size: 28px;
 }
 
 .xxl {
-  height:128px;
-  width:128px;
+  height: 128px !important;
+  width: 128px !important;
+  font-size: 64px;
+}
+
+.text-avatar {
+  border-radius: 50%;
+  background-color: #1abc9c;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }

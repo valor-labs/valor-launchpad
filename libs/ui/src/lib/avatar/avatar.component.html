@@ -1,3 +1,30 @@
-<img [src]="src | valorImage"
-     [ngClass]="[classes]"
-     class="rounded-circle me-1 mt-n1" [alt]="alt">
+<img *ngIf='src !== null; else currentUserAvatar'
+     [src]='src | valorImage'
+     [alt]='alt'
+     [ngClass]='[classes]'
+     width='{{width}}'
+     height='{{height}}'
+     class='rounded-circle' />
+
+
+<ng-template #currentUserAvatar>
+  <ng-container *ngIf='authService.user | async as userinfo'>
+    <img *ngIf='userinfo.avatar; else textAvatar'
+         [src]='userinfo.avatar | valorImage'
+         [alt]='userinfo.avatar.alt'
+         [ngClass]='[classes]'
+         width='{{width}}'
+         height='{{height}}'
+         class='rounded-circle'>
+    <ng-template #textAvatar>
+      <div *ngIf='userinfo.firstName && userinfo.lastName'
+           [style.width.px]='width'
+           [style.height.px]='height'
+           [style.font-size.px]='getFontSize()'
+           [ngClass]='[classes]'
+           class='text-avatar'>
+        {{ getInitialChar(userinfo.firstName) }}{{ getInitialChar(userinfo.lastName) }}
+      </div>
+    </ng-template>
+  </ng-container>
+</ng-template>

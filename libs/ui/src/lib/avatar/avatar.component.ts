@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from '../../../../../apps/admin/src/app/core/auth/auth.service';
 
 @Component({
   selector: 'valor-launchpad-avatar',
@@ -8,22 +9,47 @@ import {Component, Input, OnInit} from '@angular/core';
 export class AvatarComponent implements OnInit {
 
   @Input()
+  src: string = null;
+
+  @Input()
+  alt: string;
+
+  @Input()
   classes;
 
   @Input()
-  size: "sm" | "md" | "lg" | "xl" = "md";
+  size: 'sm' | 'md' | 'lg' | 'xl' = 'md';
+
 
   @Input()
-  src;
+  width: number = null;
 
   @Input()
-  alt;
+  height: number = null;
 
-  constructor() {
+  constructor(
+    public authService: AuthService
+  ) {
   }
 
   ngOnInit(): void {
-    this.classes = this.classes + " "+this.size;
+    if (this.width !== null && this.height !== null) {
+      if (this.width !== this.height) {
+        this.height = this.width;
+      }
+    } else {
+      this.classes = this.classes + ' ' + this.size;
+    }
+  }
+
+  getInitialChar(name: string): string {
+    return name.charAt(0);
+  }
+
+  getFontSize(): number {
+    if (this.width !== null && this.height !== null) {
+      return this.width / 2;
+    }
   }
 
 }
