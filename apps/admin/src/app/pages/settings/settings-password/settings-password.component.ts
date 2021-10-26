@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ValidatorFn,
@@ -8,6 +9,7 @@ import {
 import { SettingsPasswordService } from './settings-password.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PasswordValidator } from '../../../core/utils/passwordValidator';
 
 const pwdValidator: ValidatorFn = (fg: FormGroup) => {
   const newPassword = fg.get('newPassword');
@@ -24,7 +26,8 @@ const pwdValidator: ValidatorFn = (fg: FormGroup) => {
 })
 export class SettingsPasswordComponent implements OnInit {
   formGroup: FormGroup;
-
+  standardValidator: boolean;
+  passwordControl: AbstractControl;
   constructor(
     private fb: FormBuilder,
     private passwordService: SettingsPasswordService,
@@ -40,6 +43,7 @@ export class SettingsPasswordComponent implements OnInit {
       },
       { validators: pwdValidator }
     );
+    this.passwordControl = this.formGroup.get('newPassword');
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -65,5 +69,20 @@ export class SettingsPasswordComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  openStandardValidator() {
+    this.standardValidator = true;
+    this.passwordControl.setValidators([
+      Validators.required,
+      Validators.pattern(PasswordValidator.regex),
+    ]);
+    this.passwordControl.updateValueAndValidity({ onlySelf: true });
+  }
+
+  closeStandardValidator() {
+    this.standardValidator = false;
+    this.passwordControl.setValidators([Validators.required]);
+    this.passwordControl.updateValueAndValidity({ onlySelf: true });
   }
 }

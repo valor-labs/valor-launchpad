@@ -107,11 +107,15 @@
                           placeholder="Enter your Phone Number"
                         />
                       </valor-launchpad-form-item>
-                      <valor-launchpad-form-item errTip="The field is required">
+                      <valor-launchpad-form-item
+                        [errTip]="passwordErr"
+                        [successTip]="passwordSuccess"
+                      >
                         <valor-launchpad-form-label [required]="true"
                           >Password</valor-launchpad-form-label
                         >
                         <input
+                          class="float-start"
                           valorLaunchpadInput
                           vlSize="large"
                           formControlName="password"
@@ -119,18 +123,67 @@
                           name="password"
                           placeholder="Enter password"
                         />
-                        <span *ngIf="regularPassword"
-                          ><i
+                        <span class="float-end position-relative">
+                          <i
+                            *ngIf="standardValidator"
+                            role="button"
+                            valor-launchpad-button
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="left"
+                            title="remove standard validator"
                             class="
-                              align-middle
-                              me-2
+                              position-absolute
                               fas
-                              fa-fw fa-check-circle
-                              badge-soft-success
+                              fa-fw fa-lock
+                              end-0
+                              translate
+                              pe-auto
                             "
+                            (click)="closeStandardValidator()"
                           ></i>
-                          Nice work. This is an excellent password</span
-                        >
+                          <i
+                            *ngIf="!standardValidator"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="left"
+                            title="add standard validator"
+                            role="button"
+                            class="
+                              position-absolute
+                              fas
+                              fa-fw fa-lock-open
+                              end-0
+                              translate
+                              pe-auto
+                            "
+                            (click)="openStandardValidator()"
+                          ></i>
+                        </span>
+                        <ng-template #passwordErr let-control>
+                          <ng-container *ngIf="control.hasError('required')"
+                            >This field is required.</ng-container
+                          >
+                          <ng-container *ngIf="control.hasError('pattern')"
+                            >Password must include at least one uppercase and
+                            lowercase letter, number and special
+                            character.</ng-container
+                          >
+                        </ng-template>
+                        <ng-template #passwordSuccess let-control>
+                          <ng-container *ngIf="control.valid">
+                            <i
+                              class="
+                                align-middle
+                                me-2
+                                fas
+                                fa-fw fa-check-circle
+                                badge-soft-success
+                              "
+                            ></i>
+                            <label class="small form-text">
+                              Nice work. This is an excellent password
+                            </label>
+                          </ng-container>
+                        </ng-template>
                       </valor-launchpad-form-item>
                       <div class="text-center mt-3">
                         <button

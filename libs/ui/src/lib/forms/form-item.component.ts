@@ -20,9 +20,21 @@ import { NgControl } from '@angular/forms';
         {{ errTip }}
       </label>
     </ng-container>
+    <ng-container *ngIf="!isSuccessTemplate; else succcessTemplateOutlet">
+      <label
+        *ngIf='valid'
+        class="small form-text">
+        {{ successTip }}
+      </label>
+    </ng-container>
     <ng-template #templateOutlet>
       <div *ngIf='dirtyAndInvalid' class="error small form-text invalid-feedback">
         <ng-container *ngTemplateOutlet="errTip; context: {$implicit: controls.get(0)}"></ng-container>
+      </div>
+    </ng-template>
+    <ng-template #succcessTemplateOutlet>
+      <div *ngIf='valid' class="small form-text">
+        <ng-container *ngTemplateOutlet="successTip; context: {$implicit: controls.get(0)}"></ng-container>
       </div>
     </ng-template>
   `,
@@ -46,14 +58,23 @@ export class FormItemComponent {
     return !!this.controls.toArray().find((i) => (i.dirty || i.touched) && i.invalid);
   }
 
+  get valid(): boolean {
+    return !!this.controls.toArray().find((i) => (i.dirty || i.touched) && i.valid);
+  }
+
   @HostBinding('class.form-floating')
   @Input()
   vlOutlined = false;
 
   @Input() errTip: string | TemplateRef<unknown>;
+  @Input() successTip: string | TemplateRef<unknown>;
   @Input() helpTip: string;
 
   get isTemplate() {
     return this.errTip instanceof TemplateRef;
+  }
+
+  get isSuccessTemplate() {
+    return this.successTip instanceof TemplateRef;
   }
 }

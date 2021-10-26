@@ -14,6 +14,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { PasswordValidator } from '../../core/utils/passwordValidator';
 
 @Component({
   selector: 'valor-launchpad-sign-up',
@@ -32,16 +33,20 @@ export class SignUpComponent implements OnInit {
 
   registerSucceed = false;
 
-  regularPassword: boolean;
+  errorMessage: string;
+
+  passwordControl: AbstractControl;
+
+  standardValidator: boolean;
 
   constructor(
     private authService: AuthService,
     private toastrService: ToastrService
-  ) {
-    this.regularPassword = false;
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.standardValidator = false;
+    this.passwordControl = this.signUpFormGroup.get('password');
     this.signUpFormGroup
       .get('username')
       .valueChanges.pipe(
@@ -59,21 +64,21 @@ export class SignUpComponent implements OnInit {
           this.signUpFormGroup.get('username').setErrors(null);
         }
       });
+  }
 
-    this.signUpFormGroup
-      .get('password')
-      .valueChanges.pipe(
-        map((value) => {
-          const regularExpression =
-            /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-          if (regularExpression.test(value)) {
-            this.regularPassword = true;
-          } else {
-            this.regularPassword = false;
-          }
-        })
-      )
-      .subscribe();
+  openStandardValidator() {
+    this.standardValidator = true;
+    this.passwordControl.setValidators([
+      Validators.required,
+      Validators.pattern(PasswordValidator.regex),
+    ]);
+    this.passwordControl.updateValueAndValidity({ onlySelf: true });
+  }
+
+  closeStandardValidator() {
+    this.standardValidator = false;
+    this.passwordControl.setValidators([Validators.required]);
+    this.passwordControl.updateValueAndValidity({ onlySelf: true });
   }
 
   createUser() {

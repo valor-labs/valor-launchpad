@@ -17,6 +17,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { tap, switchMap } from 'rxjs/operators';
 import { defer } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { PasswordValidator } from '../../core/utils/passwordValidator';
 
 function confirmPasswordValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -50,6 +51,11 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
   resetPasswordformGroup: FormGroup;
   token = '';
   private destroy$ = new Subject();
+
+  standardValidator: boolean;
+
+  passwordControl: AbstractControl;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -66,6 +72,7 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
       confirmPassword: ['', [confirmPasswordValidator()]],
     });
     this.init();
+    this.passwordControl = this.resetPasswordformGroup.get('password');
   }
 
   ngOnDestroy(): void {
@@ -150,5 +157,20 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
           this.toastrService.error(data?.message);
         }
       });
+  }
+
+  openStandardValidator() {
+    this.standardValidator = true;
+    this.passwordControl.setValidators([
+      Validators.required,
+      Validators.pattern(PasswordValidator.regex),
+    ]);
+    this.passwordControl.updateValueAndValidity({ onlySelf: true });
+  }
+
+  closeStandardValidator() {
+    this.standardValidator = false;
+    this.passwordControl.setValidators([Validators.required]);
+    this.passwordControl.updateValueAndValidity({ onlySelf: true });
   }
 }
