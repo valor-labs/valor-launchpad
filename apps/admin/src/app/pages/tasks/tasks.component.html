@@ -1,4 +1,8 @@
-<button valor-launchpad-button class="float-end mt-n1">
+<button
+  valor-launchpad-button
+  class="float-end mt-n1"
+  (click)="openAddTaskModel()"
+>
   <i class="fas fa-plus"></i> New task
 </button>
 <h1 class="h3 mb-3">Tasks</h1>
@@ -24,13 +28,13 @@
         <div
           id="tasks-upcoming"
           cdkDropList
-          [cdkDropListData]="tasks.upcoming"
+          [cdkDropListData]="taskGroup.upcoming"
           (cdkDropListDropped)="onDrop($event)"
         >
           <valor-launchpad-card
             cdkDrag
             class="mb-3 bg-light cursor-grab border"
-            *ngFor="let task of tasks.upcoming"
+            *ngFor="let task of taskGroup.upcoming"
           >
             <valor-launchpad-card-content>
               <div class="float-end mr-n2">
@@ -42,7 +46,7 @@
                   />
                 </label>
               </div>
-              <p>{{ task.brief }}</p>
+              <p>{{ task.desc }}</p>
               <div class="float-end mt-n1">
                 <img
                   [src]="task.user.avatar"
@@ -52,13 +56,21 @@
                   alt="Avatar"
                 />
               </div>
-              <button valor-launchpad-button size="sm">View</button>
+              <button
+                valor-launchpad-button
+                size="sm"
+                (click)="openViewTaskModel(task)"
+              >
+                View
+              </button>
             </valor-launchpad-card-content>
           </valor-launchpad-card>
         </div>
 
         <div class="d-grid">
-          <button valor-launchpad-button>Add new task</button>
+          <button valor-launchpad-button (click)="openAddTaskModel('UPCOMING')">
+            Add new task
+          </button>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
@@ -83,13 +95,13 @@
         <div
           id="tasks-progress"
           cdkDropList
-          [cdkDropListData]="tasks.inprogress"
+          [cdkDropListData]="taskGroup.inprogress"
           (cdkDropListDropped)="onDrop($event)"
         >
           <valor-launchpad-card
             cdkDrag
             class="mb-3 bg-light cursor-grab border"
-            *ngFor="let task of tasks.inprogress"
+            *ngFor="let task of taskGroup.inprogress"
           >
             <valor-launchpad-card-content>
               <div class="float-end mr-n2">
@@ -101,7 +113,7 @@
                   />
                 </label>
               </div>
-              <p>{{ task.brief }}</p>
+              <p>{{ task.desc }}</p>
               <div class="float-end mt-n1">
                 <img
                   [src]="task.user.avatar"
@@ -111,13 +123,24 @@
                   alt="Avatar"
                 />
               </div>
-              <button valor-launchpad-button size="sm">View</button>
+              <button
+                valor-launchpad-button
+                size="sm"
+                (click)="openViewTaskModel(task)"
+              >
+                View
+              </button>
             </valor-launchpad-card-content>
           </valor-launchpad-card>
         </div>
 
         <div class="d-grid">
-          <button valor-launchpad-button>Add new task</button>
+          <button
+            valor-launchpad-button
+            (click)="openAddTaskModel('IN_PROGRESS')"
+          >
+            Add new task
+          </button>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
@@ -142,13 +165,13 @@
         <div
           id="tasks-completed"
           cdkDropList
-          [cdkDropListData]="tasks.completed"
+          [cdkDropListData]="taskGroup.completed"
           (cdkDropListDropped)="onDrop($event)"
         >
           <valor-launchpad-card
             cdkDrag
             class="mb-3 bg-light cursor-grab border"
-            *ngFor="let task of tasks.completed"
+            *ngFor="let task of taskGroup.completed"
           >
             <valor-launchpad-card-content>
               <div class="float-end mr-n2">
@@ -157,10 +180,11 @@
                     type="checkbox"
                     class="form-check-input"
                     aria-label="completed"
+                    checked="true"
                   />
                 </label>
               </div>
-              <p>{{ task.brief }}</p>
+              <p>{{ task.desc }}</p>
               <div class="float-end mt-n1">
                 <img
                   [src]="task.user.avatar"
@@ -170,15 +194,113 @@
                   alt="Avatar"
                 />
               </div>
-              <button valor-launchpad-button size="sm">View</button>
+              <button
+                valor-launchpad-button
+                size="sm"
+                (click)="openViewTaskModel(task)"
+              >
+                View
+              </button>
             </valor-launchpad-card-content>
           </valor-launchpad-card>
         </div>
 
         <div class="d-grid">
-          <button valor-launchpad-button>Add new task</button>
+          <button
+            valor-launchpad-button
+            (click)="openAddTaskModel('COMPLETED')"
+          >
+            Add new task
+          </button>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>
   </div>
 </div>
+
+<valor-launchpad-modal
+  bsModal
+  #taskModal="bs-modal"
+  heading="Add Task"
+  [footer]="taskFooterTmpl"
+  [content]="taskContentTmpl"
+>
+  <ng-template #taskFooterTmpl>
+    <button
+      valor-launchpad-button
+      theme="secondary"
+      (click)="cancelTaskModel()"
+    >
+      Cancel
+    </button>
+    <button
+      *ngIf="modelType === 'Edit' || modelType === 'Add'"
+      valor-launchpad-button
+      theme="primary"
+      [disabled]="
+        taskFormGroup.invalid || (modelType === 'Edit' && !taskFormGroup.dirty)
+      "
+      (click)="submitTaskModel()"
+    >
+      Save
+    </button>
+    <button
+      *ngIf="modelType === 'View' && false"
+      valor-launchpad-button
+      theme="primary"
+      [disabled]="taskFormGroup.invalid"
+      (click)="editTask()"
+    >
+      Edit
+    </button>
+    <button
+      *ngIf="modelType === 'View'"
+      valor-launchpad-button
+      theme="primary"
+      [disabled]="taskFormGroup.invalid"
+      (click)="deleteTask()"
+    >
+      Delete
+    </button>
+  </ng-template>
+  <ng-template #taskContentTmpl>
+    <form [formGroup]="taskFormGroup">
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label [required]="true"
+          >Title</valor-launchpad-form-label
+        >
+        <input
+          valorLaunchpadInput
+          formControlName="title"
+          placeholder="Enter title"
+        />
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label [required]="true"
+          >Desc</valor-launchpad-form-label
+        >
+        <textarea
+          valorLaunchpadInput
+          rows="2"
+          placeholder="Enter desc"
+          formControlName="desc"
+        ></textarea>
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label [required]="true"
+          >Status</valor-launchpad-form-label
+        >
+        <select
+          class="form-select mb-3"
+          formControlName="taskStatus"
+          placeholder="Select status"
+          readonly
+        >
+          <option *ngFor="let type of taskTypes" [value]="type">
+            {{ getTaskTypeLabel(type) }}
+          </option>
+        </select>
+      </valor-launchpad-form-item>
+    </form>
+  </ng-template>
+</valor-launchpad-modal>

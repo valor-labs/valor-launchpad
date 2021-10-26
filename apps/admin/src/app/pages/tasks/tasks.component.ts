@@ -1,34 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Action } from '@valor-launchpad/api-interfaces';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-
-interface Tasks {
-  upcoming: Task[];
-  inprogress: Task[];
-  completed: Task[];
-}
-
-interface Task {
-  id: number;
-  brief: string;
-  user: { avatar: string; id: number };
-}
+import {
+  TasksService,
+  TaskType,
+  TaskGroup,
+  taskGroupMapping,
+  TaskModelType,
+} from './tasks.service';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { TaskEntity } from '@valor-launchpad/common-api';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'valor-launchpad-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
 })
-export class TasksComponent implements OnInit {
-  tasks: Tasks = {
-    upcoming: [],
-    inprogress: [],
-    completed: [],
-  };
+export class TasksComponent implements OnInit, OnDestroy {
+  constructor(
+    private tasksService: TasksService,
+    private fb: FormBuilder,
+    private toastrService: ToastrService
+  ) {}
+  tasks$: BehaviorSubject<TaskEntity[]> = new BehaviorSubject([]);
+  taskGroup: TaskGroup;
+  private destroy$ = new Subject();
+  taskFormGroup: FormGroup = this.fb.group({
+    title: ['', Validators.required],
+    desc: ['', Validators.required],
+    taskStatus: ['', Validators.required],
+  });
+  taskTypes = Object.values(taskGroupMapping);
+  currentTask: TaskEntity;
+  modelType: TaskModelType = TaskModelType.Edit;
 
   upComingActions: Action[] = [
     {
@@ -57,7 +69,42 @@ export class TasksComponent implements OnInit {
     { label: 'Something else here', link: '#' },
   ];
 
-  onDrop(event: CdkDragDrop<Task[]>) {
+  @ViewChild('taskModal') taskModal: ModalDirective;
+
+  ngOnInit() {
+    this.loadTasks();
+    this.trackTaskGroup();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  trackTaskGroup() {
+    this.tasks$.pipe(takeUntil(this.destroy$)).subscribe((tasks) => {
+      this.taskGroup = {
+        upcoming: tasks.filter((task) => task.taskStatus === TaskType.UPCOMING),
+        inprogress: tasks.filter(
+          (task) => task.taskStatus === TaskType.IN_PROGRESS
+        ),
+        completed: tasks.filter(
+          (task) => task.taskStatus === TaskType.COMPLETED
+        ),
+      };
+    });
+  }
+
+  loadTasks() {
+    this.tasksService
+      .getTasks()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((tasks: TaskEntity[]) => {
+        this.tasks$.next(tasks);
+      });
+  }
+
+  onDrop(event: CdkDragDrop<TaskEntity[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -72,88 +119,150 @@ export class TasksComponent implements OnInit {
         event.currentIndex
       );
     }
+    if (
+      event.container.id !== event.previousContainer.id ||
+      event.currentIndex !== event.previousIndex
+    ) {
+      const updatedTasks = this.prepareUpdatedTasks(event);
+      this.tasksService
+        .updateTasks(updatedTasks)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(({ success, tasks, message }) => {
+          if (success) {
+            this.toastrService.success(message);
+            this.tasks$.next(tasks);
+          } else {
+            this.toastrService.error(message);
+          }
+        });
+    }
   }
 
-  ngOnInit() {
-    this.tasks.upcoming.push({
-      id: 1,
-      brief:
-        'Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada.',
-      user: { id: 1, avatar: 'assets/img/avatars/avatar.jpg' },
-    });
-    this.tasks.upcoming.push({
-      id: 2,
-      brief:
-        'Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,ipsum.',
-      user: { id: 2, avatar: 'assets/img/avatars/avatar-2.jpg' },
-    });
-    this.tasks.upcoming.push({
-      id: 3,
-      brief:
-        'Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolorsagittis.',
-      user: { id: 3, avatar: 'assets/img/avatars/avatar-3.jpg' },
-    });
-    this.tasks.upcoming.push({
-      id: 4,
-      brief:
-        'In hac habitasse platea dictumst. Curabitur at lacus ac velit ornare lobortis. Curabitur a felistristique.',
-      user: { id: 4, avatar: 'assets/img/avatars/avatar-4.jpg' },
-    });
-    this.tasks.upcoming.push({
-      id: 5,
-      brief:
-        'Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,ipsum.',
-      user: { id: 2, avatar: 'assets/img/avatars/avatar-3.jpg' },
-    });
+  prepareUpdatedTasks(event: CdkDragDrop<TaskEntity[]>): TaskEntity[] {
+    let updateTasks = [
+      ...event.container.data.map((task: TaskEntity, taskIndex) => {
+        return {
+          ...task,
+          taskIndex,
+          taskStatus: taskGroupMapping[event.container.id],
+        };
+      }),
+    ];
 
-    this.tasks.inprogress.push({
-      id: 1,
-      brief:
-        'Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada.',
-      user: { id: 1, avatar: 'assets/img/avatars/avatar.jpg' },
-    });
-    this.tasks.inprogress.push({
-      id: 2,
-      brief:
-        'In hac habitasse platea dictumst. Curabitur at lacus ac velit ornare lobortis. Curabitur a felistristique.',
-      user: { id: 4, avatar: 'assets/img/avatars/avatar-4.jpg' },
-    });
-    this.tasks.inprogress.push({
-      id: 3,
-      brief:
-        'Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,ipsum.',
-      user: { id: 2, avatar: 'assets/img/avatars/avatar-2.jpg' },
-    });
+    if (event.previousContainer.id !== event.container.id) {
+      updateTasks = [
+        ...updateTasks,
+        ...event.previousContainer.data.map((task: TaskEntity, taskIndex) => {
+          return {
+            ...task,
+            taskIndex,
+          };
+        }),
+      ];
+    }
+    return updateTasks;
+  }
 
-    this.tasks.completed.push({
-      id: 1,
-      brief:
-        'Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,ipsum.',
-      user: { id: 2, avatar: 'assets/img/avatars/avatar-2.jpg' },
+  openAddTaskModel(taskStatus?) {
+    this.modelType = TaskModelType.Add;
+    this.taskFormGroup.reset();
+    this.taskFormGroup.enable();
+    if (taskStatus) {
+      this.taskFormGroup.get('taskStatus').setValue(taskStatus);
+      this.taskFormGroup.get('taskStatus').disable();
+    }
+    this.taskModal.show();
+  }
+
+  openViewTaskModel(task: TaskEntity) {
+    const { title, desc, taskStatus } = task;
+
+    this.currentTask = task;
+    this.modelType = TaskModelType.View;
+    this.taskFormGroup.patchValue({
+      title,
+      desc,
+      taskStatus,
     });
-    this.tasks.completed.push({
-      id: 2,
-      brief:
-        'Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolorsagittis.',
-      user: { id: 4, avatar: 'assets/img/avatars/avatar-4.jpg' },
-    });
-    this.tasks.completed.push({
-      id: 3,
-      brief:
-        'Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada.',
-      user: { id: 3, avatar: 'assets/img/avatars/avatar-3.jpg' },
-    });
-    this.tasks.completed.push({
-      id: 4,
-      brief:
-        'Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolorsagittis.',
-      user: { id: 1, avatar: 'assets/img/avatars/avatar.jpg' },
-    });
-    this.tasks.completed.push({
-      id: 5,
-      brief:
-        'In hac habitasse platea dictumst. Curabitur at lacus ac velit ornare lobortis. Curabitur a felistristique.',
-      user: { id: 3, avatar: 'assets/img/avatars/avatar-3.jpg' },
-    });
+    this.taskFormGroup.disable();
+    this.taskModal.show();
+  }
+
+  openTaskModel(taskStatus?) {
+    this.taskFormGroup.reset();
+    if (taskStatus) {
+      this.taskFormGroup.get('taskStatus').setValue(taskStatus);
+      this.taskFormGroup.get('taskStatus').disable();
+    }
+    this.taskModal.show();
+  }
+
+  editTask() {
+    if (this.modelType !== TaskModelType.View) return;
+
+    this.modelType = TaskModelType.Edit;
+    this.taskFormGroup.enable();
+  }
+
+  deleteTask() {
+    this.tasksService
+      .deleteTask(this.currentTask)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({ success, tasks, message }) => {
+        if (success) {
+          this.toastrService.success(message);
+          this.tasks$.next(tasks);
+        } else {
+          this.toastrService.error(message);
+        }
+
+        this.taskModal.hide();
+      });
+  }
+
+  getTaskTypeLabel(type: string) {
+    return type
+      .toLowerCase()
+      .replace(/^\S/, (s) => s.toUpperCase())
+      .replace('_', ' ');
+  }
+
+  cancelTaskModel() {
+    this.taskFormGroup.reset();
+    this.taskModal.hide();
+  }
+
+  submitTaskModel() {
+    this.taskModal.hide();
+    this.taskFormGroup.enable();
+    const task = this.taskFormGroup.value;
+
+    if (this.modelType === TaskModelType.Add) {
+      this.tasksService
+        .createTasks(task)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(({ success, tasks, message }) => {
+          if (success) {
+            this.toastrService.success(message);
+            this.tasks$.next([...this.tasks$.value, ...tasks]);
+          } else {
+            this.toastrService.error(message);
+          }
+        });
+    } else if (
+      //TODO
+      this.modelType === TaskModelType.Edit
+    ) {
+      this.tasksService
+        .updateTasks([
+          {
+            ...this.currentTask,
+            ...task,
+          },
+        ])
+        .subscribe();
+    }
+
+    this.taskFormGroup.reset();
   }
 }

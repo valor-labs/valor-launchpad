@@ -240,6 +240,9 @@ Table UserEntity {
   appointments Appointment [not null]
   CommentUserLike CommentUserLike [not null]
   notifications Notification [not null]
+  userTasks TaskEntity [not null]
+  userTasksCreatedBy TaskEntity [not null]
+  userTasksDeletedBy TaskEntity [not null]
 }
 
 Table UserEventsEntity {
@@ -548,6 +551,23 @@ Table Notification {
   user UserEntity [not null]
 }
 
+Table TaskEntity {
+  id String [pk]
+  userId String [not null]
+  taskIndex Int [not null]
+  title String [not null]
+  desc String [not null]
+  taskStatus TaskType [not null]
+  createdDate DateTime [default: `now()`, not null]
+  updatedDate DateTime
+  deletedDate DateTime
+  createdBy String
+  deletedBy String
+  user UserEntity [not null]
+  createUser UserEntity
+  deleteUser UserEntity
+}
+
 Enum ProjectStatus {
   IN_PROGRESS
   FINISHED
@@ -571,6 +591,12 @@ Enum NotificationType {
   COMMENT
   REPLY_COMMENT
   LIKE_COMMENT
+}
+
+Enum TaskType {
+  UPCOMING
+  IN_PROGRESS
+  COMPLETED
 }
 
 Ref: ActivityEntity.parentId - ActivityEntity.id
@@ -660,3 +686,9 @@ Ref: AnalyticByLanguage.languageId > Language.id
 Ref: Appointment.userId > UserEntity.id
 
 Ref: Notification.userId > UserEntity.id
+
+Ref: TaskEntity.userId > UserEntity.id
+
+Ref: TaskEntity.createdBy > UserEntity.id
+
+Ref: TaskEntity.deletedBy > UserEntity.id

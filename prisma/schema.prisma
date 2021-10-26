@@ -259,6 +259,9 @@ model UserEntity {
   appointments             Appointment[]            @relation("AppointmentUser")
   CommentUserLike          CommentUserLike[]        @relation("commentUserLikeUser")
   notifications            Notification[]           @relation("NotificationUser")
+  userTasks                TaskEntity[]             @relation("UserTasks")
+  userTasksCreatedBy       TaskEntity[]             @relation("UserTaskCreatedBy")
+  userTasksDeletedBy       TaskEntity[]             @relation("UserTaskDeletedBy")
 }
 
 model UserEventsEntity {
@@ -582,4 +585,28 @@ model Notification {
   deletedDate DateTime?        @db.DateTime(6)
 
   user UserEntity @relation("NotificationUser", fields: [userId], references: [id])
+}
+
+enum TaskType {
+  UPCOMING
+  IN_PROGRESS
+  COMPLETED
+}
+
+model TaskEntity {
+  id            String      @id @default(uuid()) @db.VarChar(36)
+  userId        String      @db.VarChar(36)
+  taskIndex     Int         @db.Int
+  title         String      @db.VarChar(255)
+  desc          String      @db.VarChar(1023)
+  taskStatus    TaskType
+  createdDate   DateTime    @default(now()) @db.DateTime(6)
+  updatedDate   DateTime?   @db.DateTime(6)
+  deletedDate   DateTime?   @db.DateTime(6)
+  createdBy     String?     @db.VarChar(36)
+  deletedBy     String?     @db.VarChar(36)
+
+  user          UserEntity  @relation("UserTasks", fields: [userId], references: [id])
+  createUser    UserEntity? @relation("UserTaskCreatedBy", fields: [createdBy], references: [id])
+  deleteUser    UserEntity? @relation("UserTaskDeletedBy", fields: [deletedBy], references: [id])
 }
