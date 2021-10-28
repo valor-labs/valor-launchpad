@@ -33,9 +33,9 @@ import { WrapperComponent } from './wrapper/wrapper.component';
 import { CheckboxGroupComponent } from './checkbox-group/checkbox-group.component';
 import { StepsComponent } from './wizard/steps/steps.component';
 import { StepComponent } from './wizard/step/step.component';
-import {AlertModule} from "ngx-bootstrap/alert";
+import { AlertModule } from 'ngx-bootstrap/alert';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import {ProgressbarModule} from "ngx-bootstrap/progressbar";
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { RadioComponent } from './radio/radio.component';
 import { RadioGroupComponent } from './radio/radio-group.component';
 import { SwitchComponent } from './switch/switch.component';
@@ -60,25 +60,49 @@ import { EditorSlateComponent } from './editor-slate/editor-slate.component';
 import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
 import { SlateModule } from 'slate-angular';
 import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
-import { CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective } from './card';
-import {RouterModule} from '@angular/router';
+import {
+  CardComponent,
+  CardHeaderComponent,
+  CardTitleDirective,
+  CardContentDirective,
+  CardImageDirective,
+  CardSubTitleDirective,
+} from './card';
+import { RouterModule } from '@angular/router';
 import { DropdownMegaMenuComponent } from './dropdown/dropdown-mega-menu/dropdown-mega-menu.component';
 import { DropdownActionsMenuComponent } from './dropdown/dropdown-actions-menu/dropdown-actions-menu.component';
 import { DropdownActionComponent } from './dropdown/dropdown-action/dropdown-action.component';
-import {NOTYFToken, notyfFactory} from "./notyf";
+import { NOTYFToken, notyfFactory } from './notyf';
 import { FormLabelComponent } from './forms/form-label.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { TypographyDirective } from './typography/typography.directive';
 import { CreasePipe } from './pipe/crease.pipe';
 import { PercentBadgeComponent } from './badge/percent-badge/percent-badge.component';
 import { ValorImagePipe } from './pipe/valor-image.pipe';
+import { TimeAgoPipe } from './pipe/time-ago.pipe';
+import { FullNamePipe } from './pipe/full-name.pipe';
 
-const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardContentDirective, CardImageDirective, CardSubTitleDirective];
+const cardPart = [
+  CardComponent,
+  CardHeaderComponent,
+  CardTitleDirective,
+  CardContentDirective,
+  CardImageDirective,
+  CardSubTitleDirective,
+];
 
 @NgModule({
-  imports: [CommonModule, RouterModule,
-    AlertModule, PaginationModule, ProgressbarModule, TabsModule,
-    ReactiveFormsModule, FormsModule, SlateModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    AlertModule,
+    PaginationModule,
+    ProgressbarModule,
+    TabsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SlateModule,
+  ],
   declarations: [
     AccordionComponent,
     AlertComponent,
@@ -144,6 +168,8 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     CreasePipe,
     ValorImagePipe,
     PercentBadgeComponent,
+    TimeAgoPipe,
+    FullNamePipe,
   ],
   exports: [
     TabsModule,
@@ -186,10 +212,10 @@ const cardPart = [CardComponent, CardHeaderComponent, CardTitleDirective, CardCo
     TypographyDirective,
     CreasePipe,
     ValorImagePipe,
-    PercentBadgeComponent
+    PercentBadgeComponent,
+    TimeAgoPipe,
+    FullNamePipe,
   ],
-  providers: [
-    { provide: NOTYFToken, useFactory: notyfFactory }
-  ]
+  providers: [{ provide: NOTYFToken, useFactory: notyfFactory }],
 })
 export class UiModule {}

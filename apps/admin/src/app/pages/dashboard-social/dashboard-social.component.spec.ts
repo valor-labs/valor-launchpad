@@ -6,7 +6,6 @@ import { SocialActivityComponent } from './social-activity/social-activity.compo
 import { SocialStoryComponent } from './social-story/social-story.component';
 import { environment } from '../../../environments/environment';
 import { HttpModule } from '@valor-launchpad/http';
-import { TimeAgoPipe } from './time-ago.pipe';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule } from 'ngx-toastr';
@@ -31,7 +30,6 @@ describe('DashboardSocialComponent', () => {
         DashboardSocialComponent,
         SocialActivityComponent,
         SocialStoryComponent,
-        TimeAgoPipe,
       ],
     }).compileComponents();
   });

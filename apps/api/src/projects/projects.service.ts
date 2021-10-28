@@ -111,26 +111,6 @@ export class ProjectsService {
             },
           },
         },
-        comments: {
-          include: {
-            author: {
-              include: {
-                profile: true,
-                avatar: { select: { src: true, alt: true } },
-              },
-            },
-            children: {
-              include: {
-                author: {
-                  include: {
-                    profile: true,
-                    avatar: { select: { src: true, alt: true } },
-                  },
-                },
-              },
-            },
-          },
-        },
       },
     });
   }
