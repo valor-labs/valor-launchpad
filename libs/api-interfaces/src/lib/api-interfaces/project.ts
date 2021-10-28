@@ -59,4 +59,8 @@ export interface ProjectDetailVo extends ProjectListItemVo {
       status: string;
     };
   };
+  earnings: {
+      [key: string]: string[]|number[]
+  }
+
 }
