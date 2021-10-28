@@ -8,7 +8,7 @@ export class MediaService {
   updateProfileImg(originImagePath, webpImagePath, alt, imageType, profileId) {
     return this.prisma.mediaAsset.upsert({
       where: {
-        profile_alt_unique_constraint: { profile_id: profileId, alt: alt },
+        profile_id: profileId
       },
       update: { src: originImagePath, src_webp: webpImagePath },
       create: {
@@ -16,11 +16,7 @@ export class MediaService {
         src: originImagePath,
         alt: alt,
         src_webp: webpImagePath,
-        profile: {
-          connect: {
-            id: profileId,
-          },
-        },
+        profile_id: profileId
       },
     });
   }

@@ -57,13 +57,13 @@
           <ng-container *ngIf="followings.length > 0; else emptyFollowings">
             <ng-container *ngFor="let item of followings; index as i">
               <div class="d-flex align-items-start">
-                <img
-                  [src]="item.avatar.src"
-                  width="56"
-                  height="56"
-                  class="rounded-circle me-2"
-                  [alt]="item.avatar.alt"
-                />
+<!--                <img-->
+<!--                  [src]="item.avatar.src"-->
+<!--                  width="56"-->
+<!--                  height="56"-->
+<!--                  class="rounded-circle me-2"-->
+<!--                  [alt]="item.avatar.alt"-->
+<!--                />-->
                 <div class="flex-grow-1">
                   <p class="my-1">
                     <strong>{{ item.firstName + item.lastName }}</strong>
