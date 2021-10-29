@@ -16,7 +16,7 @@ export class SignInComponent implements OnInit {
   public isFirstLogin: boolean;
   public errorMessage: string;
   public isAlertOpen: boolean;
-  public loading:boolean;
+  public loading: boolean;
 
   constructor(
     private signInService: SignInService,
@@ -42,21 +42,20 @@ export class SignInComponent implements OnInit {
   }
 
   async signIn(form) {
-    this.loading=true;
+    this.loading = true;
     (await this.signInService.login(form.value)).subscribe(
       (res) => {
         if (res?.message === 'Unauthorized') {
           this.errorMessage = 'Incorrect username or password';
           this.isAlertOpen = true;
         }
-        this.loading=false;
+        this.loading = false;
       },
       (err) => {
         this.errorMessage = err;
-        this.loading=false;
+        this.loading = false;
       }
     );
-   
   }
 
   onClose(event) {
