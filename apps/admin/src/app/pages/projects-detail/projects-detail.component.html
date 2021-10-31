@@ -116,52 +116,49 @@
         <!--          TODO: pluralize the comments string-->
         <!--        TODO: Have something for no comments-->
         <h5 valor-launchpad-card-title class="mb-0">
-          Comments ({{ project?.comments?.length }})
+          Comments ({{ comments?.length ?? 0 }})
         </h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <!--TODO add HR after each of these but last one-->
-        <div
-          class="d-flex align-items-start"
-          *ngFor="let comment of project?.comments"
-        >
-          <valor-launchpad-avatar
-            size="xl"
-            [src]="comment?.author?.avatar?.src"
-            classes="me-3"
-            [alt]="comment?.author?.avatar?.alt"
-          ></valor-launchpad-avatar>
-          <div class="flex-grow-1">
-            <small class="float-end">45m ago</small>
-            <p class="mb-2">
-              <strong>{{ comment?.author?.firstName }}</strong>
-            </p>
-            <p [innerHTML]="comment.body"></p>
-            <!--              TODO: Make this say 'today' or 'yesterday' when appropriate-->
-            <small class="text-muted">{{
-              comment?.timestamp | date: 'short'
-            }}</small
-            ><br />
-            <div
-              class="d-flex align-items-start mt-3"
-              *ngFor="let child of comment?.children"
+        <valor-launchpad-comment-list
+          #commentList
+          [comments]="comments"
+          (reply)="bodyInput.focus()"
+          (like)="onLikeComment($event.id)"
+          (unlike)="onUnlikeComment($event.id)"
+          (delete)="onDeleteComment($event.id)"
+        ></valor-launchpad-comment-list>
+        <div class="mt-4">
+          <valor-launchpad-form-label>
+            <span>Reply </span>
+            <span
+              valor-launchpad-badge
+              theme="secondary"
+              *ngIf="commentList.replyingComment"
+              style="position: relative"
             >
-              <a class="pe-2" href="#">
-                <valor-launchpad-avatar
-                  size="md"
-                  [src]="child?.author?.avatar?.src"
-                  classes="me-2"
-                  [alt]="child?.author?.avatar?.alt"
-                ></valor-launchpad-avatar>
-              </a>
-              <div class="flex-grow-1">
-                <p class="text-muted">
-                  <strong>{{ child?.author?.firstName }}</strong
-                  >: {{ child.body }}
-                  <!--                    TODO: we need to add some time around these as well-->
-                </p>
-              </div>
-            </div>
+              to {{ commentList.replyingComment.author | fullName }}
+              <i
+                class="fas fa-times-circle cursor-pointer"
+                (click)="commentList.resetReply()"
+              ></i>
+            </span>
+          </valor-launchpad-form-label>
+          <textarea
+            valorLaunchpadInput
+            ngModel
+            #bodyInput
+            #bodyControl="ngModel"
+          ></textarea>
+          <div class="d-flex justify-content-end mt-2">
+            <button
+              valor-launchpad-button
+              (click)="onCreateComment(bodyControl, commentList)"
+              [loading]="creatingComment"
+            >
+              <i class="far fa-fw fa-paper-plane"></i>
+              Send
+            </button>
           </div>
         </div>
       </valor-launchpad-card-content>

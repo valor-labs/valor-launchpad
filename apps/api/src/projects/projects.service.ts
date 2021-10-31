@@ -55,7 +55,9 @@ export class ProjectsService {
         hero: true,
         assignee: {
           select: {
-            user: true,
+            user: {
+              include: { avatar: true },
+            },
           },
         },
       },
@@ -93,6 +95,7 @@ export class ProjectsService {
             user: {
               include: {
                 profile: true,
+                avatar: { select: { src: true, alt: true } },
               },
             },
           },
@@ -103,24 +106,7 @@ export class ProjectsService {
             reporter: {
               include: {
                 profile: true,
-              },
-            },
-          },
-        },
-        comments: {
-          include: {
-            author: {
-              include: {
-                profile: true,
-              },
-            },
-            children: {
-              include: {
-                author: {
-                  include: {
-                    profile: true,
-                  },
-                },
+                avatar: { select: { src: true, alt: true } },
               },
             },
           },

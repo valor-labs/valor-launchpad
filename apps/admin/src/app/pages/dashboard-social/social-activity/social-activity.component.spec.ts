@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SocialActivityComponent } from './social-activity.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ISocialActivityItem } from '../dashboard-social.model';
-import { TimeAgoPipe } from '../time-ago.pipe';
+import { UiModule } from '@valor-launchpad/ui';
 
 const MOCK_ACTIVITY: ISocialActivityItem = {
   storyId: 'storyId',
@@ -31,8 +31,8 @@ describe('SocialActivityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [SocialActivityComponent, TimeAgoPipe],
+      imports: [RouterTestingModule, UiModule],
+      declarations: [SocialActivityComponent],
     }).compileComponents();
   });
 

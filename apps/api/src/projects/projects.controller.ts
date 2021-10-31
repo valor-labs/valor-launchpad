@@ -16,11 +16,17 @@ import { ProjectCreateDto } from './dto/project-create-dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageUploaderUtility } from '../media/imageUploader.utility';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
+import { User } from '@valor-launchpad/users-api';
+import { CreateProjectCommentDto } from './dto/create-project-comment.dto';
+import { CommentService } from './services/comment.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('v1')
 export class ProjectsController {
-  constructor(private projectsService: ProjectsService) {}
+  constructor(
+    private projectsService: ProjectsService,
+    private commentService: CommentService
+  ) {}
 
   @Delete(':id')
   async deleteProject(@Param('id') id: string) {
@@ -63,5 +69,43 @@ export class ProjectsController {
     } else {
       throw new NotFoundException();
     }
+  }
+
+  /**
+   * fetch all comments under one project
+   */
+  @Get(':id/comments')
+  async getComments(@Param('id') projectId: string, @User() actingUser) {
+    return this.commentService.getComments(projectId, actingUser);
+  }
+
+  @Post(':id/comments')
+  async createComments(
+    @User() actingUser,
+    @Body() commentDto: CreateProjectCommentDto,
+    @Param('id') projectId: string
+  ) {
+    return this.commentService.createComment(projectId, commentDto, actingUser);
+  }
+
+  @Delete(':id/comments/:commentId')
+  async deleteComments(
+    @User() actingUser,
+    @Param('commentId') commentId: string
+  ) {
+    return this.commentService.deleteComment(commentId, actingUser);
+  }
+
+  @Post('comments/:commentId/like')
+  async likeComment(@User() actingUser, @Param('commentId') commentId: string) {
+    return this.commentService.likeComment(commentId, actingUser);
+  }
+
+  @Delete('comments/:commentId/like')
+  async unlikeComment(
+    @User() actingUser,
+    @Param('commentId') commentId: string
+  ) {
+    return this.commentService.unlikeComment(commentId, actingUser);
   }
 }

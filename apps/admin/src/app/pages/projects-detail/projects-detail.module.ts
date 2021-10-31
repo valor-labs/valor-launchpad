@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { ProjectsDetailRoutingModule } from './projects-detail-routing.module';
 import { ProjectsDetailComponent } from './projects-detail.component';
-import { UiModule } from '@valor-launchpad/ui';
+import { CommentModule, UiModule } from '@valor-launchpad/ui';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ProjectsDetailComponent],
@@ -13,6 +14,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     ProjectsDetailRoutingModule,
     UiModule,
     BsDropdownModule.forRoot(),
+    CommentModule,
+    FormsModule,
   ],
 })
 export class ProjectsDetailModule {}

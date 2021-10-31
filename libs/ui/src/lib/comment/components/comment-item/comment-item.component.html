@@ -1,0 +1,54 @@
+<valor-launchpad-avatar
+  [src]="comment.author?.avatar?.src"
+  [alt]="comment.author?.avatar?.alt"
+  [size]="dense ? 'md' : 'xl'"
+></valor-launchpad-avatar>
+<div class="flex-grow-1">
+  <ng-container *ngIf="!dense; else denseTmpl">
+    <small class="float-end">{{ comment.createdDate | timeAgo }}</small>
+    <p class="mb-2">
+      <strong>{{ comment.author | fullName }}</strong>
+    </p>
+    <p class="comment-body">{{ comment.body }}</p>
+  </ng-container>
+
+  <ng-template #denseTmpl>
+    <p class="text-muted mb-1 comment-body">
+      <strong>{{ comment.author | fullName }}</strong>
+      : {{ comment.body }}
+    </p>
+  </ng-template>
+
+  <div class="d-flex justify-content-between">
+    <!--    TODO: Make this say 'today' or 'yesterday' when appropriate-->
+    <small class="text-muted">{{ comment.createdDate | date: 'short' }}</small>
+    <div>
+      <i
+        class="fas fa-fw fa-reply cursor-pointer text-primary ms-2"
+        (click)="reply.emit(comment)"
+        *ngIf="!dense"
+      ></i>
+      <i
+        class="fa-fw fa-heart cursor-pointer ms-2 text-danger"
+        [class.far]="!comment.liked"
+        [class.fas]="comment.liked"
+        (click)="onLikeOrUnlike()"
+        *ngIf="!dense"
+      ></i>
+      <i
+        *ngIf="comment.deletable"
+        class="far fa-fw fa-trash-alt cursor-pointer text-muted ms-2"
+        (click)="delete.emit(comment)"
+      ></i>
+    </div>
+  </div>
+
+  <valor-launchpad-comment-item
+    [dense]="true"
+    class="mt-3"
+    *ngFor="let subComment of comment.children"
+    [comment]="subComment"
+    (reply)="reply.emit(subComment)"
+    (delete)="delete.emit(subComment)"
+  ></valor-launchpad-comment-item>
+</div>

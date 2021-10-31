@@ -4,7 +4,6 @@ import { SocialStoryComponent } from './social-story.component';
 import { HttpModule } from '@valor-launchpad/http';
 import { environment } from '../../../../environments/environment';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TimeAgoPipe } from '../time-ago.pipe';
 import { IStory } from '../dashboard-social.model';
 import { UiModule } from '@valor-launchpad/ui';
 
@@ -35,7 +34,7 @@ describe('DashboardSocialStoryComponent', () => {
         HttpClientTestingModule,
         UiModule,
       ],
-      declarations: [SocialStoryComponent, TimeAgoPipe],
+      declarations: [SocialStoryComponent],
     }).compileComponents();
   });
 
