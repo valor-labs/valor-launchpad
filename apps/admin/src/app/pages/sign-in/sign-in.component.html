@@ -81,8 +81,15 @@
                         type="submit"
                         class="btn btn-lg btn-primary"
                         data-id="sign-in-button"
+                        [disabled]="loading"
                       >
-                        Sign in
+                        <valor-launchpad-spinner
+                          *ngIf="loading"
+                          class="me-2"
+                          theme="light"
+                          size="sm"
+                        ></valor-launchpad-spinner>
+                        {{ loading ? 'loading' : 'Sign in' }}
                       </button>
                     </div>
                   </form>
