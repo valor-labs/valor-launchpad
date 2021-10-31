@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Media } from '@api/projects';
+import { ProfileService } from '../../profile/profile.service';
 
 // const defaultSrc = 'assets/img/avatars/avatar.jpg';
 
@@ -7,10 +9,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './avatar-selector.component.html',
   styleUrls: ['./avatar-selector.component.scss'],
 })
-export class AvatarSelectorComponent {
-  @Output() selectImage = new EventEmitter<File>();
+export class AvatarSelectorComponent implements OnInit {
+  previewSrc = null;
+  $profile = this.profileService.getProfile();
 
-  @Input() previewSrc: any;
+  constructor(private profileService: ProfileService) {}
+
+  ngOnInit() {}
+
+  @Output() selectImage = new EventEmitter<File>();
 
   triggerFilePicker(input: HTMLInputElement) {
     input.click();

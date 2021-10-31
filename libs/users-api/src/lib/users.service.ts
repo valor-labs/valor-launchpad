@@ -677,7 +677,11 @@ export class UsersService {
         username
       },
       include: {
-        profile: true,
+        profile: {
+          include: {
+            avatar: true
+          }
+        },
         userRoles: {
           include: {
             rolesEntity: true

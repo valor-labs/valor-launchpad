@@ -3,6 +3,7 @@ import { SignInService } from './sign-in.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { MediaEntity } from '@valor-launchpad/common-api';
 
 @Component({
   selector: 'valor-launchpad-sign-in',
@@ -11,9 +12,11 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class SignInComponent implements OnInit {
   public userName: string;
-  public avatar: string;
+  firstName: string;
+  lastName: string;
+  public avatar: MediaEntity;
   public title: string;
-  public isFirstLogin: boolean;
+  public isFirstLogin = true;
   public errorMessage: string;
   public isAlertOpen: boolean;
 
@@ -30,8 +33,12 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.userName = this.cookieService.get('userName');
-    this.avatar = this.cookieService.get('avatar');
-    this.isFirstLogin = this.userName !== '' ? false : true;
+    this.firstName = this.cookieService.get('firstName');
+    this.lastName = this.cookieService.get('lastName');
+    this.avatar =
+      this.cookieService.get('avatar') !== '' &&
+      JSON.parse(this.cookieService.get('avatar'));
+    this.isFirstLogin = this.userName === '';
     this.title =
       this.userName !== '' ? `Welcome back, ${this.userName}` : 'Welcome';
 

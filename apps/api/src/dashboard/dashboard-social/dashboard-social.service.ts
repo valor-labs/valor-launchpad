@@ -32,8 +32,8 @@ export class DashboardSocialService {
             lastName: true,
             profile: {
               include: {
-                avatar: true
-              }
+                avatar: true,
+              },
             },
             socialUserFollowing: {
               where: {
@@ -131,11 +131,11 @@ export class DashboardSocialService {
                 avatar: {
                   select: {
                     src: true,
-                    alt: true
-                  }
-                }
-              }
-            }
+                    alt: true,
+                  },
+                },
+              },
+            },
           },
         },
         mediaAsset: {
@@ -152,11 +152,11 @@ export class DashboardSocialService {
                     avatar: {
                       select: {
                         src: true,
-                        alt: true
-                      }
-                    }
-                  }
-                }
+                        alt: true,
+                      },
+                    },
+                  },
+                },
               },
             },
             body: true,

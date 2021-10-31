@@ -136,8 +136,8 @@ export class SocialActivityService {
         lastName: true,
         profile: {
           include: {
-            avatar: true
-          }
+            avatar: true,
+          },
         },
       },
       where: { id: { in: [targetUserId, operatorId] } },

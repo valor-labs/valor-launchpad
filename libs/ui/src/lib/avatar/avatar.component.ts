@@ -1,55 +1,60 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AuthService } from '../../../../../apps/admin/src/app/core/auth/auth.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {AuthService} from '../../../../../apps/admin/src/app/core/auth/auth.service';
+import {Media} from "@api/projects";
 
 @Component({
-  selector: 'valor-launchpad-avatar',
-  templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss']
+    selector: 'valor-launchpad-avatar',
+    templateUrl: './avatar.component.html',
+    styleUrls: ['./avatar.component.scss']
 })
 export class AvatarComponent implements OnInit {
 
-  @Input()
-  src: string = null;
+    @Input()
+    src: string;
 
-  @Input()
-  alt: string;
+    @Input()
+    alt: string;
 
-  @Input()
-  classes;
+    @Input()
+    classes;
 
-  @Input()
-  size: 'sm' | 'md' | 'lg' | 'xl' = 'md';
+    @Input()
+    size: 'sm' | 'md' | 'lg' | 'xl' = null;
 
 
-  @Input()
-  width: number = null;
+    @Input()
+    width: number = null;
 
-  @Input()
-  height: number = null;
+    @Input()
+    height: number = null;
 
-  constructor(
-    public authService: AuthService
-  ) {
-  }
+    @Input()
+    firstName: string;
 
-  ngOnInit(): void {
-    if (this.width !== null && this.height !== null) {
-      if (this.width !== this.height) {
-        this.height = this.width;
+    @Input()
+    lastName: string;
+
+    constructor() {
+    }
+
+    ngOnInit(): void {
+      if (this.size !== null) {
+        this.classes = this.classes + ' ' + this.size;
       }
-    } else {
-      this.classes = this.classes + ' ' + this.size;
     }
-  }
 
-  getInitialChar(name: string): string {
-    return name.charAt(0);
-  }
-
-  getFontSize(): number {
-    if (this.width !== null && this.height !== null) {
-      return this.width / 2;
+    getInitialChar(name: string): string {
+        return name.charAt(0);
     }
-  }
+
+    getFontSize(): number {
+        if (this.width !== null && this.height !== null) {
+            return this.width / 2;
+        }
+    }
+
+    onInvalidSrc() {
+        this.src = null;
+    }
 
 }

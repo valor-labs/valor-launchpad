@@ -690,7 +690,11 @@ export class SettingsAccountComponent implements OnInit {
     const avatarFile = updatedPublicProfile.avatar;
     const profileId = this.profile.id;
     const newUserName = updatedPublicProfile.username;
-    const alt = this.profile.avatar && Object.prototype.hasOwnProperty.call(this.profile.avatar, 'alt') ? this.profile.avatar.alt : newUserName;
+    const alt =
+      this.profile.avatar &&
+      Object.prototype.hasOwnProperty.call(this.profile.avatar, 'alt')
+        ? this.profile.avatar.alt
+        : newUserName;
     this.profileService
       .updateProfilePublicInfo(avatarFile, bio, profileId, newUserName, alt)
       .subscribe((res) => {

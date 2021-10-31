@@ -13,14 +13,17 @@
               <div class="card-body">
                 <div class="m-sm-4">
                   <div class="text-center d-flex justify-content-center">
-                    <img
+                    <valor-launchpad-avatar
                       *ngIf="!isFirstLogin; else firstLogin"
-                      [src]="avatar"
-                      [alt]="userName"
-                      class="img-fluid rounded-circle"
+                      classes="img-fluid"
                       width="132"
                       height="132"
-                    />
+                      [src]="avatar | valorImage"
+                      [alt]="avatar?.alt"
+                      [firstName]="firstName"
+                      [lastName]="lastName"
+                    >
+                    </valor-launchpad-avatar>
                     <ng-template #firstLogin>
                       <div
                         class="rounded-circle bg-secondary"

@@ -1,11 +1,11 @@
 <div class="d-flex align-items-start">
-<!--  <img-->
-<!--    [src]="story.user.avatar.src"-->
-<!--    width="56"-->
-<!--    height="56"-->
-<!--    class="rounded-circle me-3"-->
-<!--    [alt]="story.user.avatar.alt"-->
-<!--  />-->
+  <!--  <img-->
+  <!--    [src]="story.user.avatar.src"-->
+  <!--    width="56"-->
+  <!--    height="56"-->
+  <!--    class="rounded-circle me-3"-->
+  <!--    [alt]="story.user.avatar.alt"-->
+  <!--  />-->
   <div class="flex-grow-1">
     <small class="float-end">{{ story.createdDate | timeAgo }}</small>
     <p class="mb-2">
@@ -17,9 +17,9 @@
       class="row g-0 mt-1"
       *ngIf="story.mediaAsset && story.mediaAsset.length > 0"
     >
-<!--      <div class="col-6" *ngFor="let image of story.mediaAsset">-->
-<!--        <img [src]="image.src" class="img-fluid pe-1" [alt]="image.alt" />-->
-<!--      </div>-->
+      <!--      <div class="col-6" *ngFor="let image of story.mediaAsset">-->
+      <!--        <img [src]="image.src" class="img-fluid pe-1" [alt]="image.alt" />-->
+      <!--      </div>-->
     </div>
 
     <small class="text-muted">{{
@@ -53,13 +53,13 @@
       *ngFor="let comment of story.comments"
     >
       <a class="pe-2">
-<!--        <img-->
-<!--          [src]="comment.author.avatar.src"-->
-<!--          width="36"-->
-<!--          height="36"-->
-<!--          class="rounded-circle me-2"-->
-<!--          [alt]="comment.author.avatar.alt"-->
-<!--        />-->
+        <!--        <img-->
+        <!--          [src]="comment.author.avatar.src"-->
+        <!--          width="36"-->
+        <!--          height="36"-->
+        <!--          class="rounded-circle me-2"-->
+        <!--          [alt]="comment.author.avatar.alt"-->
+        <!--        />-->
       </a>
       <div class="flex-grow-1">
         <p class="text-muted">
