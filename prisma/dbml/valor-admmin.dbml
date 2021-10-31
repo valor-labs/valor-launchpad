@@ -37,6 +37,21 @@ Table CommentEntity {
   CommentEntity CommentEntity
   ProjectsEntity ProjectsEntity
   children CommentEntity [not null]
+  userLike CommentUserLike [not null]
+}
+
+Table CommentUserLike {
+  id String [pk]
+  commentId String [not null]
+  userId String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  comment CommentEntity [not null]
+  user UserEntity [not null]
+
+  indexes {
+    (commentId, userId) [unique]
+  }
 }
 
 Table ProfileEntity {
@@ -223,6 +238,7 @@ Table UserEntity {
   socialActivities SocialActivity [not null]
   socialActivitiesAsTarget SocialActivity [not null]
   appointments Appointment [not null]
+  CommentUserLike CommentUserLike [not null]
 }
 
 Table UserEventsEntity {
@@ -555,6 +571,10 @@ Ref: CommentEntity.storyId > SocialStory.id
 Ref: CommentEntity.parentId - CommentEntity.id
 
 Ref: CommentEntity.project_id > ProjectsEntity.id
+
+Ref: CommentUserLike.commentId > CommentEntity.id
+
+Ref: CommentUserLike.userId > UserEntity.id
 
 Ref: ProfileEntity.username - UserEntity.username
 

@@ -4,8 +4,8 @@ generator client {
 }
 
 generator dbml {
-  provider = "prisma-dbml-generator"
-  output = "./dbml"
+  provider   = "prisma-dbml-generator"
+  output     = "./dbml"
   outputName = "valor-admmin.dbml"
 }
 
@@ -34,21 +34,35 @@ model ActivityEntity {
 }
 
 model CommentEntity {
-  id             String          @id @default(uuid()) @db.VarChar(36)
-  createdDate    DateTime        @default(now()) @db.DateTime(6)
-  updatedDate    DateTime        @updatedAt
-  deletedDate    DateTime?       @db.DateTime(6)
-  author_id      String          @db.VarChar(36)
-  author         UserEntity      @relation("commentAuthor", fields: [author_id], references: [id])
-  body           String          @db.LongText
-  reactions      Json?           @db.Json
-  project_id     String?         @db.VarChar(36)
-  parentId       String?         @db.VarChar(36)
-  storyId        String?         @db.VarChar(36)
-  story          SocialStory?    @relation("storyComments", fields: [storyId], references: [id])
-  CommentEntity  CommentEntity?  @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
-  ProjectsEntity ProjectsEntity? @relation("projectComments", fields: [project_id], references: [id])
-  children       CommentEntity[] @relation("comment_entityTocomment_entity_parentId")
+  id             String            @id @default(uuid()) @db.VarChar(36)
+  createdDate    DateTime          @default(now()) @db.DateTime(6)
+  updatedDate    DateTime          @updatedAt
+  deletedDate    DateTime?         @db.DateTime(6)
+  author_id      String            @db.VarChar(36)
+  author         UserEntity        @relation("commentAuthor", fields: [author_id], references: [id])
+  body           String            @db.LongText
+  reactions      Json?             @db.Json
+  project_id     String?           @db.VarChar(36)
+  parentId       String?           @db.VarChar(36)
+  storyId        String?           @db.VarChar(36)
+  story          SocialStory?      @relation("storyComments", fields: [storyId], references: [id])
+  CommentEntity  CommentEntity?    @relation("comment_entityTocomment_entity_parentId", fields: [parentId], references: [id])
+  ProjectsEntity ProjectsEntity?   @relation("projectComments", fields: [project_id], references: [id])
+  children       CommentEntity[]   @relation("comment_entityTocomment_entity_parentId")
+  userLike       CommentUserLike[] @relation("commentUserLikeComment")
+}
+
+model CommentUserLike {
+  id          String    @id @default(uuid()) @db.VarChar(36)
+  commentId   String    @db.VarChar(36)
+  userId      String    @db.VarChar(36)
+  createdDate DateTime  @default(now()) @db.DateTime(6)
+  deletedDate DateTime? @db.DateTime(6)
+
+  comment CommentEntity @relation("commentUserLikeComment", fields: [commentId], references: [id])
+  user    UserEntity    @relation("commentUserLikeUser", fields: [userId], references: [id])
+
+  @@unique([commentId, userId])
 }
 
 model ProfileEntity {
@@ -160,8 +174,8 @@ model ProjectsEntity {
   title       String                   @db.VarChar(255)
   body        String                   @db.LongText
   status      ProjectStatus?
-  deletable   Boolean                  @db.TinyInt @default(true)
-  cloneable   Boolean                  @db.TinyInt @default(true)
+  deletable   Boolean                  @default(true) @db.TinyInt
+  cloneable   Boolean                  @default(true) @db.TinyInt
   progress    Int?
   rollupData  Json?                    @db.Json
   assignee    ProjectsAssigneeEntity[] @relation("projectsAssignee")
@@ -243,6 +257,7 @@ model UserEntity {
   socialActivities         SocialActivity[]         @relation("socialActivityOperator")
   socialActivitiesAsTarget SocialActivity[]         @relation("socialActivityTargetUser")
   appointments             Appointment[]            @relation("AppointmentUser")
+  CommentUserLike          CommentUserLike[]        @relation("commentUserLikeUser")
 }
 
 model UserEventsEntity {
@@ -299,7 +314,7 @@ model MediaAsset {
   deletedDate DateTime?       @db.DateTime(6)
   type        String          @db.VarChar(255)
   src         String          @db.VarChar(255)
-  src_webp    String?          @db.VarChar(255)
+  src_webp    String?         @db.VarChar(255)
   alt         String          @db.VarChar(255)
   profile_id  String?         @db.VarChar(36)
   project_id  String?         @db.VarChar(36)

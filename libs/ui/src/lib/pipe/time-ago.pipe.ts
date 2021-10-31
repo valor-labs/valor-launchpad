@@ -44,7 +44,7 @@ export class TimeAgoPipe implements PipeTransform, OnDestroy {
     if (Number.isNaN(seconds)) {
       return '';
     } else if (seconds <= 45) {
-      return seconds + 's ago';
+      return 'Just now';
     } else if (seconds <= 90) {
       return '1m ago';
     } else if (minutes <= 45) {

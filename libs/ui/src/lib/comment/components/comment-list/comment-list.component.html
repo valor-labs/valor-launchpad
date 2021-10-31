@@ -1,0 +1,10 @@
+<ng-container  *ngFor="let comment of comments; index as i">
+  <valor-launchpad-comment-item
+    [comment]="comment"
+    (reply)="replyingComment = $event; reply.emit()"
+    (like)="like.emit($event)"
+    (unlike)="unlike.emit($event)"
+    (delete)="delete.emit($event)"
+  ></valor-launchpad-comment-item>
+  <hr *ngIf="i !== comments.length - 1" />
+</ng-container>
