@@ -8,7 +8,8 @@ import { PrismaService } from '@valor-launchpad/prisma';
 import { ProjectCreateDto } from './dto/project-create-dto';
 import { ImageUploaderUtility } from '../media/imageUploader.utility';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
-
+import { QueryProjectListDto } from './dto/query-project-list.dto';
+import { Prisma } from '@prisma/client';
 @Injectable()
 export class ProjectsService {
   constructor(
@@ -50,7 +51,63 @@ export class ProjectsService {
     return persistedProject;
   }
 
-  async getAll(): Promise<ProjectListItemVo[]> {
+  async getAll({
+    sort,
+    status,
+    keyword,
+    start,
+    end,
+  }: QueryProjectListDto): Promise<ProjectListItemVo[]> {
+    let sortBy = {};
+    if (sort) {
+      sortBy = [
+        {
+          [sort]: 'asc',
+        },
+        {
+          createdDate: 'desc',
+        },
+      ];
+    } else {
+      sortBy = {
+        createdDate: 'desc',
+      };
+    }
+
+    let statusFilter = {};
+
+    if (status) {
+      statusFilter = {
+        deletedDate: null,
+        status: { in: status },
+      };
+    } else {
+      statusFilter = {
+        deletedDate: null,
+      };
+    }
+
+    let keywordFilter: Prisma.ProjectsEntityWhereInput;
+    if (keyword && keyword.length > 0) {
+      keywordFilter = {
+        OR: [{ title: { contains: keyword } }, { body: { contains: keyword } }],
+      };
+    }
+
+    if (start === 'null' || !end) {
+      start = '0';
+    }
+    if (end === 'null' || !end) {
+      end = '100';
+    }
+
+    const progressFilter: Prisma.ProjectsEntityWhereInput = {
+      progress: {
+        gte: parseInt(start),
+        lte: parseInt(end),
+      },
+    };
+
     return await this.prisma.projectsEntity.findMany({
       include: {
         hero: true,
@@ -66,12 +123,8 @@ export class ProjectsService {
           },
         },
       },
-      orderBy: {
-        createdDate: 'desc',
-      },
-      where: {
-        deletedDate: null,
-      },
+      orderBy: sortBy,
+      where: Object.assign({}, statusFilter, keywordFilter, progressFilter),
     });
   }
 
