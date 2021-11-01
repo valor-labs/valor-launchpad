@@ -1,6 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AuthService} from '../../../../../apps/admin/src/app/core/auth/auth.service';
-import {Media} from "@api/projects";
 
 @Component({
     selector: 'valor-launchpad-avatar',
