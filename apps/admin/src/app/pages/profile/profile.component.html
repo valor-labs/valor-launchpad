@@ -9,13 +9,10 @@
       <valor-launchpad-card-content>
         <div class="m-3 text-center">
           <valor-launchpad-avatar
-            [src]="profile?.avatar | valorImage"
-            [alt]="profile?.avatar?.alt"
-            [firstName]="profile.user.firstName"
-            [lastName]="profile.user.lastName"
-            width="128"
-            height="128"
+            [src]="profile.avatar?.src || 'assets/img/avatars/avatar.jpg'"
+            size="xxl"
             classes="mb-2 img-fluid"
+            [alt]="profile.avatar?.alt"
           >
           </valor-launchpad-avatar>
           <h5 class="card-title mb-0">{{ profile.name }}</h5>

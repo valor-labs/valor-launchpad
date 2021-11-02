@@ -30,11 +30,7 @@ export class DashboardSocialService {
             username: true,
             firstName: true,
             lastName: true,
-            profile: {
-              include: {
-                avatar: true,
-              },
-            },
+            avatar: { select: { src: true, alt: true } },
             socialUserFollowing: {
               where: {
                 followerId: operatorUserId,
@@ -54,7 +50,7 @@ export class DashboardSocialService {
         id: i.user.id,
         firstName: i.user.firstName,
         lastName: i.user.lastName,
-        avatar: i.user.profile.avatar,
+        avatar: i.user.avatar,
         followed: i.user.socialUserFollowing.length > 0,
       };
     });
@@ -126,16 +122,7 @@ export class DashboardSocialService {
             username: true,
             firstName: true,
             lastName: true,
-            profile: {
-              include: {
-                avatar: {
-                  select: {
-                    src: true,
-                    alt: true,
-                  },
-                },
-              },
-            },
+            avatar: { select: { src: true, alt: true } },
           },
         },
         mediaAsset: {
@@ -147,16 +134,7 @@ export class DashboardSocialService {
               select: {
                 firstName: true,
                 lastName: true,
-                profile: {
-                  select: {
-                    avatar: {
-                      select: {
-                        src: true,
-                        alt: true,
-                      },
-                    },
-                  },
-                },
+                avatar: { select: { src: true, alt: true } },
               },
             },
             body: true,

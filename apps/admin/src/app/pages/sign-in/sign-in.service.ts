@@ -30,13 +30,7 @@ export class SignInService {
             'userName',
             `${data.user.firstName} ${data.user.lastName}`
           );
-
-          this.cookieService.set('firstName', `${data.user.firstName}`);
-          this.cookieService.set('lastName', `${data.user.lastName}`);
-          this.cookieService.set(
-            'avatar',
-            JSON.stringify(data.user.profile.avatar)
-          );
+          this.cookieService.set('avatar', data.user.avatar?.src);
           if (
             localStorage.getItem('preUrl') &&
             localStorage.getItem('preUrl') !== '/sign-in'
