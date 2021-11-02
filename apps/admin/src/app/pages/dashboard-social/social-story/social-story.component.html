@@ -1,11 +1,13 @@
 <div class="d-flex align-items-start">
-  <!--  <img-->
-  <!--    [src]="story.user.avatar.src"-->
-  <!--    width="56"-->
-  <!--    height="56"-->
-  <!--    class="rounded-circle me-3"-->
-  <!--    [alt]="story.user.avatar.alt"-->
-  <!--  />-->
+  <valor-launchpad-avatar
+    [src]="story.user.profile.avatar | valorImage"
+    [alt]="story.user.profile.avatar?.alt"
+    [firstName]="story.user.firstName"
+    [lastName]="story.user.lastName"
+    width="56"
+    height="56"
+    classes="me-3"
+  ></valor-launchpad-avatar>
   <div class="flex-grow-1">
     <small class="float-end">{{ story.createdDate | timeAgo }}</small>
     <p class="mb-2">
@@ -17,9 +19,9 @@
       class="row g-0 mt-1"
       *ngIf="story.mediaAsset && story.mediaAsset.length > 0"
     >
-      <!--      <div class="col-6" *ngFor="let image of story.mediaAsset">-->
-      <!--        <img [src]="image.src" class="img-fluid pe-1" [alt]="image.alt" />-->
-      <!--      </div>-->
+      <div class="col-6" *ngFor="let image of story.mediaAsset">
+        <img [src]="image.src" class="img-fluid pe-1" [alt]="image.alt" />
+      </div>
     </div>
 
     <small class="text-muted">{{

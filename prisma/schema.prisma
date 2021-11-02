@@ -405,12 +405,8 @@ enum SocialActivityAction {
 model SocialActivity {
   id                  Int                  @id @default(autoincrement())
   operatorId          String               @db.VarChar(36)
-  operatorFullName    String               @db.VarChar(255)
-  operatorAvatarSrc   String               @db.VarChar(255)
   action              SocialActivityAction
   targetUserId        String?              @db.VarChar(36)
-  targetUserFullName  String?              @db.VarChar(255)
-  targetUserAvatarSrc String?              @db.VarChar(255)
   storyId             String?              @db.VarChar(36)
   createdDate         DateTime             @default(now()) @db.DateTime(6)
   deletedDate         DateTime?            @db.DateTime(6)

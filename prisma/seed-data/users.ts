@@ -26,24 +26,3 @@ export const USER_3 = {
 };
 
 export const USERS = [USER_1, USER_2, USER_3];
-
-export const USER1_AVATAR = {
-  user_id: USER_1.id,
-  type: 'image/jpg',
-  src: 'assets/img/avatars/avatar.jpg',
-  alt: 'user1 avatar picture',
-};
-
-export const USER2_AVATAR = {
-  user_id: USER_2.id,
-  type: 'image/jpg',
-  src: 'assets/img/avatars/avatar-2.jpg',
-  alt: 'user2 avatar picture',
-};
-
-export const USER3_AVATAR = {
-  user_id: USER_3.id,
-  type: 'image/jpg',
-  src: 'assets/img/avatars/avatar-3.jpg',
-  alt: 'user3 avatar picture',
-};

@@ -4,20 +4,41 @@ import { SocialActivityComponent } from './social-activity.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ISocialActivityItem } from '../dashboard-social.model';
 import { UiModule } from '@valor-launchpad/ui';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpModule } from '@valor-launchpad/http';
+import { environment } from '../../../../environments/environment';
 
 const MOCK_ACTIVITY: ISocialActivityItem = {
   storyId: 'storyId',
-  operatorAvatarSrc: 'operatorAvatarSrc',
   createdDate: new Date('2021-10-01').toISOString(),
   deletedDate: null,
-  operatorFullName: 'operatorFullName',
-  operator: { username: 'operator' },
-  targetUser: { username: 'targetUser' },
+  operator: {
+    username: 'operator',
+    firstName: 'operator',
+    lastName: 'operator',
+    profile: {
+      avatar: {
+        src: '',
+        src_webp: '',
+        alt: '',
+      },
+    },
+  },
+  targetUser: {
+    username: 'operator',
+    firstName: 'operator',
+    lastName: 'operator',
+    profile: {
+      avatar: {
+        src: '',
+        src_webp: '',
+        alt: '',
+      },
+    },
+  },
   action: 'FOLLOWED',
-  targetUserId: 'targetUserId',
-  targetUserFullName: 'targetUserFullName',
   id: 12,
-  targetUserAvatarSrc: 'targetUserAvatarSrc',
+  targetUserId: 'targetUserId',
   operatorId: 'operatorId',
   story: {
     content: '123',
@@ -31,7 +52,12 @@ describe('SocialActivityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, UiModule],
+      imports: [
+        RouterTestingModule,
+        UiModule,
+        HttpClientTestingModule,
+        HttpModule.forRoot({ environment }),
+      ],
       declarations: [SocialActivityComponent],
     }).compileComponents();
   });

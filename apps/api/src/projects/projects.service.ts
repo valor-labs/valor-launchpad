@@ -8,6 +8,7 @@ import { PrismaService } from '@valor-launchpad/prisma';
 import { ProjectCreateDto } from './dto/project-create-dto';
 import { ImageUploaderUtility } from '../media/imageUploader.utility';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
+
 @Injectable()
 export class ProjectsService {
   constructor(
@@ -56,7 +57,11 @@ export class ProjectsService {
         assignee: {
           select: {
             user: {
-              include: { avatar: true },
+              include: {
+                profile: {
+                  include: { avatar: true },
+                },
+              },
             },
           },
         },
@@ -94,8 +99,9 @@ export class ProjectsService {
           include: {
             user: {
               include: {
-                profile: true,
-                avatar: { select: { src: true, alt: true } },
+                profile: {
+                  include: { avatar: true },
+                },
               },
             },
           },
@@ -105,8 +111,11 @@ export class ProjectsService {
           include: {
             reporter: {
               include: {
-                profile: true,
-                avatar: { select: { src: true, alt: true } },
+                profile: {
+                  include: {
+                    avatar: true,
+                  },
+                },
               },
             },
           },

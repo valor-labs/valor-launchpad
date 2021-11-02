@@ -17,10 +17,15 @@
       <valor-launchpad-card-content class="text-center">
         <ng-container *ngIf="authService.user | async as userinfo">
           <valor-launchpad-avatar
-            classes="img-fluid mb-2"
+            [src]="userinfo.profile.avatar | valorImage"
+            [alt]="userinfo.profile.avatar.alt"
+            [firstName]="userinfo.firstName"
+            [lastName]="userinfo.lastName"
             width="128"
             height="128"
-          ></valor-launchpad-avatar>
+            classes="mb-2 img-fluid"
+          >
+          </valor-launchpad-avatar>
           <h4 class="card-title mb-2">
             {{ userinfo.firstName + ' ' + userinfo.lastName }}
           </h4>
@@ -61,13 +66,15 @@
           <ng-container *ngIf="followings.length > 0; else emptyFollowings">
             <ng-container *ngFor="let item of followings; index as i">
               <div class="d-flex align-items-start">
-                <!--                <img-->
-                <!--                  [src]="item.avatar.src"-->
-                <!--                  width="56"-->
-                <!--                  height="56"-->
-                <!--                  class="rounded-circle me-2"-->
-                <!--                  [alt]="item.avatar.alt"-->
-                <!--                />-->
+                <valor-launchpad-avatar
+                  [src]="item.avatar | valorImage"
+                  [alt]="item.avatar?.alt"
+                  [firstName]="item.firstName"
+                  [lastName]="item.lastName"
+                  width="56"
+                  height="56"
+                  classes="me-2"
+                ></valor-launchpad-avatar>
                 <div class="flex-grow-1">
                   <p class="my-1">
                     <strong>{{ item.firstName + item.lastName }}</strong>
