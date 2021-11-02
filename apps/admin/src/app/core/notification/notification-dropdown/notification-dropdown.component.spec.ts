@@ -1,35 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationDropdownComponent } from './notification-dropdown.component';
-import {
-  INotificationSocketService,
-  NotificationSocketService,
-} from '../notification-socket.service';
-import { Observable, of, Subject } from 'rxjs';
-import { NotificationVo } from '@valor-launchpad/api-interfaces';
+import { NotificationSocketService } from '../notification-socket.service';
 import { UiModule } from '@valor-launchpad/ui';
 import { NotificationListComponent } from '../notification-list/notification-list.component';
 import { NotificationItemComponent } from '../notification-item/notification-item.component';
-
-class NotificationSocketServiceStub implements INotificationSocketService {
-  source = new Subject<NotificationVo>();
-
-  connect() {
-    // pass
-  }
-
-  fetchNotifications(): Observable<NotificationVo[]> {
-    return of([]);
-  }
-
-  listenNewNotification(): Observable<NotificationVo> {
-    return this.source.asObservable();
-  }
-
-  markAllAsRead(): Observable<unknown> {
-    return of(null);
-  }
-}
+import { NotificationSocketServiceStub } from '../notification-socket-service.stub';
 
 describe('NotificationDropdownComponent', () => {
   let component: NotificationDropdownComponent;
