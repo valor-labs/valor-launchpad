@@ -18,7 +18,7 @@
         <ng-container *ngIf="authService.user | async as userinfo">
           <valor-launchpad-avatar
             [src]="userinfo.profile.avatar | valorImage"
-            [alt]="userinfo.profile.avatar.alt"
+            [alt]="userinfo.profile.avatar?.alt"
             [firstName]="userinfo.firstName"
             [lastName]="userinfo.lastName"
             width="128"
