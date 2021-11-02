@@ -42,8 +42,8 @@
             </div>
           </valor-launchpad-autocomplete-option>
           <app-option class="no-result" *ngIf="!filteredProjectOptions?.length"
-            >No result...</app-option
-          >
+            >No result...
+          </app-option>
         </ng-template>
       </valor-launchpad-autocomplete>
     </div>
@@ -165,13 +165,16 @@
         <valor-launchpad-dropdown
           classes="nav-link dropdown-toggle d-none d-sm-inline-block"
         >
-          <span dropdown-nav>
+          <span *ngIf="user$ | async as user" dropdown-nav>
             <valor-launchpad-avatar
-              [src]="profile?.avatar"
-              [alt]="user?.avatar?.alt"
+              [src]="user.profile.avatar | valorImage"
+              [alt]="user.profile.avatar?.alt"
+              [firstName]="user.firstName"
+              [lastName]="user.lastName"
+              classes="avatar img-fluid me-1"
             ></valor-launchpad-avatar>
             <span class="text-dark"
-              >{{ user?.firstName }} {{ user?.lastName }}</span
+              >{{ user.firstName }} {{ user.lastName }}</span
             >
           </span>
           <valor-launchpad-dropdown-actions-menu
