@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
   @ViewChild('defaultWarningModal', { static: false })
   defaultWarningModal?: ModalDirective;
-  user$: Observable<UserEntity> = this.authService.user;
+  user: UserEntity;
   profile: ProfileEntity;
   messages: Message[] = [];
   notifications: Notification[] = [];
@@ -81,6 +81,10 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.authService.user.subscribe((user) => {
+      this.user = user;
+    });
+
     this.headerService.getMessages().subscribe((messages) => {
       this.messages = messages;
     });

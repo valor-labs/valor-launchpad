@@ -92,11 +92,11 @@ export class SocialActivityService {
       data: {
         operatorId: operateUser.id,
         operatorFullName: `${operateUser.firstName} ${operateUser.lastName}`,
-        operatorAvatarSrc: operateUser.profile.avatar.src,
+        operatorAvatarSrc: operateUser.avatar.src,
         action,
         targetUserId: targetUser.id,
         targetUserFullName: `${targetUser.firstName} ${targetUser.lastName}`,
-        targetUserAvatarSrc: targetUser.profile.avatar.src,
+        targetUserAvatarSrc: targetUser.avatar.src,
         createdDate: actionAt,
       },
     });
@@ -117,11 +117,11 @@ export class SocialActivityService {
       data: {
         operatorId: operateUser.id,
         operatorFullName: `${operateUser.firstName} ${operateUser.lastName}`,
-        operatorAvatarSrc: operateUser.profile.avatar.src,
+        operatorAvatarSrc: operateUser.avatar.src,
         action,
         targetUserId: targetUser.id,
         targetUserFullName: `${targetUser.firstName} ${targetUser.lastName}`,
-        targetUserAvatarSrc: targetUser.profile.avatar.src,
+        targetUserAvatarSrc: targetUser.avatar.src,
         createdDate: actionAt,
         storyId,
       },
@@ -134,11 +134,7 @@ export class SocialActivityService {
         id: true,
         firstName: true,
         lastName: true,
-        profile: {
-          include: {
-            avatar: true,
-          },
-        },
+        avatar: { select: { src: true } },
       },
       where: { id: { in: [targetUserId, operatorId] } },
       take: 2,

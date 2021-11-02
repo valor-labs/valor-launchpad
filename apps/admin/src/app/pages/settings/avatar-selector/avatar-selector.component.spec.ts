@@ -4,7 +4,6 @@ import { AvatarSelectorComponent } from './avatar-selector.component';
 import { UiModule } from '@valor-launchpad/ui';
 import { HttpModule } from '@valor-launchpad/http';
 import { environment } from '../../../../environments/environment';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AvatarSelectorComponent', () => {
   let component: AvatarSelectorComponent;
@@ -12,11 +11,7 @@ describe('AvatarSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        UiModule,
-        HttpModule.forRoot({ environment }),
-        HttpClientTestingModule,
-      ],
+      imports: [UiModule, HttpModule.forRoot({ environment })],
       declarations: [AvatarSelectorComponent],
     }).compileComponents();
   });
