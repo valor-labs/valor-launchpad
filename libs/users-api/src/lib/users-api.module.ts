@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { MessagesService } from './messages/messages.service';
-import { NotificationsService } from './notifications/notifications.service';
 import { CryptService } from '@valor-launchpad/common-api';
 import { UsersController } from './users.controller';
 import { RolesGuard } from './roles.guard';
@@ -16,7 +15,6 @@ import { TagsService } from './tags/tags.service';
   providers: [
     UsersService,
     MessagesService,
-    NotificationsService,
     CryptService,
     RolesGuard,
     PrismaService,

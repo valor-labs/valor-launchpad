@@ -4,9 +4,8 @@ import {RolesGuard} from './roles.guard';
 import {Roles} from './roles.decorator';
 import {AuthGuard} from '@nestjs/passport';
 import {User} from './user.decorator';
-import { CreateUser, RequestWithSession, UserEntity } from '@valor-launchpad/common-api';
+import { RequestWithSession, UserEntity } from '@valor-launchpad/common-api';
 import { MessagesService } from './messages/messages.service';
-import { NotificationsService } from './notifications/notifications.service';
 import { MenuService } from './menus/menu.service';
 import { Menu } from '@valor-launchpad/api-interfaces';
 import { UserListLine } from '@valor-launchpad/api-interfaces';
@@ -24,7 +23,6 @@ export class UsersController {
   constructor(
     private usersService: UsersService,
     private messageService:MessagesService,
-    private notificationSerivce:NotificationsService,
     private menuService: MenuService,
     private tagsService: TagsService
   ) {}
@@ -110,11 +108,6 @@ export class UsersController {
   @Get('messages')
   async getMessages(@Body() user, @User() actingUser: UserEntity){
     return await this.messageService.getMessages(user.id,actingUser)
-  }
-
-  @Get('notifications')
-  async getNotifications(@Body() user, @User() actingUser: UserEntity){
-    return await this.notificationSerivce.getNotifications(user.id,actingUser)
   }
 
   @Get('menus')

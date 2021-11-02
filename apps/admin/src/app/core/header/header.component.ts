@@ -6,7 +6,7 @@ import {
   Menu,
   ProjectListItemVo,
 } from '@valor-launchpad/api-interfaces';
-import { Message, Notification } from '@valor-launchpad/api-interfaces';
+import { Message } from '@valor-launchpad/api-interfaces';
 import { NavigationService } from '../navigation/navigation.service';
 import { UserEntity } from '@valor-launchpad/common-api';
 import { HeaderService } from './header.service';
@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit {
   user: UserEntity;
   profile: ProfileEntity;
   messages: Message[] = [];
-  notifications: Notification[] = [];
   megaMenus$: Observable<MegaMenuColumn[]> =
     this.navigationService.megaMenus$.pipe(
       map<Menu[], MegaMenuColumn[]>((menus) =>
@@ -91,10 +90,6 @@ export class HeaderComponent implements OnInit {
 
     this.profileService.getProfile().subscribe((profile) => {
       this.profile = profile;
-    });
-
-    this.headerService.getNotifications().subscribe((notifications) => {
-      this.notifications = notifications;
     });
 
     this._initProjectSearch();

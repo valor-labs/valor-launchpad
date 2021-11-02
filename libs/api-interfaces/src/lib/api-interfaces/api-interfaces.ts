@@ -19,15 +19,6 @@ export interface Message{
   time:string;
 }
 
-export interface Notification{
-  id:number;
-  type:'exclamation-circle'|'bell'|'home'|'user-plus',
-  level:'primary'|'success'|'warning'|'danger',
-  title:string;
-  description:string;
-  time:string;
-}
-
 export interface Menu {
   id: string;
   name: string;
