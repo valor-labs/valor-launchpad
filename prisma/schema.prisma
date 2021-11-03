@@ -248,6 +248,7 @@ model UserEntity {
   projects                 ProjectsAssigneeEntity[] @relation("assigneeUser")
   reportedProjects         ProjectSummaryEntity[]   @relation("reportingUser")
   comments                 CommentEntity[]          @relation("commentAuthor")
+  avatar                   MediaAsset?              @relation("userProfileImage")
   profile                  ProfileEntity?           @relation("userProfile")
   socialUserFollower       SocialUserFollower[]     @relation("follower")
   socialUserFollowing      SocialUserFollower[]     @relation("following")
@@ -257,6 +258,7 @@ model UserEntity {
   socialActivitiesAsTarget SocialActivity[]         @relation("socialActivityTargetUser")
   appointments             Appointment[]            @relation("AppointmentUser")
   CommentUserLike          CommentUserLike[]        @relation("commentUserLikeUser")
+  notifications            Notification[]           @relation("NotificationUser")
 }
 
 model UserEventsEntity {
@@ -317,9 +319,11 @@ model MediaAsset {
   alt         String          @db.VarChar(255)
   profile_id  String?         @db.VarChar(36)
   project_id  String?         @db.VarChar(36)
+  user_id     String?         @db.VarChar(36)
   story_id    String?         @db.VarChar(36)
   profile     ProfileEntity?  @relation("profileImage", fields: [profile_id], references: [id])
   project     ProjectsEntity? @relation("projectHeroMedia", fields: [project_id], references: [id])
+  user        UserEntity?     @relation("userProfileImage", fields: [user_id], references: [id])
   story       SocialStory?    @relation("storyImage", fields: [story_id], references: [id])
 
   @@unique([src, alt], name: "src_alt_unique_constraint")
@@ -561,4 +565,23 @@ model Appointment {
   createdDate DateTime @default(now()) @db.DateTime(6)
 
   user UserEntity @relation("AppointmentUser", fields: [userId], references: [id])
+}
+
+enum NotificationType {
+  COMMENT
+  REPLY_COMMENT
+  LIKE_COMMENT
+}
+
+model Notification {
+  id          Int              @id @default(autoincrement())
+  userId      String           @db.VarChar(36)
+  type        NotificationType
+  extras      Json?            @db.Json
+  read        Boolean          @db.TinyInt
+  readDate    DateTime?        @db.DateTime(6)
+  createdDate DateTime         @default(now()) @db.DateTime(6)
+  deletedDate DateTime?        @db.DateTime(6)
+
+  user UserEntity @relation("NotificationUser", fields: [userId], references: [id])
 }

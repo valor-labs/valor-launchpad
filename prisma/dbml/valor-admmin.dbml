@@ -229,6 +229,7 @@ Table UserEntity {
   projects ProjectsAssigneeEntity [not null]
   reportedProjects ProjectSummaryEntity [not null]
   comments CommentEntity [not null]
+  avatar MediaAsset
   profile ProfileEntity
   socialUserFollower SocialUserFollower [not null]
   socialUserFollowing SocialUserFollower [not null]
@@ -238,6 +239,7 @@ Table UserEntity {
   socialActivitiesAsTarget SocialActivity [not null]
   appointments Appointment [not null]
   CommentUserLike CommentUserLike [not null]
+  notifications Notification [not null]
 }
 
 Table UserEventsEntity {
@@ -302,9 +304,11 @@ Table MediaAsset {
   alt String [not null]
   profile_id String [unique]
   project_id String [unique]
+  user_id String [unique]
   story_id String
   profile ProfileEntity
   project ProjectsEntity
+  user UserEntity
   story SocialStory
 
   indexes {
@@ -534,6 +538,18 @@ Table Appointment {
   user UserEntity [not null]
 }
 
+Table Notification {
+  id Int [pk, increment]
+  userId String [not null]
+  type NotificationType [not null]
+  extras Json
+  read Boolean [not null]
+  readDate DateTime
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  user UserEntity [not null]
+}
+
 Enum ProjectStatus {
   IN_PROGRESS
   FINISHED
@@ -551,6 +567,12 @@ Enum SocialActivityAction {
 Enum CryptoOrderType {
   BUY
   SELL
+}
+
+Enum NotificationType {
+  COMMENT
+  REPLY_COMMENT
+  LIKE_COMMENT
 }
 
 Ref: ActivityEntity.parentId - ActivityEntity.id
@@ -609,6 +631,8 @@ Ref: MediaAsset.profile_id - ProfileEntity.id
 
 Ref: MediaAsset.project_id - ProjectsEntity.id
 
+Ref: MediaAsset.user_id - UserEntity.id
+
 Ref: MediaAsset.story_id > SocialStory.id
 
 Ref: MenusEntity.parentId - MenusEntity.id
@@ -638,3 +662,5 @@ Ref: AnalyticByCity.cityId > City.id
 Ref: AnalyticByLanguage.languageId > Language.id
 
 Ref: Appointment.userId > UserEntity.id
+
+Ref: Notification.userId > UserEntity.id

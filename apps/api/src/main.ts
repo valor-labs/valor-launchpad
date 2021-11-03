@@ -11,6 +11,7 @@ import cookieParser from 'cookie-parser';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { parseDomain, ParseResultType } from 'parse-domain';
 import { AuthController } from '@valor-launchpad/auth-api';
+import { AuthSocketIoAdapter } from '@valor-launchpad/notification-api';
 
 dotenv.config({ path: process.cwd() + '/apps/api/.env' });
 
@@ -60,6 +61,7 @@ async function bootstrap() {
     })
   );
   // app.use('/public', express.static(join(__dirname, '/assets')))
+  app.useWebSocketAdapter(new AuthSocketIoAdapter(app));
 
   const prismaService: PrismaService = app.get(PrismaService);
   prismaService.enableShutdownHooks(app);

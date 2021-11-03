@@ -126,11 +126,7 @@ export class SocialActivityService {
         id: true,
         firstName: true,
         lastName: true,
-        profile: {
-          include: {
-            avatar: true,
-          },
-        },
+        avatar: { select: { src: true } },
       },
       where: { id: { in: [targetUserId, operatorId] } },
       take: 2,

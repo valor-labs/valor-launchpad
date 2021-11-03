@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { HttpClient } from '@angular/common/http';
-import { ProfileEntity } from '@valor-launchpad/common-api';
 
 @Injectable({
   providedIn: 'root',

@@ -11,6 +11,8 @@ import { HeaderModule } from '../core/header/header.module';
 import { FooterModule } from '../core/footer/footer.module';
 import { ThemeBuilderComponent } from '../core/theme-builder/theme-builder.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NotificationSocketService } from '../core/notification/notification-socket.service';
+import { NotificationSocketServiceStub } from '../core/notification/notification-socket-service.stub';
 
 describe('MainLayoutComponent', () => {
   let component: MainLayoutComponent;
@@ -28,6 +30,12 @@ describe('MainLayoutComponent', () => {
         ReactiveFormsModule,
       ],
       declarations: [MainLayoutComponent, ThemeBuilderComponent],
+      providers: [
+        {
+          provide: NotificationSocketService,
+          useClass: NotificationSocketServiceStub,
+        },
+      ],
     }).compileComponents();
   });
 
