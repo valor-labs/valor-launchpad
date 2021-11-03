@@ -29,6 +29,7 @@
       ],
       "@valor-launchpad/prisma": ["libs/prisma/src/index.ts"],
       "@valor-launchpad/sms": ["libs/sms/src/index.ts"],
+      "@valor-launchpad/socket-gateway": ["libs/socket-gateway/src/index.ts"],
       "@valor-launchpad/stripe": ["libs/stripe/src/index.ts"],
       "@valor-launchpad/stripe-api": ["libs/stripe-api/src/index.ts"],
       "@valor-launchpad/stripe-ui": ["libs/stripe-ui/src/index.ts"],

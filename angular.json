@@ -382,6 +382,29 @@
       },
       "tags": []
     },
+    "socket-gateway": {
+      "root": "libs/socket-gateway",
+      "sourceRoot": "libs/socket-gateway/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/socket-gateway/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/socket-gateway"],
+          "options": {
+            "jestConfig": "libs/socket-gateway/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "stripe-api": {
       "root": "libs/stripe-api",
       "sourceRoot": "libs/stripe-api/src",
