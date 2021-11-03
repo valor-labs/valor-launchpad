@@ -24,6 +24,9 @@
       "@valor-launchpad/common-api": ["libs/common-api/src/index.ts"],
       "@valor-launchpad/email": ["libs/email/src/index.ts"],
       "@valor-launchpad/http": ["libs/http/src/index.ts"],
+      "@valor-launchpad/notification-api": [
+        "libs/notification-api/src/index.ts"
+      ],
       "@valor-launchpad/prisma": ["libs/prisma/src/index.ts"],
       "@valor-launchpad/sms": ["libs/sms/src/index.ts"],
       "@valor-launchpad/stripe": ["libs/stripe/src/index.ts"],

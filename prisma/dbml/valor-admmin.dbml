@@ -239,6 +239,7 @@ Table UserEntity {
   socialActivitiesAsTarget SocialActivity [not null]
   appointments Appointment [not null]
   CommentUserLike CommentUserLike [not null]
+  notifications Notification [not null]
 }
 
 Table UserEventsEntity {
@@ -541,6 +542,18 @@ Table Appointment {
   user UserEntity [not null]
 }
 
+Table Notification {
+  id Int [pk, increment]
+  userId String [not null]
+  type NotificationType [not null]
+  extras Json
+  read Boolean [not null]
+  readDate DateTime
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  user UserEntity [not null]
+}
+
 Enum ProjectStatus {
   IN_PROGRESS
   FINISHED
@@ -558,6 +571,12 @@ Enum SocialActivityAction {
 Enum CryptoOrderType {
   BUY
   SELL
+}
+
+Enum NotificationType {
+  COMMENT
+  REPLY_COMMENT
+  LIKE_COMMENT
 }
 
 Ref: ActivityEntity.parentId - ActivityEntity.id
@@ -647,3 +666,5 @@ Ref: AnalyticByCity.cityId > City.id
 Ref: AnalyticByLanguage.languageId > Language.id
 
 Ref: Appointment.userId > UserEntity.id
+
+Ref: Notification.userId > UserEntity.id

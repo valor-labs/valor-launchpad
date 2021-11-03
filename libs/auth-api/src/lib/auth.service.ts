@@ -12,7 +12,7 @@ import { PrismaService } from '@valor-launchpad/prisma';
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
-    private readonly jwtService: JwtService,
+    public readonly jwtService: JwtService,
     private crypt: CryptService,
     private refreshTokenStoreService: RefreshTokenStoreService,
     private prisma: PrismaService,

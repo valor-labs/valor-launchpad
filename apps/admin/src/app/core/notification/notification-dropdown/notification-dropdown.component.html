@@ -1,0 +1,23 @@
+<valor-launchpad-dropdown classes="nav-icon dropdown-toggle" size="lg">
+  <div dropdown-nav class="position-relative nav-item" id="alertsDropdown">
+    <i class="align-middle far fa-fw fa-bell"></i>
+    <span class="indicator" *ngIf="notifications?.length">
+      {{ notifications?.length }}
+    </span>
+  </div>
+  <div dropdown-content>
+    <div class="dropdown-menu-header">
+      {{ notifications?.length }} New Notifications
+      <span
+        *ngIf="notifications?.length"
+        (click)="markAllAsRead($event)"
+        tooltip="Mark all as read"
+      >
+        <i class="far fa-fw fa-eye cursor-pointer"></i>
+      </span>
+    </div>
+    <valor-launchpad-notification-list
+      [notifications]="notifications"
+    ></valor-launchpad-notification-list>
+  </div>
+</valor-launchpad-dropdown>

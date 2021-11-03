@@ -313,6 +313,29 @@
         }
       }
     },
+    "notification-api": {
+      "root": "libs/notification-api",
+      "sourceRoot": "libs/notification-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/notification-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/notification-api"],
+          "options": {
+            "jestConfig": "libs/notification-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "prisma": {
       "root": "libs/prisma",
       "sourceRoot": "libs/prisma/src",

@@ -8,6 +8,9 @@ import { AutocompleteModule, UiModule } from '@valor-launchpad/ui';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NotificationModule } from '../notification/notification.module';
+import { NotificationSocketService } from '../notification/notification-socket.service';
+import { NotificationSocketServiceStub } from '../notification/notification-socket-service.stub';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -23,8 +26,15 @@ describe('HeaderComponent', () => {
         AutocompleteModule,
         ReactiveFormsModule,
         ModalModule.forRoot(),
+        NotificationModule,
       ],
       declarations: [HeaderComponent],
+      providers: [
+        {
+          provide: NotificationSocketService,
+          useClass: NotificationSocketServiceStub,
+        },
+      ],
     }).compileComponents();
   });
 

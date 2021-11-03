@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AutocompleteModule } from '@valor-launchpad/ui';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NotificationModule } from '../notification/notification.module';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -20,6 +21,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AutocompleteModule,
     ReactiveFormsModule,
     ScrollingModule,
+    NotificationModule,
   ],
 })
 export class HeaderModule {}
