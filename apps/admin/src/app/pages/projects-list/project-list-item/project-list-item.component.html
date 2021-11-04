@@ -42,9 +42,9 @@
     <p>{{ config.body }}</p>
     <img
       *ngFor="let assignee of config.assignee"
-      [src]="assignee.user.avatar.src"
+      [src]="assignee.user?.avatar?.src"
       class="rounded-circle me-1"
-      [alt]="assignee.user.avatar.alt"
+      [alt]="assignee.user?.avatar?.alt"
       width="28"
       height="28"
     />

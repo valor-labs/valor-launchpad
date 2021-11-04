@@ -15,10 +15,15 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
+
+export interface Progress {
+  start: number;
+  end: number;
+}
 
 @Component({
   selector: 'valor-launchpad-projects-list',
@@ -30,6 +35,11 @@ export class ProjectsListComponent implements OnInit {
   validPicSuffixs = ['jpg', 'jpeg', 'png'];
   projects: Array<ProjectListItemVo> = [];
 
+  statusFilter: string[];
+  searchFilter: string;
+  progressFilter: Progress;
+  sortBy: string;
+  projectRefreshController$ = new BehaviorSubject(true);
   constructor(
     private projectsListService: ProjectsListService,
     private fb: FormBuilder,
@@ -39,9 +49,41 @@ export class ProjectsListComponent implements OnInit {
   }
 
   private _initProjectData(): void {
-    this.projectsListService.getProjects().subscribe((data) => {
-      this.projects = data;
-    });
+    this.projectRefreshController$
+      .asObservable()
+      .pipe(
+        switchMap(() => {
+          return this.projectsListService.getProjects(
+            this.sortBy,
+            this.searchFilter,
+            this.statusFilter,
+            this.progressFilter
+          );
+        })
+      )
+      .subscribe((data) => {
+        this.projects = data;
+      });
+  }
+
+  handleSort(event) {
+    this.sortBy = event;
+    this.projectRefreshController$.next(event);
+  }
+
+  handleStatus(event) {
+    this.statusFilter = Array.from(event);
+    this.projectRefreshController$.next(event);
+  }
+
+  handleSearch(event) {
+    this.searchFilter = event;
+    this.projectRefreshController$.next(event);
+  }
+
+  handleProgress(event) {
+    this.progressFilter = event;
+    this.projectRefreshController$.next(event);
   }
 
   onOpenCreateNewProjectModal() {
