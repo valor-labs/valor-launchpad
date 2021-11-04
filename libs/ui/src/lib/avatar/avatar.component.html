@@ -2,8 +2,8 @@
      [src]='src'
      [alt]='alt'
      [ngClass]='[classes]'
-     width="{{width}}"
-     height="{{height}}"
+     [style.width.px]='width'
+     [style.height.px]='height'
      class='rounded-circle'
      (error)="onInvalidSrc()"
 >

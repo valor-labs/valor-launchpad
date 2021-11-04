@@ -388,12 +388,8 @@ Table SocialStoryUserLike {
 Table SocialActivity {
   id Int [pk, increment]
   operatorId String [not null]
-  operatorFullName String [not null]
-  operatorAvatarSrc String [not null]
   action SocialActivityAction [not null]
   targetUserId String
-  targetUserFullName String
-  targetUserAvatarSrc String
   storyId String
   createdDate DateTime [default: `now()`, not null]
   deletedDate DateTime

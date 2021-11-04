@@ -91,12 +91,8 @@ export class SocialActivityService {
     await this.prismaService.socialActivity.create({
       data: {
         operatorId: operateUser.id,
-        operatorFullName: `${operateUser.firstName} ${operateUser.lastName}`,
-        operatorAvatarSrc: operateUser.profile.avatar.src,
         action,
         targetUserId: targetUser.id,
-        targetUserFullName: `${targetUser.firstName} ${targetUser.lastName}`,
-        targetUserAvatarSrc: targetUser.profile.avatar.src,
         createdDate: actionAt,
       },
     });
@@ -116,12 +112,8 @@ export class SocialActivityService {
     await this.prismaService.socialActivity.create({
       data: {
         operatorId: operateUser.id,
-        operatorFullName: `${operateUser.firstName} ${operateUser.lastName}`,
-        operatorAvatarSrc: operateUser.profile.avatar.src,
         action,
         targetUserId: targetUser.id,
-        targetUserFullName: `${targetUser.firstName} ${targetUser.lastName}`,
-        targetUserAvatarSrc: targetUser.profile.avatar.src,
         createdDate: actionAt,
         storyId,
       },

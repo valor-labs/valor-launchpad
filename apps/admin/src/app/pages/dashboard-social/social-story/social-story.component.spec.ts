@@ -16,7 +16,13 @@ const MOCK_STORY: IStory = {
   user: {
     firstName: 'John',
     lastName: 'Snow',
-    avatar: { src: '', alt: '' },
+    profile: {
+      avatar: {
+        src: '',
+        src_webp: '',
+        alt: '',
+      },
+    },
   },
   content: '',
   comments: [],

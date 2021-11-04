@@ -20,16 +20,14 @@ export class CommentService {
       include: {
         author: {
           include: {
-            profile: true,
-            avatar: { select: { src: true, alt: true } },
+            profile: { include: { avatar: true } },
           },
         },
         children: {
           include: {
             author: {
               include: {
-                profile: true,
-                avatar: { select: { src: true, alt: true } },
+                profile: { include: { avatar: true } },
               },
             },
           },

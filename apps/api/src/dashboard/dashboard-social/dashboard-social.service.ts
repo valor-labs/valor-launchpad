@@ -128,12 +128,7 @@ export class DashboardSocialService {
             lastName: true,
             profile: {
               include: {
-                avatar: {
-                  select: {
-                    src: true,
-                    alt: true,
-                  },
-                },
+                avatar: true,
               },
             },
           },
@@ -178,8 +173,8 @@ export class DashboardSocialService {
   async getActivities(lastReadAt: number | null, limit: number) {
     const results = await this.prisma.socialActivity.findMany({
       include: {
-        operator: { select: { username: true } },
-        targetUser: { select: { username: true } },
+        operator: { include: { profile: { select: { avatar: true } } } },
+        targetUser: { include: { profile: { select: { avatar: true } } } },
         story: {
           select: {
             content: true,

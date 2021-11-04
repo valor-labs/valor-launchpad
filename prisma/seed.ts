@@ -32,7 +32,6 @@ import { DashboardDefaultMonthlyRevenueSeed } from './seed/dashboard-default-mon
 import { DashboardDefaultDailyRevenueSeed } from './seed/dashboard-default-daily-revenue.seed';
 import { AppointmentSeed } from './seed/appointment.seed';
 import { Seeder } from './seed/seeder';
-import { UserAvatarSeed } from './seed/user-avatar.seed';
 import { UserRoleSeed } from './seed/user-role.seed';
 import { ProfileAvatarSeed } from './seed/profile-avatar.seed';
 import { ProfileSkillSeed } from './seed/profile-skill.seed';
@@ -55,7 +54,6 @@ async function main() {
   const userEventSeed = new UserEventsSeed(prisma);
   const roleSeed = new RoleSeed(prisma);
   const userSeed = new UserSeed(prisma);
-  const userAvatarSeed = new UserAvatarSeed(prisma);
   const userRoleSeed = new UserRoleSeed(prisma);
   const profileSeed = new ProfileSeed(prisma);
   const profileAvatarSeed = new ProfileAvatarSeed(prisma);
@@ -103,7 +101,6 @@ async function main() {
     menuSeed,
     roleMenuSeed,
     userSeed,
-    userAvatarSeed,
     userRoleSeed,
     userEventSeed,
     socialMediaSeed,
