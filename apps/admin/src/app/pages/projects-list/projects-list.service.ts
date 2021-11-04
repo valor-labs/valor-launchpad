@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { Observable } from 'rxjs';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
+import { Progress } from './projects-list.component';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +14,32 @@ export class ProjectsListService {
     private httpClient: HttpClient
   ) {}
 
-  getProjects() {
+  getProjects(
+    sortBy?: string,
+    search?: string,
+    status?: string[],
+    progress?: Progress
+  ) {
+    let httpParams = new HttpParams();
+    if (sortBy) {
+      httpParams = httpParams.append('sort', sortBy);
+    }
+    if (Array.isArray(status) && status.length > 0) {
+      httpParams = httpParams.append('status', status.join(','));
+    }
+    if (progress) {
+      httpParams = httpParams.append('start', progress?.start);
+      httpParams = httpParams.append('end', progress?.end);
+    }
+    if (typeof search === 'string' && search.trim().length > 0) {
+      httpParams = httpParams.append('keyword', search);
+    }
+
     return this.httpClient.get<ProjectListItemVo[]>(
-      this.config.environment.apiBase + 'api/projects/v1/all'
+      this.config.environment.apiBase + 'api/projects/v1/all',
+      {
+        params: httpParams,
+      }
     );
   }
 

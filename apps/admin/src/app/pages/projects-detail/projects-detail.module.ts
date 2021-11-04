@@ -6,6 +6,7 @@ import { ProjectsDetailComponent } from './projects-detail.component';
 import { CommentModule, UiModule } from '@valor-launchpad/ui';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule } from '@angular/forms';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [ProjectsDetailComponent],
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     ProjectsDetailRoutingModule,
     UiModule,
+    NgxChartsModule,
     BsDropdownModule.forRoot(),
     CommentModule,
     FormsModule,

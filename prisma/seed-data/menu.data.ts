@@ -69,6 +69,7 @@ export const menus: Menu[] = [
           { name: 'Chat', key: 'Pages_Pages_Chat', route: '/chat' },
           { name: 'Blank', key: 'Pages_Pages_Blank', route: '/blank' },
           { name: 'Payments', key: 'Pages_Pages_Payments', route: '/payments' },
+          { name: 'Notifications', key: 'Pages_Pages_Notifications', route: '/notifications' },
         ],
       },
       {

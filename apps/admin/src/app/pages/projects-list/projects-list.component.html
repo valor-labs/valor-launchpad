@@ -4,6 +4,12 @@
   ><i class="fas fa-plus"></i> New project</a
 >
 <h1 class="h3 mb-3">Projects</h1>
+<valor-launchpad-project-list-filter
+  (sortRange)="handleSort($event)"
+  (statusSelected)="handleStatus($event)"
+  (searchKeyWord)="handleSearch($event)"
+  (progress)="handleProgress($event)"
+></valor-launchpad-project-list-filter>
 
 <div class="row">
   <valor-launchpad-project-list-item

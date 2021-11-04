@@ -7,10 +7,9 @@ import {
 } from '@valor-launchpad/api-interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
-import { finalize, switchMap, tap } from 'rxjs/operators';
+import { finalize, switchMap, tap, map } from 'rxjs/operators';
 import { NgModel } from '@angular/forms';
 import { CommentListComponent } from '@valor-launchpad/ui';
-
 @Component({
   selector: 'valor-launchpad-projects-detail',
   templateUrl: './projects-detail.component.html',
@@ -22,7 +21,40 @@ export class ProjectsDetailComponent implements OnInit {
   project: ProjectDetailVo;
   comments;
   creatingComment = false;
+  salesRevenueConfig = {
+    view: [700, 400],
 
+    // options
+    showXAxis: true,
+    showYAxis: true,
+    gradient: false,
+    showLegend: false,
+    showXAxisLabel: false,
+    xAxisLabel: 'Month',
+    showYAxisLabel: false,
+    yAxisLabel: 'Sales',
+    animations: true,
+
+    colorScheme: {
+      domain: ['#3F80EA', '#84aef2'],
+    },
+  };
+  month = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  monthlyRevenue: object;
   constructor(
     private route: ActivatedRoute,
     private projectDetailService: ProjectsDetailService,
@@ -39,9 +71,24 @@ export class ProjectsDetailComponent implements OnInit {
   }
 
   getProjectDetails(id: string) {
-    this.projectDetailService.getProjectById(id).subscribe((data) => {
-      this.project = data;
-    });
+    this.projectDetailService
+      .getProjectById(id)
+      .pipe(
+        map((data) => {
+          this.project = data;
+          return data.earnings;
+        }),
+        tap((earnings) => {
+          this.monthlyRevenue = earnings.thisYear.map((item, i) => ({
+            name: this.month[i],
+            series: [
+              { name: 'This year', value: item },
+              { name: 'Last year', value: earnings.lastYear[i] },
+            ],
+          }));
+        })
+      )
+      .subscribe();
   }
 
   getProjectComments(id: string) {

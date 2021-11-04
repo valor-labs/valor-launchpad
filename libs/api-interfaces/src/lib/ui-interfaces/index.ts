@@ -4,3 +4,4 @@
  */
 export * from './ui-interfaces';
 export * from './project-status';
+export * from './notification-type';

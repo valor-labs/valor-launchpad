@@ -1,0 +1,128 @@
+<div class="d-flex justify-content-between mb-3">
+  <div class="search">
+    <input
+      type="text"
+      valorLaunchpadInput
+      vlSize="small"
+      placeholder="Search"
+      [formControl]="keywordControl"
+    />
+  </div>
+  <div class="sort filter d-flex">
+    <div valorLaunchpadCol span="auto" class="ms-auto text-end mt-n1 d-flex">
+      <div class="dropdown me-2 d-inline-block" dropdown container="body">
+        <valor-launchpad-dropdown>
+          <button
+            valor-launchpad-button
+            dropdown-nav
+            theme="light"
+            class="bg-white shadow-sm dropdown-toggle"
+          >
+            {{ sort }}
+          </button>
+          <valor-launchpad-dropdown-actions-menu [actions]="sortRangeActions">
+          </valor-launchpad-dropdown-actions-menu>
+        </valor-launchpad-dropdown>
+      </div>
+
+      <div
+        class="d-flex justify-content-between shadow-sm bg-white btn-light me-2"
+        theme="light"
+      >
+        <div
+          class="btn-group"
+          dropdown
+          placement="bottom right"
+          container="body"
+          [insideClick]="true"
+        >
+          <button valor-launchpad-button dropdownToggle class="shadow-sm">
+            status
+            <i class="align-middle fas fa-fw fa-filter">&nbsp;</i>
+          </button>
+          <ul
+            *dropdownMenu
+            class="dropdown-menu dropdown-menu-right"
+            role="menu"
+          >
+            <li
+              role="menuitem"
+              *ngFor="let status of allStatusOptions"
+              (click)="onFilterStatus(status.value)"
+            >
+              <a
+                class="
+                  dropdown-item
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                "
+              >
+                {{ status.label }}
+                <i
+                  class="fas"
+                  [class.fa-check]="statusFilter?.has(status.value)"
+                ></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between">
+        <div
+          class="btn-group"
+          dropdown
+          #dropdown="bs-dropdown"
+          placement="bottom right"
+          container="body"
+          [insideClick]="true"
+        >
+          <button valor-launchpad-button dropdownToggle class="shadow-sm">
+            Progress
+            <i class="align-middle fas fa-fw fa-filter">&nbsp;</i>
+          </button>
+          <div
+            *dropdownMenu
+            class="dropdown-menu dropdown-menu-right"
+            role="menu"
+          >
+            <span class="d-flex align-items-center p-2">
+              <input
+                max="100"
+                min="0"
+                class="me-2"
+                type="number"
+                valorLaunchpadInput
+                vlSize="small"
+                onkeyup="value = Math.round(value)"
+                placeholder="0%"
+                [formControl]="progressFg.get('start')"
+              />
+              <span class="me-2">-</span>
+              <input
+                max="100"
+                min="0"
+                type="number"
+                valorLaunchpadInput
+                vlSize="small"
+                onkeyup="value = Math.round(value)"
+                placeholder="100%"
+                [formControl]="progressFg.get('end')"
+              />
+            </span>
+            <span class="d-flex justify-content-center">
+              <button
+                valor-launchpad-button
+                [outlined]="true"
+                theme="primary"
+                (click)="handleSaveProgress()"
+              >
+                Save
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

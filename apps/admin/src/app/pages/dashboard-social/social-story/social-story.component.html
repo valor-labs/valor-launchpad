@@ -1,11 +1,13 @@
 <div class="d-flex align-items-start">
-  <img
-    [src]="story.user.avatar.src"
+  <valor-launchpad-avatar
+    [src]="story.user.profile.avatar | valorImage"
+    [alt]="story.user.profile.avatar?.alt"
+    [firstName]="story.user.firstName"
+    [lastName]="story.user.lastName"
     width="56"
     height="56"
-    class="rounded-circle me-3"
-    [alt]="story.user.avatar.alt"
-  />
+    classes="me-3"
+  ></valor-launchpad-avatar>
   <div class="flex-grow-1">
     <small class="float-end">{{ story.createdDate | timeAgo }}</small>
     <p class="mb-2">
@@ -53,13 +55,13 @@
       *ngFor="let comment of story.comments"
     >
       <a class="pe-2">
-        <img
-          [src]="comment.author.avatar.src"
-          width="36"
-          height="36"
-          class="rounded-circle me-2"
-          [alt]="comment.author.avatar.alt"
-        />
+        <!--        <img-->
+        <!--          [src]="comment.author.avatar.src"-->
+        <!--          width="36"-->
+        <!--          height="36"-->
+        <!--          class="rounded-circle me-2"-->
+        <!--          [alt]="comment.author.avatar.alt"-->
+        <!--        />-->
       </a>
       <div class="flex-grow-1">
         <p class="text-muted">

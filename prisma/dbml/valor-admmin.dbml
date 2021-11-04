@@ -160,6 +160,7 @@ Table ProjectsEntity {
   cloneable Boolean [not null, default: true]
   progress Int
   rollupData Json
+  earnings Json
   assignee ProjectsAssigneeEntity [not null]
   comments CommentEntity [not null]
   hero MediaAsset
@@ -229,7 +230,6 @@ Table UserEntity {
   projects ProjectsAssigneeEntity [not null]
   reportedProjects ProjectSummaryEntity [not null]
   comments CommentEntity [not null]
-  avatar MediaAsset
   profile ProfileEntity
   socialUserFollower SocialUserFollower [not null]
   socialUserFollowing SocialUserFollower [not null]
@@ -304,11 +304,9 @@ Table MediaAsset {
   alt String [not null]
   profile_id String [unique]
   project_id String [unique]
-  user_id String [unique]
   story_id String
   profile ProfileEntity
   project ProjectsEntity
-  user UserEntity
   story SocialStory
 
   indexes {
@@ -391,12 +389,8 @@ Table SocialStoryUserLike {
 Table SocialActivity {
   id Int [pk, increment]
   operatorId String [not null]
-  operatorFullName String [not null]
-  operatorAvatarSrc String [not null]
   action SocialActivityAction [not null]
   targetUserId String
-  targetUserFullName String
-  targetUserAvatarSrc String
   storyId String
   createdDate DateTime [default: `now()`, not null]
   deletedDate DateTime
@@ -634,8 +628,6 @@ Ref: UserTagsEntity.tag_id > TagsEntity.id
 Ref: MediaAsset.profile_id - ProfileEntity.id
 
 Ref: MediaAsset.project_id - ProjectsEntity.id
-
-Ref: MediaAsset.user_id - UserEntity.id
 
 Ref: MediaAsset.story_id > SocialStory.id
 

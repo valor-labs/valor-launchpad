@@ -13,7 +13,6 @@ export class updatePublicInfoProfileDto {
   @IsString()
   alt: string;
 
-  @IsNotEmpty()
   @IsString()
   bio: string;
 }

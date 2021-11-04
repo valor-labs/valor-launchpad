@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-// const defaultSrc = 'assets/img/avatars/avatar.jpg';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ProfileService } from '../../profile/profile.service';
 
 @Component({
   selector: 'valor-launchpad-avatar-selector',
@@ -8,9 +7,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./avatar-selector.component.scss'],
 })
 export class AvatarSelectorComponent {
+  previewSrc = null;
+  $profile = this.profileService.getProfile();
   @Output() selectImage = new EventEmitter<File>();
 
-  @Input() previewSrc: any;
+  constructor(private profileService: ProfileService) {}
 
   triggerFilePicker(input: HTMLInputElement) {
     input.click();

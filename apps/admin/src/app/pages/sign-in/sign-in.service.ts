@@ -29,6 +29,13 @@ export class SignInService {
             `${data.user.firstName} ${data.user.lastName}`
           );
           this.cookieService.set('avatar', data.user.avatar?.src);
+
+          this.cookieService.set('firstName', `${data.user.firstName}`);
+          this.cookieService.set('lastName', `${data.user.lastName}`);
+          this.cookieService.set(
+            'avatar',
+            JSON.stringify(data.user.profile.avatar)
+          );
         }),
         catchError((err) => of(err.error))
       );

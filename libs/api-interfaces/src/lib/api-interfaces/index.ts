@@ -7,3 +7,4 @@ export * from './dashboard-default';
 export * from './dashboard-analytic';
 export * from './project';
 export * from './notification';
+export * from './pagination';

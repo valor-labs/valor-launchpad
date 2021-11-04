@@ -10,9 +10,12 @@ export interface IStory {
   user: {
     firstName: string;
     lastName: string;
-    avatar: {
-      src: string;
-      alt: string;
+    profile: {
+      avatar: {
+        src: string;
+        src_webp: string;
+        alt: string;
+      };
     };
   };
   content: string;
@@ -51,12 +54,32 @@ export interface ISocialActivity {
 
 export interface ISocialActivityItem {
   storyId: string;
-  operatorAvatarSrc: string;
   createdDate: string;
   deletedDate: string;
-  operatorFullName: string;
-  operator: { username: string };
-  targetUser: { username: string };
+  operator: {
+    username: string;
+    firstName: string;
+    lastName: string;
+    profile: {
+      avatar: {
+        src: string;
+        src_webp: string;
+        alt: string;
+      };
+    };
+  };
+  targetUser: {
+    username: string;
+    firstName: string;
+    lastName: string;
+    profile: {
+      avatar: {
+        src: string;
+        src_webp: string;
+        alt: string;
+      };
+    };
+  };
   action:
     | 'FOLLOWED'
     | 'UNFOLLOWED'
@@ -64,9 +87,7 @@ export interface ISocialActivityItem {
     | 'LIKED_STORY'
     | 'UNLIKED_STORY';
   targetUserId: string;
-  targetUserFullName: string;
   id: number;
-  targetUserAvatarSrc: string;
   operatorId: string;
   story: Pick<IStory, 'content' | 'mediaAsset'>;
 }

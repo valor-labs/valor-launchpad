@@ -6,6 +6,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -19,6 +20,7 @@ import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 import { User } from '@valor-launchpad/users-api';
 import { CreateProjectCommentDto } from './dto/create-project-comment.dto';
 import { CommentService } from './services/comment.service';
+import { QueryProjectListDto } from './dto/query-project-list.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('v1')
@@ -54,13 +56,13 @@ export class ProjectsController {
   }
 
   @Get('all')
-  //TODO: Understand why this is entity and not the class from api
-  async getAll(): Promise<ProjectListItemVo[]> {
-    return await this.projectsService.getAll();
+  async getAll(
+    @Query() query: QueryProjectListDto
+  ): Promise<ProjectListItemVo[]> {
+    return await this.projectsService.getAll(query);
   }
 
   @Get('single/:id')
-  //TODO: Understand why this is entity and not the class from api
   async getSingle(@Param() params) {
     const project = await this.projectsService.getSingle(params.id);
     /*TODO: improve this check */

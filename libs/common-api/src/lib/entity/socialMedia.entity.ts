@@ -1,3 +1,4 @@
+
 import { BaseEntity } from '@valor-launchpad/common-api';
 
 export class SocialMediaEntity extends BaseEntity {
