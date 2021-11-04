@@ -57,7 +57,6 @@ export class UsersService {
       },
       include: {
         profile: true,
-        avatar: true,
         userRoles: {
           include: {
             rolesEntity: true
@@ -655,7 +654,6 @@ export class UsersService {
       where: { username },
       include: {
         profile: true,
-        avatar: true,
         userRoles: {
           include: {
             rolesEntity: true
@@ -679,8 +677,11 @@ export class UsersService {
         username
       },
       include: {
-        profile: true,
-        avatar: true,
+        profile: {
+          include: {
+            avatar: true
+          }
+        },
         userRoles: {
           include: {
             rolesEntity: true
