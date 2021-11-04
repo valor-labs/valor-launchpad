@@ -66,6 +66,7 @@ export class CommentService {
 
     if (commentDto.commentId) {
       await this.notificationService.createReplyNotification(
+        projectId,
         commentDto,
         actingUser
       );

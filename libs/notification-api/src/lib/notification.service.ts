@@ -3,6 +3,8 @@ import { PrismaService } from '@valor-launchpad/prisma';
 import { SocketConnService } from '@valor-launchpad/socket-gateway';
 import { NotificationVo } from '@valor-launchpad/api-interfaces';
 import { Prisma } from '@prisma/client';
+import { QueryNotificationListDto } from './dto/query-notification-list.dto';
+import { MarkAsReadDto } from './dto/mark-as-read.dto';
 
 @Injectable()
 export class NotificationService {
@@ -11,16 +13,36 @@ export class NotificationService {
     private socketConnService: SocketConnService
   ) {}
 
-  async getNotifications(userId: string) {
-    return await this.prisma.notification.findMany({
-      where: { deletedDate: null, userId, read: false },
+  async getNotifications(query: QueryNotificationListDto, userId: string) {
+    const take = query.pageSize ?? 10;
+    const pageIndex = query.pageIndex ?? 1;
+    const skip = (pageIndex - 1) * take;
+
+    const where: Prisma.NotificationWhereInput = { deletedDate: null, userId };
+    if (Reflect.has(query, 'read')) {
+      where.read = query.read;
+    }
+    // todo: type filter
+
+    const data = await this.prisma.notification.findMany({
+      where,
       orderBy: { createdDate: 'desc' },
+      take,
+      skip,
     });
+    const total = await this.prisma.notification.count({ where });
+    return { data, page: { total, pageIndex, pageSize: take } };
   }
 
-  markAllAsRead(userId: string) {
+  markAllAsRead(markAsReadDto: MarkAsReadDto, actingUserId: string) {
+    const where: Prisma.NotificationWhereInput = {
+      userId: actingUserId,
+    };
+    if (markAsReadDto.notificationIds?.length) {
+      where.id = { in: markAsReadDto.notificationIds };
+    }
     return this.prisma.notification.updateMany({
-      where: { userId },
+      where,
       data: {
         read: true,
         readDate: new Date(),
@@ -56,9 +78,12 @@ export class NotificationService {
     }
   }
 
-  async createReplyNotification(commentDto, actingUser) {
+  async createReplyNotification(projectId: string, commentDto, actingUser) {
     const comment = await this.prisma.commentEntity.findFirst({
       where: { id: commentDto.commentId },
+    });
+    const project = await this.prisma.projectsEntity.findFirst({
+      where: { id: projectId },
     });
     const notification = await this.prisma.notification.create({
       data: {
@@ -66,7 +91,11 @@ export class NotificationService {
         type: 'REPLY_COMMENT',
         read: false,
         readDate: null,
-        extras: { comment, actingUser } as unknown as Prisma.JsonObject,
+        extras: {
+          comment,
+          actingUser,
+          project,
+        } as unknown as Prisma.JsonObject,
       },
     });
     this.notify(comment.author_id, notification);
@@ -76,12 +105,19 @@ export class NotificationService {
     const comment = await this.prisma.commentEntity.findFirst({
       where: { id: commentId },
     });
+    const project = await this.prisma.projectsEntity.findFirst({
+      where: { id: comment.project_id },
+    });
     const notification = await this.prisma.notification.create({
       data: {
         userId: comment.author_id,
         type: 'LIKE_COMMENT',
         read: false,
-        extras: { comment, actingUser } as unknown as Prisma.JsonObject,
+        extras: {
+          comment,
+          actingUser,
+          project,
+        } as unknown as Prisma.JsonObject,
       },
     });
     this.notify(comment.author_id, notification);
