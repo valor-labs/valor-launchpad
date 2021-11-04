@@ -49,6 +49,14 @@ export class SignInComponent implements OnInit {
           this.errorMessage = 'Incorrect username or password';
           this.isAlertOpen = true;
         }
+        if (
+          localStorage.getItem('preUrl') &&
+          localStorage.getItem('preUrl') !== '/sign-in'
+        ) {
+          this.router.navigate([localStorage.getItem('preUrl')]);
+        } else {
+          this.router.navigate(['/dashboard-default']);
+        }
         this.loading = false;
       },
       (err) => {
