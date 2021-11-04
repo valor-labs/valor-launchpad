@@ -54,4 +54,8 @@ export const PROJECTS = new Array(20)
     status: random.arrayElement(Object.values(ProjectStatus)),
     deletable: true,
     cloneable: true,
+    earnings: {
+      lastYear: Array.from({length: 12}, () => datatype.number({ min: 10000, max: 100000 })),
+      thisYear: Array.from({length: 12}, () => datatype.number({ min: 10000, max: 100000 }))
+    }
   }));

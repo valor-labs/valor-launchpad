@@ -178,6 +178,7 @@ model ProjectsEntity {
   cloneable   Boolean                  @default(true) @db.TinyInt
   progress    Int?
   rollupData  Json?                    @db.Json
+  earnings    Json?                    @db.Json
   assignee    ProjectsAssigneeEntity[] @relation("projectsAssignee")
   comments    CommentEntity[]          @relation("projectComments")
   hero        MediaAsset?              @relation("projectHeroMedia")

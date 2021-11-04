@@ -287,9 +287,21 @@
         <h5 valor-launchpad-card-title class="mb-0">Earnings</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
-        <div class="chart">
-          <!--            TODO: Fix this chart-->
-          <canvas id="chartjs-projects-bar"></canvas>
+        <div class="align-self-center chart chart-lg">
+          <ngx-charts-bar-vertical-2d
+            [barPadding]="3"
+            [scheme]="salesRevenueConfig.colorScheme"
+            [results]="monthlyRevenue"
+            [gradient]="salesRevenueConfig.gradient"
+            [xAxis]="salesRevenueConfig.showXAxis"
+            [yAxis]="salesRevenueConfig.showYAxis"
+            [legend]="salesRevenueConfig.showLegend"
+            [showXAxisLabel]="salesRevenueConfig.showXAxisLabel"
+            [showYAxisLabel]="salesRevenueConfig.showYAxisLabel"
+            [xAxisLabel]="salesRevenueConfig.xAxisLabel"
+            [yAxisLabel]="salesRevenueConfig.yAxisLabel"
+            [animations]="salesRevenueConfig.animations"
+          ></ngx-charts-bar-vertical-2d>
         </div>
       </valor-launchpad-card-content>
     </valor-launchpad-card>

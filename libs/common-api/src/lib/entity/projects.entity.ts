@@ -53,4 +53,9 @@ export class ProjectsEntity extends BaseEntity {
         };
       }
     | any;
+  earnings?:
+    | {
+        [key: string]: string[]|number[]
+      }
+    | any;
 }

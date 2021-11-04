@@ -160,6 +160,7 @@ Table ProjectsEntity {
   cloneable Boolean [not null, default: true]
   progress Int
   rollupData Json
+  earnings Json
   assignee ProjectsAssigneeEntity [not null]
   comments CommentEntity [not null]
   hero MediaAsset
