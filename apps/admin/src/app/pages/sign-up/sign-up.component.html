@@ -123,50 +123,24 @@
                           name="password"
                           placeholder="Enter password"
                         />
-                        <span class="float-end position-relative">
-                          <i
-                            *ngIf="standardValidator"
-                            role="button"
-                            valor-launchpad-button
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="left"
-                            title="remove standard validator"
-                            class="
-                              position-absolute
-                              fas
-                              fa-fw fa-lock
-                              end-0
-                              translate
-                              pe-auto
-                            "
-                            (click)="closeStandardValidator()"
-                          ></i>
-                          <i
-                            *ngIf="!standardValidator"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="left"
-                            title="add standard validator"
-                            role="button"
-                            class="
-                              position-absolute
-                              fas
-                              fa-fw fa-lock-open
-                              end-0
-                              translate
-                              pe-auto
-                            "
-                            (click)="openStandardValidator()"
-                          ></i>
-                        </span>
                         <ng-template #passwordErr let-control>
-                          <ng-container *ngIf="control.hasError('required')"
-                            >This field is required.</ng-container
+                          <ng-container *ngIf="control.hasError('required')">
+                            This field is required.
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              control.hasError('pattern') &&
+                              !control.hasError('maxlength') &&
+                              !control.hasError('minlength')
+                            "
+                            >{{ errorMessage }}</ng-container
                           >
-                          <ng-container *ngIf="control.hasError('pattern')"
-                            >Password must include at least one uppercase and
-                            lowercase letter, number and special
-                            character.</ng-container
-                          >
+                          <ng-container *ngIf="control.hasError('maxlength')">
+                            Maximum password length 15
+                          </ng-container>
+                          <ng-container *ngIf="control.hasError('minlength')">
+                            Minimum password length 6
+                          </ng-container>
                         </ng-template>
                         <ng-template #passwordSuccess let-control>
                           <ng-container *ngIf="control.valid">

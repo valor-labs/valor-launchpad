@@ -9,10 +9,8 @@ import {
 import { SettingsPasswordService } from './settings-password.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
-// import { PasswordValidator } from '../../../core/utils/passwordValidator';
 import { VLCheckBoxOption } from '@valor-launchpad/ui';
 import { map } from 'rxjs/operators';
-
 const pwdValidator: ValidatorFn = (fg: FormGroup) => {
   const newPassword = fg.get('newPassword');
   const confirmPassword = fg.get('confirmPassword');
@@ -20,6 +18,36 @@ const pwdValidator: ValidatorFn = (fg: FormGroup) => {
     ? null
     : { pwdNotSame: true };
 };
+export interface ValidationResult {
+  [key: string]: boolean;
+}
+
+const DEFAULTE_VALIDATION = [
+  {
+    label: `min length 6 `,
+    value: `minLength`,
+  },
+  {
+    label: `max length 15`,
+    value: `maxLength`,
+  },
+  {
+    label: `include number`,
+    value: `number`,
+  },
+  {
+    label: `at least one uppercase`,
+    value: `uppercase`,
+  },
+  {
+    label: `at least one lowercase`,
+    value: `lowercase`,
+  },
+  {
+    label: `include special characters`,
+    value: `characters`,
+  },
+];
 
 @Component({
   selector: 'valor-launchpad-settings-password',
@@ -32,32 +60,9 @@ export class SettingsPasswordComponent implements OnInit {
   passwordControl: AbstractControl;
   validatorControl: AbstractControl;
   isLoading = false;
-  verticalCheckboxOptions : VLCheckBoxOption[] = [
-    {
-      label: `min length 6 `,
-      value: `minLength`,
-    },
-    {
-      label: `max length 15`,
-      value: `maxLength`,
-    },
-    {
-      label: `include number`,
-      value: `number`,
-    },
-    {
-      label: `at least one uppercase`,
-      value: `uppercase`,
-    },
-    {
-      label: `at least one lowercase`,
-      value: `lowercase`,
-    },
-    {
-      label: `include special characters`,
-      value: `characters`,
-    },
-  ];
+  validation: ValidationResult;
+  verticalCheckboxOptions: VLCheckBoxOption[] = [];
+  errorMessage: string;
   constructor(
     private fb: FormBuilder,
     private passwordService: SettingsPasswordService,
@@ -65,6 +70,13 @@ export class SettingsPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.validation = {
+      minLength: false,
+      maxLength: false,
+      uppercase: false,
+      lowercase: false,
+      characters: false,
+    };
     this.formGroup = this.fb.group(
       {
         currentPassword: [null, [Validators.required]],
@@ -77,6 +89,32 @@ export class SettingsPasswordComponent implements OnInit {
     this.passwordControl = this.formGroup.get('newPassword');
     this.validatorControl = this.formGroup.get('vCheckboxControl');
     this.passwordValidator(this.validatorControl);
+
+    this.passwordService.getPasswordValidation().subscribe((res) => {
+      if (res['passwordValidation']) {
+        this.generatePasswordValidator(res['passwordValidation']);
+        Object.keys(res['passwordValidation']).forEach((item) => {
+          if (res['passwordValidation'][item] === true) {
+            this.validatorControl.setValue([item]);
+          }
+        });
+      }
+    });
+  }
+
+  generatePasswordValidator(validation) {
+    if (validation) {
+      Object.keys(validation).forEach((item, i) => {
+        const obj = {
+          value: item,
+          label: DEFAULTE_VALIDATION.find((element) => element.value === item)
+            .label,
+        };
+        this.verticalCheckboxOptions.push(obj);
+      });
+    } else {
+      this.verticalCheckboxOptions = DEFAULTE_VALIDATION;
+    }
   }
 
   saveChanges() {
@@ -91,6 +129,9 @@ export class SettingsPasswordComponent implements OnInit {
     this.passwordService.updatePassword(currentPassword, newPassword).subscribe(
       () => {
         this.toastrService.success('Password updated successfully');
+        this.passwordService
+          .updatePasswordValidation(this.validation)
+          .subscribe();
         this.formGroup.reset();
         this.isLoading = false;
       },
@@ -101,34 +142,45 @@ export class SettingsPasswordComponent implements OnInit {
     );
   }
 
-  passwordValidator(control:AbstractControl) {
-    const passwordValidator = {
-      minLength: false,
-      maxLength: false,
-      uppercase: false,
-      lowercase: false,
-      characters: false
-    }
-    control.valueChanges.pipe(
-      map(validator => {
-        Object.keys(passwordValidator).forEach(key => {
-          passwordValidator[key] = false;
+  passwordValidator(control: AbstractControl) {
+    control.valueChanges
+      .pipe(
+        map((validator) => {
+          Object.keys(this.validation).forEach((key) => {
+            this.validation[key] = false;
+          });
+          validator?.forEach((element) => {
+            this.validation[element] = true;
+          });
+
+          return this.validation;
         })
-        validator.forEach(element => {
-          passwordValidator[element] = true;
-        });
-        // TODO save this validator object to db
-        return passwordValidator;
-      })
-    )
-    .subscribe(res => {
-      this.setValidation(res);
-    })
+      )
+      .subscribe((res) => {
+        this.setValidation(res);
+        this.setErrorMessage(res);
+      });
   }
 
-  setValidation (data) {
-    this.passwordControl.clearValidators();
-    Object.keys(data).forEach(key => {
+  setErrorMessage(data) {
+    const validator = Object.keys(data).filter((key) => {
+      return data[key] && key !== 'maxLength' && key !== 'minLength';
+    });
+    if (validator.length === 1) {
+      this.errorMessage = `password must include at least one ${validator[0]}`;
+    } else if (validator.length === 2) {
+      this.errorMessage = `password must include at least one ${validator[0]} and ${validator[1]}`;
+    } else if (validator.length === 3) {
+      this.errorMessage = `password must include at least one ${validator[0]}, ${validator[1]} and ${validator[2]} `;
+    } else {
+      this.errorMessage =
+        'password must include number, at least one uppercase, lowercase and special character';
+    }
+  }
+
+  setValidation(data) {
+    this.passwordControl.setValidators(Validators.required);
+    Object.keys(data).forEach((key) => {
       if (data[key]) {
         switch (key) {
           case 'minLength':
@@ -141,33 +193,25 @@ export class SettingsPasswordComponent implements OnInit {
             this.passwordControl.addValidators(Validators.pattern(/\d/));
             break;
           case 'uppercase':
-              this.passwordControl.addValidators(Validators.pattern(/(?=.*[A-Z])/));
-              break;
+            this.passwordControl.addValidators(
+              Validators.pattern(/(?=.*[A-Z])/)
+            );
+            break;
           case 'lowercase':
-            this.passwordControl.addValidators(Validators.pattern(/(?=.*[a-z])/));
+            this.passwordControl.addValidators(
+              Validators.pattern(/(?=.*[a-z])/)
+            );
             break;
           case 'characters':
-            this.passwordControl.addValidators(Validators.pattern(/(?=.*[!@#$%^&*,./()';|?><:"])/));
+            this.passwordControl.addValidators(
+              Validators.pattern(/(?=.*[!@#$%^&*,./()';|?><:"])/)
+            );
             break;
           default:
             break;
-        };
+        }
       }
       this.passwordControl.updateValueAndValidity({ onlySelf: true });
     });
   }
-  // openStandardValidator() {
-  //   this.standardValidator = true;
-  //   this.passwordControl.setValidators([
-  //     Validators.required,
-
-  //   ]);
-  //   this.passwordControl.updateValueAndValidity({ onlySelf: true });
-  // }
-
-  // closeStandardValidator() {
-  //   this.standardValidator = false;
-  //   this.passwordControl.setValidators([Validators.required]);
-  //   this.passwordControl.updateValueAndValidity({ onlySelf: true });
-  // }
 }

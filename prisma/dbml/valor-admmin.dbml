@@ -234,15 +234,16 @@ Table UserEntity {
   socialUserFollower SocialUserFollower [not null]
   socialUserFollowing SocialUserFollower [not null]
   socialStory SocialStory [not null]
+  userTasks TaskEntity [not null]
+  userTasksCreatedBy TaskEntity [not null]
+  userTasksDeletedBy TaskEntity [not null]
   socialStoryUserLike SocialStoryUserLike [not null]
   socialActivities SocialActivity [not null]
   socialActivitiesAsTarget SocialActivity [not null]
   appointments Appointment [not null]
   CommentUserLike CommentUserLike [not null]
   notifications Notification [not null]
-  userTasks TaskEntity [not null]
-  userTasksCreatedBy TaskEntity [not null]
-  userTasksDeletedBy TaskEntity [not null]
+  passwordValidator PasswordValidationEntity [not null]
 }
 
 Table UserEventsEntity {
@@ -568,6 +569,13 @@ Table TaskEntity {
   deleteUser UserEntity
 }
 
+Table PasswordValidationEntity {
+  id String [pk]
+  passwordValidation Json
+  user_id String [unique, not null]
+  passwordValidate UserEntity [not null]
+}
+
 Enum ProjectStatus {
   IN_PROGRESS
   FINISHED
@@ -692,3 +700,5 @@ Ref: TaskEntity.userId > UserEntity.id
 Ref: TaskEntity.createdBy > UserEntity.id
 
 Ref: TaskEntity.deletedBy > UserEntity.id
+
+Ref: PasswordValidationEntity.user_id > UserEntity.id
