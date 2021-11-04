@@ -1,11 +1,16 @@
 <div class="text-center">
-  <img
-    alt="Chris Wood"
-    [src]="previewSrc | valorImage"
-    class="rounded-circle img-responsive mt-2"
+  <valor-launchpad-avatar
+    *ngIf="$profile | async as profile"
+    classes="img-responsive mt-2"
     width="128"
     height="128"
-  />
+    [src]="!!previewSrc ? previewSrc : (profile.avatar | valorImage)"
+    [alt]="profile.avatar?.alt"
+    [firstName]="profile.user.firstName"
+    [lastName]="profile.user.lastName"
+  >
+  </valor-launchpad-avatar>
+
   <div class="mt-2">
     <input
       #fileInput

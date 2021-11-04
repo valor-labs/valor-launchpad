@@ -229,7 +229,6 @@ Table UserEntity {
   projects ProjectsAssigneeEntity [not null]
   reportedProjects ProjectSummaryEntity [not null]
   comments CommentEntity [not null]
-  avatar MediaAsset
   profile ProfileEntity
   socialUserFollower SocialUserFollower [not null]
   socialUserFollowing SocialUserFollower [not null]
@@ -304,11 +303,9 @@ Table MediaAsset {
   alt String [not null]
   profile_id String [unique]
   project_id String [unique]
-  user_id String [unique]
   story_id String
   profile ProfileEntity
   project ProjectsEntity
-  user UserEntity
   story SocialStory
 
   indexes {
@@ -634,8 +631,6 @@ Ref: UserTagsEntity.tag_id > TagsEntity.id
 Ref: MediaAsset.profile_id - ProfileEntity.id
 
 Ref: MediaAsset.project_id - ProjectsEntity.id
-
-Ref: MediaAsset.user_id - UserEntity.id
 
 Ref: MediaAsset.story_id > SocialStory.id
 

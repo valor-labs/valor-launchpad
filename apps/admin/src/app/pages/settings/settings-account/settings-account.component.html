@@ -47,7 +47,6 @@
           </div>
           <div class="col-md-4">
             <valor-launchpad-avatar-selector
-              [previewSrc]="profile.avatar"
               (selectImage)="publicInfoFormGroup.patchValue({ avatar: $event })"
             ></valor-launchpad-avatar-selector>
           </div>
