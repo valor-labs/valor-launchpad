@@ -6,6 +6,7 @@ import { NotificationDropdownComponent } from './notification-dropdown/notificat
 import { UiModule } from '@valor-launchpad/ui';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,13 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     NotificationItemComponent,
     NotificationDropdownComponent,
   ],
-  imports: [CommonModule, UiModule, BsDropdownModule, TooltipModule],
+  imports: [
+    CommonModule,
+    UiModule,
+    BsDropdownModule,
+    TooltipModule,
+    RouterModule,
+  ],
   exports: [NotificationListComponent, NotificationDropdownComponent],
 })
 export class NotificationModule {}

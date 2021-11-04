@@ -1,9 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { CreateProjectCommentDto } from '../dto/create-project-comment.dto';
 import { InvalidDeleteException } from '../exceptions/invalid-delete';
-import { SocketConnService } from '@valor-launchpad/notification-api';
+import { NotificationService } from '@valor-launchpad/notification-api';
 
 @Injectable()
 export class CommentService {
@@ -11,7 +10,7 @@ export class CommentService {
 
   constructor(
     private prisma: PrismaService,
-    private socketConnService: SocketConnService
+    private notificationService: NotificationService
   ) {}
 
   async getComments(projectId: string, actingUser) {
@@ -66,45 +65,16 @@ export class CommentService {
     });
 
     if (commentDto.commentId) {
-      const comment = await this.prisma.commentEntity.findFirst({
-        where: { id: commentDto.commentId },
-      });
-      const notification = await this.prisma.notification.create({
-        data: {
-          userId: comment.author_id,
-          type: 'REPLY_COMMENT',
-          read: false,
-          readDate: null,
-          extras: { comment, actingUser } as unknown as Prisma.JsonObject,
-        },
-      });
-      this.socketConnService.notifyUser(comment.author_id, notification);
-    } else {
-      const project = await this.prisma.projectsEntity.findFirst({
-        include: {
-          summary: { select: { reporter: { select: { id: true } } } },
-          assignee: { select: { userId: true } },
-        },
-        where: { id: projectId },
-      });
-      const userIds = Array.from(
-        new Set([
-          project.summary.reporter.id,
-          ...project.assignee.map((i) => i.userId),
-        ])
+      await this.notificationService.createReplyNotification(
+        projectId,
+        commentDto,
+        actingUser
       );
-      for (const userId of userIds) {
-        const notification = await this.prisma.notification.create({
-          data: {
-            userId,
-            type: 'COMMENT',
-            read: false,
-            readDate: null,
-            extras: { project, actingUser } as unknown as Prisma.JsonObject,
-          },
-        });
-        this.socketConnService.notifyUser(userId, notification);
-      }
+    } else {
+      await this.notificationService.createCommentNotification(
+        projectId,
+        actingUser
+      );
     }
 
     return comment;
@@ -137,18 +107,10 @@ export class CommentService {
       create: { commentId, userId: actingUser.id, createdDate: now },
       update: { deletedDate: null },
     });
-    const comment = await this.prisma.commentEntity.findFirst({
-      where: { id: commentId },
-    });
-    const notification = await this.prisma.notification.create({
-      data: {
-        userId: comment.author_id,
-        type: 'LIKE_COMMENT',
-        read: false,
-        extras: { comment, actingUser } as unknown as Prisma.JsonObject,
-      },
-    });
-    this.socketConnService.notifyUser(comment.author_id, notification);
+    await this.notificationService.createLikeCommentNotification(
+      commentId,
+      actingUser
+    );
     return commentUserLike;
   }
 

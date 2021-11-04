@@ -1,24 +1,14 @@
-import {
-  WebSocketGateway,
-  OnGatewayInit,
-  WebSocketServer,
-  OnGatewayConnection,
-  OnGatewayDisconnect,
-} from '@nestjs/websockets';
-import { Logger } from '@nestjs/common';
-import { Socket, Server } from 'socket.io';
+import { OnGatewayConnection, WebSocketGateway } from '@nestjs/websockets';
 import { AuthService } from '@valor-launchpad/auth-api';
 import { SocketConnService } from './socket-conn.service';
+import { Socket } from 'socket.io';
+import { Logger } from '@nestjs/common';
 
 @WebSocketGateway({
   cors: { origin: process.env.HOST },
 })
-export class NotificationGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
-  @WebSocketServer() server: Server;
-  private logger = new Logger(NotificationGateway.name);
-
+export class SocketGateway implements OnGatewayConnection {
+  private logger = new Logger(SocketGateway.name);
   constructor(
     private authService: AuthService,
     private socketConnService: SocketConnService
@@ -42,5 +32,6 @@ export class NotificationGateway
       client.handshake.headers.authorization
     ) as { id: string };
     this.socketConnService.add(user.id, client);
+    this.logger.log(`Client connected: ${client.id}`);
   }
 }

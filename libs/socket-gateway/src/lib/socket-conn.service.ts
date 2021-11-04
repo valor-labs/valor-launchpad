@@ -15,7 +15,7 @@ export class SocketConnService {
     }, {});
   }
 
-  userClients = new Map<string, Set<Socket>>();
+  private userClients = new Map<string, Set<Socket>>();
 
   add(userId: string, client: Socket) {
     // one user may have multiple clientId
@@ -30,8 +30,8 @@ export class SocketConnService {
     this.userClients.get(userId).delete(client);
   }
 
-  notifyUser(userId: string, msg) {
+  notifyByUserId<T>(userId: string, eventName: string, message: T) {
     const sockets = this.userClients.get(userId);
-    sockets?.forEach((s) => s.emit('newNotification', msg));
+    sockets?.forEach((s) => s.emit(eventName, message));
   }
 }

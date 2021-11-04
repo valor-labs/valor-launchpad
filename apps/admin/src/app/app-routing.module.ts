@@ -409,6 +409,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'notifications',
+        loadChildren: () =>
+          import('./pages/notifications/notifications.module').then(
+            (m) => m.NotificationsModule
+          ),
+      },
+      {
         path: '',
         redirectTo: '/dashboard-default',
         pathMatch: 'full',

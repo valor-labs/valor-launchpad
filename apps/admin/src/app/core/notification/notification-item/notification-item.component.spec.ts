@@ -18,7 +18,7 @@ describe('NotificationItemComponent', () => {
     fixture = TestBed.createComponent(NotificationItemComponent);
     component = fixture.componentInstance;
     component.notification = {
-      id: '',
+      id: 1,
       type: 'COMMENT',
       read: false,
       extras: {

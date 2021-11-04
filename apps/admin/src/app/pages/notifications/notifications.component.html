@@ -1,0 +1,85 @@
+<h1 class="h3 mb-3">Notifications</h1>
+
+<valor-launchpad-card>
+  <valor-launchpad-card-content>
+    <ngx-datatable
+      #notificationsTable
+      columnMode="force"
+      [columns]="columns"
+      [rows]="rows"
+      [footerHeight]="50"
+      rowHeight="auto"
+      [rowHeight]="46"
+      [reorderable]="false"
+      [selectionType]="'multiClick'"
+      [selected]="selectedRows"
+      (select)="onSelect($event)"
+      [rowClass]="rowClass"
+      [externalPaging]="true"
+      [count]="pagination.total"
+      [offset]="pagination.pageIndex - 1"
+      [limit]="pagination.pageSize"
+      (page)="setPage($event)"
+    >
+      <ngx-datatable-footer>
+        <ng-template
+          ngx-datatable-footer-template
+          let-rowCount="rowCount"
+          let-pageSize="pageSize"
+          let-curPage="curPage"
+          let-offset="offset"
+        >
+          <div class="page-count">
+            Showing
+            {{ curPage === 1 ? 1 : (curPage - 1) * pageSize + 1 }}
+            to
+            {{ pageSize * curPage > rowCount ? rowCount : pageSize * curPage }}
+            of
+            {{ rowCount }}
+            entries
+          </div>
+          <datatable-pager
+            [pagerLeftArrowIcon]="'datatable-valor-left'"
+            [pagerRightArrowIcon]="'datatable-valor-right'"
+            [page]="curPage"
+            [size]="pageSize"
+            [count]="rowCount"
+            [hidden]="!(rowCount / pageSize > 1)"
+            (change)="notificationsTable.onFooterPage($event)"
+          ></datatable-pager>
+        </ng-template>
+      </ngx-datatable-footer>
+    </ngx-datatable>
+    <button
+      valor-launchpad-button
+      [disabled]="selectedRows.length === 0"
+      (click)="markAsRead()"
+    >
+      Mark as read
+    </button>
+  </valor-launchpad-card-content>
+</valor-launchpad-card>
+
+<ng-template #readField let-row="row">
+  <i class="fas fa-circle text-danger fs-sm" *ngIf="!row.read"></i>
+</ng-template>
+
+<ng-template #contentField let-notification="row">
+  <ng-container [ngSwitch]="notification.type">
+    <ng-template ngSwitchCase="COMMENT">
+      {{ notification.extras.actingUser | fullName }}&nbsp;
+      <b>commented on</b>&nbsp;
+      <span>{{ notification.extras.project.title }}</span>
+    </ng-template>
+    <ng-template ngSwitchCase="LIKE_COMMENT">
+      {{ notification.extras.actingUser | fullName }}&nbsp; <b>liked</b>&nbsp;
+      <span>your comment on</span>&nbsp;
+      <span>{{ notification.extras.project.title }}</span>
+    </ng-template>
+    <ng-template ngSwitchCase="REPLY_COMMENT">
+      {{ notification.extras.actingUser | fullName }}&nbsp;
+      <b>replied to</b>&nbsp; <span>your comment on</span>&nbsp;
+      <span>{{ notification.extras.project.title }}</span>
+    </ng-template>
+  </ng-container>
+</ng-template>

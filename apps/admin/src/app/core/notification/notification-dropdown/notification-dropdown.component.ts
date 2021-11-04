@@ -15,7 +15,7 @@ export class NotificationDropdownComponent implements OnInit {
     this.notificationSocketService.connect();
     this.notificationSocketService
       .fetchNotifications()
-      .subscribe((res) => (this.notifications = res));
+      .subscribe((res) => (this.notifications = res.data));
     this.notificationSocketService
       .listenNewNotification()
       .subscribe((newNotification) => {
@@ -29,7 +29,7 @@ export class NotificationDropdownComponent implements OnInit {
       // todo: switchMap or replace this.notifications directly
       this.notificationSocketService
         .fetchNotifications()
-        .subscribe((res) => (this.notifications = res));
+        .subscribe((res) => (this.notifications = res.data));
     });
   }
 }
