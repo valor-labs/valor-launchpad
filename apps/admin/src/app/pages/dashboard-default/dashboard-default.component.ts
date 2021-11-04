@@ -50,7 +50,7 @@ class DateOnlyPipe extends DatePipe {
 export class DashboardDefaultComponent implements OnInit {
   STATUS_MAPPING = STATUS_MAPPING;
   dateRange$ = new BehaviorSubject<TimeRange>(TimeRange.TODAY);
-  refreshController$ = new Subject();
+  refreshController$ = new Subject<void>();
   timeRangeActions: Action[] = [
     {
       label: TimeRange.TODAY,

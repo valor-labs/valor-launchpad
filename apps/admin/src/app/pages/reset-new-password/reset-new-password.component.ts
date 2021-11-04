@@ -49,7 +49,7 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
   username = '';
   resetPasswordformGroup: FormGroup;
   token = '';
-  private destroy$ = new Subject();
+  private destroy$ = new Subject<void>();
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,

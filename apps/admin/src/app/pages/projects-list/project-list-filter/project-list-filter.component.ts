@@ -52,7 +52,7 @@ export class ProjectListFilterComponent implements OnInit {
   statusSelected = new EventEmitter();
 
   @Output()
-  progress = new EventEmitter();
+  progressChanged = new EventEmitter();
 
   @Output()
   searchKeyWord = new EventEmitter();
@@ -115,7 +115,7 @@ export class ProjectListFilterComponent implements OnInit {
   }
 
   handleSaveProgress() {
-    this.progress.emit(this.progressFg.value);
+    this.progressChanged.emit(this.progressFg.value);
     this.dropdown.hide();
   }
 }

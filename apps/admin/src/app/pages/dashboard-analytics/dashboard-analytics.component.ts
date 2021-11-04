@@ -159,7 +159,7 @@ export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
   ];
 
   dateRange$ = new BehaviorSubject<TimeRange>(TimeRange.TODAY);
-  refreshController$ = new Subject();
+  refreshController$ = new Subject<void>();
   private dateRangeValue$: Observable<{ startAt: Date; endAt: Date }>;
   private worldMap; // jsVectorMap instance
 

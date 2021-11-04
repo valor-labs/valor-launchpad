@@ -35,7 +35,7 @@ export class PaymentStatusComponent implements OnInit, OnDestroy {
   amount: string;
   @ViewChild('wechatQrcode') wechatQrcodeEl: ElementRef<HTMLElement>;
 
-  private destroyed$ = new Subject<never>();
+  private destroyed$ = new Subject<void>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
