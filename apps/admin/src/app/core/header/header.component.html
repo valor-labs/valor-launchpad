@@ -110,52 +110,7 @@
         </div>
       </valor-launchpad-dropdown>
 
-      <valor-launchpad-dropdown classes="nav-icon dropdown-toggle" size="lg">
-        <div
-          dropdown-nav
-          class="position-relative nav-item"
-          id="alertsDropdown"
-        >
-          <i class="align-middle far fa-fw fa-bell-slash"></i>
-        </div>
-        <div dropdown-content>
-          <div class="dropdown-menu-header">
-            {{ notifications?.length }} New Notifications
-          </div>
-          <div class="list-group">
-            <a
-              href="#"
-              class="list-group-item"
-              *ngFor="let notification of notifications"
-            >
-              <div class="row g-0 align-items-center">
-                <div class="col-2">
-                  <i
-                    class="text-{{ notification.level }} fas fa-fw fa-{{
-                      notification.type
-                    }}"
-                  ></i>
-                </div>
-                <div class="col-10">
-                  <div class="text-dark">{{ notification.title }}</div>
-                  <div
-                    class="text-muted small mt-1"
-                    *ngIf="notification.description"
-                  >
-                    {{ notification.description }}
-                  </div>
-                  <div class="text-muted small mt-1">
-                    {{ notification.time }}
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="dropdown-menu-footer">
-            <a href="#" class="text-muted">Show all notifications</a>
-          </div>
-        </div>
-      </valor-launchpad-dropdown>
+      <valor-launchpad-notification-dropdown></valor-launchpad-notification-dropdown>
 
       <li class="nav-item dropdown">
         <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#">

@@ -19,6 +19,7 @@ import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { RedisModule } from 'nestjs-redis';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { NotificationApiModule } from '@valor-launchpad/notification-api';
 @Module({
   imports: [
     EventEmitterModule.forRoot({ wildcard: true }),
@@ -36,6 +37,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
       { path: '/auth', module: AuthApiModule },
       { path: '/stripe', module: StripeApiModule },
       { path: '/users', module: UsersApiModule },
+      { path: '/notifications', module: NotificationApiModule },
     ]),
     ProjectsModule,
     ProfileModule,
@@ -47,6 +49,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     StripeApiModule,
     DashboardSocialModule,
     DashboardCryptoModule,
+    NotificationApiModule,
     MulterModule.register({
       dest: join(__dirname, '/assets'),
     }),

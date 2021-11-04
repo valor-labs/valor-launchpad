@@ -1,0 +1,30 @@
+<div class="row g-0 align-items-center">
+  <div class="col-2">
+    <i [class]="mapping[notification.type].icon"></i>
+  </div>
+  <div class="col-10">
+    <div class="text-dark">{{ mapping[notification.type].title }}</div>
+    <div class="text-muted small mt-1">
+      <ng-container [ngSwitch]="notification.type">
+        <ng-template ngSwitchCase="COMMENT">
+          {{ notification.extras.actingUser | fullName }}&nbsp;
+          <b>commented on</b>&nbsp;
+          <a>{{ notification.extras.project.title }}</a>
+        </ng-template>
+        <ng-template ngSwitchCase="LIKE_COMMENT">
+          {{ notification.extras.actingUser | fullName }}&nbsp;
+          <b>liked</b>&nbsp;
+          <span>your comment</span>
+        </ng-template>
+        <ng-template ngSwitchCase="REPLY_COMMENT">
+          {{ notification.extras.actingUser | fullName }}&nbsp;
+          <b>replied to</b>&nbsp;
+          <span>your comment</span>
+        </ng-template>
+      </ng-container>
+    </div>
+    <div class="text-muted small mt-1">
+      {{ notification.createdDate | timeAgo }}
+    </div>
+  </div>
+</div>

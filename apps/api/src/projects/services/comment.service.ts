@@ -1,13 +1,18 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { CreateProjectCommentDto } from '../dto/create-project-comment.dto';
 import { InvalidDeleteException } from '../exceptions/invalid-delete';
+import { SocketConnService } from '@valor-launchpad/notification-api';
 
 @Injectable()
 export class CommentService {
   private readonly logger = new Logger(CommentService.name);
 
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private socketConnService: SocketConnService
+  ) {}
 
   async getComments(projectId: string, actingUser) {
     const comments = await this.prisma.commentEntity.findMany({
@@ -46,13 +51,12 @@ export class CommentService {
     }));
   }
 
-  // todo: notify relevant user
-  createComment(
+  async createComment(
     projectId: string,
     commentDto: CreateProjectCommentDto,
     actingUser
   ) {
-    return this.prisma.commentEntity.create({
+    const comment = await this.prisma.commentEntity.create({
       data: {
         author_id: actingUser.id,
         body: commentDto.body,
@@ -60,6 +64,50 @@ export class CommentService {
         parentId: commentDto.commentId,
       },
     });
+
+    if (commentDto.commentId) {
+      const comment = await this.prisma.commentEntity.findFirst({
+        where: { id: commentDto.commentId },
+      });
+      const notification = await this.prisma.notification.create({
+        data: {
+          userId: comment.author_id,
+          type: 'REPLY_COMMENT',
+          read: false,
+          readDate: null,
+          extras: { comment, actingUser } as unknown as Prisma.JsonObject,
+        },
+      });
+      this.socketConnService.notifyUser(comment.author_id, notification);
+    } else {
+      const project = await this.prisma.projectsEntity.findFirst({
+        include: {
+          summary: { select: { reporter: { select: { id: true } } } },
+          assignee: { select: { userId: true } },
+        },
+        where: { id: projectId },
+      });
+      const userIds = Array.from(
+        new Set([
+          project.summary.reporter.id,
+          ...project.assignee.map((i) => i.userId),
+        ])
+      );
+      for (const userId of userIds) {
+        const notification = await this.prisma.notification.create({
+          data: {
+            userId,
+            type: 'COMMENT',
+            read: false,
+            readDate: null,
+            extras: { project, actingUser } as unknown as Prisma.JsonObject,
+          },
+        });
+        this.socketConnService.notifyUser(userId, notification);
+      }
+    }
+
+    return comment;
   }
 
   async deleteComment(commentId: string, actingUser) {
@@ -82,14 +130,26 @@ export class CommentService {
     }
   }
 
-  // todo: notify relevant user
-  likeComment(commentId: string, actingUser) {
+  async likeComment(commentId: string, actingUser) {
     const now = new Date();
-    return this.prisma.commentUserLike.upsert({
+    const commentUserLike = await this.prisma.commentUserLike.upsert({
       where: { commentId_userId: { commentId, userId: actingUser.id } },
       create: { commentId, userId: actingUser.id, createdDate: now },
       update: { deletedDate: null },
     });
+    const comment = await this.prisma.commentEntity.findFirst({
+      where: { id: commentId },
+    });
+    const notification = await this.prisma.notification.create({
+      data: {
+        userId: comment.author_id,
+        type: 'LIKE_COMMENT',
+        read: false,
+        extras: { comment, actingUser } as unknown as Prisma.JsonObject,
+      },
+    });
+    this.socketConnService.notifyUser(comment.author_id, notification);
+    return commentUserLike;
   }
 
   // todo: notify relevant user

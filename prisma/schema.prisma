@@ -257,6 +257,7 @@ model UserEntity {
   socialActivitiesAsTarget SocialActivity[]         @relation("socialActivityTargetUser")
   appointments             Appointment[]            @relation("AppointmentUser")
   CommentUserLike          CommentUserLike[]        @relation("commentUserLikeUser")
+  notifications            Notification[]           @relation("NotificationUser")
 }
 
 model UserEventsEntity {
@@ -561,4 +562,23 @@ model Appointment {
   createdDate DateTime @default(now()) @db.DateTime(6)
 
   user UserEntity @relation("AppointmentUser", fields: [userId], references: [id])
+}
+
+enum NotificationType {
+  COMMENT
+  REPLY_COMMENT
+  LIKE_COMMENT
+}
+
+model Notification {
+  id          Int              @id @default(autoincrement())
+  userId      String           @db.VarChar(36)
+  type        NotificationType
+  extras      Json?            @db.Json
+  read        Boolean          @db.TinyInt
+  readDate    DateTime?        @db.DateTime(6)
+  createdDate DateTime         @default(now()) @db.DateTime(6)
+  deletedDate DateTime?        @db.DateTime(6)
+
+  user UserEntity @relation("NotificationUser", fields: [userId], references: [id])
 }
