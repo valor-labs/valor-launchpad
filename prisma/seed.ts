@@ -43,6 +43,7 @@ import { ProjectsAssigneeSeed } from './seed/projects-assignee.seed';
 import { ProjectsCommentSeed } from './seed/projects-comment.seed';
 import { StoryMediaAssetSeed } from './seed/story-media-asset.seed';
 import { StoryCommentSeed } from './seed/story-comment.seed';
+import { TaskEntitySeed } from './seed/task.seed';
 
 const prisma = new PrismaClient();
 // open it when want to debug seed
@@ -95,6 +96,7 @@ async function main() {
   const projectsMediaAssetSeed = new ProjectsMediaAssetSeed(prisma);
   const projectsAssigneeSeed = new ProjectsAssigneeSeed(prisma);
   const projectsCommentSeed = new ProjectsCommentSeed(prisma);
+  const taskEntitySeed = new TaskEntitySeed(prisma);
 
   const seeders: Seeder[] = [
     roleSeed,
@@ -140,6 +142,7 @@ async function main() {
     projectsAssigneeSeed,
     projectsCommentSeed,
     projectSummarySeed,
+    taskEntitySeed
   ];
 
   for (const seeder of seeders.slice().reverse()) {
