@@ -31,21 +31,24 @@ export const USER3_PROFILE = {
 export const USER1_PROFILE_AVATAR = {
   profile_id: USER1_PROFILE.id,
   type: 'image/jpg',
-  src: 'assets/img/avatars/avatar.jpg',
+  src: 'avatar.jpg',
+  src_webp: 'avatar.webp',
   alt: 'user1 profile avatar picture',
 };
 
 export const USER2_PROFILE_AVATAR = {
   profile_id: USER2_PROFILE.id,
   type: 'image/jpg',
-  src: 'assets/img/avatars/avatar-2.jpg',
+  src: 'avatar-2.jpg',
+  src_webp: 'avatar-2.webp',
   alt: 'user2 profile avatar picture',
 };
 
 export const USER3_PROFILE_AVATAR = {
   profile_id: USER3_PROFILE.id,
   type: 'image/jpg',
-  src: 'assets/img/avatars/avatar-3.jpg',
+  src: 'avatar-3.jpg',
+  src_webp: 'avatar-3.webp',
   alt: 'user3 profile avatar picture',
 };
 
