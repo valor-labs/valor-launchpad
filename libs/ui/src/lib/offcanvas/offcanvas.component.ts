@@ -1,6 +1,6 @@
 import {
   Component,
-  EventEmitter,
+  EventEmitter, HostListener,
   Input,
   OnChanges,
   OnInit,
@@ -38,6 +38,11 @@ export class OffcanvasComponent implements OnInit, OnChanges {
 
   @Output()
   onClose = new EventEmitter();
+
+  @HostListener('document:keydown.escape', ['$event'])
+  onKeydownHandler(event: KeyboardEvent) {
+    this.handleClose();
+  }
 
   handleClose() {
     this.onClose.emit();
