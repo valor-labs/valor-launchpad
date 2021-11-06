@@ -262,6 +262,8 @@ model UserEntity {
   userTasks                TaskEntity[]             @relation("UserTasks")
   userTasksCreatedBy       TaskEntity[]             @relation("UserTaskCreatedBy")
   userTasksDeletedBy       TaskEntity[]             @relation("UserTaskDeletedBy")
+  chatUserThreads          ChatThreadUser[]         @relation("ChatThreadUserUser")
+  chatMessages             ChatMessage[]            @relation("ChatMessageUser")
 }
 
 model UserEventsEntity {
@@ -408,13 +410,13 @@ enum SocialActivityAction {
 }
 
 model SocialActivity {
-  id                  Int                  @id @default(autoincrement())
-  operatorId          String               @db.VarChar(36)
-  action              SocialActivityAction
-  targetUserId        String?              @db.VarChar(36)
-  storyId             String?              @db.VarChar(36)
-  createdDate         DateTime             @default(now()) @db.DateTime(6)
-  deletedDate         DateTime?            @db.DateTime(6)
+  id           Int                  @id @default(autoincrement())
+  operatorId   String               @db.VarChar(36)
+  action       SocialActivityAction
+  targetUserId String?              @db.VarChar(36)
+  storyId      String?              @db.VarChar(36)
+  createdDate  DateTime             @default(now()) @db.DateTime(6)
+  deletedDate  DateTime?            @db.DateTime(6)
 
   operator   UserEntity   @relation("socialActivityOperator", fields: [operatorId], references: [id])
   targetUser UserEntity?  @relation("socialActivityTargetUser", fields: [targetUserId], references: [id])
@@ -609,4 +611,39 @@ model TaskEntity {
   user          UserEntity  @relation("UserTasks", fields: [userId], references: [id])
   createUser    UserEntity? @relation("UserTaskCreatedBy", fields: [createdBy], references: [id])
   deleteUser    UserEntity? @relation("UserTaskDeletedBy", fields: [deletedBy], references: [id])
+}
+
+model ChatThread {
+  id      String  @id @default(uuid()) @db.VarChar(36)
+  name    String? @db.VarChar(255)
+  isGroup Boolean @db.TinyInt
+  createdDate     DateTime         @default(now()) @db.DateTime(6)
+  deletedDate     DateTime?        @db.DateTime(6)
+  lastChatDate DateTime?        @db.DateTime(6)
+
+  chatThreadUsers ChatThreadUser[] @relation("ChatThreadUserThread")
+  chatMessages    ChatMessage[]    @relation("ChatMessageThread")
+}
+
+model ChatThreadUser {
+  id          String    @id @default(uuid()) @db.VarChar(36)
+  threadId    String    @db.VarChar(36)
+  userId      String    @db.VarChar(36)
+  createdDate DateTime  @default(now()) @db.DateTime(6)
+  deletedDate DateTime? @db.DateTime(6)
+
+  thread ChatThread @relation("ChatThreadUserThread", fields: [threadId], references: [id])
+  user   UserEntity @relation("ChatThreadUserUser", fields: [userId], references: [id])
+}
+
+model ChatMessage {
+  id            String    @id @default(uuid()) @db.VarChar(36)
+  message       String    @db.VarChar(1000)
+  threadId      String    @db.VarChar(36)
+  createdUserId String    @db.VarChar(36)
+  createdDate   DateTime  @default(now()) @db.DateTime(6)
+  deletedDate   DateTime? @db.DateTime(6)
+
+  thread      ChatThread @relation("ChatMessageThread", fields: [threadId], references: [id])
+  createdUser UserEntity @relation("ChatMessageUser", fields: [createdUserId], references: [id])
 }

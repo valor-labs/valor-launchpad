@@ -1,24 +1,32 @@
-<a *ngIf="messenger" class="list-group-item list-group-item-action border-0">
+<a
+  *ngIf="messenger"
+  class="list-group-item list-group-item-action border-0"
+  [class.selected]="active"
+>
   <div
-    *ngIf="messenger?.unreadNumber !== 0"
-    class="badge float-end"
-    [ngClass]="unreadStatusClass"
+    class="badge float-end bg-success"
+    *ngIf="messenger.unreadMessages && messenger.unreadMessages.length > 0"
   >
-    {{ messenger.unreadNumber }}
+    {{ messenger.unreadMessages.length }}
   </div>
   <div class="d-flex align-items-start">
-    <img
-      src="{{ messenger.avatarUrl }}"
-      class="rounded-circle me-1"
-      alt="{{ messenger.name }}"
+    <valor-launchpad-avatar
+      [src]="messenger.avatar | valorImage"
+      [alt]="messenger.avatar?.alt"
+      [firstName]="messenger.name"
       width="40"
       height="40"
-    />
+      classes="rounded-circle me-1"
+    ></valor-launchpad-avatar>
+
     <div class="flex-grow-1 ms-3">
       {{ messenger.name }}
-      <div class="small">
-        <span class="fas fa-circle" [ngClass]="messengerStatusClass"></span>
-        {{ messenger.status }}
+      <div class="small" *ngIf="!messenger.isGroup">
+        <span
+          class="fas fa-circle"
+          [ngClass]="messenger.isConnected ? 'chat-online' : 'chat-offline'"
+        ></span>
+        {{ messenger.isConnected ? 'Online' : 'Offline' }}
       </div>
     </div>
   </div>

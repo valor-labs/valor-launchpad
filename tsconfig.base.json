@@ -21,6 +21,7 @@
       "@ui/http-config": ["apps/admin/src/app/core/http/index.ts"],
       "@valor-launchpad/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@valor-launchpad/auth-api": ["libs/auth-api/src/index.ts"],
+      "@valor-launchpad/chat-api": ["libs/chat-api/src/index.ts"],
       "@valor-launchpad/common-api": ["libs/common-api/src/index.ts"],
       "@valor-launchpad/email": ["libs/email/src/index.ts"],
       "@valor-launchpad/http": ["libs/http/src/index.ts"],

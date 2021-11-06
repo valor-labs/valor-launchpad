@@ -3,146 +3,98 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  AfterViewInit,
+  ChangeDetectorRef,
 } from '@angular/core';
-import { ValorLaunchpadMessenger } from './valor-launchpad-messenger/valor-launchpad-messenger.component';
-import { ValorLaunchpadMessage } from './valor-launchpad-message/valor-launchpad-message.component';
+import { ChatMessageVo, ChatThreadVo } from '@valor-launchpad/api-interfaces';
+import { ChatService } from './chat.service';
+import { NgModel } from '@angular/forms';
+import { SocketService } from '../../core/socket/socket.service';
 
 @Component({
   selector: 'valor-launchpad-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit, AfterViewInit {
-  messengers: ValorLaunchpadMessenger[] = [];
-  messages: ValorLaunchpadMessage[] = [];
+export class ChatComponent implements OnInit {
+  messengers: ChatThreadVo[] = [];
+  messages: ChatMessageVo[] = [];
+  activeThread: ChatThreadVo;
   @ViewChild('chatMsg') chatMsgRef: ElementRef<HTMLElement>;
 
-  ngAfterViewInit(): void {
-    this.chatMsgRef.nativeElement.scrollTop =
-      this.chatMsgRef.nativeElement.scrollHeight;
-  }
+  constructor(
+    private chatService: ChatService,
+    private socketService: SocketService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.initMessengers();
-    this.initMessages();
+    this.socketService.listenNewConnection().subscribe((userId) => {
+      const hitThread = this.messengers.find(
+        (i) => i.targetingUser.id === userId
+      );
+      if (hitThread) {
+        hitThread.isConnected = true;
+      }
+    });
+    this.socketService.listenNewDisconnection().subscribe((userId) => {
+      const hitThread = this.messengers.find(
+        (i) => i.targetingUser.id === userId
+      );
+      if (hitThread) {
+        hitThread.isConnected = false;
+      }
+    });
+    this.chatService.listenNewMessage().subscribe((message) => {
+      if (message.threadId === this.activeThread.id) {
+        this.messages.push(message);
+        this.chatZoneToBottom();
+      }
+      // add unread count
+      if (!message.isSelf) {
+        this.messengers
+          .find((i) => i.id === message.threadId)
+          .unreadMessages.push(message.id);
+      }
+    });
+  }
+
+  onSelectThread(thread: ChatThreadVo) {
+    this.activeThread = thread;
+    this.chatService.fetchThreadMessages(thread.id).subscribe((res) => {
+      this.messages = res.reverse();
+      this.chatZoneToBottom();
+      this.chatService.markThreadAsRead(thread.id).subscribe(() => {
+        this.activeThread.unreadMessages = [];
+      });
+    });
+  }
+
+  onSend(msgModel: NgModel) {
+    this.chatService
+      .sendMessage(
+        this.activeThread.id,
+        msgModel.value,
+        this.socketService.socketId
+      )
+      .subscribe((res) => {
+        msgModel.reset();
+        this.messages.push(res);
+        this.chatZoneToBottom();
+      });
   }
 
   private initMessengers(): void {
-    this.messengers = [
-      {
-        name: 'Ashley Briggs',
-        status: 'Online',
-        unreadNumber: 5,
-      },
-      {
-        name: 'Carl Jenkins',
-        status: 'Online',
-        unreadNumber: 2,
-      },
-      {
-        name: 'Bertha Martin',
-        status: 'Online',
-        unreadNumber: 0,
-      },
-      {
-        name: 'Stacie Hall',
-        status: 'Offline',
-        unreadNumber: 0,
-      },
-      {
-        name: 'Fiona Green',
-        status: 'Offline',
-        unreadNumber: 0,
-      },
-      {
-        name: 'Doris Wilder',
-        status: 'Offline',
-        unreadNumber: 0,
-      },
-      {
-        name: 'Haley Kennedy',
-        status: 'Offline',
-        unreadNumber: 0,
-      },
-      {
-        name: 'Jennifer Chang',
-        status: 'Offline',
-        unreadNumber: 0,
-      },
-    ];
+    this.chatService.fetchThreads().subscribe((res) => {
+      this.messengers = res;
+      this.onSelectThread(res[0]);
+    });
   }
 
-  private initMessages(): void {
-    this.messages = [
-      {
-        name: 'You',
-        content:
-          'Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.',
-        time: '2:33 am',
-      },
-      {
-        name: 'Bertha Martin',
-        content:
-          'Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.',
-        time: '2:34 am',
-      },
-      {
-        name: 'You',
-        content: 'Cum ea graeci tractatos.',
-        time: '2:35 am',
-      },
-      {
-        name: 'Bertha Martin',
-        content:
-          '              Sed pulvinar, massa vitae interdum pulvinar, risus lectus porttitor magna, vitae commodo lectus mauris et\n' +
-          '                        velit. Proin ultricies placerat imperdiet. Morbi varius\n' +
-          '                        quam ac venenatis tempus.',
-        time: '2:36 am',
-      },
-      {
-        name: 'Bertha Martin',
-        content:
-          'Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.',
-        time: '2:38 am',
-      },
-      {
-        name: 'Bertha Martin',
-        content:
-          'Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.',
-        time: '2:39 am',
-      },
-      {
-        name: 'You',
-        content: 'Cum ea graeci tractatos.',
-        time: '2:40 am',
-      },
-      {
-        name: 'You',
-        content:
-          'Morbi finibus, lorem id placerat ullamcorper, nunc enim ultrices massa, id dignissim metus urna eget purus.',
-        time: '2:41 am',
-      },
-      {
-        name: 'Bertha Martin',
-        content:
-          '                Sed pulvinar, massa vitae interdum pulvinar, risus lectus porttitor magna, vitae commodo lectus mauris et\n' +
-          '                        velit. Proin ultricies placerat imperdiet. Morbi varius\n' +
-          '                        quam ac venenatis tempus.',
-        time: '2:42 am',
-      },
-      {
-        name: 'You',
-        content:
-          'Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.',
-        time: '2:43 am',
-      },
-      {
-        name: 'Bertha Martin',
-        content:
-          'Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.',
-        time: '2:44 am',
-      },
-    ];
+  private chatZoneToBottom() {
+    this.cdr.detectChanges();
+    this.chatMsgRef.nativeElement.scrollTo({
+      top: this.chatMsgRef.nativeElement.scrollHeight,
+    });
   }
 }

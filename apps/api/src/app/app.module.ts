@@ -22,6 +22,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { NotificationApiModule } from '@valor-launchpad/notification-api';
 import { SocketGatewayModule } from '@valor-launchpad/socket-gateway';
 import { TasksModule } from '../pages/tasks';
+import { ChatApiModule } from '@valor-launchpad/chat-api';
 @Module({
   imports: [
     EventEmitterModule.forRoot({ wildcard: true }),
@@ -41,6 +42,7 @@ import { TasksModule } from '../pages/tasks';
       { path: '/users', module: UsersApiModule },
       { path: '/notifications', module: NotificationApiModule },
       { path: '/tasks', module: TasksModule },
+      { path: '/chat', module: ChatApiModule },
     ]),
     ProjectsModule,
     ProfileModule,
@@ -55,6 +57,7 @@ import { TasksModule } from '../pages/tasks';
     SocketGatewayModule,
     NotificationApiModule,
     TasksModule,
+    ChatApiModule,
     MulterModule.register({
       dest: join(__dirname, '/assets'),
     }),

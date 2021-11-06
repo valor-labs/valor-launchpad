@@ -42,7 +42,7 @@ export class AvatarComponent implements OnInit {
     }
 
     getInitialChar(name: string): string {
-        return name.charAt(0);
+        return name?.charAt(0);
     }
 
     getFontSize(): number {

@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { UserEntity } from '@valor-launchpad/common-api';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
+import { SocketService } from '../socket/socket.service';
 
 export interface IAuthService {
   access_token: any;
@@ -37,7 +38,8 @@ export class AuthService implements IAuthService {
     @Inject(ENV_CONFIG) private config: EnvironmentConfig,
     private cookieService: CookieService,
     private router: Router,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private socketService: SocketService
   ) {}
 
   checkIfUsernameExists(username: string) {
@@ -61,6 +63,7 @@ export class AuthService implements IAuthService {
         map(() => {
           this.access_token = undefined;
           localStorage.removeItem('refresh_token');
+          this.socketService.disconnect();
           this.router.navigate(['/sign-in']);
         })
       );
@@ -94,6 +97,11 @@ export class AuthService implements IAuthService {
     return this.httpClient
       .get(this.config.environment.apiBase + 'api/auth/v1/current-user')
       .pipe(
+        tap((data) => {
+          if (data) {
+            this.socketService.connect();
+          }
+        }),
         map((data: any) => {
           if (!data) {
             this.router.navigate(['/sign-in']);

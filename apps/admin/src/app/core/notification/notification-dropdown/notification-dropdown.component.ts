@@ -12,7 +12,6 @@ export class NotificationDropdownComponent implements OnInit {
   constructor(private notificationSocketService: NotificationSocketService) {}
 
   ngOnInit(): void {
-    this.notificationSocketService.connect();
     this.notificationSocketService
       .fetchNotifications()
       .subscribe((res) => (this.notifications = res.data));

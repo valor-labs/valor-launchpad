@@ -1,19 +1,29 @@
-<div class="pb-4" [ngClass]="chatMessageClass">
+<div
+  class="pb-4"
+  [ngClass]="message.isSelf ? 'chat-message-right' : 'chat-message-left'"
+>
   <div>
-    <img
-      src="assets/img/avatars/avatar-3.jpg"
-      class="rounded-circle me-1"
-      alt="{{ message.name }}"
+    <valor-launchpad-avatar
+      [src]="message.createdUser.profile.avatar | valorImage"
+      [alt]="message.createdUser.profile.avatar.alt"
+      [firstName]="message.createdUser.firstName"
+      [lastName]="message.createdUser.lastName"
       width="40"
       height="40"
-    />
-    <div class="text-muted small text-nowrap mt-2">{{ message.time }}</div>
+      classes="rounded-circle me-1"
+    >
+    </valor-launchpad-avatar>
+    <div class="text-muted small text-nowrap mt-2">
+      {{ message.createdDate | timeAgo }}
+    </div>
   </div>
   <div
     class="flex-shrink-1 bg-light rounded py-2 px-3"
-    [ngClass]="chatMarginClass"
+    [ngClass]="message.isSelf ? 'me-3' : 'ms-3'"
   >
-    <div class="fw-bold mb-1">{{ message.name }}</div>
-    {{ message.content }}
+    <div class="fw-bold mb-1">
+      {{ message.isSelf ? 'You' : (message.createdUser | fullName) }}
+    </div>
+    {{ message.message }}
   </div>
 </div>

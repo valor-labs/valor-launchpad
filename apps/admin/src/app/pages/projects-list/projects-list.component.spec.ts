@@ -7,6 +7,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UiModule } from '@valor-launchpad/ui';
 import { ProjectListItemComponent } from './project-list-item/project-list-item.component';
+import { ProjectListFilterComponent } from './project-list-filter/project-list-filter.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ProjectsListComponent', () => {
   let component: ProjectsListComponent;
@@ -19,8 +22,14 @@ describe('ProjectsListComponent', () => {
         HttpClientTestingModule,
         ReactiveFormsModule,
         UiModule,
+        BsDropdownModule.forRoot(),
+        NoopAnimationsModule,
       ],
-      declarations: [ProjectsListComponent, ProjectListItemComponent],
+      declarations: [
+        ProjectsListComponent,
+        ProjectListItemComponent,
+        ProjectListFilterComponent,
+      ],
     }).compileComponents();
   });
 
