@@ -1,4 +1,4 @@
-import { Bind, Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Bind, Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import {
   AllCountriesResponse,
   AllProductsResponse,
@@ -13,11 +13,16 @@ import {
   PaymentSourceStatusResponse,
 } from './stripe.model';
 import { StripeService } from './stripe.service';
+import { JwtAuthGuard } from '@valor-launchpad/auth-api';
+import { User } from '@valor-launchpad/users-api';
+import { RequestWithSession, UserEntity } from "@valor-launchpad/common-api";
+
+
 
 @Controller('v1')
 export class StripeController {
 
-  constructor(private stripeService: StripeService) {}
+  constructor(private stripeService: StripeService) { }
 
   @Post('payment_intents')
   async createPaymentIntents(
@@ -103,5 +108,19 @@ export class StripeController {
   @Get('products')
   async getAllProducts(): Promise<AllProductsResponse> {
     return this.stripeService.findProducts();
+  }
+
+  @Get('current-user')
+  @UseGuards(JwtAuthGuard)
+  getCurrentUser(@User() user: UserEntity): Partial<UserEntity> {
+    const { id, username, firstName, lastName, email, profile } = user;
+    const { location, from, city, address, zip, locale } = profile;
+
+    return {
+      id, username, firstName, lastName, email,
+      profile: {
+        location, from, city, address, zip, locale
+      }
+    };
   }
 }

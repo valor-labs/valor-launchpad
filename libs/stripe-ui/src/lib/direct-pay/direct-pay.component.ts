@@ -6,6 +6,8 @@ import { StripeUiService } from '../stripe-ui.service';
 import { DynamicFormComponent } from '@valor-launchpad/ui';
 import { localUrlFactory } from '../utils';
 import { paymentStatusRoute } from '../constants';
+import { UserEntity } from "@valor-launchpad/common-api";
+
 
 @Component({
   selector: 'valor-launchpad-direct-pay',
@@ -33,6 +35,7 @@ export class DirectPayComponent implements OnInit {
   subtotal = '$24.00';
   shipping = '$90.00';
   orderTotal = '$114.00';
+  currentUser: UserEntity;
 
   private returnURL: string;
 
@@ -128,5 +131,24 @@ export class DirectPayComponent implements OnInit {
       .subscribe(({ url }) => {
         window.location.href = url;
       });
+  }
+
+  generate(form: DynamicFormComponent) {
+    this.stripeUiService.getCurrentUserInfo().subscribe((
+      user: Partial<UserEntity>
+    ) => {
+      const { firstName, lastName, email, profile } = user;
+      const { from, city, address, zip, locale } = profile;
+
+      form.form.patchValue({
+        name: `${firstName} ${lastName}`,
+        email: email,
+        address: address,
+        city: city,
+        state: from,
+        zip: zip,
+        country: locale
+      })
+    })
   }
 }
