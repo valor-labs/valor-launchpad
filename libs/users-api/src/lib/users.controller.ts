@@ -96,7 +96,7 @@ export class UsersController {
   @Post('resetPassword')
   @UseGuards(AuthGuard('jwt'), ThrottlerGuard)
   async resetPassword(@Body() user, @User() actingUser: UserEntity) {
-    return await this.usersService.resetPassword(user.username, actingUser);
+    return await this.usersService.sendResetPasswordMail(user.username, actingUser);
   }
 
   @Post('resendEmail')
