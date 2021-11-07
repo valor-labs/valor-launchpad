@@ -105,8 +105,8 @@ export class SidebarItemComponent implements OnInit, OnDestroy {
       if (route === '/sign-in') {
         this.router.navigate([route], {
           queryParams: {
-            fromNav: true
-          }
+            fromNav: true,
+          },
         });
       } else {
         this.router.navigate([route]);

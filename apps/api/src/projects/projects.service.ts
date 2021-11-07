@@ -10,6 +10,8 @@ import { ImageUploaderUtility } from '../media/imageUploader.utility';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 import { QueryProjectListDto } from './dto/query-project-list.dto';
 import { Prisma } from '@prisma/client';
+import { isConstructorMetadata } from '@angular/compiler-cli';
+
 @Injectable()
 export class ProjectsService {
   constructor(
@@ -112,15 +114,7 @@ export class ProjectsService {
       include: {
         hero: true,
         assignee: {
-          select: {
-            user: {
-              include: {
-                profile: {
-                  include: { avatar: true },
-                },
-              },
-            },
-          },
+          select: ImageUploaderUtility.genImageEntityArg(),
         },
       },
       orderBy: sortBy,
@@ -149,28 +143,12 @@ export class ProjectsService {
       },
       include: {
         assignee: {
-          include: {
-            user: {
-              include: {
-                profile: {
-                  include: { avatar: true },
-                },
-              },
-            },
-          },
+          select: ImageUploaderUtility.genImageEntityArg(),
         },
         hero: true,
         summary: {
           include: {
-            reporter: {
-              include: {
-                profile: {
-                  include: {
-                    avatar: true,
-                  },
-                },
-              },
-            },
+            reporter: ImageUploaderUtility.genImageEntityArg().user,
           },
         },
       },

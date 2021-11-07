@@ -1,3 +1,5 @@
+import {Media} from "@api/projects";
+
 export interface ProjectListItemVo {
   id: string;
   title: string;
@@ -12,7 +14,17 @@ export interface ProjectListItemVo {
     type: string;
   };
   assignee: Array<{
-    user: any;
+    user: {
+      firstName: string;
+      lastName: string;
+      profile: {
+        avatar: {
+          src: string;
+          src_webp: string;
+          alt: string;
+        }
+      }
+    }
   }>;
   progress: number;
   createdDate: string | Date;
@@ -44,7 +56,13 @@ export interface ProjectDetailVo extends ProjectListItemVo {
     }
   ];
   summary: {
-    reporter: any;
+    reporter: {
+      firstName: string;
+      lastName: string;
+      profile: {
+        avatar: Media
+      }
+    };
     createdDate: number;
     startDate: number;
     endDate: number;
@@ -60,7 +78,7 @@ export interface ProjectDetailVo extends ProjectListItemVo {
     };
   };
   earnings: {
-      [key: string]: string[]|number[]
+    [key: string]: string[] | number[]
   }
 
 }

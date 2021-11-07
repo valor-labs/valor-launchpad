@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {SignInService} from './sign-in.service';
-import {AuthService} from '../../core/auth/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
-import {MediaEntity} from '@valor-launchpad/common-api';
+import { Component, OnInit } from '@angular/core';
+import { SignInService } from './sign-in.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { MediaEntity } from '@valor-launchpad/common-api';
 
 @Component({
   selector: 'valor-launchpad-sign-in',
@@ -27,12 +27,12 @@ export class SignInComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cookieService: CookieService,
-    private readonly activatedRoute: ActivatedRoute,
+    private readonly activatedRoute: ActivatedRoute
   ) {
     this.userName = '';
     this.errorMessage = '';
     this.isAlertOpen = false;
-    this.activatedRoute.queryParams.subscribe(param => {
+    this.activatedRoute.queryParams.subscribe((param) => {
       this.fromNav = param['fromNav'];
     });
   }

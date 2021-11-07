@@ -1,6 +1,7 @@
 import { extname, join } from 'path';
 import { diskStorage } from 'multer';
 import sharp from 'sharp';
+import { Media } from '@api/projects';
 
 const ASSET_PATH = join(__dirname, '/assets');
 
@@ -47,5 +48,27 @@ export class ImageUploaderUtility {
       .fill(null)
       .map(() => Math.round(Math.random() * 16).toString(16))
       .join('');
+  }
+
+  static genImageEntityArg() {
+    return {
+      user: {
+        select: {
+          firstName: true,
+          lastName: true,
+          profile: {
+            select: {
+              avatar: {
+                select: {
+                  src: true,
+                  src_webp: true,
+                  alt: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    };
   }
 }
