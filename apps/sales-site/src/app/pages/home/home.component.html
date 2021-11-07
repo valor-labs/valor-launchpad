@@ -1,0 +1,9 @@
+<div class="sub-nav d-flex px-6">
+  <a class="navbar-brand logo-brand" href="#">
+    <img src="assets/logo-sub.svg" />
+  </a>
+  <div class="form-check form-switch form-mode sub-nav-text">
+    <label class="form-check-label" for="flexSwitchCheckChecked">Switch to dark mode</label>
+    <input class="form-check-input" [checked]="checked" type="checkbox" role="switch" id="flexSwitchCheckChecked" (change)="handleChange($event)">
+  </div>
+</div>

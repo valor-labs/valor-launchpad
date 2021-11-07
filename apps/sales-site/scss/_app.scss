@@ -1,0 +1,65 @@
+// Variables
+@import '1-variables/app';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Theme mixins
+@import '2-mixins/background';
+@import '2-mixins/theme';
+
+// Theme components
+@import '3-components/reboot';
+
+// Theme utilities
+@import '4-utilities/background';
+@import '4-utilities/borders';
+@import '4-utilities/cursors';
+@import '4-utilities/font';
+@import '4-utilities/overflow';
+@import '4-utilities/position';
+@import '4-utilities/z-index';
+
+// 3rd party plugins
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+
+// TODO: add these back as we create the pages
+
+//@import "~apexcharts/src/assets/apexcharts";
+//@import "~bootstrap-daterangepicker/daterangepicker";
+//@import "~datatables.net-bs4/css/dataTables.bootstrap4";
+//@import "~datatables.net-buttons-bs4/css/buttons.bootstrap4";
+//@import "~datatables.net-responsive-bs4/css/responsive.bootstrap4";
+//@import "~datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4";
+//@import "~dragula/dist/dragula";
+//@import "~fullcalendar/main";
+// @import '~jsvectormap/dist/css/jsvectormap';
+//@import "~notyf/notyf.min";
+//@import "~quill/dist/quill.bubble";
+//@import "~quill/dist/quill.snow";
+//@import "~select2/src/scss/core";
+//@import "~simplebar/dist/simplebar";
+//@import "~smartwizard/dist/css/smart_wizard_all";
+//@import "~tempusdominus-bootstrap-4/src/sass/tempusdominus-bootstrap-4";
+
+// 3rd party plugin styles
+// @import '5-vendor/datables';
+// @import '5-vendor/datatables-select';
+// @import '5-vendor/daterangepicker';
+// @import '5-vendor/datetimepicker';
+// @import '5-vendor/fullcalendar';
+@import '5-vendor/highlight';
+// @import '5-vendor/jsvectormap';
+//@import "5-vendor/quill";
+// @import '5-vendor/ng-select';
+// @import '5-vendor/simplebar';
+// @import '5-vendor/smartwizard';
+
+@import '5-vendor/footer';
+// @import '5-vendor/ngx_charts';
+// @import '5-vendor/datepicker';
+// @import '5-vendor/apex_charts';

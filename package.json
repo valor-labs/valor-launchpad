@@ -12,6 +12,7 @@
     "start": "ng serve",
     "start:server-prod": "node dist/apps/api/main.js",
     "start:server": "ng serve api",
+    "start:sales": "ng serve sales-site",
     "build": "ng build api",
     "build:front": "ng build --prod",
     "build:front-stats": "ng build --stats-json",

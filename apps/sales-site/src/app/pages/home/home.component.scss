@@ -1,0 +1,15 @@
+.form-mode {
+  padding-right: 2.5em;
+  padding-left: 0;
+  .form-check-input {
+    float: right;
+    margin-right: -2.5em;
+    margin-left: 0;
+  }
+}
+.sub-nav {
+  &-text {
+    padding-bottom: 0.875rem;
+    align-self: self-end;
+  }
+}
