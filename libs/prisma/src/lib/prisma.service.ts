@@ -17,8 +17,8 @@ export class PrismaService extends PrismaClient<Prisma.PrismaClientOptions, 'que
       ]}
     );
     this.setupSoftDelete();
-    // this.setupDurationMiddleware();
-    // this.logQueryAndParameter();
+    this.setupDurationMiddleware();
+    this.logQueryAndParameter();
   }
   async onModuleInit() {
     await this.$connect();
