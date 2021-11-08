@@ -1,5 +1,3 @@
-import {Media} from "@api/projects";
-
 export interface ProjectListItemVo {
   id: string;
   title: string;
@@ -60,7 +58,11 @@ export interface ProjectDetailVo extends ProjectListItemVo {
       firstName: string;
       lastName: string;
       profile: {
-        avatar: Media
+        avatar: {
+          src: string;
+          src_webp: string;
+          alt: string;
+        }
       }
     };
     createdDate: number;
