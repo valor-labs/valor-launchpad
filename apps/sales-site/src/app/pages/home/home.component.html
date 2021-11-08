@@ -1,9 +1,22 @@
 <div class="sub-nav d-flex px-6">
   <a class="navbar-brand logo-brand" href="#">
-    <img src="assets/logo-sub.svg" />
+    <img src="assets/admin-logo-light.svg" />
   </a>
-  <div class="form-check form-switch form-mode sub-nav-text">
-    <label class="form-check-label" for="flexSwitchCheckChecked">Switch to dark mode</label>
-    <input class="form-check-input" [checked]="checked" type="checkbox" role="switch" id="flexSwitchCheckChecked" (change)="handleChange($event)">
+  <div class="flex-grow-1 d-flex">
+    <div class="d-inline-block form-check form-switch form-mode sub-nav-text">
+      <label class="form-check-label" for="themeChecked">Switch to dark mode</label>
+      <input class="form-check-input" [checked]="checked" type="checkbox" role="switch" id="themeChecked" (change)="themeChange($event)">
+    </div>
+    <div class="">
+      <!-- <valor-launchpad-dropdown
+        direction="start"
+        classes="nav-link dropdown-toggle d-none d-sm-inline-block">
+        <span dropdown-nav>Corporate</span>
+        <valor-launchpad-dropdown-mega-menu
+          [columns]="CorporateMenu"
+        ></valor-launchpad-dropdown-mega-menu>
+      </valor-launchpad-dropdown> -->
+    </div>
   </div>
+  
 </div>

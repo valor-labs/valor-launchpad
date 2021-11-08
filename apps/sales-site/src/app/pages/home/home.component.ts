@@ -9,6 +9,14 @@ import { ThemeService } from '../../core/theme/theme.service';
 export class HomeComponent implements OnInit {
 
   checked = false
+  CorporateMenu = [
+    {
+      label: 'CorporateMenu1'
+    },
+    {
+      label: 'CorporateMenu2'
+    }
+  ]
 
   constructor( private themeService: ThemeService ) {}
 
@@ -21,9 +29,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  handleChange(e: Event) {
+  themeChange(e: Event) {
     const checked = (e.target as HTMLInputElement).checked
-    
     if (checked) {
       this.themeService.changeTheme('theme', 'dark')
       this.themeService.setStoredConfig('theme', 'dark')
