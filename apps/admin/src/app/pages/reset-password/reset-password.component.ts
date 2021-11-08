@@ -34,12 +34,17 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordService
       .resetPassword(this.formGroup.value.username)
       .subscribe(
-        () => {
-          this.message =
-            'Your password has been reset please check your email!';
-          this.toastrService.success(
-            'New password will be sent to your email!'
-          );
+        (res) => {
+          const { success, message, data } = res;
+          if (success) {
+            this.message =
+              'Your password has been reset please check your email!';
+            this.toastrService.success(
+              'New password will be sent to your email!'
+            );
+          } else {
+            this.toastrService.error(data?.message || message);
+          }
         },
         () => {
           this.message = 'Something went wrong';

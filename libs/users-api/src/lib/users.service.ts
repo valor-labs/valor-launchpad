@@ -70,7 +70,7 @@ export class UsersService {
     return await this.prisma.rolesEntity.findMany() as RolesEntity[];
   }
 
-  async findAll({roles, tags, keyword}: QueryUserListDto) {
+  async findAll({ roles, tags, keyword }: QueryUserListDto) {
     let tagFilter: Prisma.UserEntityWhereInput;
     if (Array.isArray(tags) && tags.length > 0) {
       tagFilter = {
@@ -230,29 +230,30 @@ export class UsersService {
     }
   }
 
-  async resetPassword(username: string, actingUser) {
+  async sendResetPasswordMail(username: string, actingUser?) {
     const userCheck = await this.findByUsername(username);
-    if (userCheck) {
-      await this.prisma.userEventsEntity.create({
-        data: {
-          target_user_id: userCheck.id,
-          acting_user_id: actingUser.id,
-          event: 'Pending Password Reset'
-        }
-      })
-      const resetPasswordToken = v4();
-      this.emitResetPasswordEmail(userCheck.email, username, resetPasswordToken);
-
-      await this.prisma.userEntity.update({
-        where: {
-          username: username
-        },
-        data: {
-          passwordResetNeeded: true,
-          passwordResetToken: resetPasswordToken
-        }
-      })
+    if (!userCheck) {
+      throw new HttpException('User out found', HttpStatus.NOT_FOUND)
     }
+    await this.prisma.userEventsEntity.create({
+      data: {
+        target_user_id: userCheck.id,
+        acting_user_id: actingUser ? actingUser.id : userCheck.id,
+        event: 'Pending Password Reset'
+      }
+    })
+    const resetPasswordToken = v4();
+    this.emitResetPasswordEmail(userCheck.email, username, resetPasswordToken);
+
+    await this.prisma.userEntity.update({
+      where: {
+        username: username
+      },
+      data: {
+        passwordResetNeeded: true,
+        passwordResetToken: resetPasswordToken
+      }
+    })
   }
 
   async deleteUsers(uid: string[], actingUser) {
@@ -414,6 +415,7 @@ export class UsersService {
     await this.prisma.userEventsEntity.create({
       data: {
         target_user_id: user.id,
+        acting_user_id: user.id,
         event: 'Password Reset Token Verified'
       }
     })

@@ -1,4 +1,4 @@
-import { Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards, ValidationPipe} from "@nestjs/common";
+import { Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards, ValidationPipe } from "@nestjs/common";
 import { LocalAuthGuard } from "./guards/local-auth-guard";
 import { RequestWithSession, UserEntity } from "@valor-launchpad/common-api";
 import { AuthService } from "./auth.service";
@@ -90,7 +90,6 @@ export class AuthController {
         username: user.username
       }));
     } catch (error) {
-      console.error(error);
       response.send(new ResponseError('Verification Failed', error));
     }
   }
@@ -132,6 +131,17 @@ export class AuthController {
     return {};
   }
 
+  @Post('send-reset-password-mail')
+  async sendResetPasswordMail(@Body('username') username: string) {
+    try {
+      await this.usersService.sendResetPasswordMail(username);
+
+      return new ResponseSuccess('Send Reset Password Success');
+    } catch (error) {
+      return new ResponseError('Send Reset Password Failed', error)
+    }
+  }
+
   @Post('reset-password')
   @UseGuards(JwtAuthGuard)
   async resetPassword(@Req() req: RequestWithSession, @User() user: UserEntity, @Body() body: ResetNewPasswordDTO) {
@@ -159,7 +169,7 @@ export class AuthController {
     try {
       const user = this.usersService.findByPasswordResetToken(token);
 
-      if(!user) {
+      if (!user) {
         return new ResponseError('Password Reset Token Invalid');
       }
 
