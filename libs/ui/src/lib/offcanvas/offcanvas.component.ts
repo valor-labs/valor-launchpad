@@ -12,7 +12,7 @@ import {
 @Component({
   selector: 'valor-launchpad-offcanvas',
   templateUrl: './offcanvas.component.html',
-  styleUrls: ['./offcanvas.component.css'],
+  styleUrls: ['./offcanvas.component.scss'],
 })
 export class OffcanvasComponent implements OnInit, OnChanges {
   @Input()
