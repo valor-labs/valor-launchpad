@@ -1,12 +1,12 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { AbstractControl, FormControl, NgControl } from '@angular/forms';
-import { ConnectionPositionPair, Overlay, OverlayConfig, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
-import { AutocompleteComponent } from './autocomplete.component';
-import { fromEvent } from 'rxjs/internal/observable/fromEvent';
-import { untilDestroyed } from 'ngx-take-until-destroy';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { filter, takeUntil } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
+import {AbstractControl, FormControl, NgControl} from '@angular/forms';
+import {ConnectionPositionPair, Overlay, OverlayConfig, OverlayRef, PositionStrategy} from '@angular/cdk/overlay';
+import {AutocompleteComponent} from './autocomplete.component';
+import {fromEvent} from 'rxjs/internal/observable/fromEvent';
+import {untilDestroyed} from 'ngx-take-until-destroy';
+import {TemplatePortal} from '@angular/cdk/portal';
+import {filter, takeUntil} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Directive({
   selector: 'input[valorLaunchpadAutocompleteTrigger]'
@@ -37,6 +37,9 @@ export class AutocompleteTriggerDirective implements OnInit, OnDestroy {
     fromEvent(this.origin, 'focus')
       .pipe(untilDestroyed(this))
       .subscribe(() => {
+        if (this._overlayRef) {
+          return;
+        }
         this._openDropdown();
 
         this.appAutocomplete
@@ -74,8 +77,8 @@ export class AutocompleteTriggerDirective implements OnInit, OnDestroy {
   private _getOverlayPosition(): PositionStrategy {
     const positions = [
       new ConnectionPositionPair(
-        { originX: 'start', originY: 'bottom' },
-        { overlayX: 'start', overlayY: 'top' }
+        {originX: 'start', originY: 'bottom'},
+        {overlayX: 'start', overlayY: 'top'}
       )
     ];
     const strategy = this.overlay
@@ -93,7 +96,7 @@ export class AutocompleteTriggerDirective implements OnInit, OnDestroy {
   }
 
   private _overlayClickOutside(): Observable<any> {
-    return fromEvent<MouseEvent>(document, 'click', { capture: true }).pipe(
+    return fromEvent<MouseEvent>(document, 'click', {capture: true}).pipe(
       filter(event => {
         const clickTarget = event.target as HTMLElement;
         const notOrigin = clickTarget !== this.origin;

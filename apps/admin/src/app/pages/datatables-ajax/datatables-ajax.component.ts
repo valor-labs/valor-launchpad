@@ -12,7 +12,7 @@ class CustomDatePipe extends DatePipe {
 @Component({
   selector: 'valor-launchpad-datatables-ajax',
   templateUrl: './datatables-ajax.component.html',
-  styleUrls: ['./datatables-ajax.component.css'],
+  styleUrls: ['./datatables-ajax.component.scss'],
 })
 export class DatatablesAjaxComponent {
   @ViewChild('myTable') table: any;

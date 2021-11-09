@@ -1,6 +1,6 @@
 import {
   Component,
-  EventEmitter,
+  EventEmitter, HostListener,
   Input,
   OnChanges,
   OnInit,
@@ -12,7 +12,7 @@ import {
 @Component({
   selector: 'valor-launchpad-offcanvas',
   templateUrl: './offcanvas.component.html',
-  styleUrls: ['./offcanvas.component.css'],
+  styleUrls: ['./offcanvas.component.scss'],
 })
 export class OffcanvasComponent implements OnInit, OnChanges {
   @Input()
@@ -38,6 +38,11 @@ export class OffcanvasComponent implements OnInit, OnChanges {
 
   @Output()
   onClose = new EventEmitter();
+
+  @HostListener('document:keydown.escape', ['$event'])
+  onKeydownHandler(event: KeyboardEvent) {
+    this.handleClose();
+  }
 
   handleClose() {
     this.onClose.emit();

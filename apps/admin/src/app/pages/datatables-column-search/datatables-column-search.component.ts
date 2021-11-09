@@ -12,7 +12,7 @@ class CustomDatePipe extends DatePipe {
 @Component({
   selector: 'valor-launchpad-datatables-column-search',
   templateUrl: './datatables-column-search.component.html',
-  styleUrls: ['./datatables-column-search.component.css'],
+  styleUrls: ['./datatables-column-search.component.scss'],
 })
 export class DatatablesColumnSearchComponent {
   @ViewChild('myTable') table: any;

@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectsModule } from '../projects/projects.module';
 import { ProfileModule } from '../profile/profile.module';
+import { PasswordValidatorModule } from '../password-validator';
 import { AuthApiModule } from '@valor-launchpad/auth-api';
 import { RouterModule } from 'nest-router';
 import { DashboardModule } from '../dashboard/dashboard-default/dashboard.module';
@@ -36,6 +37,7 @@ import { ChatApiModule } from '@valor-launchpad/chat-api';
       { path: '/dashboard-social', module: DashboardSocialModule },
       { path: '/dashboard-crypto', module: DashboardCryptoModule },
       { path: '/profile', module: ProfileModule },
+      { path: '/password-validator', module: PasswordValidatorModule },
       { path: '/projects', module: ProjectsModule },
       { path: '/auth', module: AuthApiModule },
       { path: '/stripe', module: StripeApiModule },
@@ -46,6 +48,7 @@ import { ChatApiModule } from '@valor-launchpad/chat-api';
     ]),
     ProjectsModule,
     ProfileModule,
+    PasswordValidatorModule,
     AuthApiModule,
     UsersApiModule,
     DashboardModule,

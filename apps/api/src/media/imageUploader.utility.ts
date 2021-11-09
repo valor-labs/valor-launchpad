@@ -48,4 +48,26 @@ export class ImageUploaderUtility {
       .map(() => Math.round(Math.random() * 16).toString(16))
       .join('');
   }
+
+  static genImageEntityArg() {
+    return {
+      user: {
+        select: {
+          firstName: true,
+          lastName: true,
+          profile: {
+            select: {
+              avatar: {
+                select: {
+                  src: true,
+                  src_webp: true,
+                  alt: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+  }
 }

@@ -28,6 +28,8 @@ import { from, partition, throwError } from 'rxjs';
 import { fmtCurrency, localUrlFactory } from '../utils';
 import { Router } from '@angular/router';
 import { paymentStatusRoute } from '../constants';
+import { UserEntity } from "@valor-launchpad/common-api";
+
 
 //TODO: This should be coming from environment variable
 const publicKey =
@@ -374,13 +376,22 @@ export class EmbeddedPayComponent implements OnInit {
   }
 
   generate(mainForm: DynamicFormComponent) {
-    mainForm.form.controls['name'].setValue('Ramiro Von');
-    mainForm.form.controls['email'].setValue('Conrad_Murray@hotmail.com');
-    mainForm.form.controls['address'].setValue('9392 Jaquan Locks');
-    mainForm.form.controls['city'].setValue('Sarahborough');
-    mainForm.form.controls['state']?.setValue('Hawaii');
-    mainForm.form.controls['postal_code'].setValue('42341');
-    // mainForm.form.controls['country'].setValue('US');
+    this.stripeUiService.getCurrentUserInfo().subscribe((
+      user: Partial<UserEntity>
+    ) => {
+      const { firstName, lastName, email, profile } = user;
+      const { from, city, address, zip, locale } = profile;
+
+      mainForm.form.patchValue({
+        name: `${firstName} ${lastName}`,
+        email: email,
+        address: address,
+        city: city,
+        state: from,
+        postal_code: zip,
+        country: locale
+      })
+    })
   }
 
   getPaymentTotal() {

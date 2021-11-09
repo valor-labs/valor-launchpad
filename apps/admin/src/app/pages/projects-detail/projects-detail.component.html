@@ -84,9 +84,11 @@
           <h5>Assignee</h5>
           <valor-launchpad-avatar
             *ngFor="let assignee of project?.assignee"
-            [src]="assignee.user?.avatar?.src"
+            [src]="assignee.user.profile.avatar | valorImage"
+            [alt]="assignee.user.profile.avatar?.alt"
+            [firstName]="assignee.user.firstName"
+            [lastName]="assignee.user.lastName"
             classes="me-1"
-            [alt]="assignee.user?.avatar?.alt"
             size="md"
           ></valor-launchpad-avatar>
         </div>
@@ -192,9 +194,11 @@
           <dd valorLaunchpadCol [span]="8" [xxl]="9">
             <valor-launchpad-avatar
               *ngFor="let assignee of project?.assignee"
-              [src]="assignee?.user?.avatar?.src"
+              [src]="assignee.user.profile.avatar | valorImage"
+              [alt]="assignee.user.profile.avatar?.alt"
+              [firstName]="assignee.user.firstName"
+              [lastName]="assignee.user.lastName"
               classes="me-1 mt-n1"
-              [alt]="assignee?.user?.avatar?.alt"
               size="sm"
             ></valor-launchpad-avatar>
           </dd>
@@ -202,10 +206,11 @@
           <dt valorLaunchpadCol [span]="4" [xxl]="3" class="mb-0">Reporter</dt>
           <dd valorLaunchpadCol [span]="8" [xxl]="9" class="mb-0">
             <valor-launchpad-avatar
-              *ngIf="project?.summary?.reporter?.avatar?.src"
-              [src]="project?.summary?.reporter?.avatar?.src"
+              [src]="project?.summary?.reporter?.profile.avatar | valorImage"
+              [alt]="project?.summary?.reporter?.profile.avatar.alt"
+              [firstName]="project?.summary?.reporter.firstName"
+              [lastName]="project?.summary?.reporter.lastName"
               classes="me-1 mt-n1"
-              alt="Avatar"
               size="sm"
             ></valor-launchpad-avatar>
           </dd>

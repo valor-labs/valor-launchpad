@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'valor-launchpad-installation',
   templateUrl: './installation.component.html',
-  styleUrls: ['./installation.component.css'],
+  styleUrls: ['./installation.component.scss'],
 })
 export class InstallationComponent {
   basicTamplete = `<!DOCTYPE html>

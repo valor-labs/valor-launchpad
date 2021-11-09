@@ -5,7 +5,7 @@ import { DashboardSocialService } from '../dashboard-social.service';
 @Component({
   selector: 'valor-launchpad-social-story',
   templateUrl: './social-story.component.html',
-  styleUrls: ['./social-story.component.css'],
+  styleUrls: ['./social-story.component.scss'],
 })
 export class SocialStoryComponent {
   @Input() story: IStory;
