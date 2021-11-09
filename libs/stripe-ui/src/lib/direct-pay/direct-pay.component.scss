@@ -1,0 +1,17 @@
+:host {
+  .row {
+    .instruction {
+      text-align: center;
+      margin-bottom: 1em;
+      .generate {
+        cursor: pointer;
+        color: #525f7f;
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

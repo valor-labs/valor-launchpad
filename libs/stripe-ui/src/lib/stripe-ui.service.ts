@@ -1,5 +1,5 @@
-import {Inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {
   AllCountriesResponse,
   CheckoutSessionInput,
@@ -11,11 +11,11 @@ import {
   PaymentSourceResponse,
   PaymentSourceStatusResponse,
 } from '@valor-launchpad/stripe-api';
-import {FormGroup} from '@angular/forms';
-import {PaymentIntent} from '@stripe/stripe-js';
-import {ENV_CONFIG, EnvironmentConfig} from '@valor-launchpad/http';
+import { FormGroup } from '@angular/forms';
+import { PaymentIntent } from '@stripe/stripe-js';
+import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class StripeUiService {
   constructor(@Inject(ENV_CONFIG) private config: EnvironmentConfig, private http: HttpClient) {
   }
@@ -27,7 +27,7 @@ export class StripeUiService {
   loopFormGroup(group: FormGroup) {
     for (const key of Object.keys(group.controls)) {
       group.controls[key].markAsDirty();
-      group.controls[key].updateValueAndValidity({emitEvent: false});
+      group.controls[key].updateValueAndValidity({ emitEvent: false });
     }
   }
 
@@ -66,5 +66,11 @@ export class StripeUiService {
       '/api/stripe/v1/create-checkout-session',
       input
     );
+  }
+
+  getCurrentUserInfo() {
+    return this.http.get(
+      `${this.config.environment.apiBase}api/stripe/v1/current-user`
+    )
   }
 }

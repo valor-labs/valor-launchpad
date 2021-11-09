@@ -1,17 +1,22 @@
 <div class="row">
   <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1">
     <valor-launchpad-card>
-      <valor-launchpad-card-header>
-        <h5 class="card-title mb-0">Billing Address</h5>
-      </valor-launchpad-card-header>
       <valor-launchpad-card-content *ngIf="billingFormConfig">
-        <dynamic-form
-          #billingForm="dynamicForm"
-          [config]="billingFormConfig">
-        </dynamic-form>
+        <p class="instruction">
+          <span>Complete</span>
+          /
+          <span class="generate" (click)="generate(billingForm)">generate</span>
+          your shipping and payment details below
+        </p>
+        <section>
+          <h2 class="card-title mb-0">Billing Address</h2>
+          <dynamic-form #billingForm="dynamicForm" [config]="billingFormConfig">
+          </dynamic-form>
+        </section>
         <div
           class="address mb-4"
-          style="background: #f6f9fc; border-radius: 5px; padding: 15px">
+          style="background: #f6f9fc; border-radius: 5px; padding: 15px"
+        >
           <p class="address-label" style="color: #666ee8">Shopping Address</p>
           <div class="d-flex">
             <div class="me-4">
@@ -36,7 +41,8 @@
       col-lg-6 col-md-8 col-sm-10
       offset-lg-0 offset-md-2 offset-sm-1
       pt-lg-0 pt-3
-    ">
+    "
+  >
     <valor-launchpad-card>
       <valor-launchpad-card-header>
         <h5 class="card-title mb-0">Cart summary</h5>
@@ -46,7 +52,8 @@
           <valor-launchpad-stripe-order-items>
             <valor-launchpad-stripe-order-item
               *ngFor="let item of orderItems"
-              [orderItem]="item">
+              [orderItem]="item"
+            >
             </valor-launchpad-stripe-order-item>
           </valor-launchpad-stripe-order-items>
           <hr class="dropdown-divider mt-3 mb-3" />
@@ -54,9 +61,13 @@
             [live]="true"
             [orderTotal]="orderTotal"
             [subtotal]="subtotal"
-            [shipping]="shipping">
+            [shipping]="shipping"
+          >
             <div gift-card>
-              <input valorLaunchpadInput placeholder="Gift Card or Promo Card"/>
+              <input
+                valorLaunchpadInput
+                placeholder="Gift Card or Promo Card"
+              />
             </div>
           </valor-launchpad-stripe-order-total>
         </div>
