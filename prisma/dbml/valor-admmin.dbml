@@ -244,6 +244,8 @@ Table UserEntity {
   CommentUserLike CommentUserLike [not null]
   notifications Notification [not null]
   passwordValidator PasswordValidationEntity [not null]
+  chatUserThreads ChatThreadUser [not null]
+  chatMessages ChatMessage [not null]
 }
 
 Table UserEventsEntity {
@@ -576,6 +578,38 @@ Table PasswordValidationEntity {
   passwordValidate UserEntity [not null]
 }
 
+Table ChatThread {
+  id String [pk]
+  name String
+  isGroup Boolean [not null]
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  lastChatDate DateTime
+  chatThreadUsers ChatThreadUser [not null]
+  chatMessages ChatMessage [not null]
+}
+
+Table ChatThreadUser {
+  id String [pk]
+  threadId String [not null]
+  userId String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  thread ChatThread [not null]
+  user UserEntity [not null]
+}
+
+Table ChatMessage {
+  id String [pk]
+  message String [not null]
+  threadId String [not null]
+  createdUserId String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  thread ChatThread [not null]
+  createdUser UserEntity [not null]
+}
+
 Enum ProjectStatus {
   IN_PROGRESS
   FINISHED
@@ -702,3 +736,11 @@ Ref: TaskEntity.createdBy > UserEntity.id
 Ref: TaskEntity.deletedBy > UserEntity.id
 
 Ref: PasswordValidationEntity.user_id > UserEntity.id
+
+Ref: ChatThreadUser.threadId > ChatThread.id
+
+Ref: ChatThreadUser.userId > UserEntity.id
+
+Ref: ChatMessage.threadId > ChatThread.id
+
+Ref: ChatMessage.createdUserId > UserEntity.id

@@ -263,6 +263,8 @@ model UserEntity {
   CommentUserLike          CommentUserLike[]              @relation("commentUserLikeUser")
   notifications            Notification[]                 @relation("NotificationUser")
   passwordValidator        PasswordValidationEntity[]     @relation("passwordValidate")
+  chatUserThreads          ChatThreadUser[]         @relation("ChatThreadUserUser")
+  chatMessages             ChatMessage[]            @relation("ChatMessageUser")
 }
 
 model UserEventsEntity {
@@ -617,4 +619,39 @@ model PasswordValidationEntity {
   passwordValidation Json?       @db.Json
   user_id            String      @unique @db.VarChar(36)
   passwordValidate   UserEntity  @relation("passwordValidate", fields: [user_id], references: [id])
+}
+
+model ChatThread {
+  id           String    @id @default(uuid()) @db.VarChar(36)
+  name         String?   @db.VarChar(255)
+  isGroup      Boolean   @db.TinyInt
+  createdDate  DateTime  @default(now()) @db.DateTime(6)
+  deletedDate  DateTime? @db.DateTime(6)
+  lastChatDate DateTime? @db.DateTime(6)
+
+  chatThreadUsers ChatThreadUser[] @relation("ChatThreadUserThread")
+  chatMessages    ChatMessage[]    @relation("ChatMessageThread")
+}
+
+model ChatThreadUser {
+  id          String    @id @default(uuid()) @db.VarChar(36)
+  threadId    String    @db.VarChar(36)
+  userId      String    @db.VarChar(36)
+  createdDate DateTime  @default(now()) @db.DateTime(6)
+  deletedDate DateTime? @db.DateTime(6)
+
+  thread ChatThread @relation("ChatThreadUserThread", fields: [threadId], references: [id])
+  user   UserEntity @relation("ChatThreadUserUser", fields: [userId], references: [id])
+}
+
+model ChatMessage {
+  id            String    @id @default(uuid()) @db.VarChar(36)
+  message       String    @db.VarChar(1000)
+  threadId      String    @db.VarChar(36)
+  createdUserId String    @db.VarChar(36)
+  createdDate   DateTime  @default(now()) @db.DateTime(6)
+  deletedDate   DateTime? @db.DateTime(6)
+
+  thread      ChatThread @relation("ChatMessageThread", fields: [threadId], references: [id])
+  createdUser UserEntity @relation("ChatMessageUser", fields: [createdUserId], references: [id])
 }

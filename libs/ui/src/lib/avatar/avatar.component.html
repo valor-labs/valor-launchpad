@@ -8,7 +8,7 @@
      (error)="onInvalidSrc()"
 >
 <ng-template #textAvatar>
-  <div *ngIf='firstName && lastName'
+  <div *ngIf='firstName || lastName'
        [style.width.px]='width'
        [style.height.px]='height'
        [style.font-size.px]='getFontSize()'

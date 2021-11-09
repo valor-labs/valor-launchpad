@@ -45,6 +45,7 @@ import { StoryMediaAssetSeed } from './seed/story-media-asset.seed';
 import { StoryCommentSeed } from './seed/story-comment.seed';
 import { TaskEntitySeed } from './seed/task.seed';
 import { PasswordValidateSeed } from './seed/password-validate.seed';
+import { ChatThreadSeed } from './seed/chat-thread.seed';
 
 const prisma = new PrismaClient();
 // open it when want to debug seed
@@ -99,6 +100,7 @@ async function main() {
   const projectsCommentSeed = new ProjectsCommentSeed(prisma);
   const taskEntitySeed = new TaskEntitySeed(prisma);
   const passwordValidateSeed = new PasswordValidateSeed(prisma);
+  const chatSeed = new ChatThreadSeed(prisma);
 
   const seeders: Seeder[] = [
     roleSeed,
@@ -145,7 +147,8 @@ async function main() {
     projectsCommentSeed,
     projectSummarySeed,
     taskEntitySeed,
-    passwordValidateSeed
+    passwordValidateSeed,
+    chatSeed,
   ];
 
   for (const seeder of seeders.slice().reverse()) {

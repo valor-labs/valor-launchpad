@@ -80,10 +80,6 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.headerService.getMessages().subscribe((messages) => {
-      this.messages = messages;
-    });
-
     this.profileService.getProfile().subscribe((profile) => {
       this.profile = profile;
     });

@@ -242,6 +242,29 @@
       },
       "tags": []
     },
+    "chat-api": {
+      "root": "libs/chat-api",
+      "sourceRoot": "libs/chat-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/chat-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/chat-api"],
+          "options": {
+            "jestConfig": "libs/chat-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "common-api": {
       "root": "libs/common-api",
       "sourceRoot": "libs/common-api/src",
