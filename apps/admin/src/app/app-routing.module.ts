@@ -416,6 +416,18 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'privacy',
+        loadChildren: () =>
+          import('./pages/privacy/privacy.module').then((m) => m.PrivacyModule),
+      },
+      {
+        path: 'terms-of-service',
+        loadChildren: () =>
+          import('./pages/terms-of-service/terms-of-service.module').then(
+            (m) => m.TermsOfServiceModule
+          ),
+      },
+      {
         path: '',
         redirectTo: '/dashboard-default',
         pathMatch: 'full',
