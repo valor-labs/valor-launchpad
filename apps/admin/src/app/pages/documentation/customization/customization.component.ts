@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'valor-launchpad-customization',
   templateUrl: './customization.component.html',
-  styleUrls: ['./customization.component.css'],
+  styleUrls: ['./customization.component.scss'],
 })
 export class CustomizationComponent {
   lightMode = `<link href="{PATH}/dist/css/light.css" rel="stylesheet">`;

@@ -12,7 +12,7 @@ class CustomDatePipe extends DatePipe {
 @Component({
   selector: 'valor-launchpad-datatables-buttons',
   templateUrl: './datatables-buttons.component.html',
-  styleUrls: ['./datatables-buttons.component.css'],
+  styleUrls: ['./datatables-buttons.component.scss'],
 })
 export class DatatablesButtonsComponent {
   @ViewChild('myTable') table: any;
