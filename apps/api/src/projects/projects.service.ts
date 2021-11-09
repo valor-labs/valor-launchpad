@@ -10,7 +10,6 @@ import { ImageUploaderUtility } from '../media/imageUploader.utility';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 import { QueryProjectListDto } from './dto/query-project-list.dto';
 import { Prisma } from '@prisma/client';
-import { isConstructorMetadata } from '@angular/compiler-cli';
 
 @Injectable()
 export class ProjectsService {
