@@ -253,15 +253,16 @@ model UserEntity {
   socialUserFollower       SocialUserFollower[]     @relation("follower")
   socialUserFollowing      SocialUserFollower[]     @relation("following")
   socialStory              SocialStory[]
-  socialStoryUserLike      SocialStoryUserLike[]    @relation("storyUserLikeUser")
-  socialActivities         SocialActivity[]         @relation("socialActivityOperator")
-  socialActivitiesAsTarget SocialActivity[]         @relation("socialActivityTargetUser")
-  appointments             Appointment[]            @relation("AppointmentUser")
-  CommentUserLike          CommentUserLike[]        @relation("commentUserLikeUser")
-  notifications            Notification[]           @relation("NotificationUser")
   userTasks                TaskEntity[]             @relation("UserTasks")
   userTasksCreatedBy       TaskEntity[]             @relation("UserTaskCreatedBy")
   userTasksDeletedBy       TaskEntity[]             @relation("UserTaskDeletedBy")
+  socialStoryUserLike      SocialStoryUserLike[]          @relation("storyUserLikeUser")
+  socialActivities         SocialActivity[]               @relation("socialActivityOperator")
+  socialActivitiesAsTarget SocialActivity[]               @relation("socialActivityTargetUser")
+  appointments             Appointment[]                  @relation("AppointmentUser")
+  CommentUserLike          CommentUserLike[]              @relation("commentUserLikeUser")
+  notifications            Notification[]                 @relation("NotificationUser")
+  passwordValidator        PasswordValidationEntity[]     @relation("passwordValidate")
 }
 
 model UserEventsEntity {
@@ -609,4 +610,11 @@ model TaskEntity {
   user          UserEntity  @relation("UserTasks", fields: [userId], references: [id])
   createUser    UserEntity? @relation("UserTaskCreatedBy", fields: [createdBy], references: [id])
   deleteUser    UserEntity? @relation("UserTaskDeletedBy", fields: [deletedBy], references: [id])
+}
+
+model PasswordValidationEntity {
+  id                 String      @id @default(uuid()) @db.VarChar(36)
+  passwordValidation Json?       @db.Json
+  user_id            String      @unique @db.VarChar(36)
+  passwordValidate   UserEntity  @relation("passwordValidate", fields: [user_id], references: [id])
 }
