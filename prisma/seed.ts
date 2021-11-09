@@ -147,7 +147,7 @@ async function main() {
     projectsCommentSeed,
     projectSummarySeed,
     taskEntitySeed,
-    passwordValidateSeed
+    passwordValidateSeed,
     chatSeed,
   ];
 
