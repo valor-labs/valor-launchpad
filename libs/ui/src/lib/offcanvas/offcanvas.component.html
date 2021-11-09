@@ -8,4 +8,4 @@
     <ng-content select="[offcanvas-body]"></ng-content>
   </div>
 </div>
-<div *ngIf="show && backdrop" class="modal-backdrop fade show"></div>
+<div *ngIf="show && backdrop" class="modal-backdrop fade show" (click)="handleClose()"></div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SignInService } from './sign-in.service';
 import { AuthService } from '../../core/auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MediaEntity } from '@valor-launchpad/common-api';
 
@@ -20,16 +20,21 @@ export class SignInComponent implements OnInit {
   public errorMessage: string;
   public isAlertOpen: boolean;
   public loading: boolean;
+  fromNav: string;
 
   constructor(
     private signInService: SignInService,
     private authService: AuthService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private readonly activatedRoute: ActivatedRoute
   ) {
     this.userName = '';
     this.errorMessage = '';
     this.isAlertOpen = false;
+    this.activatedRoute.queryParams.subscribe((param) => {
+      this.fromNav = param['fromNav'];
+    });
   }
 
   ngOnInit(): void {
@@ -43,7 +48,7 @@ export class SignInComponent implements OnInit {
     this.title =
       this.userName !== '' ? `Welcome back, ${this.userName}` : 'Welcome';
 
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn() && !this.fromNav) {
       this.router.navigate(['/dashboard-default']);
     }
   }
