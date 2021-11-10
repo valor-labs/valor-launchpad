@@ -2,13 +2,13 @@ export interface ChatThreadVo {
   id: string;
   name: string;
   isGroup: boolean;
-  avatar: {
+  avatar?: {
     src: string;
     src_webp: string;
     alt: string;
   };
   isConnected: boolean;
-  targetingUser: {id: string};
+  targetingUser?: {id: string};
   chatThreadUsers: {
     id: string;
     username: string;

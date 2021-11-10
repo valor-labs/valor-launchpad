@@ -27,3 +27,7 @@
   flex-direction: row-reverse;
   margin-left: auto;
 }
+
+.list-group-item.selected {
+  background: $list-group-hover-bg;
+}

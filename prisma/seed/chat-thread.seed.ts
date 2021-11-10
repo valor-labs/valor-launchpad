@@ -17,6 +17,14 @@ export class ChatThreadSeed implements Seeder {
               data: thread.users.map((i) => ({ userId: i.id })),
             },
           },
+          chatMessages: {
+            createMany: {
+              data: thread.messages,
+            },
+          },
+          lastChatDate: new Date(
+            Math.max(...thread.messages.map((i) => i.createdDate.getTime()))
+          ),
         },
       });
     }
@@ -24,6 +32,7 @@ export class ChatThreadSeed implements Seeder {
   }
 
   async delete(): Promise<unknown> {
+    await this.prisma.chatMessage.deleteMany();
     await this.prisma.chatThreadUser.deleteMany();
     return this.prisma.chatThread.deleteMany();
   }

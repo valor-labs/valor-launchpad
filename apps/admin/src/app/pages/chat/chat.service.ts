@@ -25,6 +25,20 @@ export class ChatService {
     });
   }
 
+  listenTyping() {
+    return new Observable<{ userId: string; threadId: string }>(
+      (subscriber) => {
+        this.socketService.socket.on('typing', (message) => {
+          subscriber.next(message);
+        });
+      }
+    );
+  }
+
+  sendTypingStatus(threadId: string) {
+    this.socketService.socket.emit('typing', { threadId });
+  }
+
   fetchThreads() {
     return this.httpClient.get<ChatThreadVo[]>(
       `${this.apiBase}api/chat/v1/threads`

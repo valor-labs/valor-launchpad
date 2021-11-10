@@ -50,24 +50,44 @@ export class ChatService {
     );
 
     return threads.map((t) => {
+      let name;
+      let avatar;
+      let isConnected;
+      let targetingUser;
       const otherUsersInChat = t.chatThreadUsers
         .map((i) => ({
           ...i.user,
           isConnected: this.socketConnService.isConnected(i.user.id),
         }))
         .filter((i) => i.id !== actingUser.id);
+
+      if (t.isGroup) {
+        name = t.name;
+        avatar = null;
+        isConnected = false;
+        targetingUser = null;
+      } else if (otherUsersInChat.length > 0) {
+        name = `${otherUsersInChat[0].firstName} ${otherUsersInChat[0].lastName}`;
+        avatar = otherUsersInChat[0].profile.avatar;
+        isConnected = otherUsersInChat[0].isConnected;
+        targetingUser = otherUsersInChat[0];
+      } else {
+        // chat with self
+        name = `${t.chatThreadUsers[0].user.firstName} ${t.chatThreadUsers[0].user.lastName} (You)`;
+        avatar = t.chatThreadUsers[0].user.profile.avatar;
+        isConnected = true;
+        targetingUser = t.chatThreadUsers[0].user;
+      }
       return {
         ...t,
         chatThreadUsers: t.chatThreadUsers.map((i) => ({
           ...i.user,
           isConnected: this.socketConnService.isConnected(i.user.id),
         })),
-        avatar: t.isGroup ? null : otherUsersInChat[0].profile.avatar,
-        name: t.isGroup
-          ? t.name
-          : `${otherUsersInChat[0].firstName} ${otherUsersInChat[0].lastName}`,
-        isConnected: otherUsersInChat[0].isConnected,
-        targetingUser: t.isGroup ? null : otherUsersInChat[0],
+        avatar,
+        name,
+        isConnected,
+        targetingUser,
         unreadMessages: unreadThreads[t.id] ?? [],
       };
     });
@@ -124,8 +144,9 @@ export class ChatService {
     actingUser,
     socketId: string
   ) {
-    // find thread
-    const thread = await this.prisma.chatThread.findUnique({
+    // find thread and update its lastChatDate
+    const thread = await this.prisma.chatThread.update({
+      data: { lastChatDate: new Date() },
       include: {
         chatThreadUsers: {
           select: { user: { select: { id: true } } },
@@ -133,6 +154,7 @@ export class ChatService {
       },
       where: { id: threadId },
     });
+
     const chatMessage = await this.prisma.chatMessage.create({
       include: {
         createdUser: {
@@ -187,5 +209,19 @@ export class ChatService {
 
   async markAsRead(userId: string, threadId: string) {
     return this.chatUnreadService.markAsRead(userId, threadId);
+  }
+
+  async syncTypingStatus(threadId: string, actingUser) {
+    const query = await this.prisma.chatThreadUser.findMany({
+      select: { userId: true },
+      where: { threadId, userId: { not: actingUser.id } },
+    });
+    for (const { userId } of query) {
+      // tell [userId]: actingUser is typing on [threadId]
+      this.socketConnService.notifyByUserId(userId, 'typing', {
+        userId: actingUser.id,
+        threadId,
+      });
+    }
   }
 }

@@ -6,6 +6,8 @@ import { ValorLaunchpadMessageComponent } from './valor-launchpad-message/valor-
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpModule } from '@valor-launchpad/http';
 import { environment } from '../../../environments/environment';
+import { FormsModule } from '@angular/forms';
+import { UiModule } from '@valor-launchpad/ui';
 
 describe('ChatComponent', () => {
   let component: ChatComponent;
@@ -13,7 +15,12 @@ describe('ChatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, HttpModule.forRoot({ environment })],
+      imports: [
+        HttpClientTestingModule,
+        HttpModule.forRoot({ environment }),
+        FormsModule,
+        UiModule,
+      ],
       declarations: [
         ChatComponent,
         ValorLaunchpadMessengerComponent,
