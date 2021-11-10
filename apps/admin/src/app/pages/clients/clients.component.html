@@ -45,8 +45,9 @@
         <valor-launchpad-tables
           [data]="paginationTableData"
           [columns]="tableColumns"
-          [class]="'table-striped'"
+          [class]="'table table-hover'"
           [style]="'width:100%'"
+          (selcteded)="handleRowSelected($event)"
         ></valor-launchpad-tables>
         <valor-launchpad-pagination
           [totalItems]="searchTableData.length"
@@ -69,7 +70,7 @@
             ></valor-launchpad-dropdown-actions-menu>
           </valor-launchpad-dropdown>
         </div>
-        <h5 class="card-title mb-0">{{ profile.detail.name }}</h5>
+        <h5 class="card-title mb-0">{{ selectData.name }}</h5>
       </valor-launchpad-card-header>
       <valor-launchpad-card-content>
         <div valorLaunchpadRow class="g-0">
@@ -81,7 +82,7 @@
             class="text-center"
           >
             <valor-launchpad-avatar
-              [src]="profile.avatar"
+              [src]="selectData.avatar"
               [size]="'xl'"
               [classes]="'rounded-circle mt-2'"
               [alt]="'Angelica Ramos'"
@@ -89,7 +90,7 @@
           </div>
           <div valorLaunchpadCol [sm]="9" [xl]="12" [xxl]="9">
             <strong>About me</strong>
-            <p>{{ profile.description }}</p>
+            <p>{{ selectData.description }}</p>
           </div>
         </div>
 
@@ -97,7 +98,7 @@
           <tbody>
             <tr *ngFor="let key of profileKeys">
               <th>{{ key }}</th>
-              <td [innerHtml]="profile.detail[key]"></td>
+              <td [innerHtml]="selectData[key]"></td>
             </tr>
           </tbody>
         </table>
@@ -107,7 +108,7 @@
         <strong>Activity</strong>
 
         <valor-launchpad-timeline
-          [timeline]="timeline"
+          [timeline]="selectData.timeline"
           [classes]="'mt-2 mb-0'"
         ></valor-launchpad-timeline>
       </valor-launchpad-card-content>
