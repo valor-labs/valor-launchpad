@@ -10,74 +10,34 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@api/projects": [
-        "apps/api/src/index.ts"
-      ],
-      "@ui/http-config": [
-        "apps/admin/src/app/core/http/index.ts"
-      ],
-      "@valor-launchpad/api-interfaces": [
-        "libs/api-interfaces/src/index.ts"
-      ],
-      "@valor-launchpad/auth-api": [
-        "libs/auth-api/src/index.ts"
-      ],
-      "@valor-launchpad/chat-api": [
-        "libs/chat-api/src/index.ts"
-      ],
-      "@valor-launchpad/common-api": [
-        "libs/common-api/src/index.ts"
-      ],
-      "@valor-launchpad/email": [
-        "libs/email/src/index.ts"
-      ],
-      "@valor-launchpad/http": [
-        "libs/http/src/index.ts"
-      ],
+      "@api/projects": ["apps/api/src/index.ts"],
+      "@ui/http-config": ["apps/admin/src/app/core/http/index.ts"],
+      "@valor-launchpad/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@valor-launchpad/auth-api": ["libs/auth-api/src/index.ts"],
+      "@valor-launchpad/chat-api": ["libs/chat-api/src/index.ts"],
+      "@valor-launchpad/common-api": ["libs/common-api/src/index.ts"],
+      "@valor-launchpad/email": ["libs/email/src/index.ts"],
+      "@valor-launchpad/http": ["libs/http/src/index.ts"],
       "@valor-launchpad/notification-api": [
         "libs/notification-api/src/index.ts"
       ],
-      "@valor-launchpad/prisma": [
-        "libs/prisma/src/index.ts"
-      ],
-      "@valor-launchpad/sms": [
-        "libs/sms/src/index.ts"
-      ],
-      "@valor-launchpad/socket-gateway": [
-        "libs/socket-gateway/src/index.ts"
-      ],
-      "@valor-launchpad/stripe": [
-        "libs/stripe/src/index.ts"
-      ],
-      "@valor-launchpad/stripe-api": [
-        "libs/stripe-api/src/index.ts"
-      ],
-      "@valor-launchpad/stripe-ui": [
-        "libs/stripe-ui/src/index.ts"
-      ],
-      "@valor-launchpad/ui": [
-        "libs/ui/src/index.ts"
-      ],
-      "@valor-launchpad/users-api": [
-        "libs/users-api/src/index.ts"
-      ],
-      "@valor-launchpad/users-ui": [
-        "libs/users-ui/src/index.ts"
-      ]
+      "@valor-launchpad/prisma": ["libs/prisma/src/index.ts"],
+      "@valor-launchpad/sms": ["libs/sms/src/index.ts"],
+      "@valor-launchpad/socket-gateway": ["libs/socket-gateway/src/index.ts"],
+      "@valor-launchpad/stripe": ["libs/stripe/src/index.ts"],
+      "@valor-launchpad/stripe-api": ["libs/stripe-api/src/index.ts"],
+      "@valor-launchpad/stripe-ui": ["libs/stripe-ui/src/index.ts"],
+      "@valor-launchpad/ui": ["libs/ui/src/index.ts"],
+      "@valor-launchpad/users-api": ["libs/users-api/src/index.ts"],
+      "@valor-launchpad/users-ui": ["libs/users-ui/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
