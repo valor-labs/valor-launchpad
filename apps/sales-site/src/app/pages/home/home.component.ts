@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Action } from '@valor-launchpad/api-interfaces'
 import { ThemeService } from '../../core/theme/theme.service';
 
 @Component({
@@ -9,14 +10,27 @@ import { ThemeService } from '../../core/theme/theme.service';
 export class HomeComponent implements OnInit {
 
   checked = false
-  CorporateMenu = [
+  CorporateMenu: Action[] = [
     {
-      label: 'CorporateMenu1'
+      label: 'Profile',
+      icon: 'user',
+      routerLink: '/profile',
     },
     {
-      label: 'CorporateMenu2'
+      label: 'Analytics',
+      icon: 'chart-pie',
+      link: '/dashboard-analytics',
+      divider: true,
+    },
+    {
+      label: 'Settings & Privacy',
+      routerLink: '/settings',
+    },
+    {
+      label: 'Help',
+      link: 'pages-settings.html',
     }
-  ]
+  ];
 
   constructor( private themeService: ThemeService ) {}
 

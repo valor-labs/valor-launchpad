@@ -1,22 +1,155 @@
-<div class="sub-nav d-flex px-6">
+<div class="container-fluid sub-nav">
+  <!-- <div class="sub-nav d-flex px-6"> -->
   <a class="navbar-brand logo-brand" href="#">
-    <img src="assets/admin-logo-light.svg" />
+    <!-- <img src="assets/admin-logo-light.svg" /> -->
+    <div class="admin-logo"></div>
   </a>
-  <div class="flex-grow-1 d-flex">
-    <div class="d-inline-block form-check form-switch form-mode sub-nav-text">
+  <div class="flex-grow-1 d-flex navbar-light navbar-expand nav-subscribe">
+    <div class="d-inline-block form-check form-switch form-mode">
       <label class="form-check-label" for="themeChecked">Switch to dark mode</label>
       <input class="form-check-input" [checked]="checked" type="checkbox" role="switch" id="themeChecked" (change)="themeChange($event)">
     </div>
-    <div class="">
-      <!-- <valor-launchpad-dropdown
-        direction="start"
-        classes="nav-link dropdown-toggle d-none d-sm-inline-block">
-        <span dropdown-nav>Corporate</span>
-        <valor-launchpad-dropdown-mega-menu
-          [columns]="CorporateMenu"
-        ></valor-launchpad-dropdown-mega-menu>
-      </valor-launchpad-dropdown> -->
+
+    <div class="navbar-text flex-grow-1">
+      <ul class="navbar-nav navbar-align">
+        <li class="nav-item dropdown">
+          <valor-launchpad-dropdown
+            classes="nav-link dropdown-toggle d-sm-inline-block">
+            <span dropdown-nav>
+              <span class="text-dark sub-nav-text">Corporate</span>
+              </span>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="CorporateMenu"
+            ></valor-launchpad-dropdown-actions-menu>
+          </valor-launchpad-dropdown>
+        </li>
+        <li class="nav-item dropdown">
+          <valor-launchpad-dropdown classes="nav-link dropdown-toggle d-sm-inline-block">
+            <span dropdown-nav>
+              <span class="text-dark sub-nav-text">Open source</span>
+              </span>
+            <valor-launchpad-dropdown-actions-menu
+              [actions]="CorporateMenu"
+            ></valor-launchpad-dropdown-actions-menu>
+          </valor-launchpad-dropdown>
+        </li>
+      </ul>
+    </div>
+
+    <div class="input-group input-group-navbar">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="E-mail" />
+      <button class="btn">
+        <span class="azure-gradient">Subscribe</span>
+        <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
+      </button>
     </div>
   </div>
-  
 </div>
+
+<section>
+  <div class="conduct-wrap">
+    <div class="conduct-text-wrap">
+      <div class="d-flex justify-content-center creators pt-5">
+        <span>From the creators of</span>
+      </div>
+      <div class="container d-flex flex-column align-items-center justify-content-center">
+        <div class="bootstrap-logo"></div>
+        <h1 class="lg-text pt-5">Stop wasting
+          <span>your time</span>
+        </h1>
+        <div class="row flex-grow-1 pt-4">
+          <div class="offset-2 col-3 wast-li">
+            <li>One monorepo</li>
+            <span>Everything you need in one Nx Workspace</span>
+          </div>
+          <div class="col-3 wast-li">
+            <li>Complete</li>
+            <span>Everything you need to launch in minutes</span>
+          </div>
+          <div class="col-3 wast-li">
+            <li>Extensible</li>
+            <span>Built with technologies and an architecture you know and trust</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="get-started d-flex align-items-center justify-content-center">
+      <button class="get-started-btn">
+        <span>Get started now</span>
+        <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="list-page">
+  <div class="list-page-info text-center pb-5 mt-n4">
+    <h1>Over 90 pages</h1>
+    <span>Totally customizable</span>
+  </div>
+  <div class="container list-page-bg"></div>
+  <div class="py-4 text-center">
+    <button class="list-page-btn">
+      <span class="purple-blue-ft">All pages</span>
+      <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
+    </button>
+  </div>
+</section>
+
+<section class="introduce">
+  <div class="introduce-wrap container position-relative">
+    <div class="position-absolute top-50 start-0 translate-middle-y card-text">
+      Everything <br/> you need
+    </div>
+    <div class="position-absolute top-50 end-0 translate-middle-y card">
+      <div class="text-center">
+        <div class="save-time mb-2"></div>
+        <h3 class="card-info">Save Time</h3>
+        <span class="purple-blue-ft">See more 
+          <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
+        </span>
+      </div>
+      <div class="text-center">
+        <div class="deliver-faster mb-2"></div>
+        <h3 class="card-info">Deliver Faster</h3>
+        <span class="purple-blue-ft">See more 
+          <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container d-flex justify-content-between align-items-center benefits">
+  <div class="benefits-img"> </div>
+  <div class="flex-grow-1 d-flex align-items-center flex-column">
+    <h2>Benefits</h2>
+    <span>Lorem ipsum dolor sit amet, consectetur</span>
+    <span>adipisicing elit, sed do eiusmod tempor incididunt</span>
+    <span>ut labore et dolore magna.</span>
+    <div class="text-center pt-6">
+      <button class="list-page-btn">
+        <span class="purple-blue-ft">Start now</span>
+        <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
+      </button>
+      <button class="list-page-btn ms-3">
+        <span class="purple-blue-ft">Watch intro</span>
+        <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="no-repeat d-flex flex-column justify-content-center align-items-center">
+  <h2>We built Valor Admin out</h2>
+  <h2>of a desire to stop</h2>
+  <h2>repeating ourselves.</h2>
+  <div class="pt-5 text-center">
+    <span>Reuse the codes created for your Admin Panels in a smart way, </span>
+    <br />
+    <span>without needing to build everything all over again.</span>
+  </div>
+</section>
