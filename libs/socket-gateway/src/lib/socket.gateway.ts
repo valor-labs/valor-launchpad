@@ -24,19 +24,21 @@ export class SocketGateway implements OnGatewayConnection {
   }
 
   handleDisconnect(client: Socket) {
-    // todo: find some way to put userId in client
-    const user = this.authService.jwtService.decode(
-      client.handshake.headers.authorization
-    ) as { id: string };
-    this.socketConnService.delete(user.id, client);
+    const userId = client.data.user.id;
+    this.socketConnService.delete(userId, client);
     this.logger.log(`Client disconnected: ${client.id}`);
-    this.server.emit('userDisconnected', user.id);
+    // check if all connection has been closed, as user may open several browser tabs
+    const stillHasConnection = this.socketConnService.isConnected(userId);
+    if (!stillHasConnection) {
+      this.server.emit('userDisconnected', userId);
+    }
   }
 
   handleConnection(client: Socket) {
     const user = this.authService.jwtService.decode(
       client.handshake.headers.authorization
     ) as { id: string };
+    client.data.user = user;
     this.socketConnService.add(user.id, client);
     this.logger.log(`Client connected: ${client.id}`);
     this.server.emit('userConnected', user.id);

@@ -13,16 +13,18 @@
       classes="rounded-circle me-1"
     >
     </valor-launchpad-avatar>
-    <div class="text-muted small text-nowrap mt-2">
-      {{ message.createdDate | timeAgo }}
-    </div>
   </div>
   <div
     class="flex-shrink-1 bg-light rounded py-2 px-3"
     [ngClass]="message.isSelf ? 'me-3' : 'ms-3'"
   >
-    <div class="fw-bold mb-1">
-      {{ message.isSelf ? 'You' : (message.createdUser | fullName) }}
+    <div class="mb-1">
+      <span class="fw-bold me-2" *ngIf="!message.isSelf">
+        {{ message.createdUser | fullName }}
+      </span>
+      <span class="text-muted small text-nowrap">
+        {{ message.createdDate | valorDate }}
+      </span>
     </div>
     {{ message.message }}
   </div>

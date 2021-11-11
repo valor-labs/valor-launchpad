@@ -81,6 +81,7 @@ import { PercentBadgeComponent } from './badge/percent-badge/percent-badge.compo
 import { ValorImagePipe } from './pipe/valor-image.pipe';
 import { TimeAgoPipe } from './pipe/time-ago.pipe';
 import { FullNamePipe } from './pipe/full-name.pipe';
+import { ValorDatePipe } from './pipe/valor-date.pipe';
 
 const cardPart = [
   CardComponent,
@@ -170,6 +171,7 @@ const cardPart = [
     PercentBadgeComponent,
     TimeAgoPipe,
     FullNamePipe,
+    ValorDatePipe,
   ],
   exports: [
     TabsModule,
@@ -215,6 +217,7 @@ const cardPart = [
     PercentBadgeComponent,
     TimeAgoPipe,
     FullNamePipe,
+    ValorDatePipe,
   ],
   providers: [{ provide: NOTYFToken, useFactory: notyfFactory }],
 })

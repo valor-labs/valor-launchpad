@@ -23,63 +23,71 @@
       ></valor-launchpad-valor-launchpad-messenger>
       <hr class="d-block d-lg-none mt-1 mb-0" />
     </div>
-    <div class="col-12 col-lg-7 col-xl-9" *ngIf="activeThread">
-      <div class="py-2 px-4 border-bottom d-none d-lg-block">
-        <div class="d-flex align-items-start align-items-center py-1">
-          <div class="position-relative">
-            <valor-launchpad-avatar
-              [src]="activeThread.avatar | valorImage"
-              [alt]="activeThread.avatar?.alt"
-              [firstName]="activeThread.name"
-              width="40"
-              height="40"
-              classes="rounded-circle me-1"
-            >
-            </valor-launchpad-avatar>
-          </div>
-          <div class="flex-grow-1 ps-3">
-            <strong>{{ activeThread.name }}</strong>
-            <div class="text-muted small"><em>Typing...</em></div>
-          </div>
-          <div>
-            <button class="btn btn-primary btn-lg me-1 px-3">
-              <i class="feather-lg fas fa-fw fa-phone"></i>
-            </button>
-            <button
-              class="btn btn-info btn-lg me-1 px-3 d-none d-md-inline-block"
-            >
-              <i class="feather-lg fas fa-fw fa-video"></i>
-            </button>
-            <button class="btn btn-light border btn-lg px-3">
-              <i class="feather-lg fas fa-fw fa-ellipsis-h"></i>
-            </button>
+    <div class="col-12 col-lg-7 col-xl-9">
+      <ng-container *ngIf="activeThread">
+        <div class="py-2 px-4 border-bottom d-none d-lg-block">
+          <div class="d-flex align-items-start align-items-center py-1">
+            <div class="position-relative">
+              <valor-launchpad-avatar
+                [src]="activeThread.avatar | valorImage"
+                [alt]="activeThread.avatar?.alt"
+                [firstName]="activeThread.name"
+                width="40"
+                height="40"
+                classes="rounded-circle me-1"
+              >
+              </valor-launchpad-avatar>
+            </div>
+            <div class="flex-grow-1 ps-3">
+              <strong>{{ activeThread.name }}</strong>
+              <div class="text-muted small" style="height: 1em">
+                <em>{{
+                  (activeThread.isTyping | async) ? 'Typing...' : ''
+                }}</em>
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-primary btn-lg me-1 px-3">
+                <i class="feather-lg fas fa-fw fa-phone"></i>
+              </button>
+              <button
+                class="btn btn-info btn-lg me-1 px-3 d-none d-md-inline-block"
+              >
+                <i class="feather-lg fas fa-fw fa-video"></i>
+              </button>
+              <button class="btn btn-light border btn-lg px-3">
+                <i class="feather-lg fas fa-fw fa-ellipsis-h"></i>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="position-relative">
-        <div class="chat-messages p-4" #chatMsg>
-          <valor-launchpad-valor-launchpad-message
-            *ngFor="let item of messages"
-            [message]="item"
-          ></valor-launchpad-valor-launchpad-message>
+        <div class="position-relative">
+          <div class="chat-messages p-4" #chatMsg>
+            <valor-launchpad-valor-launchpad-message
+              *ngFor="let item of messages"
+              [message]="item"
+            ></valor-launchpad-valor-launchpad-message>
+          </div>
         </div>
-      </div>
-
+      </ng-container>
       <div class="flex-grow-0 py-3 px-4 border-top">
         <div class="input-group">
           <input
+            #messageInput
+            [disabled]="!activeThread"
             valorLaunchpadInput
             type="text"
             placeholder="Type your message"
             ngModel
             #ngModel="ngModel"
+            (keydown.enter)="onSend(ngModel)"
           />
           <button
             valor-launchpad-button
             theme="primary"
             (click)="onSend(ngModel)"
             [disabled]="!ngModel.value"
+            [loading]="sendingMessage"
           >
             Send
           </button>
