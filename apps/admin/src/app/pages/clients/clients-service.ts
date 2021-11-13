@@ -11,14 +11,9 @@ export class ClientsService {
     private httpClient: HttpClient
   ) {}
 
-  getClients(username?: string) {
-    const params: { username?: string } = {};
-    if (username) {
-      params.username = username;
-    }
+  getClients() {
     return this.httpClient.get<any>(
-      this.config.environment.apiBase + `api/clients/v1`,
-      { params }
+      this.config.environment.apiBase + `api/clients/v1/getClients`
     );
   }
 }

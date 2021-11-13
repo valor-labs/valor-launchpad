@@ -6,7 +6,7 @@ export class HELPERS {
     'post'
   ]
   static profileImages = [
-    'assets/img/avatars/avatar.jpg',
+    'assets/img/avatars/avatar-1.jpg',
     'assets/img/avatars/avatar-2.jpg',
     'assets/img/avatars/avatar-3.jpg',
     'assets/img/avatars/avatar-4.jpg',

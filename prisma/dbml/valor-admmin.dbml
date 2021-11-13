@@ -246,6 +246,7 @@ Table UserEntity {
   passwordValidator PasswordValidationEntity [not null]
   chatUserThreads ChatThreadUser [not null]
   chatMessages ChatMessage [not null]
+  clients ClientsEntity [not null]
 }
 
 Table UserEventsEntity {
@@ -610,6 +611,29 @@ Table ChatMessage {
   createdUser UserEntity [not null]
 }
 
+Table ClientsEntity {
+  id String [pk]
+  user_id String [not null]
+  avatar String [not null]
+  name String [not null]
+  company String [not null]
+  email String [not null]
+  phone String [not null]
+  status String [not null]
+  description String [not null]
+  timeline Timeline [not null]
+  user UserEntity [not null]
+}
+
+Table Timeline {
+  id String [pk]
+  timelineId String [not null]
+  title String [not null]
+  time DateTime [not null]
+  description String [not null]
+  timelineThread ClientsEntity [not null]
+}
+
 Enum ProjectStatus {
   IN_PROGRESS
   FINISHED
@@ -744,3 +768,7 @@ Ref: ChatThreadUser.userId > UserEntity.id
 Ref: ChatMessage.threadId > ChatThread.id
 
 Ref: ChatMessage.createdUserId > UserEntity.id
+
+Ref: ClientsEntity.user_id > UserEntity.id
+
+Ref: Timeline.timelineId > ClientsEntity.id

@@ -7,16 +7,15 @@ import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
 export class ClientsController {
-  constructor(private passwordService: ClientsService) {}
+  constructor(private clientsService: ClientsService) {}
 
   /**
    * Get user's profile data through username
    * @param user: acting user
-   * @param username: if username is nil, return acting user's profile
    */
 
-  @Get('myValidation')
-  async getPasswordValidation(@User() user: UserEntity) {
-    return await this.passwordService.getClients(user.id);
+  @Get('getClients')
+  async getClients(@User() user: UserEntity) {
+    return await this.clientsService.getClients(user.id);
   }
 }

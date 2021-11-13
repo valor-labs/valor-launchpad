@@ -9,4 +9,4 @@ import { PrismaModule } from '@valor-launchpad/prisma';
   controllers: [ClientsController],
   providers: [ClientsService],
 })
-export class ClientsServicerModule {}
+export class ClientsModule {}

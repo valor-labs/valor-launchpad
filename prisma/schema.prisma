@@ -265,6 +265,7 @@ model UserEntity {
   passwordValidator        PasswordValidationEntity[]     @relation("passwordValidate")
   chatUserThreads          ChatThreadUser[]         @relation("ChatThreadUserUser")
   chatMessages             ChatMessage[]            @relation("ChatMessageUser")
+  clients                  ClientsEntity[]          @relation("clients")       
 }
 
 model UserEventsEntity {
@@ -654,4 +655,27 @@ model ChatMessage {
 
   thread      ChatThread @relation("ChatMessageThread", fields: [threadId], references: [id])
   createdUser UserEntity @relation("ChatMessageUser", fields: [createdUserId], references: [id])
+}
+
+model ClientsEntity {
+  id              String      @id @default(uuid()) @db.VarChar(36)
+  user_id         String      @db.VarChar(36)
+  avatar          String      @db.VarChar(36)
+  name            String      @db.VarChar(36)
+  company         String      @db.VarChar(36)
+  email           String      @db.VarChar(36)
+  phone           String      @db.VarChar(36)
+  status          String      @db.VarChar(36)
+  description     String      @db.VarChar(1000)
+  timeline        Timeline[]  @relation("timelineThread")
+  user            UserEntity  @relation("clients", fields: [user_id], references: [id])
+}
+
+model Timeline {
+  id              String            @id @default(uuid()) @db.VarChar(36)
+  timelineId      String            @db.VarChar(36)
+  title           String            @db.VarChar(36)
+  time            DateTime          @db.DateTime(6)
+  description     String            @db.VarChar(1000)
+  timelineThread  ClientsEntity     @relation("timelineThread", fields: [timelineId], references: [id])
 }

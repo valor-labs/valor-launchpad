@@ -9,9 +9,7 @@ describe('PasswordValidatorController', () => {
       controllers: [ClientsController],
     }).compile();
 
-    controller = module.get<ClientsController>(
-      ClientsController
-    );
+    controller = module.get<ClientsController>(ClientsController);
   });
 
   it('should be defined', () => {
