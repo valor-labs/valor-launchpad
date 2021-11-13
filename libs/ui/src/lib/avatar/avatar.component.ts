@@ -32,6 +32,9 @@ export class AvatarComponent implements OnInit {
     @Input()
     lastName: string;
 
+    @Input()
+    squared = false;
+
     constructor() {
     }
 

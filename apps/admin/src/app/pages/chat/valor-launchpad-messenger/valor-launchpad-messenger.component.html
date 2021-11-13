@@ -21,12 +21,14 @@
 
     <div class="flex-grow-1 ms-3">
       {{ messenger.name }}
-      <div class="small" *ngIf="!messenger.isGroup">
-        <span
-          class="fas fa-circle"
-          [ngClass]="messenger.isConnected ? 'chat-online' : 'chat-offline'"
-        ></span>
-        {{ messenger.isConnected ? 'Online' : 'Offline' }}
+      <div class="small">
+        <ng-container *ngIf="!messenger.isGroup">
+          <span
+            class="fas fa-circle"
+            [ngClass]="messenger.isConnected ? 'chat-online' : 'chat-offline'"
+          ></span>
+          {{ messenger.isConnected ? 'Online' : 'Offline' }}
+        </ng-container>
       </div>
     </div>
   </div>

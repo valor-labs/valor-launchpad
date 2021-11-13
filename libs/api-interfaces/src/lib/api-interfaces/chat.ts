@@ -8,7 +8,7 @@ export interface ChatThreadVo {
     alt: string;
   };
   isConnected: boolean;
-  targetingUser?: {id: string};
+  targetingUser?: { id: string };
   chatThreadUsers: {
     id: string;
     username: string;
@@ -44,5 +44,8 @@ export interface ChatMessageVo {
         alt: string;
       };
     };
-  }
+  };
+  // todo: thread type is not same when push message and returning after create message
+  // ChatThreadVo
+  thread?: any;
 }

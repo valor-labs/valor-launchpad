@@ -1,14 +1,42 @@
 import { Inject, Injectable } from '@angular/core';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
-import { HttpClient } from '@angular/common/http';
-import { ChatMessageVo, ChatThreadVo } from '@valor-launchpad/api-interfaces';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  ChatMessageVo,
+  ChatThreadVo,
+  ChatUserVo,
+} from '@valor-launchpad/api-interfaces';
 import { Observable } from 'rxjs';
 import { SocketService } from '../../core/socket/socket.service';
+
+export interface IChatService {
+  listenNewMessage(): Observable<ChatMessageVo>;
+
+  listenTyping(): Observable<{ userId: string; threadId: string }>;
+
+  sendTypingStatus(threadId: string): void;
+
+  fetchThreads(): any;
+
+  fetchThreadMessages(threadId: string): Observable<ChatMessageVo[]>;
+
+  sendMessage(
+    threadId: string,
+    message: string,
+    socketId: string
+  ): Observable<ChatMessageVo>;
+
+  markThreadAsRead(threadId: string): any;
+
+  searchUser(keyword: string): any;
+
+  createThread(threadName: string, userIds: string[], isGroup: boolean): any;
+}
 
 @Injectable({
   providedIn: 'root',
 })
-export class ChatService {
+export class ChatService implements IChatService {
   private apiBase = this.config.environment.apiBase;
 
   constructor(
@@ -62,6 +90,30 @@ export class ChatService {
     return this.httpClient.post(
       `${this.apiBase}api/chat/v1/threads/${threadId}/markAsRead`,
       {}
+    );
+  }
+
+  searchUser(keyword: string) {
+    let params = new HttpParams();
+    if (keyword && keyword.length > 0) {
+      params = params.append('keyword', keyword);
+    }
+    return this.httpClient.get<ChatUserVo[]>(
+      `${this.apiBase}api/users/v1/byName`,
+      {
+        params,
+      }
+    );
+  }
+
+  createThread(threadName: string, userIds: string[], isGroup: boolean) {
+    return this.httpClient.post<ChatThreadVo>(
+      `${this.apiBase}api/chat/v1/threads`,
+      {
+        threadName,
+        userIds,
+        isGroup,
+      }
     );
   }
 }
