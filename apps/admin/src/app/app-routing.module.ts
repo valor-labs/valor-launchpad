@@ -51,6 +51,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'terms-of-use',
+    loadChildren: () =>
+      import('./pages/terms-of-use/terms-of-use.module').then(
+        (m) => m.TermsOfUseModule
+      ),
+  },
+  {
     path: '',
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
