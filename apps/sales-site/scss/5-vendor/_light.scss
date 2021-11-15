@@ -8,3 +8,230 @@
   background: linear-gradient(180deg, #C2D1D9 0%, #FFFFFF 100%);
   filter: blur(300px);
 }
+
+.list-page {
+  background: linear-gradient(180deg, #FFFFFF 22.5%, rgba(14, 14, 14, 0) 100%);
+}
+
+.archit {
+  background-color: rgba(239, 249, 255, 0.8);
+}
+
+.gradual-btn {
+  border: 0;
+  background-clip: text;
+  color: transparent;
+  background: linear-gradient(102.6deg, #010101 -21.63%, #22215B 94.17%);
+  span {
+    color: #fff;
+  }
+  i {
+    color: #fff;
+  }
+}
+
+.purple-blue-ft {
+  font-weight: 700;
+  background: $purple-blue-color;
+  color: transparent;
+  background-clip: text;
+}
+
+.benefits {
+  .gradual-btn {
+    border: 1px solid #1E1E55;
+    background: transparent;
+    span {
+      background: $gradual-color;
+      background-clip: text;
+      color: transparent;
+      font-size: 1rem;
+    }
+    i {
+      background: linear-gradient(130.31deg, #141645 19.71%, #1E1E55 102.74%);
+      background-clip: text;
+      color: transparent;
+    }
+  }
+}
+
+.has-need {
+  background: url('../../src/assets/img/pc-light.png'),
+  url('../../src/assets/img/spot-dark.svg');
+  background-position: 70%, center;
+  background-size: 70%, auto;
+  background-repeat: no-repeat, repeat;
+}
+
+.fresh {
+  .main-text {
+    color: #fff;
+  }
+}
+
+.news {
+  &-r-t {
+    .main-text {
+        color: $dark;
+    }
+  }
+}
+
+.custom {
+  &-r-bg {
+    height: 100%;
+    position: absolute;
+    width: 55%;
+    background: url('../../src/assets/img/custom-light.png');
+    background-size: 250%;
+    background-position: 30% center;
+    right: 0;
+    z-index: 1;
+  }
+}
+
+.plans{
+  &-card {
+    &-item {
+      width: 226px;
+      height: 361px;
+      border-radius: 20px;
+      background: $plans-card-bg-color;
+      .gradual-btn {
+        border: 1px solid #1E1E55;
+        background: transparent;
+        span {
+          background: $gradual-color;
+          background-clip: text;
+          color: transparent;
+          font-size: 1rem;
+        }
+        i {
+          background: linear-gradient(130.31deg, #141645 19.71%, #1E1E55 102.74%);
+          background-clip: text;
+          color: transparent;
+        }
+      }
+      &:hover {
+        transform: scale(1.3);
+        transition: all 0.3s;
+        box-shadow: 0 1px 6px rgba(5, 5, 5, 0.5);
+        background: $plans-card-bg-hover-color;
+        del {
+          color: #fff;
+        }
+        .gradual-btn {
+          border: 0;
+          background-clip: text;
+          color: transparent;
+          background: linear-gradient(102.6deg, #010101 -21.63%, #22215B 94.17%);
+          span {
+            color: #fff;
+          }
+          i {
+            color: #fff;
+          }
+        }
+      }
+      .plans-btn {
+        border: 0;
+        background-clip: text;
+        color: transparent;
+        background: linear-gradient(102.6deg, #010101 -21.63%, #22215B 94.17%);
+        span {
+          color: #fff;
+        }
+        i {
+          color: #fff;
+        }
+      }
+      &__b {
+        .learn-more{
+          background: $gradual-color;
+          background-clip: text;
+          color: transparent;
+          text-decoration-color: #0b0c1f;
+        }
+      }
+    }
+  }
+
+  .update {
+    .gradual-btn {
+      border: 1px solid #1E1E55;
+      background: transparent;
+      span {
+        background: $gradual-color;
+        background-clip: text;
+        color: transparent;
+        font-size: 1rem;
+      }
+      i {
+        background: linear-gradient(130.31deg, #141645 19.71%, #1E1E55 102.74%);
+        background-clip: text;
+        color: transparent;
+      }
+    }
+    .main-text {
+      color: $dark;
+    }
+  }
+}
+
+.thought {
+  .main-text {
+    color: $dark;
+  }
+}
+
+.faq {
+  .plans-btn {
+    border: 0;
+    background-clip: text;
+    color: transparent;
+    background: linear-gradient(102.6deg, #010101 -21.63%, #22215B 94.17%);
+    span {
+      color: #fff;
+    }
+    i {
+      color: #fff;
+    }
+  }
+
+  .gradual-btn {
+    border: 1px solid #1E1E55;
+    background: transparent;
+    span {
+      background: $gradual-color;
+      background-clip: text;
+      color: transparent;
+      font-size: 1rem;
+    }
+    i {
+      background: linear-gradient(130.31deg, #141645 19.71%, #1E1E55 102.74%);
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  .purple-blue-ft {
+    background-image: $gradual-color;
+  }
+  .shallow-gradient {
+    background-image: $gradual-color;
+  }
+  .main-text {
+    color: $dark;
+  }
+}
+
+.footer {
+  &.main-text {
+    color: $dark;
+  }
+  .purple-blue-ft {
+    background-image: $gradual-color;
+    &.fa-heart {
+      background-image: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%);
+    }
+  }
+}

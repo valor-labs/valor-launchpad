@@ -1,10 +1,12 @@
 // Fonts
-$font-family-sans-serif: 'Poppins', -apple-system, BlinkMacSystemFont,
+$font-family-sans-serif: 'Montserrat', -apple-system, BlinkMacSystemFont,
   'Segoe UI', 'Helvetica Neue', Arial, sans-serif !default;
 $font-weight-light: 300 !default;
 $font-weight-normal: 400 !default;
 $font-weight-bold: 500 !default;
-$font-size-base: 0.825rem !default;
+// $font-size-base: 0.825rem !default;
+$font-size-base: 0.875rem !default;
+$font-size-20: 1.25rem !default;
 $font-size-lg: 0.95rem !default;
 $font-size-sm: 0.75rem !default;
 $headings-font-weight: 500 !default;
@@ -98,7 +100,9 @@ $info: $cyan !default;
 $warning: $yellow !default;
 $danger: $red !default;
 $light: lighten($gray-200, 4%) !default;
-$dark: #293042 !default;
+// $dark: #293042 !default;
+$dark: #424B5A !default;
+$navbar-light-active-color: $dark;
 
 $theme-colors: (
   'primary': $primary,
@@ -149,8 +153,9 @@ $static-black: #000 !default;
 $static-dark: #293042 !default;
 
 // Body
-$body-bg: #f7f9fc !default;
-$body-color: $gray-600 !default;
+$body-bg: #ecf0fc !default;
+// $body-color: $gray-600 !default;
+$body-color: $dark !default;
 
 // Links
 $link-decoration: none !default;
@@ -538,3 +543,35 @@ $illustration-color: $primary !default;
 // Font Awesome
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 
+// Typography
+$headings-color: $dark !default;
+
+// background-url
+$valor-logo-url: '/assets/valor-logo-light.svg' !default;
+$admin-logo-url: '/assets/admin-logo-light.svg' !default;
+$get-started-url: '/assets/img/get-started-light.png' !default;
+$bootstrap-logo-url: '/assets/bootstrap-light.svg' !default;
+
+$wast-li-color: #1D2531 !default;
+$wast-span-color: #505D68 !default;
+$main-text-color: $dark !default;
+$main-text-font-size: 1rem !default;
+
+$purple-blue-color: linear-gradient(97.9deg, #6EE1F8 -9.92%, #3A9BD5 56.09%)!default;
+$gradual-color: linear-gradient(97.9deg, #141645 -9.92%, #22215B 56.09%) !default;
+$card-bg-color: #EFF9FF !default;
+$full-btn-bg-color: linear-gradient(95.07deg, #010101 -4.72%, #2B1946 90.75%) !default;
+$full-btn-color: #fff !default;
+
+$benefits-img-url: '/assets/img/benefits-light.svg' !default;
+
+$fresh-bg-clor: linear-gradient(81.87deg, #141645 0%, rgba(20, 22, 69, 0) 56.51%) !default;
+
+// $news-l-bg-color: rgba(36, 34, 86, .6) !default;
+$news-l-bg-color: rgba(0, 0, 0, .6) !default;
+$news-r-bg-color: rgba(210, 210, 210, .6) !default;
+
+$plans-card-bg-color:  rgba(239, 249, 255, 0.8) !default;
+$plans-card-bg-hover-color: linear-gradient(179.95deg, #F8F8FE -13.91%, #BCC9F4 99.96%) !default;
+
+$faq-bg-color: rgba(239, 249, 255, 0.6) !default;

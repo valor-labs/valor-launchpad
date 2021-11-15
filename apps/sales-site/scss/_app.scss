@@ -7,9 +7,13 @@
 // Theme mixins
 @import '2-mixins/background';
 @import '2-mixins/theme';
+@import '2-mixins/tabs';
 
 // Theme components
 @import '3-components/reboot';
+@import '3-components/tabs';
+@import '3-components/dropdown';
+@import '3-components/forms';
 
 // Theme utilities
 @import '4-utilities/background';
@@ -60,6 +64,7 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 // @import '5-vendor/smartwizard';
 
 @import '5-vendor/footer';
+@import '5-vendor/common';
 // @import '5-vendor/ngx_charts';
 // @import '5-vendor/datepicker';
 // @import '5-vendor/apex_charts';

@@ -2,7 +2,13 @@
 $dark-theme-base: #25344a !default;
 
 // Body
-$body-bg: #162234 !default;
+// $body-bg: #162234 !default;
+
+
+$body-bg: #0E0E0E !default;
+
+$dark: #fff !default;
+
 
 // Theme colors
 $blue: #5899ff !default;
@@ -30,7 +36,6 @@ $danger: $red !default;
 $warning: $yellow !default;
 $info: $cyan !default;
 
-$dark: $gray-900 !default;
 $light: mix(#fff, $dark-theme-base, 5%) !default;
 
 $custom-colors: (
@@ -38,8 +43,7 @@ $custom-colors: (
   primary-light: darken($primary, 15%),
 ) !default;
 
-// Typography
-$headings-color: $black !default;
+
 
 // Borders
 $border-color: $gray-200 !default;
@@ -86,3 +90,45 @@ $s2bs-input-single-color: #fff;
 
 // progress
 $progress-bar-color: #fff;
+
+$body-bg: #0E0E0E !default;
+
+$dark: #fff !default;
+
+// Typography
+$headings-color: $dark !default;
+
+
+// // Typography
+// $headings-color: $dark !default;
+
+// background-url
+$valor-logo-url: '/assets/valor-logo-dark.svg' !default;
+$admin-logo-url: '/assets/admin-logo-dark.svg' !default;
+$get-started-url: '/assets/img/get-started-dark.jpeg' !default;
+$bootstrap-logo-url: '/assets/bootstrap-dark.svg' !default;
+
+$main-text-color: #B2B0B0 !default;
+
+$wast-li-color: #FFFFFF !default;
+$wast-span-color: $main-text-color !default;
+$main-text-font-size: 1rem !default;
+
+$purple-blue-color: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%) !default;
+$gradual-color: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%) !default;
+$card-bg-color: #1C2128 !default;
+$full-btn-bg-color: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%) !default;
+$full-btn-color: #252525 !default;
+
+$benefits-img-url: '/assets/img/benefits-dark.svg' !default;
+
+$fresh-bg-clor: linear-gradient(77.29deg, #0E0E0E 0%, rgba(0, 0, 0, .4) 54.06%) !default;
+
+$news-l-bg-color: rgba(100, 93, 241, .6) !default;
+$news-r-bg-color: rgba(127, 140, 251, 0.5) !default;
+
+
+$plans-card-bg-color:  linear-gradient(179.95deg, #181C23 -13.91%, #1A1F27 99.96%) !default;
+$plans-card-bg-hover-color: linear-gradient(179.95deg, #424B5A -13.91%, #1A1F27 99.96%) !default;
+
+$faq-bg-color: #171A1E !default;

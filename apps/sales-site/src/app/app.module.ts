@@ -8,6 +8,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { themeInitializer } from './core/theme/theme-initializer';
 import { ThemeService } from './core/theme/theme.service';
 import { HeaderModule } from "./core/header/header.module";
+import { FooterModule } from "./core/footer/footer.module";
 import { UiModule } from '@valor-launchpad/ui';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { UiModule } from '@valor-launchpad/ui';
     RouterModule,
     UiModule,
     HeaderModule,
+    FooterModule
   ],
   providers: [
     {

@@ -10,3 +10,11 @@
     }
   }
 }
+
+@mixin bg-img($className, $value) {
+  .#{$className} {
+    background-image: url('../../src' + $value);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
