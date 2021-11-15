@@ -37,12 +37,12 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Sign Up                  | ✅              | ✅                   | ✅               | N/A          | ▢           | ▢                | ▢        |
 | Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Charts-Apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-ChartJs           | ✅              | ✅                   | ▢               | ▢  d           | ▢           | ▢                | ▢        |
+| Charts-ChartJs           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Chat                     | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Color-Palette            | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Analytics      | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
-| Dashboard Crypto         | ✅              | ✅                   | ✅               | ▢            | ▢           | ▢                | ▢        |
+| Dashboard Crypto         | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
 | Dashboard Default        | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
 | Dashboard SaaS           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Dashboard Social         | ✅              | ✅                   | ✅               | ▢             | ▢           | ▢                | ▢        |
@@ -80,9 +80,10 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Reset Password           | ✅              | ✅                   | ✅               | ▢              | ▢           | ▢                | ▢        |
 | Reset New Password       | ✅              | ✅                   | ✅               | ▢              | ▢           | ▢                | ▢        |
 | Settings                 | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Tasks                    | ✅              | ✅                   | ✅               | ▢              | ▢           | ▢                | ▢        |
+| Tasks                    | ✅              | ✅                   | ✅               | ✅              | ▢           | ▢                | ▢        |
 | Table Bootstrap          | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Term Of Service          | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Users                    | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | UI Alerts                | ✅              | ✅                   | ▢               | ▢               | ▢           | ▢                | ▢        |
 | UI Buttons               | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Cards                 | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
