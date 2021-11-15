@@ -4,6 +4,7 @@ import { User } from '@valor-launchpad/users-api';
 import { ChatService } from './chat.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { ChatMessageVo, ChatThreadVo } from '@valor-launchpad/api-interfaces';
+import { CreateThreadDto } from './dto/create-thread.dto';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
@@ -13,6 +14,14 @@ export class ChatController {
   @Get('threads')
   getThreads(@User() actingUser): Promise<ChatThreadVo[]> {
     return this.chatService.findRecentThreads(actingUser);
+  }
+
+  @Post('threads')
+  createThread(@Body() createThreadDto: CreateThreadDto, @User() actingUser) {
+    if (createThreadDto.isGroup) {
+      return this.chatService.createGroup(createThreadDto, actingUser);
+    }
+    return;
   }
 
   @Get('threads/:threadId/messages')

@@ -4,7 +4,8 @@
      [ngClass]='[classes]'
      [style.width.px]='width'
      [style.height.px]='height'
-     class='rounded-circle'
+     [class.rounded-circle]='!squared'
+     [class.rounded-2]='squared'
      (error)="onInvalidSrc()"
 >
 <ng-template #textAvatar>

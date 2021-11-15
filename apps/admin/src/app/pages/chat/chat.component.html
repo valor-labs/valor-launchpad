@@ -4,15 +4,16 @@
   <div class="row g-0">
     <div class="col-12 col-lg-5 col-xl-3 border-end">
       <div class="px-4 d-none d-md-block">
-        <div class="d-flex align-items-start align-items-center">
-          <div class="flex-grow-1">
-            <input
-              type="text"
-              class="form-control my-3"
-              placeholder="Search..."
-            />
-          </div>
-        </div>
+        <valor-launchpad-input-group class="my-3">
+          <input type="text" class="form-control" placeholder="Search..." />
+          <button
+            valor-launchpad-button
+            theme="secondary"
+            (click)="displayCreateGroupModal()"
+          >
+            +
+          </button>
+        </valor-launchpad-input-group>
       </div>
 
       <valor-launchpad-valor-launchpad-messenger
@@ -63,10 +64,20 @@
         </div>
         <div class="position-relative">
           <div class="chat-messages p-4" #chatMsg>
-            <valor-launchpad-valor-launchpad-message
-              *ngFor="let item of messages"
-              [message]="item"
-            ></valor-launchpad-valor-launchpad-message>
+            <ng-container *ngIf="messagesLoading; else msg">
+              <div class="d-flex justify-content-center">
+                <valor-launchpad-spinner
+                  class="me-2"
+                  theme="primary"
+                ></valor-launchpad-spinner>
+              </div>
+            </ng-container>
+            <ng-template #msg>
+              <valor-launchpad-valor-launchpad-message
+                *ngFor="let item of messages"
+                [message]="item"
+              ></valor-launchpad-valor-launchpad-message>
+            </ng-template>
           </div>
         </div>
       </ng-container>

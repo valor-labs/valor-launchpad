@@ -86,7 +86,7 @@
   <strong
     class="cursor-pointer"
     (click)="navProfile(activity.targetUser.username)"
-    >{{ activity.targetUserFullName }}</strong
+    >{{ activity.targetUser | fullName }}</strong
   >
 </ng-template>
 
@@ -94,6 +94,6 @@
   <strong
     class="cursor-pointer"
     (click)="navProfile(activity.operator.username)"
-    >{{ activity.operatorFullName }}</strong
+    >{{ activity.operator | fullName }}</strong
   >
 </ng-template>

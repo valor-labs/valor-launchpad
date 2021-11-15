@@ -18,18 +18,13 @@ import {
   Subject,
   timer,
 } from 'rxjs';
-import {
-  delay,
-  finalize,
-  mapTo,
-  switchMap,
-  tap,
-  throttleTime,
-} from 'rxjs/operators';
+import { finalize, mapTo, switchMap, throttleTime } from 'rxjs/operators';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { CreateGroupModalComponent } from './create-group-modal/create-group-modal.component';
 
 interface ChatThreadWithTyping extends ChatThreadVo {
-  _isTyping: Subject<boolean>;
-  isTyping: Observable<boolean>;
+  _isTyping: Subject<boolean>; // triggers when relevant user is typing
+  isTyping: Observable<boolean>; // for listening
 }
 
 function onSleeping<T, V extends T>(delayMs: number, value: V) {
@@ -52,6 +47,7 @@ export class ChatComponent implements OnInit {
   onSleeping = onSleeping;
   messengers: ChatThreadWithTyping[] = [];
   messages: ChatMessageVo[] = [];
+  messagesLoading = false;
   activeThread: ChatThreadWithTyping;
   @ViewChild('chatMsg') chatMsgRef: ElementRef<HTMLElement>;
   @ViewChild('messageInput', { static: true })
@@ -60,6 +56,7 @@ export class ChatComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private socketService: SocketService,
+    private bsModalService: BsModalService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -87,16 +84,20 @@ export class ChatComponent implements OnInit {
         this.chatZoneToBottom();
       }
       const hitThread = this.messengers.find((i) => i.id === message.threadId);
-      // add unread count
-      if (!message.isSelf) {
-        hitThread.unreadMessages.push(message.id);
+      if (!hitThread) {
+        this.messengers.unshift(this.wrapThreadWithTyping(message.thread));
+      } else {
+        // add unread count
+        if (!message.isSelf) {
+          hitThread.unreadMessages.push(message.id);
+        }
+        toTopmost(this.messengers, hitThread);
       }
-      toTopmost(this.messengers, hitThread);
     });
     this.chatService.listenTyping().subscribe((val) => {
       const { threadId } = val;
       const hitThread = this.messengers.find((i) => i.id === threadId);
-      hitThread._isTyping.next(true);
+      hitThread?._isTyping.next(true);
     });
     fromEvent(this.messageInput.nativeElement, 'keydown')
       .pipe(throttleTime(1000))
@@ -106,17 +107,30 @@ export class ChatComponent implements OnInit {
   }
 
   onSelectThread(thread: ChatThreadWithTyping) {
+    if (this.activeThread?.id !== thread.id) {
+      this.messages = [];
+      this.messagesLoading = true;
+    }
     this.activeThread = thread;
-    this.chatService.fetchThreadMessages(thread.id).subscribe((res) => {
-      this.messages = res.reverse();
-      this.chatZoneToBottom();
-      this.chatService.markThreadAsRead(thread.id).subscribe(() => {
-        this.activeThread.unreadMessages = [];
+    this.chatService
+      .fetchThreadMessages(thread.id)
+      .pipe(finalize(() => (this.messagesLoading = false)))
+      .subscribe((res) => {
+        this.messages = res.reverse();
+        this.messagesLoading = false;
+        this.chatZoneToBottom();
+        if (this.activeThread.unreadMessages?.length) {
+          this.chatService.markThreadAsRead(thread.id).subscribe(() => {
+            this.activeThread.unreadMessages = [];
+          });
+        }
       });
-    });
   }
 
   onSend(msgModel: NgModel) {
+    if (!msgModel.value) {
+      return;
+    }
     this.sendingMessage = true;
     this.chatService
       .sendMessage(
@@ -133,17 +147,28 @@ export class ChatComponent implements OnInit {
       });
   }
 
+  displayCreateGroupModal() {
+    const inst = this.bsModalService.show(CreateGroupModalComponent);
+    inst.content.succeed.asObservable().subscribe((newThread) => {
+      // put new thead into thread list's head
+      const newThreadWithTyping = this.wrapThreadWithTyping(newThread);
+      this.messengers.unshift(newThreadWithTyping);
+      this.onSelectThread(newThreadWithTyping);
+      inst.hide();
+    });
+    inst.content.cancelled.asObservable().subscribe(() => {
+      inst.hide();
+    });
+  }
+
   private initMessengers(): void {
     this.chatService.fetchThreads().subscribe((res) => {
-      this.messengers = res.map((t) => {
-        const bs = new BehaviorSubject<boolean>(false);
-        return {
-          ...t,
-          _isTyping: bs,
-          isTyping: bs.pipe(onSleeping(2000, false)),
-        };
-      });
-      this.onSelectThread(this.messengers[0]);
+      if (Array.isArray(res) && res.length > 0) {
+        this.messengers = res.map((t) => {
+          return this.wrapThreadWithTyping(t);
+        });
+        this.onSelectThread(this.messengers[0]);
+      }
     });
   }
 
@@ -152,5 +177,14 @@ export class ChatComponent implements OnInit {
     this.chatMsgRef.nativeElement.scrollTo({
       top: this.chatMsgRef.nativeElement.scrollHeight,
     });
+  }
+
+  private wrapThreadWithTyping(thread: ChatThreadVo): ChatThreadWithTyping {
+    const bs = new BehaviorSubject<boolean>(false);
+    return {
+      ...thread,
+      _isTyping: bs,
+      isTyping: bs.pipe(onSleeping(2000, false)),
+    };
   }
 }

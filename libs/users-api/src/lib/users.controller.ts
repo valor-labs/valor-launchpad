@@ -45,6 +45,12 @@ export class UsersController {
     return await this.usersService.findAll(query);
   }
 
+  @Get('byName')
+  @UseGuards(AuthGuard('jwt'))
+  getUsersByName(@Query('keyword') keyword: string) {
+      return this.usersService.findByName(keyword);
+  }
+
   @Get('current')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   async getCurrentUsers() {
