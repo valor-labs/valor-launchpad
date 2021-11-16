@@ -10,6 +10,7 @@ import { ThemeService } from '../../core/theme/theme.service';
 export class HomeComponent implements OnInit {
 
   checked = false
+  theme = 'light'
   CorporateMenu: Action[] = [
     {
       label: 'Profile',
@@ -38,8 +39,10 @@ export class HomeComponent implements OnInit {
     const theme = this.themeService.getStoredConfig('theme', false)
     if (theme === 'dark') {
       this.checked = true
+      this.theme = 'dark'
     } else {
       this.checked = false
+      this.theme = 'light'
     }
   }
 
@@ -48,9 +51,11 @@ export class HomeComponent implements OnInit {
     if (checked) {
       this.themeService.changeTheme('theme', 'dark')
       this.themeService.setStoredConfig('theme', 'dark')
+      this.theme = 'dark'
     } else {
       this.themeService.changeTheme('theme', 'light')
       this.themeService.setStoredConfig('theme', 'light')
+      this.theme = 'light'
     }
   }
 

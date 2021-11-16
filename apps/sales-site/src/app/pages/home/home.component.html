@@ -49,39 +49,36 @@
   </div>
 </div>
 
-<section>
-  <div class="conduct-wrap">
-    <div class="conduct-text-wrap">
-      <div class="d-flex justify-content-center creators pt-5">
-        <span>From the creators of</span>
-      </div>
-      <div class="container d-flex flex-column align-items-center justify-content-center">
-        <div class="bootstrap-logo"></div>
-        <h1 class="lg-text pt-5">Stop wasting
-          <span class="purple-blue-ft">your time</span>
-        </h1>
-        <div class="row flex-grow-1 pt-4">
-          <div class="offset-2 col-3 wast-li">
-            <li>One monorepo</li>
-            <span>Everything you need in one Nx Workspace</span>
-          </div>
-          <div class="col-3 wast-li">
-            <li>Complete</li>
-            <span>Everything you need to launch in minutes</span>
-          </div>
-          <div class="col-3 wast-li">
-            <li>Extensible</li>
-            <span>Built with technologies and an architecture you know and trust</span>
-          </div>
+<section class="conduct-wrap mt-5">
+  <div class="conduct-text-wrap">
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+      <a href="#">
+        <img class="ngx-bootstrap-logo" [src]="'assets/ngx-bootstrap-' + theme + '.svg'" alt="ngx-bootstrap">
+      </a>
+      <h1 class="lg-text pt-5">Stop wasting
+        <span class="purple-blue-ft">your time</span>
+      </h1>
+      <div class="row flex-grow-1 pt-4 d-flex justify-content-center">
+        <div class="col-3 wast-li">
+          <li>One monorepo</li>
+          <span>Everything you need in one Nx Workspace</span>
+        </div>
+        <div class="col-3 wast-li">
+          <li>Complete</li>
+          <span>Everything you need to launch in minutes</span>
+        </div>
+        <div class="col-3 wast-li">
+          <li>Extensible</li>
+          <span>Built with technologies and an architecture you know and trust</span>
         </div>
       </div>
     </div>
-    <div class="get-started d-flex align-items-center justify-content-center">
-      <button class="get-started-btn">
-        <span>Get started now</span>
-        <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
-      </button>
-    </div>
+  </div>
+  <div class="get-started d-flex align-items-center justify-content-center">
+    <button class="get-started-btn">
+      <span class="fw-bold">Get started now</span>
+      <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
+    </button>
   </div>
 </section>
 
@@ -282,14 +279,14 @@
       <div class="archit-b">Integrations</div>
     </div>
     <div class="flex-grow-1">
-      <div class="d-flex align-items-center archit-b archit-s">Fullstack</div>
+      <div class="d-flex align-items-center archit-b archit-s">Payment</div>
       <div class="archit-logo mt-2 d-flex align-items-center">
         <img src="assets/img/stripe-logo.svg" alt="stripe">
         <img class="ms-4" src="assets/img/paypal-logo.svg" alt="paypal">
       </div>
     </div>
     <div class="flex-grow-1">
-      <div class="d-flex align-items-center archit-b archit-s">Backend</div>
+      <div class="d-flex align-items-center archit-b archit-s">Communication</div>
       <div class="archit-logo mt-2 d-flex align-items-center">
         <img src="assets/img/twilio-logo.svg" alt="twilio">
         <img class="ms-4" src="assets/img/sendgrid-logo.svg" alt="sendgrid">
@@ -389,7 +386,7 @@
 
 <section class="plans">
   <h2 class="text-center headline-2 pt-4 pb-3">Plans for everyone</h2>
-  <span class="d-block text-center">
+  <span class="d-block text-center main-text">
     Lorem ipsum dolor sit amet. Est placeat
     <br />corporis et temporibus
   </span>
@@ -399,7 +396,7 @@
       <div class="plans-card-item__b flex-grow-1 d-flex flex-column justify-content-around align-items-center">
         <div class="d-flex flex-column justify-content-around align-items-center">
           <div class="plans-card-item__desc d-flex flex-column justify-content-around align-items-center">
-            <span class="fw-bolder">Start Plan</span>
+            <span class="fw-bold">Start Plan</span>
             <span>For personal use</span>
           </div>
         </div>
@@ -491,7 +488,7 @@
     </div>
     <div class="plans-card-item d-flex flex-column justify-content-center align-items-center">
       <div class="plans-card-item__t d-flex flex-column justify-content-center align-items-center">
-        <span class="lh-1 text-center">Multi Site License</span>
+        <span class="plans-card-item__multi text-center">Multi Site License</span>
       </div>
       <div class="plans-card-item__b flex-grow-1 d-flex flex-column justify-content-around align-items-center">
         <div class="d-flex flex-column justify-content-around align-items-center">
@@ -545,13 +542,13 @@
         </div>
         <div>
           <a href="#">
-            <img src="assets/img/twitter.svg" alt="twitter">
+            <img [src]="'assets/img/twitter-' + theme + '.svg'" alt="twitter">
           </a>
           <a href="#">
-            <img src="assets/img/facebook.svg" alt="facebook">
+            <img [src]="'assets/img/facebook-' + theme + '.svg'" alt="facebook">
           </a>
           <a href="#">
-            <img src="assets/img/instagram.svg" alt="instagram">
+            <img [src]="'assets/img/instagram-' + theme + '.svg'" alt="instagram">
           </a>
         </div>
       </div>

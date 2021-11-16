@@ -20,7 +20,6 @@
     background: $gradual-color;
     background-clip: text;
     color: transparent;
-    font-size: 1rem;
   }
   i {
     background: linear-gradient(130.31deg, #2982E3 19.71%, #6EE1F8 102.74%);
@@ -40,6 +39,9 @@
   }
   .form-control {
     border-right: 0;
+    &::placeholder {
+      color: #fff;
+    }
   }
 
   .btn {

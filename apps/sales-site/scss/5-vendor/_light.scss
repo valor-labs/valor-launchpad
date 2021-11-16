@@ -11,6 +11,11 @@
 
 .list-page {
   background: linear-gradient(180deg, #FFFFFF 22.5%, rgba(14, 14, 14, 0) 100%);
+  .main-text {
+    font-weight: normal;
+    font-size: 17px;
+    color: $dark;
+  }
 }
 
 .archit {
@@ -37,6 +42,27 @@
   background-clip: text;
 }
 
+.conduct-wrap {
+  .purple-blue-ft {
+    background-image: $get-started-color;
+  }
+}
+
+
+.input-group-navbar {
+  .form-control,
+  .btn {
+    background: #fff;
+    border: 0;
+    &:focus {
+      background: #fff;
+    }
+  }
+  .form-control::placeholder {
+    color: #A1AEB7;
+  }
+}
+
 .benefits {
   .gradual-btn {
     border: 1px solid #1E1E55;
@@ -58,9 +84,12 @@
 .has-need {
   background: url('../../src/assets/img/pc-light.png'),
   url('../../src/assets/img/spot-dark.svg');
-  background-position: 70%, center;
+  background-position: 80%, center;
   background-size: 70%, auto;
   background-repeat: no-repeat, repeat;
+  .purple-blue-ft {
+    color: $dark;
+  }
 }
 
 .fresh {

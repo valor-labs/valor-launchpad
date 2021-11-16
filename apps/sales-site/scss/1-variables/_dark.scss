@@ -106,9 +106,10 @@ $headings-color: $dark !default;
 $valor-logo-url: '/assets/valor-logo-dark.svg' !default;
 $admin-logo-url: '/assets/admin-logo-dark.svg' !default;
 $get-started-url: '/assets/img/get-started-dark.jpeg' !default;
-$bootstrap-logo-url: '/assets/bootstrap-dark.svg' !default;
 
 $main-text-color: #B2B0B0 !default;
+
+$input-btn-color: linear-gradient(97.9deg, #C46EF8 -9.92%, #3A9BD5 56.09%) !default;
 
 $wast-li-color: #FFFFFF !default;
 $wast-span-color: $main-text-color !default;
@@ -127,7 +128,7 @@ $fresh-bg-clor: linear-gradient(77.29deg, #0E0E0E 0%, rgba(0, 0, 0, .4) 54.06%) 
 $news-l-bg-color: rgba(100, 93, 241, .6) !default;
 $news-r-bg-color: rgba(127, 140, 251, 0.5) !default;
 
-
+$plans-card-border-color: #424B5A !default;
 $plans-card-bg-color:  linear-gradient(179.95deg, #181C23 -13.91%, #1A1F27 99.96%) !default;
 $plans-card-bg-hover-color: linear-gradient(179.95deg, #424B5A -13.91%, #1A1F27 99.96%) !default;
 

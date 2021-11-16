@@ -3,7 +3,6 @@ $bg-img-ulrs: (
   valor-logo: $valor-logo-url,
   admin-logo: $admin-logo-url,
   get-started: $get-started-url,
-  bootstrap-logo: $bootstrap-logo-url,
   benefits-img: $benefits-img-url
 );
 
@@ -40,14 +39,14 @@ button {
 
 }
 
-.sub-nav-text {
-  font-size: 1rem;
-}
+// .sub-nav-text {
+//   font-size: 1rem;
+// }
 
 .azure-gradient {
   color: transparent;
   background-clip: text;
-  background-image: linear-gradient(97.9deg, #6EE1F8 -9.92%, #3A9BD5 56.09%);
+  background-image: $input-btn-color;
 }
 .shallow-gradient{
   color: transparent;
@@ -59,6 +58,7 @@ button {
   border-radius: 100px;
   height: 54px;
   width: 283px;
+  font-size: 1rem;
 }
 
 @each $className, $value in $bg-img-ulrs {
@@ -80,7 +80,7 @@ button {
 .wast-li {
   li {
     color: $wast-li-color;
-    font-size: 1,125rem;
+    font-size: 1.125rem;
     padding-left: 0.5em;
     font-weight: 700;
   }
@@ -245,32 +245,53 @@ button {
     &-info{
       line-height: 75px;
       font-size: 25px;
+      margin-bottom: 0;
     }
   }
 
   .card-text{
-    font-size: 60px;
+    font-size: 66px;
     padding-left: 120px;
     left: 50px;
     z-index: 1;
+    font-weight: 700;
   }
 }
 
+// .save-time{
+//   background-image: url('../../src/assets/img/save-time-dark.svg');
+//   background-repeat: no-repeat;
+//   width: 285px;
+//   height: 356px;
+//   background-position: bottom;
+// }
+
+// .deliver-faster{
+//   background-image: url('../../src/assets/img/deliver-dark.svg');
+//   background-repeat: no-repeat;
+//   width: 285px;
+//   height: 356px;
+//   background-position: bottom;
+//   margin-left: 120px;
+//   margin-right: 60px;
+// }
 .save-time{
   background-image: url('../../src/assets/img/save-time-dark.svg');
   background-repeat: no-repeat;
-  width: 285px;
-  height: 356px;
+  width: 201px;
+  height: 303px;
+  background-size: contain;
   background-position: bottom;
 }
 
 .deliver-faster{
   background-image: url('../../src/assets/img/deliver-dark.svg');
   background-repeat: no-repeat;
-  width: 285px;
-  height: 356px;
+  width: 243px;
+  height: 303px;
   background-position: bottom;
-  margin-left: 120px;
+  background-size: contain;
+  margin-left: 96px;
   margin-right: 60px;
 }
 
@@ -330,6 +351,9 @@ button {
 .has-need{
   .container {
     height: 866px;
+  }
+  .purple-blue-ft {
+    font-weight: 600;
   }
 }
 
@@ -522,11 +546,17 @@ button {
       &__t {
         width: 183px;
         height: 143px;
-        border-bottom: 1px solid #424B5A;
+        border-bottom: 1px solid $plans-card-border-color;
         font-size: 40px;
+        font-weight: 600;
         .scribe{
           font-size: 15px;
         }
+      }
+      &__multi {
+        font-size: 30px;
+        line-height: 35px;
+        font-weight: 700;
       }
       &__b {
         font-size: 1rem;
