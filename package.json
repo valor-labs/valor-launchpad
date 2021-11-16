@@ -15,6 +15,7 @@
     "start:sales": "ng serve sales-site",
     "build": "ng build api",
     "build:front": "ng build --prod",
+    "build:sales": "ng build sales-site --prod",
     "build:front-stats": "ng build --stats-json",
     "display:front-stats": "npx webpack-bundle-analyzer ./dist/apps/admin/stats.json",
     "test": "ng test",
