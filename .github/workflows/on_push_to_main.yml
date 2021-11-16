@@ -32,7 +32,7 @@ jobs:
       - run: npm run schema:drop
       - run: npm run seed:run
 
-  build_and_deploy_frontend:
+  build_and_deploy_admin:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
@@ -49,6 +49,32 @@ jobs:
       - run: npm run build:front
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          target: 'valor-launchpad-3824c'
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}'
+          channelId: live
+          projectId: valor-launchpad-3824c
+
+  build_and_deploy_sales:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - uses: actions/cache@v2.1.4
+        id: cache-build
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci
+        if: steps.cache-build.outputs.cache-hit != 'true'
+      - run: npm run build:sales
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          target: 'valor-admin-sales'
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}'
           channelId: live
