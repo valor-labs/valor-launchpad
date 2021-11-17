@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs'
 
 export type themeType =  'dark' | 'light';
 
@@ -18,6 +19,11 @@ const settingsPrefix = 'valor-launchpad-config-';
 })
 export class ThemeService {
 
+  private theme$ = new BehaviorSubject<themeType>('light')
+  getTheme() {
+    return this.theme$.asObservable()
+  }
+
   changeTheme(name: themeConfigKeys, value: themeType): void {
     // Toggle stylesheet (light/dark)
     if (name === 'theme') {
@@ -25,6 +31,8 @@ export class ThemeService {
       const stylesheet = document.querySelector(stylesheetClassName);
       
       stylesheet?.setAttribute('href', `${theme}.css`);
+
+      this.theme$.next(theme)
     }
 
     // Set data attributes on body element

@@ -29,12 +29,12 @@ button {
 .sub-nav {
   max-width: 1440px;
   display: flex;
-  flex-wrap: inherit;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
 
   &-text {
-    font-style: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
   }
 
 }
@@ -140,15 +140,32 @@ button {
   color: #fff;
   background: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%);
 }
+.header-nav {
+  max-width: 1440px;
+  padding-left: 60px;
+}
 
-.form-mode {
-  padding-right: 2.5em;
-  padding-left: 3.875rem;
-  padding-bottom: 1.375rem;
+.form-switch-nav {
+  font-size: 0.75rem;
   .form-check-input {
-    float: right;
-    margin-right: -2.5em;
-    margin-left: 0;
+    margin: 0 10px;
+    width: 2em;
+    background-image: url('../../src/assets/img/switch-bg-light.svg');
+    background-position: 3px center;
+    border-radius: 2em;
+    transition: background-position 0.15s ease-in-out;
+    background-size: 10px 10px;
+    border: 0;
+    &:focus {
+      outline: 0;
+      border: 0;
+    }
+    &:checked {
+      background-image: url('../../src/assets/img/switch-bg-dark.svg');
+      background-color: #272727;
+      border: 0;
+      background-position: right 3px center;
+    }
   }
 }
 
@@ -162,8 +179,7 @@ button {
 }
 
 .navbar-align {
-  justify-content: space-evenly;
-  flex: 1;
+  margin-right: 138px;
 }
 
 .input-group-navbar{

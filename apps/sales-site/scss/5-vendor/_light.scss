@@ -1,3 +1,17 @@
+
+.form-switch-nav {
+  .form-check-input {
+    box-shadow: 0px -4px 4px rgba(255, 255, 255, 0.4), 0px 3px 3px rgba(0, 0, 0, 0.05), inset 0px -1px 4px #FFFFFF, inset 0px 1px 3px #A7BAC5;
+    background-color: #ECF0F4;
+    &:focus {
+      background-color: #ECF0F4;
+    }
+  }
+  .form-check-light {
+    font-weight: 600;
+  }
+}
+
 .cover-mask {
   position: absolute;
   width:  calc(100% - 237px);

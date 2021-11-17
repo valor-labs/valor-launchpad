@@ -1,3 +1,18 @@
+
+
+.form-switch-nav {
+  .form-check-input {
+    background-image: url('../../src/assets/img/switch-bg-dark.svg');
+    box-shadow: 0px -3px 5px 3px rgba(255, 255, 255, 0.05), 0px 4px 10px 3px rgba(0, 0, 0, 0.6), inset 0px -2px 6px rgba(255, 255, 255, 0.21), inset 0px 3px 2px rgba(14, 14, 14, 0.8);
+    &:checked {
+      background-color: #272727;
+    }
+  }
+  .form-check-dark {
+    font-weight: 700;
+  }
+}
+
 .conduct-text-wrap{
   background: linear-gradient(180deg, #0E0E0E 22.5%, rgba(14, 14, 14, 0) 100%);
 }

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light landing-navbar">
 
-  <div class="container">
+  <div class="container-fluid header-nav">
     <a class="navbar-brand logo-brand" href="#">
       <!-- <img src="assets/valor-logo-light.svg" /> -->
       <div class="valor-logo"></div>
@@ -48,6 +48,11 @@
           </a>
         </li>
       </ul>
+    </div>
+    <div class="form-check form-switch-nav flex-shrink-0 flex-row d-flex align-items-center">
+      <label class="form-check-light d-flex" for="themeChecked">light</label>
+      <input class="form-check-input d-flex" [checked]="checked" type="checkbox" role="switch" id="themeChecked" (change)="themeChange($event)">
+      <label class="form-check-dark" for="themeChecked">dark</label>
     </div>
   </div>
 

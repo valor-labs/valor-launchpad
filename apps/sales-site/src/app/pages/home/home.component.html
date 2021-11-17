@@ -4,48 +4,41 @@
     <!-- <img src="assets/admin-logo-light.svg" /> -->
     <div class="admin-logo"></div>
   </a>
-  <div class="flex-grow-1 d-flex navbar-light navbar-expand nav-subscribe">
-    <div class="d-inline-block form-check form-switch form-mode">
-      <label class="form-check-label" for="themeChecked">Switch to dark mode</label>
-      <input class="form-check-input" [checked]="checked" type="checkbox" role="switch" id="themeChecked" (change)="themeChange($event)">
-    </div>
+  <div class="navbar-expand navbar-light d-flex flex-grow-1 justify-content-end">
+    <ul class="navbar-nav navbar-align">
+      <li class="nav-item dropdown">
+        <valor-launchpad-dropdown
+          classes="nav-link dropdown-toggle d-sm-inline-block">
+          <span dropdown-nav>
+            <span class="text-dark sub-nav-text">Corporate</span>
+            </span>
+          <valor-launchpad-dropdown-actions-menu
+            [actions]="CorporateMenu"
+          ></valor-launchpad-dropdown-actions-menu>
+        </valor-launchpad-dropdown>
+      </li>
+      <li class="nav-item dropdown ms-6">
+        <valor-launchpad-dropdown classes="nav-link dropdown-toggle d-sm-inline-block">
+          <span dropdown-nav>
+            <span class="text-dark sub-nav-text">Open source</span>
+            </span>
+          <valor-launchpad-dropdown-actions-menu
+            [actions]="CorporateMenu"
+          ></valor-launchpad-dropdown-actions-menu>
+        </valor-launchpad-dropdown>
+      </li>
+    </ul>
+  </div>
 
-    <div class="navbar-text flex-grow-1">
-      <ul class="navbar-nav navbar-align">
-        <li class="nav-item dropdown">
-          <valor-launchpad-dropdown
-            classes="nav-link dropdown-toggle d-sm-inline-block">
-            <span dropdown-nav>
-              <span class="text-dark sub-nav-text">Corporate</span>
-              </span>
-            <valor-launchpad-dropdown-actions-menu
-              [actions]="CorporateMenu"
-            ></valor-launchpad-dropdown-actions-menu>
-          </valor-launchpad-dropdown>
-        </li>
-        <li class="nav-item dropdown">
-          <valor-launchpad-dropdown classes="nav-link dropdown-toggle d-sm-inline-block">
-            <span dropdown-nav>
-              <span class="text-dark sub-nav-text">Open source</span>
-              </span>
-            <valor-launchpad-dropdown-actions-menu
-              [actions]="CorporateMenu"
-            ></valor-launchpad-dropdown-actions-menu>
-          </valor-launchpad-dropdown>
-        </li>
-      </ul>
-    </div>
-
-    <div class="input-group input-group-navbar">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="E-mail" />
-      <button class="btn">
-        <span class="azure-gradient">Subscribe</span>
-        <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
-      </button>
-    </div>
+  <div class="input-group input-group-navbar">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="E-mail" />
+    <button class="btn">
+      <span class="azure-gradient">Subscribe</span>
+      <i class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>
+    </button>
   </div>
 </div>
 

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Action } from '@valor-launchpad/api-interfaces'
-import { ThemeService } from '../../core/theme/theme.service';
+import { Subscription } from 'rxjs'
+import { ThemeService, themeType } from '../../core/theme/theme.service';
 
 @Component({
   selector: 'valor-launchpad-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy{
 
-  checked = false
-  theme = 'light'
+  theme: themeType
+  private theme$: Subscription
   CorporateMenu: Action[] = [
     {
       label: 'Profile',
@@ -35,28 +36,13 @@ export class HomeComponent implements OnInit {
 
   constructor( private themeService: ThemeService ) {}
 
-  ngOnInit(): void {
-    const theme = this.themeService.getStoredConfig('theme', false)
-    if (theme === 'dark') {
-      this.checked = true
-      this.theme = 'dark'
-    } else {
-      this.checked = false
-      this.theme = 'light'
-    }
+  ngOnInit() {
+    this.theme$ = this.themeService.getTheme().subscribe(theme => {
+      this.theme = theme
+    })
   }
 
-  themeChange(e: Event) {
-    const checked = (e.target as HTMLInputElement).checked
-    if (checked) {
-      this.themeService.changeTheme('theme', 'dark')
-      this.themeService.setStoredConfig('theme', 'dark')
-      this.theme = 'dark'
-    } else {
-      this.themeService.changeTheme('theme', 'light')
-      this.themeService.setStoredConfig('theme', 'light')
-      this.theme = 'light'
-    }
+  ngOnDestroy(): void {
+    this.theme$.unsubscribe()
   }
-
 }
