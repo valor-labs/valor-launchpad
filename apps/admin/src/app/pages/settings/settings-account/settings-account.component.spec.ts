@@ -8,6 +8,7 @@ import { HttpModule } from '@valor-launchpad/http';
 import { environment } from '../../../../environments/environment';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 describe('SettingsAccountComponent', () => {
   let component: SettingsAccountComponent;
@@ -20,6 +21,7 @@ describe('SettingsAccountComponent', () => {
         ToastrModule.forRoot(),
         UiModule,
         HttpModule.forRoot({ environment }),
+        ModalModule.forRoot(),
         HttpClientTestingModule,
         RouterTestingModule,
       ],

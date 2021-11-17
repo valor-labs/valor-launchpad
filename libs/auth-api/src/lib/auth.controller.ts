@@ -37,7 +37,7 @@ export class AuthController {
       response.send(loginResponse);
     } catch (error) {
       console.error(error)
-      return new ResponseError('Login Failed', error)
+      response.send(new ResponseError('Login Failed', error));
     }
   }
 

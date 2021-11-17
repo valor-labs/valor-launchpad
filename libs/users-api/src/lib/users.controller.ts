@@ -4,7 +4,7 @@ import {RolesGuard} from './roles.guard';
 import {Roles} from './roles.decorator';
 import {AuthGuard} from '@nestjs/passport';
 import {User} from './user.decorator';
-import { RequestWithSession, UserEntity } from '@valor-launchpad/common-api';
+import { RequestWithSession, ResponseError, ResponseSuccess, UserEntity } from '@valor-launchpad/common-api';
 import { MessagesService } from './messages/messages.service';
 import { MenuService } from './menus/menu.service';
 import { Menu } from '@valor-launchpad/api-interfaces';
@@ -80,9 +80,14 @@ export class UsersController {
 
   @Post('delete')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles('admin')
+  @Roles('admin','user')
   async deleteUser(@Body() form, @User() actingUser: UserEntity) {
-    return await this.usersService.deleteUser(form.username, actingUser)
+    try {
+      await this.usersService.deleteUser(form.username, actingUser);
+      return new ResponseSuccess('Deleted Account success');
+    } catch (e) {
+      return new ResponseError('Deleted Account Failed');
+    }
   }
 
   @Post('batchRestore')

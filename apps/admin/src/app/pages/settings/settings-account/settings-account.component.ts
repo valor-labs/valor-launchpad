@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../../profile/profile.service';
@@ -6,6 +6,10 @@ import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
 import { AuthService } from '../../../core/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { SettingService } from './settings-account.service';
+import { UsersListingService } from '@valor-launchpad/users-ui';
+import { UserEntity } from '@valor-launchpad/common-api';
 
 @Component({
   selector: 'valor-launchpad-settings-account',
@@ -13,6 +17,8 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./settings-account.component.scss'],
 })
 export class SettingsAccountComponent implements OnInit {
+  @ViewChild('deletedAccountModal', { static: false })
+  deletedAccountModal?: ModalDirective;
   LANGUAGE = {
     en: 'English',
     es: 'Español',
@@ -644,10 +650,17 @@ export class SettingsAccountComponent implements OnInit {
 
   profile: any;
 
+  message: string;
+
+  userDeleted: boolean;
+  public user: UserEntity;
+
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private profileService: ProfileService,
+    private settingService: SettingService,
+    private usersListingService: UsersListingService,
     @Inject(NOTYFToken) private notyf: Notyf,
     private authService: AuthService
   ) {
@@ -657,7 +670,11 @@ export class SettingsAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userDeleted = false;
     this.initData();
+    this.authService.user.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   initData(): void {
@@ -729,6 +746,27 @@ export class SettingsAccountComponent implements OnInit {
         } else {
           this.notyf.error('Update private info failure');
           console.warn(res);
+        }
+      });
+  }
+
+  deleteAccount() {
+    this.deletedAccountModal.show();
+  }
+
+  confirmDeletedAccount() {
+    this.usersListingService
+      .deleteUser(this.user.username)
+      .subscribe((res: any) => {
+        if (res.success) {
+          this.message = 'User has been deleted , return to login.';
+          this.deletedAccountModal.hide();
+          this.userDeleted = true;
+          this.authService.signOut().subscribe();
+        } else {
+          this.deletedAccountModal.hide();
+          this.message = 'Failed to Deleted Account.';
+          this.userDeleted = true;
         }
       });
   }
