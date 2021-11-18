@@ -325,12 +325,14 @@ button {
 .no-repeat{
   height: 847px;
   background: url('../../src/assets/img/spot-dark.svg'),
-  url('../../src/assets/img/no-repeat.jpeg'),
-  linear-gradient(180deg, rgba(0, 0, 0, .3) 48%, rgba(28, 33, 40, 0.9375) 100%);
-  background-repeat: repeat, no-repeat, no-repeat;
+  url('../../src/assets/img/no-repeat.jpeg');
+  background-repeat: repeat, no-repeat;
   background-size: contain, cover;
-  background-blend-mode: overlay;
+  // background-blend-mode: overlay;
   color: #fff;
+  &-wrap {
+    background: linear-gradient(180deg, rgba(28, 33, 40, 0) 48%, rgba(28, 33, 40, 0.9375) 100%);
+  }
   h2 {
     color: #fff;
     letter-spacing: 4px;
@@ -403,9 +405,6 @@ button {
       &:hover {
         filter: grayscale(0);
       }
-    }
-    & + .feature {
-      flex-direction: column;
     }
   }
   &-logo-s {
