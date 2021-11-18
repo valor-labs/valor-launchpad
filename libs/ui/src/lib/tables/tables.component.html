@@ -5,7 +5,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let row of data">
+    <tr *ngFor="let row of data; let i = index" (click)="selectedRow(row,i)" [class.active]="i === highlightRow">
       <td *ngFor="let key of keys"  [innerHTML]="row[key]"></td>
     </tr>
 

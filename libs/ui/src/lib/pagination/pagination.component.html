@@ -1,4 +1,4 @@
 <div class="d-flex flex-row align-items-center justify-content-between">
-    <pre *ngIf="isEntriesShow" >Showing {{currentPage * itemPage - (itemPage - 1)}} to {{itemPage * currentPage > totalItems ? totalItems : itemPage * currentPage}} of {{totalItems}} entries</pre>
+    <div *ngIf="isEntriesShow" >Showing {{currentPage * itemPage - (itemPage - 1)}} to {{itemPage * currentPage > totalItems ? totalItems : itemPage * currentPage}} of {{totalItems}} entries</div>
     <pagination [totalItems]="totalItems" [itemsPerPage]="itemPage" [(ngModel)]="currentPage" [disabled]="disabled" (pageChanged)="onPageChanged($event)"></pagination>
 </div>

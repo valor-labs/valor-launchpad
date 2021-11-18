@@ -4,7 +4,7 @@ import {
   EnvironmentConfig
 } from '@valor-launchpad/http';
 
-const defaultSrc = 'assets/img/avatars/avatar.jpg';
+const defaultSrc = 'assets/img/avatars/avatar-1.jpg';
 
 interface MediaAsset {
   src_webp: string;

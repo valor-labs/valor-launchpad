@@ -4,6 +4,37 @@ import {
   Timeline,
   TableColumns,
 } from '@valor-launchpad/api-interfaces';
+import { map } from 'rxjs/operators';
+
+import { ClientsService } from './clients-service';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+const DEFAULT_SELECTED = 'Choose...';
+
+export interface ITableData {
+  id: string;
+  avatar: string;
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  status: string;
+  description: string;
+  timeline: Timeline;
+}
+
+export enum StatusType {
+  ACTIVE = 'Active',
+  INACTIVE = 'Inactive',
+  DELETED = 'Deleted',
+}
+
+export enum StatusColor {
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  DANGER = 'danger',
+}
 
 @Component({
   selector: 'valor-launchpad-clients',
@@ -18,36 +49,10 @@ export class ClientsComponent implements OnInit {
 
   searchTableData = [];
   isShow: boolean;
+  selectData: ITableData;
+  isLoading: boolean;
 
   entries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  timeline: Timeline = [
-    {
-      title: 'Signed out',
-      time: '30m ago',
-      description: 'Nam pretium turpis et arcu. Duis arcu tortor, suscipit...',
-    },
-    {
-      title: 'Created invoice #1204',
-      time: '2h ago',
-      description: 'Sed aliquam ultrices mauris. Integer ante arcu...',
-    },
-    {
-      title: 'Discarded invoice #1147',
-      time: '3h ago',
-      description: 'Curabitur ligula sapien, tincidunt non, euismod vitae...',
-    },
-    {
-      title: 'Signed in',
-      time: '3h ago',
-      description: 'Curabitur ligula sapien, tincidunt non, euismod vitae...',
-    },
-    {
-      title: 'Signed up',
-      time: '2d ago',
-      description: 'Sed aliquam ultrices mauris. Integer ante arcu...',
-    },
-  ];
 
   tableColumns: TableColumns = [
     { title: '#', key: 'id' },
@@ -57,93 +62,9 @@ export class ClientsComponent implements OnInit {
     { title: 'Status', key: 'status' },
   ];
 
-  tableData = [
-    {
-      id: `<img src="assets/img/avatars/avatar.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Garrett Winters',
-      company: 'Good Guys',
-      email: 'garrett@winters.com',
-      status: `<span class="badge bg-success">Active</span>`,
-    },
-    {
-      id: `<img src="assets/img/avatars/avatar.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Ashton Cox',
-      company: 'Levitz Furniture',
-      email: 'ashton@cox.com',
-      status: `<span class="badge bg-success">Active</span>`,
-    },
-    {
-      id: `<img src="assets/img/avatars/avatar.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Sonya Frost',
-      company: 'Child World',
-      email: 'sonya@frost.com',
-      status: `<span class="badge bg-danger">Deleted</span>`,
-    },
-    {
-      id: `<img src="assets/img/avatars/avatar.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Jena Gaines',
-      company: 'Helping Hand',
-      email: 'jena@gaines.com',
-      status: `<span class="badge bg-warning">Inactive</span>`,
-    },
-    {
-      id: `<img src="assets/img/avatars/avatar-2.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Quinn Flynn',
-      company: 'Good Guys',
-      email: 'quinn@flynn.com',
-      status: `<span class="badge bg-success">Active</span>`,
-    },
-    {
-      id: `<img src="assets/img/avatars/avatar-2.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Charde Marshall',
-      company: 'Price Savers',
-      email: 'charde@marshall.com',
-      status: `<span class="badge bg-success">Active</span>`,
-    },
-    {
-      id: `<img src="assets/img/avatars/avatar-2.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Haley Kennedy',
-      company: 'Helping Hand',
-      email: 'haley@kennedy.com',
-      status: `<span class="badge bg-danger">Deleted</span>`,
-    },
-    {
-      id: `<img src="assets/img/avatars/avatar-2.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Tatyana Fitzpatrick',
-      company: 'Good Guys',
-      email: 'tatyana@fitzpatrick.com',
-      status: `<span class="badge bg-success">Active</span>`,
-    },
-    {
-      id: `<img src="assets/img/avatars/avatar-3.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Michael Silva',
-      company: 'Red Robin Stores',
-      email: 'michael@silva.com',
-      status: `<span class="badge bg-success">Active</span>`,
-    },
-    {
-      id: `<img src="assets/img/avatars/avatar-3.jpg" width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`,
-      name: 'Yuri Berry',
-      company: 'The Wiz',
-      email: 'yuri@berry.com',
-      status: `<span class="badge bg-danger">Deleted</span>`,
-    },
-  ];
+  tableData: ITableData[];
 
-  profile = {
-    avatar: 'assets/img/avatars/avatar-3.jpg',
-    detail: {
-      name: 'Yuri Berry',
-      company: 'The Wiz',
-      email: 'yuri@berry.com',
-      phone: '+1234123123123',
-      status: `<span class="badge bg-success">Active</span>`,
-    },
-    description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-   dolore magna aliqua.`,
-  };
-
-  profileKeys = Object.keys(this.profile.detail);
+  profileKeys = ['name', 'company', 'email', 'phone', 'status'];
 
   actions1: Action[] = [
     {
@@ -163,16 +84,56 @@ export class ClientsComponent implements OnInit {
     { label: 'Something else here', link: '#' },
   ];
 
+  constructor(private clientsService: ClientsService) {}
+
   ngOnInit(): void {
+    dayjs.extend(relativeTime);
+    this.isLoading = true;
     this.initTable();
   }
 
   initTable() {
-    this.searchTableData = this.tableData;
-    this.itemsPerPage = 5;
-    this.currentPage = 1;
-    this.paginationTableData = this.searchTableData.slice(0, this.itemsPerPage);
-    this.isShow = true;
+    this.clientsService
+      .getClients()
+      .pipe(
+        map((data) => {
+          data.forEach((item) => {
+            item[
+              'id'
+            ] = `<img src=${item.avatar} width="32" height="32" class="rounded-circle my-n1" alt="Avatar">`;
+            item.status = `<span class="badge bg-${this.statusColor(
+              item.status
+            )}">${item.status}</span>`;
+            item.timeline.forEach((el) => {
+              el.time = dayjs(el.time).fromNow();
+            });
+          });
+          return data;
+        })
+      )
+      .subscribe((res) => {
+        this.isLoading = false;
+        this.tableData = res;
+        this.searchTableData = this.tableData;
+        this.currentPage = 1;
+        this.paginationTableData = this.searchTableData.slice(
+          0,
+          this.itemsPerPage
+        );
+        this.itemsPerPage = this.paginationTableData.length;
+        this.isShow = true;
+        this.selectData = res[0];
+      });
+  }
+
+  statusColor(status) {
+    if (status === StatusType.ACTIVE) {
+      return StatusColor.SUCCESS;
+    } else if (status === StatusType.INACTIVE) {
+      return StatusColor.WARNING;
+    } else if (status === StatusType.DELETED) {
+      return StatusColor.DANGER;
+    }
   }
 
   onPageChanged(event) {
@@ -184,8 +145,15 @@ export class ClientsComponent implements OnInit {
     );
   }
 
+  handleRowSelected(event) {
+    this.selectData = event;
+  }
+
   onSelectChange(event) {
     this.itemsPerPage = event;
+    if (event === DEFAULT_SELECTED) {
+      this.itemsPerPage = this.entries[this.entries.length - 1];
+    }
     if (
       this.currentPage >
       Math.ceil(this.searchTableData.length / this.itemsPerPage)
