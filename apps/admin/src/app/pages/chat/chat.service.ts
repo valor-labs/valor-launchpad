@@ -8,10 +8,9 @@ import {
 } from '@valor-launchpad/api-interfaces';
 import { Observable } from 'rxjs';
 import { SocketService } from '../../core/socket/socket.service';
+import { Element } from 'slate';
 
 export interface IChatService {
-  listenNewMessage(): Observable<ChatMessageVo>;
-
   listenTyping(): Observable<{ userId: string; threadId: string }>;
 
   sendTypingStatus(threadId: string): void;
@@ -22,7 +21,7 @@ export interface IChatService {
 
   sendMessage(
     threadId: string,
-    message: string,
+    message: Element[],
     socketId: string
   ): Observable<ChatMessageVo>;
 
@@ -44,14 +43,6 @@ export class ChatService implements IChatService {
     private readonly httpClient: HttpClient,
     private readonly socketService: SocketService
   ) {}
-
-  listenNewMessage() {
-    return new Observable<ChatMessageVo>((subscriber) => {
-      this.socketService.socket.on('newMessage', (message) => {
-        subscriber.next(message);
-      });
-    });
-  }
 
   listenTyping() {
     return new Observable<{ userId: string; threadId: string }>(
@@ -79,7 +70,7 @@ export class ChatService implements IChatService {
     );
   }
 
-  sendMessage(threadId: string, message: string, socketId: string) {
+  sendMessage(threadId: string, message: Element[], socketId: string) {
     return this.httpClient.post<ChatMessageVo>(
       `${this.apiBase}api/chat/v1/threads/${threadId}/messages`,
       { message, socketId }
@@ -93,7 +84,7 @@ export class ChatService implements IChatService {
     );
   }
 
-  searchUser(keyword: string) {
+  searchUser(keyword = '') {
     let params = new HttpParams();
     if (keyword && keyword.length > 0) {
       params = params.append('keyword', keyword);
@@ -114,6 +105,20 @@ export class ChatService implements IChatService {
         userIds,
         isGroup,
       }
+    );
+  }
+
+  updateThreadName(threadId: string, threadName: string) {
+    return this.httpClient.patch<ChatThreadVo>(
+      `${this.apiBase}api/chat/v1/threads/${threadId}`,
+      { threadName }
+    );
+  }
+
+  updateThreadUsers(threadId: string, userIds: string[]) {
+    return this.httpClient.patch<ChatThreadVo>(
+      `${this.apiBase}api/chat/v1/threads/${threadId}`,
+      { userIds }
     );
   }
 }

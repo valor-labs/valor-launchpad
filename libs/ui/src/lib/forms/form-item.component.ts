@@ -22,7 +22,7 @@ import { NgControl } from '@angular/forms';
     </ng-container>
     <ng-container *ngIf="!isSuccessTemplate; else succcessTemplateOutlet">
       <label
-        *ngIf='valid'
+        *ngIf='valid && successTip'
         class="small form-text">
         {{ successTip }}
       </label>

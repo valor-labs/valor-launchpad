@@ -56,7 +56,7 @@ import { RowDirective } from './grid/row.directive';
 import { ColDirective } from './grid/col.directive';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
 import { SafePipe } from './pipe/safe.pipe';
-import { EditorSlateComponent } from './editor-slate/editor-slate.component';
+import { SlateImageComponent, EditorSlateComponent } from './editor-slate/editor-slate.component';
 import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
 import { SlateModule } from 'slate-angular';
 import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
@@ -158,6 +158,7 @@ const cardPart = [
     EmbedVideoComponent,
     SafePipe,
     EditorSlateComponent,
+    SlateImageComponent,
     EditorSlateTextComponent,
     EditorSlateButtonComponent,
     DropdownMegaMenuComponent,

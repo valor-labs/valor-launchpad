@@ -9,4 +9,10 @@ import { ChatThreadVo } from '@valor-launchpad/api-interfaces';
 export class ValorLaunchpadMessengerComponent {
   @Input() messenger: ChatThreadVo;
   @Input() active: boolean;
+
+  get genGroupName() {
+    return this.messenger.chatThreadUsers
+      .map((i) => `${i.firstName} ${i.lastName}`)
+      .join(', ');
+  }
 }

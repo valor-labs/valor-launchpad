@@ -1,10 +1,19 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 import { User } from '@valor-launchpad/users-api';
 import { ChatService } from './chat.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { ChatMessageVo, ChatThreadVo } from '@valor-launchpad/api-interfaces';
 import { CreateThreadDto } from './dto/create-thread.dto';
+import { UpdateThreadDto } from './dto/update-thread.dto';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
@@ -22,6 +31,20 @@ export class ChatController {
       return this.chatService.createGroup(createThreadDto, actingUser);
     }
     return;
+  }
+
+  @Patch('threads/:threadId')
+  updateThread(
+    @Param('threadId') threadId: string,
+    @Body() updateThreadDto: UpdateThreadDto,
+    @User() actingUser
+  ) {
+    return this.chatService.updateGroup(threadId, updateThreadDto, actingUser);
+  }
+
+  @Get('unreadMessages')
+  getUnreadMessages(@User() actingUser) {
+    return this.chatService.findUnreadMessages(actingUser);
   }
 
   @Get('threads/:threadId/messages')

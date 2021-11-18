@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderService } from '../../header/header.service';
+import { MessageSocketService } from '../message-socket.service';
+import { ChatMessageVo } from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-message-dropdown',
@@ -7,12 +8,15 @@ import { HeaderService } from '../../header/header.service';
   styleUrls: ['./message-dropdown.component.scss'],
 })
 export class MessageDropdownComponent implements OnInit {
-  messages = [];
-  constructor(private headerService: HeaderService) {}
+  messages: ChatMessageVo[] = [];
+  constructor(private messageSocketService: MessageSocketService) {}
 
   ngOnInit(): void {
-    this.headerService.getMessages().subscribe((messages) => {
-      this.messages = messages;
+    this.messageSocketService
+      .fetchUnreadMessages()
+      .subscribe((res) => (this.messages = res));
+    this.messageSocketService.listenNewMessage().subscribe((newMessage) => {
+      this.messages.unshift(newMessage);
     });
   }
 }

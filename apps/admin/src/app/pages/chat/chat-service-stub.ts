@@ -6,19 +6,16 @@ import {
 } from '@valor-launchpad/api-interfaces';
 import { delay } from 'rxjs/operators';
 import { IChatService } from './chat.service';
+import { Element } from 'slate';
 
 export class ChatServiceStub implements IChatService {
-  mockNewMessage = new Subject<ChatMessageVo>();
   mockUserTyping = new Subject<{ userId: string; threadId: string }>();
-  listenNewMessage() {
-    return this.mockNewMessage.asObservable();
-  }
 
   listenTyping() {
     return this.mockUserTyping.asObservable();
   }
 
-  sendMessage(threadId: string, message: string, socketId: string): any {
+  sendMessage(threadId: string, message: Element[], socketId: string): any {
     // pass
   }
 
@@ -68,7 +65,12 @@ export class ChatServiceStub implements IChatService {
           alt: 'string',
         },
         isConnected: true,
-        targetingUser: { id: 'string' },
+        targetingUser: {
+          id: 'string',
+          firstName: '',
+          lastName: '',
+          username: '',
+        },
         chatThreadUsers: [
           {
             id: 'string2',

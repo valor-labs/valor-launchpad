@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateMessageDto {
-  @IsString()
+  @IsArray()
   @IsNotEmpty()
-  message: string;
+  message: any[];
 
   @IsString()
   @IsNotEmpty()

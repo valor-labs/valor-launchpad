@@ -10,7 +10,8 @@ export type BlockTypes =
   | 'heading-two'
   | 'block-quote'
   | 'numbered-list'
-  | 'bulleted-list';
+  | 'bulleted-list'
+  | 'image';
 
 interface ToolbarMarkItem<T = MarkTypes> {
   format: T;
