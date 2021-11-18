@@ -35,9 +35,6 @@ export class AvatarComponent implements OnInit {
     @Input()
     squared = false;
 
-    constructor() {
-    }
-
     ngOnInit(): void {
       if (this.size !== null) {
         this.classes = this.classes + ' ' + this.size;
@@ -51,6 +48,8 @@ export class AvatarComponent implements OnInit {
     getFontSize(): number {
         if (this.width !== null && this.height !== null) {
             return this.width / 2;
+        } else {
+          return 0;
         }
     }
 

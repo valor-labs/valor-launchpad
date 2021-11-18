@@ -41,8 +41,8 @@ describe('AlertComponent', () => {
   it('should have close emit false while alert trigger onClose', () => {
     jest.spyOn(component.close, 'emit');
     const nativeElement = fixture.nativeElement;
-    const button = nativeElement.querySelector('alert');
-    button.dispatchEvent(new Event('onClosed'));
+    const alert = nativeElement.querySelector('alert');
+    alert.dispatchEvent(new Event('onClosed'));
     fixture.detectChanges();
     expect(component.close.emit).toHaveBeenCalledWith(false);
   });
