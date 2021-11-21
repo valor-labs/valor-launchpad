@@ -61,6 +61,10 @@ export class SignInComponent implements OnInit {
           this.errorMessage = 'Incorrect username or password';
           this.isAlertOpen = true;
         }
+        if (res?.message === 'User has been deleted') {
+          this.errorMessage = res?.message;
+          this.isAlertOpen = true;
+        }
         if (
           localStorage.getItem('preUrl') &&
           localStorage.getItem('preUrl') !== '/sign-in'
