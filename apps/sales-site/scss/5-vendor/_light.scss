@@ -49,6 +49,22 @@
   }
 }
 
+.sub-nav-btn {
+  border: 1px solid #6EE1F8;
+  background: transparent;
+  span {
+    background: $purple-blue-color;
+    background-clip: text;
+    color: transparent;
+    font-size: 1rem;
+  }
+  i {
+    background: $purple-blue-color;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
 .purple-blue-ft {
   font-weight: 700;
   background: $purple-blue-color;

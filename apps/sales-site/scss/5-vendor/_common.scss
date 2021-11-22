@@ -142,7 +142,6 @@ button {
 }
 .header-nav {
   max-width: 1440px;
-  padding-left: 60px;
 }
 
 .form-switch-nav {
@@ -169,6 +168,13 @@ button {
   }
 }
 
+.nav-item {
+  margin-left: 88px;
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
 .navbar-text {
   padding-bottom: 0.875rem;
 }
@@ -178,12 +184,13 @@ button {
   align-items: self-end;
 }
 
-.navbar-align {
-  margin-right: 138px;
+.sub-nav-btn {
+  height: 54px;
+  width: 168px;
 }
 
 .input-group-navbar{
-  width: 453px;
+  width: 362px;
   align-self: center;
   .form-control {
     height: calc(3.5rem - 2px);
