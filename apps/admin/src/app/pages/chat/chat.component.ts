@@ -81,7 +81,6 @@ export class ChatComponent implements OnInit {
       )
       .subscribe(({ threadId }) => {
         if (!threadId) {
-          // this.makeThreadActive(this.messengers[0]);
           this.onSelectThread(this.messengers[0]);
         } else {
           const threadInRoute = this.messengers.find((i) => i.id === threadId);

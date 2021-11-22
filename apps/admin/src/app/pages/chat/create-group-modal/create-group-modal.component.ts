@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ChatService } from '../chat.service';
 import { FormControl, Validators } from '@angular/forms';
 import { ChatUserVo } from '@valor-launchpad/api-interfaces';
 
