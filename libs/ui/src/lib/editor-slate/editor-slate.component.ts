@@ -6,7 +6,6 @@ import {
   Input,
   Output,
   HostBinding,
-  ElementRef,
 } from '@angular/core';
 import { createEditor, Text, Element, Transforms, Editor } from 'slate';
 import { withHistory } from 'slate-history';
@@ -112,7 +111,7 @@ export class EditorSlateComponent {
       format: 'image',
       icon: 'far fa-fw fa-image',
       active: () => false,
-      action: (format) => {
+      action: () => {
         // create a file input
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
@@ -131,11 +130,10 @@ export class EditorSlateComponent {
                 },
               ],
             };
-            console.log(imageNode);
             Transforms.insertNodes(this.editor, imageNode);
           };
           reader.onerror = () => {
-            console.log('there are some problems');
+            console.error('there are some problems');
           };
         });
         input.click();
@@ -151,8 +149,6 @@ export class EditorSlateComponent {
       (this.schema[0].children[0] as any).text === ''
     );
   }
-
-  constructor(private el: ElementRef) {}
 
   @ViewChild('heading_1', { read: TemplateRef, static: true })
   private headingOneTemplate: TemplateRef<void>;
@@ -213,6 +209,9 @@ export class EditorSlateComponent {
   };
 
   keydown = (event: KeyboardEvent) => {
+    // when preventEnter = true
+    // the editor is usually used in chat, enter will trigger send
+    // instead if you want to insert \n, you need to use 'alt + enter'
     if (this.preventEnter) {
       if (event.key === 'Enter') {
         if (event.altKey) {
@@ -241,7 +240,7 @@ export class EditorSlateComponent {
       :host img {
         max-width: 100%;
       }
-      :host img.outline{
+      :host img.outline {
         box-shadow: 0 0 0 2px #348fe4;
       }
     `,
