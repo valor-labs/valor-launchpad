@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+// import { BadgeTheme } from './badge.component';
 import { BadgeComponent } from './badge.component';
 
 describe('BadgeComponent', () => {
@@ -22,4 +22,11 @@ describe('BadgeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have properties initialized', () => {
+    expect(component.rounded).toBeDefined();
+    expect(component.rounded).toBeFalsy();
+    expect(component.theme).toBeDefined();
+    expect(component.theme).toBe('primary');
+  })
 });

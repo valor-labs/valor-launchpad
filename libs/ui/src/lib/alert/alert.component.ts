@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'valor-launchpad-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss']
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent {
   @Input() icon;
 
   @Input() outline = false;
@@ -18,14 +18,8 @@ export class AlertComponent implements OnInit {
 
   @Input() isOpen = true;
 
-  @Output() 
+  @Output()
   public close =  new EventEmitter()
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   onClosed() {
     this.close.emit(false);
