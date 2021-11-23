@@ -25,3 +25,4 @@ export * from './lib/entity/skills.entity';
 export * from './lib/entity/socialMedia.entity';
 export * from './lib/entity/socialMediaMatching.entity';
 export * from './lib/entity/task.entity';
+export * from './lib/entity/terms-of-use.entity';

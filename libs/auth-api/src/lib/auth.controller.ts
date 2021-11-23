@@ -23,7 +23,8 @@ export class AuthController {
 
   constructor(private authService: AuthService,
     private usersService: UsersService,
-    private eventEmitter: EventEmitter2) {
+    private eventEmitter: EventEmitter2,
+  ) {
   }
 
   @UseGuards(LocalAuthGuard)
@@ -181,6 +182,4 @@ export class AuthController {
       return new ResponseError('Reset Password Failed', error)
     }
   }
-
-  //TODO: add forgot password
 }

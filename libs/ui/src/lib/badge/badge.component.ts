@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, Input} from '@angular/core';
 
 export type BadgeTheme = 'primary' |
   'secondary' |
@@ -13,7 +13,7 @@ export type BadgeTheme = 'primary' |
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss']
 })
-export class BadgeComponent implements OnInit {
+export class BadgeComponent {
   @HostBinding('class.badge') private btn = true;
   @HostBinding('class.rounded-pill') @Input() rounded = false;
   @Input() theme: BadgeTheme = 'primary';
@@ -39,14 +39,4 @@ export class BadgeComponent implements OnInit {
   @HostBinding('class.bg-info') private get isInfo() {
     return this.theme === 'info';
   }
-
-
-
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
 }
