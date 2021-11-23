@@ -1,0 +1,15 @@
+:host {
+  .card-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .card-list {
+    .term-of-use-item {
+      padding: 10px;
+      cursor: pointer;
+    }
+  }
+}

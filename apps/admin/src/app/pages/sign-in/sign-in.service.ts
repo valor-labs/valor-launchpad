@@ -40,6 +40,10 @@ export class SignInService {
             'avatar',
             JSON.stringify(data.user.profile.avatar)
           );
+
+          return {
+            success: true,
+          };
         }),
         catchError((err) => of(err.error))
       );

@@ -1,0 +1,18 @@
+<h1>{{ termsOfUse?.title }}</h1>
+<p>{{ termsOfUse?.content }}</p>
+<div>
+  <valor-launchpad-checkbox-group
+    [options]="acceptOption"
+    [formControl]="acceptControl"
+  ></valor-launchpad-checkbox-group>
+</div>
+<div class="button-container">
+  <button
+    valor-launchpad-button
+    [disabled]="buttonDisabled"
+    theme="primary"
+    (click)="handleAccept()"
+  >
+    Accept
+  </button>
+</div>
