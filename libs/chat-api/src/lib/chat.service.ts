@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { SocketConnService } from '@valor-launchpad/socket-gateway';
 import { ChatMessageVo, ChatThreadVo } from '@valor-launchpad/api-interfaces';
 import { ChatUnreadService } from './chat-unread.service';
 import { CreateThreadDto } from './dto/create-thread.dto';
+import { UpdateThreadDto } from './dto/update-thread.dto';
 
 @Injectable()
 export class ChatService {
@@ -105,11 +107,11 @@ export class ChatService {
     };
   }
 
-  createGroup({ userIds, threadName }: CreateThreadDto, actingUser) {
+  async createGroup({ userIds, threadName }: CreateThreadDto, actingUser) {
     if (!userIds.includes(actingUser.id)) {
       userIds.push(actingUser.id);
     }
-    return this.prisma.chatThread.create({
+    const newThread = await this.prisma.chatThread.create({
       ...this.threadListSelect,
       data: {
         isGroup: true,
@@ -122,6 +124,32 @@ export class ChatService {
         },
       },
     });
+    return this.threadToVo(newThread, actingUser);
+  }
+
+  async updateGroup(
+    threadId: string,
+    updateThreadDto: UpdateThreadDto,
+    actingUser
+  ) {
+    const data: Prisma.ChatThreadUpdateInput = {};
+    if (Reflect.has(updateThreadDto, 'threadName')) {
+      data.name = updateThreadDto.threadName;
+    }
+    if (Reflect.has(updateThreadDto, 'userIds')) {
+      data.chatThreadUsers = {
+        deleteMany: { threadId },
+        createMany: {
+          data: updateThreadDto.userIds.map((userId) => ({ userId })),
+        },
+      };
+    }
+    const updatedThread = await this.prisma.chatThread.update({
+      ...this.threadListSelect,
+      data,
+      where: { id: threadId },
+    });
+    return this.threadToVo(updatedThread, actingUser);
   }
 
   // todo: paginate
@@ -152,6 +180,33 @@ export class ChatService {
     }));
   }
 
+  async findUnreadMessages(actingUser) {
+    const query = await this.chatUnreadService.findUnreadThreads(actingUser.id);
+    const messageIds = Object.values(query).reduce(
+      (prev, item) => [...prev, ...item],
+      []
+    );
+    return this.prisma.chatMessage.findMany({
+      include: {
+        createdUser: {
+          select: {
+            id: true,
+            username: true,
+            firstName: true,
+            lastName: true,
+            profile: {
+              select: {
+                avatar: { select: { src: true, src_webp: true, alt: true } },
+              },
+            },
+          },
+        },
+      },
+      where: { id: { in: messageIds } },
+      orderBy: { createdDate: 'desc' },
+    });
+  }
+
   async findThread(targetUserId: string, actingUser) {
     return await this.prisma.chatThreadUser.findFirst({
       select: { threadId: true },
@@ -171,20 +226,25 @@ export class ChatService {
 
   async createMessage(
     threadId: string,
-    message: string,
+    message: any[],
     actingUser,
     socketId: string
   ) {
     // find thread and update its lastChatDate
-    const thread = await this.prisma.chatThread.update({
-      data: { lastChatDate: new Date() },
+    const thread = await this.prisma.chatThread.findUnique({
       include: {
-        chatThreadUsers: {
-          select: { user: { select: { id: true } } },
-        },
+        chatThreadUsers: { select: { user: { select: { id: true } } } },
       },
       where: { id: threadId },
     });
+    const relevantUserIds = thread.chatThreadUsers.map((i) => i.user.id);
+
+    if (!relevantUserIds.includes(actingUser.id)) {
+      throw new HttpException(
+        'You are not in the thread',
+        HttpStatus.FORBIDDEN
+      );
+    }
 
     const chatMessage = await this.prisma.chatMessage.create({
       include: {
@@ -204,13 +264,17 @@ export class ChatService {
         },
       },
       data: {
-        message,
+        message: message as Prisma.JsonArray,
         threadId,
         createdUserId: actingUser.id,
       },
     });
 
-    const relevantUserIds = thread.chatThreadUsers.map((i) => i.user.id);
+    // update thread's lastChatDate
+    await this.prisma.chatThread.update({
+      data: { lastChatDate: new Date() },
+      where: { id: threadId },
+    });
 
     // unread message store
     const otherRelevantUserIds = relevantUserIds.filter(

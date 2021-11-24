@@ -650,7 +650,7 @@ model ChatThreadUser {
 
 model ChatMessage {
   id            String    @id @default(uuid()) @db.VarChar(36)
-  message       String    @db.VarChar(1000)
+  message       Json      @db.Json
   threadId      String    @db.VarChar(36)
   createdUserId String    @db.VarChar(36)
   createdDate   DateTime  @default(now()) @db.DateTime(6)

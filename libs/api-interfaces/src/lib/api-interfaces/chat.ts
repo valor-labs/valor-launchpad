@@ -8,7 +8,12 @@ export interface ChatThreadVo {
     alt: string;
   };
   isConnected: boolean;
-  targetingUser?: { id: string };
+  targetingUser?: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+  };
   chatThreadUsers: {
     id: string;
     username: string;
@@ -28,7 +33,7 @@ export interface ChatThreadVo {
 
 export interface ChatMessageVo {
   id: string;
-  message: string;
+  message: any;
   createdDate: string | Date;
   isSelf: boolean;
   threadId: string;

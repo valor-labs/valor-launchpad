@@ -8,6 +8,15 @@ valor-launchpad-editor-slate {
     padding: 10px 12px;
     border-bottom: 1px solid $border-color;
   }
+  &.borderless {
+    border: none;
+  }
+  &.readonly {
+    background: transparent;
+    .slate-editable-container {
+      padding: 0;
+    }
+  }
 }
 .slate-editable-container {
   padding: 20px;

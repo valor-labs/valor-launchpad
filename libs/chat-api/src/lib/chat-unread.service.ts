@@ -22,7 +22,7 @@ export class ChatUnreadService {
     await this.redis.rpush(`${this.prefix}:${userId}:${threadId}`, messageId);
   }
 
-  async findUnreadThreads(userId: string) {
+  async findUnreadThreads(userId: string): Promise<Record<string, string[]>> {
     const keys = await this.redis.keys(`${this.prefix}:${userId}:*`);
     const res = {};
     for (const k of keys) {

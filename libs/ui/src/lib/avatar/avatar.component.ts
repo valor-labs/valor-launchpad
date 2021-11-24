@@ -14,10 +14,10 @@ export class AvatarComponent implements OnInit {
     alt: string;
 
     @Input()
-    classes;
+    classes = '';
 
     @Input()
-    size: 'sm' | 'md' | 'lg' | 'xl' = null;
+    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = null;
 
 
     @Input()

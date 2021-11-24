@@ -605,7 +605,7 @@ Table ChatThreadUser {
 
 Table ChatMessage {
   id String [pk]
-  message String [not null]
+  message Json [not null]
   threadId String [not null]
   createdUserId String [not null]
   createdDate DateTime [default: `now()`, not null]

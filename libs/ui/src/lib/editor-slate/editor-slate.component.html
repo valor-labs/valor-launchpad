@@ -1,4 +1,4 @@
-<div class='editor-state-toolbar'>
+<div class='editor-state-toolbar' *ngIf="!hideToolbar">
   <valor-launchpad-editor-slate-button
     *ngFor="let toolbarItem of toolbarItems"
     [class.active]="toolbarItem.active(toolbarItem.format)"
@@ -8,6 +8,7 @@
   </valor-launchpad-editor-slate-button>
 </div>
 <slate-editable
+  [readonly]="readonly"
   [editor]="editor"
   [(ngModel)]="schema"
   (ngModelChange)="valueChange($event)"
