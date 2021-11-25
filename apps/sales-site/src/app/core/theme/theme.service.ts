@@ -7,7 +7,7 @@ export type themeConfigKeys =  'theme' | 'layout'
 export type themeConfig = Record<themeConfigKeys, string>;
 
 export const defaultProps: themeConfig = {
-  theme: 'light',
+  theme: 'dark',
   layout: 'fluid',
 };
 
@@ -19,7 +19,7 @@ const settingsPrefix = 'valor-launchpad-config-';
 })
 export class ThemeService {
 
-  private theme$ = new BehaviorSubject<themeType>('light')
+  private theme$ = new BehaviorSubject<themeType>('dark')
   getTheme() {
     return this.theme$.asObservable()
   }
@@ -44,8 +44,8 @@ export class ThemeService {
     const storedConfig = localStorage.getItem(`${settingsPrefix}${name}`);
 
     if (storedConfig === null && isFirstRender && name === 'theme') {
-      this.changeTheme(name, 'light')
-      this.setStoredConfig(name, 'light')
+      this.changeTheme(name, 'dark')
+      this.setStoredConfig(name, 'dark')
       return defaultProps[name]
     }
     
