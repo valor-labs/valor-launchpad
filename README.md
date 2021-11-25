@@ -19,7 +19,7 @@ The stack used for this project is as follows.
 
 1) Make sure you have Docker installed and running
 1) run the `docker compose up -d` to setup the MySQL and Redis
-1) run schema sync  `npx prisma migrate dev` to synchronyze DBs
+1) run schema sync  `npm run schema:sync` to synchronyze DBs
 1) run the `npm run seed:run` command to scaffold the seed database with its structure and default data
 1) run the server with `npm run start:server`
 1) run the client with `npm run start`
