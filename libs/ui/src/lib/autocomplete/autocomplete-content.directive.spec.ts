@@ -1,21 +1,32 @@
 import { AutocompleteContentDirective } from './autocomplete-content.directive';
-import { TemplateRef } from '@angular/core';
+import { Component } from '@angular/core';
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+
+@Component({
+  template: `
+  <template valorLaunchpadAutocompleteContent></template>
+  `
+})
+class TestComponent { }
 
 describe('AutocompleteContentDirective', () => {
-  let templateRef: createSpyObj<TemplateRef<any>>;
-  it('should create an instance', () => {
-    const directive = new AutocompleteContentDirective();
-    expect(directive).toBeTruthy();
+  let component: TestComponent;
+  let fixture: ComponentFixture<TestComponent>;
+  beforeEach(() => {
+    fixture = TestBed.configureTestingModule({
+      declarations: [ AutocompleteContentDirective, TestComponent ],
+      providers: [
+        { provide: ComponentFixtureAutoDetect, useValue: true },
+      ],
+    }).createComponent(TestComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });
 
 
-export const createSpyObj = (baseName, methodNames): { [key: string]: jest.Mock<any> } => {
-  const obj: any = {};
 
-  for (let i = 0; i < methodNames.length; i++) {
-    obj[methodNames[i]] = jest.fn();
-  }
-
-  return obj;
-};

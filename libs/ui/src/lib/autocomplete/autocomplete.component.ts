@@ -1,4 +1,4 @@
-import { Component, ContentChild, ContentChildren, OnInit, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, ContentChildren, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { AutocompleteOptionComponent } from './autocomplete-option/autocomplete-option.component';
 import { switchMap } from 'rxjs/operators';
 import { merge } from 'rxjs';
@@ -10,11 +10,12 @@ import { AutocompleteContentDirective } from './autocomplete-content.directive';
   styleUrls: ['./autocomplete.component.scss'],
   exportAs: 'valorLaunchpadAutoComplete'
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent {
   @ViewChild('root') rootTemplate: TemplateRef<any>;
   @ContentChild(AutocompleteContentDirective) content: AutocompleteContentDirective;
 
   @ContentChildren(AutocompleteOptionComponent) options: QueryList<AutocompleteOptionComponent>
+
   optionsClick() {
     return this.options.changes.pipe(
       switchMap(options => {
@@ -23,10 +24,9 @@ export class AutocompleteComponent implements OnInit {
       })
     )
   }
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  //
+  // constructor() { }
+  //
+  // ngOnInit(): void {
+  // }
 }
