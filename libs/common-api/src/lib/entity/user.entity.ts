@@ -39,6 +39,7 @@ export class UserEntity extends BaseEntity {
   emailVerifyToken?: string;
   phone: string;
   phoneVerifyToken?: string;
+  phoneVerified: boolean;
   userRoles?: Array<UserRolesEntity> | any; //TODO: Need a way to use create typings here
   suspended: boolean;
   lastLogin?: Date;

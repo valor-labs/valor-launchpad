@@ -10,7 +10,6 @@ import {
   debounceTime,
   distinctUntilChanged,
   filter,
-  map,
   switchMap,
 } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -27,8 +26,9 @@ export class SignUpComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl(''),
+    phone: new FormControl(null),
     password: new FormControl('', [Validators.required]),
+    captcha: new FormControl('', [Validators.maxLength(6)]),
   });
 
   registerSucceed = false;
@@ -66,8 +66,10 @@ export class SignUpComponent implements OnInit {
         }
       });
     this.passwordService.getPasswordValidation().subscribe((res) => {
-      this.setValidation(res['passwordValidation']);
-      this.setErrorMessage(res['passwordValidation']);
+      if (res !== null) {
+        this.setValidation(res['passwordValidation']);
+        this.setErrorMessage(res['passwordValidation']);
+      }
     });
   }
 
@@ -125,7 +127,6 @@ export class SignUpComponent implements OnInit {
   }
 
   createUser() {
-    console.log(this.passwordControl);
     if (this.signUpFormGroup.invalid) {
       for (const ctrl of Object.values(this.signUpFormGroup.controls)) {
         ctrl.markAsDirty();

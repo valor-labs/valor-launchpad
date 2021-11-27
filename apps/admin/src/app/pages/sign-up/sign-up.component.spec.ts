@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UiModule } from '@valor-launchpad/ui';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
@@ -22,6 +23,7 @@ describe('SignUpComponent', () => {
         ToastrModule.forRoot(),
         ReactiveFormsModule,
         UiModule,
+        BrowserAnimationsModule
       ],
       declarations: [SignUpComponent],
     }).compileComponents();

@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 import { TasksService } from './tasks.service';
-import { UpdateTasksDto, CreateTasksDto, DeleteTaskDto } from './task.dto';
+import { UpdateTasksDto, CreateTasksDto } from './task.dto';
 import { ResponseError, ResponseSuccess } from '@valor-launchpad/common-api';
 import { User } from '@valor-launchpad/users-api';
 import { UserEntity } from '@valor-launchpad/common-api';

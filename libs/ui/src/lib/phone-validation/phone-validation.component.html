@@ -1,0 +1,22 @@
+
+<valor-launchpad-input-group>
+  <ngx-intl-tel-input
+    [cssClass]="'form-control form-control-lg'"
+    [preferredCountries]="preferredCountries"
+    [enableAutoCountrySelect]="false"
+    [enablePlaceholder]="true"
+    [searchCountryFlag]="true"
+    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+    [selectFirstCountry]="false"
+    [selectedCountryISO]="CountryISO.UnitedStates"
+    [maxLength]="15"
+    [phoneValidation]="true"
+    name="phone"
+    [formControl]="phone"
+  ></ngx-intl-tel-input>
+  <button class="btn btn-secondary" (click)="getCaptcha()" [disabled]="count" type="button">
+    {{ count ? count + 's' : 'get verification code' }}
+  </button>
+</valor-launchpad-input-group>
+
+

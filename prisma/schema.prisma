@@ -236,6 +236,7 @@ model UserEntity {
   emailVerifyToken       String?   @unique @db.VarChar(255)
   phone                  String?   @db.VarChar(255)
   phoneVerifyToken       String?   @db.VarChar(255)
+  phoneVerified           Boolean   @default(false) @db.TinyInt
   suspended              Boolean   @default(false) @db.TinyInt
   lastLogin              DateTime? @db.DateTime(0)
   deletedDate            DateTime? @db.DateTime(6)

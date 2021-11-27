@@ -21,6 +21,7 @@
               "apps/admin/src/styles.scss",
               "node_modules/notyf/notyf.min.css",
               "node_modules/jsvectormap/dist/css/jsvectormap.min.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css",
               {
                 "input": "apps/admin/scss/dark.scss",
                 "bundleName": "dark",

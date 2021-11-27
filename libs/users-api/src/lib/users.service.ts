@@ -25,19 +25,25 @@ import { RoleDto } from './dto/role.dto';
 import { TagDto } from './dto/tag.dto';
 import { QueryUserListDto } from './dto/query-user-list.dto';
 import { BatchAddTagsDto } from './dto/batch-add-tags.dto';
+import {RedisService} from "nestjs-redis";
+import {Redis} from "ioredis";
 
 // This should be a real class/interface representing a user entity
 export type User = any;
 
 @Injectable()
 export class UsersService {
+  private redis: Redis;
   constructor(
     private crypto: CryptService,
     private emailService: EmailService,
     private eventEmitter: EventEmitter2,
     private prisma: PrismaService,
     private usersEventsService: UsersEventsService,
-  ) { }
+    private readonly redisService: RedisService
+  ) {
+    this.redis = this.redisService.getClient();
+  }
 
   //TODO: Add profile image function
 
@@ -127,6 +133,8 @@ export class UsersService {
         username: true,
         email: true,
         emailVerified: true,
+        phone: true,
+        phoneVerified: true,
         lastLogin: true,
         deletedDate: true,
         lastPasswordUpdateDate: true,
@@ -489,7 +497,13 @@ export class UsersService {
 
     const passwordCrypt = await this.crypto.hashPassword(password);
     const emailVerifyToken = v4();
-    const phoneVerifyToken = Math.random().toString().substr(2, 6);
+    const phoneTokenInRedis = await this.redis.get(phone);
+    let phoneVerifyToken;
+    let phoneVerified = false;
+    if (payload instanceof RegisterDTO && phoneTokenInRedis) {
+      phoneVerifyToken = phoneTokenInRedis;
+      phoneVerified = phoneVerifyToken === payload.captcha;
+    }
     const createdUserId = v4();
     const user = await this.prisma.userEntity.create({
       data: {
@@ -501,6 +515,7 @@ export class UsersService {
         phone,
         phoneVerifyToken,
         emailVerifyToken,
+        phoneVerified,
         passwordResetNeeded,
         password: passwordCrypt,
         userRoles: { create: userRolesCreate },
