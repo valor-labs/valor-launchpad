@@ -1,0 +1,86 @@
+<div style="display: flex; min-height: 600px">
+  <div class="p-3" style="width: 250px">
+    <input
+      type="text"
+      valorLaunchpadInput
+      [formControl]="keywordSearchControl"
+      placeholder="Search users"
+    />
+    <div class="user-list">
+      <div
+        class="user-list-item mt-3 cursor-pointer"
+        *ngFor="let item of userOptions"
+        (click)="toggleSelectUser(item)"
+      >
+        <i
+          *ngIf="selectedIndex(item) !== -1; else noCheck"
+          class="fas fa-check-square text-primary"
+        ></i>
+        <ng-template #noCheck>
+          <i class="far fa-square text-muted"></i>
+        </ng-template>
+        <valor-launchpad-avatar
+          class="ms-3"
+          size="md"
+          [firstName]="item.firstName"
+          [lastName]="item.lastName"
+          [src]="item.profile.avatar | valorImage"
+          [alt]="item.profile.avatar?.alt"
+        ></valor-launchpad-avatar>
+        <span class="ms-3">{{ item | fullName }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="p-3 flex-grow-1 d-flex flex-column border-start">
+    <div
+      class="d-flex align-items-center justify-content-between"
+      style="height: 32px; margin-bottom: 14px"
+    >
+      <span>{{ usage | titlecase }} a group chat</span>
+      <b>{{ selectedUsers.length }} user(s) selected</b>
+    </div>
+
+    <div class="d-flex flex-grow-1">
+      <div
+        class="position-relative mb-3 me-3"
+        *ngFor="let user of selectedUsers"
+      >
+        <valor-launchpad-avatar
+          size="xl"
+          [squared]="true"
+          [firstName]="user.firstName"
+          [lastName]="user.lastName"
+          [src]="user.profile.avatar | valorImage"
+          [alt]="user.profile.avatar?.alt"
+        ></valor-launchpad-avatar>
+        <i
+          class="
+            fas
+            fa-minus-circle
+            position-absolute
+            cursor-pointer
+            end-0
+            top-0
+            text-danger
+          "
+          style="transform: translateX(50%) translateY(-50%)"
+          (click)="toggleSelectUser(user)"
+        ></i>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button valor-launchpad-button theme="light" (click)="cancelled.emit()">
+        Cancel
+      </button>
+      <button
+        id="create-group"
+        valor-launchpad-button
+        theme="primary"
+        (click)="onCreateGroup()"
+        [loading]="creating"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>

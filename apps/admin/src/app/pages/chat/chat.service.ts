@@ -1,14 +1,41 @@
 import { Inject, Injectable } from '@angular/core';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
-import { HttpClient } from '@angular/common/http';
-import { ChatMessageVo, ChatThreadVo } from '@valor-launchpad/api-interfaces';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  ChatMessageVo,
+  ChatThreadVo,
+  ChatUserVo,
+} from '@valor-launchpad/api-interfaces';
 import { Observable } from 'rxjs';
 import { SocketService } from '../../core/socket/socket.service';
+import { Element } from 'slate';
+
+export interface IChatService {
+  listenTyping(): Observable<{ userId: string; threadId: string }>;
+
+  sendTypingStatus(threadId: string): void;
+
+  fetchThreads(): any;
+
+  fetchThreadMessages(threadId: string): Observable<ChatMessageVo[]>;
+
+  sendMessage(
+    threadId: string,
+    message: Element[],
+    socketId: string
+  ): Observable<ChatMessageVo>;
+
+  markThreadAsRead(threadId: string): any;
+
+  searchUser(keyword: string): any;
+
+  createThread(threadName: string, userIds: string[], isGroup: boolean): any;
+}
 
 @Injectable({
   providedIn: 'root',
 })
-export class ChatService {
+export class ChatService implements IChatService {
   private apiBase = this.config.environment.apiBase;
 
   constructor(
@@ -16,14 +43,6 @@ export class ChatService {
     private readonly httpClient: HttpClient,
     private readonly socketService: SocketService
   ) {}
-
-  listenNewMessage() {
-    return new Observable<ChatMessageVo>((subscriber) => {
-      this.socketService.socket.on('newMessage', (message) => {
-        subscriber.next(message);
-      });
-    });
-  }
 
   listenTyping() {
     return new Observable<{ userId: string; threadId: string }>(
@@ -51,7 +70,7 @@ export class ChatService {
     );
   }
 
-  sendMessage(threadId: string, message: string, socketId: string) {
+  sendMessage(threadId: string, message: Element[], socketId: string) {
     return this.httpClient.post<ChatMessageVo>(
       `${this.apiBase}api/chat/v1/threads/${threadId}/messages`,
       { message, socketId }
@@ -62,6 +81,44 @@ export class ChatService {
     return this.httpClient.post(
       `${this.apiBase}api/chat/v1/threads/${threadId}/markAsRead`,
       {}
+    );
+  }
+
+  searchUser(keyword = '') {
+    let params = new HttpParams();
+    if (keyword && keyword.length > 0) {
+      params = params.append('keyword', keyword);
+    }
+    return this.httpClient.get<ChatUserVo[]>(
+      `${this.apiBase}api/users/v1/byName`,
+      {
+        params,
+      }
+    );
+  }
+
+  createThread(threadName: string, userIds: string[], isGroup: boolean) {
+    return this.httpClient.post<ChatThreadVo>(
+      `${this.apiBase}api/chat/v1/threads`,
+      {
+        threadName,
+        userIds,
+        isGroup,
+      }
+    );
+  }
+
+  updateThreadName(threadId: string, threadName: string) {
+    return this.httpClient.patch<ChatThreadVo>(
+      `${this.apiBase}api/chat/v1/threads/${threadId}`,
+      { threadName }
+    );
+  }
+
+  updateThreadUsers(threadId: string, userIds: string[]) {
+    return this.httpClient.patch<ChatThreadVo>(
+      `${this.apiBase}api/chat/v1/threads/${threadId}`,
+      { userIds }
     );
   }
 }

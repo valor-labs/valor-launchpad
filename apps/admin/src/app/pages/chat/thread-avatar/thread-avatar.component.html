@@ -1,0 +1,32 @@
+<ng-container *ngIf="thread.isGroup; else userAvatar">
+  <valor-launchpad-avatar
+    *ngIf="!!thread.avatar; else membersAvatars"
+    [src]="thread.avatar | valorImage"
+    [alt]="thread.avatar?.alt"
+    size="lg"
+    classes="rounded-circle me-1"
+  ></valor-launchpad-avatar>
+  <ng-template #membersAvatars>
+    <div class="group-avatar-gen">
+      <valor-launchpad-avatar
+        [style.height.px]="thread.chatThreadUsers.length >= 3 ? 20 : 40"
+        *ngFor="let user of thread.chatThreadUsers.slice(0, 4)"
+        [src]="user.profile.avatar | valorImage"
+        [alt]="user.profile.avatar?.alt"
+        [firstName]="user.firstName"
+        [lastName]="user.lastName"
+        [squared]="true"
+        [size]="thread.chatThreadUsers.length >= 3 ? 'xs' : 'lg'"
+      ></valor-launchpad-avatar>
+    </div>
+  </ng-template>
+</ng-container>
+<ng-template #userAvatar>
+  <valor-launchpad-avatar
+    [src]="thread.avatar | valorImage"
+    [alt]="thread.avatar?.alt"
+    [firstName]="thread.targetingUser | fullName"
+    size="lg"
+    classes="rounded-circle me-1"
+  ></valor-launchpad-avatar>
+</ng-template>

@@ -43,7 +43,7 @@ export class AuthController {
       response.send(loginResponse);
     } catch (error) {
       console.error(error)
-      return new ResponseError('Login Failed', error)
+      response.send(new ResponseError('Login Failed', error));
     }
   }
 
@@ -116,6 +116,9 @@ export class AuthController {
   @Post('register')
   async register(@Body() createUser: RegisterDTO) {
     const createdUser = await this.authService.register(createUser);
+    if (createUser.phone) {
+      this.eventEmitter.emit(SEND_SMS, new SendSMSPayload(createdUser.phone, createdUser.phoneVerifyToken));
+    }
     if (createdUser.email) {
       this.eventEmitter.emit(SEND_EMAIL, new SendEmailPayload(createdUser.email, createdUser.emailVerifyToken));
     }

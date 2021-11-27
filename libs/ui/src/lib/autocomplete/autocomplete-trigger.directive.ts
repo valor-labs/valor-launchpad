@@ -1,5 +1,5 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import {AbstractControl, FormControl, NgControl} from '@angular/forms';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import {AbstractControl, NgControl} from '@angular/forms';
 import {ConnectionPositionPair, Overlay, OverlayConfig, OverlayRef, PositionStrategy} from '@angular/cdk/overlay';
 import {AutocompleteComponent} from './autocomplete.component';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
@@ -50,9 +50,6 @@ export class AutocompleteTriggerDirective implements OnInit, OnDestroy {
             this._close();
           });
       });
-  }
-
-  ngOnDestroy() {
   }
 
   private _openDropdown(): void {
@@ -110,4 +107,7 @@ export class AutocompleteTriggerDirective implements OnInit, OnDestroy {
     );
   }
 
+  ngOnDestroy() {
+    console.log('directive Destroyed');
+  }
 }

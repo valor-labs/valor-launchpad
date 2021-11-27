@@ -11,7 +11,14 @@ function recent7days() {
 
 function messageGenerator(users: { id: string }[]) {
   return {
-    message: lorem.sentences(datatype.number({ max: 3, min: 1 })),
+    message: [
+      {
+        type: 'paragraph',
+        children: [
+          { text: lorem.sentences(datatype.number({ max: 3, min: 1 })) },
+        ],
+      },
+    ],
     createdUserId: random.arrayElement(users).id,
     createdDate: recent7days(),
   };

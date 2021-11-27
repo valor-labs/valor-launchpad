@@ -22,6 +22,10 @@ export class SignInService {
       .post(this.config.environment.apiBase + 'api/auth/v1/login', signInForm)
       .pipe(
         map((data: any) => {
+          if (!data.success) {
+            return data.data;
+          }
+
           localStorage.setItem('refresh_token', data.refresh_token);
           this.authService.user.next(data.user);
           this.cookieService.set(
@@ -36,6 +40,10 @@ export class SignInService {
             'avatar',
             JSON.stringify(data.user.profile.avatar)
           );
+
+          return {
+            success: true,
+          };
         }),
         catchError((err) => of(err.error))
       );

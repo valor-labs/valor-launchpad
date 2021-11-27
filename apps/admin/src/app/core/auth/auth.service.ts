@@ -7,6 +7,8 @@ import { map, tap } from 'rxjs/operators';
 import { UserEntity } from '@valor-launchpad/common-api';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { SocketService } from '../socket/socket.service';
+import { TermsOfUseService } from '../../pages/terms-of-use';
+import { switchMap, filter } from 'rxjs/operators';
 
 export interface IAuthService {
   access_token: any;
@@ -39,7 +41,8 @@ export class AuthService implements IAuthService {
     private cookieService: CookieService,
     private router: Router,
     private httpClient: HttpClient,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private termsOfUseService: TermsOfUseService
   ) {}
 
   checkIfUsernameExists(username: string) {
@@ -62,6 +65,7 @@ export class AuthService implements IAuthService {
       .pipe(
         map(() => {
           this.access_token = undefined;
+          this.termsOfUseService.resetAcceptTermsOfUse();
           localStorage.removeItem('refresh_token');
           this.socketService.disconnect();
           this.router.navigate(['/sign-in']);
@@ -102,14 +106,29 @@ export class AuthService implements IAuthService {
             this.socketService.connect();
           }
         }),
-        map((data: any) => {
+        tap((data: any) => {
           if (!data) {
             this.router.navigate(['/sign-in']);
-          } else if (data?.passwordResetNeeded) {
-            this.user.next(data);
-            this.router.navigate(['/reset-new-password']);
           } else {
             this.user.next(data);
+          }
+        }),
+        filter((data) => !!data),
+        switchMap(() => {
+          return this.termsOfUseService.getUserTermsOfUse();
+        }),
+        tap((isAcceptTermsOfUse) => {
+          if (!isAcceptTermsOfUse) {
+            this.router.navigate(['/terms-of-use']);
+          }
+        }),
+        filter((isAcceptTermsOfUse) => isAcceptTermsOfUse),
+        map(() => {
+          const user = this.user.value;
+
+          if (user?.passwordResetNeeded) {
+            this.router.navigate(['/reset-new-password']);
+          } else {
             return true;
           }
         })

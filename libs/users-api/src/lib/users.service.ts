@@ -170,6 +170,44 @@ export class UsersService {
     });
   }
 
+  findByName(name: string) {
+    let nameFilter:  Prisma.UserEntityWhereInput;
+    if (name && name.length > 0) {
+      nameFilter = {
+        OR: [
+          { firstName: { contains: name } },
+          { lastName: { contains: name } },
+          { username: { contains: name } },
+          { email: { contains: name } },
+          { phone: { contains: name } },
+        ]
+      }
+    }
+    return this.prisma.userEntity.findMany({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        username: true,
+        profile: {
+          select: {
+            avatar: {
+              select: {
+                src: true,
+                src_webp: true,
+                alt: true,
+              }
+            }
+          }
+        }
+      },
+      where: {
+        deletedDate: null,
+        ...nameFilter,
+      },
+    });
+  }
+
   //TODO verify this filters soft deletes after prisma conversion
   async findCurrent(): Promise<UserEntity[]> {
     //Todo: this eventually needs to filter password field

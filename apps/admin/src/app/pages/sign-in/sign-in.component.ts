@@ -4,6 +4,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MediaEntity } from '@valor-launchpad/common-api';
+import { TermsOfUseService } from '../terms-of-use';
 
 @Component({
   selector: 'valor-launchpad-sign-in',
@@ -27,7 +28,8 @@ export class SignInComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cookieService: CookieService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private termsOfUseService: TermsOfUseService
   ) {
     this.userName = '';
     this.errorMessage = '';
@@ -59,6 +61,10 @@ export class SignInComponent implements OnInit {
       (res) => {
         if (res?.message === 'Unauthorized') {
           this.errorMessage = 'Incorrect username or password';
+          this.isAlertOpen = true;
+        }
+        if (res?.message === 'User has been deleted') {
+          this.errorMessage = res?.message;
           this.isAlertOpen = true;
         }
         if (

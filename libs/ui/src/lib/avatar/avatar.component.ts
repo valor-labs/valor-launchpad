@@ -14,10 +14,10 @@ export class AvatarComponent implements OnInit {
     alt: string;
 
     @Input()
-    classes;
+    classes = '';
 
     @Input()
-    size: 'sm' | 'md' | 'lg' | 'xl' = null;
+    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = null;
 
 
     @Input()
@@ -32,8 +32,8 @@ export class AvatarComponent implements OnInit {
     @Input()
     lastName: string;
 
-    constructor() {
-    }
+    @Input()
+    squared = false;
 
     ngOnInit(): void {
       if (this.size !== null) {
@@ -48,6 +48,8 @@ export class AvatarComponent implements OnInit {
     getFontSize(): number {
         if (this.width !== null && this.height !== null) {
             return this.width / 2;
+        } else {
+          return 0;
         }
     }
 

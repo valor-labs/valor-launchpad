@@ -9,6 +9,8 @@ import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.compo
 import { SettingsAccountComponent } from './settings-account/settings-account.component';
 import { SettingsPasswordComponent } from './settings-password/settings-password.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { SettingsTermsOfUseComponent } from './settings-terms-of-use';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,15 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     AvatarSelectorComponent,
     SettingsAccountComponent,
     SettingsPasswordComponent,
+    SettingsTermsOfUseComponent,
   ],
   imports: [
     CommonModule,
     SettingsRoutingModule,
     ReactiveFormsModule,
+    ModalModule,
     UiModule,
+    ModalModule,
     BsDropdownModule.forRoot(),
   ],
 })
