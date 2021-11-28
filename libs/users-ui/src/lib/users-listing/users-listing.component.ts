@@ -59,6 +59,8 @@ export class UsersListingComponent implements OnInit {
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
   @ViewChild('emailCell', { static: true })
   private emailCell?: TemplateRef<UserListLine>;
+  @ViewChild('phoneCell', { static: true })
+  private phoneCell?: TemplateRef<UserListLine>;
   @ViewChild('rolesCell', { static: true })
   private rolesCell?: TemplateRef<UserListLine>;
   @ViewChild('tagsCell', { static: true })
@@ -185,6 +187,12 @@ export class UsersListingComponent implements OnInit {
       {
         name: 'Email',
         cellTemplate: this.emailCell,
+        flexGrow: 2,
+        ...commonDef,
+      },
+      {
+        name: 'Phone',
+        cellTemplate: this.phoneCell,
         flexGrow: 2,
         ...commonDef,
       },

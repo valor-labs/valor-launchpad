@@ -218,6 +218,7 @@ Table UserEntity {
   emailVerifyToken String [unique]
   phone String
   phoneVerifyToken String
+  phoneVerified Boolean [not null, default: false]
   suspended Boolean [not null, default: false]
   lastLogin DateTime
   deletedDate DateTime

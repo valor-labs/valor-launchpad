@@ -82,6 +82,8 @@ import { ValorImagePipe } from './pipe/valor-image.pipe';
 import { TimeAgoPipe } from './pipe/time-ago.pipe';
 import { FullNamePipe } from './pipe/full-name.pipe';
 import { ValorDatePipe } from './pipe/valor-date.pipe';
+import { PhoneValidationComponent } from './phone-validation/phone-validation.component';
+import {NgxIntlTelInputModule} from "ngx-intl-tel-input";
 
 const cardPart = [
   CardComponent,
@@ -103,6 +105,7 @@ const cardPart = [
     ReactiveFormsModule,
     FormsModule,
     SlateModule,
+    NgxIntlTelInputModule
   ],
   declarations: [
     AccordionComponent,
@@ -173,6 +176,7 @@ const cardPart = [
     TimeAgoPipe,
     FullNamePipe,
     ValorDatePipe,
+    PhoneValidationComponent,
   ],
   exports: [
     TabsModule,
@@ -219,6 +223,7 @@ const cardPart = [
     TimeAgoPipe,
     FullNamePipe,
     ValorDatePipe,
+    PhoneValidationComponent
   ],
   providers: [{ provide: NOTYFToken, useFactory: notyfFactory }],
 })

@@ -11,11 +11,14 @@ import { RegisterDTO, ResetPasswordDTO, ResetNewPasswordDTO, RefreshTokenDTO } f
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload } from './auth-events.constant';
 import { RefreshAuthGuard } from './guards/refresh-auth.guard';
+import {RedisService} from "nestjs-redis";
+import {Redis} from "ioredis";
 
 
 @Controller('v1')
 export class AuthController {
   private cookieDomain: string;
+  private redis: Redis;
 
   setCookieDomain(val: string) {
     this.cookieDomain = val;
@@ -24,7 +27,9 @@ export class AuthController {
   constructor(private authService: AuthService,
     private usersService: UsersService,
     private eventEmitter: EventEmitter2,
+    private readonly redisService: RedisService
   ) {
+    this.redis = this.redisService.getClient();
   }
 
   @UseGuards(LocalAuthGuard)
@@ -182,4 +187,15 @@ export class AuthController {
       return new ResponseError('Reset Password Failed', error)
     }
   }
+
+  @Post('send-captcha')
+  async getCaptcha(@Body() body) {
+    const phone = body.phone;
+    const phoneVerifyToken = Math.random().toString().substr(2, 6);
+    await this.redis.setex(phone, 300, phoneVerifyToken);
+    this.eventEmitter.emit(SEND_SMS, new SendSMSPayload(phone, phoneVerifyToken));
+    return new ResponseSuccess('Phone Message sent');
+  }
+
+  //TODO: add forgot password
 }

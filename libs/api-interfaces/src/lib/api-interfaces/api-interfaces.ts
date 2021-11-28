@@ -48,6 +48,8 @@ export interface UserListLine {
   username: string;
   email: string;
   emailVerified: boolean;
+  phone: string;
+  phoneVerified: boolean;
   lastLogin: Date;
   deletedDate: Date;
   lastPasswordUpdateDate: Date;
