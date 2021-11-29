@@ -10,10 +10,12 @@ import {
   debounceTime,
   distinctUntilChanged,
   filter,
+  map,
   switchMap,
 } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { SettingsPasswordService } from '../settings/settings-password/settings-password.service';
+import { DefaultValidation } from '../../core/utils/password-validator';
 
 @Component({
   selector: 'valor-launchpad-sign-up',
@@ -65,12 +67,22 @@ export class SignUpComponent implements OnInit {
           this.signUpFormGroup.get('username').setErrors(null);
         }
       });
-    this.passwordService.getPasswordValidation().subscribe((res) => {
-      if (res !== null) {
-        this.setValidation(res['passwordValidation']);
-        this.setErrorMessage(res['passwordValidation']);
-      }
-    });
+
+    this.authService.user
+      .pipe(
+        map((user) => {
+          if (user) {
+            this.passwordService.getPasswordValidation().subscribe((res) => {
+              if (res !== null) {
+                this.setValidation(res['passwordValidation']);
+              }
+            });
+          } else {
+            this.setValidation(DefaultValidation);
+          }
+        })
+      )
+      .subscribe();
   }
 
   setErrorMessage(data) {
@@ -124,6 +136,7 @@ export class SignUpComponent implements OnInit {
       }
       this.passwordControl.updateValueAndValidity({ onlySelf: true });
     });
+    this.setErrorMessage(data);
   }
 
   createUser() {
