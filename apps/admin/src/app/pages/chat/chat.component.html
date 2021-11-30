@@ -5,7 +5,59 @@
     <div class="col-12 col-lg-5 col-xl-3 border-end">
       <div class="px-4 d-none d-md-block">
         <valor-launchpad-input-group class="my-3">
-          <input type="text" class="form-control" placeholder="Search..." />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            cdkOverlayOrigin
+            #trigger="cdkOverlayOrigin"
+            #searchInput
+          />
+          <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayOpen]="searchOpened"
+            (overlayOutsideClick)="searchOpened = false"
+            [cdkConnectedOverlayPanelClass]="['bg-white', 'chat-search-panel']"
+            [cdkConnectedOverlayWidth]="210"
+            [cdkConnectedOverlayOffsetY]="2"
+          >
+            <div class="w-100">
+              <ng-container
+                *ngIf="
+                  searchResult?.contacts?.length ||
+                    searchResult?.groups?.length;
+                  else emptySearch
+                "
+              >
+                <ng-container *ngIf="searchResult?.contacts?.length">
+                  <div class="ps-3 py-2">Contacts</div>
+                  <div *ngFor="let user of searchResult.contacts">
+                    <valor-launchpad-valor-launchpad-messenger
+                      [messenger]="user"
+                      [displayStatus]="false"
+                      (click)="onClickSearchResult(user)"
+                    ></valor-launchpad-valor-launchpad-messenger>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="searchResult?.groups?.length">
+                  <div class="ps-3 py-2">Groups</div>
+                  <div *ngFor="let group of searchResult.groups">
+                    <valor-launchpad-valor-launchpad-messenger
+                      [messenger]="group"
+                      [displayStatus]="false"
+                      (click)="onClickSearchResult(group)"
+                    ></valor-launchpad-valor-launchpad-messenger>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <ng-template #emptySearch>
+                <div class="ps-3 py-2">
+                  <span class="text-muted small">No user/group found.</span>
+                </div>
+              </ng-template>
+            </div>
+          </ng-template>
           <button
             valor-launchpad-button
             theme="secondary"
@@ -20,7 +72,8 @@
         *ngFor="let item of messengers"
         [messenger]="item"
         [active]="item.id === activeThread?.id"
-        (click)="onSelectThread(item)"
+        [displayStatus]="true"
+        (click)="onSelectThread(item.id)"
       ></valor-launchpad-valor-launchpad-messenger>
       <hr class="d-block d-lg-none mt-1 mb-0" />
     </div>

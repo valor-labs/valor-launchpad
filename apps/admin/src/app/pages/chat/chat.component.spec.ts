@@ -19,6 +19,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ThreadAvatarComponent } from './thread-avatar/thread-avatar.component';
 import { MessageSocketService } from '../../core/message/message-socket.service';
 import { MessageSocketServiceStub } from '../../core/message/message-socket-service-stub';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 describe('ChatComponent', () => {
   let component: ChatComponent;
@@ -35,6 +36,7 @@ describe('ChatComponent', () => {
         FormsModule,
         UiModule,
         ModalModule.forRoot(),
+        OverlayModule,
       ],
       declarations: [
         ChatComponent,

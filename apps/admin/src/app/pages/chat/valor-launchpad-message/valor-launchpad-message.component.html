@@ -5,7 +5,7 @@
   <div>
     <valor-launchpad-avatar
       [src]="message.createdUser.profile.avatar | valorImage"
-      [alt]="message.createdUser.profile.avatar.alt"
+      [alt]="message.createdUser.profile.avatar?.alt"
       [firstName]="message.createdUser.firstName"
       [lastName]="message.createdUser.lastName"
       width="40"

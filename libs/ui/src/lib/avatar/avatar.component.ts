@@ -1,5 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 
+type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+const sizeMap: Record<AvatarSize, number> = {
+  xs: 20,
+  sm: 28,
+  md: 34,
+  lg: 40,
+  xl: 56,
+}
 @Component({
     selector: 'valor-launchpad-avatar',
     templateUrl: './avatar.component.html',
@@ -17,7 +26,7 @@ export class AvatarComponent implements OnInit {
     classes = '';
 
     @Input()
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = null;
+    size: AvatarSize = null;
 
 
     @Input()
@@ -48,6 +57,8 @@ export class AvatarComponent implements OnInit {
     getFontSize(): number {
         if (this.width !== null && this.height !== null) {
             return this.width / 2;
+        } else if (this.size) {
+          return sizeMap[this.size] / 2;
         } else {
           return 0;
         }

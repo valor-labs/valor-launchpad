@@ -6,12 +6,32 @@ import {
   ChangeDetectorRef,
   Inject,
 } from '@angular/core';
-import { ChatMessageVo, ChatThreadVo } from '@valor-launchpad/api-interfaces';
+import {
+  ChatMessageVo,
+  ChatSearchVo,
+  ChatThreadVo,
+} from '@valor-launchpad/api-interfaces';
 import { ChatService } from './chat.service';
 import { FormControl } from '@angular/forms';
 import { SocketService } from '../../core/socket/socket.service';
-import { BehaviorSubject, concat, Observable, of, Subject, timer } from 'rxjs';
-import { finalize, mapTo, switchMap, throttleTime } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  concat,
+  fromEvent,
+  Observable,
+  of,
+  Subject,
+  timer,
+} from 'rxjs';
+import {
+  debounceTime,
+  filter,
+  finalize,
+  mapTo,
+  switchMap,
+  tap,
+  throttleTime,
+} from 'rxjs/operators';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CreateGroupModalComponent } from './create-group-modal/create-group-modal.component';
 import { ProfileService } from '../profile/profile.service';
@@ -49,11 +69,16 @@ export class ChatComponent implements OnInit {
   activeThread: ChatThreadWithTyping;
   activeSingleUserProfile;
   activeThreadNameCtrl = new FormControl(null);
+  @ViewChild('searchInput', { static: true })
+  searchInput: ElementRef<HTMLInputElement>;
   @ViewChild('chatMsg') chatMsgRef: ElementRef<HTMLElement>;
   @ViewChild('editor', { static: true })
   editor: EditorSlateComponent;
   sendingMessage = false;
   showDetail = false;
+  searchOpened = false;
+  searching = false;
+  searchResult: ChatSearchVo;
   constructor(
     public router: Router,
     private chatService: ChatService,
@@ -80,14 +105,17 @@ export class ChatComponent implements OnInit {
         })
       )
       .subscribe(({ threadId }) => {
+        if (!this.messengers?.length) {
+          return;
+        }
         if (!threadId) {
-          this.onSelectThread(this.messengers[0]);
+          this.onSelectThread(this.messengers[0].id);
         } else {
           const threadInRoute = this.messengers.find((i) => i.id === threadId);
           if (threadInRoute) {
             this.makeThreadActive(threadInRoute);
           } else {
-            this.onSelectThread(this.messengers[0]);
+            this.onSelectThread(this.messengers[0].id);
           }
         }
       });
@@ -134,10 +162,34 @@ export class ChatComponent implements OnInit {
       .subscribe(() => {
         this.chatService.sendTypingStatus(this.activeThread.id);
       });
+
+    fromEvent(this.searchInput.nativeElement, 'click').subscribe(() => {
+      this.searchOpened = true;
+    });
+    fromEvent(this.searchInput.nativeElement, 'keydown')
+      .pipe(
+        tap(() => (this.searching = true)),
+        debounceTime(200),
+        filter((evt) => {
+          const length = (evt.target as HTMLInputElement).value.length;
+          if (length === 0) {
+            this.searchResult = undefined;
+          }
+          return length > 0;
+        }),
+        switchMap((evt) => {
+          const { value } = evt.target as HTMLInputElement;
+          return this.chatService.search(value);
+        }),
+        finalize(() => (this.searching = false))
+      )
+      .subscribe((res) => {
+        this.searchResult = res;
+      });
   }
 
-  async onSelectThread(thread: ChatThreadWithTyping) {
-    await this.router.navigate([], { queryParams: { threadId: thread.id } });
+  async onSelectThread(threadId: string) {
+    await this.router.navigate([], { queryParams: { threadId } });
   }
 
   private makeThreadActive(thread: ChatThreadWithTyping) {
@@ -201,7 +253,7 @@ export class ChatComponent implements OnInit {
           // put new thead into thread list's head
           const newThreadWithTyping = this.wrapThreadWithTyping(newThread);
           this.messengers.unshift(newThreadWithTyping);
-          this.onSelectThread(newThreadWithTyping);
+          this.onSelectThread(newThreadWithTyping.id);
           inst.hide();
         });
       inst.content.cancelled.asObservable().subscribe(() => {
@@ -265,6 +317,28 @@ export class ChatComponent implements OnInit {
         top: this.chatMsgRef.nativeElement.scrollHeight,
       });
     });
+  }
+
+  async onClickSearchResult(mayBeThread: {
+    id?: string;
+    targetingUser: { id: string };
+  }) {
+    if (mayBeThread.id) {
+      // open thread directly
+      this.searchOpened = false;
+      await this.onSelectThread(mayBeThread.id);
+    } else {
+      // create a thread
+      this.chatService
+        .createThread('', [mayBeThread.targetingUser.id], false)
+        .subscribe((newThread) => {
+          this.searchOpened = false;
+          // put new thead into thread list's head
+          const newThreadWithTyping = this.wrapThreadWithTyping(newThread);
+          this.messengers.unshift(newThreadWithTyping);
+          this.onSelectThread(newThreadWithTyping.id);
+        });
+    }
   }
 
   private wrapThreadWithTyping(thread: ChatThreadVo): ChatThreadWithTyping {

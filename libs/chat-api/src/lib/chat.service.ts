@@ -2,7 +2,11 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { SocketConnService } from '@valor-launchpad/socket-gateway';
-import { ChatMessageVo, ChatThreadVo } from '@valor-launchpad/api-interfaces';
+import {
+  ChatMessageVo,
+  ChatSearchVo,
+  ChatThreadVo,
+} from '@valor-launchpad/api-interfaces';
 import { ChatUnreadService } from './chat-unread.service';
 import { CreateThreadDto } from './dto/create-thread.dto';
 import { UpdateThreadDto } from './dto/update-thread.dto';
@@ -39,7 +43,7 @@ export class ChatService {
     private chatUnreadService: ChatUnreadService
   ) {}
 
-  async findRecentThreads(actingUser) {
+  async findRecentThreads(actingUser, keyword?: string) {
     const threads = await this.prisma.chatThread.findMany({
       ...this.threadListSelect,
       where: {
@@ -57,6 +61,123 @@ export class ChatService {
       result.push(await this.threadToVo(t, actingUser));
     }
     return result;
+  }
+
+  async searchThreadOrUsers(
+    keyword: string,
+    actingUser
+  ): Promise<ChatSearchVo> {
+    let nameFilter: Prisma.UserEntityWhereInput;
+    if (keyword && keyword.length > 0) {
+      nameFilter = {
+        OR: [
+          { firstName: { contains: keyword } },
+          { lastName: { contains: keyword } },
+          { username: { contains: keyword } },
+          { email: { contains: keyword } },
+          { phone: { contains: keyword } },
+        ],
+      };
+    }
+    const others = await this.prisma.userEntity.findMany({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        username: true,
+        profile: {
+          select: {
+            avatar: {
+              select: {
+                src: true,
+                src_webp: true,
+                alt: true,
+              },
+            },
+          },
+        },
+        chatUserThreads: {
+          where: {
+            thread: {
+              chatThreadUsers: {
+                some: {
+                  userId: actingUser.id,
+                },
+              },
+              isGroup: false,
+            },
+          },
+        },
+      },
+      where: {
+        deletedDate: null,
+        id: { not: actingUser.id },
+        ...nameFilter,
+      },
+    });
+    // find if self hit
+    const self = await this.prisma.userEntity.findFirst({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        username: true,
+        profile: {
+          select: {
+            avatar: {
+              select: {
+                src: true,
+                src_webp: true,
+                alt: true,
+              },
+            },
+          },
+        },
+        chatUserThreads: {
+          where: {
+            thread: {
+              chatThreadUsers: {
+                every: {
+                  userId: actingUser.id,
+                },
+              },
+              isGroup: false,
+            },
+          },
+        },
+      },
+      where: {
+        id: actingUser.id,
+        ...nameFilter,
+      },
+    });
+
+    // find groups
+    const groups = await this.prisma.chatThread.findMany({
+      ...this.threadListSelect,
+      where: {
+        isGroup: true,
+        name: {
+          contains: keyword,
+        },
+      },
+    });
+    return {
+      contacts: [...others, ...(self ? [self] : [])].map((i) => {
+        return {
+          id: i.chatUserThreads[0]?.threadId,
+          targetingUser: i,
+          avatar: i.profile.avatar,
+          name: `${i.firstName} ${i.lastName}`,
+        };
+      }),
+      groups: groups.map((i) => ({
+        id: i.id,
+        name: i.name,
+        chatThreadUsers: i.chatThreadUsers.map((item) => item.user),
+        isGroup: true,
+      })),
+    };
   }
 
   private async threadToVo(
@@ -120,6 +241,40 @@ export class ChatService {
         chatThreadUsers: {
           createMany: {
             data: userIds.map((userId) => ({ userId })),
+          },
+        },
+      },
+    });
+    return this.threadToVo(newThread, actingUser);
+  }
+
+  async createSingleThread({ userIds }: CreateThreadDto, actingUser) {
+    const query = await this.prisma.$queryRaw<unknown[]>`
+      SELECT ctu.threadId, GROUP_CONCAT(ctu.userId) AS uids
+      FROM ChatThreadUser ctu
+      INNER JOIN ChatThread ct ON ctu.threadId = ct.id
+      WHERE ct.isGroup = 0
+      GROUP BY ctu.threadId
+      HAVING
+        (uids LIKE ${'%' + actingUser.id} AND uids LIKE ${userIds[0] + '%'})
+          OR
+        (uids LIKE ${actingUser.id + '%'} AND uids LIKE ${'%' + userIds[0]})
+    `;
+    if (query.length > 0) {
+      throw new HttpException(
+        'The thread exists already.',
+        HttpStatus.BAD_REQUEST
+      );
+    }
+    const lines = Array.from(new Set<string>([userIds[0], actingUser.id]));
+    const newThread = await this.prisma.chatThread.create({
+      ...this.threadListSelect,
+      data: {
+        isGroup: false,
+        lastChatDate: new Date(),
+        chatThreadUsers: {
+          createMany: {
+            data: lines.map((userId) => ({ userId })),
           },
         },
       },
