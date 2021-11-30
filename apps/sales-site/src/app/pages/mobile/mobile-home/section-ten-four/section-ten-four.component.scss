@@ -1,0 +1,59 @@
+:host {
+  .introduce {
+    padding: 0 16px;
+    background: none;
+    margin-top: 64px;
+
+    .title-text {
+      h2 {
+        font-size: 36px;
+        margin-bottom: 16px;
+      }
+    }
+    .dmitriy {
+      width: 100%;
+      margin-top: 36px;
+      border-radius: 20px;
+      background-image: url('/assets/img/spot-dark.svg');
+      background-repeat: repeat;
+      background-position: top right;
+      padding-bottom: 50px;
+      background-size: 100%;
+
+      .main-container {
+        background: #1c2128;
+        border-radius: 20px;
+
+        .img-container {
+          height: 343px;
+          background: url('/assets/img/ceo.png');
+          background-size: cover;
+          background-position: center;
+          border-radius: 20px;
+        }
+
+        .text-container {
+          padding: 24px;
+          .title {
+            font-size: 24px;
+            font-weight: 700;
+          }
+          .job {
+            margin-bottom: 24px;
+            color: #b2b0b0;
+          }
+          .main-text {
+          }
+          .icons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            i {
+              font-size: 32px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

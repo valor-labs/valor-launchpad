@@ -1,0 +1,24 @@
+@import '../../../../../../scss/1-variables/dark';
+
+:host {
+  .benefits {
+    padding-top: 50px;
+    text-align: center;
+
+    .headline-2 {
+      margin-bottom: 32px;
+      font-size: 32px;
+    }
+
+    .buttons {
+      margin-top: 40px;
+
+      .gradual-btn {
+        margin-bottom: 24px;
+      }
+    }
+    img {
+      width: 90%;
+    }
+  }
+}

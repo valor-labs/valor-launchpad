@@ -1,0 +1,40 @@
+<section class="integrations">
+  <div class="email-subscribe">
+    <div class="input-group input-group-navbar">
+      <input type="text" class="form-control" placeholder="E-mail" />
+    </div>
+    <button class="btn">
+      <span class="azure-gradient">Subscribe</span>
+      <i
+        class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"
+      ></i>
+    </button>
+  </div>
+  <div class="conduct-title">
+    <a href="#">
+      <img
+        class="ngx-bootstrap-logo"
+        [src]="'assets/ngx-bootstrap-' + theme + '.svg'"
+        alt="ngx-bootstrap"
+      />
+    </a>
+    <h1 class="title lg-text pt-5">
+      <span>Integrations</span>
+    </h1>
+  </div>
+  <div class="integration-img"></div>
+  <div class="main-text">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat accumsan
+    in tellus non risus iaculis tempus, in vestibulum. Nisl mauris velit
+    tristique a, tellus ut.
+  </div>
+  <div class="start-btn-container">
+    <button class="get-started-btn">
+      <span class="fw-bold">{{ integrationBtnText }}</span>
+      <i
+        class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"
+      ></i>
+    </button>
+  </div>
+</section>
+<router-outlet></router-outlet>

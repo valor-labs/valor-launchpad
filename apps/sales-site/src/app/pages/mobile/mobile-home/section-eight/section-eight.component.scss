@@ -1,0 +1,30 @@
+@import '../../../../../../scss/1-variables/dark';
+
+:host {
+  .has-need {
+    background: url('/assets/img/pc-dark.png'), url('/assets/img/spot-dark.svg');
+    background-position: left -260px bottom -50px, center;
+    background-size: 180%, 100%;
+    background-repeat: no-repeat, repeat;
+    height: 580px;
+
+    .container {
+      height: inherit;
+
+      h2 {
+        position: relative;
+        font-size: 28px;
+        padding-bottom: 10px;
+        width: 70%;
+        left: 10%;
+        top: 60px;
+      }
+      img {
+        width: 200%;
+        position: relative;
+        left: -80%;
+        top: 70px;
+      }
+    }
+  }
+}

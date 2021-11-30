@@ -1,0 +1,51 @@
+:host {
+  .think-about {
+    padding: 0 16px;
+    margin-top: 64px;
+
+    .title {
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    .text-container {
+      text-align: center;
+      background: #1c2128;
+      border-radius: 20px;
+      padding-top: 40px;
+      margin-top: 40px;
+
+      .img-container {
+        margin: 0 auto 40px auto;
+        width: 175px;
+        height: 175px;
+        background: url('/assets/img/developer.png');
+        background-size: cover;
+        background-position: right center;
+        border-radius: 50%;
+      }
+      .answer {
+        margin-top: 36px;
+        font-size: 20px;
+      }
+      .think-name {
+        font-size: 24px;
+        margin-top: 24px;
+      }
+      .think-profile {
+      }
+    }
+
+    .think-bottom {
+      text-align: end;
+      height: 100px;
+
+      .fa-long-arrow-alt-right {
+        line-height: 100px;
+        transform: scale(3);
+        margin-right: 32px;
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+@import '../../../../../../scss/1-variables/dark';
+
+:host {
+  .list-page {
+    background: transparent;
+    padding-top: 64px;
+    .list-page-info {
+      h1 {
+        font-size: 32px;
+      }
+    }
+    .img-container {
+      position: relative;
+      height: 240px;
+
+      .screen-show {
+        width: 269.47px;
+        height: 192.04px;
+        border-radius: 15px;
+        position: absolute;
+
+        &.img-one {
+          background: url('/assets/img/list-page.png');
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: left;
+          left: -110px;
+          z-index: 100;
+        }
+        &.img-two {
+          background: url('/assets/img/list-page-2.jpeg');
+          background-size: 120%;
+          background-repeat: no-repeat;
+          background-position: center;
+          top: 20px;
+          left: 30px;
+          z-index: 80;
+        }
+        &.img-three {
+          background: url('/assets/img/list-page-3.jpeg');
+          background-size: 135%;
+          background-repeat: no-repeat;
+          background-position: top -51px left -25px;
+          top: 10px;
+          left: -40px;
+          z-index: 90;
+        }
+        &.img-four {
+          background: url('/assets/img/list-page-4.jpeg');
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: left;
+          top: 30px;
+          left: 110px;
+          z-index: 70;
+        }
+      }
+    }
+  }
+}

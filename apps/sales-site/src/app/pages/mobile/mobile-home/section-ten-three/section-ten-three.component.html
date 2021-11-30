@@ -1,0 +1,55 @@
+<section class="plans">
+  <h2 class="title">
+    Plans for<br />
+    everyone
+  </h2>
+  <h4 class="sub-title">
+    Lorem ipsum dolor sit amet. Est placeat corporis et temporibus
+  </h4>
+  <div class="plans-container">
+    <div class="plan-item" *ngFor="let plan of plans; index as i">
+      <div
+        [ngClass]="{ 'plan-top': true, 'last-title': i === plans?.length - 1 }"
+      >
+        <div class="title">
+          {{ plan.title }}
+        </div>
+        <div class="before-discount">
+          {{ plan.beforeDiscount }}
+        </div>
+      </div>
+      <div *ngIf="plan.subTitle" class="plan-middle">
+        <div class="sub-title">{{ plan.subTitle }}</div>
+        <div class="desc">{{ plan.desc }}</div>
+      </div>
+      <div *ngIf="!plan.subTitle" class="plan-middle none">-</div>
+      <div class="plan-bottom">
+        <button *ngIf="plan.subTitle" class="gradual-btn">
+          <span class="purple-blue-ft">Buy This</span>
+        </button>
+        <button *ngIf="!plan.subTitle" class="plans-btn">
+          <span>Contact Us</span>
+        </button>
+        <span class="learn-more">Learn more</span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="container justify-content-between align-items-center month-update"
+  >
+    <div>
+      <h3>Monthly Updates <br />Subscription</h3>
+      <span class="main-text"
+        >Get the best new features and bug fixes with an updates subscription!
+        You can add an updates package for your purchase. This enables you to
+        get updates as they come out (for the level you purchased).
+      </span>
+    </div>
+    <div class="btn-container">
+      <button class="gradual-btn">
+        <span class="purple-blue-ft">Buy This</span>
+      </button>
+    </div>
+  </div>
+</section>
