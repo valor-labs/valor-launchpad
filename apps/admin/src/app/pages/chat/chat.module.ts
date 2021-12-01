@@ -9,6 +9,7 @@ import { UiModule } from '@valor-launchpad/ui';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateGroupModalComponent } from './create-group-modal/create-group-modal.component';
 import { ThreadAvatarComponent } from './thread-avatar/thread-avatar.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ThreadAvatarComponent } from './thread-avatar/thread-avatar.component';
     UiModule,
     FormsModule,
     ReactiveFormsModule,
+    OverlayModule,
   ],
 })
 export class ChatModule {}

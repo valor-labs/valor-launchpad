@@ -24,7 +24,7 @@
         "
       >
         <ng-container
-          *ngIf="messenger.isGroup && messenger.name.length === 0; else normal"
+          *ngIf="messenger.isGroup && !messenger.name?.length; else normal"
         >
           {{ genGroupName }}
         </ng-container>
@@ -32,7 +32,7 @@
           {{ messenger.name }}
         </ng-template>
       </div>
-      <div class="small">
+      <div class="small" *ngIf="displayStatus">
         <ng-container *ngIf="!messenger.isGroup">
           <span
             class="fas fa-circle"

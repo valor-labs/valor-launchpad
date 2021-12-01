@@ -3,6 +3,7 @@ import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {
   ChatMessageVo,
+  ChatSearchVo,
   ChatThreadVo,
   ChatUserVo,
 } from '@valor-launchpad/api-interfaces';
@@ -56,6 +57,17 @@ export class ChatService implements IChatService {
 
   sendTypingStatus(threadId: string) {
     this.socketService.socket.emit('typing', { threadId });
+  }
+
+  search(keyword: string) {
+    let params = new HttpParams();
+    if (keyword) {
+      params = params.set('keyword', keyword);
+    }
+    return this.httpClient.get<ChatSearchVo>(
+      `${this.apiBase}api/chat/v1/search`,
+      { params }
+    );
   }
 
   fetchThreads() {

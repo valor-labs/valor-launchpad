@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
@@ -20,6 +21,11 @@ import { UpdateThreadDto } from './dto/update-thread.dto';
 export class ChatController {
   constructor(private chatService: ChatService) {}
 
+  @Get('search')
+  getThreadOrUsers(@User() actingUser, @Query('keyword') keyword: string) {
+    return this.chatService.searchThreadOrUsers(keyword, actingUser);
+  }
+
   @Get('threads')
   getThreads(@User() actingUser): Promise<ChatThreadVo[]> {
     return this.chatService.findRecentThreads(actingUser);
@@ -29,8 +35,9 @@ export class ChatController {
   createThread(@Body() createThreadDto: CreateThreadDto, @User() actingUser) {
     if (createThreadDto.isGroup) {
       return this.chatService.createGroup(createThreadDto, actingUser);
+    } else {
+      return this.chatService.createSingleThread(createThreadDto, actingUser);
     }
-    return;
   }
 
   @Patch('threads/:threadId')

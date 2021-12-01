@@ -19,7 +19,7 @@ export interface ChatThreadVo {
     username: string;
     firstName: string;
     lastName: string;
-    isConnected: boolean;
+    isConnected?: boolean;
     profile: {
       avatar: {
         src: string;
@@ -53,4 +53,9 @@ export interface ChatMessageVo {
   // todo: thread type is not same when push message and returning after create message
   // ChatThreadVo
   thread?: any;
+}
+
+export interface ChatSearchVo {
+  contacts: Pick<ChatThreadVo, 'id' | 'targetingUser' | 'avatar' | 'name'>[];
+  groups: Pick<ChatThreadVo, 'id' | 'name' | 'chatThreadUsers' | 'isGroup'>[];
 }
