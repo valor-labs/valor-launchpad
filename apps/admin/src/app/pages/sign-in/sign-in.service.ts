@@ -21,19 +21,17 @@ export class SignInService {
     return this.httpClient
       .post(this.config.environment.apiBase + 'api/auth/v1/login', signInForm)
       .pipe(
-        map((data: any) => {
-          if (!data.success) {
-            return data.data;
+        map((res: any) => {
+          if (!res.success) {
+            return res.data;
           }
-
+          const data = res.data;
           localStorage.setItem('refresh_token', data.refresh_token);
           this.authService.user.next(data.user);
           this.cookieService.set(
             'userName',
             `${data.user.firstName} ${data.user.lastName}`
           );
-          this.cookieService.set('avatar', data.user.avatar?.src);
-
           this.cookieService.set('firstName', `${data.user.firstName}`);
           this.cookieService.set('lastName', `${data.user.lastName}`);
           this.cookieService.set(

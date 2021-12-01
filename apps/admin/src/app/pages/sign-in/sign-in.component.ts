@@ -47,9 +47,9 @@ export class SignInComponent implements OnInit {
       this.cookieService.get('avatar') !== '' &&
       JSON.parse(this.cookieService.get('avatar'));
     this.isFirstLogin = this.userName === '';
-    this.title =
-      this.userName !== '' ? `Welcome back, ${this.userName}` : 'Welcome';
-
+    this.title = this.isFirstLogin
+      ? 'Welcome'
+      : `Welcome back, ${this.userName}`;
     if (this.authService.isLoggedIn() && !this.fromNav) {
       this.router.navigate(['/dashboard-default']);
     }

@@ -1,16 +1,14 @@
-import { Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards, ValidationPipe } from "@nestjs/common";
-import { LocalAuthGuard } from "./guards/local-auth-guard";
-import { RequestWithSession, UserEntity } from "@valor-launchpad/common-api";
-import { AuthService } from "./auth.service";
-import { Response } from 'express';
-import { User } from '@valor-launchpad/users-api';
-import { ResponseError, ResponseSuccess } from '@valor-launchpad/common-api';
-import { UsersService } from '@valor-launchpad/users-api';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { RegisterDTO, ResetPasswordDTO, ResetNewPasswordDTO, RefreshTokenDTO } from './auth.dto';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload } from './auth-events.constant';
-import { RefreshAuthGuard } from './guards/refresh-auth.guard';
+import {Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards} from "@nestjs/common";
+import {LocalAuthGuard} from "./guards/local-auth-guard";
+import {RequestWithSession, ResponseError, ResponseSuccess, UserEntity} from "@valor-launchpad/common-api";
+import {AuthService} from "./auth.service";
+import {Response} from 'express';
+import {User, UsersService} from '@valor-launchpad/users-api';
+import {JwtAuthGuard} from './guards/jwt-auth.guard';
+import {RefreshTokenDTO, RegisterDTO, ResetNewPasswordDTO, ResetPasswordDTO} from './auth.dto';
+import {EventEmitter2} from '@nestjs/event-emitter';
+import {SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload} from './auth-events.constant';
+import {RefreshAuthGuard} from './guards/refresh-auth.guard';
 import {RedisService} from "nestjs-redis";
 import {Redis} from "ioredis";
 
@@ -25,9 +23,9 @@ export class AuthController {
   }
 
   constructor(private authService: AuthService,
-    private usersService: UsersService,
-    private eventEmitter: EventEmitter2,
-    private readonly redisService: RedisService
+              private usersService: UsersService,
+              private eventEmitter: EventEmitter2,
+              private readonly redisService: RedisService
   ) {
     this.redis = this.redisService.getClient();
   }
@@ -39,11 +37,17 @@ export class AuthController {
       const loginResponse = await this.authService.login(body);
       req.session.token = loginResponse.access_token;
       req.session.user = loginResponse.user;
-      response.cookie('access_token', loginResponse.access_token, { domain: this.cookieDomain })
-      response.send(loginResponse);
+      response.cookie('access_token', loginResponse.access_token, {domain: this.cookieDomain})
+      response.send({
+        success: true,
+        data: loginResponse
+      });
     } catch (error) {
       console.error(error)
-      response.send(new ResponseError('Login Failed', error));
+      response.send({
+        success: false,
+        data: new ResponseError('Login Failed', error)
+      });
     }
   }
 
@@ -53,7 +57,7 @@ export class AuthController {
     const refreshResult = await this.authService.refreshToken(user.id, body.refresh_token);
     req.session.token = refreshResult.access_token;
     req.session.user = refreshResult.user;
-    response.cookie('access_token', refreshResult.access_token, { domain: this.cookieDomain })
+    response.cookie('access_token', refreshResult.access_token, {domain: this.cookieDomain})
     response.send(refreshResult);
   }
 
@@ -71,7 +75,7 @@ export class AuthController {
   async signOut(@Req() req: RequestWithSession, @User() currentUser: UserEntity, @Res() response: Response) {
     req.session.destroy();
     response.clearCookie('access_token');
-    response.status(HttpStatus.OK).send({ status: 'logout successful' });
+    response.status(HttpStatus.OK).send({status: 'logout successful'});
   }
 
   @Get('verify-user/:token')
@@ -122,12 +126,12 @@ export class AuthController {
     if (createdUser.email) {
       this.eventEmitter.emit(SEND_EMAIL, new SendEmailPayload(createdUser.email, createdUser.emailVerifyToken));
     }
-    return { username: createdUser.username };
+    return {username: createdUser.username};
   }
 
   @Get('verify-username')
   async verifyUsername(@Query('username') username: string): Promise<{ existedUsername: boolean }> {
-    return { existedUsername: await this.usersService.verifyUsername(username) };
+    return {existedUsername: await this.usersService.verifyUsername(username)};
   }
 
   @Post('update-password')
@@ -151,7 +155,7 @@ export class AuthController {
   @Post('reset-password')
   @UseGuards(JwtAuthGuard)
   async resetPassword(@Req() req: RequestWithSession, @User() user: UserEntity, @Body() body: ResetNewPasswordDTO) {
-    const { username, password } = body;
+    const {username, password} = body;
 
     if (user.username !== username) {
       return new ResponseError('Incorrect User Name');
@@ -170,7 +174,7 @@ export class AuthController {
 
   @Post('reset-password-token')
   async resetPasswordToken(@Req() req: RequestWithSession, @User() user: UserEntity, @Body() body: ResetNewPasswordDTO) {
-    const { username, password, token } = body;
+    const {username, password, token} = body;
 
     try {
       const user = this.usersService.findByPasswordResetToken(token);
