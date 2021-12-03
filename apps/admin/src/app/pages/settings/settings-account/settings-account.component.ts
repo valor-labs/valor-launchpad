@@ -10,6 +10,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SettingService } from './settings-account.service';
 import { UsersListingService } from '@valor-launchpad/users-ui';
 import { UserEntity } from '@valor-launchpad/common-api';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'valor-launchpad-settings-account',
@@ -662,7 +663,8 @@ export class SettingsAccountComponent implements OnInit {
     private settingService: SettingService,
     private usersListingService: UsersListingService,
     @Inject(NOTYFToken) private notyf: Notyf,
-    private authService: AuthService
+    private authService: AuthService,
+    private cookieService: CookieService
   ) {
     this.languageKeys = Object.keys(this.LANGUAGE);
     this.localeKeys = Object.keys(this.LOCALE);
@@ -714,20 +716,21 @@ export class SettingsAccountComponent implements OnInit {
         : newUserName;
     this.profileService
       .updateProfilePublicInfo(avatarFile, bio, profileId, newUserName, alt)
-      .subscribe((res) => {
+      .subscribe((res: UserEntity) => {
         if (typeof res === 'object') {
-          this.notyf.success(
-            'Update public info success, you will be soon to redirect to sign in page'
-          );
+          this.notyf.success('Update public info success');
           this.initData();
-          setTimeout(() => {
-            this.authService.signOut().subscribe();
-          }, 2000);
+          this._updateUserAvatar(res);
         } else {
           this.notyf.error('Update public info failure');
           console.warn(res);
         }
       });
+  }
+
+  private _updateUserAvatar(user) {
+    this.authService.user.next(user);
+    this.cookieService.set('avatar', JSON.stringify(user.profile.avatar));
   }
 
   savePrivateInfo() {
