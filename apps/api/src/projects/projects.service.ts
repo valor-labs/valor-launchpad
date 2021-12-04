@@ -1,9 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import {
-  ProjectCreatedFatEvent,
-  ProjectCreatedThinEvent,
-} from './events/project-created.event';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { ProjectCreateDto } from './dto/project-create-dto';
 import { ImageUploaderUtility } from '../media/imageUploader.utility';
@@ -42,13 +38,10 @@ export class ProjectsService {
       },
     });
 
-    this.eventEmitter.emit('project.created.thin', <ProjectCreatedThinEvent>{
+    this.eventEmitter.emit('project.created.thin', {
       id: persistedProject.id,
     });
-    this.eventEmitter.emit(
-      'project.created.fat',
-      <ProjectCreatedFatEvent>persistedProject
-    );
+    this.eventEmitter.emit('project.created.fat', persistedProject);
     return persistedProject;
   }
 

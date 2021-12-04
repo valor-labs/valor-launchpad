@@ -1,10 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '@valor-launchpad/prisma';
-import {
-  TermsOfUseAcceptanceEntity,
-  TermsOfUseEntity,
-} from '@valor-launchpad/common-api';
-import { Prisma } from '.prisma/client';
+import { TermsOfUseEntity } from '@valor-launchpad/api-interfaces';
 
 @Injectable()
 export class TermsOfUseService {

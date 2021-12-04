@@ -13,7 +13,7 @@ import { TasksService } from './tasks.service';
 import { UpdateTasksDto, CreateTasksDto } from './task.dto';
 import { ResponseError, ResponseSuccess } from '@valor-launchpad/common-api';
 import { User } from '@valor-launchpad/users-api';
-import { UserEntity } from '@valor-launchpad/common-api';
+import { RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
@@ -46,7 +46,7 @@ export class TasksController {
   @Post('create-task')
   async createTask(
     @Body() createTasksDto: CreateTasksDto,
-    @User() currentUser: UserEntity
+    @User() currentUser: RequestingUser
   ) {
     try {
       const task = await this.tasksService.createTask(
@@ -64,7 +64,7 @@ export class TasksController {
           taskStatus,
           user: {
             id: userId,
-            avatar: currentUser.avatar?.src,
+            avatar: currentUser.profile.avatar?.src,
           },
         },
       ]);

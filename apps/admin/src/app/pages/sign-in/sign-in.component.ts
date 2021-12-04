@@ -3,7 +3,6 @@ import { SignInService } from './sign-in.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { MediaEntity } from '@valor-launchpad/common-api';
 import { TermsOfUseService } from '../terms-of-use';
 
 @Component({
@@ -15,7 +14,11 @@ export class SignInComponent implements OnInit {
   public userName: string;
   firstName: string;
   lastName: string;
-  public avatar: MediaEntity;
+  public avatar: {
+    src_webp: string;
+    src: string;
+    id: string;
+  };
   public title: string;
   public isFirstLogin = true;
   public errorMessage: string;

@@ -1,5 +1,5 @@
 import { User } from '@valor-launchpad/users-api';
-import { ResponseError, UserEntity } from '@valor-launchpad/common-api';
+import { ResponseError } from '@valor-launchpad/common-api';
 import {
   Body,
   Controller,
@@ -21,7 +21,7 @@ import { PrismaService } from '@valor-launchpad/prisma';
 import { updatePublicInfoProfileDto } from './dto/update-public-info-profile.dto';
 import { updatePrivateInfoProfileDto } from './dto/update-private-info-profile.dto';
 import { Response } from 'express';
-// import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
@@ -40,7 +40,7 @@ export class ProfileController {
    */
   @Get()
   async defaultProfile(
-    @User() user: UserEntity,
+    @User() user: RequestingUser,
     @Query('username') username: string
   ) {
     return await this.profileService.getProfile(
@@ -50,7 +50,7 @@ export class ProfileController {
   }
 
   @Get('myProfile')
-  async getProfile(@User() user: UserEntity) {
+  async getProfile(@User() user: RequestingUser) {
     return await this.userService.findOne(user.username);
   }
 

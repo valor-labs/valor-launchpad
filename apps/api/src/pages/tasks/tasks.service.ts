@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@valor-launchpad/prisma';
-import { TaskEntity } from '@valor-launchpad/common-api';
+import { TaskEntity } from '@valor-launchpad/api-interfaces';
 
 @Injectable()
 export class TasksService {

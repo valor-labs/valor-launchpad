@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
 import { ResetNewPasswordService } from './reset-new-password.service';
-import { UserEntity } from '@valor-launchpad/common-api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -192,7 +191,7 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
 
   trackUser() {
     return this.authService.getCurrentUser().pipe(
-      tap((user: UserEntity) => {
+      tap((user) => {
         this.username = user.username;
         this.resetPasswordformGroup.get('username').setValue(this.username);
       }),

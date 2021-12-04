@@ -1,6 +1,6 @@
 import {Bind, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UseGuards} from "@nestjs/common";
 import {LocalAuthGuard} from "./guards/local-auth-guard";
-import {RequestWithSession, ResponseError, ResponseSuccess, UserEntity} from "@valor-launchpad/common-api";
+import {RequestWithSession, ResponseError, ResponseSuccess} from "@valor-launchpad/common-api";
 import {AuthService} from "./auth.service";
 import {Response} from 'express';
 import {User, UsersService} from '@valor-launchpad/users-api';
@@ -11,6 +11,7 @@ import {SEND_EMAIL, SEND_SMS, SendEmailPayload, SendSMSPayload} from './auth-eve
 import {RefreshAuthGuard} from './guards/refresh-auth.guard';
 import {RedisService} from "nestjs-redis";
 import {Redis} from "ioredis";
+import {RequestingUser} from '@valor-launchpad/api-interfaces';
 
 
 @Controller('v1')
@@ -53,7 +54,7 @@ export class AuthController {
 
   @UseGuards(RefreshAuthGuard)
   @Post('refresh')
-  async refreshToken(@Body() body: RefreshTokenDTO, @User() user: UserEntity, @Req() req: RequestWithSession, @Res() response: Response) {
+  async refreshToken(@Body() body: RefreshTokenDTO, @User() user: RequestingUser, @Req() req: RequestWithSession, @Res() response: Response) {
     const refreshResult = await this.authService.refreshToken(user.id, body.refresh_token);
     req.session.token = refreshResult.access_token;
     req.session.user = refreshResult.user;
@@ -63,7 +64,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('current-user')
-  async getCurrentUser(@Req() req: RequestWithSession, @User() currentUser: UserEntity, @Res() response: Response) {
+  async getCurrentUser(@Req() req: RequestWithSession, @User() currentUser: RequestingUser, @Res() response: Response) {
     if (req.session && req.session.user) {
       response.send(req.session.user);
     } else {
@@ -72,7 +73,7 @@ export class AuthController {
   }
 
   @Get('sign-out')
-  async signOut(@Req() req: RequestWithSession, @User() currentUser: UserEntity, @Res() response: Response) {
+  async signOut(@Req() req: RequestWithSession, @User() currentUser: RequestingUser, @Res() response: Response) {
     req.session.destroy();
     response.clearCookie('access_token');
     response.status(HttpStatus.OK).send({status: 'logout successful'});
@@ -136,7 +137,7 @@ export class AuthController {
 
   @Post('update-password')
   @UseGuards(JwtAuthGuard)
-  async updatePassword(@User() user: UserEntity, @Body() body: ResetPasswordDTO) {
+  async updatePassword(@User() user: RequestingUser, @Body() body: ResetPasswordDTO) {
     await this.authService.updatePassword(user.username, body.oldPassword, body.newPassword);
     return {};
   }
@@ -154,7 +155,7 @@ export class AuthController {
 
   @Post('reset-password')
   @UseGuards(JwtAuthGuard)
-  async resetPassword(@Req() req: RequestWithSession, @User() user: UserEntity, @Body() body: ResetNewPasswordDTO) {
+  async resetPassword(@Req() req: RequestWithSession, @User() user: RequestingUser, @Body() body: ResetNewPasswordDTO) {
     const {username, password} = body;
 
     if (user.username !== username) {
@@ -173,7 +174,7 @@ export class AuthController {
   }
 
   @Post('reset-password-token')
-  async resetPasswordToken(@Req() req: RequestWithSession, @User() user: UserEntity, @Body() body: ResetNewPasswordDTO) {
+  async resetPasswordToken(@Req() req: RequestWithSession, @User() user: RequestingUser, @Body() body: ResetNewPasswordDTO) {
     const {username, password, token} = body;
 
     try {

@@ -3,7 +3,7 @@ import {
   SettingsTermsOfUseService,
   TermsOfUseType,
 } from './settings-terms-of-use.service';
-import { TermsOfUseEntity } from '@valor-launchpad/common-api';
+import { TermsOfUseEntity } from '@valor-launchpad/api-interfaces';
 import { takeUntil, tap, filter, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
