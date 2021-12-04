@@ -12,6 +12,12 @@
   }
 }
 
+.head-menu{
+  &-wrap:not(.sp) {
+    opacity: .96;
+  }
+}
+
 .cover-mask {
   position: absolute;
   width:  calc(100% - 237px);

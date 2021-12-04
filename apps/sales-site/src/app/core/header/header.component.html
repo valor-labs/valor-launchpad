@@ -7,20 +7,233 @@
     </a>
     <div class="navbar-collapse collapse">
       <ul class="navbar-nav flex-grow-1 justify-content-center nav-ft">
-        <li class="nav-item d-inline-block">
-          <a class="nav-link active nav-text fw-bold px-lg-3" href="#">
+        <li class="nav-item d-flex align-items-center dropdown"
+          (mouseenter)="showHeadMenu($event, true)"
+          (mouseleave)="showHeadMenu($event, false)">
+          <a class="nav-link active nav-text fw-bold px-lg-3">
             <span>Product</span>
           </a>
+          <div class="head-menu">
+            <div class="head-menu-wrap">
+              <div class="head-menu-item">
+                <div class="d-flex">
+                  <div class="head-menu-l">
+                    <img [src]="'assets/ngx-bootstrap-small-' + theme + '.svg'" alt="ngx-bootstrap">
+                  </div>
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">ngx bootstrap</div>
+                    <span>Lorem ipsum dolor sit amet, 
+                      <br />consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="head-menu-l">
+                    <img [src]="'assets/valor-admin-small-' + theme + '.svg'" alt="valor-admin">
+                  </div>
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">Valor Admin</div>
+                    <span>Lorem ipsum dolor sit amet, 
+                      <br />consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="head-menu-l">
+                    <img [src]="'assets/head-support-' + theme + '.svg'" alt="support">
+                  </div>
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">Community suppot</div>
+                    <span>Lorem ipsum dolor sit amet, 
+                      <br />consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="head-menu-l">
+                    <img [src]="'assets/head-oss-' + theme + '.svg'" alt="oss">
+                  </div>
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">Other OSS</div>
+                    <span>Lorem ipsum dolor sit amet, 
+                      <br />consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
-        <li class="nav-item d-inline-block">
-          <a class="nav-link active nav-text fw-bold px-lg-3" href="#">
+        <li class="nav-item d-flex align-items-center dropdown"
+          (mouseenter)="showHeadMenu($event, true)"
+          (mouseleave)="showHeadMenu($event, false)">
+          <a class="nav-link active nav-text fw-bold px-lg-3">
             <span>Services</span>
           </a>
+          <div class="head-menu">
+            <div class="d-flex">
+              <div class="d-flex head-menu-wrap sp">
+                <div class="d-flex flex-column head-menu-item">
+                  <div class="d-flex">
+                    <div class="head-menu-l">
+                      <img [src]="'assets/development-' + theme + '.svg'" alt="development">
+                    </div>
+                    <div class="head-menu-r">
+                      <div class="d-flex head-menu-tl fw-bold">Development</div>
+                      <span>Lorem ipsum dolor sit amet, 
+                        <br />consectetur adipiscing elit.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="head-menu-l">
+                      <img [src]="'assets/design-' + theme + '.svg'" alt="design">
+                    </div>
+                    <div class="head-menu-r">
+                      <div class="d-flex head-menu-tl fw-bold">Design</div>
+                      <span>Lorem ipsum dolor sit amet, 
+                        <br />consectetur adipiscing elit.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="head-menu-l">
+                      <img [src]="'assets/devops-' + theme + '.svg'" alt="devops">
+                    </div>
+                    <div class="head-menu-r">
+                      <div class="d-flex head-menu-tl fw-bold">DevOps</div>
+                      <span>Lorem ipsum dolor sit amet, 
+                        <br />consectetur adipiscing elit.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column head-menu-item">
+                  <div class="d-flex">
+                    <div class="head-menu-l">
+                      <img [src]="'assets/technical-' + theme + '.svg'" alt="technical">
+                    </div>
+                    <div class="head-menu-r">
+                      <div class="d-flex head-menu-tl fw-bold">Technical Writing</div>
+                      <span>Lorem ipsum dolor sit amet, 
+                        <br />consectetur adipiscing elit.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="head-menu-l">
+                      <img [src]="'assets/project-' + theme + '.svg'" alt="project">
+                    </div>
+                    <div class="head-menu-r">
+                      <div class="d-flex head-menu-tl fw-bold">Project Management</div>
+                      <span>Lorem ipsum dolor sit amet, 
+                        <br />consectetur adipiscing elit.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="head-menu-l">
+                      <img [src]="'assets/solutions-' + theme + '.svg'" alt="solutions">
+                    </div>
+                    <div class="head-menu-r">
+                      <div class="d-flex head-menu-tl fw-bold">Solutions</div>
+                      <span>Lorem ipsum dolor sit amet, 
+                        <br />consectetur adipiscing elit.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="head-menu-item sp d-flex flex-column justify-content-center">
+                <div class="d-flex">
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">Large Enterprise</div>
+                    <span>Lorem ipsum dolor sit amet</span>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">Startups</div>
+                    <span>Lorem ipsum dolor sit amet</span>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">Small / Medium Businesses</div>
+                    <span>Lorem ipsum dolor sit amet</span>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">
+                      Non Profits & Government
+                      <br />Organizations
+                    </div>
+                    <span>Lorem ipsum dolor sit amet, 
+                      <br />consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
-        <li class="nav-item d-inline-block">
-          <a class="nav-link active nav-text fw-bold px-lg-3" href="#">
+        <li class="nav-item d-flex align-items-center dropdown"
+          (mouseenter)="showHeadMenu($event, true)"
+          (mouseleave)="showHeadMenu($event, false)">
+          <a class="nav-link active nav-text fw-bold px-lg-3">
             <span>Company</span>
           </a>
+          <div class="head-menu">
+            <div class="head-menu-wrap">
+              <div class="head-menu-item">
+                <div class="d-flex">
+                  <div class="head-menu-l">
+                    <img [src]="'assets/team-' + theme + '.svg'" alt="team">
+                  </div>
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">Team & Careers</div>
+                    <span>Lorem ipsum dolor sit amet, 
+                      <br />consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="head-menu-l">
+                    <img [src]="'assets/leadership-' + theme + '.svg'" alt="leadership">
+                  </div>
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">Leadership</div>
+                    <span>Lorem ipsum dolor sit amet, 
+                      <br />consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="head-menu-l">
+                    <img [src]="'assets/company-' + theme + '.svg'" alt="company">
+                  </div>
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">Company Overview</div>
+                    <span>Lorem ipsum dolor sit amet, 
+                      <br />consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="head-menu-l">
+                    <img [src]="'assets/valor-way-' + theme + '.svg'" alt="valor-way">
+                  </div>
+                  <div class="head-menu-r">
+                    <div class="d-flex head-menu-tl fw-bold">The Valor Way</div>
+                    <span>Lorem ipsum dolor sit amet, 
+                      <br />consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
     </div>

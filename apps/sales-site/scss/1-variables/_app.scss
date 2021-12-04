@@ -547,6 +547,12 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 // Typography
 $headings-color: $dark !default;
 
+// head-menu
+$head-menu-bg: linear-gradient(45deg, #eef7ff 0%, #eef8fe 100%) !default;
+$head-menu-bg-sp: #eff9fe !default;
+$head-menu-item-bg: #e3ecfb !default;
+$head-menu-color: linear-gradient(86.7deg, #BD54E2 -23.69%, #2982E3 145.1%) !default;
+
 // background-url
 $valor-logo-url: '/assets/valor-logo-light.svg' !default;
 $admin-logo-url: '/assets/admin-logo-light.svg' !default;

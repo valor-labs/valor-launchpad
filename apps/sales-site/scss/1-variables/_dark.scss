@@ -102,6 +102,12 @@ $headings-color: $dark !default;
 // // Typography
 // $headings-color: $dark !default;
 
+// head-menu
+$head-menu-bg: linear-gradient(45deg,  #252525 0%, #3a3a3a 100%) !default;
+$head-menu-bg-sp: linear-gradient(45deg,  #252525 0%, #3a3a3a 100%) !default;
+$head-menu-item-bg: #636262 !default;
+$head-menu-color: linear-gradient(86.95deg, #BD54E2 -24.72%, #2982E3 116.62%);
+
 // background-url
 $valor-logo-url: '/assets/valor-logo-dark.svg' !default;
 $admin-logo-url: '/assets/admin-logo-dark.svg' !default;
