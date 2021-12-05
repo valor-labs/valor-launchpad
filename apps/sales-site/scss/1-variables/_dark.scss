@@ -139,3 +139,14 @@ $plans-card-bg-color:  linear-gradient(179.95deg, #181C23 -13.91%, #1A1F27 99.96
 $plans-card-bg-hover-color: linear-gradient(179.95deg, #424B5A -13.91%, #1A1F27 99.96%) !default;
 
 $faq-bg-color: #171A1E !default;
+
+// masthead
+$masthead-color: $purple-blue-color !default;
+
+// pricing
+$card-times-bg: '/assets/times-dark.svg' !default;
+$thead-color: $main-text-color !default;
+$tbody-color: $main-text-color !default;
+$thead-bg: $purple-blue-color !default;
+$tbody-border-color: #C4C4C4 !default;
+$table-more-color: $purple-blue-color !default;

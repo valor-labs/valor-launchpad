@@ -25,11 +25,11 @@ button {
 .nav-text {
   font-size: $font-size-20;
 }
+.main-max {
+  max-width: 1300px;
+}
 
 .sub-nav {
-  max-width: 1440px;
-  display: flex;
-  align-items: center;
   // justify-content: space-between;
 
   &-text {
@@ -123,6 +123,10 @@ button {
   font-size: 1rem;
   color: #B2B0B0;
 }
+.headline-1 {
+  font-size: 80px;
+  font-weight: 700;
+}
 .headline-2 {
   font-weight: 600;
   font-size: 60px;
@@ -140,8 +144,36 @@ button {
   color: #fff;
   background: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%);
 }
-.header-nav {
-  max-width: 1440px;
+
+.masthead {
+  height: 685px;
+  margin-bottom: 180px;
+  &-text{
+    font-size: $font-size-base * 2;
+    width: 500px;
+    font-family: 'Cairo';
+  }
+  &-bg {
+    position: absolute;
+    background-image: url('../../src/assets/phone-card.svg'),
+    url('../../src/assets/img/spot-dark.svg');
+    width: 56.5%;
+    top: 0;
+    right: 0;
+    background-position: left center;
+    background-repeat: no-repeat, repeat;
+    background-size: contain;
+  }
+
+  .purple-blue-ft {
+    background-image: $masthead-color;
+  }
+  
+  .get-started-btn::after{
+    filter: blur(25px);
+    height: 180%;
+    top: -25%;
+  }
 }
 
 .form-switch-nav {
@@ -204,7 +236,7 @@ button {
   // padding: 36px 36px 12px;
   top: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  z-index: 3;
+  z-index: 1003;
   color: $dark;
   font-size: $main-text-font-size;
   line-height: 24px;
@@ -315,10 +347,6 @@ button {
   width: 100%;
   top: 0;
   z-index: 1;
-  .lg-text{
-    font-size: 80px;
-    font-weight: 700;
-  }
 }
 
 
@@ -648,7 +676,6 @@ button {
   &-card {
     &-item {
       width: 226px;
-      height: 361px;
       border-radius: 20px;
       background: $plans-card-bg-color;
       &:hover {
@@ -678,7 +705,7 @@ button {
       }
       &__b {
         font-size: 1rem;
-        
+        height: 218px;
         .learn-more{
           color: #5869FF;
           font-size: 12px;

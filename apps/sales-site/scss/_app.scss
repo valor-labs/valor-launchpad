@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo&family=Montserrat:wght@400;500;600;700&display=swap');
 // Variables
 @import '1-variables/app';
 
@@ -66,6 +66,7 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 
 @import '5-vendor/footer';
 @import '5-vendor/common';
+@import '5-vendor/pricing';
 // @import '5-vendor/ngx_charts';
 // @import '5-vendor/datepicker';
 // @import '5-vendor/apex_charts';

@@ -156,12 +156,11 @@
 }
 
 .plans{
+  .main-text {
+    color: $dark;
+  }
   &-card {
     &-item {
-      width: 226px;
-      height: 361px;
-      border-radius: 20px;
-      background: $plans-card-bg-color;
       .gradual-btn {
         border: 1px solid #1E1E55;
         background: transparent;
@@ -297,6 +296,23 @@
     background-image: $gradual-color;
     &.fa-heart {
       background-image: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%);
+    }
+  }
+}
+
+
+
+$plans: 'plans';
+.pricing {
+  .#{$plans}-card {
+    &-item {
+      background: linear-gradient(179.95deg, #F8F8FE -13.91%, #BCC9F4 99.96%);
+      &__t{
+        border-color: rgba(252, 244, 244, 0.6);
+      }
+      &__m{
+        border-color: rgba(252, 244, 244, 0.6);
+      }
     }
   }
 }

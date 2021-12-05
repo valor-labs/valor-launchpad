@@ -16,6 +16,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'pricing',
+        loadChildren: () => 
+          import('./pages/pricing/pricing.module').then(
+            (m) => m.PricingModule
+          ),
+      },
+      {
         path: '',
         redirectTo: '/home',
         pathMatch: 'full',

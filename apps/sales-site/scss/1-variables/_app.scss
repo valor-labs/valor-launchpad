@@ -566,7 +566,7 @@ $main-text-color: $dark !default;
 $main-text-font-size: 1rem !default;
 
 $get-started-color: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%) !default;
-$purple-blue-color: linear-gradient(97.9deg, #6EE1F8 -9.92%, #3A9BD5 56.09%)!default;
+$purple-blue-color: linear-gradient(97.9deg, #6EE1F8 -9.92%, #3A9BD5 56.09%) !default;
 $gradual-color: linear-gradient(97.9deg, #141645 -9.92%, #22215B 56.09%) !default;
 $card-bg-color: #EFF9FF !default;
 $full-btn-bg-color: linear-gradient(95.07deg, #010101 -4.72%, #2B1946 90.75%) !default;
@@ -585,3 +585,14 @@ $plans-card-bg-color:  rgba(239, 249, 255, 0.8) !default;
 $plans-card-bg-hover-color: linear-gradient(179.95deg, #F8F8FE -13.91%, #BCC9F4 99.96%) !default;
 
 $faq-bg-color: rgba(239, 249, 255, 0.6) !default;
+
+// masthead
+$masthead-color: $get-started-color !default;
+
+// pricing
+$card-times-bg: '/assets/times-sp-light.svg' !default;
+$thead-color: $white !default;
+$tbody-color: $dark !default;
+$thead-bg: $get-started-color !default;
+$tbody-border-color: #E7E7E7 !default;
+$table-more-color: $get-started-color !default;
