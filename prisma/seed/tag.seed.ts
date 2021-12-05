@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { TagsCreateEntity } from '../../libs/common-api/src';
 import { tags } from '../seed-data/tags.data';
 import { Seeder } from './seeder';
 

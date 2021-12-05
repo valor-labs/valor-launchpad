@@ -4,15 +4,15 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { UserEntity } from '@valor-launchpad/common-api';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { SocketService } from '../socket/socket.service';
 import { TermsOfUseService } from '../../pages/terms-of-use';
 import { switchMap, filter } from 'rxjs/operators';
+import { RequestingUser } from '@valor-launchpad/api-interfaces';
 
 export interface IAuthService {
-  access_token: any;
-  user: BehaviorSubject<UserEntity>;
+  access_token: string;
+  user: BehaviorSubject<RequestingUser>;
 
   checkIfUsernameExists(username: string): any;
 
@@ -20,7 +20,7 @@ export interface IAuthService {
 
   signOut(): any;
 
-  getCurrentUser(refresh): Observable<UserEntity>;
+  getCurrentUser(refresh): Observable<RequestingUser>;
 
   getToken(): any;
 
@@ -34,7 +34,7 @@ export interface IAuthService {
 })
 export class AuthService implements IAuthService {
   access_token;
-  user = new BehaviorSubject<UserEntity>(null);
+  user = new BehaviorSubject<RequestingUser>(null);
 
   constructor(
     @Inject(ENV_CONFIG) private config: EnvironmentConfig,
@@ -73,14 +73,14 @@ export class AuthService implements IAuthService {
       );
   }
 
-  getCurrentUser(refresh = false): Observable<UserEntity> {
+  getCurrentUser(refresh = false): Observable<RequestingUser> {
     if (!refresh && this.user.value) {
       return this.user;
     } else {
       return this.httpClient
         .get(this.config.environment.apiBase + 'api/auth/v1/current-user')
         .pipe(
-          map((data: { user: UserEntity }) => {
+          map((data: { user: RequestingUser }) => {
             const user = data?.user;
 
             this.user.next(data?.user);

@@ -1,20 +1,11 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Body,
-  UseGuards,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { User } from '@valor-launchpad/users-api';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 import { ResponseError, ResponseSuccess } from '@valor-launchpad/common-api';
-import { UserEntity } from '@valor-launchpad/common-api';
 import { TermsOfUseService } from './terms-of-use.service';
 import { CreateTermsOfUseDTO } from './terms-of-use.dto';
+import { RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
@@ -37,7 +28,7 @@ export class TermsOfUseController {
 
   @Post('create-terms-of-use')
   async createTermsOfUse(
-    @User() user: UserEntity,
+    @User() user: RequestingUser,
     @Body() body: CreateTermsOfUseDTO
   ) {
     try {
@@ -53,7 +44,7 @@ export class TermsOfUseController {
   }
 
   @Get('user-terms-of-use')
-  async getTermsOfUse(@User() user: UserEntity) {
+  async getTermsOfUse(@User() user: RequestingUser) {
     try {
       const isAcceptTermsOfUse = await this.termsOfUseService.getUserTermsOfUse(
         user.id
@@ -88,7 +79,7 @@ export class TermsOfUseController {
   }
 
   @Post('accept-terms-of-use')
-  async acceptTermsOfUse(@User() user: UserEntity) {
+  async acceptTermsOfUse(@User() user: RequestingUser) {
     try {
       await this.termsOfUseService.acceptTermsOfUse(user?.id);
 

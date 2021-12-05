@@ -15,9 +15,11 @@ import {
 import { StripeService } from './stripe.service';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 import { User } from '@valor-launchpad/users-api';
-import { RequestWithSession, UserEntity } from "@valor-launchpad/common-api";
+import { RequestingUser } from '@valor-launchpad/api-interfaces';
 
-
+declare type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
+};
 
 @Controller('v1')
 export class StripeController {
@@ -112,7 +114,7 @@ export class StripeController {
 
   @Get('current-user')
   @UseGuards(JwtAuthGuard)
-  getCurrentUser(@User() user: UserEntity): Partial<UserEntity> {
+  getCurrentUser(@User() user: RequestingUser): DeepPartial<RequestingUser> {
     const { id, username, firstName, lastName, email, profile } = user;
     const { location, from, city, address, zip, locale } = profile;
 

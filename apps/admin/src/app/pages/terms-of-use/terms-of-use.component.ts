@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { TermsOfUseEntity } from '@valor-launchpad/common-api';
+import { TermsOfUseEntity } from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-terms-of-use',

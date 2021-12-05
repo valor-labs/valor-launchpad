@@ -15,8 +15,8 @@ import {
   DashboardDefaultAppointmentVo,
   DashboardDefaultProjectVo,
   DashboardDefaultRevenueVo,
+  RequestingUser,
 } from '@valor-launchpad/api-interfaces';
-import { UserEntity } from '@valor-launchpad/common-api';
 import { Action, STATUS_MAPPING } from '@valor-launchpad/api-interfaces';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { ISocialActivity } from '../dashboard-social/dashboard-social.model';
@@ -82,7 +82,7 @@ export class DashboardDefaultComponent implements OnInit {
   salesRevenue$: Observable<DashboardDefaultRevenueVo[]>;
   appointments$: Observable<DashboardDefaultAppointmentVo[]>;
   latestProjects$: Observable<DashboardDefaultProjectVo[]>;
-  user: UserEntity;
+  user: RequestingUser;
   salesRevenueConfig = {
     view: [700, 400],
 

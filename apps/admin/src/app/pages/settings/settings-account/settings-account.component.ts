@@ -9,8 +9,8 @@ import { catchError } from 'rxjs/operators';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SettingService } from './settings-account.service';
 import { UsersListingService } from '@valor-launchpad/users-ui';
-import { UserEntity } from '@valor-launchpad/common-api';
 import { CookieService } from 'ngx-cookie-service';
+import { RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-settings-account',
@@ -654,7 +654,7 @@ export class SettingsAccountComponent implements OnInit {
   message: string;
 
   userDeleted: boolean;
-  public user: UserEntity;
+  public user: RequestingUser;
 
   constructor(
     private fb: FormBuilder,
@@ -716,7 +716,7 @@ export class SettingsAccountComponent implements OnInit {
         : newUserName;
     this.profileService
       .updateProfilePublicInfo(avatarFile, bio, profileId, newUserName, alt)
-      .subscribe((res: UserEntity) => {
+      .subscribe((res) => {
         if (typeof res === 'object') {
           this.notyf.success('Update public info success');
           this.initData();

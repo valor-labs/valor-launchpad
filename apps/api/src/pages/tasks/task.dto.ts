@@ -1,4 +1,4 @@
-import { TaskEntity } from '@valor-launchpad/common-api';
+import { TaskEntity } from '@valor-launchpad/api-interfaces';
 
 export interface UpdateTasksDto {
   tasks: Omit<TaskEntity, 'user'>[];
