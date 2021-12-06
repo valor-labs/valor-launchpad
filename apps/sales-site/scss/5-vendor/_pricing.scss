@@ -45,24 +45,14 @@ $plans: 'plans';
         }
       }
     }
-    .ability{
-      padding: 0;
-      font-family: 'Cairo';
-      margin-bottom: 0;
-      li {
-        list-style: none;
-        font-size: $font-size-base;
-        margin-bottom: 16px;
-      }
-      &-icon {
-        width: 15px;
-        height: 15px;
-        margin-right: 8px;
-        background-image: url('../../src' + $card-times-bg);
-        background-position: center;
-        background-color: transparent;
-      }
-    }
+    
+  }
+}
+
+.masthead {
+  &-bg.pricing-bg {
+    background-image: url('../../src/assets/phone-card.svg'),
+    url('../../src/assets/img/spot-dark.svg');
   }
 }
 

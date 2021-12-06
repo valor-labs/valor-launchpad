@@ -23,7 +23,14 @@ const routes: Routes = [
           ),
       },
       {
-        path: '',
+        path: 'integrations',
+        loadChildren: () => 
+          import('./pages/integrations/integrations.module').then(
+            (m) => m.IntegrationsModule
+          ),
+      },
+      {
+        path: '**',
         redirectTo: '/home',
         pathMatch: 'full',
       },

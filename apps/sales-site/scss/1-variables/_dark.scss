@@ -143,10 +143,18 @@ $faq-bg-color: #171A1E !default;
 // masthead
 $masthead-color: $purple-blue-color !default;
 
+$icon-times-bg: '/assets/times-dark.svg' !default;
+$icon-check-bg: '/assets/check-dark.svg' !default;
+
 // pricing
-$card-times-bg: '/assets/times-dark.svg' !default;
 $thead-color: $main-text-color !default;
 $tbody-color: $main-text-color !default;
 $thead-bg: $purple-blue-color !default;
 $tbody-border-color: #C4C4C4 !default;
 $table-more-color: $purple-blue-color !default;
+
+// integrations
+$inter-card-bg: #262626 !default;
+$side-item-color: $main-text-color !default;
+$inter-ghost-btn-color: linear-gradient(134.98deg, #FFFFFF 0.55%, #B9B9B9 95.17%) !default;
+$inter-ghost-border-color: #FFFFFF !default;

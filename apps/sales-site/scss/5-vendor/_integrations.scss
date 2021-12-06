@@ -1,0 +1,137 @@
+.masthead {
+  &-bg.integrations-bg {
+    background-image: url('../../src/assets/integrations-bg.svg'),
+    url('../../src/assets/img/spot-dark.svg');
+    background-size: 80%, auto;
+    background-position: center;
+  }
+}
+
+.inter-card {
+  padding: 40px 52px;
+  border-radius: 20px;
+  background: $inter-card-bg;
+  img {
+    width: 115px;
+  }
+}
+
+.inter-side {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .side-item {
+    font-size: $font-size-base * 2;
+    line-height: 75px;
+    height: 75px;
+    font-weight: 600;
+    margin: 24px 0;
+    color: $side-item-color;
+    &:first-child {
+      margin-top: 0 !important;
+    }
+    &.active {
+      font-size: 34px;
+      margin: 58px 0;
+      color: $dark;
+      span::after {
+        position: absolute;
+        content: '';
+        height: 1px;
+        width: 100%;
+        bottom: 0;
+        background-image: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%);
+      }
+    }
+  }
+}
+
+.inter-main {
+  margin-bottom: 140px;
+  &.stripe{
+    margin-left: 172px;
+    &-about {
+      margin-bottom: 64px;
+    }
+    .headline-3 {
+      font-size: 35px;
+      margin-bottom: 24px;
+    }
+    .desc {
+      font-size: $font-size-base * 2;
+      font-family: 'Cairo';
+      margin-bottom: 36px;
+    }
+    .ghost-btn {
+      border: 1px solid $inter-ghost-border-color;
+      height: 54px;
+      width: 270px;
+      border-radius: 100px;
+      background-color: transparent;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      font-size: $main-text-font-size;
+      background-image: $inter-ghost-btn-color;
+    }
+  }
+  &.payment {
+    margin-left: 158px;
+    margin-top: 20px;
+  }
+}
+
+.inter-ability {
+  margin-top: 80px;
+  &:first-child {
+    margin-top: 0;
+  }
+  .ability{
+    li {
+      margin-bottom: 12px;
+      &:first-child {
+        font-size: $font-size-base * 2;
+      }
+    }
+  }
+}
+
+.payment {
+  .side-item {
+    &.active {
+      margin: 40px 0;
+    }
+  }
+  .inter-card {
+    padding: 40px;
+    font-family: 'Cairo';
+    &:nth-child(even) {
+      margin-left: 64px;
+    }
+    .desc {
+      font-size: 1.125rem;
+      padding: 24px 0;
+      border-bottom: 1px solid #FFFFFF;
+    }
+    .card-link {
+      padding-top: 24px;
+      .website {
+        &,
+        &:hover {
+          color: $dark;
+          text-decoration: underline;
+        }
+      }
+      .view-link {
+        cursor: pointer;
+      }
+    }
+  }
+}
+.stripe {
+  .inter-card {
+    margin-bottom: 64px;
+  }
+}

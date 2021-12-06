@@ -155,9 +155,7 @@ button {
   }
   &-bg {
     position: absolute;
-    background-image: url('../../src/assets/phone-card.svg'),
-    url('../../src/assets/img/spot-dark.svg');
-    width: 56.5%;
+    width: 56%;
     top: 0;
     right: 0;
     background-position: left center;
@@ -826,5 +824,30 @@ button {
   }
   &-profile {
     font-size: 18px;
+  }
+}
+
+
+.ability{
+  padding: 0;
+  font-family: 'Cairo';
+  margin-bottom: 0;
+  li {
+    list-style: none;
+    font-size: $font-size-base;
+    margin-bottom: 16px;
+  }
+  &-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    background-position: center;
+    background-color: transparent;
+    &.check {
+      background-image: url('../../src' + $icon-check-bg);
+    }
+    &.times {
+      background-image: url('../../src' + $icon-times-bg);
+    }
   }
 }

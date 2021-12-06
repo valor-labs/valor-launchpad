@@ -316,3 +316,16 @@ $plans: 'plans';
     }
   }
 }
+
+
+.payment {
+  .inter-card {
+    .view-link {
+      i {
+        color: transparent;
+        background-clip: text;
+        background-image: linear-gradient(179.95deg, #F8F8FE -13.91%, #BCC9F4 99.96%);
+      }
+    }
+  }
+}
