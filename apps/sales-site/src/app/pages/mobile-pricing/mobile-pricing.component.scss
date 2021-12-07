@@ -4,8 +4,10 @@
   align-items: flex-start;
   flex-direction: column;
   background-color: #0d0d0d;
-  width: 375px;
-  height: 13950px;
+}
+
+.gradual-btn {
+  width: 150px;
 }
 
 .plans-card-item {
@@ -24,6 +26,7 @@
   border: 0;
   position: relative;
   z-index: 1;
+
   &::after {
     content: '';
     filter: blur(10px);
@@ -37,6 +40,7 @@
     border-radius: 100px;
     opacity: 0.25;
   }
+
   // span {
   //   padding-right: 20px;
   // }
@@ -125,6 +129,7 @@
   width: 239px;
   height: 36px;
   font-weight: 500;
+  margin-left: 25px;
 }
 
 .email {
@@ -651,12 +656,12 @@
   align-items: center;
   flex-direction: row;
   margin-top: 100px;
-  margin-left: 48px;
+  margin-left: 30px;
   height: 47px;
 }
 
 .info-3 {
-  margin-right: 28px;
+  margin-right: 10px;
   text-align: left;
   line-height: 20px;
   white-space: pre;
@@ -8393,6 +8398,63 @@
 }
 
 
-.icon-right {
+.icon-mark {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #b2b0b0;
+  border-radius: 50%;
+  position: relative;
 
+  &:before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 1px;
+    width: 5px;
+    height: 1px;
+    background: #b2b0b0;
+    transform: rotate(38deg);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 7px;
+    width: 1px;
+    height: 8px;
+    background: #b2b0b0;
+    transform: rotate(38deg);
+  }
+}
+
+
+.icon-unmark {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #b2b0b0;
+  border-radius: 50%;
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 2px;
+    width: 8px;
+    height: 1px;
+    background: #b2b0b0;
+    transform: rotate(38deg);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 2.3px;
+    left: 6px;
+    width: 0.5px;
+    height: 8px;
+    background: #b2b0b0;
+    transform: rotate(38deg);
+  }
 }
