@@ -104,7 +104,7 @@ export class SettingsPasswordComponent implements OnInit {
 
   generatePasswordValidator(validation) {
     if (validation) {
-      Object.keys(validation).forEach((item, i) => {
+      Object.keys(validation).forEach((item) => {
         const obj = {
           value: item,
           label: DEFAULTE_VALIDATION.find((element) => element.value === item)

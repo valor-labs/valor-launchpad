@@ -24,7 +24,7 @@ export class VerifyUserComponent implements OnInit {
   }
 
   verifyUser() {
-    this.verifyUserService.verify(this.token).subscribe((data: any) => {
+    this.verifyUserService.verify(this.token).subscribe((data) => {
       const message = data.success ? data.message : data?.data?.message;
 
       this.message = message;

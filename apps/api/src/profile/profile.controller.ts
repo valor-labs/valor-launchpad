@@ -21,7 +21,7 @@ import { PrismaService } from '@valor-launchpad/prisma';
 import { updatePublicInfoProfileDto } from './dto/update-public-info-profile.dto';
 import { updatePrivateInfoProfileDto } from './dto/update-private-info-profile.dto';
 import { Response } from 'express';
-import { RequestingUser } from '@valor-launchpad/api-interfaces';
+import { ProfileVo, RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
@@ -42,7 +42,7 @@ export class ProfileController {
   async defaultProfile(
     @User() user: RequestingUser,
     @Query('username') username: string
-  ) {
+  ): Promise<ProfileVo> {
     return await this.profileService.getProfile(
       username ?? user.username,
       user

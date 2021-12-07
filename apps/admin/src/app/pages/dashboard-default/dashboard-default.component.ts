@@ -36,12 +36,6 @@ import {
 } from '../dashboard-analytics/dashboard-analytics.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
 
-class DateOnlyPipe extends DatePipe {
-  public transform(value): any {
-    return super.transform(value, 'MM/dd/y');
-  }
-}
-
 @Component({
   selector: 'valor-launchpad-dashboard-default',
   templateUrl: './dashboard-default.component.html',
@@ -114,7 +108,7 @@ export class DashboardDefaultComponent implements OnInit {
     },
   };
   bsInlineValue = new Date();
-  @ViewChild('statusRef', { static: true }) statusTmpl: TemplateRef<any>;
+  @ViewChild('statusRef', { static: true }) statusTmpl: TemplateRef<unknown>;
   latestProjectsTableColumn: TableColumn[];
 
   activities$: Observable<ISocialActivity>;
@@ -185,13 +179,19 @@ export class DashboardDefaultComponent implements OnInit {
       {
         name: 'Start Date',
         prop: 'startDate',
-        pipe: new DateOnlyPipe('en-US'),
+        pipe: {
+          transform: (val) =>
+            new DatePipe(this.localeId).transform(val, 'MM/dd/y'),
+        },
         cellClass: 'd-flex align-items-center',
       },
       {
         name: 'End Date',
         prop: 'endDate',
-        pipe: new DateOnlyPipe('en-US'),
+        pipe: {
+          transform: (val) =>
+            new DatePipe(this.localeId).transform(val, 'MM/dd/y'),
+        },
         cellClass: 'd-flex align-items-center',
       },
       {

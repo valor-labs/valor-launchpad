@@ -27,6 +27,7 @@ import {
 } from '@valor-launchpad/api-interfaces';
 import { AuthService } from '../../core/auth/auth.service';
 
+// eslint-disable-next-line
 declare const jsVectorMap: any;
 
 export enum TimeRange {

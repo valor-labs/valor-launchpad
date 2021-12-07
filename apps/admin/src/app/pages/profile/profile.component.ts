@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { DashboardSocialService } from '../dashboard-social/dashboard-social.service';
-import { Action } from '@valor-launchpad/api-interfaces';
+import { Action, ProfileVo } from '@valor-launchpad/api-interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ISocialActivity } from '../dashboard-social/dashboard-social.model';
 import { finalize, mergeMap, scan, switchMap } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  profile;
+  profile: ProfileVo;
   activities$: Observable<ISocialActivity>;
   loadingMore = true;
   actions: Action[] = [

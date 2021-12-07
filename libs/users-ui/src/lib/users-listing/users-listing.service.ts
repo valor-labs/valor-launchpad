@@ -5,6 +5,7 @@ import {
   EnvironmentConfig,
 } from '@valor-launchpad/http';
 import { UserListLine } from '@valor-launchpad/api-interfaces';
+import { IResponse } from '@valor-launchpad/common-api';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +53,7 @@ export class UsersListingService {
   }
 
   deleteUser(username: string) {
-    return this.httpClient.post(this.baseURL + 'delete', { username });
+    return this.httpClient.post<IResponse>(this.baseURL + 'delete', { username });
   }
 
   batchDeleteUser(userIds: string[]) {

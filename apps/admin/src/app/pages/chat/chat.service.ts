@@ -16,7 +16,7 @@ export interface IChatService {
 
   sendTypingStatus(threadId: string): void;
 
-  fetchThreads(): any;
+  fetchThreads(): Observable<ChatThreadVo[]>;
 
   fetchThreadMessages(threadId: string): Observable<ChatMessageVo[]>;
 
@@ -26,11 +26,15 @@ export interface IChatService {
     socketId: string
   ): Observable<ChatMessageVo>;
 
-  markThreadAsRead(threadId: string): any;
+  markThreadAsRead(threadId: string): Observable<void>;
 
-  searchUser(keyword: string): any;
+  searchUser(keyword: string): Observable<ChatUserVo[]>;
 
-  createThread(threadName: string, userIds: string[], isGroup: boolean): any;
+  createThread(
+    threadName: string,
+    userIds: string[],
+    isGroup: boolean
+  ): Observable<ChatThreadVo>;
 }
 
 @Injectable({
@@ -90,7 +94,7 @@ export class ChatService implements IChatService {
   }
 
   markThreadAsRead(threadId: string) {
-    return this.httpClient.post(
+    return this.httpClient.post<void>(
       `${this.apiBase}api/chat/v1/threads/${threadId}/markAsRead`,
       {}
     );

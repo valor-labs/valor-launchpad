@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NavigationModule } from '../core/navigation/navigation.module';
-import { UiModule } from '@valor-launchpad/ui';
 import { HeaderModule } from '../core/header/header.module';
 import { FooterModule } from '../core/footer/footer.module';
 import { ThemeBuilderComponent } from '../core/theme-builder/theme-builder.component';

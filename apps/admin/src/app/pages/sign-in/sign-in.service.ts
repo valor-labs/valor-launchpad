@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { IResponse } from '@valor-launchpad/common-api';
 
 @Injectable({
   providedIn: 'root',
@@ -19,9 +20,12 @@ export class SignInService {
 
   async login(signInForm) {
     return this.httpClient
-      .post(this.config.environment.apiBase + 'api/auth/v1/login', signInForm)
+      .post<IResponse>(
+        this.config.environment.apiBase + 'api/auth/v1/login',
+        signInForm
+      )
       .pipe(
-        map((res: any) => {
+        map((res) => {
           if (!res.success) {
             return res.data;
           }

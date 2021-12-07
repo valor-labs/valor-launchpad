@@ -10,7 +10,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SettingService } from './settings-account.service';
 import { UsersListingService } from '@valor-launchpad/users-ui';
 import { CookieService } from 'ngx-cookie-service';
-import { RequestingUser } from '@valor-launchpad/api-interfaces';
+import { ProfileVo, RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-settings-account',
@@ -649,7 +649,7 @@ export class SettingsAccountComponent implements OnInit {
   publicInfoFormGroup: FormGroup;
   privateInfoFormGroup: FormGroup;
 
-  profile: any;
+  profile: ProfileVo;
 
   message: string;
 
@@ -758,20 +758,18 @@ export class SettingsAccountComponent implements OnInit {
   }
 
   confirmDeletedAccount() {
-    this.usersListingService
-      .deleteUser(this.user.username)
-      .subscribe((res: any) => {
-        if (res.success) {
-          this.message = 'User has been deleted , return to login.';
-          this.deletedAccountModal.hide();
-          this.userDeleted = true;
-          this.authService.signOut().subscribe();
-        } else {
-          this.deletedAccountModal.hide();
-          this.message = 'Failed to Deleted Account.';
-          this.userDeleted = true;
-        }
-      });
+    this.usersListingService.deleteUser(this.user.username).subscribe((res) => {
+      if (res.success) {
+        this.message = 'User has been deleted , return to login.';
+        this.deletedAccountModal.hide();
+        this.userDeleted = true;
+        this.authService.signOut().subscribe();
+      } else {
+        this.deletedAccountModal.hide();
+        this.message = 'Failed to Deleted Account.';
+        this.userDeleted = true;
+      }
+    });
   }
 
   private handleError(error: HttpErrorResponse) {

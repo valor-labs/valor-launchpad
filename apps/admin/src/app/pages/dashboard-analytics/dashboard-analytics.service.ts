@@ -11,26 +11,10 @@ import {
   DashboardAnalyticTrafficVo,
 } from '@valor-launchpad/api-interfaces';
 
-export interface IDashboardAnalyticsService {
-  getOverview(startAt: Date, endAt: Date): any;
-
-  getByCity(startAt: Date, endAt: Date): any;
-
-  getByLanguage(startAt: Date, endAt: Date): any;
-
-  getByPlatform(): any;
-
-  getByInterest(startAt: Date, endAt: Date): any;
-
-  getBySource(startAt: Date, endAt: Date): any;
-
-  getByTraffic(startAt: Date, endAt: Date): any;
-}
-
 @Injectable({
   providedIn: 'root',
 })
-export class DashboardAnalyticsService implements IDashboardAnalyticsService {
+export class DashboardAnalyticsService {
   private apiBase = this.config.environment.apiBase;
   constructor(
     @Inject(ENV_CONFIG) private config: EnvironmentConfig,

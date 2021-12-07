@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { HttpClient } from '@angular/common/http';
-import { RequestingUser } from '@valor-launchpad/api-interfaces';
+import { ProfileVo, RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class ProfileService {
     if (username) {
       params.username = username;
     }
-    return this.httpClient.get<any>(
+    return this.httpClient.get<ProfileVo>(
       this.config.environment.apiBase + `api/profile/v1`,
       { params }
     );

@@ -14,19 +14,25 @@ export interface IAuthService {
   access_token: string;
   user: BehaviorSubject<RequestingUser>;
 
-  checkIfUsernameExists(username: string): any;
+  checkIfUsernameExists(
+    username: string
+  ): Observable<{ existedUsername: boolean }>;
 
-  signUp(user): any;
+  signUp(user): Observable<{ username: string }>;
 
-  signOut(): any;
+  signOut(): Observable<void>;
 
   getCurrentUser(refresh): Observable<RequestingUser>;
 
-  getToken(): any;
+  getToken(): string;
 
-  isLoggedIn(): any;
+  isLoggedIn(): Observable<boolean>;
 
-  generateNewAccessToken(): any;
+  generateNewAccessToken(): Observable<{
+    access_token: string;
+    refresh_token: string;
+    user: RequestingUser;
+  }>;
 }
 
 @Injectable({
@@ -53,7 +59,7 @@ export class AuthService implements IAuthService {
   }
 
   signUp(user) {
-    return this.httpClient.post(
+    return this.httpClient.post<{ username: string }>(
       this.config.environment.apiBase + 'api/auth/v1/register',
       user
     );
@@ -99,14 +105,16 @@ export class AuthService implements IAuthService {
     const allCookies = this.cookieService.getAll();
     this.access_token = allCookies.access_token;
     return this.httpClient
-      .get(this.config.environment.apiBase + 'api/auth/v1/current-user')
+      .get<RequestingUser>(
+        this.config.environment.apiBase + 'api/auth/v1/current-user'
+      )
       .pipe(
         tap((data) => {
           if (data) {
             this.socketService.connect();
           }
         }),
-        tap((data: any) => {
+        tap((data) => {
           if (!data) {
             this.router.navigate(['/sign-in']);
           } else {
@@ -140,10 +148,14 @@ export class AuthService implements IAuthService {
     const access_token = this.cookieService.get('access_token');
     const refresh_token = localStorage.getItem('refresh_token');
     return this.httpClient
-      .post<{ access_token: string; refresh_token: string; user }>(
-        this.config.environment.apiBase + 'api/auth/v1/refresh',
-        { access_token, refresh_token }
-      )
+      .post<{
+        access_token: string;
+        refresh_token: string;
+        user: RequestingUser;
+      }>(this.config.environment.apiBase + 'api/auth/v1/refresh', {
+        access_token,
+        refresh_token,
+      })
       .pipe(
         tap((data) => {
           this.user.next(data.user);

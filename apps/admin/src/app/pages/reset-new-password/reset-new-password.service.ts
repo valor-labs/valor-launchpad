@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
-import { Observable } from 'rxjs';
+import { IResponse } from '@valor-launchpad/common-api';
 
 @Injectable({
   providedIn: 'root',
@@ -17,22 +17,22 @@ export class ResetNewPasswordService {
     const url = `${this.baseURL}reset-password`;
     const urlByToken = `${this.baseURL}reset-password-token`;
 
-    return this.httpClient.post(token ? urlByToken : url, {
+    return this.httpClient.post<IResponse>(token ? urlByToken : url, {
       username,
       password,
       token,
     });
   }
 
-  verifyPasswordResetToken(token): Observable<any> {
+  verifyPasswordResetToken(token) {
     const url = `${this.baseURL}verify-password-reset/${token}`;
 
-    return this.httpClient.get(url);
+    return this.httpClient.get<IResponse>(url);
   }
 
-  cancelPasswordReset(token): Observable<any> {
+  cancelPasswordReset(token) {
     const url = `${this.baseURL}cancel-password-reset/${token}`;
 
-    return this.httpClient.get(url);
+    return this.httpClient.get<IResponse>(url);
   }
 }
