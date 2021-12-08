@@ -53,21 +53,8 @@ export class TasksController {
         createTasksDto.task,
         currentUser.id
       );
-      const { id, title, desc, taskIndex, taskStatus, userId } = task;
 
-      return new ResponseSuccess('Create Task Success', [
-        {
-          id,
-          title,
-          desc,
-          taskIndex,
-          taskStatus,
-          user: {
-            id: userId,
-            avatar: currentUser.profile.avatar?.src,
-          },
-        },
-      ]);
+      return new ResponseSuccess('Create Task Success', [task]);
     } catch (e) {
       return new ResponseError('Create Task Failed');
     }

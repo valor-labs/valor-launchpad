@@ -48,13 +48,13 @@
               </div>
               <p>{{ task.desc }}</p>
               <div class="float-end mt-n1">
-                <img
-                  [src]="task.user.avatar"
-                  width="32"
-                  height="32"
-                  class="rounded-circle"
-                  alt="Avatar"
-                />
+                <valor-launchpad-avatar
+                  [src]="task.user.profile.avatar | valorImage"
+                  [alt]="task.user.profile.avatar?.alt"
+                  [firstName]="task.user.firstName"
+                  [lastName]="task.user.lastName"
+                  size="sm"
+                ></valor-launchpad-avatar>
               </div>
               <button
                 valor-launchpad-button
@@ -115,13 +115,13 @@
               </div>
               <p>{{ task.desc }}</p>
               <div class="float-end mt-n1">
-                <img
-                  [src]="task.user.avatar"
-                  width="32"
-                  height="32"
-                  class="rounded-circle"
-                  alt="Avatar"
-                />
+                <valor-launchpad-avatar
+                  [src]="task.user.profile.avatar | valorImage"
+                  [alt]="task.user.profile.avatar?.alt"
+                  [firstName]="task.user.firstName"
+                  [lastName]="task.user.lastName"
+                  size="sm"
+                ></valor-launchpad-avatar>
               </div>
               <button
                 valor-launchpad-button
@@ -186,13 +186,13 @@
               </div>
               <p>{{ task.desc }}</p>
               <div class="float-end mt-n1">
-                <img
-                  [src]="task.user.avatar"
-                  width="32"
-                  height="32"
-                  class="rounded-circle"
-                  alt="Avatar"
-                />
+                <valor-launchpad-avatar
+                  [src]="task.user.profile.avatar | valorImage"
+                  [alt]="task.user.profile.avatar?.alt"
+                  [firstName]="task.user.firstName"
+                  [lastName]="task.user.lastName"
+                  size="sm"
+                ></valor-launchpad-avatar>
               </div>
               <button
                 valor-launchpad-button
