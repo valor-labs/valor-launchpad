@@ -130,7 +130,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   fileExtensionValidator(validExt: string[]): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): ValidationErrors | null => {
       let forbidden;
       if (control.value) {
         forbidden = true;

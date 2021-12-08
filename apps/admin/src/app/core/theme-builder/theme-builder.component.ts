@@ -12,7 +12,7 @@ import {
   styleUrls: ['./theme-builder.component.scss'],
 })
 export class ThemeBuilderComponent implements OnInit, AfterViewInit {
-  themeBuilderClass: { [key: string]: any };
+  themeBuilderClass: { [key: string]: boolean };
 
   themeBuilderFg: FormGroup;
 
@@ -70,7 +70,7 @@ export class ThemeBuilderComponent implements OnInit, AfterViewInit {
     const settingsClassName = '.js-settings';
     const settingsElement = document.querySelector(settingsClassName);
     document.body.onclick = (e) => {
-      if (!settingsElement.contains((e as any).target)) {
+      if (!settingsElement.contains(e.target as HTMLElement)) {
         settingsElement.classList.remove('open');
       }
     };

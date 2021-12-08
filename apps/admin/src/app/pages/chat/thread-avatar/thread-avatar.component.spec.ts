@@ -5,7 +5,6 @@ import { UiModule } from '@valor-launchpad/ui';
 import { HttpModule } from '@valor-launchpad/http';
 import { environment } from '../../../../environments/environment';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ThreadAvatarComponent', () => {
   let component: ThreadAvatarComponent;

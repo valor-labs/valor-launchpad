@@ -6,10 +6,12 @@ import {
   ChatMessageVo,
   ChatSearchVo,
   ChatThreadVo,
+  RequestingUser,
 } from '@valor-launchpad/api-interfaces';
 import { ChatUnreadService } from './chat-unread.service';
 import { CreateThreadDto } from './dto/create-thread.dto';
 import { UpdateThreadDto } from './dto/update-thread.dto';
+import { Element } from 'slate';
 
 @Injectable()
 export class ChatService {
@@ -43,7 +45,7 @@ export class ChatService {
     private chatUnreadService: ChatUnreadService
   ) {}
 
-  async findRecentThreads(actingUser, keyword?: string) {
+  async findRecentThreads(actingUser: RequestingUser) {
     const threads = await this.prisma.chatThread.findMany({
       ...this.threadListSelect,
       where: {
@@ -381,7 +383,7 @@ export class ChatService {
 
   async createMessage(
     threadId: string,
-    message: any[],
+    message: Element[],
     actingUser,
     socketId: string
   ) {
@@ -419,7 +421,7 @@ export class ChatService {
         },
       },
       data: {
-        message: message as Prisma.JsonArray,
+        message: message as unknown as Prisma.JsonArray,
         threadId,
         createdUserId: actingUser.id,
       },

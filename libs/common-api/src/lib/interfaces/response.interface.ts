@@ -1,10 +1,10 @@
 // success: true => message, data
 // success: false => errorMessage, error
 
-export interface IResponse{
+export interface IResponse<T = any, E = any> {
   success: boolean;
   message: string;
   errorMessage: string;
-  data: any[];
-  error: any;
+  data: T;
+  error: E;
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { IResponse } from '@valor-launchpad/common-api';
 
 @Injectable({
   providedIn: 'root',
@@ -31,16 +32,16 @@ export class TermsOfUseService {
     }
   }
 
-  public acceptTermsOfUse(): Observable<any> {
+  public acceptTermsOfUse() {
     const url = `${this.baseURL}accept-terms-of-use`;
 
-    return this.http.post(`${url}`, {});
+    return this.http.post<IResponse>(`${url}`, {});
   }
 
-  public getLatestTermsOfUse(): Observable<any> {
+  public getLatestTermsOfUse() {
     const url = `${this.baseURL}latest-terms-of-use`;
 
-    return this.http.get(`${url}`);
+    return this.http.get<IResponse>(`${url}`);
   }
 
   public resetAcceptTermsOfUse() {

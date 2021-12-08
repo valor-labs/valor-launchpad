@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
   Action,
-  Timeline,
   TableColumns,
+  ClientVo,
 } from '@valor-launchpad/api-interfaces';
 import { map } from 'rxjs/operators';
 
@@ -11,18 +11,6 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 const DEFAULT_SELECTED = 'Choose...';
-
-export interface ITableData {
-  id: string;
-  avatar: string;
-  name: string;
-  company: string;
-  email: string;
-  phone: string;
-  status: string;
-  description: string;
-  timeline: Timeline;
-}
 
 export enum StatusType {
   ACTIVE = 'Active',
@@ -49,7 +37,7 @@ export class ClientsComponent implements OnInit {
 
   searchTableData = [];
   isShow: boolean;
-  selectData: ITableData;
+  selectData: ClientVo;
   isLoading: boolean;
 
   entries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -62,7 +50,7 @@ export class ClientsComponent implements OnInit {
     { title: 'Status', key: 'status' },
   ];
 
-  tableData: ITableData[];
+  tableData: ClientVo[];
 
   profileKeys = ['name', 'company', 'email', 'phone', 'status'];
 

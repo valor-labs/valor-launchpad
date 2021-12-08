@@ -13,7 +13,7 @@ export class SettingService {
     private httpClient: HttpClient
   ) {}
 
-  deleteUser(username: string): Observable<any> {
+  deleteUser(username: string): Observable<unknown> {
     return this.httpClient.post(this.baseURL + 'delete', { username });
   }
 }

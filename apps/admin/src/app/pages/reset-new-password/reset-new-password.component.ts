@@ -200,7 +200,6 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
   }
 
   resetPassword() {
-    console.log(this.passwordControl);
     if (this.resetPasswordformGroup.invalid) return;
 
     const { password } = this.resetPasswordformGroup.value;
@@ -208,7 +207,7 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
     this.resetNewPasswordService
       .resetPassword(this.username, password, this.token)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((data: any) => {
+      .subscribe((data) => {
         if (data?.success) {
           this.toastrService.success(data?.message);
           this.router.navigate(['/dashboard-default']);
