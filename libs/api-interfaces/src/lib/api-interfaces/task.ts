@@ -12,6 +12,14 @@ export class TaskEntity {
   taskStatus: keyof typeof TaskType;
   user: {
     id: string;
-    avatar?: string;
+    firstName: string;
+    lastName: string;
+    profile: {
+      avatar: {
+        src: string;
+        src_webp: string;
+        alt: string;
+      };
+    }
   }
 }
