@@ -7,6 +7,7 @@
      [class.rounded-circle]='!squared'
      [class.rounded-2]='squared'
      (error)="onInvalidSrc()"
+     class='avatar-image'
 >
 <ng-template #textAvatar>
   <div *ngIf='firstName || lastName'
@@ -14,6 +15,8 @@
        [style.height.px]='height'
        [style.font-size.px]='getFontSize()'
        [ngClass]='[classes]'
+       [class.rounded-circle]='!squared'
+       [class.rounded-2]='squared'
        class='text-avatar'>
     {{ getInitialChar(firstName) }}{{ getInitialChar(lastName) }}
   </div>

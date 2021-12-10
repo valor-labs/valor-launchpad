@@ -10,18 +10,29 @@
     {{ messenger.unreadMessages.length }}
   </div>
   <div class="d-flex align-items-start">
-    <valor-launchpad-avatar
-      [src]="messenger.avatar | valorImage"
-      [alt]="messenger.avatar?.alt"
-      [firstName]="messenger.name"
-      width="40"
-      height="40"
-      classes="rounded-circle me-1"
-    ></valor-launchpad-avatar>
+    <valor-launchpad-thread-avatar
+      [thread]="messenger"
+    ></valor-launchpad-thread-avatar>
 
-    <div class="flex-grow-1 ms-3">
-      {{ messenger.name }}
-      <div class="small">
+    <div class="flex-grow-1 ms-3" style="min-width: 0">
+      <div
+        style="
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          width: 100%;
+          overflow: hidden;
+        "
+      >
+        <ng-container
+          *ngIf="messenger.isGroup && !messenger.name?.length; else normal"
+        >
+          {{ genGroupName }}
+        </ng-container>
+        <ng-template #normal>
+          {{ messenger.name }}
+        </ng-template>
+      </div>
+      <div class="small" *ngIf="displayStatus">
         <ng-container *ngIf="!messenger.isGroup">
           <span
             class="fas fa-circle"

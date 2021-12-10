@@ -6,10 +6,11 @@ import {
   DashboardDefaultRevenueVo,
   DashboardDefaultAppointmentVo,
   DashboardDefaultProjectVo,
+  RequestingUser,
 } from '@valor-launchpad/api-interfaces';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@valor-launchpad/users-api';
-import { formatStartEnd, UserEntity } from '@valor-launchpad/common-api';
+import { formatStartEnd } from '@valor-launchpad/common-api';
 
 @Controller('v1')
 @UseGuards(AuthGuard('jwt'))
@@ -41,7 +42,7 @@ export class DashboardController {
 
   @Get('appointment')
   async getAppointment(
-    @User() user: UserEntity
+    @User() user: RequestingUser
   ): Promise<DashboardDefaultAppointmentVo[]> {
     return this.dashboardService.getAppointments(user.id);
   }

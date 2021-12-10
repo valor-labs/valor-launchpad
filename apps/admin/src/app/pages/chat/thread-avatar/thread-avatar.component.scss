@@ -1,0 +1,16 @@
+.group-avatar-gen {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1px;
+  border-radius: 50%;
+  overflow: hidden;
+  & > ::ng-deep valor-launchpad-avatar {
+    overflow: hidden;
+    width: 20px;
+    & > img {
+      border-radius: 0 !important;
+    }
+  }
+}

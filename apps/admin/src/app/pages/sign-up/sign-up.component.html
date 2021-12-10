@@ -25,8 +25,8 @@
                     <form [formGroup]="signUpFormGroup">
                       <valor-launchpad-form-item [errTip]="usernameErr">
                         <valor-launchpad-form-label [required]="true"
-                          >Username</valor-launchpad-form-label
-                        >
+                          >Username
+                        </valor-launchpad-form-label>
                         <input
                           valorLaunchpadInput
                           vlSize="large"
@@ -48,8 +48,8 @@
                       </valor-launchpad-form-item>
                       <valor-launchpad-form-item errTip="The field is required">
                         <valor-launchpad-form-label [required]="true"
-                          >First Name</valor-launchpad-form-label
-                        >
+                          >First Name
+                        </valor-launchpad-form-label>
                         <input
                           valorLaunchpadInput
                           vlSize="large"
@@ -61,8 +61,8 @@
                       </valor-launchpad-form-item>
                       <valor-launchpad-form-item errTip="The field is required">
                         <valor-launchpad-form-label [required]="true"
-                          >Last Name</valor-launchpad-form-label
-                        >
+                          >Last Name
+                        </valor-launchpad-form-label>
                         <input
                           valorLaunchpadInput
                           vlSize="large"
@@ -74,8 +74,8 @@
                       </valor-launchpad-form-item>
                       <valor-launchpad-form-item [errTip]="emailErr">
                         <valor-launchpad-form-label [required]="true"
-                          >Email</valor-launchpad-form-label
-                        >
+                          >Email
+                        </valor-launchpad-form-label>
                         <input
                           valorLaunchpadInput
                           vlSize="large"
@@ -93,29 +93,14 @@
                           </ng-container>
                         </ng-template>
                       </valor-launchpad-form-item>
-                      <valor-launchpad-form-item>
-                        <!--                      TODO: make this a nice phone input-->
-                        <valor-launchpad-form-label class="form-label"
-                          >Phone Number</valor-launchpad-form-label
-                        >
-                        <input
-                          valorLaunchpadInput
-                          vlSize="large"
-                          formControlName="phone"
-                          type="text"
-                          name="phone"
-                          placeholder="Enter your Phone Number"
-                        />
-                      </valor-launchpad-form-item>
                       <valor-launchpad-form-item
                         [errTip]="passwordErr"
                         [successTip]="passwordSuccess"
                       >
                         <valor-launchpad-form-label [required]="true"
-                          >Password</valor-launchpad-form-label
-                        >
+                          >Password
+                        </valor-launchpad-form-label>
                         <input
-                          class="float-start"
                           valorLaunchpadInput
                           vlSize="large"
                           formControlName="password"
@@ -156,6 +141,33 @@
                             <label class="small form-text">
                               Nice work. This is an excellent password
                             </label>
+                          </ng-container>
+                        </ng-template>
+                      </valor-launchpad-form-item>
+                      <valor-launchpad-form-item>
+                        <valor-launchpad-form-label class="form-label"
+                          >Phone Number
+                        </valor-launchpad-form-label>
+                        <valor-launchpad-phone-validation
+                          formControlName="phone"
+                        ></valor-launchpad-phone-validation>
+                      </valor-launchpad-form-item>
+                      <valor-launchpad-form-item
+                        class="col-4"
+                        [errTip]="captchaErr"
+                      >
+                        <valor-launchpad-form-label
+                          >Phone verification code</valor-launchpad-form-label
+                        >
+                        <input
+                          valorLaunchpadInput
+                          vlSize="large"
+                          formControlName="captcha"
+                          type="text"
+                        />
+                        <ng-template #captchaErr let-control>
+                          <ng-container *ngIf="control.invalid">
+                            Length should be six
                           </ng-container>
                         </ng-template>
                       </valor-launchpad-form-item>

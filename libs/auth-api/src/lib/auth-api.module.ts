@@ -37,8 +37,8 @@ import { WsJwtStrategy } from './strategies/ws-jwt.strategy';
     RefreshStrategy,
     AuthEventsService,
     RefreshTokenStoreService,
-    WsJwtStrategy,
+    WsJwtStrategy
   ],
   exports: [AuthService],
 })
-export class AuthApiModule {}
+export class AuthApiModule { }

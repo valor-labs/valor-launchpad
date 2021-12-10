@@ -218,6 +218,7 @@ Table UserEntity {
   emailVerifyToken String [unique]
   phone String
   phoneVerifyToken String
+  phoneVerified Boolean [not null, default: false]
   suspended Boolean [not null, default: false]
   lastLogin DateTime
   deletedDate DateTime
@@ -244,9 +245,12 @@ Table UserEntity {
   CommentUserLike CommentUserLike [not null]
   notifications Notification [not null]
   passwordValidator PasswordValidationEntity [not null]
+  clients ClientsEntity [not null]
   chatUserThreads ChatThreadUser [not null]
   chatMessages ChatMessage [not null]
-  clients ClientsEntity [not null]
+  termsOfUseAcceptance TermsOfUseAcceptance [not null]
+  termsOfUserCreatedBy TermsOfUse [not null]
+  termsOfUserDeletedBy TermsOfUse [not null]
 }
 
 Table UserEventsEntity {
@@ -602,7 +606,7 @@ Table ChatThreadUser {
 
 Table ChatMessage {
   id String [pk]
-  message String [not null]
+  message Json [not null]
   threadId String [not null]
   createdUserId String [not null]
   createdDate DateTime [default: `now()`, not null]
@@ -632,6 +636,29 @@ Table Timeline {
   time DateTime [not null]
   description String [not null]
   timelineThread ClientsEntity [not null]
+}
+
+Table TermsOfUseAcceptance {
+  id String [pk]
+  termsOfUseId String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  deletedDate DateTime
+  userId String [not null]
+  termOfUse TermsOfUse [not null]
+  user UserEntity [not null]
+}
+
+Table TermsOfUse {
+  id String [pk]
+  title String [not null]
+  content String [not null]
+  createdDate DateTime [default: `now()`, not null]
+  createdUserId String [not null]
+  deletedDate DateTime
+  deletedUserId String
+  termOfUseAcceptance TermsOfUseAcceptance [not null]
+  createdUser UserEntity [not null]
+  deletedUser UserEntity
 }
 
 Enum ProjectStatus {
@@ -772,3 +799,11 @@ Ref: ChatMessage.createdUserId > UserEntity.id
 Ref: ClientsEntity.user_id > UserEntity.id
 
 Ref: Timeline.timelineId > ClientsEntity.id
+
+Ref: TermsOfUseAcceptance.termsOfUseId > TermsOfUse.id
+
+Ref: TermsOfUseAcceptance.userId > UserEntity.id
+
+Ref: TermsOfUse.createdUserId > UserEntity.id
+
+Ref: TermsOfUse.deletedUserId > UserEntity.id

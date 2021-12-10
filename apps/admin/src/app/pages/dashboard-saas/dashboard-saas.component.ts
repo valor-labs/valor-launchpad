@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 import 'jsvectormap/dist/js/jsvectormap.js';
 import 'jsvectormap/dist/maps/us-aea-en.js';
 
+// eslint-disable-next-line
 declare const jsVectorMap: any;
 
 @Component({

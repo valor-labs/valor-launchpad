@@ -1,21 +1,13 @@
 import {
   Component,
   EventEmitter,
-  HostBinding,
-  Input,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import {
-  Action,
-  ProjectListItemVo,
-  ProjectStatus,
-  STATUS_MAPPING,
-} from '@valor-launchpad/api-interfaces';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Action, STATUS_MAPPING } from '@valor-launchpad/api-interfaces';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
-import { BehaviorSubject } from 'rxjs';
 
 export enum SortRange {
   TITLES = 'Title',

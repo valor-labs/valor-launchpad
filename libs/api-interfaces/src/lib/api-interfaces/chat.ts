@@ -8,13 +8,18 @@ export interface ChatThreadVo {
     alt: string;
   };
   isConnected: boolean;
-  targetingUser?: { id: string };
+  targetingUser?: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+  };
   chatThreadUsers: {
     id: string;
     username: string;
     firstName: string;
     lastName: string;
-    isConnected: boolean;
+    isConnected?: boolean;
     profile: {
       avatar: {
         src: string;
@@ -28,7 +33,7 @@ export interface ChatThreadVo {
 
 export interface ChatMessageVo {
   id: string;
-  message: string;
+  message: any;
   createdDate: string | Date;
   isSelf: boolean;
   threadId: string;
@@ -48,4 +53,9 @@ export interface ChatMessageVo {
   // todo: thread type is not same when push message and returning after create message
   // ChatThreadVo
   thread?: any;
+}
+
+export interface ChatSearchVo {
+  contacts: Pick<ChatThreadVo, 'id' | 'targetingUser' | 'avatar' | 'name'>[];
+  groups: Pick<ChatThreadVo, 'id' | 'name' | 'chatThreadUsers' | 'isGroup'>[];
 }

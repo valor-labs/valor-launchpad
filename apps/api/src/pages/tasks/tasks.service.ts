@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@valor-launchpad/prisma';
-import { TaskEntity } from '@valor-launchpad/common-api';
+import { TaskEntity } from '@valor-launchpad/api-interfaces';
 
 @Injectable()
 export class TasksService {
@@ -25,6 +25,8 @@ export class TasksService {
         user: {
           select: {
             id: true,
+            firstName: true,
+            lastName: true,
             profile: {
               select: {
                 id: true,
@@ -51,10 +53,7 @@ export class TasksService {
         desc,
         taskStatus,
         taskIndex,
-        user: {
-          id: user.id,
-          avatar: user.profile?.avatar?.src,
-        },
+        user,
       };
     });
   }
@@ -72,6 +71,27 @@ export class TasksService {
     const taskIndex = maxTask ? maxTask._max.taskIndex + 1 : 0;
 
     return await this.prisma.taskEntity.create({
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            profile: {
+              select: {
+                id: true,
+                avatar: {
+                  select: {
+                    src: true,
+                    src_webp: true,
+                    alt: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
       data: {
         title,
         desc,

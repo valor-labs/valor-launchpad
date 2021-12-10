@@ -1,0 +1,21 @@
+@mixin bg-variant($parent, $color, $ignore-warning: false) {
+  #{$parent} {
+    background-color: $color !important;
+  }
+  a#{$parent},
+  button#{$parent} {
+    &:hover,
+    &:focus {
+      background-color: darken($color, 10%) !important;
+    }
+  }
+}
+
+@mixin bg-img($className, $value) {
+  .#{$className} {
+    background-image: url('../../src' + $value);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+}

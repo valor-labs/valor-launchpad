@@ -236,6 +236,7 @@ model UserEntity {
   emailVerifyToken       String?   @unique @db.VarChar(255)
   phone                  String?   @db.VarChar(255)
   phoneVerifyToken       String?   @db.VarChar(255)
+  phoneVerified           Boolean   @default(false) @db.TinyInt
   suspended              Boolean   @default(false) @db.TinyInt
   lastLogin              DateTime? @db.DateTime(0)
   deletedDate            DateTime? @db.DateTime(6)
@@ -263,9 +264,12 @@ model UserEntity {
   CommentUserLike          CommentUserLike[]              @relation("commentUserLikeUser")
   notifications            Notification[]                 @relation("NotificationUser")
   passwordValidator        PasswordValidationEntity[]     @relation("passwordValidate")
-  chatUserThreads          ChatThreadUser[]         @relation("ChatThreadUserUser")
-  chatMessages             ChatMessage[]            @relation("ChatMessageUser")
-  clients                  ClientsEntity[]          @relation("clients")       
+  clients                  ClientsEntity[]                @relation("clients")       
+  chatUserThreads          ChatThreadUser[]               @relation("ChatThreadUserUser")
+  chatMessages             ChatMessage[]                  @relation("ChatMessageUser")
+  termsOfUseAcceptance     TermsOfUseAcceptance[]         @relation("TermsOfUseAcceptance")
+  termsOfUserCreatedBy     TermsOfUse[]                   @relation("TermsOfUseCreatedBy")
+  termsOfUserDeletedBy     TermsOfUse[]                   @relation("TermsOfUseDeletedBy")
 }
 
 model UserEventsEntity {
@@ -647,7 +651,7 @@ model ChatThreadUser {
 
 model ChatMessage {
   id            String    @id @default(uuid()) @db.VarChar(36)
-  message       String    @db.VarChar(1000)
+  message       Json      @db.Json
   threadId      String    @db.VarChar(36)
   createdUserId String    @db.VarChar(36)
   createdDate   DateTime  @default(now()) @db.DateTime(6)
@@ -678,4 +682,29 @@ model Timeline {
   time            DateTime          @db.DateTime(6)
   description     String            @db.VarChar(1000)
   timelineThread  ClientsEntity     @relation("timelineThread", fields: [timelineId], references: [id])
+}
+
+model TermsOfUseAcceptance {
+  id                  String      @id @default(uuid()) @db.VarChar(36)
+  termsOfUseId        String      @db.VarChar(36)
+  createdDate         DateTime    @default(now()) @db.DateTime(6)
+  deletedDate         DateTime?   @db.DateTime(6)
+  userId              String      @db.VarChar(36)
+        
+  termOfUse     TermsOfUse  @relation("TermsOfUse", fields: [termsOfUseId], references: [id])
+  user          UserEntity  @relation("TermsOfUseAcceptance", fields: [userId], references: [id])
+}
+
+model TermsOfUse {
+  id              String      @id @default(uuid()) @db.VarChar(36)
+  title           String      @db.VarChar(255)
+  content         String      @db.Text
+  createdDate     DateTime    @default(now()) @db.DateTime(6)
+  createdUserId   String      @db.VarChar(36)
+  deletedDate     DateTime?   @db.DateTime(6)
+  deletedUserId   String?     @db.VarChar(36)
+
+  termOfUseAcceptance TermsOfUseAcceptance[]  @relation("TermsOfUse")
+  createdUser         UserEntity              @relation("TermsOfUseCreatedBy", fields: [createdUserId], references: [id])
+  deletedUser         UserEntity?             @relation("TermsOfUseDeletedBy", fields: [deletedUserId], references: [id])
 }

@@ -25,7 +25,7 @@ export class ProjectsDetailService {
     );
   }
 
-  createComment(projectId: string, comment: any) {
+  createComment(projectId: string, comment: unknown) {
     return this.httpClient.post(
       `${this.apiBase}api/projects/v1/${projectId}/comments`,
       comment

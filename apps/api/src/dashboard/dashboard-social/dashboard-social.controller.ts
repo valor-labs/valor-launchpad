@@ -10,8 +10,7 @@ import {
 import { DashboardSocialService } from './dashboard-social.service';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 import { User, UsersService } from '@valor-launchpad/users-api';
-import { UserEntity } from '@valor-launchpad/common-api';
-import { UserFollower } from '@valor-launchpad/api-interfaces';
+import { RequestingUser, UserFollower } from '@valor-launchpad/api-interfaces';
 import { FollowUserDTO, LikeStoryDTO } from './dashboard-social.dto';
 import { isNil } from '@nestjs/common/utils/shared.utils';
 
@@ -24,13 +23,13 @@ export class DashboardSocialController {
   ) {}
 
   @Get('followings')
-  getSelfFollowings(@User() user: UserEntity): Promise<UserFollower[]> {
+  getSelfFollowings(@User() user: RequestingUser): Promise<UserFollower[]> {
     return this.dashboardSocialService.getAllFollowings(user.id, user.id);
   }
 
   @Get('followings/:userId')
   getFollowings(
-    @User() user: UserEntity,
+    @User() user: RequestingUser,
     @Param('userId') userId: string
   ): Promise<UserFollower[]> {
     return this.dashboardSocialService.getAllFollowings(userId, user.id);
@@ -38,7 +37,7 @@ export class DashboardSocialController {
 
   @Post('follow')
   async follow(
-    @User() user: UserEntity,
+    @User() user: RequestingUser,
     @Body() { userId, username }: FollowUserDTO
   ) {
     let uid = userId;
@@ -51,7 +50,7 @@ export class DashboardSocialController {
 
   @Post('unfollow')
   async unfollow(
-    @User() user: UserEntity,
+    @User() user: RequestingUser,
     @Body() { userId, username }: FollowUserDTO
   ) {
     let uid = userId;
@@ -63,17 +62,17 @@ export class DashboardSocialController {
   }
 
   @Post('like')
-  likeStory(@User() user: UserEntity, @Body() { storyId }: LikeStoryDTO) {
+  likeStory(@User() user: RequestingUser, @Body() { storyId }: LikeStoryDTO) {
     return this.dashboardSocialService.likeStory(storyId, user.id);
   }
 
   @Post('unlike')
-  unlikeStory(@User() user: UserEntity, @Body() { storyId }: LikeStoryDTO) {
+  unlikeStory(@User() user: RequestingUser, @Body() { storyId }: LikeStoryDTO) {
     return this.dashboardSocialService.unlikeStory(storyId, user.id);
   }
 
   @Get('story')
-  getStories(@User() user: UserEntity) {
+  getStories(@User() user: RequestingUser) {
     return this.dashboardSocialService.getStories(user.id);
   }
 

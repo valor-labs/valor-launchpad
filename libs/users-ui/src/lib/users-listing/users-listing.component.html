@@ -75,6 +75,11 @@
       <i class="fas fa-check-circle validated" *ngIf="user.emailVerified"></i>
     </ng-template>
 
+    <ng-template #phoneCell let-user="row">
+      {{user.phone}}
+      <i class="fas fa-check-circle validated" *ngIf="user.phoneVerified"></i>
+    </ng-template>
+
     <ng-template #rolesCell let-user="row">
       <span
         class="badge bg-light text-dark"

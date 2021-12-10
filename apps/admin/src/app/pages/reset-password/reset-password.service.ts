@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
-import { Observable } from 'rxjs';
+import { IResponse } from '@valor-launchpad/common-api';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +14,8 @@ export class ResetPasswordService {
     private httpClient: HttpClient
   ) {}
 
-  resetPassword(username): Observable<any> {
+  resetPassword(username) {
     const url = `${this.baseURL}send-reset-password-mail`;
-    return this.httpClient.post(url, { username });
+    return this.httpClient.post<IResponse>(url, { username });
   }
 }

@@ -3,7 +3,7 @@ import { SignInService } from './sign-in.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { MediaEntity } from '@valor-launchpad/common-api';
+import { TermsOfUseService } from '../terms-of-use';
 
 @Component({
   selector: 'valor-launchpad-sign-in',
@@ -14,7 +14,11 @@ export class SignInComponent implements OnInit {
   public userName: string;
   firstName: string;
   lastName: string;
-  public avatar: MediaEntity;
+  public avatar: {
+    src_webp: string;
+    src: string;
+    id: string;
+  };
   public title: string;
   public isFirstLogin = true;
   public errorMessage: string;
@@ -27,7 +31,8 @@ export class SignInComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cookieService: CookieService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private termsOfUseService: TermsOfUseService
   ) {
     this.userName = '';
     this.errorMessage = '';
@@ -45,9 +50,9 @@ export class SignInComponent implements OnInit {
       this.cookieService.get('avatar') !== '' &&
       JSON.parse(this.cookieService.get('avatar'));
     this.isFirstLogin = this.userName === '';
-    this.title =
-      this.userName !== '' ? `Welcome back, ${this.userName}` : 'Welcome';
-
+    this.title = this.isFirstLogin
+      ? 'Welcome'
+      : `Welcome back, ${this.userName}`;
     if (this.authService.isLoggedIn() && !this.fromNav) {
       this.router.navigate(['/dashboard-default']);
     }
@@ -59,6 +64,10 @@ export class SignInComponent implements OnInit {
       (res) => {
         if (res?.message === 'Unauthorized') {
           this.errorMessage = 'Incorrect username or password';
+          this.isAlertOpen = true;
+        }
+        if (res?.message === 'User has been deleted') {
+          this.errorMessage = res?.message;
           this.isAlertOpen = true;
         }
         if (

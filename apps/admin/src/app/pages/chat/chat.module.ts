@@ -8,6 +8,8 @@ import { ValorLaunchpadMessageComponent } from './valor-launchpad-message/valor-
 import { UiModule } from '@valor-launchpad/ui';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateGroupModalComponent } from './create-group-modal/create-group-modal.component';
+import { ThreadAvatarComponent } from './thread-avatar/thread-avatar.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { CreateGroupModalComponent } from './create-group-modal/create-group-mod
     ValorLaunchpadMessengerComponent,
     ValorLaunchpadMessageComponent,
     CreateGroupModalComponent,
+    ThreadAvatarComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,7 @@ import { CreateGroupModalComponent } from './create-group-modal/create-group-mod
     UiModule,
     FormsModule,
     ReactiveFormsModule,
+    OverlayModule,
   ],
 })
 export class ChatModule {}

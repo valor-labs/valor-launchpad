@@ -1,8 +1,8 @@
 import { User } from '@valor-launchpad/users-api';
-import { UserEntity } from '@valor-launchpad/common-api';
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
+import { ClientVo, RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
@@ -13,9 +13,8 @@ export class ClientsController {
    * Get user's profile data through username
    * @param user: acting user
    */
-
   @Get('getClients')
-  async getClients(@User() user: UserEntity) {
+  async getClients(@User() user: RequestingUser): Promise<ClientVo[]> {
     return await this.clientsService.getClients(user.id);
   }
 }

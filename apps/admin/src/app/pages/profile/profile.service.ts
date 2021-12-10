@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { HttpClient } from '@angular/common/http';
-import { ProfileEntity } from '@valor-launchpad/common-api';
+import { ProfileVo, RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class ProfileService {
     if (username) {
       params.username = username;
     }
-    return this.httpClient.get<any>(
+    return this.httpClient.get<ProfileVo>(
       this.config.environment.apiBase + `api/profile/v1`,
       { params }
     );
@@ -36,7 +36,7 @@ export class ProfileService {
     formData.append('username', username);
     formData.append('alt', alt);
     formData.append('bio', bio);
-    return this.httpClient.post(
+    return this.httpClient.post<RequestingUser>(
       this.config.environment.apiBase + 'api/profile/v1/updateProfile',
       formData
     );

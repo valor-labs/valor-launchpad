@@ -15,6 +15,7 @@ import {
 } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { SettingsPasswordService } from '../settings/settings-password/settings-password.service';
+import { DefaultValidation } from '../../core/utils/password-validator';
 
 @Component({
   selector: 'valor-launchpad-sign-up',
@@ -27,8 +28,9 @@ export class SignUpComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl(''),
+    phone: new FormControl(null),
     password: new FormControl('', [Validators.required]),
+    captcha: new FormControl('', [Validators.maxLength(6)]),
   });
 
   registerSucceed = false;
@@ -65,10 +67,22 @@ export class SignUpComponent implements OnInit {
           this.signUpFormGroup.get('username').setErrors(null);
         }
       });
-    this.passwordService.getPasswordValidation().subscribe((res) => {
-      this.setValidation(res['passwordValidation']);
-      this.setErrorMessage(res['passwordValidation']);
-    });
+
+    this.authService.user
+      .pipe(
+        map((user) => {
+          if (user) {
+            this.passwordService.getPasswordValidation().subscribe((res) => {
+              if (res !== null) {
+                this.setValidation(res['passwordValidation']);
+              }
+            });
+          } else {
+            this.setValidation(DefaultValidation);
+          }
+        })
+      )
+      .subscribe();
   }
 
   setErrorMessage(data) {
@@ -122,10 +136,10 @@ export class SignUpComponent implements OnInit {
       }
       this.passwordControl.updateValueAndValidity({ onlySelf: true });
     });
+    this.setErrorMessage(data);
   }
 
   createUser() {
-    console.log(this.passwordControl);
     if (this.signUpFormGroup.invalid) {
       for (const ctrl of Object.values(this.signUpFormGroup.controls)) {
         ctrl.markAsDirty();

@@ -28,7 +28,7 @@ import { from, partition, throwError } from 'rxjs';
 import { fmtCurrency, localUrlFactory } from '../utils';
 import { Router } from '@angular/router';
 import { paymentStatusRoute } from '../constants';
-import { UserEntity } from "@valor-launchpad/common-api";
+import { RequestingUser } from '@valor-launchpad/api-interfaces';
 
 
 //TODO: This should be coming from environment variable
@@ -377,7 +377,7 @@ export class EmbeddedPayComponent implements OnInit {
 
   generate(mainForm: DynamicFormComponent) {
     this.stripeUiService.getCurrentUserInfo().subscribe((
-      user: Partial<UserEntity>
+      user: Partial<RequestingUser>
     ) => {
       const { firstName, lastName, email, profile } = user;
       const { from, city, address, zip, locale } = profile;

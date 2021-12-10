@@ -21,6 +21,7 @@
               "apps/admin/src/styles.scss",
               "node_modules/notyf/notyf.min.css",
               "node_modules/jsvectormap/dist/css/jsvectormap.min.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css",
               {
                 "input": "apps/admin/scss/dark.scss",
                 "bundleName": "dark",
@@ -381,6 +382,144 @@
         }
       },
       "tags": []
+    },
+    "sales-site": {
+      "projectType": "application",
+      "root": "apps/sales-site",
+      "sourceRoot": "apps/sales-site/src",
+      "prefix": "valor-launchpad",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/sales-site",
+            "index": "apps/sales-site/src/index.html",
+            "main": "apps/sales-site/src/main.ts",
+            "polyfills": "apps/sales-site/src/polyfills.ts",
+            "tsConfig": "apps/sales-site/tsconfig.app.json",
+            "aot": true,
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/sales-site/src/favicon.ico",
+              "apps/sales-site/src/assets"
+            ],
+            "styles": [
+              "apps/sales-site/src/styles.scss",
+              {
+                "input": "apps/sales-site/scss/dark.scss",
+                "bundleName": "dark",
+                "inject": false
+              },
+              {
+                "input": "apps/sales-site/scss/light.scss",
+                "bundleName": "light",
+                "inject": false
+              }
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["apps/sales-site/scss/1-variables"]
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/sales-site/src/environments/environment.ts",
+                  "with": "apps/sales-site/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "sales-site:build:production"
+            },
+            "development": {
+              "browserTarget": "sales-site:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "sales-site:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/sales-site/src/**/*.ts",
+              "apps/sales-site/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/sales-site"],
+          "options": {
+            "jestConfig": "apps/sales-site/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "sales-site-e2e": {
+      "root": "apps/sales-site-e2e",
+      "sourceRoot": "apps/sales-site-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/sales-site-e2e/cypress.json",
+            "devServerTarget": "sales-site:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "sales-site:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/sales-site-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["sales-site"]
     },
     "sms": {
       "root": "libs/sms",

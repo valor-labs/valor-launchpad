@@ -4,11 +4,12 @@
       type="text"
       valorLaunchpadInput
       [formControl]="keywordSearchControl"
+      placeholder="Search users"
     />
     <div class="user-list">
       <div
         class="user-list-item mt-3 cursor-pointer"
-        *ngFor="let item of users$ | async"
+        *ngFor="let item of userOptions"
         (click)="toggleSelectUser(item)"
       >
         <i
@@ -24,22 +25,19 @@
           [firstName]="item.firstName"
           [lastName]="item.lastName"
           [src]="item.profile.avatar | valorImage"
-          [alt]="item.profile.avatar.alt"
+          [alt]="item.profile.avatar?.alt"
         ></valor-launchpad-avatar>
         <span class="ms-3">{{ item | fullName }}</span>
       </div>
     </div>
   </div>
   <div class="p-3 flex-grow-1 d-flex flex-column border-start">
-    <div style="height: 46px">
-      <valor-launchpad-form-item style="margin-bottom: 0 !important">
-        <input
-          type="text"
-          valorLaunchpadInput
-          placeholder="Enter group name"
-          [formControl]="groupNameControl"
-        />
-      </valor-launchpad-form-item>
+    <div
+      class="d-flex align-items-center justify-content-between"
+      style="height: 32px; margin-bottom: 14px"
+    >
+      <span>{{ usage | titlecase }} a group chat</span>
+      <b>{{ selectedUsers.length }} user(s) selected</b>
     </div>
 
     <div class="d-flex flex-grow-1">
@@ -53,7 +51,7 @@
           [firstName]="user.firstName"
           [lastName]="user.lastName"
           [src]="user.profile.avatar | valorImage"
-          [alt]="user.profile.avatar.alt"
+          [alt]="user.profile.avatar?.alt"
         ></valor-launchpad-avatar>
         <i
           class="
@@ -81,7 +79,7 @@
         (click)="onCreateGroup()"
         [loading]="creating"
       >
-        Create
+        Save
       </button>
     </div>
   </div>

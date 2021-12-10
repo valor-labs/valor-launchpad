@@ -4,6 +4,7 @@ import 'jsvectormap/dist/js/jsvectormap.js';
 import 'jsvectormap/dist/maps/us-aea-en.js';
 import 'jsvectormap/dist/maps/world.js';
 
+// eslint-disable-next-line
 declare const jsVectorMap: any;
 
 const world_markes = [

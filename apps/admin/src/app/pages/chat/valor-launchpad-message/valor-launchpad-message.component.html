@@ -1,11 +1,11 @@
 <div
-  class="pb-4"
+  class="pb-4 w-50"
   [ngClass]="message.isSelf ? 'chat-message-right' : 'chat-message-left'"
 >
   <div>
     <valor-launchpad-avatar
       [src]="message.createdUser.profile.avatar | valorImage"
-      [alt]="message.createdUser.profile.avatar.alt"
+      [alt]="message.createdUser.profile.avatar?.alt"
       [firstName]="message.createdUser.firstName"
       [lastName]="message.createdUser.lastName"
       width="40"
@@ -26,6 +26,11 @@
         {{ message.createdDate | valorDate }}
       </span>
     </div>
-    {{ message.message }}
+    <valor-launchpad-editor-slate
+      [hideToolbar]="true"
+      [readonly]="true"
+      [borderless]="true"
+      [schema]="message.message"
+    ></valor-launchpad-editor-slate>
   </div>
 </div>

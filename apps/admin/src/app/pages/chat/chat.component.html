@@ -5,7 +5,59 @@
     <div class="col-12 col-lg-5 col-xl-3 border-end">
       <div class="px-4 d-none d-md-block">
         <valor-launchpad-input-group class="my-3">
-          <input type="text" class="form-control" placeholder="Search..." />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            cdkOverlayOrigin
+            #trigger="cdkOverlayOrigin"
+            #searchInput
+          />
+          <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayOpen]="searchOpened"
+            (overlayOutsideClick)="searchOpened = false"
+            [cdkConnectedOverlayPanelClass]="['bg-white', 'chat-search-panel']"
+            [cdkConnectedOverlayWidth]="210"
+            [cdkConnectedOverlayOffsetY]="2"
+          >
+            <div class="w-100">
+              <ng-container
+                *ngIf="
+                  searchResult?.contacts?.length ||
+                    searchResult?.groups?.length;
+                  else emptySearch
+                "
+              >
+                <ng-container *ngIf="searchResult?.contacts?.length">
+                  <div class="ps-3 py-2">Contacts</div>
+                  <div *ngFor="let user of searchResult.contacts">
+                    <valor-launchpad-valor-launchpad-messenger
+                      [messenger]="user"
+                      [displayStatus]="false"
+                      (click)="onClickSearchResult(user)"
+                    ></valor-launchpad-valor-launchpad-messenger>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="searchResult?.groups?.length">
+                  <div class="ps-3 py-2">Groups</div>
+                  <div *ngFor="let group of searchResult.groups">
+                    <valor-launchpad-valor-launchpad-messenger
+                      [messenger]="group"
+                      [displayStatus]="false"
+                      (click)="onClickSearchResult(group)"
+                    ></valor-launchpad-valor-launchpad-messenger>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <ng-template #emptySearch>
+                <div class="ps-3 py-2">
+                  <span class="text-muted small">No user/group found.</span>
+                </div>
+              </ng-template>
+            </div>
+          </ng-template>
           <button
             valor-launchpad-button
             theme="secondary"
@@ -19,8 +71,9 @@
       <valor-launchpad-valor-launchpad-messenger
         *ngFor="let item of messengers"
         [messenger]="item"
-        [active]="item.id === activeThread.id"
-        (click)="onSelectThread(item)"
+        [active]="item.id === activeThread?.id"
+        [displayStatus]="true"
+        (click)="onSelectThread(item.id)"
       ></valor-launchpad-valor-launchpad-messenger>
       <hr class="d-block d-lg-none mt-1 mb-0" />
     </div>
@@ -29,15 +82,9 @@
         <div class="py-2 px-4 border-bottom d-none d-lg-block">
           <div class="d-flex align-items-start align-items-center py-1">
             <div class="position-relative">
-              <valor-launchpad-avatar
-                [src]="activeThread.avatar | valorImage"
-                [alt]="activeThread.avatar?.alt"
-                [firstName]="activeThread.name"
-                width="40"
-                height="40"
-                classes="rounded-circle me-1"
-              >
-              </valor-launchpad-avatar>
+              <valor-launchpad-thread-avatar
+                [thread]="activeThread"
+              ></valor-launchpad-thread-avatar>
             </div>
             <div class="flex-grow-1 ps-3">
               <strong>{{ activeThread.name }}</strong>
@@ -56,7 +103,10 @@
               >
                 <i class="feather-lg fas fa-fw fa-video"></i>
               </button>
-              <button class="btn btn-light border btn-lg px-3">
+              <button
+                class="btn btn-light border btn-lg px-3"
+                (click)="showThreadDetail()"
+              >
                 <i class="feather-lg fas fa-fw fa-ellipsis-h"></i>
               </button>
             </div>
@@ -81,25 +131,22 @@
           </div>
         </div>
       </ng-container>
-      <div class="flex-grow-0 py-3 px-4 border-top">
-        <div class="input-group">
-          <input
-            #messageInput
-            [disabled]="!activeThread"
-            valorLaunchpadInput
-            type="text"
-            placeholder="Type your message"
-            ngModel
-            #ngModel="ngModel"
-            (keydown.enter)="onSend(ngModel)"
-          />
+      <div class="flex-grow-0 border-top pb-3">
+        <valor-launchpad-editor-slate
+          [borderless]="true"
+          [preventEnter]="true"
+          (enterClicked)="onSend(editor)"
+          #editor
+        ></valor-launchpad-editor-slate>
+        <div class="d-flex justify-content-end me-3">
           <button
             valor-launchpad-button
             theme="primary"
-            (click)="onSend(ngModel)"
-            [disabled]="!ngModel.value"
+            (click)="onSend(editor)"
+            [disabled]="editor.isEmpty"
             [loading]="sendingMessage"
           >
+            <i class="fas fa-paper-plane fa-fw"></i>
             Send
           </button>
         </div>
@@ -107,3 +154,130 @@
     </div>
   </div>
 </div>
+
+<valor-launchpad-offcanvas
+  *ngIf="activeThread"
+  [title]="''"
+  position="end"
+  [show]="showDetail"
+  (onClose)="showDetail = false"
+>
+  <div offcanvas-body>
+    <ng-container *ngIf="activeThread.isGroup; else userDetail">
+      <form>
+        <valor-launchpad-form-item>
+          <valor-launchpad-form-label [required]="true">
+            Group name
+          </valor-launchpad-form-label>
+          <input
+            type="text"
+            valorLaunchpadInput
+            [formControl]="activeThreadNameCtrl"
+          />
+        </valor-launchpad-form-item>
+        <button valor-launchpad-button (click)="updateGroupProfile()">
+          Save
+        </button>
+      </form>
+      <div class="dropdown-divider my-4"></div>
+      <div
+        class="d-flex align-items-center my-3 cursor-pointer"
+        (click)="displayGroupAddUserModal()"
+      >
+        <div
+          class="
+            add-remove-user
+            border-secondary
+            text-secondary
+            rounded-circle
+            display-flex
+            align-items-center
+            text-center
+          "
+        >
+          +/-
+        </div>
+        <span class="ms-3">Add/Remove user</span>
+      </div>
+      <div *ngFor="let user of activeThread.chatThreadUsers" class="my-3">
+        <valor-launchpad-avatar
+          [src]="user.profile.avatar | valorImage"
+          [firstName]="user.firstName"
+          [lastName]="user.lastName"
+          size="lg"
+        ></valor-launchpad-avatar>
+        <span class="ms-3">{{ user | fullName }}</span>
+      </div>
+    </ng-container>
+    <ng-template #userDetail>
+      <div class="m-3 text-center">
+        <valor-launchpad-avatar
+          [src]="activeThread.avatar | valorImage"
+          [alt]="activeThread.avatar?.alt"
+          [firstName]="activeThread.targetingUser.firstName"
+          [lastName]="activeThread.targetingUser.lastName"
+          width="128"
+          height="128"
+          classes="mb-2 img-fluid"
+        >
+        </valor-launchpad-avatar>
+        <h5 class="card-title mb-0">
+          {{ activeThread.targetingUser | fullName }}
+        </h5>
+      </div>
+      <ng-container *ngIf="activeSingleUserProfile">
+        <hr class="my-0" />
+        <div class="m-3">
+          <h5 class="h6 card-title">Skills</h5>
+          <span
+            valor-launchpad-badge
+            class="me-1 my-1"
+            *ngFor="let skill of activeSingleUserProfile.skills"
+          >
+            {{ skill.skill.name }}
+          </span>
+        </div>
+        <hr class="my-0" />
+        <div class="m-3">
+          <h5 class="h6 card-title">About</h5>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-1">
+              <i class="fas fa-fw fa-home me-1"></i>
+              Lives in
+              <a href="#">{{ activeSingleUserProfile.location }}</a>
+            </li>
+
+            <li class="mb-1">
+              <i class="feather-sm me-1 fas fa-fw fa-briefcase"></i> Works at
+              <a
+                [href]="activeSingleUserProfile.employers[0]?.employer.url"
+                target="_blank"
+              >
+                {{ activeSingleUserProfile.employers[0]?.employer.name }}</a
+              >
+            </li>
+            <li class="mb-1">
+              <i class="feather-sm me-1 fas fa-fw fa-map-pin"></i> From
+              <a href="#">{{ activeSingleUserProfile.from }}</a>
+            </li>
+          </ul>
+        </div>
+        <hr class="my-0" />
+        <div class="m-3">
+          <h5 class="h6 card-title">Elsewhere</h5>
+          <ul class="list-unstyled mb-0">
+            <li
+              class="mb-1"
+              *ngFor="let social of activeSingleUserProfile.socialMedia"
+            >
+              <span class="me-1" [ngClass]="social.socialMedia.icon"></span>
+              <a [href]="social.socialMediaUrl" target="_blank">{{
+                social.socialMedia.name
+              }}</a>
+            </li>
+          </ul>
+        </div>
+      </ng-container>
+    </ng-template>
+  </div>
+</valor-launchpad-offcanvas>

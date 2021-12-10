@@ -1,9 +1,10 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { Element } from 'slate';
 
 export class CreateMessageDto {
-  @IsString()
+  @IsArray()
   @IsNotEmpty()
-  message: string;
+  message: Element[];
 
   @IsString()
   @IsNotEmpty()

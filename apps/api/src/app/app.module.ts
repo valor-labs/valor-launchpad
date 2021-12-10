@@ -25,6 +25,7 @@ import { SocketGatewayModule } from '@valor-launchpad/socket-gateway';
 import { TasksModule } from '../pages/tasks';
 import { ChatApiModule } from '@valor-launchpad/chat-api';
 import { ClientsModule } from '../clients';
+import { TermsOfUseModule } from '../terms-of-use';
 @Module({
   imports: [
     EventEmitterModule.forRoot({ wildcard: true }),
@@ -47,6 +48,7 @@ import { ClientsModule } from '../clients';
       { path: '/tasks', module: TasksModule },
       { path: '/chat', module: ChatApiModule },
       { path: '/clients', module: ClientsModule },
+      { path: '/terms-of-use', module: TermsOfUseModule },
     ]),
     ProjectsModule,
     ProfileModule,
@@ -64,6 +66,7 @@ import { ClientsModule } from '../clients';
     TasksModule,
     ClientsModule,
     ChatApiModule,
+    TermsOfUseModule,
     MulterModule.register({
       dest: join(__dirname, '/assets'),
     }),

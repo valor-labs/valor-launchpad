@@ -10,12 +10,6 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { tableData } from '../datatables-multi/fakeData';
 
-class CustomDatePipe extends DatePipe {
-  public transform(value): any {
-    return super.transform(value, 'y/MM/dd');
-  }
-}
-
 @Component({
   selector: 'valor-launchpad-datatables-fixed-header',
   templateUrl: './datatables-fixed-header.component.html',
@@ -37,7 +31,9 @@ export class DatatablesFixedHeaderComponent implements OnInit, AfterViewInit {
     {
       name: 'Start date',
       prop: 'startDate',
-      pipe: new CustomDatePipe(this.locale),
+      pipe: {
+        transform: (val) => new DatePipe(this.locale).transform(val, 'MM/dd/y'),
+      },
       cellClass: 'd-flex align-items-center',
     },
     {
