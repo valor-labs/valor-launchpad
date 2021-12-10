@@ -15,7 +15,6 @@ import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements AfterViewInit {
-
   @ViewChildren(SidebarItemComponent)
   private sidebarItems: QueryList<SidebarItemComponent>;
 
