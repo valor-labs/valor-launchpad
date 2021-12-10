@@ -1,4 +1,11 @@
-import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
+import SimpleBar from 'simplebar';
 import { NavigationService } from './navigation.service';
 import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
 
@@ -7,11 +14,17 @@ import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent {
+export class NavigationComponent implements AfterViewInit {
   subMenuCollapseState = {
     projects: true,
   };
   collapsed = false;
+
+  ngAfterViewInit() {
+    new SimpleBar(
+      <HTMLElement>document.getElementsByClassName('js-simplebar')[0]
+    );
+  }
 
   @ViewChildren(SidebarItemComponent)
   private sidebarItems: QueryList<SidebarItemComponent>;
