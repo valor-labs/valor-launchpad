@@ -1,0 +1,13 @@
+footer.footer {
+  @include media-breakpoint-down(md) {
+    width: 100vw;
+  }
+}
+
+.footer {
+  margin-top: 140px;
+  .admin-logo {
+    width: 165px;
+    height: 100px;
+  }
+}
