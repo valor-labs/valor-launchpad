@@ -1,7 +1,7 @@
 <!--  TODO add search / filtering here-->
 <valor-launchpad-card>
   <valor-launchpad-card-header class="d-flex">
-    <h2 class="me-auto">All Users</h2>
+    <h2 class="me-auto" data-qa="titleUsersPage">All Users</h2>
     <div class="actions">
       <button valor-launchpad-button theme="danger" *ngIf="selectedRows.length > 0 && !allSelectedDeleted" (click)="batchDelete()">Delete</button>
       <button valor-launchpad-button theme="primary" *ngIf="selectedRows.length > 0 && !allSelectedActive" (click)="batchRestore()">Restore</button>
