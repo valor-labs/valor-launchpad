@@ -65,8 +65,7 @@ export class SignInComponent implements OnInit {
         if (res?.message === 'Unauthorized') {
           this.errorMessage = 'Incorrect username or password';
           this.isAlertOpen = true;
-        }
-        if (res?.message === 'User has been deleted') {
+        } else {
           this.errorMessage = res?.message;
           this.isAlertOpen = true;
         }

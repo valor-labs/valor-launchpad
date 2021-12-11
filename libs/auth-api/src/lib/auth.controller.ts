@@ -47,7 +47,7 @@ export class AuthController {
       console.error(error)
       response.send({
         success: false,
-        data: new ResponseError('Login Failed', error)
+        data: error
       });
     }
   }
