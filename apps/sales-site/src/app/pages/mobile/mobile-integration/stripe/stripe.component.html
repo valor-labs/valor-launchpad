@@ -1,0 +1,41 @@
+<div class="logo-continer">
+  <img src="assets/img/stripe-logo.svg" />
+</div>
+
+<div class="button-container">
+  <button class="tab-button selected">
+    <span class="purple-blue-ft">Overview</span>
+    <div class="button-bottom-line"></div>
+  </button>
+  <button class="tab-button">
+    <span class="text">Events</span>
+    <div class="button-bottom-line"></div>
+  </button>
+  <button class="tab-button">
+    <span class="text">Docs</span>
+    <div class="button-bottom-line"></div>
+  </button>
+</div>
+
+<div class="text-container">
+  <div class="title">About Stripe</div>
+  <div class="main-text">
+    Fermentum velit eleifend turpis augue sollicitudin nunc. Blandit blandit
+    bibendum id malesuada malesuada.
+  </div>
+</div>
+
+<button class="find-out-button">
+  <span>Find out more</span>
+  <i
+    class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"
+  ></i>
+</button>
+
+<ul class="list-container" *ngFor="let support of supports">
+  <li class="list-title">{{ support.title }}</li>
+  <li class="list-item" *ngFor="let item of support.list">
+    <span class="ability-icon check"></span>
+    <span class="list-item"> {{ item }} </span>
+  </li>
+</ul>

@@ -1,0 +1,55 @@
+@import '../../../../../../scss/1-variables/dark';
+
+:host {
+  .conduct-wrap {
+    background: linear-gradient(
+      180deg,
+      #0e0e0e 22.5%,
+      rgba(14, 14, 14, 0) 100%
+    );
+    .conduct-title {
+      text-align: center;
+      h1 {
+        text-align: center;
+        padding: 0 30px;
+
+        &.lg-text {
+          font-size: 40px;
+          font-weight: 700;
+        }
+      }
+    }
+    .get-started-btn-container {
+      padding: 0 40px;
+      margin-top: 30px;
+      // height: 362.7px;
+
+      background-image: url($get-started-url);
+      background-repeat: no-repeat;
+      background-size: 609.32px 362.7px;
+      background-position: top;
+
+      .get-started-btn {
+        margin-top: 20px;
+        width: 100%;
+
+        i {
+          transform: rotate(90deg);
+        }
+      }
+
+      .desc {
+        text-align: center;
+        padding: 280px 15px 0 15px;
+
+        .wast-li {
+          margin-bottom: 20px;
+
+          li {
+            list-style: none;
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component'
-import {MobileDetailComponent} from "./pages/mobile-detail/mobile-detail.component";
-import {MobilePricingComponent} from "./pages/mobile-pricing/mobile-pricing.component";
+import { MobileDetailComponent } from "./pages/mobile-detail/mobile-detail.component";
+import { MobilePricingComponent } from "./pages/mobile-pricing/mobile-pricing.component";
 
 const routes: Routes = [
   {
@@ -40,7 +40,14 @@ const routes: Routes = [
         component: MobilePricingComponent
       },
       {
-        path: '',
+        path: 'mobile',
+        loadChildren: () =>
+          import('./pages/mobile/mobile.module').then(
+            (m) => m.MobileModule
+          ),
+      },
+      {
+        path: '**',
         redirectTo: '/home',
         pathMatch: 'full',
       },

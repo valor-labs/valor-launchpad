@@ -1,0 +1,56 @@
+:host {
+  .customizable {
+    margin-top: 64px;
+    padding: 0 16px;
+    .title {
+      font-size: 36px;
+      font-weight: 600;
+    }
+    .sub-title {
+      color: #b2b0b0;
+    }
+    .img-container {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 20px;
+      row-gap: 16px;
+      padding: 70px 0 150px 0;
+      background: url('/assets/img/custom-dark.png'),
+        url('/assets/img/spot-dark.svg');
+      background-size: 220%, contain;
+      background-repeat: no-repeat, no-repeat;
+      background-position: left -50px top -60px, top -100px left -80px;
+
+      .screen-show {
+        flex: 0 0 150px;
+        height: 106.6px;
+        border-radius: 15px;
+
+        &.img-one {
+          background: url('/assets/img/list-page.png');
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: left;
+        }
+        &.img-two {
+          background: url('/assets/img/list-page-2.jpeg');
+          background-size: 120%;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+        &.img-three {
+          background: url('/assets/img/list-page-3.jpeg');
+          background-size: 135%;
+          background-repeat: no-repeat;
+          background-position: top -51px left -25px;
+        }
+        &.img-four {
+          background: url('/assets/img/list-page-4.jpeg');
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: left;
+        }
+      }
+    }
+  }
+}

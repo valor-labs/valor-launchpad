@@ -1,0 +1,58 @@
+:host {
+  padding: 0 16px;
+  display: block;
+
+  .button-container {
+    display: flex;
+    margin-top: 80px;
+
+    .tab-button {
+      flex: 0 0 50%;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      margin-bottom: 6px;
+
+      .text {
+        color: #b2b0b0;
+      }
+
+      &.selected {
+        .button-bottom-line {
+          background: linear-gradient(96.48deg, #bd54e2 3.59%, #2982e3 83.71%);
+        }
+      }
+
+      .button-bottom-line {
+        height: 1px;
+        background: #b2b0b0;
+      }
+    }
+  }
+  .card-container {
+    padding: 40px 33.3px 32px 33.3px;
+    background: #262626;
+    border-radius: 20px;
+    margin-top: 16px;
+
+    img {
+      width: 113.82px;
+    }
+    .main-text {
+      margin-top: 24px;
+      font-size: 18px;
+      color: #fff;
+      padding-bottom: 16px;
+      border-bottom: solid 1px #fff;
+    }
+    .url-container {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+
+      .url-one {
+        text-decoration: underline;
+      }
+    }
+  }
+}

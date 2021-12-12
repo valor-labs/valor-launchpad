@@ -1,0 +1,48 @@
+:host {
+  .questions {
+    margin-top: 40px;
+    padding: 0 16px;
+    .title {
+      font-size: 32px;
+      font-weight: 600;
+    }
+    .button-container {
+      display: flex;
+      margin-top: 36px;
+
+      .tab-button {
+        font-weight: 500;
+        color: #b2b0b0;
+        background: transparent;
+        border: none;
+        flex: 0 0 33.33%;
+        border-bottom: solid 1px #b2b0b0;
+
+        &.selected {
+          font-weight: 700;
+        }
+
+        .text {
+          color: #b2b0b0;
+        }
+      }
+    }
+    .text-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 36px;
+    }
+    .main-text {
+      margin-top: 16px;
+      color: #b2b0b0;
+    }
+    .read-more {
+      margin: 16px 0;
+    }
+    .faq-compact {
+      height: 72px;
+      font-size: 20px;
+      line-height: 72px;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@import '../../../../../../scss/1-variables/dark';
+
+:host {
+  .email-subscribe {
+    padding-left: 16px;
+    margin-top: 20px;
+    display: flex;
+
+    .input-group.input-group-navbar {
+      input {
+        height: 38px;
+      }
+    }
+
+    .btn {
+      white-space: nowrap;
+    }
+  }
+}
