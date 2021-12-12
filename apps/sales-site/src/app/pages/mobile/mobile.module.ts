@@ -22,7 +22,8 @@ import { SectionTenFiveComponent } from './mobile-home/section-ten-five/section-
 import { SectionTenSixComponent } from './mobile-home/section-ten-six/section-ten-six.component';
 import { PaymentComponent } from './mobile-integration/payment/payment.component';
 import { StripeComponent } from './mobile-integration/stripe/stripe.component';
-
+import { MobileDetailComponent } from './mobile-detail';
+import { MobilePricingComponent } from './mobile-pricing'; 
 
 @NgModule({
   declarations: [
@@ -45,7 +46,9 @@ import { StripeComponent } from './mobile-integration/stripe/stripe.component';
     SectionTenFiveComponent,
     SectionTenSixComponent,
     PaymentComponent,
-    StripeComponent
+    StripeComponent,
+    MobileDetailComponent,
+    MobilePricingComponent
   ],
   imports: [
     CommonModule,

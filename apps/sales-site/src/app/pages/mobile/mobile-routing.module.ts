@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MobileHomeComponent } from './mobile-home'
 import { MobileIntegrationComponent } from './mobile-integration'
 import { PaymentComponent, StripeComponent } from './mobile-integration'
+import { MobileDetailComponent } from './mobile-detail';
+import { MobilePricingComponent } from './mobile-pricing';
 
 const routes: Routes = [{
   path: 'home',
@@ -26,6 +28,14 @@ const routes: Routes = [{
       pathMatch: 'full',
     },
   ]
+},
+{
+  path: 'detail',
+  component: MobileDetailComponent
+},
+{
+  path: 'pricing',
+  component: MobilePricingComponent
 },
 {
   path: '',
