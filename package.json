@@ -113,6 +113,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.3",
     "sharp": "^0.29.3",
+    "simplebar-angular": "^2.3.6",
     "slate": "^0.66.5",
     "slate-angular": "^1.6.3",
     "socket.io-client": "^4.3.2",
