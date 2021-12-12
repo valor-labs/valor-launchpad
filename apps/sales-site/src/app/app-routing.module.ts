@@ -32,7 +32,6 @@ const routes: Routes = [
           ),
       },
       {
-        path: '**',
         path: 'mobile-detail',
         component: MobileDetailComponent
       },
