@@ -195,4 +195,63 @@
       </form>
     </div>
   </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-actions float-end">
+        <div class="dropdown" dropdown container="body">
+          <a dropdownToggle>
+            <i class="align-middle fas fa-fw fa-ellipsis-h"></i>
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+            <a class="dropdown-item" (click)="onClickAction()">Action</a>
+            <a class="dropdown-item" (click)="onClickAnotherAction()"
+              >Another action</a
+            >
+            <a class="dropdown-item" (click)="onClickSomethingElse()"
+              >Something else here</a
+            >
+          </div>
+        </div>
+      </div>
+      <h5 class="card-title mb-0">Deleted Account</h5>
+    </div>
+    <div class="card-body">
+      <button class="btn btn-danger" (click)="deleteAccount()">
+        Deleted Account
+      </button>
+      <valor-launchpad-modal
+        bsModal
+        #deletedAccountModal="bs-modal"
+        heading="Centered modal"
+        content="Make sure to deleted account?"
+        [centered]="true"
+        [footer]="centeredDangerModalFooter"
+      >
+        <ng-template #centeredDangerModalFooter>
+          <button
+            valor-launchpad-button
+            theme="secondary"
+            (click)="deletedAccountModal.hide()"
+          >
+            Close
+          </button>
+          <button
+            valor-launchpad-button
+            theme="danger"
+            (click)="confirmDeletedAccount()"
+          >
+            Confirm
+          </button>
+        </ng-template>
+      </valor-launchpad-modal>
+      <valor-launchpad-alert
+        *ngIf="userDeleted"
+        type="danger"
+        [dismissible]="true"
+      >
+        <strong>Hello there!</strong>{{ message }}
+      </valor-launchpad-alert>
+    </div>
+  </div>
 </div>

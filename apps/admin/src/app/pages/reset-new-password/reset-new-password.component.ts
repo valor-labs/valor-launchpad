@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
 import { ResetNewPasswordService } from './reset-new-password.service';
-import { UserEntity } from '@valor-launchpad/common-api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -17,6 +16,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { tap, switchMap } from 'rxjs/operators';
 import { defer } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { SettingsPasswordService } from '../settings/settings-password/settings-password.service';
 
 function confirmPasswordValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -50,13 +50,20 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
   resetPasswordformGroup: FormGroup;
   token = '';
   private destroy$ = new Subject();
+
+  standardValidator: boolean;
+
+  passwordControl: AbstractControl;
+  errorMessage: string;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private resetNewPasswordService: ResetNewPasswordService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private passwordService: SettingsPasswordService
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +73,11 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
       confirmPassword: ['', [confirmPasswordValidator()]],
     });
     this.init();
+    this.passwordControl = this.resetPasswordformGroup.get('password');
+    this.passwordService.getPasswordValidation().subscribe((res) => {
+      this.setValidation(res['passwordValidation']);
+      this.setErrorMessage(res['passwordValidation']);
+    });
   }
 
   ngOnDestroy(): void {
@@ -94,6 +106,59 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  setErrorMessage(data) {
+    const validator = Object.keys(data).filter((key) => {
+      return data[key] && key !== 'maxLength' && key !== 'minLength';
+    });
+    if (validator.length === 1) {
+      this.errorMessage = `password must include at least one ${validator[0]}`;
+    } else if (validator.length === 2) {
+      this.errorMessage = `password must include at least one ${validator[0]} and ${validator[1]}`;
+    } else if (validator.length === 3) {
+      this.errorMessage = `password must include at least one ${validator[0]}, ${validator[1]} and ${validator[2]} `;
+    } else {
+      this.errorMessage =
+        'password must include number, at least one uppercase, lowercase and special character';
+    }
+  }
+
+  setValidation(data) {
+    this.passwordControl.setValidators(Validators.required);
+    Object.keys(data).forEach((key) => {
+      if (data[key]) {
+        switch (key) {
+          case 'minLength':
+            this.passwordControl.addValidators(Validators.minLength(6));
+            break;
+          case 'maxLength':
+            this.passwordControl.addValidators(Validators.maxLength(15));
+            break;
+          case 'number':
+            this.passwordControl.addValidators(Validators.pattern(/\d/));
+            break;
+          case 'uppercase':
+            this.passwordControl.addValidators(
+              Validators.pattern(/(?=.*[A-Z])/)
+            );
+            break;
+          case 'lowercase':
+            this.passwordControl.addValidators(
+              Validators.pattern(/(?=.*[a-z])/)
+            );
+            break;
+          case 'characters':
+            this.passwordControl.addValidators(
+              Validators.pattern(/(?=.*[!@#$%^&*,./()';|?><:"])/)
+            );
+            break;
+          default:
+            break;
+        }
+      }
+      this.passwordControl.updateValueAndValidity({ onlySelf: true });
+    });
   }
 
   verifyPasswordResetToken(token) {
@@ -126,7 +191,7 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
 
   trackUser() {
     return this.authService.getCurrentUser().pipe(
-      tap((user: UserEntity) => {
+      tap((user) => {
         this.username = user.username;
         this.resetPasswordformGroup.get('username').setValue(this.username);
       }),
@@ -142,7 +207,7 @@ export class ResetNewPasswordComponent implements OnInit, OnDestroy {
     this.resetNewPasswordService
       .resetPassword(this.username, password, this.token)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((data: any) => {
+      .subscribe((data) => {
         if (data?.success) {
           this.toastrService.success(data?.message);
           this.router.navigate(['/dashboard-default']);

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Action } from '@valor-launchpad/api-interfaces'
-import { Subject } from 'rxjs'
 import { ThemeService } from '../../core/theme/theme.service';
 
 @Component({
@@ -11,6 +10,7 @@ import { ThemeService } from '../../core/theme/theme.service';
 export class HeaderComponent implements OnInit {
 
   checked = false
+  theme: string
 
   CorporateMenu: Action[] = [
     {
@@ -34,7 +34,9 @@ export class HeaderComponent implements OnInit {
     }
   ];
 
-  constructor( private themeService: ThemeService ) {}
+  constructor( private themeService: ThemeService,
+      private renderer2: Renderer2
+    ) {}
 
   ngOnInit(): void {
     const theme = this.themeService.getStoredConfig('theme', false)
@@ -43,6 +45,7 @@ export class HeaderComponent implements OnInit {
     } else {
       this.checked = false
     }
+    this.theme = theme
   }
 
   themeChange(e: Event) {
@@ -50,10 +53,26 @@ export class HeaderComponent implements OnInit {
     if (checked) {
       this.themeService.changeTheme('theme', 'dark')
       this.themeService.setStoredConfig('theme', 'dark')
+      this.theme = 'dark'
     } else {
       this.themeService.changeTheme('theme', 'light')
       this.themeService.setStoredConfig('theme', 'light')
+      this.theme = 'light'
     }
   }
+
+  showHeadMenu(e: MouseEvent, isShow) {
+    const child = (e.target as HTMLElement).children[1]
+    const { width } = (e.target as HTMLElement).getBoundingClientRect()
+    
+    if (isShow) {
+      this.renderer2.addClass(e.target, 'show')
+      const { width: childWidth } = child.getBoundingClientRect()
+      this.renderer2.setStyle(child, 'left', `-${(childWidth / 2) - (width / 2) }px`)
+    } else {
+      this.renderer2.removeClass(e.target, 'show')
+    }
+  }
+
 
 }

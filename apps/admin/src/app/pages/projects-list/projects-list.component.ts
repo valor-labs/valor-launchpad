@@ -40,6 +40,7 @@ export class ProjectsListComponent implements OnInit {
   progressFilter: Progress;
   sortBy: string;
   projectRefreshController$ = new BehaviorSubject(true);
+
   constructor(
     private projectsListService: ProjectsListService,
     private fb: FormBuilder,
@@ -92,7 +93,7 @@ export class ProjectsListComponent implements OnInit {
 
   onDeleteProject(projectId: string) {
     this.projectsListService.deleteProject(projectId).subscribe(() => {
-      this._initProjectData();
+      this.projectRefreshController$.next(true);
       this.notyf.success('Delete project success');
     });
   }
@@ -129,7 +130,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   fileExtensionValidator(validExt: string[]): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): ValidationErrors | null => {
       let forbidden;
       if (control.value) {
         forbidden = true;
@@ -214,6 +215,6 @@ export class ProjectsListComponent implements OnInit {
 
   private _resetPage(): void {
     this.newProjectFg.reset();
-    this._initProjectData();
+    this.projectRefreshController$.next(true);
   }
 }

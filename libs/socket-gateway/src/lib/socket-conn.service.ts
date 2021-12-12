@@ -30,8 +30,29 @@ export class SocketConnService {
     this.userClients.get(userId).delete(client);
   }
 
-  notifyByUserId<T>(userId: string, eventName: string, message: T) {
+  isConnected(userId: string): boolean {
     const sockets = this.userClients.get(userId);
-    sockets?.forEach((s) => s.emit(eventName, message));
+    return !!sockets && sockets.size > 0;
+  }
+
+  /**
+   *
+   * @param userId the user which is going to be notified
+   * @param eventName
+   * @param data
+   * @param blockedSocketIds do not send to these sockets if necessary
+   */
+  notifyByUserId<T>(
+    userId: string,
+    eventName: string,
+    data: T,
+    blockedSocketIds: string[] = []
+  ) {
+    const sockets = this.userClients.get(userId);
+    sockets?.forEach((s) => {
+      if (!blockedSocketIds?.includes(s.id)) {
+        s.emit(eventName, data);
+      }
+    });
   }
 }

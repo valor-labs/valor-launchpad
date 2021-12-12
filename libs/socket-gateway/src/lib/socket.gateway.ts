@@ -1,13 +1,18 @@
-import { OnGatewayConnection, WebSocketGateway } from '@nestjs/websockets';
+import {
+  OnGatewayConnection,
+  WebSocketGateway,
+  WebSocketServer,
+} from '@nestjs/websockets';
 import { AuthService } from '@valor-launchpad/auth-api';
 import { SocketConnService } from './socket-conn.service';
-import { Socket } from 'socket.io';
+import { Socket, Server } from 'socket.io';
 import { Logger } from '@nestjs/common';
 
 @WebSocketGateway({
   cors: { origin: process.env.HOST },
 })
 export class SocketGateway implements OnGatewayConnection {
+  @WebSocketServer() server: Server;
   private logger = new Logger(SocketGateway.name);
   constructor(
     private authService: AuthService,
@@ -19,19 +24,23 @@ export class SocketGateway implements OnGatewayConnection {
   }
 
   handleDisconnect(client: Socket) {
-    // todo: find some way to put userId in client
-    const user = this.authService.jwtService.decode(
-      client.handshake.headers.authorization
-    ) as { id: string };
-    this.socketConnService.delete(user.id, client);
+    const userId = client.data.user.id;
+    this.socketConnService.delete(userId, client);
     this.logger.log(`Client disconnected: ${client.id}`);
+    // check if all connection has been closed, as user may open several browser tabs
+    const stillHasConnection = this.socketConnService.isConnected(userId);
+    if (!stillHasConnection) {
+      this.server.emit('userDisconnected', userId);
+    }
   }
 
   handleConnection(client: Socket) {
     const user = this.authService.jwtService.decode(
       client.handshake.headers.authorization
     ) as { id: string };
+    client.data.user = user;
     this.socketConnService.add(user.id, client);
     this.logger.log(`Client connected: ${client.id}`);
+    this.server.emit('userConnected', user.id);
   }
 }

@@ -25,11 +25,11 @@ button {
 .nav-text {
   font-size: $font-size-20;
 }
+.main-max {
+  max-width: 1300px;
+}
 
 .sub-nav {
-  max-width: 1440px;
-  display: flex;
-  align-items: center;
   // justify-content: space-between;
 
   &-text {
@@ -123,6 +123,10 @@ button {
   font-size: 1rem;
   color: #B2B0B0;
 }
+.headline-1 {
+  font-size: 80px;
+  font-weight: 700;
+}
 .headline-2 {
   font-weight: 600;
   font-size: 60px;
@@ -140,8 +144,34 @@ button {
   color: #fff;
   background: linear-gradient(96.48deg, #BD54E2 3.59%, #2982E3 83.71%);
 }
-.header-nav {
-  max-width: 1440px;
+
+.masthead {
+  height: 685px;
+  margin-bottom: 180px;
+  &-text{
+    font-size: $font-size-base * 2;
+    width: 500px;
+    font-family: 'Cairo';
+  }
+  &-bg {
+    position: absolute;
+    width: 56%;
+    top: 0;
+    right: 0;
+    background-position: left center;
+    background-repeat: no-repeat, repeat;
+    background-size: contain;
+  }
+
+  .purple-blue-ft {
+    background-image: $masthead-color;
+  }
+  
+  .get-started-btn::after{
+    filter: blur(25px);
+    height: 180%;
+    top: -25%;
+  }
 }
 
 .form-switch-nav {
@@ -172,6 +202,100 @@ button {
   margin-left: 88px;
   &:first-child {
     margin-left: 0;
+  }
+  .nav-link.active {
+    transition: background ease-in-out .3s;
+  }
+  &.show {
+    .nav-link.active{
+      color: transparent;
+      background-clip: text;
+      background-image: $head-menu-color;
+    }
+    .head-menu {
+      display: block;
+      animation-name: dropdownAnimation;
+      animation-duration: 0.5s;
+      animation-iteration-count: 1;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+.landing-navbar {
+  padding: 0;
+  .navbar-nav {
+    height: 84px;
+  }
+}
+.head-menu {
+  display: none;
+  position: absolute;
+  // padding: 36px 36px 12px;
+  top: 100%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 1003;
+  color: $dark;
+  font-size: $main-text-font-size;
+  line-height: 24px;
+  white-space: nowrap;
+  border-radius: 20px;
+  &-wrap {
+    background-image: $head-menu-bg;
+    border-radius: 20px;
+    &.sp{
+      background-image: $head-menu-bg-sp;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      .head-menu-tl {
+        margin-bottom: 18px;
+      }
+      .head-menu-r{
+        margin-bottom: 34px;
+      }
+    }
+  }
+  &::before {
+    position: absolute;
+    content: '';
+    width: 24px;
+    height: 17px;
+    background-image: url('../../src/assets/head-menu.dark.svg');
+    background-repeat: no-repeat;
+    top: -17px;
+    left: calc(50% - 12px);
+  }
+  span {
+    margin-top: 8px;
+    line-height: 20px;
+  }
+  &-r {
+    margin-left: 24px;
+    margin-bottom: 24px;
+  }
+  &-tl {
+    font-size: $font-size-20;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &-item {
+    padding: 36px 36px 12px;
+    &.sp {
+      background: $head-menu-item-bg;
+      border-radius: 20px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      .head-menu-tl {
+        line-height: 32px;
+      }
+      .head-menu-r{
+        margin-bottom: 16px;
+      }
+      span {
+        font-size: $font-size-sm;
+      }
+    }
   }
 }
 
@@ -221,10 +345,6 @@ button {
   width: 100%;
   top: 0;
   z-index: 1;
-  .lg-text{
-    font-size: 80px;
-    font-weight: 700;
-  }
 }
 
 
@@ -554,7 +674,6 @@ button {
   &-card {
     &-item {
       width: 226px;
-      height: 361px;
       border-radius: 20px;
       background: $plans-card-bg-color;
       &:hover {
@@ -584,7 +703,7 @@ button {
       }
       &__b {
         font-size: 1rem;
-        
+        height: 218px;
         .learn-more{
           color: #5869FF;
           font-size: 12px;
@@ -705,5 +824,30 @@ button {
   }
   &-profile {
     font-size: 18px;
+  }
+}
+
+
+.ability{
+  padding: 0;
+  font-family: 'Cairo';
+  margin-bottom: 0;
+  li {
+    list-style: none;
+    font-size: $font-size-base;
+    margin-bottom: 16px;
+  }
+  &-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    background-position: center;
+    background-color: transparent;
+    &.check {
+      background-image: url('../../src' + $icon-check-bg);
+    }
+    &.times {
+      background-image: url('../../src' + $icon-times-bg);
+    }
   }
 }

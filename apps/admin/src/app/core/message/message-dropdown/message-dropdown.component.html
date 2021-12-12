@@ -1,0 +1,52 @@
+<valor-launchpad-dropdown size="lg" classes="nav-icon dropdown-toggle">
+  <div class="position-relative nav-item" dropdown-nav id="messagesDropdown">
+    <i class="align-middle far fa-fw fa-comment-alt"></i>
+    <span class="indicator" *ngIf="messages?.length">
+      {{ messages?.length }}
+    </span>
+  </div>
+
+  <div dropdown-content>
+    <div class="dropdown-menu-header">
+      <div class="position-relative">{{ messages?.length }} New Messages</div>
+    </div>
+    <div class="list-group">
+      <a
+        routerLink="chat"
+        class="list-group-item"
+        *ngFor="let message of messages"
+        [queryParams]="{ threadId: message.threadId }"
+      >
+        <div class="row g-0 align-items-center">
+          <div class="col-2">
+            <valor-launchpad-avatar
+              [src]="message.createdUser.profile.avatar | valorImage"
+              [firstName]="message.createdUser.firstName"
+              [lastName]="message.createdUser.lastName"
+              [alt]="message.createdUser.profile.avatar.alt"
+              size="sm"
+            ></valor-launchpad-avatar>
+          </div>
+          <div class="col-10 ps-2">
+            <div class="text-dark">{{ message.createdUser | fullName }}</div>
+            <div class="text-muted small mt-1">
+              <valor-launchpad-editor-slate
+                [schema]="message.message"
+                [readonly]="true"
+                [hideToolbar]="true"
+                [borderless]="true"
+              ></valor-launchpad-editor-slate>
+            </div>
+            <div class="text-muted small mt-1">
+              {{ message.createdDate | valorDate }}
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="dropdown-menu-footer">
+      <a routerLink="chat" class="text-muted">Show all messages</a>
+    </div>
+  </div>
+</valor-launchpad-dropdown>

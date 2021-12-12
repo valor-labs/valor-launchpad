@@ -4,9 +4,8 @@ import { Directive, TemplateRef } from '@angular/core';
   selector: '[valorLaunchpadAutocompleteContent]'
 })
 export class AutocompleteContentDirective {
-
-  constructor(
-    public tpl: TemplateRef<any>
-  ) { }
-
+  tpl: TemplateRef<any>
+  // constructor(
+  //   // public tpl: TemplateRef<any>
+  // ) { }
 }

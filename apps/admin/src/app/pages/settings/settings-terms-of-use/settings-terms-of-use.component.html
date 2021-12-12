@@ -1,0 +1,72 @@
+<div class="tab-pane" role="tabpanel">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-list-header">
+        <h5 class="card-title">Terms of use</h5>
+        <button
+          valor-launchpad-button
+          theme="primary"
+          (click)="addTermsOfUse()"
+        >
+          Add Terms Of Use
+        </button>
+      </div>
+      <div class="card-list">
+        <valor-launchpad-card
+          class="mb-3 bg-light cursor-grab border term-of-use-item"
+          *ngFor="let termsOfUse of termsOfUseList"
+          (click)="viewTermsOfUse(termsOfUse)"
+        >
+          {{ termsOfUse.title }}
+        </valor-launchpad-card>
+      </div>
+    </div>
+  </div>
+</div>
+<valor-launchpad-modal
+  bsModal
+  #termsOfUseModal="bs-modal"
+  [heading]="modelHeader"
+  [footer]="termsOfUseFooterTmpl"
+  [content]="termsOfUseContentTmpl"
+>
+  <ng-template #termsOfUseFooterTmpl>
+    <button valor-launchpad-button theme="secondary" (click)="cancel()">
+      Cancel
+    </button>
+    <button
+      *ngIf="currentModel === 'Add'"
+      valor-launchpad-button
+      theme="primary"
+      [disabled]="termsOfUseFormGroup.invalid"
+      (click)="submitTermsOfUseModel()"
+    >
+      Save
+    </button>
+  </ng-template>
+  <ng-template #termsOfUseContentTmpl>
+    <form [formGroup]="termsOfUseFormGroup">
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label [required]="true"
+          >Title</valor-launchpad-form-label
+        >
+        <input
+          valorLaunchpadInput
+          formControlName="title"
+          placeholder="Enter title"
+        />
+      </valor-launchpad-form-item>
+      <valor-launchpad-form-item>
+        <valor-launchpad-form-label [required]="true"
+          >Content</valor-launchpad-form-label
+        >
+        <textarea
+          valorLaunchpadInput
+          rows="5"
+          placeholder="Enter desc"
+          formControlName="content"
+        ></textarea>
+      </valor-launchpad-form-item>
+    </form>
+  </ng-template>
+</valor-launchpad-modal>

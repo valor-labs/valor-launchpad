@@ -106,14 +106,14 @@ export class TokenInterceptor implements HttpInterceptor {
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 
-  private _handleError(err: HttpErrorResponse): Observable<any> {
+  private _handleError(err: HttpErrorResponse) {
     if (err.status === 500) {
       this.notyf.error('Something wrong, please try again later.');
     }
     return throwError(err);
   }
 
-  private addTokenHeader(request: HttpRequest<any>, token: string) {
+  private addTokenHeader(request: HttpRequest<unknown>, token: string) {
     return request.clone({
       headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token),
     });

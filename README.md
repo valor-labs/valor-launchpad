@@ -19,6 +19,7 @@ The stack used for this project is as follows.
 
 1) Make sure you have Docker installed and running
 1) run the `docker compose up -d` to setup the MySQL and Redis
+1) run schema sync  `npm run schema:sync` to synchronyze DBs
 1) run the `npm run seed:run` command to scaffold the seed database with its structure and default data
 1) run the server with `npm run start:server`
 1) run the client with `npm run start`
@@ -30,24 +31,25 @@ The features for our initial admin panel were based on
 the [Appstack template](https://appstack.bootlab.io/dashboard-default.html) by [Bootlab](https://bootlab.io/). After the
 template was purchased, it was used for the raw HTML and SCSS. From there it was converted to Angular and rebranded.
 
-| Feature                  | HTML Generated | Converted to Angular | Data via Server | Seed Created | Tests Added | Extracted to Lib | Polished |
-|--------------------------|----------------|----------------------|-----------------|--------------|-------------|------------------|----------|
-| Blank                    | ✅              | ✅                   | N/A             | N/A          | ▢           | ▢                |        ▢ |
-| Sign In                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
-| Sign Up                  | ✅              | ✅                   | ✅              | N/A          | ▢           | ▢                | ▢        |
+| Feature                  | HTML Generated | Converted to Angular | Data via Server  | Seed Created | Tests Added | Extracted to Lib | Polished |
+|--------------------------|----------------|----------------------|------------------|--------------|-------------|------------------|----------|
+| Blank                    | ✅              | ✅                   | N/A              | N/A          | ▢           | ▢                |        ▢ |
+| Sign In                  | ✅              | ✅                   | ✅               | N/A          | ▢           | ▢                | ▢        |
+| Sign Up                  | ✅              | ✅                   | ✅               | N/A          | ▢           | ▢                | ▢        |
 | Calendar                 | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Charts-chartjs           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Chat                     | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-Apexcharts        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Charts-ChartJs           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Chat                     | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
 | Clients                  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Dashboard Analytics      | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
-| Dashboard Crypto         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Dashboard Default        | ✅              | ✅                   | ✅              | ✅            | ▢           | ▢                | ▢        |
+| Color-Palette            | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Dashboard Analytics      | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
+| Dashboard Crypto         | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
+| Dashboard Default        | ✅              | ✅                   | ✅               | ✅            | ▢           | ▢                | ▢        |
 | Dashboard SaaS           | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Dashboard Social         | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Dashboard Social         | ✅              | ✅                   | ✅               | ▢             | ▢           | ▢                | ▢        |
 | Datatables Ajax          | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Buttons       | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
-| Datatables Column Search | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Buttons       | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Datatables Column Search | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Fixed Header  | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Multi         | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Datatables Responsive    | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
@@ -57,7 +59,7 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Docs Introduction        | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Docs Plugins             | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Error Page               | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Forms Advanced Inputs    | ✅              | ✅                    | ▢               | ▢            | ▢           | ▢                | ▢        |
+| Forms Advanced Inputs    | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Basic Inputs       | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Forms Editors            | ✅              | ✅                   | ▢               | ▢            | ▢           | ▢                | ▢        |
 | Forms Floating Labels    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
@@ -69,16 +71,20 @@ template was purchased, it was used for the raw HTML and SCSS. From there it was
 | Invoice                  | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | Maps Google              | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
 | Maps Vector              | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
-| Not Found                | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Notifications            | ✅              | ✅                   | ▢               | ▢             | ▢           | ▢                | ▢        |
+| Not Found                | ✅              | ✅                   | N/A              | ▢              | ▢           | ▢                | ▢        |
+| Notifications            | ✅              | ✅                   | ✅               | ▢             | ▢           | ▢                | ▢        |
 | Payments                 | ✅              | ✅                   | ✅               | ▢               | ▢           | ▢                | ▢        |
 | Pricing                  | ✅              | ✅                   | ▢               | ▢               | ▢           | ▢                | ▢        |
 | Profile                  | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | Projects Detail          | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | Projects Listing         | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
-| Reset Password           | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Reset Password           | ✅              | ✅                   | ✅               | ▢              | ▢           | ▢                | ▢        |
+| Reset New Password       | ✅              | ✅                   | ✅               | ▢              | ▢           | ▢                | ▢        |
 | Settings                 | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
-| Tasks                    | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Tasks                    | ✅              | ✅                   | ✅               | ✅              | ▢           | ▢                | ▢        |
+| Table Bootstrap          | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Term Of Service          | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
+| Users                    | ✅              | ✅                   | ✅               | ✅               | ▢           | ▢                | ▢        |
 | UI Alerts                | ✅              | ✅                   | ▢               | ▢               | ▢           | ▢                | ▢        |
 | UI Buttons               | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |
 | UI Cards                 | ✅              | ✅                   | ▢               | ▢              | ▢           | ▢                | ▢        |

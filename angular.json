@@ -21,6 +21,7 @@
               "apps/admin/src/styles.scss",
               "node_modules/notyf/notyf.min.css",
               "node_modules/jsvectormap/dist/css/jsvectormap.min.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css",
               {
                 "input": "apps/admin/scss/dark.scss",
                 "bundleName": "dark",
@@ -236,6 +237,29 @@
           "outputs": ["coverage/libs/auth-api"],
           "options": {
             "jestConfig": "libs/auth-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "chat-api": {
+      "root": "libs/chat-api",
+      "sourceRoot": "libs/chat-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/chat-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/chat-api"],
+          "options": {
+            "jestConfig": "libs/chat-api/jest.config.js",
             "passWithNoTests": true
           }
         }

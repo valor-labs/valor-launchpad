@@ -5,18 +5,16 @@ import {
   MegaMenuColumn,
   Menu,
   ProjectListItemVo,
+  RequestingUser,
 } from '@valor-launchpad/api-interfaces';
 import { Message } from '@valor-launchpad/api-interfaces';
 import { NavigationService } from '../navigation/navigation.service';
-import { UserEntity } from '@valor-launchpad/common-api';
 import { HeaderService } from './header.service';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ProjectsListService } from '../../pages/projects-list/projects-list.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { ProfileService } from '../../pages/profile/profile.service';
-import { ProfileEntity } from '@valor-launchpad/common-api';
 
 @Component({
   selector: 'valor-launchpad-header',
@@ -27,8 +25,7 @@ export class HeaderComponent implements OnInit {
   //TODO this and the items in navigation.component need to come from a service
   @ViewChild('defaultWarningModal', { static: false })
   defaultWarningModal?: ModalDirective;
-  user$: Observable<UserEntity> = this.authService.user;
-  profile: ProfileEntity;
+  user$: Observable<RequestingUser> = this.authService.user;
   messages: Message[] = [];
   megaMenus$: Observable<MegaMenuColumn[]> =
     this.navigationService.megaMenus$.pipe(
@@ -75,19 +72,10 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private headerService: HeaderService,
     private navigationService: NavigationService,
-    private projectsListService: ProjectsListService,
-    private profileService: ProfileService
+    private projectsListService: ProjectsListService
   ) {}
 
   ngOnInit() {
-    this.headerService.getMessages().subscribe((messages) => {
-      this.messages = messages;
-    });
-
-    this.profileService.getProfile().subscribe((profile) => {
-      this.profile = profile;
-    });
-
     this._initProjectSearch();
     this.content = 'Your account will logged out.';
   }
@@ -105,7 +93,6 @@ export class HeaderComponent implements OnInit {
   }
 
   confirmSignOut() {
-    // TODO add loading spinner here ?
     this.content = '....Logging out';
     this.authService.signOut().subscribe(() => {
       // todo: add logic here

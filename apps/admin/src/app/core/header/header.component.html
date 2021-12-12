@@ -65,50 +65,7 @@
 
   <div class="navbar-collapse collapse">
     <ul class="navbar-nav navbar-align">
-      <valor-launchpad-dropdown size="lg" classes="nav-icon dropdown-toggle">
-        <div
-          class="position-relative nav-item"
-          dropdown-nav
-          id="messagesDropdown"
-        >
-          <i class="align-middle far fa-fw fa-comment-alt"></i>
-          <span class="indicator">{{ messages?.length }}</span>
-        </div>
-
-        <div dropdown-content>
-          <div class="dropdown-menu-header">
-            <div class="position-relative">
-              {{ messages?.length }} New Messages
-            </div>
-          </div>
-          <div class="list-group">
-            <a
-              routerLink="chat"
-              class="list-group-item"
-              *ngFor="let message of messages"
-            >
-              <div class="row g-0 align-items-center">
-                <div class="col-2">
-                  <img
-                    [src]="message.user.avatar"
-                    class="avatar img-fluid rounded-circle"
-                    [alt]="message.user.name"
-                  />
-                </div>
-                <div class="col-10 ps-2">
-                  <div class="text-dark">{{ message.user.name }}</div>
-                  <div class="text-muted small mt-1">{{ message.message }}</div>
-                  <div class="text-muted small mt-1">{{ message.time }}</div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="dropdown-menu-footer">
-            <a routerLink="chat" class="text-muted">Show all messages</a>
-          </div>
-        </div>
-      </valor-launchpad-dropdown>
+      <valor-launchpad-message-dropdown></valor-launchpad-message-dropdown>
 
       <valor-launchpad-notification-dropdown></valor-launchpad-notification-dropdown>
 

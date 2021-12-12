@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IResponse, TaskEntity } from '@valor-launchpad/common-api';
+import { IResponse } from '@valor-launchpad/common-api';
+import { TaskEntity } from '@valor-launchpad/api-interfaces';
 
 export enum TaskType {
   UPCOMING = 'UPCOMING',

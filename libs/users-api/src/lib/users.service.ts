@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CryptService, UserEntity, RolesEntity } from '@valor-launchpad/common-api';
-import { classToPlain } from 'class-transformer';
+import { CryptService } from '@valor-launchpad/common-api';
 import { EmailService } from '@valor-launchpad/email';
 import * as generatePassword from 'generate-password';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -10,7 +9,7 @@ import { ExistedUserException } from './exceptions/existed-user';
 import { NeedVerifyEmailException } from './exceptions/need-verify-email';
 import { v4 } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
-import { RegisterDTO } from '../../../auth-api/src/lib/auth.dto';
+import { RegisterDTO } from '@valor-launchpad/auth-api';
 import {
   RESET_PASSWORD,
   ResetPasswordPayload,
@@ -25,32 +24,39 @@ import { RoleDto } from './dto/role.dto';
 import { TagDto } from './dto/tag.dto';
 import { QueryUserListDto } from './dto/query-user-list.dto';
 import { BatchAddTagsDto } from './dto/batch-add-tags.dto';
+import {RedisService} from "nestjs-redis";
+import {Redis} from "ioredis";
+import { RequestingUser } from '@valor-launchpad/api-interfaces';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
 
 @Injectable()
 export class UsersService {
+  private redis: Redis;
   constructor(
     private crypto: CryptService,
     private emailService: EmailService,
     private eventEmitter: EventEmitter2,
     private prisma: PrismaService,
     private usersEventsService: UsersEventsService,
-  ) { }
+    private readonly redisService: RedisService
+  ) {
+    this.redis = this.redisService.getClient();
+  }
 
   //TODO: Add profile image function
 
-  async findByToken(token: string): Promise<UserEntity> {
+  async findByToken(token: string) {
     //TODO: this needs to be changed when we have more than one type of token and its extracted to its own table
     return await this.prisma.userEntity.findUnique({
       where: {
         emailVerifyToken: token
       }
-    }) as UserEntity
+    });
   }
 
-  async findByPasswordResetToken(passwordResetToken: string): Promise<UserEntity> {
+  async findByPasswordResetToken(passwordResetToken: string): Promise<RequestingUser> {
     return await this.prisma.userEntity.findUnique({
       where: {
         passwordResetToken: passwordResetToken
@@ -63,14 +69,14 @@ export class UsersService {
           }
         }
       }
-    }) as UserEntity
+    });
   }
 
-  async getRoles(): Promise<RolesEntity[]> {
-    return await this.prisma.rolesEntity.findMany() as RolesEntity[];
+  async getRoles() {
+    return await this.prisma.rolesEntity.findMany();
   }
 
-  async findAll({roles, tags, keyword}: QueryUserListDto) {
+  async findAll({ roles, tags, keyword }: QueryUserListDto) {
     let tagFilter: Prisma.UserEntityWhereInput;
     if (Array.isArray(tags) && tags.length > 0) {
       tagFilter = {
@@ -127,6 +133,8 @@ export class UsersService {
         username: true,
         email: true,
         emailVerified: true,
+        phone: true,
+        phoneVerified: true,
         lastLogin: true,
         deletedDate: true,
         lastPasswordUpdateDate: true,
@@ -162,17 +170,55 @@ export class UsersService {
     });
   }
 
-  //TODO verify this filters soft deletes after prisma conversion
-  async findCurrent(): Promise<UserEntity[]> {
-    //Todo: this eventually needs to filter password field
-    return await this.prisma.userEntity.findMany({
-      include: {
-        userRoles: true,
-        userTags: true,
-        userHistory: true
+  findByName(name: string) {
+    let nameFilter:  Prisma.UserEntityWhereInput;
+    if (name && name.length > 0) {
+      nameFilter = {
+        OR: [
+          { firstName: { contains: name } },
+          { lastName: { contains: name } },
+          { username: { contains: name } },
+          { email: { contains: name } },
+          { phone: { contains: name } },
+        ]
+      }
+    }
+    return this.prisma.userEntity.findMany({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        username: true,
+        profile: {
+          select: {
+            avatar: {
+              select: {
+                src: true,
+                src_webp: true,
+                alt: true,
+              }
+            }
+          }
+        }
       },
-    }) as UserEntity[]
+      where: {
+        deletedDate: null,
+        ...nameFilter,
+      },
+    });
   }
+
+  // //TODO verify this filters soft deletes after prisma conversion
+  // async findCurrent(): Promise<UserEntity[]> {
+  //   //Todo: this eventually needs to filter password field
+  //   return await this.prisma.userEntity.findMany({
+  //     include: {
+  //       userRoles: true,
+  //       userTags: true,
+  //       userHistory: true
+  //     },
+  //   }) as UserEntity[]
+  // }
 
   async findByUsername(username: string) {
     return await this.prisma.userEntity.findUnique({
@@ -217,42 +263,43 @@ export class UsersService {
 
       this.eventEmitter.emit(
         'user.passwordResetEmailResend.thin',
-        <UserEntity>{
+        <RequestingUser>{
           id: userCheck.id,
         },
       );
 
       this.eventEmitter.emit(
         'user.passwordResetEmailResend.fat',
-        <UserEntity>userCheck,
+        <Partial<RequestingUser>>userCheck,
       );
       return;
     }
   }
 
-  async resetPassword(username: string, actingUser) {
+  async sendResetPasswordMail(username: string, actingUser?) {
     const userCheck = await this.findByUsername(username);
-    if (userCheck) {
-      await this.prisma.userEventsEntity.create({
-        data: {
-          target_user_id: userCheck.id,
-          acting_user_id: actingUser.id,
-          event: 'Pending Password Reset'
-        }
-      })
-      const resetPasswordToken = v4();
-      this.emitResetPasswordEmail(userCheck.email, username, resetPasswordToken);
-
-      await this.prisma.userEntity.update({
-        where: {
-          username: username
-        },
-        data: {
-          passwordResetNeeded: true,
-          passwordResetToken: resetPasswordToken
-        }
-      })
+    if (!userCheck) {
+      throw new HttpException('User out found', HttpStatus.NOT_FOUND)
     }
+    await this.prisma.userEventsEntity.create({
+      data: {
+        target_user_id: userCheck.id,
+        acting_user_id: actingUser ? actingUser.id : userCheck.id,
+        event: 'Pending Password Reset'
+      }
+    })
+    const resetPasswordToken = v4();
+    this.emitResetPasswordEmail(userCheck.email, username, resetPasswordToken);
+
+    await this.prisma.userEntity.update({
+      where: {
+        username: username
+      },
+      data: {
+        passwordResetNeeded: true,
+        passwordResetToken: resetPasswordToken
+      }
+    })
   }
 
   async deleteUsers(uid: string[], actingUser) {
@@ -288,14 +335,14 @@ export class UsersService {
 
       this.eventEmitter.emit(
         'user.deleted.thin',
-        <UserEntity>{
+        {
           id: userCheck.id,
         },
       );
 
       this.eventEmitter.emit(
         'user.deleted.fat',
-        <UserEntity>userCheck,
+        userCheck,
       );
       return;
     }
@@ -343,14 +390,14 @@ export class UsersService {
 
       this.eventEmitter.emit(
         'user.restored.thin',
-        <UserEntity>{
+        {
           id: userCheck.id,
         },
       );
 
       this.eventEmitter.emit(
         'user.restored.fat',
-        <UserEntity>userCheck,
+        userCheck,
       );
 
       return
@@ -359,7 +406,7 @@ export class UsersService {
 
   async verifyToken(token): Promise<void> {
     //TODO: Add verify event
-    const user: UserEntity = await this.findByToken(token);
+    const user = await this.findByToken(token);
     if (user) {
       if (user.emailVerified) {
         throw new HttpException('Already have the user authenticated', HttpStatus.METHOD_NOT_ALLOWED);
@@ -388,14 +435,14 @@ export class UsersService {
 
       this.eventEmitter.emit(
         'user.verified.thin',
-        <UserEntity>{
+        {
           id: user.id,
         },
       );
 
       this.eventEmitter.emit(
         'user.verified.fat',
-        <UserEntity>user,
+        user,
       );
 
       return;
@@ -404,8 +451,8 @@ export class UsersService {
     }
   }
 
-  async verifyPasswordResetToken(token): Promise<UserEntity> {
-    const user: UserEntity = await this.findByPasswordResetToken(token);
+  async verifyPasswordResetToken(token) {
+    const user = await this.findByPasswordResetToken(token);
 
     if (!user) {
       throw new HttpException('Token does not exist', HttpStatus.NOT_FOUND);
@@ -414,6 +461,7 @@ export class UsersService {
     await this.prisma.userEventsEntity.create({
       data: {
         target_user_id: user.id,
+        acting_user_id: user.id,
         event: 'Password Reset Token Verified'
       }
     })
@@ -439,7 +487,7 @@ export class UsersService {
     return !!userCheck;
   }
 
-  async createUser(payload: CreateUserDto | RegisterDTO, operator?: UserEntity) {
+  async createUser(payload: CreateUserDto | RegisterDTO, operator?: RequestingUser) {
     const { username, email, firstName, lastName } = payload;
     // check if username duplicate
     const userCheck = await this.prisma.userEntity.findFirst({ where: { username } });
@@ -487,7 +535,13 @@ export class UsersService {
 
     const passwordCrypt = await this.crypto.hashPassword(password);
     const emailVerifyToken = v4();
-    const phoneVerifyToken = Math.random().toString().substr(2, 6);
+    const phoneTokenInRedis = await this.redis.get(phone);
+    let phoneVerifyToken;
+    let phoneVerified = false;
+    if (payload instanceof RegisterDTO && phoneTokenInRedis) {
+      phoneVerifyToken = phoneTokenInRedis;
+      phoneVerified = phoneVerifyToken === payload.captcha;
+    }
     const createdUserId = v4();
     const user = await this.prisma.userEntity.create({
       data: {
@@ -499,6 +553,7 @@ export class UsersService {
         phone,
         phoneVerifyToken,
         emailVerifyToken,
+        phoneVerified,
         passwordResetNeeded,
         password: passwordCrypt,
         userRoles: { create: userRolesCreate },
@@ -527,7 +582,7 @@ export class UsersService {
     return user;
   }
 
-  async editUser(user: EditUserDto, operator: UserEntity) {
+  async editUser(user: EditUserDto, operator: RequestingUser) {
     const userRoles = await this.prisma.userRolesEntity.findMany({
       where: { user_id: user.id, deletedDate: null },
       select: { id: true, role_id: true }
@@ -627,7 +682,7 @@ export class UsersService {
     });
   }
 
-  async findOneUnsafe(username: string): Promise<UserEntity> {
+  async findOneUnsafe(username: string) {
     return await this.prisma.userEntity.findUnique({
       where: {
         username
@@ -639,10 +694,10 @@ export class UsersService {
           }
         }
       }
-    }) as UserEntity
+    });
   }
 
-  async logIn(username): Promise<UserEntity> {
+  async logIn(username): Promise<RequestingUser> {
     await this.prisma.userEntity.update({
       where: { username },
       data: {
@@ -660,7 +715,7 @@ export class UsersService {
           }
         }
       }
-    }) as UserEntity
+    });
   }
 
   generatePassword(): string {
@@ -689,8 +744,7 @@ export class UsersService {
         }
       }
     })
-    const user = new UserEntity(fetchedUser)
-    return classToPlain(user);
+    return fetchedUser;
   }
 
   async updatePassword(username: string, newPasswordCrypt: string) {

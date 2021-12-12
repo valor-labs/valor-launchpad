@@ -1,4 +1,4 @@
-import { Attribute, Component, HostBinding, Input, OnInit } from '@angular/core';
+import {Component, HostBinding, Input } from '@angular/core';
 import { ButtonSize, ButtonTheme } from './button.model';
 
 @Component({

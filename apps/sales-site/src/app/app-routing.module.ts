@@ -18,6 +18,21 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'pricing',
+        loadChildren: () =>
+          import('./pages/pricing/pricing.module').then(
+            (m) => m.PricingModule
+          ),
+      },
+      {
+        path: 'integrations',
+        loadChildren: () =>
+          import('./pages/integrations/integrations.module').then(
+            (m) => m.IntegrationsModule
+          ),
+      },
+      {
+        path: '**',
         path: 'mobile-detail',
         component: MobileDetailComponent
       },

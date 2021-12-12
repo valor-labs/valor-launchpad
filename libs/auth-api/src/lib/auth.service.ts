@@ -1,4 +1,4 @@
-import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, Injectable, UnauthorizedException, HttpStatus} from '@nestjs/common';
 import {UsersService} from '@valor-launchpad/users-api';
 import {JwtService} from '@nestjs/jwt';
 import {CryptService} from '@valor-launchpad/common-api';
@@ -30,9 +30,11 @@ export class AuthService {
   async login(user: any) {
     const payload = {username: user.username};
     const cleanUser = await this.usersService.findOne(payload.username);
+    if (cleanUser.deletedDate) {
+      throw new HttpException('User has been deleted', HttpStatus.BAD_REQUEST)
+    }
     const loginServiceResult = await this.usersService.logIn(cleanUser.username);
     const accessToken = this.jwtService.sign(cleanUser);
-
     // store refresh toke to redis
     const salt = await bcrypt.genSalt(10)
     const refreshToken = await bcrypt.hash(accessToken.split('.')[2] + salt, salt);

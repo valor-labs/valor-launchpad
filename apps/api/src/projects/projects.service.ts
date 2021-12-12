@@ -1,15 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import {
-  ProjectCreatedFatEvent,
-  ProjectCreatedThinEvent,
-} from './events/project-created.event';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { ProjectCreateDto } from './dto/project-create-dto';
 import { ImageUploaderUtility } from '../media/imageUploader.utility';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 import { QueryProjectListDto } from './dto/query-project-list.dto';
 import { Prisma } from '@prisma/client';
+
 @Injectable()
 export class ProjectsService {
   constructor(
@@ -41,13 +38,10 @@ export class ProjectsService {
       },
     });
 
-    this.eventEmitter.emit('project.created.thin', <ProjectCreatedThinEvent>{
+    this.eventEmitter.emit('project.created.thin', {
       id: persistedProject.id,
     });
-    this.eventEmitter.emit(
-      'project.created.fat',
-      <ProjectCreatedFatEvent>persistedProject
-    );
+    this.eventEmitter.emit('project.created.fat', persistedProject);
     return persistedProject;
   }
 
@@ -112,15 +106,7 @@ export class ProjectsService {
       include: {
         hero: true,
         assignee: {
-          select: {
-            user: {
-              include: {
-                profile: {
-                  include: { avatar: true },
-                },
-              },
-            },
-          },
+          select: ImageUploaderUtility.genImageEntityArg(),
         },
       },
       orderBy: sortBy,
@@ -149,28 +135,12 @@ export class ProjectsService {
       },
       include: {
         assignee: {
-          include: {
-            user: {
-              include: {
-                profile: {
-                  include: { avatar: true },
-                },
-              },
-            },
-          },
+          select: ImageUploaderUtility.genImageEntityArg(),
         },
         hero: true,
         summary: {
           include: {
-            reporter: {
-              include: {
-                profile: {
-                  include: {
-                    avatar: true,
-                  },
-                },
-              },
-            },
+            reporter: ImageUploaderUtility.genImageEntityArg().user,
           },
         },
       },

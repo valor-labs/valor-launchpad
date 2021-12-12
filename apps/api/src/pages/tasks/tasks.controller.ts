@@ -10,10 +10,10 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 import { TasksService } from './tasks.service';
-import { UpdateTasksDto, CreateTasksDto, DeleteTaskDto } from './task.dto';
+import { UpdateTasksDto, CreateTasksDto } from './task.dto';
 import { ResponseError, ResponseSuccess } from '@valor-launchpad/common-api';
 import { User } from '@valor-launchpad/users-api';
-import { UserEntity } from '@valor-launchpad/common-api';
+import { RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
@@ -46,28 +46,15 @@ export class TasksController {
   @Post('create-task')
   async createTask(
     @Body() createTasksDto: CreateTasksDto,
-    @User() currentUser: UserEntity
+    @User() currentUser: RequestingUser
   ) {
     try {
       const task = await this.tasksService.createTask(
         createTasksDto.task,
         currentUser.id
       );
-      const { id, title, desc, taskIndex, taskStatus, userId } = task;
 
-      return new ResponseSuccess('Create Task Success', [
-        {
-          id,
-          title,
-          desc,
-          taskIndex,
-          taskStatus,
-          user: {
-            id: userId,
-            avatar: currentUser.avatar?.src,
-          },
-        },
-      ]);
+      return new ResponseSuccess('Create Task Success', [task]);
     } catch (e) {
       return new ResponseError('Create Task Failed');
     }

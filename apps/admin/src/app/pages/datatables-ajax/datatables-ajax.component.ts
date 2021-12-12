@@ -1,21 +1,14 @@
-import { Component, Inject, LOCALE_ID, ViewChild } from '@angular/core';
+import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable/lib/types/table-column.type';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { tableData } from './fakeData';
 
-class CustomDatePipe extends DatePipe {
-  public transform(value): any {
-    return super.transform(value, 'y/MM/dd');
-  }
-}
-
 @Component({
   selector: 'valor-launchpad-datatables-ajax',
   templateUrl: './datatables-ajax.component.html',
-  styleUrls: ['./datatables-ajax.component.css'],
+  styleUrls: ['./datatables-ajax.component.scss'],
 })
 export class DatatablesAjaxComponent {
-  @ViewChild('myTable') table: any;
   tableResponsiveData = tableData;
   pageNumLimit = 10;
   tableResponsiveColumns: Array<TableColumn> = [
@@ -26,7 +19,9 @@ export class DatatablesAjaxComponent {
     {
       name: 'Start date',
       prop: 'startDate',
-      pipe: new CustomDatePipe(this.locale),
+      pipe: {
+        transform: (val) => new DatePipe(this.locale).transform(val, 'MM/dd/y'),
+      },
     },
     { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale) },
   ];

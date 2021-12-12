@@ -9,7 +9,7 @@
 .chat-messages {
   display: flex;
   flex-direction: column;
-  max-height: 800px;
+  height: calc(100vh - 400px);
   overflow-y: scroll;
 }
 
@@ -26,4 +26,17 @@
 .chat-message-right {
   flex-direction: row-reverse;
   margin-left: auto;
+}
+
+.list-group-item.selected {
+  background: $list-group-hover-bg;
+}
+
+.cdk-overlay-pane.chat-search-panel {
+  box-shadow: $box-shadow-lg;
+  border: $dropdown-border-width solid $dropdown-border-color;
+  @include border-radius($dropdown-border-radius);
+  @include box-shadow($dropdown-box-shadow);
+  max-height: 400px;
+  overflow: auto;
 }

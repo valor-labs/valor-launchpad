@@ -27,5 +27,4 @@ export class AutocompleteOptionComponent implements OnInit {
   get element(): HTMLElement {
     return this.host.nativeElement;
   }
-
 }

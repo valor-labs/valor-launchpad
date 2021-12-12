@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../../profile/profile.service';
@@ -6,6 +6,11 @@ import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
 import { AuthService } from '../../../core/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { SettingService } from './settings-account.service';
+import { UsersListingService } from '@valor-launchpad/users-ui';
+import { CookieService } from 'ngx-cookie-service';
+import { ProfileVo, RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Component({
   selector: 'valor-launchpad-settings-account',
@@ -13,6 +18,8 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./settings-account.component.scss'],
 })
 export class SettingsAccountComponent implements OnInit {
+  @ViewChild('deletedAccountModal', { static: false })
+  deletedAccountModal?: ModalDirective;
   LANGUAGE = {
     en: 'English',
     es: 'Español',
@@ -642,14 +649,22 @@ export class SettingsAccountComponent implements OnInit {
   publicInfoFormGroup: FormGroup;
   privateInfoFormGroup: FormGroup;
 
-  profile: any;
+  profile: ProfileVo;
+
+  message: string;
+
+  userDeleted: boolean;
+  public user: RequestingUser;
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private profileService: ProfileService,
+    private settingService: SettingService,
+    private usersListingService: UsersListingService,
     @Inject(NOTYFToken) private notyf: Notyf,
-    private authService: AuthService
+    private authService: AuthService,
+    private cookieService: CookieService
   ) {
     this.languageKeys = Object.keys(this.LANGUAGE);
     this.localeKeys = Object.keys(this.LOCALE);
@@ -657,7 +672,11 @@ export class SettingsAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userDeleted = false;
     this.initData();
+    this.authService.user.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   initData(): void {
@@ -699,18 +718,19 @@ export class SettingsAccountComponent implements OnInit {
       .updateProfilePublicInfo(avatarFile, bio, profileId, newUserName, alt)
       .subscribe((res) => {
         if (typeof res === 'object') {
-          this.notyf.success(
-            'Update public info success, you will be soon to redirect to sign in page'
-          );
+          this.notyf.success('Update public info success');
           this.initData();
-          setTimeout(() => {
-            this.authService.signOut().subscribe();
-          }, 2000);
+          this._updateUserAvatar(res);
         } else {
           this.notyf.error('Update public info failure');
           console.warn(res);
         }
       });
+  }
+
+  private _updateUserAvatar(user) {
+    this.authService.user.next(user);
+    this.cookieService.set('avatar', JSON.stringify(user.profile.avatar));
   }
 
   savePrivateInfo() {
@@ -731,6 +751,25 @@ export class SettingsAccountComponent implements OnInit {
           console.warn(res);
         }
       });
+  }
+
+  deleteAccount() {
+    this.deletedAccountModal.show();
+  }
+
+  confirmDeletedAccount() {
+    this.usersListingService.deleteUser(this.user.username).subscribe((res) => {
+      if (res.success) {
+        this.message = 'User has been deleted , return to login.';
+        this.deletedAccountModal.hide();
+        this.userDeleted = true;
+        this.authService.signOut().subscribe();
+      } else {
+        this.deletedAccountModal.hide();
+        this.message = 'Failed to Deleted Account.';
+        this.userDeleted = true;
+      }
+    });
   }
 
   private handleError(error: HttpErrorResponse) {

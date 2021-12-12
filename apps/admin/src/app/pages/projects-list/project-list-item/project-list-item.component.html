@@ -40,14 +40,17 @@
   </div>
   <div class="card-body px-4 pt-2">
     <p>{{ config.body }}</p>
-    <img
+    <valor-launchpad-avatar
       *ngFor="let assignee of config.assignee"
-      [src]="assignee.user?.avatar?.src"
-      class="rounded-circle me-1"
-      [alt]="assignee.user?.avatar?.alt"
+      [src]="assignee.user.profile.avatar | valorImage"
+      [alt]="assignee.user.profile.avatar?.alt"
+      [firstName]="assignee.user.firstName"
+      [lastName]="assignee.user.lastName"
+      classes="me-1"
       width="28"
       height="28"
-    />
+    >
+    </valor-launchpad-avatar>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item px-4 pb-4">

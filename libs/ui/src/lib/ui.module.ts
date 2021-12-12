@@ -56,7 +56,7 @@ import { RowDirective } from './grid/row.directive';
 import { ColDirective } from './grid/col.directive';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
 import { SafePipe } from './pipe/safe.pipe';
-import { EditorSlateComponent } from './editor-slate/editor-slate.component';
+import { SlateImageComponent, EditorSlateComponent } from './editor-slate/editor-slate.component';
 import { EditorSlateTextComponent } from './editor-slate/components/text/editor-slate-text.component';
 import { SlateModule } from 'slate-angular';
 import { EditorSlateButtonComponent } from './editor-slate/components/button/editor-slate-button.component';
@@ -81,6 +81,9 @@ import { PercentBadgeComponent } from './badge/percent-badge/percent-badge.compo
 import { ValorImagePipe } from './pipe/valor-image.pipe';
 import { TimeAgoPipe } from './pipe/time-ago.pipe';
 import { FullNamePipe } from './pipe/full-name.pipe';
+import { ValorDatePipe } from './pipe/valor-date.pipe';
+import { PhoneValidationComponent } from './phone-validation/phone-validation.component';
+import {NgxIntlTelInputModule} from "ngx-intl-tel-input";
 
 const cardPart = [
   CardComponent,
@@ -102,6 +105,7 @@ const cardPart = [
     ReactiveFormsModule,
     FormsModule,
     SlateModule,
+    NgxIntlTelInputModule
   ],
   declarations: [
     AccordionComponent,
@@ -157,6 +161,7 @@ const cardPart = [
     EmbedVideoComponent,
     SafePipe,
     EditorSlateComponent,
+    SlateImageComponent,
     EditorSlateTextComponent,
     EditorSlateButtonComponent,
     DropdownMegaMenuComponent,
@@ -170,6 +175,8 @@ const cardPart = [
     PercentBadgeComponent,
     TimeAgoPipe,
     FullNamePipe,
+    ValorDatePipe,
+    PhoneValidationComponent,
   ],
   exports: [
     TabsModule,
@@ -215,6 +222,8 @@ const cardPart = [
     PercentBadgeComponent,
     TimeAgoPipe,
     FullNamePipe,
+    ValorDatePipe,
+    PhoneValidationComponent
   ],
   providers: [{ provide: NOTYFToken, useFactory: notyfFactory }],
 })

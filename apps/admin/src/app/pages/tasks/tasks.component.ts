@@ -15,7 +15,7 @@ import {
 } from './tasks.service';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { TaskEntity } from '@valor-launchpad/common-api';
+import { TaskEntity } from '@valor-launchpad/api-interfaces';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 

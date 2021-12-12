@@ -43,6 +43,8 @@ export class RegisterDTO {
   password: string;
 
   phone: string;
+
+  captcha: string;
 }
 
 export class RefreshTokenDTO {

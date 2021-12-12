@@ -1,5 +1,3 @@
-import {MediaEntity} from "@valor-launchpad/common-api";
-
 export interface Message {
   message: string;
 }
@@ -34,7 +32,11 @@ export interface UserFollower {
   id: string;
   firstName: string;
   lastName: string;
-  avatar: MediaEntity;
+  avatar: {
+    src: string;
+    src_webp: string;
+    alt: string;
+  };
   followed: boolean;
 }
 
@@ -46,6 +48,8 @@ export interface UserListLine {
   username: string;
   email: string;
   emailVerified: boolean;
+  phone: string;
+  phoneVerified: boolean;
   lastLogin: Date;
   deletedDate: Date;
   lastPasswordUpdateDate: Date;

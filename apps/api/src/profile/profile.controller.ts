@@ -1,16 +1,15 @@
 import { User } from '@valor-launchpad/users-api';
-import { UserEntity } from '@valor-launchpad/common-api';
+import { ResponseError } from '@valor-launchpad/common-api';
 import {
   Body,
   Controller,
   Get,
   Post,
-  Req,
-  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
   Query,
+  Res,
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { UsersService } from '@valor-launchpad/users-api';
@@ -21,7 +20,8 @@ import { JwtAuthGuard } from '@valor-launchpad/auth-api';
 import { PrismaService } from '@valor-launchpad/prisma';
 import { updatePublicInfoProfileDto } from './dto/update-public-info-profile.dto';
 import { updatePrivateInfoProfileDto } from './dto/update-private-info-profile.dto';
-// import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { Response } from 'express';
+import { ProfileVo, RequestingUser } from '@valor-launchpad/api-interfaces';
 
 @Controller('v1')
 @UseGuards(JwtAuthGuard)
@@ -40,9 +40,9 @@ export class ProfileController {
    */
   @Get()
   async defaultProfile(
-    @User() user: UserEntity,
+    @User() user: RequestingUser,
     @Query('username') username: string
-  ) {
+  ): Promise<ProfileVo> {
     return await this.profileService.getProfile(
       username ?? user.username,
       user
@@ -50,7 +50,7 @@ export class ProfileController {
   }
 
   @Get('myProfile')
-  async getProfile(@User() user: UserEntity) {
+  async getProfile(@User() user: RequestingUser) {
     return await this.userService.findOne(user.username);
   }
 
@@ -62,24 +62,33 @@ export class ProfileController {
   )
   async updatePublicInfoProfile(
     @UploadedFile() file,
-    @Body() profileBody: updatePublicInfoProfileDto
+    @Body() profileBody: updatePublicInfoProfileDto,
+    @Res() response: Response
   ) {
     const originImgPath = file.path;
     const imgType = file.mimetype;
     const webpSrc = await ImageUploaderUtility.imageToWebp(file);
     const targetId = profileBody.profileId;
-    const newName = profileBody.username;
+    const username = profileBody.username;
     const bio = profileBody.bio;
-    return await this.prisma.$transaction([
-      this.profileService.updateProfileName(targetId, newName, bio),
-      this.mediaService.updateProfileImg(
-        originImgPath.split('/').pop(),
-        webpSrc.split('/').pop(),
-        profileBody.alt,
-        imgType,
-        targetId
-      ),
-    ]);
+    try {
+      await this.prisma.$transaction([
+        this.profileService.updateProfileName(targetId, username, bio),
+        this.mediaService.updateProfileImg(
+          originImgPath.split('/').pop(),
+          webpSrc.split('/').pop(),
+          profileBody.alt,
+          imgType,
+          targetId
+        ),
+      ]);
+      response.send(await this.userService.findOne(username));
+    } catch (e) {
+      console.error(e.toString());
+      return response.send(
+        new ResponseError('update profile failed', e.toString())
+      );
+    }
   }
 
   @Post('updatePrivateProfile')

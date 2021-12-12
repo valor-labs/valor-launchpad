@@ -1,0 +1,38 @@
+<section class="container main-max d-flex">
+  <aside class="inter-side payment">
+    <ul>
+      <li class="side-item position-relative active">
+        <span class="d-inline-flex">Payment</span>
+      </li>
+      <li class="side-item position-relative">
+        <span class="d-inline-flex position-relative">Communication</span>
+      </li>
+    </ul>
+  </aside>
+  <main class="inter-main payment w-100">
+    <div class="d-flex justify-content-between">
+      <div class="inter-card d-flex flex-column">
+        <img src="assets/img/stripe-logo.svg" alt="">
+        <span class="desc">Suspendisse tristique fringilla pretium fringilla. Diam lorem eget ornare laoreet.</span>
+        <div class="d-flex justify-content-between card-link">
+          <a href="https://stripe.com/" target="_blank" class="website">Website</a>
+          <span class="view-link" (click)="goDetail('/integrations/stripe')">
+            View integration
+            <i class="align-middle fas fa-fw fa-long-arrow-alt-right"></i>
+          </span>
+        </div>
+      </div>
+      <div class="inter-card d-flex flex-column">
+        <img src="assets/img/paypal-logo-now.svg" alt="">
+        <span class="desc">Suspendisse tristique fringilla pretium fringilla. Diam lorem eget ornare laoreet.</span>
+        <div class="d-flex justify-content-between card-link">
+          <a href="http://paypal.com/" target="_blank" class="website">Website</a>
+          <span class="view-link">
+            View integration
+            <i class="align-middle fas fa-fw fa-long-arrow-alt-right"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>

@@ -102,6 +102,12 @@ $headings-color: $dark !default;
 // // Typography
 // $headings-color: $dark !default;
 
+// head-menu
+$head-menu-bg: linear-gradient(45deg,  #252525 0%, #3a3a3a 100%) !default;
+$head-menu-bg-sp: linear-gradient(45deg,  #252525 0%, #3a3a3a 100%) !default;
+$head-menu-item-bg: #636262 !default;
+$head-menu-color: linear-gradient(86.95deg, #BD54E2 -24.72%, #2982E3 116.62%);
+
 // background-url
 $valor-logo-url: '/assets/valor-logo-dark.svg' !default;
 $admin-logo-url: '/assets/admin-logo-dark.svg' !default;
@@ -133,3 +139,22 @@ $plans-card-bg-color:  linear-gradient(179.95deg, #181C23 -13.91%, #1A1F27 99.96
 $plans-card-bg-hover-color: linear-gradient(179.95deg, #424B5A -13.91%, #1A1F27 99.96%) !default;
 
 $faq-bg-color: #171A1E !default;
+
+// masthead
+$masthead-color: $purple-blue-color !default;
+
+$icon-times-bg: '/assets/times-dark.svg' !default;
+$icon-check-bg: '/assets/check-dark.svg' !default;
+
+// pricing
+$thead-color: $main-text-color !default;
+$tbody-color: $main-text-color !default;
+$thead-bg: $purple-blue-color !default;
+$tbody-border-color: #C4C4C4 !default;
+$table-more-color: $purple-blue-color !default;
+
+// integrations
+$inter-card-bg: #262626 !default;
+$side-item-color: $main-text-color !default;
+$inter-ghost-btn-color: linear-gradient(134.98deg, #FFFFFF 0.55%, #B9B9B9 95.17%) !default;
+$inter-ghost-border-color: #FFFFFF !default;

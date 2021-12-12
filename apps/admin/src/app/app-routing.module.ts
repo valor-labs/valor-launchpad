@@ -51,6 +51,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'terms-of-use',
+    loadChildren: () =>
+      import('./pages/terms-of-use/terms-of-use.module').then(
+        (m) => m.TermsOfUseModule
+      ),
+  },
+  {
     path: '',
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
@@ -413,6 +420,18 @@ const routes: Routes = [
         loadChildren: () =>
           import('./pages/notifications/notifications.module').then(
             (m) => m.NotificationsModule
+          ),
+      },
+      {
+        path: 'privacy',
+        loadChildren: () =>
+          import('./pages/privacy/privacy.module').then((m) => m.PrivacyModule),
+      },
+      {
+        path: 'terms-of-service',
+        loadChildren: () =>
+          import('./pages/terms-of-service/terms-of-service.module').then(
+            (m) => m.TermsOfServiceModule
           ),
       },
       {

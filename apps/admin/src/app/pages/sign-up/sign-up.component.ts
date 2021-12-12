@@ -14,6 +14,8 @@ import {
   switchMap,
 } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { SettingsPasswordService } from '../settings/settings-password/settings-password.service';
+import { DefaultValidation } from '../../core/utils/password-validator';
 
 @Component({
   selector: 'valor-launchpad-sign-up',
@@ -26,22 +28,28 @@ export class SignUpComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl(''),
+    phone: new FormControl(null),
     password: new FormControl('', [Validators.required]),
+    captcha: new FormControl('', [Validators.maxLength(6)]),
   });
 
   registerSucceed = false;
 
-  regularPassword: boolean;
+  errorMessage: string;
+
+  passwordControl: AbstractControl;
+
+  standardValidator: boolean;
 
   constructor(
     private authService: AuthService,
-    private toastrService: ToastrService
-  ) {
-    this.regularPassword = false;
-  }
+    private toastrService: ToastrService,
+    private passwordService: SettingsPasswordService
+  ) {}
 
   ngOnInit(): void {
+    this.standardValidator = false;
+    this.passwordControl = this.signUpFormGroup.get('password');
     this.signUpFormGroup
       .get('username')
       .valueChanges.pipe(
@@ -60,20 +68,75 @@ export class SignUpComponent implements OnInit {
         }
       });
 
-    this.signUpFormGroup
-      .get('password')
-      .valueChanges.pipe(
-        map((value) => {
-          const regularExpression =
-            /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-          if (regularExpression.test(value)) {
-            this.regularPassword = true;
+    this.authService.user
+      .pipe(
+        map((user) => {
+          if (user) {
+            this.passwordService.getPasswordValidation().subscribe((res) => {
+              if (res !== null) {
+                this.setValidation(res['passwordValidation']);
+              }
+            });
           } else {
-            this.regularPassword = false;
+            this.setValidation(DefaultValidation);
           }
         })
       )
       .subscribe();
+  }
+
+  setErrorMessage(data) {
+    const validator = Object.keys(data).filter((key) => {
+      return data[key] && key !== 'maxLength' && key !== 'minLength';
+    });
+    if (validator.length === 1) {
+      this.errorMessage = `password must include at least one ${validator[0]}`;
+    } else if (validator.length === 2) {
+      this.errorMessage = `password must include at least one ${validator[0]} and ${validator[1]}`;
+    } else if (validator.length === 3) {
+      this.errorMessage = `password must include at least one ${validator[0]}, ${validator[1]} and ${validator[2]} `;
+    } else {
+      this.errorMessage =
+        'password must include number, at least one uppercase, lowercase and special character';
+    }
+  }
+
+  setValidation(data) {
+    this.passwordControl.setValidators(Validators.required);
+    Object.keys(data).forEach((key) => {
+      if (data[key]) {
+        switch (key) {
+          case 'minLength':
+            this.passwordControl.addValidators(Validators.minLength(6));
+            break;
+          case 'maxLength':
+            this.passwordControl.addValidators(Validators.maxLength(15));
+            break;
+          case 'number':
+            this.passwordControl.addValidators(Validators.pattern(/\d/));
+            break;
+          case 'uppercase':
+            this.passwordControl.addValidators(
+              Validators.pattern(/(?=.*[A-Z])/)
+            );
+            break;
+          case 'lowercase':
+            this.passwordControl.addValidators(
+              Validators.pattern(/(?=.*[a-z])/)
+            );
+            break;
+          case 'characters':
+            this.passwordControl.addValidators(
+              Validators.pattern(/(?=.*[!@#$%^&*,./()';|?><:"])/)
+            );
+            break;
+          default:
+            break;
+        }
+      }
+      this.passwordControl.updateValueAndValidity({ onlySelf: true });
+    });
+    this.setErrorMessage(data);
   }
 
   createUser() {

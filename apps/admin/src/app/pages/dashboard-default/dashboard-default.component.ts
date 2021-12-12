@@ -15,8 +15,8 @@ import {
   DashboardDefaultAppointmentVo,
   DashboardDefaultProjectVo,
   DashboardDefaultRevenueVo,
+  RequestingUser,
 } from '@valor-launchpad/api-interfaces';
-import { UserEntity } from '@valor-launchpad/common-api';
 import { Action, STATUS_MAPPING } from '@valor-launchpad/api-interfaces';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { ISocialActivity } from '../dashboard-social/dashboard-social.model';
@@ -35,12 +35,6 @@ import {
   TimeRange,
 } from '../dashboard-analytics/dashboard-analytics.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
-
-class DateOnlyPipe extends DatePipe {
-  public transform(value): any {
-    return super.transform(value, 'MM/dd/y');
-  }
-}
 
 @Component({
   selector: 'valor-launchpad-dashboard-default',
@@ -82,7 +76,7 @@ export class DashboardDefaultComponent implements OnInit {
   salesRevenue$: Observable<DashboardDefaultRevenueVo[]>;
   appointments$: Observable<DashboardDefaultAppointmentVo[]>;
   latestProjects$: Observable<DashboardDefaultProjectVo[]>;
-  user: UserEntity;
+  user: RequestingUser;
   salesRevenueConfig = {
     view: [700, 400],
 
@@ -114,7 +108,7 @@ export class DashboardDefaultComponent implements OnInit {
     },
   };
   bsInlineValue = new Date();
-  @ViewChild('statusRef', { static: true }) statusTmpl: TemplateRef<any>;
+  @ViewChild('statusRef', { static: true }) statusTmpl: TemplateRef<unknown>;
   latestProjectsTableColumn: TableColumn[];
 
   activities$: Observable<ISocialActivity>;
@@ -185,13 +179,19 @@ export class DashboardDefaultComponent implements OnInit {
       {
         name: 'Start Date',
         prop: 'startDate',
-        pipe: new DateOnlyPipe('en-US'),
+        pipe: {
+          transform: (val) =>
+            new DatePipe(this.localeId).transform(val, 'MM/dd/y'),
+        },
         cellClass: 'd-flex align-items-center',
       },
       {
         name: 'End Date',
         prop: 'endDate',
-        pipe: new DateOnlyPipe('en-US'),
+        pipe: {
+          transform: (val) =>
+            new DatePipe(this.localeId).transform(val, 'MM/dd/y'),
+        },
         cellClass: 'd-flex align-items-center',
       },
       {

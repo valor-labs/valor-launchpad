@@ -21,8 +21,9 @@ import { PaginationVo } from '@valor-launchpad/api-interfaces';
   styleUrls: ['./notifications.component.scss'],
 })
 export class NotificationsComponent implements OnInit {
-  @ViewChild('readField', { static: true }) readField: TemplateRef<any>;
-  @ViewChild('contentField', { static: true }) contentField: TemplateRef<any>;
+  @ViewChild('readField', { static: true }) readField: TemplateRef<unknown>;
+  @ViewChild('contentField', { static: true })
+  contentField: TemplateRef<unknown>;
   columns: TableColumn[] = [];
   rows = [];
   pagination: PaginationVo = {

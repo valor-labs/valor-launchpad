@@ -10,10 +10,6 @@ export class NotificationSocketServiceStub
 {
   source = new Subject<NotificationVo>();
 
-  connect() {
-    // pass
-  }
-
   fetchNotifications(): Observable<NotificationPaginatedListVo> {
     return of({ data: [], page: { total: 0, pageSize: 10, pageIndex: 1 } });
   }

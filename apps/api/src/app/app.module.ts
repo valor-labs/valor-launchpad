@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectsModule } from '../projects/projects.module';
 import { ProfileModule } from '../profile/profile.module';
+import { PasswordValidatorModule } from '../password-validator';
 import { AuthApiModule } from '@valor-launchpad/auth-api';
 import { RouterModule } from 'nest-router';
 import { DashboardModule } from '../dashboard/dashboard-default/dashboard.module';
@@ -22,6 +23,9 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { NotificationApiModule } from '@valor-launchpad/notification-api';
 import { SocketGatewayModule } from '@valor-launchpad/socket-gateway';
 import { TasksModule } from '../pages/tasks';
+import { ChatApiModule } from '@valor-launchpad/chat-api';
+import { ClientsModule } from '../clients';
+import { TermsOfUseModule } from '../terms-of-use';
 @Module({
   imports: [
     EventEmitterModule.forRoot({ wildcard: true }),
@@ -35,15 +39,20 @@ import { TasksModule } from '../pages/tasks';
       { path: '/dashboard-social', module: DashboardSocialModule },
       { path: '/dashboard-crypto', module: DashboardCryptoModule },
       { path: '/profile', module: ProfileModule },
+      { path: '/password-validator', module: PasswordValidatorModule },
       { path: '/projects', module: ProjectsModule },
       { path: '/auth', module: AuthApiModule },
       { path: '/stripe', module: StripeApiModule },
       { path: '/users', module: UsersApiModule },
       { path: '/notifications', module: NotificationApiModule },
       { path: '/tasks', module: TasksModule },
+      { path: '/chat', module: ChatApiModule },
+      { path: '/clients', module: ClientsModule },
+      { path: '/terms-of-use', module: TermsOfUseModule },
     ]),
     ProjectsModule,
     ProfileModule,
+    PasswordValidatorModule,
     AuthApiModule,
     UsersApiModule,
     DashboardModule,
@@ -55,6 +64,9 @@ import { TasksModule } from '../pages/tasks';
     SocketGatewayModule,
     NotificationApiModule,
     TasksModule,
+    ClientsModule,
+    ChatApiModule,
+    TermsOfUseModule,
     MulterModule.register({
       dest: join(__dirname, '/assets'),
     }),

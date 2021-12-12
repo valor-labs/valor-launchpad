@@ -1,19 +1,36 @@
-<div class="pb-4" [ngClass]="chatMessageClass">
+<div
+  class="pb-4 w-50"
+  [ngClass]="message.isSelf ? 'chat-message-right' : 'chat-message-left'"
+>
   <div>
-    <img
-      src="assets/img/avatars/avatar-3.jpg"
-      class="rounded-circle me-1"
-      alt="{{ message.name }}"
+    <valor-launchpad-avatar
+      [src]="message.createdUser.profile.avatar | valorImage"
+      [alt]="message.createdUser.profile.avatar?.alt"
+      [firstName]="message.createdUser.firstName"
+      [lastName]="message.createdUser.lastName"
       width="40"
       height="40"
-    />
-    <div class="text-muted small text-nowrap mt-2">{{ message.time }}</div>
+      classes="rounded-circle me-1"
+    >
+    </valor-launchpad-avatar>
   </div>
   <div
     class="flex-shrink-1 bg-light rounded py-2 px-3"
-    [ngClass]="chatMarginClass"
+    [ngClass]="message.isSelf ? 'me-3' : 'ms-3'"
   >
-    <div class="fw-bold mb-1">{{ message.name }}</div>
-    {{ message.content }}
+    <div class="mb-1">
+      <span class="fw-bold me-2" *ngIf="!message.isSelf">
+        {{ message.createdUser | fullName }}
+      </span>
+      <span class="text-muted small text-nowrap">
+        {{ message.createdDate | valorDate }}
+      </span>
+    </div>
+    <valor-launchpad-editor-slate
+      [hideToolbar]="true"
+      [readonly]="true"
+      [borderless]="true"
+      [schema]="message.message"
+    ></valor-launchpad-editor-slate>
   </div>
 </div>

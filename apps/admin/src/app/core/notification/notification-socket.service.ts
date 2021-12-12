@@ -1,16 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
-import { io, Socket } from 'socket.io-client';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
-import { CookieService } from 'ngx-cookie-service';
 import {
   NotificationPaginatedListVo,
   NotificationVo,
 } from '@valor-launchpad/api-interfaces';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { SocketService } from '../socket/socket.service';
 
 export interface INotificationSocketService {
-  connect(): void;
   listenNewNotification(): Observable<NotificationVo>;
   fetchNotifications(): Observable<NotificationPaginatedListVo>;
   markAllAsRead(): Observable<unknown>;
@@ -18,26 +16,12 @@ export interface INotificationSocketService {
 
 @Injectable({ providedIn: 'root' })
 export class NotificationSocketService implements INotificationSocketService {
-  private socket: Socket;
-
+  private socket = this.socketService.socket;
   constructor(
     private http: HttpClient,
     @Inject(ENV_CONFIG) private config: EnvironmentConfig,
-    private cookieService: CookieService
+    private socketService: SocketService
   ) {}
-
-  connect() {
-    this.socket = io(`${this.config.environment.apiBase}`, {
-      extraHeaders: { Authorization: this.cookieService.get('access_token') },
-      transportOptions: {
-        polling: {
-          extraHeaders: {
-            Authorization: this.cookieService.get('access_token'),
-          },
-        },
-      },
-    });
-  }
 
   listenNewNotification() {
     return new Observable<NotificationVo>((subscriber) => {

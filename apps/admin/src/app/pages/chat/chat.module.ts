@@ -5,13 +5,27 @@ import { ChatRoutingModule } from './chat-routing.module';
 import { ChatComponent } from './chat.component';
 import { ValorLaunchpadMessengerComponent } from './valor-launchpad-messenger/valor-launchpad-messenger.component';
 import { ValorLaunchpadMessageComponent } from './valor-launchpad-message/valor-launchpad-message.component';
+import { UiModule } from '@valor-launchpad/ui';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateGroupModalComponent } from './create-group-modal/create-group-modal.component';
+import { ThreadAvatarComponent } from './thread-avatar/thread-avatar.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
     ChatComponent,
     ValorLaunchpadMessengerComponent,
     ValorLaunchpadMessageComponent,
+    CreateGroupModalComponent,
+    ThreadAvatarComponent,
   ],
-  imports: [CommonModule, ChatRoutingModule],
+  imports: [
+    CommonModule,
+    ChatRoutingModule,
+    UiModule,
+    FormsModule,
+    ReactiveFormsModule,
+    OverlayModule,
+  ],
 })
 export class ChatModule {}

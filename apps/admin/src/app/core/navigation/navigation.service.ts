@@ -3,8 +3,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ENV_CONFIG, EnvironmentConfig } from '@valor-launchpad/http';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { Menu } from '@valor-launchpad/api-interfaces';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,8 @@ export class NavigationService {
   constructor(
     @Inject(ENV_CONFIG) private config: EnvironmentConfig,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.collapseState$ = this.collapseState.asObservable();
     this.lastUrl$ = this.lastUrl.asObservable();
@@ -54,7 +56,35 @@ export class NavigationService {
               menus.push(item);
             }
           }
-          this.sideBarMenus.next(menus);
+          this.authService.user
+            .pipe(
+              map((user) => {
+                return user.userRoles.filter((role) => {
+                  return role.rolesEntity.role === 'Admin';
+                });
+              }),
+              map((user) => {
+                // if user does not has admin role remove client page
+                if (user.length === 0) {
+                  menus.filter((item) => {
+                    if (item.name === 'Pages') {
+                      item.children.filter((el) => {
+                        if (el.name === 'Pages') {
+                          el.children = el.children.filter((e) => {
+                            return e.name !== 'Clients';
+                          });
+                        }
+                      });
+                    }
+                  });
+                }
+                return menus;
+              })
+            )
+            .subscribe((menus) => {
+              this.sideBarMenus.next(menus);
+            });
+
           this.megaMenus.next(megaMenus);
         })
       );

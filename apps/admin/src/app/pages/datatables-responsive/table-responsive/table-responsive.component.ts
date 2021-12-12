@@ -2,12 +2,7 @@ import { Component, Inject, LOCALE_ID, ViewChild } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable/lib/types/table-column.type';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { tableData } from './fakeData';
-
-class CustomDatePipe extends DatePipe {
-  public transform(value): any {
-    return super.transform(value, 'y/MM/dd');
-  }
-}
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'valor-launchpad-table-responsive',
@@ -15,7 +10,7 @@ class CustomDatePipe extends DatePipe {
   styleUrls: ['./table-responsive.component.scss'],
 })
 export class TableResponsiveComponent {
-  @ViewChild('myTable') table: any;
+  @ViewChild('myTable') table: DatatableComponent;
   tableResponsiveData = tableData;
   pageNumLimit = 10;
   tableResponsiveColumns: Array<TableColumn> = [
@@ -26,7 +21,9 @@ export class TableResponsiveComponent {
     {
       name: 'Start date',
       prop: 'startDate',
-      pipe: new CustomDatePipe(this.locale),
+      pipe: {
+        transform: (val) => new DatePipe(this.locale).transform(val, 'MM/dd/y'),
+      },
     },
     { name: 'Salary', prop: 'salary', pipe: new CurrencyPipe(this.locale) },
   ];

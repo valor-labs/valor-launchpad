@@ -11,6 +11,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotificationModule } from '../notification/notification.module';
 import { NotificationSocketService } from '../notification/notification-socket.service';
 import { NotificationSocketServiceStub } from '../notification/notification-socket-service.stub';
+import { MessageModule } from '../message/message.module';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -27,6 +28,7 @@ describe('HeaderComponent', () => {
         ReactiveFormsModule,
         ModalModule.forRoot(),
         NotificationModule,
+        MessageModule,
       ],
       declarations: [HeaderComponent],
       providers: [

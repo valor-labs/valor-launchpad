@@ -4,6 +4,11 @@
     <!--    <div id="payment-request" [ngClass]="{'visible':paymentRequestVisible}">-->
     <!--      <div id="payment-request-button"></div>-->
     <!--    </div>-->
+    <valor-launchpad-spinner
+      class="me-2"
+      theme="primary"
+      *ngIf="!formConfig"
+    ></valor-launchpad-spinner>
     <valor-launchpad-card *ngIf="formConfig">
       <valor-launchpad-card-content>
         <ng-container *ngIf="stripeElements">

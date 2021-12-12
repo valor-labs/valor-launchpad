@@ -27,7 +27,7 @@ export class DashboardSocialService {
   }
 
   fetchActivities(lastReadAt: number, limit: number) {
-    const params: any = { limit };
+    const params: Record<string, number> = { limit };
     if (lastReadAt !== undefined && lastReadAt !== null) {
       params.lastReadAt = lastReadAt;
     }
