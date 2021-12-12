@@ -10,9 +10,11 @@ import { ThemeService } from './core/theme/theme.service';
 import { HeaderModule } from "./core/header/header.module";
 import { FooterModule } from "./core/footer/footer.module";
 import { UiModule } from '@valor-launchpad/ui';
+import { MobileDetailComponent } from './pages/mobile-detail/mobile-detail.component';
+import { MobilePricingComponent } from './pages/mobile-pricing/mobile-pricing.component';
 
 @NgModule({
-  declarations: [AppComponent, MainLayoutComponent],
+  declarations: [AppComponent, MainLayoutComponent, MobileDetailComponent, MobilePricingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
