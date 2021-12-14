@@ -33,6 +33,9 @@ export class AuthService {
     if (cleanUser.deletedDate) {
       throw new HttpException('User has been deleted', HttpStatus.BAD_REQUEST)
     }
+    if (!cleanUser.emailVerified) {
+      throw new HttpException('User has not been verified', HttpStatus.BAD_REQUEST)
+    }
     const loginServiceResult = await this.usersService.logIn(cleanUser.username);
     const accessToken = this.jwtService.sign(cleanUser);
     // store refresh toke to redis

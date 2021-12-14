@@ -71,6 +71,7 @@ export class AuthService implements IAuthService {
       .pipe(
         map(() => {
           this.access_token = undefined;
+          this.user.next(null);
           this.termsOfUseService.resetAcceptTermsOfUse();
           localStorage.removeItem('refresh_token');
           this.socketService.disconnect();
