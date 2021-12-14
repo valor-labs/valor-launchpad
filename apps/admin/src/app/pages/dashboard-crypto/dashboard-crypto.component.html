@@ -122,7 +122,7 @@
       <valor-launchpad-card-content>
         <ngx-datatable
           [columns]="sellOrderColumns"
-          [rows]="sellOrders$ | async"
+          [rows]="sellOrders"
           [columnMode]="'force'"
           [headerHeight]="32"
           [rowHeight]="32"
@@ -146,7 +146,7 @@
       <valor-launchpad-card-content>
         <ngx-datatable
           [columns]="buyOrderColumns"
-          [rows]="buyOrders$ | async"
+          [rows]="buyOrders"
           [columnMode]="'force'"
           [headerHeight]="32"
           [rowHeight]="32"
