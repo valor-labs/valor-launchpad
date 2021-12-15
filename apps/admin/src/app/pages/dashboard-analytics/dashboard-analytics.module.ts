@@ -7,6 +7,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UiModule } from '@valor-launchpad/ui';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [DashboardAnalyticsComponent],
@@ -17,6 +18,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     NgxDatatableModule,
     NgApexchartsModule,
     NgxChartsModule,
+    BsDropdownModule,
   ],
 })
 export class DashboardAnalyticsModule {}
