@@ -105,9 +105,8 @@ export class DashboardCryptoComponent implements OnInit {
   ];
   mainInfos$: Observable<MainInfo[]>;
   markets$: Observable<MarketLine[]>;
-  orders$: Observable<Order[]>;
-  sellOrders$: Observable<SellOrder[]>;
-  buyOrders$: Observable<BuyOrder[]>;
+  sellOrders: SellOrder[] = [];
+  buyOrders: BuyOrder[] = [];
   chartOptions$: Observable<{ chart; series; stroke; xaxis }>;
   constructor(
     @Inject(LOCALE_ID) private localeId: string,
@@ -117,23 +116,20 @@ export class DashboardCryptoComponent implements OnInit {
   ngOnInit(): void {
     this.mainInfos$ = this.dashboardCryptoService.getMainInfos();
     this.markets$ = this.dashboardCryptoService.getMarkets();
-    this.orders$ = this.dashboardCryptoService.getOrders();
-    this.sellOrders$ = this.orders$.pipe(
-      map((orders) => {
-        orders.filter((order) => {
-          return order.type === OrderType.SELL;
-        });
-        return orders;
-      })
-    );
-    this.buyOrders$ = this.orders$.pipe(
-      map((orders) => {
-        orders.filter((order) => {
-          return order.type === OrderType.BUY;
-        });
-        return orders;
-      })
-    );
+    this.dashboardCryptoService
+      .getOrders()
+      .pipe(
+        map((orders) => {
+          this.sellOrders = orders.filter((order) => {
+            return order.type === OrderType.SELL;
+          });
+          this.buyOrders = orders.filter((order) => {
+            return order.type === OrderType.BUY;
+          });
+        })
+      )
+      .subscribe();
+
     this.chartOptions$ = this.dashboardCryptoService.getKLine().pipe(
       map((rows) => ({
         chart: {
