@@ -65,6 +65,71 @@ export class ChatService {
     return result;
   }
 
+  async findThreadByUserId(targetUserId: string, actingUser: RequestingUser) {
+    let query: { chatUserThreads: { threadId: string }[] };
+    if (targetUserId !== actingUser.id) {
+      query = await this.prisma.userEntity.findUnique({
+        select: {
+          id: true,
+          chatUserThreads: {
+            where: {
+              thread: {
+                chatThreadUsers: {
+                  some: {
+                    userId: targetUserId,
+                  },
+                },
+                isGroup: false,
+              },
+            },
+          },
+        },
+        where: {
+          id: actingUser.id,
+        },
+      });
+    } else {
+      query = await this.prisma.userEntity.findUnique({
+        select: {
+          id: true,
+          chatUserThreads: {
+            where: {
+              thread: {
+                chatThreadUsers: {
+                  every: {
+                    userId: actingUser.id,
+                  },
+                },
+                isGroup: false,
+              },
+            },
+          },
+        },
+        where: {
+          id: actingUser.id,
+        },
+      });
+    }
+    if (query.chatUserThreads.length) {
+      return { threadId: query.chatUserThreads[0].threadId };
+    } else {
+      const lines = Array.from(new Set<string>([targetUserId, actingUser.id]));
+      const newThread = await this.prisma.chatThread.create({
+        select: { id: true },
+        data: {
+          isGroup: false,
+          lastChatDate: new Date(),
+          chatThreadUsers: {
+            createMany: {
+              data: lines.map((userId) => ({ userId })),
+            },
+          },
+        },
+      });
+      return { threadId: newThread.id };
+    }
+  }
+
   async searchThreadOrUsers(
     keyword: string,
     actingUser

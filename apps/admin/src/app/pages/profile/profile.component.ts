@@ -5,7 +5,7 @@ import { Action, ProfileVo } from '@valor-launchpad/api-interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ISocialActivity } from '../dashboard-social/dashboard-social.model';
 import { finalize, mergeMap, scan, switchMap } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'valor-launchpad-profile',
@@ -30,7 +30,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private socialService: DashboardSocialService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -73,5 +74,16 @@ export class ProfileComponent implements OnInit {
     this.socialService.unfollowUserByUsername(username).subscribe(() => {
       this.profile.following = false;
     });
+  }
+
+  goChatWith() {
+    this.socialService
+      .getThreadIdByTargetUserId(this.profile.user.id)
+      .subscribe((res) => {
+        if (res && res.threadId) {
+          const threadId = res.threadId;
+          this.router.navigate(['chat'], { queryParams: { threadId } });
+        }
+      });
   }
 }

@@ -72,4 +72,11 @@ export class DashboardSocialService {
       username,
     });
   }
+
+  getThreadIdByTargetUserId(targetUserId: string) {
+    return this.http.get<{ threadId: string }>(
+      this.apiBase + 'api/chat/v1/oneOnOneThreadWith',
+      { params: { targetUserId } }
+    );
+  }
 }
