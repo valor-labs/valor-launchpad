@@ -23,7 +23,8 @@ import { SectionTenSixComponent } from './mobile-home/section-ten-six/section-te
 import { PaymentComponent } from './mobile-integration/payment/payment.component';
 import { StripeComponent } from './mobile-integration/stripe/stripe.component';
 import { MobileDetailComponent } from './mobile-detail';
-import { MobilePricingComponent } from './mobile-pricing'; 
+import { MobilePricingComponent } from './mobile-pricing';
+import {SwiperModule} from "swiper/angular";
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MobilePricingComponent } from './mobile-pricing';
   ],
   imports: [
     CommonModule,
-    MobileRoutingModule
+    MobileRoutingModule,
+    SwiperModule
   ]
 })
 export class MobileModule { }

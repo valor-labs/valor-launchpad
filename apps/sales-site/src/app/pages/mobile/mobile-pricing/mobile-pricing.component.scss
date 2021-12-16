@@ -1,3 +1,32 @@
+@import "~swiper/css";
+
+::ng-deep {
+  .swiper {
+    margin-top: 40px;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .swiper-slide {
+    width: 250px;
+  }
+
+  .swiper-wrapper {
+    padding: 20px 0;
+  }
+
+  .swiper-slide-active {
+    .plans-card-item {
+      transform: scale(1.1);
+      transition: all 0.3s;
+      box-shadow: 0 1px 6px rgb(5 5 5 / 50%);
+      background: linear-gradient(179.95deg, #424B5A -13.91%, #1A1F27 99.96%);
+    }
+  }
+}
+
+
 .page {
   display: flex;
   position: relative;
@@ -10,10 +39,6 @@
   width: 150px;
 }
 
-.plans-card-item {
-  margin-top: 200px;
-  width: auto;
-}
 
 .see-our-plans {
   width: 250px;
@@ -112,7 +137,6 @@
   align-items: center;
   align-self: center;
   flex-direction: row;
-  margin-top: 55px;
   line-height: 14px;
   white-space: nowrap;
 }

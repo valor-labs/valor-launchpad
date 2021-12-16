@@ -39,21 +39,68 @@
   <div class="wrapper-6">
     <span class="summary">Lorem ipsum dolor sit amet. Est placeat corporis et temporibus</span>
   </div>
-  <div class="plans-card-item d-flex flex-column justify-content-center align-items-center">
-    <div class="plans-card-item__t d-flex flex-column justify-content-center align-items-center">Free</div>
-    <div class="plans-card-item__b flex-grow-1 d-flex flex-column justify-content-around align-items-center">
-      <div class="d-flex flex-column justify-content-around align-items-center">
-        <div class="plans-card-item__desc d-flex flex-column justify-content-around align-items-center">
-          <span class="fw-bold">Start Plan</span>
-          <span>For personal use</span>
+  <swiper
+    [centeredSlides]="true"
+    [slidesPerView]="'auto'"
+    [spaceBetween]="10"
+    [pagination]="false"
+  >
+
+    <ng-template swiperSlide>
+      <div class="plans-card-item d-flex flex-column justify-content-center align-items-center">
+        <div class="plans-card-item__t d-flex flex-column justify-content-center align-items-center">Free</div>
+        <div class="plans-card-item__b flex-grow-1 d-flex flex-column justify-content-around align-items-center">
+          <div class="d-flex flex-column justify-content-around align-items-center">
+            <div class="plans-card-item__desc d-flex flex-column justify-content-around align-items-center">
+              <span class="fw-bold">Start Plan</span>
+              <span>For personal use</span>
+            </div>
+          </div>
+          <button class="gradual-btn">
+            <span class="purple-blue-ft">Buy This</span>
+          </button>
+          <span class="learn-more">Learn more</span>
         </div>
       </div>
-      <button class="gradual-btn">
-        <span class="purple-blue-ft">Buy This</span>
-      </button>
-      <span class="learn-more">Learn more</span>
-    </div>
-  </div>
+    </ng-template>
+
+    <ng-template swiperSlide>
+      <div class="plans-card-item d-flex flex-column justify-content-center align-items-center">
+        <div class="plans-card-item__t d-flex flex-column justify-content-center align-items-center">Free</div>
+        <div class="plans-card-item__b flex-grow-1 d-flex flex-column justify-content-around align-items-center">
+          <div class="d-flex flex-column justify-content-around align-items-center">
+            <div class="plans-card-item__desc d-flex flex-column justify-content-around align-items-center">
+              <span class="fw-bold">Start Plan</span>
+              <span>For personal use</span>
+            </div>
+          </div>
+          <button class="gradual-btn">
+            <span class="purple-blue-ft">Buy This</span>
+          </button>
+          <span class="learn-more">Learn more</span>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template swiperSlide>
+      <div class="plans-card-item d-flex flex-column justify-content-center align-items-center">
+        <div class="plans-card-item__t d-flex flex-column justify-content-center align-items-center">Free</div>
+        <div class="plans-card-item__b flex-grow-1 d-flex flex-column justify-content-around align-items-center">
+          <div class="d-flex flex-column justify-content-around align-items-center">
+            <div class="plans-card-item__desc d-flex flex-column justify-content-around align-items-center">
+              <span class="fw-bold">Start Plan</span>
+              <span>For personal use</span>
+            </div>
+          </div>
+          <button class="gradual-btn">
+            <span class="purple-blue-ft">Buy This</span>
+          </button>
+          <span class="learn-more">Learn more</span>
+        </div>
+      </div>
+    </ng-template>
+  </swiper>
+
   <div class="wrapper-7">
     <span class="info-3">See detailed plan comparison</span>
     <i style="transform: rotate(90deg);" class="align-middle fas fa-fw fa-long-arrow-alt-right shallow-gradient"></i>

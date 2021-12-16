@@ -39,7 +39,6 @@
 
 .product {
   text-align: left;
-  color: px;
   font-size: 20px;
 }
 
@@ -82,14 +81,6 @@
   font-size: 16px;
 }
 
-.group-2 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-direction: row;
-  margin-top: 24px;
-  margin-left: 60px;
-}
 
 .icon-text {
   margin-right: 24px;
@@ -105,77 +96,12 @@
   font-size: 20px;
 }
 
-.group-i1 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  align-self: flex-end;
-  flex-direction: row;
-  margin-top: 8px;
-  margin-right: 37px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-1 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-3 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  align-self: center;
-  flex-direction: row;
-  margin-top: 24px;
-  height: 24px;
-}
 
 .icon-assist {
   margin-top: -2px;
   margin-right: 26px;
   width: 22px;
   height: 22px;
-}
-
-.community-suppot {
-  text-align: center;
-  line-height: 20px;
-  white-space: pre;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i2 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  align-self: flex-end;
-  flex-direction: row;
-  margin-top: 8px;
-  margin-right: 37px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-2 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-4 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 24px;
-  margin-left: 60px;
-  height: 24px;
 }
 
 .icon-setting {
@@ -185,58 +111,6 @@
   height: 20px;
 }
 
-.other-oss {
-  text-align: left;
-  line-height: 20px;
-  white-space: pre;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i3 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  align-self: flex-end;
-  flex-direction: row;
-  margin-top: 8px;
-  margin-right: 37px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-3 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.services-wrapper {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-direction: row;
-  margin-top: 64px;
-  margin-left: 36px;
-  white-space: nowrap;
-}
-
-.services {
-  text-align: left;
-  color: px;
-  font-size: 20px;
-}
-
-.group-5 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 36px;
-  margin-left: 60px;
-  height: 24px;
-}
 
 .icon-back {
   margin-top: -1px;
@@ -245,84 +119,6 @@
   height: 13px;
 }
 
-.development {
-  text-align: left;
-  line-height: 20px;
-  white-space: nowrap;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i4 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  align-self: flex-end;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-right: 37px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-4 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-6 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 34px;
-  margin-left: 60px;
-}
-
-.icon {
-  margin-right: 24px;
-  width: 24px;
-  height: 24px;
-}
-
-.design {
-  text-align: left;
-  line-height: 20px;
-  white-space: nowrap;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i5 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  align-self: flex-end;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-right: 37px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-5 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-7 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 34px;
-  margin-left: 60px;
-  height: 24px;
-}
 
 .icon-setting-1 {
   margin-top: -2px;
@@ -331,84 +127,13 @@
   height: 18px;
 }
 
-.devops {
-  text-align: left;
-  line-height: 20px;
-  white-space: nowrap;
-  color: #ffffff;
-  font-size: 20px;
-}
 
-.group-i6 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  align-self: flex-end;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-right: 37px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
 
-.title-6 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-8 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 34px;
-  margin-left: 60px;
-  height: 24px;
-}
 
 .icon-edit {
   margin-right: 27px;
   width: 21px;
   height: 22px;
-}
-
-.technical-writing {
-  text-align: left;
-  line-height: 20px;
-  white-space: pre;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i7 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  align-self: flex-end;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-right: 37px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-7 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-9 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 34px;
-  margin-left: 60px;
-  height: 24px;
 }
 
 .icon-user {
@@ -418,74 +143,12 @@
   height: 21px;
 }
 
-.project-management {
-  text-align: left;
-  line-height: 20px;
-  white-space: pre;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i8 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  align-self: flex-end;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-right: 37px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-8 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-10 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 34px;
-  margin-left: 60px;
-}
-
 .icon-chat {
   margin-right: 30px;
   width: 18px;
   height: 24px;
 }
 
-.solutions {
-  text-align: left;
-  line-height: 20px;
-  white-space: nowrap;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i9 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  align-self: flex-end;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-right: 37px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-9 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
 
 .group-11 {
   display: flex;
@@ -652,31 +315,6 @@
   font-size: 12px;
 }
 
-.company-wrapper {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-direction: row;
-  margin-top: 64px;
-  margin-left: 36px;
-  white-space: nowrap;
-}
-
-.company {
-  text-align: left;
-  color: px;
-  font-size: 20px;
-}
-
-.group-14 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 40px;
-  margin-left: 36px;
-  height: 24px;
-}
 
 .icon-user-group {
   margin-top: -2px;
@@ -685,41 +323,6 @@
   height: 20px;
 }
 
-.team-careers {
-  text-align: left;
-  line-height: 20px;
-  white-space: pre;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i10 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-left: 84px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-10 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-15 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 34px;
-  margin-left: 36px;
-  height: 24px;
-}
 
 .icon-house {
   margin-top: -1px;
@@ -728,41 +331,7 @@
   height: 23px;
 }
 
-.leadership {
-  text-align: left;
-  line-height: 20px;
-  white-space: nowrap;
-  color: #ffffff;
-  font-size: 20px;
-}
 
-.group-i11 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-left: 84px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-11 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-16 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 34px;
-  margin-left: 36px;
-  height: 24px;
-}
 
 .icon-house-1 {
   margin-top: -1px;
@@ -771,41 +340,6 @@
   height: 23px;
 }
 
-.company-overview {
-  text-align: left;
-  line-height: 20px;
-  white-space: pre;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i12 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-left: 84px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-12 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.group-17 {
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 34px;
-  margin-left: 36px;
-  height: 24px;
-}
 
 .icon-star {
   margin-top: -2px;
@@ -814,28 +348,8 @@
   height: 20px;
 }
 
-.info-6 {
-  text-align: left;
-  line-height: 20px;
-  white-space: pre;
-  color: #ffffff;
-  font-size: 20px;
-}
-
-.group-i13 {
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-direction: row;
-  margin-top: 18px;
-  margin-left: 84px;
-  font-weight: 300;
-  line-height: 40px;
-  white-space: pre;
-}
-
-.title-13 {
-  text-align: left;
-  color: #ffffff;
-  font-size: 16px;
+.icon {
+  margin-right: 24px;
+  width: 24px;
+  height: 24px;
 }
