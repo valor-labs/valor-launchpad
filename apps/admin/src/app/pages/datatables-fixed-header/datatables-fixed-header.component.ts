@@ -9,6 +9,11 @@ import {
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { tableData } from '../datatables-multi/fakeData';
+import {
+  dateEqualsQuery,
+  equalsQuery,
+  likeQuery,
+} from '../../core/utils/search-table';
 
 @Component({
   selector: 'valor-launchpad-datatables-fixed-header',
@@ -71,8 +76,14 @@ export class DatatablesFixedHeaderComponent implements OnInit, AfterViewInit {
     if (inputVal === '') {
       this.tableResponsiveData = tableData;
     } else {
-      this.tableResponsiveData = tableData.filter((rowData) =>
-        Object.values(rowData).includes(inputVal)
+      this.tableResponsiveData = tableData.filter(
+        (rowData) =>
+          likeQuery(rowData.name, inputVal) ||
+          equalsQuery(rowData.age, inputVal) ||
+          likeQuery(rowData.position, inputVal) ||
+          likeQuery(rowData.office, inputVal) ||
+          equalsQuery(rowData.salary, inputVal) ||
+          dateEqualsQuery(rowData.startDate, inputVal)
       );
     }
   }
