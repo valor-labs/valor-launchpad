@@ -16,7 +16,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
 import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
 import { ProjectListItemVo } from '@valor-launchpad/api-interfaces';
 
@@ -127,6 +127,20 @@ export class ProjectsListComponent implements OnInit {
         this.fileExtensionValidator(this.validPicSuffixs),
       ]),
     });
+    this.newProjectFg
+      .get('status')
+      .valueChanges.pipe(filter((s) => s === 'FINISHED'))
+      .subscribe(() => {
+        this.newProjectFg.get('progress').setValue(100, { emitEvent: false });
+      });
+    this.newProjectFg
+      .get('progress')
+      .valueChanges.pipe(filter((p) => p === 100))
+      .subscribe(() => {
+        this.newProjectFg
+          .get('status')
+          .setValue('FINISHED', { emitEvent: false });
+      });
   }
 
   fileExtensionValidator(validExt: string[]): ValidatorFn {
