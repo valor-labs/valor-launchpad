@@ -2,6 +2,11 @@ import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { tableData } from './fakeData';
 import { SelectionType, TableColumn } from '@swimlane/ngx-datatable';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import {
+  dateEqualsQuery,
+  equalsQuery,
+  likeQuery,
+} from '../../core/utils/search-table';
 
 @Component({
   selector: 'valor-launchpad-datatables-multi',
@@ -52,8 +57,14 @@ export class DatatablesMultiComponent implements OnInit {
     if (inputVal === '') {
       this.tableResponsiveData = tableData;
     } else {
-      this.tableResponsiveData = tableData.filter((rowData) =>
-        Object.values(rowData).includes(inputVal)
+      this.tableResponsiveData = tableData.filter(
+        (rowData) =>
+          likeQuery(rowData.name, inputVal) ||
+          equalsQuery(rowData.age, inputVal) ||
+          likeQuery(rowData.position, inputVal) ||
+          likeQuery(rowData.office, inputVal) ||
+          equalsQuery(rowData.salary, inputVal) ||
+          dateEqualsQuery(rowData.startDate, inputVal)
       );
     }
   }

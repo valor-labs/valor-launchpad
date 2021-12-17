@@ -2,6 +2,11 @@ import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable/lib/types/table-column.type';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { tableData } from './fakeData';
+import {
+  dateEqualsQuery,
+  equalsQuery,
+  likeQuery,
+} from '../../core/utils/search-table';
 
 @Component({
   selector: 'valor-launchpad-datatables-ajax',
@@ -32,8 +37,14 @@ export class DatatablesAjaxComponent {
     if (inputVal === '') {
       this.tableResponsiveData = tableData;
     } else {
-      this.tableResponsiveData = tableData.filter((rowData) =>
-        Object.values(rowData).includes(inputVal)
+      this.tableResponsiveData = tableData.filter(
+        (rowData) =>
+          likeQuery(rowData.name, inputVal) ||
+          equalsQuery(rowData.age, inputVal) ||
+          likeQuery(rowData.position, inputVal) ||
+          likeQuery(rowData.office, inputVal) ||
+          equalsQuery(rowData.salary, inputVal) ||
+          dateEqualsQuery(rowData.startDate, inputVal)
       );
     }
   }

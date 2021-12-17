@@ -16,6 +16,7 @@ export interface ProfileVo {
   bio?: string;
   address?: string;
   user?: {
+    id?: string;
     firstName?: string;
     lastName?: string;
     email?: string;
