@@ -4,3 +4,9 @@
     border-top-right-radius: 0;
   }
 }
+
+:host {
+  .confirmPassword {
+    display: block;
+  }
+}
