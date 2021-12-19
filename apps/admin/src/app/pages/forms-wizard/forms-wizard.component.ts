@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'valor-launchpad-forms-wizard',
@@ -65,7 +65,7 @@ export class FormsWizardComponent {
   firstStepForm = this.fb.group({
     username: [null, [Validators.required]],
     password: [null, [Validators.required]],
-    confirmedPassword: [null, [Validators.required]],
+    confirmedPassword: [null, [Validators.required, this.validatePassWordEqual('password', 'confirmedPassword')]],
   });
 
   secondStepForm = this.fb.group({
@@ -87,6 +87,8 @@ export class FormsWizardComponent {
     agreed: [false, [Validators.requiredTrue]],
   });
 
+  confirmedTip = 'This field is required.'
+
   onBeforeNext = () => {
     const forms = [this.firstStepForm, this.secondStepForm];
     const currentForm = forms[this.formIndex];
@@ -100,4 +102,30 @@ export class FormsWizardComponent {
     return !invalid;
   };
   constructor(private fb: FormBuilder) {}
+
+  validatePassWordEqual(passwordKey: string, confirmedPasswordKey: string): ValidatorFn {
+    return (): {[key: string]: any} => {
+      if (this.firstStepForm) {
+        const password = this.firstStepForm.controls[passwordKey];
+        const confirmedPassword = this.firstStepForm.controls[confirmedPasswordKey];
+
+        password.valueChanges.subscribe(() => {
+          confirmedPassword.updateValueAndValidity()
+        })
+
+        confirmedPassword.valueChanges.subscribe(value => {
+          if (value) {
+            this.confirmedTip = 'Passwords are not equal.'
+          } else {
+            this.confirmedTip = 'This field is required.'
+          }
+        })
+  
+        return password.value === confirmedPassword.value ? null : { validatePassWordEqual: true }
+      }
+
+      return null
+    }
+  }
+
 }

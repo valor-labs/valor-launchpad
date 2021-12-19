@@ -119,14 +119,14 @@
             <valor-launchpad-form-label [required]="true"
               >Password</valor-launchpad-form-label
             >
-            <input type="text" valorLaunchpadInput formControlName="password" />
+            <input type="password" valorLaunchpadInput formControlName="password" />
           </valor-launchpad-form-item>
-          <valor-launchpad-form-item errTip="This field is required.">
+          <valor-launchpad-form-item [errTip]="confirmedTip">
             <valor-launchpad-form-label [required]="true"
               >Confirm Password</valor-launchpad-form-label
             >
             <input
-              type="text"
+              type="password"
               valorLaunchpadInput
               formControlName="confirmedPassword"
             />
