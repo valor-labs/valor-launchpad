@@ -145,6 +145,32 @@
                         </ng-template>
                       </valor-launchpad-form-item>
                       <valor-launchpad-form-item>
+                        <label for="inputPasswordNew2" class="form-label"
+                          >Verify password</label
+                        >
+                        <input
+                          type="password"
+                          valorLaunchpadInput
+                          id="inputPasswordNew2"
+                          formControlName="confirmPassword"
+                        />
+                        <label
+                          class="
+                            error
+                            small
+                            form-text
+                            invalid-feedback
+                            confirmPassword
+                          "
+                          *ngIf="
+                            signUpFormGroup.get('confirmPassword').dirty &&
+                            signUpFormGroup.hasError('pwdNotSame')
+                          "
+                        >
+                          Password is not same with new password
+                        </label>
+                      </valor-launchpad-form-item>
+                      <valor-launchpad-form-item>
                         <valor-launchpad-form-label class="form-label"
                           >Phone Number
                         </valor-launchpad-form-label>

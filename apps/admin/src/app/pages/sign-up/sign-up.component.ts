@@ -3,6 +3,7 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
@@ -16,22 +17,32 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { SettingsPasswordService } from '../settings/settings-password/settings-password.service';
 import { DefaultValidation } from '../../core/utils/password-validator';
-
+const pwdValidator: ValidatorFn = (fg: FormGroup) => {
+  const newPassword = fg.get('password');
+  const confirmPassword = fg.get('confirmPassword');
+  return newPassword.value === confirmPassword.value
+    ? null
+    : { pwdNotSame: true };
+};
 @Component({
   selector: 'valor-launchpad-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-  signUpFormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl(null),
-    password: new FormControl('', [Validators.required]),
-    captcha: new FormControl('', [Validators.maxLength(6)]),
-  });
+  signUpFormGroup = new FormGroup(
+    {
+      username: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl(null),
+      password: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
+      captcha: new FormControl('', [Validators.maxLength(6)]),
+    },
+    pwdValidator.bind(this)
+  );
 
   registerSucceed = false;
 
