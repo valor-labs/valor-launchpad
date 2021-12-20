@@ -170,7 +170,7 @@ export class DashboardSocialService {
     }));
   }
 
-  async getActivities(lastReadAt: number | null, limit: number) {
+  async getActivities(lastReadAt: number | null, limit: number, userId) {
     const results = await this.prisma.socialActivity.findMany({
       include: {
         operator: { include: { profile: { select: { avatar: true } } } },
@@ -183,7 +183,10 @@ export class DashboardSocialService {
         },
       },
       orderBy: { id: 'desc' },
-      where: lastReadAt === null ? {} : { id: { lt: lastReadAt } },
+      where:
+        lastReadAt === null
+          ? { operatorId: userId }
+          : { id: { lt: lastReadAt }, operatorId: userId },
       take: limit,
     });
     if (results.length > 0) {

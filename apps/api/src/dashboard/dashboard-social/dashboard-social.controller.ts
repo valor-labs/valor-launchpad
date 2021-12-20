@@ -78,13 +78,18 @@ export class DashboardSocialController {
 
   @Get('activity')
   getActivities(
+    @User() user: RequestingUser,
     @Query('lastReadAt') lastReadAtStr: string,
     @Query('limit') limitStr: string
   ) {
     const lastReadAt = !lastReadAtStr ? null : +lastReadAtStr;
     const limit = !limitStr ? 10 : +limitStr;
     if (!isNil(limit)) {
-      return this.dashboardSocialService.getActivities(lastReadAt, limit);
+      return this.dashboardSocialService.getActivities(
+        lastReadAt,
+        limit,
+        user.id
+      );
     } else {
       return { result: [] };
     }
