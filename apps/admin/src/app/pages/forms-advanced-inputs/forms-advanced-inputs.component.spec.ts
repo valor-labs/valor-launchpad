@@ -5,6 +5,7 @@ import { UiModule } from '@valor-launchpad/ui';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxMaskModule } from 'ngx-mask';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('FormsAdvancedInputsComponent', () => {
   let component: FormsAdvancedInputsComponent;
@@ -17,6 +18,7 @@ describe('FormsAdvancedInputsComponent', () => {
         NgSelectModule,
         BsDatepickerModule.forRoot(),
         NgxMaskModule.forRoot(),
+        ReactiveFormsModule,
       ],
       declarations: [FormsAdvancedInputsComponent],
     }).compileComponents();

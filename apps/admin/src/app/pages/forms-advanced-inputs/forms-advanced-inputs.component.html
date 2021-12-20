@@ -122,164 +122,225 @@
 
 <div valorLaunchpadRow>
   <div valorLaunchpadCol [span]="12">
-    <valor-launchpad-card>
-      <valor-launchpad-card-header>
-        <h5 class="card-title">Input Masks</h5>
-        <h6 class="card-subtitle text-muted">
-          ngx-mask Plugin to make masks on form fields.
-        </h6>
-      </valor-launchpad-card-header>
-      <valor-launchpad-card-content>
-        <div valorLaunchpadRow>
-          <div valorLaunchpadCol [span]="12" [lg]="6">
-            <valor-launchpad-form-item helpTip='e.g "DD/MM/YYYY"'>
-              <label>Date</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                [mask]="'00/00/0000'"
-                autocomplete="off"
-                maxlength="10"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "HH:MM:SS"'>
-              <label>Hour</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="00:00:00"
-                autocomplete="off"
-                maxlength="8"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "DD/MM/YYYY HH:MM:SS"'>
-              <label>Date & Hour</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="00/00/0000 00:00:00"
-                autocomplete="off"
-                maxlength="19"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "xxxxx-xxx"'>
-              <label>ZIP Code</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="00000-000"
-                autocomplete="off"
-                maxlength="9"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "x-xx-xx-xx"'>
-              <label>Crazy Zip Code</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="0-00-00-00"
-                autocomplete="off"
-                maxlength="10"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "Your money"'>
-              <label>Money</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="separator.2"
-                thousandSeparator=","
-                autocomplete="off"
-                maxlength="22"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "#.##0,00"'>
-              <label>Money 2</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="0.000,00"
-                autocomplete="off"
-              />
-            </valor-launchpad-form-item>
+    <form [formGroup]="maskForm">
+      <valor-launchpad-card>
+        <valor-launchpad-card-header>
+          <h5 class="card-title">Input Masks</h5>
+          <h6 class="card-subtitle text-muted">
+            ngx-mask Plugin to make masks on form fields.
+          </h6>
+        </valor-launchpad-card-header>
+        <valor-launchpad-card-content>
+          <div valorLaunchpadRow>
+            <div valorLaunchpadCol [span]="12" [lg]="6">
+              <valor-launchpad-form-item
+                helpTip='e.g "DD/MM/YYYY"'
+                [errTip]="errMessage"
+              >
+                <label>Date</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="d0/M0/0000"
+                  autocomplete="off"
+                  maxlength="10"
+                  formControlName="date"
+                  [leadZeroDateTime]="true"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "HH:MM:SS"'
+                [errTip]="errMessage"
+              >
+                <label>Hour</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="00:00:00"
+                  autocomplete="off"
+                  maxlength="8"
+                  formControlName="hour"
+                  [leadZeroDateTime]="true"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "DD/MM/YYYY HH:MM:SS"'
+                [errTip]="errMessage"
+              >
+                <label>Date & Hour</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="d0/M0/0000 Hh:m0:s0"
+                  autocomplete="off"
+                  maxlength="19"
+                  formControlName="dateHour"
+                  [leadZeroDateTime]="true"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "xxxxx-xxx"'
+                [errTip]="errMessage"
+              >
+                <label>ZIP Code</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="00000-000"
+                  autocomplete="off"
+                  maxlength="9"
+                  formControlName="zipCode"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "x-xx-xx-xx"'
+                [errTip]="errMessage"
+              >
+                <label>Crazy Zip Code</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="0-00-00-00"
+                  autocomplete="off"
+                  maxlength="10"
+                  formControlName="crazyZipCode"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "Your money"'
+                [errTip]="errMessage"
+              >
+                <label>Money</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="separator.2"
+                  thousandSeparator=","
+                  autocomplete="off"
+                  maxlength="22"
+                  formControlName="money"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "#.##0,00"'
+                [errTip]="errMessage"
+              >
+                <label>Money 2</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="0.000,00"
+                  autocomplete="off"
+                  formControlName="money2"
+                />
+              </valor-launchpad-form-item>
+            </div>
+            <div valorLaunchpadCol [span]="12" [lg]="6">
+              <valor-launchpad-form-item
+                helpTip='e.g "xxxx-xxxx"'
+                [errTip]="errMessage"
+              >
+                <label>Telephone</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="0000-0000"
+                  autocomplete="off"
+                  maxlength="9"
+                  formControlName="telephone"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "(xx) xxxx-xxxx"'
+                [errTip]="errMessage"
+              >
+                <label>Telephone with Code Area</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="(00) 0000-0000"
+                  autocomplete="off"
+                  maxlength="14"
+                  formControlName="telephoneCodeArea"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "(xxx) xxx-xxxx"'
+                [errTip]="errMessage"
+              >
+                <label>US Telephone</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="(000) 000-0000"
+                  autocomplete="off"
+                  maxlength="14"
+                  formControlName="usTelephone"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "(xx) xxxxx-xxxx"'
+                [errTip]="errMessage"
+              >
+                <label>São Paulo Celphones</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="(00) 00000-0000"
+                  autocomplete="off"
+                  maxlength="15"
+                  formControlName="spc"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "xxx.xxx.xxxx-xx"'
+                [errTip]="errMessage"
+              >
+                <label>CPF</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="000.000.000-00"
+                  data-reverse="true"
+                  autocomplete="off"
+                  maxlength="14"
+                  formControlName="cpf"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "xx.xxx.xxx/xxxx-xx"'
+                [errTip]="errMessage"
+              >
+                <label>CNPJ</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="00.000.000/0000-00"
+                  data-reverse="true"
+                  autocomplete="off"
+                  maxlength="18"
+                  formControlName="cnpj"
+                />
+              </valor-launchpad-form-item>
+              <valor-launchpad-form-item
+                helpTip='e.g "xxx.xxx.xxx.xxx"'
+                [errTip]="errMessage"
+              >
+                <label>IP Address</label>
+                <input
+                  valorLaunchpadInput
+                  type="text"
+                  mask="099.099.099.099"
+                  data-reverse="true"
+                  autocomplete="off"
+                  maxlength="15"
+                  formControlName="ipAdress"
+                />
+              </valor-launchpad-form-item>
+            </div>
           </div>
-          <div valorLaunchpadCol [span]="12" [lg]="6">
-            <valor-launchpad-form-item helpTip='e.g "xxxx-xxxx"'>
-              <label>Telephone</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="0000-0000"
-                autocomplete="off"
-                maxlength="9"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "(xx) xxxx-xxxx"'>
-              <label>Telephone with Code Area</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="(00) 0000-0000"
-                autocomplete="off"
-                maxlength="14"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "(xxx) xxx-xxxx"'>
-              <label>US Telephone</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="(000) 000-0000"
-                autocomplete="off"
-                maxlength="14"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "(xx) xxxxx-xxxx"'>
-              <label>São Paulo Celphones</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="(00) 00000-0000"
-                autocomplete="off"
-                maxlength="15"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "xxx.xxx.xxxx-xx"'>
-              <label>CPF</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="000.000.000-00"
-                data-reverse="true"
-                autocomplete="off"
-                maxlength="14"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "xx.xxx.xxx/xxxx-xx"'>
-              <label>CNPJ</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="00.000.000/0000-00"
-                data-reverse="true"
-                autocomplete="off"
-                maxlength="18"
-              />
-            </valor-launchpad-form-item>
-            <valor-launchpad-form-item helpTip='e.g "xxx.xxx.xxx.xxx"'>
-              <label>IP Address</label>
-              <input
-                valorLaunchpadInput
-                type="text"
-                mask="099.099.099.099"
-                data-reverse="true"
-                autocomplete="off"
-                maxlength="15"
-              />
-            </valor-launchpad-form-item>
-          </div>
-        </div>
-      </valor-launchpad-card-content>
-    </valor-launchpad-card>
+        </valor-launchpad-card-content>
+      </valor-launchpad-card>
+    </form>
   </div>
 </div>
