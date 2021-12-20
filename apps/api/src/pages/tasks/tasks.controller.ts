@@ -26,8 +26,8 @@ export class TasksController {
       const tasks = await this.tasksService.getUserTasks();
 
       return new ResponseSuccess('Load Tasks Success', tasks);
-    } catch (e) {
-      return new ResponseError('Load Tasks Failed');
+    } catch (err) {
+      return new ResponseError('Load Tasks Failed', err);
     }
   }
 
@@ -38,8 +38,8 @@ export class TasksController {
       const tasks = await this.tasksService.getUserTasks();
 
       return new ResponseSuccess('Update Tasks Success', tasks);
-    } catch (e) {
-      return new ResponseError('Update Tasks Failed');
+    } catch (err) {
+      return new ResponseError('Update Tasks Failed', err);
     }
   }
 
@@ -55,8 +55,8 @@ export class TasksController {
       );
 
       return new ResponseSuccess('Create Task Success', [task]);
-    } catch (e) {
-      return new ResponseError('Create Task Failed');
+    } catch (err) {
+      return new ResponseError('Create Task Failed', err);
     }
   }
 
@@ -67,9 +67,8 @@ export class TasksController {
       const tasks = await this.tasksService.getUserTasks();
 
       return new ResponseSuccess('Delete Task Success', tasks);
-    } catch (e) {
-      console.log(e);
-      return new ResponseError('Delete Task Failed');
+    } catch (err) {
+      return new ResponseError('Delete Task Failed', err);
     }
   }
 }

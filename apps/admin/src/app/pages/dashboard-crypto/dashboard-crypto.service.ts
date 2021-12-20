@@ -71,37 +71,73 @@ export class DashboardCryptoService {
   ) {}
 
   getMainInfos(): Observable<MainInfo[]> {
-    return this.http.get<MainInfo[]>(
-      `${this.apiBase}api/dashboard-crypto/v1/crypto-main-info`
-    );
+    return this.http
+      .get<{ data: MainInfo[]; success: boolean }>(
+        `${this.apiBase}api/dashboard-crypto/v1/crypto-main-info`
+      )
+      .pipe(
+        map(({ data, success }) => {
+          if (success) {
+            return data;
+          } else {
+            return [];
+          }
+        })
+      );
   }
 
   getMarkets(): Observable<MarketLine[]> {
-    return this.http.get<MarketLine[]>(
-      `${this.apiBase}api/dashboard-crypto/v1/crypto-markets`
-    );
+    return this.http
+      .get<{ data: MarketLine[]; success: boolean }>(
+        `${this.apiBase}api/dashboard-crypto/v1/crypto-markets`
+      )
+      .pipe(
+        map(({ data, success }) => {
+          if (success) {
+            return data;
+          } else {
+            return [];
+          }
+        })
+      );
   }
 
   getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(
-      `${this.apiBase}api/dashboard-crypto/v1/crypto-orders`
-    );
+    return this.http
+      .get<{ data: Order[]; success: boolean }>(
+        `${this.apiBase}api/dashboard-crypto/v1/crypto-orders`
+      )
+      .pipe(
+        map(({ data, success }) => {
+          if (success) {
+            return data;
+          } else {
+            return [];
+          }
+        })
+      );
   }
 
   getKLine() {
     return this.http
-      .get<KLine[]>(`${this.apiBase}api/dashboard-crypto/v1/crypto-k-lines`)
+      .get<{ data: KLine[]; success: boolean }>(
+        `${this.apiBase}api/dashboard-crypto/v1/crypto-k-lines`
+      )
       .pipe(
-        map((markets: KLine[]) => {
-          return markets.map((market) => {
-            const { date, open, close, high, low, ...other } = market;
+        map(({ data, success }) => {
+          if (success) {
+            return data.map((market) => {
+              const { date, open, close, high, low, ...other } = market;
 
-            return {
-              ...other,
-              date: new Date(date),
-              value: [open, high, low, close],
-            };
-          });
+              return {
+                ...other,
+                date: new Date(date),
+                value: [open, high, low, close],
+              };
+            });
+          } else {
+            return [];
+          }
         })
       );
   }
