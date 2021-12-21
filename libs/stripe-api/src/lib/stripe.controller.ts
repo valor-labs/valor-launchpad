@@ -1,4 +1,4 @@
-import { Bind, Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Bind, Body, Controller, Get, HttpException, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
 import {
   AllCountriesResponse,
   AllProductsResponse,
@@ -30,11 +30,15 @@ export class StripeController {
   async createPaymentIntents(
     @Body() body: PaymentIndentsInput
   ): Promise<PaymentIndentsResponse> {
-    const indent = await this.stripeService.createPaymentIndent(body);
-    return {
-      clientSecret: indent.client_secret,
-      amount: indent.amount,
-    };
+    try {
+      const indent = await this.stripeService.createPaymentIndent(body);
+      return {
+        clientSecret: indent.client_secret,
+        amount: indent.amount,
+      };
+    } catch (e) {
+      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Post('payment_source')
