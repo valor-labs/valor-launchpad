@@ -79,7 +79,7 @@ export class CalendarComponent {
     ],
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    eventsSet: this.handleEvents.bind(this)
+    eventsSet: this.handleEvents.bind(this),
   };
 
   public toggleWeekends(): void {
@@ -97,13 +97,17 @@ export class CalendarComponent {
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
-        allDay: selectInfo.allDay
+        allDay: selectInfo.allDay,
       });
     }
   }
 
   public handleEventClick(clickInfo: EventClickArg): void {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    if (
+      confirm(
+        `Are you sure you want to delete the event '${clickInfo.event.title}'`
+      )
+    ) {
       clickInfo.event.remove();
     }
   }
