@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { ClientsService } from './clients-service';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { likeQuery } from '../../core/utils/search-table';
 
 const DEFAULT_SELECTED = 'Choose...';
 
@@ -162,10 +163,12 @@ export class ClientsComponent implements OnInit {
       this.searchTableData = this.tableData;
     } else {
       this.searchTableData = this.tableData.filter((item) => {
-        // search all content
-        // return item.name.includes(event) || item.company.includes(event) || item.email.includes(event) || item.status.includes(event);
-        // search just name
-        return item.name.includes(event);
+        return (
+          likeQuery(item.name, event) ||
+          likeQuery(item.company, event) ||
+          likeQuery(item.email, event) ||
+          likeQuery(item.status, event)
+        );
       });
     }
 
