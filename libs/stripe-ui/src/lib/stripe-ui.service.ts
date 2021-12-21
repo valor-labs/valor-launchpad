@@ -58,12 +58,12 @@ export class StripeUiService {
   }
 
   getCheckoutSession(sessionId: string) {
-    return this.http.get(`/api/stripe/v1/checkout_session/${sessionId}`);
+    return this.http.get(this.config.environment.apiBase + `api/stripe/v1/checkout_session/${sessionId}`);
   }
 
   createCheckoutSession(input: CheckoutSessionInput) {
     return this.http.post<CheckoutSessionResponse>(
-      '/api/stripe/v1/create-checkout-session',
+      this.config.environment.apiBase + 'api/stripe/v1/create-checkout-session',
       input
     );
   }

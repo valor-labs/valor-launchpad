@@ -108,7 +108,9 @@ export class TokenInterceptor implements HttpInterceptor {
 
   private _handleError(err: HttpErrorResponse) {
     if (err.status === 500) {
-      this.notyf.error('Something wrong, please try again later.');
+      this.notyf.error(
+        err.error?.message ?? 'Something wrong, please try again later.'
+      );
     }
     return throwError(err);
   }

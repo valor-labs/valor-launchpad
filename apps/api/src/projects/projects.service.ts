@@ -35,6 +35,11 @@ export class ProjectsService {
             alt: '',
           },
         },
+        assignee: {
+          createMany: {
+            data: (project.assignee ?? []).map((userId) => ({ userId })),
+          },
+        },
       },
     });
 
@@ -106,7 +111,14 @@ export class ProjectsService {
       include: {
         hero: true,
         assignee: {
-          select: ImageUploaderUtility.genImageEntityArg(),
+          select: {
+            user: {
+              select: {
+                id: true,
+                ...ImageUploaderUtility.genImageEntityArg().user.select,
+              },
+            },
+          },
         },
       },
       orderBy: sortBy,

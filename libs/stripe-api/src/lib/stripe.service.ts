@@ -4,12 +4,11 @@ import { Stripe } from 'stripe';
 import {
   AllProductsResponse,
   CheckoutSessionInput,
-  MethodsByCountryResponse,
   PaymentIndentsInput,
   PaymentSourceInput,
   PayMethod,
   PayMethodID,
-} from '@valor-launchpad/stripe-api';
+} from './stripe.model';
 
 @Injectable()
 export class StripeService {
