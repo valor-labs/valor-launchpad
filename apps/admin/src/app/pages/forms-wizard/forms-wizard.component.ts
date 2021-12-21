@@ -1,6 +1,22 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  ValidationErrors,
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
+const validatePassWordEqual: ValidatorFn = (
+  group: FormGroup
+): ValidationErrors => {
+  const password = group.get('password');
+  const confirmedPassword = group.get('confirmedPassword');
+
+  return password.value === confirmedPassword.value
+    ? null
+    : { validatePassWordEqual: true };
+};
 @Component({
   selector: 'valor-launchpad-forms-wizard',
   templateUrl: './forms-wizard.component.html',
@@ -62,11 +78,16 @@ export class FormsWizardComponent {
     { mainTitle: 'Third step', description: 'Step description' },
   ];
 
-  firstStepForm = this.fb.group({
-    username: [null, [Validators.required]],
-    password: [null, [Validators.required]],
-    confirmedPassword: [null, [Validators.required]],
-  });
+  firstStepForm = this.fb.group(
+    {
+      username: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      confirmedPassword: [null, [Validators.required]],
+    },
+    {
+      validators: validatePassWordEqual,
+    }
+  );
 
   secondStepForm = this.fb.group({
     firstname: [null, [Validators.required]],

@@ -119,17 +119,31 @@
             <valor-launchpad-form-label [required]="true"
               >Password</valor-launchpad-form-label
             >
-            <input type="text" valorLaunchpadInput formControlName="password" />
+            <input
+              type="password"
+              valorLaunchpadInput
+              formControlName="password"
+            />
           </valor-launchpad-form-item>
           <valor-launchpad-form-item errTip="This field is required.">
             <valor-launchpad-form-label [required]="true"
               >Confirm Password</valor-launchpad-form-label
             >
             <input
-              type="text"
+              type="password"
               valorLaunchpadInput
               formControlName="confirmedPassword"
             />
+            <label
+              class="error small form-text invalid-feedback d-block"
+              *ngIf="
+                firstStepForm.get('confirmedPassword').dirty &&
+                firstStepForm.hasError('validatePassWordEqual') &&
+                !firstStepForm.get('confirmedPassword').hasError('required')
+              "
+            >
+              Passwords are not equal.
+            </label>
           </valor-launchpad-form-item>
         </form>
       </div>
