@@ -106,6 +106,7 @@ export class ProjectsListComponent implements OnInit {
       status: project.status,
       deletable: project.deletable,
       cloneable: project.cloneable,
+      assignee: project.assignee.map((i) => i.user.id),
     });
     this.onOpenCreateNewProjectModal();
   }
@@ -117,15 +118,16 @@ export class ProjectsListComponent implements OnInit {
         Validators.required,
         this.validateNameViaServer.bind(this)
       ),
-      body: '',
-      progress: 20,
-      status: 'IN_PROGRESS',
-      deletable: true,
-      cloneable: true,
+      body: [''],
+      progress: [20],
+      status: ['IN_PROGRESS'],
+      deletable: [true],
+      cloneable: [true],
       projectFile: new FormControl(null, [
         Validators.required,
         this.fileExtensionValidator(this.validPicSuffixs),
       ]),
+      assignee: [[]],
     });
     this.newProjectFg
       .get('status')

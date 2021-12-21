@@ -58,6 +58,7 @@ export class ProjectsListService {
     formData.append('image', file);
     formData.append('deletable', project.deletable);
     formData.append('cloneable', project.cloneable);
+    formData.append('assignee', JSON.stringify(project.assignee));
     return this.httpClient.post<ProjectListItemVo>(
       this.config.environment.apiBase + 'api/projects/v1/create',
       formData

@@ -13,6 +13,7 @@ export interface ProjectListItemVo {
   };
   assignee: Array<{
     user: {
+      id: string;
       firstName: string;
       lastName: string;
       profile: {
