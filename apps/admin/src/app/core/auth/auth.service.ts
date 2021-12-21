@@ -18,7 +18,7 @@ export interface IAuthService {
     username: string
   ): Observable<{ existedUsername: boolean }>;
 
-  signUp(user): Observable<{ username: string }>;
+  signUp(user);
 
   signOut(): Observable<void>;
 
@@ -59,7 +59,10 @@ export class AuthService implements IAuthService {
   }
 
   signUp(user) {
-    return this.httpClient.post<{ username: string }>(
+    return this.httpClient.post<{
+      success: boolean
+      message: string
+    }>(
       this.config.environment.apiBase + 'api/auth/v1/register',
       user
     );

@@ -121,13 +121,10 @@ export class AuthController {
   @Post('register')
   async register(@Body() createUser: RegisterDTO) {
     const createdUser = await this.authService.register(createUser);
-    if (createUser.phone) {
-      this.eventEmitter.emit(SEND_SMS, new SendSMSPayload(createdUser.phone, createdUser.phoneVerifyToken));
-    }
     if (createdUser.email) {
       this.eventEmitter.emit(SEND_EMAIL, new SendEmailPayload(createdUser.email, createdUser.emailVerifyToken));
     }
-    return {username: createdUser.username};
+    return new ResponseSuccess('sign up success', {username: createdUser.username});
   }
 
   @Get('verify-username')

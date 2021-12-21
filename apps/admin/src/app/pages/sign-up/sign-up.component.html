@@ -146,7 +146,7 @@
                       </valor-launchpad-form-item>
                       <valor-launchpad-form-item>
                         <label for="inputPasswordNew2" class="form-label"
-                          >Verify password</label
+                        >Verify password</label
                         >
                         <input
                           type="password"
@@ -171,11 +171,10 @@
                         </label>
                       </valor-launchpad-form-item>
                       <valor-launchpad-form-item>
-                        <valor-launchpad-form-label class="form-label"
-                          >Phone Number
+                        <valor-launchpad-form-label class="form-label" [required]="true">Phone Number
                         </valor-launchpad-form-label>
                         <valor-launchpad-phone-validation
-                          formControlName="phone"
+                          [phoneFc]="signUpFormGroup.controls['phone']"
                         ></valor-launchpad-phone-validation>
                       </valor-launchpad-form-item>
                       <valor-launchpad-form-item
@@ -183,7 +182,9 @@
                         [errTip]="captchaErr"
                       >
                         <valor-launchpad-form-label
-                          >Phone verification code</valor-launchpad-form-label
+                          [required]="true"
+                        >Phone verification code
+                        </valor-launchpad-form-label
                         >
                         <input
                           valorLaunchpadInput

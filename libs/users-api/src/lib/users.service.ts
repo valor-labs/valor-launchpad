@@ -27,6 +27,7 @@ import { BatchAddTagsDto } from './dto/batch-add-tags.dto';
 import {RedisService} from "nestjs-redis";
 import {Redis} from "ioredis";
 import { RequestingUser } from '@valor-launchpad/api-interfaces';
+import {CaptchaExpiredException} from "./exceptions/captcha-expired";
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -535,12 +536,13 @@ export class UsersService {
 
     const passwordCrypt = await this.crypto.hashPassword(password);
     const emailVerifyToken = v4();
-    const phoneTokenInRedis = await this.redis.get(phone);
-    let phoneVerifyToken;
+    const phoneVerifyToken = await this.redis.get(phone);
     let phoneVerified = false;
-    if (payload instanceof RegisterDTO && phoneTokenInRedis) {
-      phoneVerifyToken = phoneTokenInRedis;
-      phoneVerified = phoneVerifyToken === payload.captcha;
+    if (payload instanceof RegisterDTO) {
+      if (!phoneVerifyToken || phoneVerifyToken !== payload.captcha) {
+        throw new CaptchaExpiredException;
+      }
+      phoneVerified = true;
     }
     const createdUserId = v4();
     const user = await this.prisma.userEntity.create({
