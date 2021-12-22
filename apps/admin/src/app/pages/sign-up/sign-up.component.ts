@@ -17,6 +17,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { SettingsPasswordService } from '../settings/settings-password/settings-password.service';
 import { DefaultValidation } from '../../core/utils/password-validator';
+import { HttpErrorResponse } from '@angular/common/http';
 const pwdValidator: ValidatorFn = (fg: FormGroup) => {
   const newPassword = fg.get('password');
   const confirmPassword = fg.get('confirmPassword');
@@ -36,10 +37,13 @@ export class SignUpComponent implements OnInit {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl(null),
+      phone: new FormControl(null, [Validators.required]),
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
-      captcha: new FormControl('', [Validators.maxLength(6)]),
+      captcha: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(6),
+      ]),
     },
     pwdValidator.bind(this)
   );
@@ -154,16 +158,27 @@ export class SignUpComponent implements OnInit {
     if (this.signUpFormGroup.invalid) {
       for (const ctrl of Object.values(this.signUpFormGroup.controls)) {
         ctrl.markAsDirty();
+        ctrl.markAsTouched();
       }
       return;
     }
-    this.authService.signUp(this.signUpFormGroup.value).subscribe(
-      () => {
-        this.registerSucceed = true;
-      },
-      () => {
-        this.toastrService.error('Register failed, please try again.');
-      }
-    );
+    this.authService
+      .signUp(
+        Object.assign({}, this.signUpFormGroup.value, {
+          phone: this.signUpFormGroup.get('phone').value.e164Number,
+        })
+      )
+      .subscribe(
+        (res) => {
+          if (res?.success) {
+            this.registerSucceed = true;
+          } else {
+            this.toastrService.error(res.message);
+          }
+        },
+        (res: HttpErrorResponse) => {
+          this.toastrService.error(res.error.message);
+        }
+      );
   }
 }

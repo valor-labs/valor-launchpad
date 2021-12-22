@@ -171,20 +171,22 @@
                         </label>
                       </valor-launchpad-form-item>
                       <valor-launchpad-form-item>
-                        <valor-launchpad-form-label class="form-label"
+                        <valor-launchpad-form-label
+                          class="form-label"
+                          [required]="true"
                           >Phone Number
                         </valor-launchpad-form-label>
                         <valor-launchpad-phone-validation
-                          formControlName="phone"
+                          [phoneFc]="signUpFormGroup.controls['phone']"
                         ></valor-launchpad-phone-validation>
                       </valor-launchpad-form-item>
                       <valor-launchpad-form-item
                         class="col-4"
                         [errTip]="captchaErr"
                       >
-                        <valor-launchpad-form-label
-                          >Phone verification code</valor-launchpad-form-label
-                        >
+                        <valor-launchpad-form-label [required]="true"
+                          >Phone verification code
+                        </valor-launchpad-form-label>
                         <input
                           valorLaunchpadInput
                           vlSize="large"

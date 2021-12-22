@@ -19,7 +19,11 @@ export class CalendarComponent {
     themeSystem: 'bootstrap',
     initialView: 'dayGridMonth',
     initialDate: '2021-07-07',
+    weekends: true,
     editable: true,
+    selectable: true,
+    selectMirror: true,
+    dayMaxEvents: true,
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -73,32 +77,42 @@ export class CalendarComponent {
         start: '2021-07-28',
       },
     ],
+    select: this.handleDateSelect.bind(this),
+    eventClick: this.handleEventClick.bind(this),
+    eventsSet: this.handleEvents.bind(this),
   };
 
   public toggleWeekends(): void {
     this.calendarOptions.weekends = !this.calendarOptions.weekends; // toggle the boolean!
   }
 
-  public handleDateSelect(selectInfo: DateSelectArg): void {
+  handleDateSelect(selectInfo: DateSelectArg) {
+    const title = prompt('Please enter a new title for your event');
     const calendarApi = selectInfo.view.calendar;
+
     calendarApi.unselect(); // clear date selection
-    calendarApi.addEvent({
-      title: 'selected',
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
-      allDay: selectInfo.allDay,
-    });
+
+    if (title) {
+      calendarApi.addEvent({
+        title,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        allDay: selectInfo.allDay,
+      });
+    }
   }
 
   public handleEventClick(clickInfo: EventClickArg): void {
-    clickInfo.event.remove();
+    if (
+      confirm(
+        `Are you sure you want to delete the event '${clickInfo.event.title}'`
+      )
+    ) {
+      clickInfo.event.remove();
+    }
   }
 
   public handleEvents(events: EventApi[]): void {
     this.currentEvents = events;
-    const test = [];
-    this.currentEvents.forEach((event) => {
-      test.push({ title: event.title, start: event.start, end: event.end });
-    });
   }
 }

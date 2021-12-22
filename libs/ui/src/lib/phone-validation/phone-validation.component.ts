@@ -1,7 +1,6 @@
-import {Component, forwardRef, Inject, OnDestroy, OnInit} from '@angular/core';
-import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
+import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {AbstractControl} from "@angular/forms";
 import {CountryISO, PhoneNumberFormat, SearchCountryField} from "ngx-intl-tel-input";
-import {ChangeData} from "ngx-intl-tel-input/lib/interfaces/change-data";
 import {ENV_CONFIG, EnvironmentConfig} from "@valor-launchpad/http";
 import {HttpClient} from "@angular/common/http";
 import {Notyf, NOTYFToken} from "../../index";
@@ -9,32 +8,21 @@ import {Notyf, NOTYFToken} from "../../index";
 @Component({
   selector: 'valor-launchpad-phone-validation',
   templateUrl: './phone-validation.component.html',
-  styleUrls: ['./phone-validation.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PhoneValidationComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./phone-validation.component.scss']
 })
-export class PhoneValidationComponent implements OnInit, ControlValueAccessor, OnDestroy {
+export class PhoneValidationComponent implements OnInit, OnDestroy {
+  @Input() phoneFc: AbstractControl;
   private apiBase = this.config.environment.apiBase;
   separateDialCode = false;
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
   preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.China];
-  phone = new FormControl(undefined, [Validators.required])
-
   count = 0;
   interval$ = null;
 
   public disabled: boolean;
   public _value: number;
-
-  onChanged: any = () => {};
-  onTouched: any = () => {}
 
   constructor(
     @Inject(ENV_CONFIG) private config: EnvironmentConfig,
@@ -44,11 +32,6 @@ export class PhoneValidationComponent implements OnInit, ControlValueAccessor, O
   }
 
   ngOnInit(): void {
-    this.phone.valueChanges.subscribe((val: ChangeData) => {
-      if (val !== null) {
-        this.onChanged(val.e164Number);
-      }
-    });
   }
 
   ngOnDestroy() {
@@ -60,25 +43,13 @@ export class PhoneValidationComponent implements OnInit, ControlValueAccessor, O
     this._value = val;
   }
 
-  registerOnChange(fn: any) {
-    this.onChanged = fn
-  }
-
-  registerOnTouched(fn: any) {
-    this.onTouched = fn
-  }
-
-
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
 
 
   getCaptcha() {
-    if (this.phone.valid && this.interval$ === null) {
+    if (this.phoneFc.valid && this.interval$ === null) {
       this.http.post(
-        `${this.apiBase}api/auth/v1/send-captcha`,{
-          phone: `${this.phone.value.e164Number}`
+        `${this.apiBase}api/auth/v1/send-captcha`, {
+          phone: `${this.phoneFc.value.e164Number}`
         }
       ).subscribe(() => {
         this.notyf.success(

@@ -1,5 +1,4 @@
-
-<valor-launchpad-input-group>
+<valor-launchpad-input-group [class.is-invalid]="phoneFc.touched && phoneFc.invalid">
   <ngx-intl-tel-input
     [cssClass]="'form-control form-control-lg'"
     [preferredCountries]="preferredCountries"
@@ -12,11 +11,14 @@
     [maxLength]="15"
     [phoneValidation]="true"
     name="phone"
-    [formControl]="phone"
+    [formControl]="phoneFc"
   ></ngx-intl-tel-input>
   <button class="btn btn-secondary" (click)="getCaptcha()" [disabled]="count" type="button">
-    {{ count ? count + 's' : 'get verification code' }}
+    {{ count ? count + 's' : 'send verification code' }}
   </button>
 </valor-launchpad-input-group>
+<div *ngIf='phoneFc.touched && phoneFc.invalid' class="error small form-text invalid-feedback">
+  The phone number is required
+</div>
 
 
