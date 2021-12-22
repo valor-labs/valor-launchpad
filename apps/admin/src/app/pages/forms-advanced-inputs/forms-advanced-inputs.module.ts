@@ -6,16 +6,18 @@ import { FormsAdvancedInputsRoutingModule } from './forms-advanced-inputs-routin
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxMaskModule } from 'ngx-mask';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [FormsAdvancedInputsComponent],
   imports: [
     CommonModule,
     UiModule,
+    ReactiveFormsModule,
     FormsAdvancedInputsRoutingModule,
     NgSelectModule,
     BsDatepickerModule,
-    NgxMaskModule,
+    NgxMaskModule.forRoot(),
   ],
 })
 export class FormsAdvancedInputsModule {}

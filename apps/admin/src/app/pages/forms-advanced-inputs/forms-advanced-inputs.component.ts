@@ -1,13 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsCustomDates } from 'ngx-bootstrap/datepicker/themes/bs/bs-custom-dates-view.component';
 import { BsDaterangepickerConfig } from 'ngx-bootstrap/datepicker';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'valor-launchpad-forms-advanced-inputs',
   templateUrl: './forms-advanced-inputs.component.html',
   styleUrls: ['./forms-advanced-inputs.component.scss'],
 })
-export class FormsAdvancedInputsComponent {
+export class FormsAdvancedInputsComponent implements OnInit {
+  maskForm: FormGroup;
   countries = [
     { value: 'AK', name: 'Alaska', timezone: 'Alaskan/Hawaiian Time Zone' },
     { value: 'HI', name: 'Hawaii', timezone: 'Alaskan/Hawaiian Time Zone' },
@@ -104,6 +112,31 @@ export class FormsAdvancedInputsComponent {
       label: 'Last month',
     },
   ];
+  errMessage = 'input format incorrect';
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.maskForm = this.fb.group({
+      date: [
+        null,
+        [Validators.pattern(/^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])\d{4}$/)],
+      ],
+      hour: [null, []],
+      dateHour: [null, []],
+      zipCode: [null, []],
+      crazyZipCode: [null, []],
+      money: [null, []],
+      money2: [null, []],
+      telephone: [null, []],
+      telephoneCodeArea: [null, []],
+      usTelephone: [null, []],
+      spc: [null, []],
+      cpf: [null, []],
+      cnpj: [null, []],
+      ipAdress: [null, []],
+    });
+  }
 
   private getMonthRange() {
     const today = new Date();
