@@ -5,7 +5,7 @@ import { DatatablesResponsiveRoutingModule } from './datatables-responsive-routi
 import { TableResponsiveComponent } from './table-responsive/table-responsive.component';
 import { UiModule } from '@valor-launchpad/ui';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [TableResponsiveComponent],
@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     DatatablesResponsiveRoutingModule,
     NgxDatatableModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class DatatablesResponsiveModule {}
