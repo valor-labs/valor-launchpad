@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID, ViewChild } from '@angular/core';
+import { Component, Inject, LOCALE_ID, ViewChild, OnInit } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable/lib/types/table-column.type';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { tableData } from './fakeData';
@@ -8,16 +8,18 @@ import {
   equalsQuery,
   likeQuery,
 } from '../../../core/utils/search-table';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'valor-launchpad-table-responsive',
   templateUrl: './table-responsive.component.html',
   styleUrls: ['./table-responsive.component.scss'],
 })
-export class TableResponsiveComponent {
+export class TableResponsiveComponent implements OnInit {
   @ViewChild('myTable') table: DatatableComponent;
   tableResponsiveData = tableData;
   pageNumLimit = 10;
+  pageLimitControl = new FormControl(10);
   tableResponsiveColumns: Array<TableColumn> = [
     { name: 'Name', prop: 'name' },
     { name: 'Position', prop: 'position' },
@@ -34,6 +36,12 @@ export class TableResponsiveComponent {
   ];
 
   constructor(@Inject(LOCALE_ID) private locale: string) {}
+
+  ngOnInit(): void {
+    this.pageLimitControl.valueChanges.subscribe((limit) => {
+      this.pageNumLimit = parseInt(limit, 10);
+    });
+  }
 
   onChangeSearch(inputVal: string): void {
     if (inputVal === '') {

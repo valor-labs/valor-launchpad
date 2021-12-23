@@ -28,7 +28,7 @@
                       custom-select custom-select-sm
                       form-control form-control-sm
                     "
-                    [(ngModel)]="pageNumLimit"
+                    [formControl]="pageLimitControl"
                   >
                     <option value="10">10</option>
                     <option value="25">25</option>
