@@ -82,7 +82,11 @@
     <div class="card-body">
       <form *ngIf="privateInfoFormGroup" [formGroup]="privateInfoFormGroup">
         <div valorLaunchpadRow>
-          <valor-launchpad-form-item valorLaunchpadCol [md]="6">
+          <valor-launchpad-form-item
+            valorLaunchpadCol
+            [md]="6"
+            errTip="User first name is required"
+          >
             <label for="inputFirstName" class="form-label">First name</label>
             <input
               valorLaunchpadInput
@@ -91,9 +95,14 @@
               formControlName="firstName"
             />
           </valor-launchpad-form-item>
-          <valor-launchpad-form-item valorLaunchpadCol [md]="6">
+          <valor-launchpad-form-item
+            valorLaunchpadCol
+            [md]="6"
+            errTip="User last name is required"
+          >
             <label for="inputLastName" class="form-label">Last name</label>
             <input
+              valorLaunchpadInput
               type="text"
               class="form-control"
               id="inputLastName"
@@ -102,17 +111,24 @@
             />
           </valor-launchpad-form-item>
         </div>
-        <valor-launchpad-form-item>
+        <valor-launchpad-form-item [errTip]="emailValidationErr">
           <label for="inputEmail4" class="form-label">Email</label>
           <input
+            valorLaunchpadInput
             type="email"
             class="form-control"
             id="inputEmail4"
             placeholder="Email"
             formControlName="email"
           />
+          <ng-template #emailValidationErr let-control>
+            <ng-container *ngIf="control.errors.email; else emailRequired">
+              Email format incorrect
+            </ng-container>
+            <ng-template #emailRequired> Email is required </ng-template>
+          </ng-template>
         </valor-launchpad-form-item>
-        <valor-launchpad-form-item>
+        <valor-launchpad-form-item errTip="User address is required">
           <label for="inputAddress" class="form-label">Address</label>
           <input
             valorLaunchpadInput
@@ -131,7 +147,11 @@
           />
         </valor-launchpad-form-item>
         <div valorLaunchpadRow>
-          <valor-launchpad-form-item valorLaunchpadCol [md]="6">
+          <valor-launchpad-form-item
+            valorLaunchpadCol
+            [md]="6"
+            errTip="City is required"
+          >
             <label for="inputCity" class="form-label">City</label>
             <input valorLaunchpadInput id="inputCity" formControlName="city" />
           </valor-launchpad-form-item>
@@ -142,7 +162,11 @@
               <option>...</option>
             </select>
           </valor-launchpad-form-item>
-          <valor-launchpad-form-item valorLaunchpadCol [md]="2">
+          <valor-launchpad-form-item
+            valorLaunchpadCol
+            [md]="2"
+            errTip="Zip format is incorrect"
+          >
             <label for="inputZip" class="form-label">Zip</label>
             <input valorLaunchpadInput id="inputZip" formControlName="zip" />
           </valor-launchpad-form-item>
@@ -189,7 +213,11 @@
             </select>
           </valor-launchpad-form-item>
         </div>
-        <button class="btn btn-primary" (click)="savePrivateInfo()">
+        <button
+          class="btn btn-primary"
+          [disabled]="privateInfoFormGroup.invalid"
+          (click)="savePrivateInfo()"
+        >
           Save changes
         </button>
       </form>

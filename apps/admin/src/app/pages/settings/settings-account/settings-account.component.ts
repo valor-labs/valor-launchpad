@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../../profile/profile.service';
 import { Notyf, NOTYFToken } from '@valor-launchpad/ui';
@@ -688,14 +688,14 @@ export class SettingsAccountComponent implements OnInit {
         avatar: data.avatar,
       });
       this.privateInfoFormGroup = this.fb.group({
-        firstName: data.user.firstName || '',
-        lastName: data.user.lastName || '',
-        email: data.user.email || '',
-        address: data.location || '',
-        address2: data.address || '',
-        city: data.city || '',
+        firstName: [data.user.firstName || '', [Validators.required]],
+        lastName: [data.user.lastName || '', [Validators.required]],
+        email: [data.user.email || '', [Validators.required, Validators.email]],
+        address: [data.location || '', [Validators.required]],
+        address2: [data.address || '', []],
+        city: [data.city || '', [Validators.required]],
         state: [],
-        zip: data.zip,
+        zip: [data.zip, [Validators.pattern(/^[0-9]{5}(?:-[0-9]{4})?$/)]],
         language: data.language || '',
         locale: data.locale || '',
         timezone: data.timeZone || '',
